@@ -1,0 +1,61 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  title: 'Quantitative MRI massive open online course (MOOC)'
+  subtitle: An interactive book on the fundamentals of qMRI
+  copyright: NeuroPoly 2024
+  thumbnail: public/icon.png
+  thebe:
+    binder:
+      url: https://test.conp.cloud
+      repo: qmrlab/mooc
+      ref: HEAD
+  keywords:
+    - quantitative MRI
+    - education
+  github: https://github.com/qmrlab/moooc
+  banner: content/banner.jpg
+  venue: qMRLab
+  subject: MOOC
+  numbering:
+    headings: true
+  open_access: true
+  license: CC-BY-4.0
+  abbreviations:
+    MRI: Magnetic resonance imaging
+    NMR: Nuclear Magnetic Resonance
+    qMRI: quantitative magnetic resonance imaging
+    GPT: Generative Pre-trained Transformer
+    MRM: Magnetic Resonance in Medicine
+    B0: Main magnetic field
+    B1: Radiofrequency field
+    FID: Free Induction Decay
+    Gx: X-axis gradient  
+    Gy: Y-axis gradient
+    Gz: Z-axis gradient
+    TR: Repetition Time
+    TE: Echo Time
+    TI: Inversion Time
+    CSF: Cerebrospinal fluid
+    T1: Longitudinal magnetization relaxation time constant
+    T2: Transverse magnetization relaxation time constant
+    SE: Spin Echo
+    GRE: Gradient Echo
+    SPGR: Spoiled Gradient Echo (sequence)
+    UMAP: Uniform manifold approximation and projection
+    ADC: Analog to digital converter
+    RF: Radiofrequency
+    FA: Flip Angle
+    VFA: Variable Flip Angle
+  bibliography:
+    - book.bib
+site:
+  template: book-theme
+  logo: public/icon.png
+  logo_text: qMRI MOOC
+  actions:
+    - title: Visit qMRLab
+      url: https://qmrlab.org
+    - title: NeuroPoly
+      url: https://neuro.polymtl.ca/
+
