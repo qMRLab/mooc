@@ -1,13 +1,7 @@
 ---
 title: qMRI MOOC
-subtitle: A massive open online course powered by qMRLab
+description: A massive open online course powered by qMRLab
 date: 2024-07-25
-editors:
-    - name: Agah Karakuzu
-      orcid: 0000-0001-7283-271X
-      affiliations:
-        - NeuroPoly, Polytechnique Montreal, Quebec, Canada
-        - Montreal Heart Institute, Montreal, Quebec, Canada
 ---
 
 ```{figure} banner.jpg

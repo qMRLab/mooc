@@ -14,7 +14,7 @@ project:
     - quantitative MRI
     - education
   github: https://github.com/qmrlab/moooc
-  banner: content/banner.jpg
+  banner: banner.jpg
   venue: qMRLab
   subject: MOOC
   numbering:
@@ -47,8 +47,11 @@ project:
     RF: Radiofrequency
     FA: Flip Angle
     VFA: Variable Flip Angle
+  exclude:
+    - README.md
   bibliography:
-    - book.bib
+    - bibliography/book.bib
+    - bibliography/ir.bib
 site:
   template: book-theme
   logo: public/icon.png

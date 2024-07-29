@@ -1,5 +1,5 @@
 ---
-title: Foreword
+title: Basics of MRI and qMRI
 date: 2024-07-25
 authors:
   - name: Agah Karakuzu

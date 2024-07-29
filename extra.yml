@@ -1,20 +1,19 @@
 format: jb-book
 root: content/foreword.md
 parts:
-  - caption: Basics of MRI and qMRI
-    chapters:
-      - file: content/intro/intro
-      - file: content/intro/million_dollar
-      - file: content/intro/journey
-      - file: content/intro/encode
-      - file: content/intro/sequences
-      - file: content/intro/qmri_practice
-  - caption: T1 Mapping
-    chapters:
-      - file: content/t1/into
-      - file: content/t1/ir
-      - file: content/t1/vfa
-      - file: content/t1/mp2rage
+  caption: Basics of MRI and qMRI
+  chapters: 
+    - file: content/intro/intro 
+    - file: content/intro/million_dollar
+    - file: content/intro/journey
+    - file: content/intro/encode
+    - file: content/intro/sequences
+    - file: content/intro/qmri_practice
+  caption: T1 Mapping
+  chapters:
+    - content/t1/t1_main.md
+    sections:
+      - file: content/t1/ir/introduction
   # - caption: T2 Mapping
   #   chapters:
   #     - file: path/to/part2/chapter1
