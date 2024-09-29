@@ -45,7 +45,7 @@ The spin evolution diagram of a `spin-echo` sequence is shown (A) before the exc
 
 ```{math}
 :label: int1seq
-S = M_{0}*(1-e^{\frac{-TR}{T1}})*e^{\frac{-TE}{T2}} 				\frac{sin\theta}{1-cos\theta*e^{\frac{-TR}{T1}}}
+S = M_{0}*(1-e^{\frac{-TR}{T1}})*e^{\frac{-TE}{T2}} 				\frac{\sin\theta}{1-\cos\theta*e^{\frac{-TR}{T1}}}
 ```
 
 Equation [](#int1seq) shows the signal representation of a standard SE acquisition. Given that the brightness of the image pixels is determined by the magnitude of the signal S, the relevant contribution of T1 and T2 to the image contrast can be adjusted by changing the TR and TE. For TE → 0 (i.e. short TE), the last term of the equation converges to identity, reducing the T2 contribution. If this is coiled with a long TR (TR → `inf`), the exponential in the second term of the equation converges to zero, reducing the T1 contribution. Therefore when the TE is short and the TR is long, the contribution to image contrast comes from the density of the spins, i.e. proton density. On the other hand, to increase the T2-weighting by keeping TR the same (long), the TE must be increased (the importance of the last term increases). Figure 2.17 exemplifies this by showing the same image across 6 echoes, where substances with longer T2 (e.g., eyes and the cerebrospinal fluid (CSF)) appear gradually brighter compared to the other structures in the image as the TE increases.
@@ -77,7 +77,7 @@ Unlike SE-based sequences, GRE sequences allow for shorter TE (a few millisecond
 
 ```{math}
 :label: int2seq
-S = M_{0}\frac{sin\theta *(1-e^{\frac{-TR}{T1}})}{1-cos\theta*e^{\frac{-TR}{T1}}}e^{\frac{-TE}{T2^*}}
+S = M_{0}\frac{\sin\theta *(1-e^{\frac{-TR}{T1}})}{1-\cos\theta*e^{\frac{-TR}{T1}}}e^{\frac{-TE}{T2^*}}
 ```
 
 Unlike the SE signal representation (Equation [](#int1seq)), Equation [](#int2seq) does not include a term explaining the decay of the transverse magnetization by T2. Instead, the last term of the SPGR signal representation indicates that the TE governs the signal contribution of {math}`T2^*` – the effective T2. As the GRE is restored from the FID (Figure 2.18), the resulting echo is susceptible to slight variations in the main magnetic field. These variations may originate from the hardware-related imperfections of the B0, or from the field disruptions induced by adjacent substances with distinct magnetization levels, such as the air-tissue interfaces around the nasal cavity. As a result, T2 weighting cannot be achieved with SPGR. Instead, the second term of the Equation 2.5 indicates that the SPGR sequence is primarily T1- weighted, which can be controlled by changing the flip angle (FA) of the excitation pulse (θ) or the TR.
@@ -86,7 +86,7 @@ After a number of GRE excitation pulses, the longitudinal magnetization reaches 
 
 ```{math}
 :label: int3seq
-\theta_E = arccos(e^{\frac{-TR}{T1}})
+\theta_E = \arccos(e^{\frac{-TR}{T1}})
 ```
 
 where {math}`θ_E` is known as the Ernst Angle (Ernst and Anderson, 1966). Figure 18 shows this relationship by simulating an SPGR signal across multiple FA at a fixed TR of 30ms for a substance with T1=800ms. It can be seen that the signal is maximized around an FA of 15°, as given by the Equation [](#int3seq) for these settings (Figure 2.19).

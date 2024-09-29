@@ -1,7 +1,7 @@
 # See docs at: https://mystmd.org/guide/frontmatter
 version: 1
 project:
-  title: 'Quantitative MRI massive open online course (MOOC)'
+  title: 'Quantitative MRI mini open online course (mOOC)'
   subtitle: An interactive book on the fundamentals of qMRI
   copyright: NeuroPoly 2024
   thumbnail: public/icon.png

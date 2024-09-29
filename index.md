@@ -1,6 +1,6 @@
 ---
 title: qMRI MOOC
-description: A massive open online course powered by qMRLab
+description: A mini open online course powered by qMRLab
 date: 2024-07-25
 ---
 
