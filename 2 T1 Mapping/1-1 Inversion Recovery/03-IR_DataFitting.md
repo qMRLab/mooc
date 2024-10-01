@@ -21,14 +21,17 @@ S(TI) = a + be^{- \frac{TI}{T_1}}
 
 where <i>a</i> and <i>b</i> are complex values. If magnitude-only data is available, a 3-parameter model can be sufficient by taking the absolute value of Eq. 4.  While the RD-NLS algorithms are too complex to be presented here (the reader is referred to the paper, (Barral et al. 2010)),  the code for these algorithms [was released open-source](http://www-mrsrl.stanford.edu/~jbarral/t1map.html) along with the original publication, and is also available as a [qMRLab](https://github.com/qMRLab/qMRLab) T<sub>1</sub> mapping model. One important thing to note about Eq. 4 is that it is general – no assumption is made about TR – and is thus as robust as Eq. 1 as long as all pulse sequence parameters other than TI are kept constant between each measurement. Figure 4 compares simulated data (Eq. 1) using a range of TRs (1.5T<sub>1</sub> to 5T<sub>1</sub>) fitted using either RD-NLS & Eq. 4 or a Levenberg-Marquardt fit of Eq. 2.
 
+
 :::{figure} #fig2p4cell
 :label: irPlot3
 Fitting comparison of simulated data (blue markers) with T1 = 1 s and TR = 1.5 to 5 s, using fitted using RD-NLS & Eq. 4 (green) and Levenberg-Marquardt & Eq. 2 (orange, long TR approximation).
 :::
 
+
 <p style="text-align:justify;">
 Figure 5 displays an example brain dataset from an inversion recovery experiment, along with the T<sub>1</sub> map fitted using the RD-NLS technique.
 </p>
+
 
 :::{figure} #fig2p5cell
 :label: irPlot4
