@@ -1,3 +1,5 @@
 numpy
 plotly
 networkx
+repo2data
+chart_studio
