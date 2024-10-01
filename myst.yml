@@ -7,7 +7,7 @@ project:
   thumbnail: public/icon.png
   thebe:
     binder:
-      url: https://binder-preview.neurolibre.org
+      url: https://mybinder.org
       repo: qmrlab/mooc
       ref: HEAD
   keywords:
