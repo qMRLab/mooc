@@ -63,7 +63,7 @@ Example variable flip angle dataset and B<sub>1</sub> map of a healthy adult bra
 :::
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 5.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 5.
 :class: tip, dropdown
 
 ```octave
@@ -161,10 +161,10 @@ signal_WM_div_sin = signal_WM ./ sind(params_highres.EXC_FA);
 signal_WM_div_tan = signal_WM ./ tand(params_highres.EXC_FA);
 ```
 
-```
+````
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 6.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 6.
 :class: tip, dropdown
 
 ```octave
@@ -267,9 +267,10 @@ std_T1_noB1Correction = std(FitResults_noB1Correction.T1);
 std_T1_withB1Correction = std(FitResults_withB1Correction.T1);
 ```
 
-```
+````
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 7.
+
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 7.
 :class: tip, dropdown
 
 ```octave
@@ -335,7 +336,8 @@ FA_20 = imrotate(squeeze(VFAData(:,:,:,2).*Mask),-90);
 B1map = imrotate(squeeze(B1map.*Mask),-90);
 ```
 
-```
+````
+
 
 ```{admonition} References
 :class: seealso

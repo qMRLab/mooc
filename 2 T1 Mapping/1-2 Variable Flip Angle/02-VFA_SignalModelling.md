@@ -51,7 +51,8 @@ Signal curves estimated using Bloch simulations for three categories of signal s
 :::
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 1.
+
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 1.
 :class: tip, dropdown
 
 ```octave
@@ -112,10 +113,10 @@ end
 
 ```
 
-```
+````
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 3.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 3.
 :class: tip, dropdown
 
 ```octave
@@ -172,10 +173,10 @@ end
 
 ```
 
-```
+````
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 4.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 4.
 :class: tip, dropdown
 
 ```octave
@@ -247,7 +248,7 @@ for ii = 1:length(Nex_range)
 end
 ```
 
-```
+````
 
 ```{admonition} References
 :class: seealso
