@@ -49,6 +49,7 @@ project:
     VFA: Variable Flip Angle
   exclude:
     - README.md
+    - Venv/**
   bibliography:
     - bibliography/book.bib
     - bibliography/ir.bib
