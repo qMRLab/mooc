@@ -28,9 +28,7 @@ Fitting comparison of simulated data (blue markers) with T1 = 1 s and TR = 1.5 t
 :::
 
 
-<p style="text-align:justify;">
 Figure 5 displays an example brain dataset from an inversion recovery experiment, along with the T<sub>1</sub> map fitted using the RD-NLS technique.
-</p>
 
 
 :::{figure} #fig2p5cell
