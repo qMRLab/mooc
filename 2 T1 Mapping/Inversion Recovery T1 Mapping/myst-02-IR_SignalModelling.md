@@ -31,3 +31,6 @@ M_z(TI) = C(1-2e^{- \frac{TI}{T_1}})
 \end{equation}
 
 The simplicity of the signal model described by Eq. 3, both in its equation and experimental implementation, has made it the most widely used equation to describe the signal evolution in an inversion recovery T<sub>1</sub> mapping experiment. The magnetization curves are plotted in Figure 2 for approximate T<sub>1</sub> values of three different tissues in the brain. Note that in many practical implementations, magnitude-only images are acquired, so the signal measured would be proportional to the absolute value of Eq. 3.
+
+:::{figure} #fig2p2cell
+:label: fig2p2
