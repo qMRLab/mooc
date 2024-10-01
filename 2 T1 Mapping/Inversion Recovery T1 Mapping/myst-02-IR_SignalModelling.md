@@ -34,3 +34,9 @@ The simplicity of the signal model described by Eq. 3, both in its equation and 
 
 :::{figure} #fig2p2cell
 :label: fig2p2
+An example of a figure generated from a Jupyter Notebook that lives in the `content` folder of this repository. Check `content/figure_1.ipynb` to see how this figure was generated and where the label `#fig1cell` is defined.
+:::
+
+```{code-cell} ipython3
+:load: figures 2 T1 mapping/figure_2-2.ipynb
+```
