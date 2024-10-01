@@ -55,6 +55,7 @@ Signal curves estimated using Bloch simulations for three categories of signal s
 ````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 1.
 :class: tip, dropdown
 
+
 ```octave
 % Verbosity level 0 overrides the disp function and supresses warnings.
 % Once executed, they cannot be restored in this session
@@ -111,13 +112,17 @@ for ii = 1:length(TR_range)
     signal_CSF(ii,:) = vfa_t1.analytical_solution(params);
 end
 
+
 ```
+
 
 ````
 
 
+
 ````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 3.
 :class: tip, dropdown
+
 
 ```octave
 % Verbosity level 0 overrides the disp function and supresses warnings.
@@ -171,9 +176,12 @@ for ii = 1:length(Nex_range)
     signal_blochsim(ii,:) = abs(complex(complex_signal));
 end
 
+
 ```
 
+
 ````
+
 
 
 ````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 4.
