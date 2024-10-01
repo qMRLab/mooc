@@ -1,0 +1,4 @@
+{ "src": "https://raw.githubusercontent.com/plotly/datasets/master/hobbs-pearson-trials.csv",
+  "dst": "../data",
+  "projectName": "neurolibre-demo-dataset"
+}
