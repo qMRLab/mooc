@@ -39,7 +39,6 @@ Example inversion recovery dataset of a healthy adult brain (left). Inversion ti
 ```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 4.
 :class: tip, dropdown
 
-
 ```octave
 
 % Verbosity level 0 overrides the disp function and supresses warnings.
