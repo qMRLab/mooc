@@ -41,7 +41,6 @@ Example inversion recovery dataset of a healthy adult brain (left). Inversion ti
 
 
 Signal curves simulated using Bloch simulations (orange) for a number of repetitions ranging from 1 to 150, plotted against the ideal case (Equation 1 – blue). Simulation details:  TR = 25 ms, T<sub>1</sub> = 900 ms, 100 spins. Ideal spoiling was used for this set of Bloch simulations (transverse magnetization was set to 0 at the end of each TR).
-```
 
 Sufficient spoiling is likely the most challenging parameter to control for in a VFA experiment. A combination of both gradient spoiling and RF phase spoiling {cite:p}`Handbook2004,Zur1991` are typically recommended (Figure 4). It has also been shown that the use of very strong  gradients, introduces diffusion effects (not considered in Figure 4), further improving the spoiling efficacy in the VFA pulse sequence {cite:p}`Yarnykh2010`.
 
