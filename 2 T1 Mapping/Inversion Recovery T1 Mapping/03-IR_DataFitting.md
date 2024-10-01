@@ -36,7 +36,7 @@ Example inversion recovery dataset of a healthy adult brain (left). Inversion ti
 :::
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 4.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 4.
 :class: tip, dropdown
 
 ```octave
@@ -121,10 +121,10 @@ for ii=1:length(TR_range)
 end
 ```
 
-```
+````
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 5.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 5.
 :class: tip, dropdown
 
 ```octave
@@ -190,4 +190,4 @@ TI_1030 = imrotate(squeeze(IRData(:,:,:,3).*Mask),-90);
 TI_1530 = imrotate(squeeze(IRData(:,:,:,4).*Mask),-90);
 ```
 
-```
+````
