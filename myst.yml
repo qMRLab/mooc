@@ -50,7 +50,6 @@ project:
   exclude:
     - README.md
     - LICENSE.md
-    - *.tex
   bibliography:
     - bibliography/book.bib
     - bibliography/ir.bib
