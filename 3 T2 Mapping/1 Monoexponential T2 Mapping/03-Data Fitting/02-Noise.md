@@ -14,10 +14,12 @@ numbering:
 In MRI, noise in the data can make it harder to accurately fit the T2 decay curve, which is problematic given the necessity for highly precise T2 values in clinical contexts. This issue is particularly pronounced when using pixel-wise T2 mapping, as the signal-to-noise (SNR) is much lower compared to region-of-interest (ROI) T2 mapping approaches (Sandino et al., 2015). Figure 4 shows how varying the level of noise in the acquired data can influence the fitting of the T2 relaxation curve and the resulting T2 constant. As observed in this figure, a low SNR can have a considerable impact on the T2 fitting process. 
 
 
+
 :::{figure} #fig3p3cell
 :label: t2Plot3
  Impact of noise on T2 relaxometry fitting. The figure shows a single voxel fit with a true T2 relaxation time of 109 ms. As the noise level increases, the accuracy of the T2 fitting decreases, leading to deviations in the estimated T2 relaxation time from the true value. This demonstrates how higher noise levels can adversely affect the reliability of T2 measurements and may result in inaccurate representations of tissue relaxation properties.
 :::
+
 
 
 The number of echoes used in T2 relaxometry is influenced by several factors, including the need for adequate spacing between echoes, the potential risk of heating the sample, and the challenges associated with processing data from samples with low signal-to-noise ratios. Therefore, selecting an optimal number of echoes is crucial for achieving accurate and reliable results while addressing these constraints (Shrager et al., 1998). The Cramer-Rao lower-bound (CRLB) method is a statistical tool that can be used in the context of T2 relaxometry to estimate the smallest possible variance, known as the lower bound, of an unbiased estimator given the noise present in the data (Cavassila et al., 2001). Using the lower bounds, the optimal number of echoes needed to accurately fit the T2 decay curve can be determined, ensuring more robust T2 mapping (Jones et al., 1996). In their work, Shrager et al. (1998) introduced another method for optimizing the selection of echo time points to improve the accuracy of T2 value estimates based on a predetermined range of expected T2 values. Their approach demonstrated superior accuracy compared to conventional methods that use uniformly-spaced echo times, suggesting that these methods are not optimal for T2 curve fitting accuracy. 
