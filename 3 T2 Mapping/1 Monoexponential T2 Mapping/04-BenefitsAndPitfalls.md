@@ -1,5 +1,5 @@
 ---
-title: Benefits and Pitfalls
+title: Signal modelling
 subtitle: Monoexponential T2 Mapping
 date: 2024-07-25
 authors:
@@ -13,6 +13,19 @@ numbering:
 ---
 
 
-The main benefit of mono-exponential T2 mapping is its simplicity and straightforward implementation, making it a convenient and efficient method for T2 fitting. Additionally, as mentioned previously, the use of multi-echo spin echo (MESE) sequences allow to significantly reduce the acquisition time, further enhancing its practicality (Fatemi et al., 2020, Milford et al., 2015). 
+The decay of the transverse magnetization (Mxy) is exponential and can be derived from the transverse component of the Bloch equations: 
 
-Despite these advantages, mono-exponential methods have certain drawbacks. First, by assuming a single T2 relaxation constant per voxel, the mono-exponential method tends to over-simplify the tissue microstructure, potentially leading to inaccurate T2 estimations. This limitation can be particularly problematic when studying tissues that have a complex microstructure, where a single voxel may contain components with different T2 relaxation times. Furthermore, it has been shown that MESE sequences are sensitive to imperfections in the radiofrequency pulses. For instance, factors such as B1 inhomogeneities and reduced flip angles have been shown to overestimate T2 times when using mono-exponential methods. (Fatemi et al., 2020).
+\begin{equation}\label{eq:1}
+\textit{M}_{xy}\left ( TE \right ) = Mz\left ( 0^{-} \right )e^{-TE/T_{2}}
+\end{equation}
+
+where Mz(0-) is the longitudinal magnetization immediately preceding the 90 degree excitation pulse. By using this equation, we make the assumption that the measured signal is proportional to the transverse magnetization (Mxy), and that Mz(0-) remains constant regardless of echo time (TE) (Dortch, 2020). 
+
+Figure 3 shows transverse relaxation curves for T2 and T2* values for white matter and gray matter, using the relaxation times from Siemonsen et al. (2008). 
+
+:::{figure} #fig3p2cell
+:label: t2Plot2
+Figure 3. Transverse relaxation decay curves for T2 and T2* values in white matter and gray matter. The T2 and T2* constants were taken from Siemonsen et al. (2008).
+:::
+
+In NMR physics, it has been shown that T2 relaxation times must be equal to or shorter than 2T1 (Levitt, 2008); however, it has been demonstrated that T2 can exceed T1 in very rare cases (Traficante, 1991). In living organisms however, T2 is always shorter than T1. 
