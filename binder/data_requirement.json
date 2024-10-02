@@ -3,7 +3,7 @@
     "dst": "../data",
     "projectName": "qmrlab-t1-book"
     },
-    "03-T2":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.1/03-T2.zip",
+    "03-T2":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.1.2/03-T2.zip",
     "dst": "../data",
     "projectName": "03-T2"
     }
