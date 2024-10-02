@@ -1,4 +1,10 @@
-{ "src": "https://drive.google.com/uc?id=1t9M_LfFV74s9QNUxk2qxvFI5b6ZGbxLY",
-  "dst": "../../data",
-  "projectName": "qmrlab-t1-book"
+{
+    "qmrlab-t1-book":{ "src": "https://drive.google.com/uc?id=1t9M_LfFV74s9QNUxk2qxvFI5b6ZGbxLY",
+    "dst": "../data",
+    "projectName": "qmrlab-t1-book"
+    },
+    "03-T2":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.1/03-T2.zip",
+    "dst": "../data",
+    "projectName": "03-T2"
+    }
 }
