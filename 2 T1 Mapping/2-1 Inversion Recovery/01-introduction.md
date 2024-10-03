@@ -20,6 +20,6 @@ Widely considered the gold standard for [T<sub>1</sub>](wiki:Spin–lattice_rela
 
 ```{figure} img/ir_pulsesequences.svg
 :label: irFig1
-:enumerator: 1.1  
+:enumerator: 2.1  
 Pulse sequence of an inversion recovery experiment.
 ```

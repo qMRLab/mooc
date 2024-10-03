@@ -21,12 +21,12 @@ One important protocol design consideration is to avoid acquiring at inversion t
 
 :::{figure} #fig2p6cell
 :label: irPlot5
-:enumerator: 1.6
+:enumerator: 2.6
 [Monte Carlo](wiki:Monte_Carlo_method) simulations (mean and standard deviation (STD), blue markers) and fitted T<sub>1</sub> values (mean and STD, red and green respectively) generated for a T<sub>1</sub> value of 900 ms and 5 TI values linearly spaced across the TR (ranging from 1 to 5 s). A bump in T<sub>1</sub> STD occurs near TR = 3000 ms, which coincides with the TR where the second TI is located near a null point for this T<sub>1</sub> value.
 :::
 
 
-Despite a widely acknowledged robustness for measuring accurate T<sub>1</sub> maps, inversion recovery is not often used in studies. An important drawback of this technique is the need for long TR values, generally on the order of a few T<sub>1</sub> for general models (e.g. Equations [](#irEq1) and [](#irEq4)), and up to 5T<sub>1</sub> for long TR approximated models ([Equation 1.3](#irEq3)). It takes about to 10-25 minutes to acquire a single-slice T<sub>1</sub> map using the inversion recovery technique, as only one TI is acquired per TR  (2-5 s) and conventional cartesian gradient readout imaging acquires one phase encode line per excitation (for a total of ~100-200 phase encode lines). The long acquisition time makes it challenging to acquire whole-organ T<sub>1</sub> maps in clinically feasible protocol times. Nonetheless, it is useful as a reference measurement for comparisons against other T<sub>1</sub> mapping methods, or to acquire a single-slice T<sub>1</sub> map of a tissue to get T<sub>1</sub> estimates for optimization of other pulse sequences.
+Despite a widely acknowledged robustness for measuring accurate T<sub>1</sub> maps, inversion recovery is not often used in studies. An important drawback of this technique is the need for long TR values, generally on the order of a few T<sub>1</sub> for general models (e.g. Equations [](#irEq1) and [](#irEq4)), and up to 5T<sub>1</sub> for long TR approximated models ([Equation 2.3](#irEq3)). It takes about to 10-25 minutes to acquire a single-slice T<sub>1</sub> map using the inversion recovery technique, as only one TI is acquired per TR  (2-5 s) and conventional cartesian gradient readout imaging acquires one phase encode line per excitation (for a total of ~100-200 phase encode lines). The long acquisition time makes it challenging to acquire whole-organ T<sub>1</sub> maps in clinically feasible protocol times. Nonetheless, it is useful as a reference measurement for comparisons against other T<sub>1</sub> mapping methods, or to acquire a single-slice T<sub>1</sub> map of a tissue to get T<sub>1</sub> estimates for optimization of other pulse sequences.
 
 
 ````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#irPlot5).
