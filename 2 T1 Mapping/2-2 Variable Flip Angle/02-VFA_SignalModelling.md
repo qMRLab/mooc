@@ -25,6 +25,7 @@ where <i>M<sub>z</sub></i> is the longitudinal magnetization, <i>M</i><sub>0</su
 
 :::{figure} #figvfa2cell
 :label: vfaPlot1
+:enumerator: 2.8
 Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The T<sub>1</sub> map (right) was fitted using a RD-NLS algorithm.
 :::
 
@@ -43,7 +44,7 @@ The closed-form solution ([Equation 2.5](#vfaEq1)) makes several assumptions whi
 
 :::{figure} #figvfa3cell
 :label: vfaPlot2
-:enumerator: 2.8
+:enumerator: 2.9
 Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The T<sub>1</sub> map (right) was fitted using a RD-NLS algorithm.
 :::
 
@@ -55,7 +56,7 @@ Sufficient spoiling is likely the most challenging parameter to control for in a
 
 :::{figure} #figvfa4cell
 :label: vfaPlot3
-:enumerator: 2.9
+:enumerator: 2.10
 Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, T<sub>1</sub> = 900 ms, T<sub>e</sub> = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  ɸ<sub><i>n</i></sub> = ɸ<sub><i>n</i>-1</sub> + <i>n</i>ɸ<sub>0</sub> = ½ ɸ<sub>0</sub>(<i>n</i><sup>2</sup> + <i>n</i> + 2) {cite:p}`Handbook2004` with ɸ<sub>0</sub> = 117° {cite:p}`Zur1991` after each TR.
 :::
 

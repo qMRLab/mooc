@@ -45,7 +45,7 @@ If data were acquired using only two flip angles – a very common VFA acquisiti
 
 :::{figure} #figvfa5cell
 :label: vfaPlot4
-:enumerator: 2.10
+:enumerator: 2.11
 Mean and standard deviation of the VFA signal plotted using the nonlinear form ([Equation 2.5](#vfaEq1) – blue) and linear form ([Equation 2.8](#vfaEq4) – red). Monte Carlo simulation details: SNR = 25, N = 1000. VFA simulation details: TR = 25 ms, T<sub>1</sub> = 900 ms.
 :::
 
@@ -67,7 +67,7 @@ B<sub>1</sub> in this context is normalized, meaning that it is unitless and has
 
 :::{figure} #figvfa6cell
 :label: vfaPlot5
-:enumerator: 2.11
+:enumerator: 2.12
 Mean and standard deviations of fitted VFA T1 values for a set of Monte Carlo simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) B1 correction. Simulation parameters: TR = 25 ms, T1 = 900 ms, θnominal = 6° and 32° (optimized values for this TR/T1 combination). Notice how even after B1 correction, fitted T1 values at B1 values far from the nominal case (B1 = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/T1 (Deoni et al. 2003).
 :::
 
@@ -77,7 +77,7 @@ Mean and standard deviations of fitted VFA T1 values for a set of Monte Carlo si
 
 :::{figure} #figvfa7cell
 :label: vfaPlot6
-:enumerator: 2.12
+:enumerator: 2.13
 Example variable flip angle dataset and B<sub>1</sub> map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms, <i>θ<sub>nominal</sub></i> = 3° and 20°. The T<sub>1</sub> map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
 :::
 
