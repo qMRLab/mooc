@@ -13,11 +13,15 @@ numbering:
 
 The steady-state longitudinal magnetization of an inversion recovery experiment can be derived from the Bloch equations for the pulse sequence {θ<sub>180</sub> – TI – θ<sub>90</sub> – (TR-TI)}, and is given by:
 
-\begin{equation}\label{eq:1.1}
+```{math}
+:label: irEq1
+:enumerator:1.1
+\begin{equation}
 M_{z}(TI) = M_0 \frac{1-\text{cos}(\theta_{180})e^{- \frac{TR}{T_1}} -[1-\text{cos}(\theta_{180})]e^{- \frac{TI}{T_1}}}{1 - \text{cos}(\theta_{180}) \text{cos}(\theta_{90}) e^{- \frac{TR}{T_1}}}
 \end{equation}
+```
 
-where M<sub>z</sub> is the longitudinal magnetization prior to the θ<sub>90</sub> pulse. If the in-phase real signal is desired, it can be calculated by multiplying Eq. 1.1 by <i>k</i>sin(θ<sub>90</sub>)e<sup>-TE/T<sub>2</sub></sup>, where <i>k</i> is a constant. This general equation can be simplified by grouping together the constants for each measurements regardless of their values (i.e. at each TI, same TE and θ<sub>90</sub> are used) and assuming an ideal inversion pulse:
+where M<sub>z</sub> is the longitudinal magnetization prior to the θ<sub>90</sub> pulse. If the in-phase real signal is desired, it can be calculated by multiplying [](#irEq1) by <i>k</i>sin(θ<sub>90</sub>)e<sup>-TE/T<sub>2</sub></sup>, where <i>k</i> is a constant. This general equation can be simplified by grouping together the constants for each measurements regardless of their values (i.e. at each TI, same TE and θ<sub>90</sub> are used) and assuming an ideal inversion pulse:
 
 \begin{equation}\label{eq:1.2}
 M_z(TI) = C(1-2e^{- \frac{TI}{T_1}} + e^{- \frac{TR}{T_1}})
@@ -37,12 +41,12 @@ The simplicity of the signal model described by Eq. 1.3, both in its equation an
 Inversion recovery curves (Eq. 1.2) for three different T1 values, approximating the main types of tissue in the brain.
 :::
 
-Practically, Eq. 1.1 is the better choice for simulating the signal of an inversion recovery experiment, as the TRs are often chosen to be greater than 5T<sub>1</sub> of the tissue-of-interest, which rarely coincides with the longest T<sub>1</sub> present (e.g. TR may be sufficiently long for white matter, but not for CSF which could also be present in the volume). Equation 1.3 also assumes ideal inversion pulses, which is rarely the case due to slice profile effects. [](#irPlot2) displays the inversion recovery signal magnitude (complete relaxation normalized to 1) of an experiment with TR = 5 s and T<sub>1</sub> values ranging between 250 ms to 5 s, calculated using both equations.
+Practically, [](#irEq1) is the better choice for simulating the signal of an inversion recovery experiment, as the TRs are often chosen to be greater than 5T<sub>1</sub> of the tissue-of-interest, which rarely coincides with the longest T<sub>1</sub> present (e.g. TR may be sufficiently long for white matter, but not for CSF which could also be present in the volume). Equation 1.3 also assumes ideal inversion pulses, which is rarely the case due to slice profile effects. [](#irPlot2) displays the inversion recovery signal magnitude (complete relaxation normalized to 1) of an experiment with TR = 5 s and T<sub>1</sub> values ranging between 250 ms to 5 s, calculated using both equations.
 
 :::{figure} #fig2p3cell
 :label: irPlot2
 :enumerator: 1.3
-Signal recovery curves simulated using Eq. 1.3 (solid) and Eq. 1.1 (dotted) with a TR = 5 s for T1 values ranging between 0.25 to 5 s.
+Signal recovery curves simulated using Eq. 1.3 (solid) and [](#irEq1) (dotted) with a TR = 5 s for T1 values ranging between 0.25 to 5 s.
 :::
 
 
