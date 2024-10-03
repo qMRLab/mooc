@@ -20,6 +20,6 @@ Inversion recovery was first developed for NMR in the 1940s [@Hahn1949;@Drain194
 
 ```{figure} img/ir_pulsesequences.svg
 :label: irFig1
-
-Figure 1. Pulse sequence of an inversion recovery experiment.
+:enumeration: 1.1  
+Pulse sequence of an inversion recovery experiment.
 ```
