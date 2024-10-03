@@ -47,6 +47,9 @@ project:
     RF: Radiofrequency
     FA: Flip Angle
     VFA: Variable Flip Angle
+    SNR: Signal-to-noise ratio
+    RD-NLS: reduced-dimension non-linear least-squares
+    STD: Standard deviation
   exclude:
     - README.md
     - LICENSE.md
