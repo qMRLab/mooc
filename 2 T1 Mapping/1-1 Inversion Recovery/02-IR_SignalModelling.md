@@ -33,7 +33,7 @@ The simplicity of the signal model described by Eq. 1.3, both in its equation an
 
 :::{figure} #fig2p2cell
 :label: irPlot1
-:enumeration: 1.2
+:enumerator: 1.2
 Inversion recovery curves (Eq. 1.2) for three different T1 values, approximating the main types of tissue in the brain.
 :::
 
@@ -41,7 +41,7 @@ Practically, Eq. 1.1 is the better choice for simulating the signal of an invers
 
 :::{figure} #fig2p3cell
 :label: irPlot2
-:enumeration: 1.3
+:enumerator: 1.3
 Signal recovery curves simulated using Eq. 1.3 (solid) and Eq. 1.1 (dotted) with a TR = 5 s for T1 values ranging between 0.25 to 5 s.
 :::
 

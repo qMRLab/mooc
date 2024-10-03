@@ -21,7 +21,7 @@ One important protocol design consideration is to avoid acquiring at inversion t
 
 :::{figure} #fig2p6cell
 :label: irPlot5
-:enumeration: 1.6
+:enumerator: 1.6
 Monte Carlo simulations (mean and standard deviation (STD), blue markers) and fitted T<sub>1</sub> values (mean and STD, red and green respectively) generated for a T<sub>1</sub> value of 900 ms and 5 TI values linearly spaced across the TR (ranging from 1 to 5 s). A bump in T<sub>1</sub> STD occurs near TR = 3000 ms, which coincides with the TR where the second TI is located near a null point for this T<sub>1</sub> value.
 :::
 

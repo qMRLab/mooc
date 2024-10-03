@@ -24,7 +24,7 @@ where <i>a</i> and <i>b</i> are complex values. If magnitude-only data is availa
 
 :::{figure} #fig2p4cell
 :label: irPlot3
-:enumeration: 1.4
+:enumerator: 1.4
 Fitting comparison of simulated data (blue markers) with T_1 = 1 s and TR = 1.5 to 5 s, using fitted using RD-NLS & Eq. 1.4 (green) and Levenberg-Marquardt & Eq. 1.2 (orange, long TR approximation).
 :::
 
@@ -34,7 +34,7 @@ Fitting comparison of simulated data (blue markers) with T_1 = 1 s and TR = 1.5 
 
 :::{figure} #fig2p5cell
 :label: irPlot4
-:enumeration: 1.5
+:enumerator: 1.5
 Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The T<sub>1</sub> map (right) was fitted using a RD-NLS algorithm.
 :::
 
