@@ -11,25 +11,25 @@ numbering:
     template: Fig. %s
 ---
 
-The conventional inversion recovery experiment is considered the gold standard T<sub>1</sub> mapping technique for several reasons: 
+The conventional [inversion recovery](wiki:Inversion_recovery) experiment is considered the gold standard T<sub>1</sub> mapping technique for several reasons: 
 * A typical protocol has a long TR value and a sufficient number of inversion times for stable fitting (typically 5 or more) covering the range [0, TR]. 
 * It offers a wide dynamic range of signals ([up to `-kM0`, `kM0`]), allowing a number of inversion times where high SNR is available to sample the signal recovery curve {cite:p}`Fukushima1981`. 
-* T<sub>1</sub> maps produced by inversion recovery are largely insensitive to inaccuracies in excitation flip angles and imperfect spoiling {cite:p}`Stikov2015`, as all parameters except TI are constant for each measurement and only a single acquisition is performed (at TI) during each TR. 
+* T<sub>1</sub> maps produced by [inversion recovery](wiki:Inversion_recovery) are largely insensitive to inaccuracies in excitation flip angles and imperfect spoiling {cite:p}`Stikov2015`, as all parameters except TI are constant for each measurement and only a single acquisition is performed (at TI) during each TR. 
 
-One important protocol design consideration is to avoid acquiring at inversion times where the signal for T<sub>1</sub> values of the tissue-of-interest is nulled, as the magnitude images at this TI time will be dominated by Rician noise which can negatively impact the fit under low SNR circumstances ([](#irPlot5)). Inversion recovery can also often be acquired using commonly available standard pulse sequences available on most MRI scanners by setting up a customized acquisition protocol, and does not require any additional calibration measurements. For an example, please visit the interactive preprint of the ISMRM Reproducible Research Group 2020 Challenge on inversion recovery T1 mapping {cite:p}`Boudreau2023`. 
+One important protocol design consideration is to avoid acquiring at inversion times where the signal for T<sub>1</sub> values of the tissue-of-interest is nulled, as the magnitude images at this TI time will be dominated by [Rician](wiki:Rice_distribution) noise which can negatively impact the fit under low SNR circumstances ([](#irPlot5)). Inversion recovery can also often be acquired using commonly available standard pulse sequences available on most MRI scanners by setting up a customized acquisition protocol, and does not require any additional calibration measurements. For an example, please visit the interactive preprint of the ISMRM Reproducible Research Group 2020 Challenge on inversion recovery T1 mapping {cite:p}`Boudreau2023`. 
 
 
 :::{figure} #fig2p6cell
 :label: irPlot5
 :enumerator: 1.6
-Monte Carlo simulations (mean and standard deviation (STD), blue markers) and fitted T<sub>1</sub> values (mean and STD, red and green respectively) generated for a T<sub>1</sub> value of 900 ms and 5 TI values linearly spaced across the TR (ranging from 1 to 5 s). A bump in T<sub>1</sub> STD occurs near TR = 3000 ms, which coincides with the TR where the second TI is located near a null point for this T<sub>1</sub> value.
+[Monte Carlo](wiki:Monte_Carlo_method) simulations (mean and standard deviation (STD), blue markers) and fitted T<sub>1</sub> values (mean and STD, red and green respectively) generated for a T<sub>1</sub> value of 900 ms and 5 TI values linearly spaced across the TR (ranging from 1 to 5 s). A bump in T<sub>1</sub> STD occurs near TR = 3000 ms, which coincides with the TR where the second TI is located near a null point for this T<sub>1</sub> value.
 :::
 
 
 Despite a widely acknowledged robustness for measuring accurate T<sub>1</sub> maps, inversion recovery is not often used in studies. An important drawback of this technique is the need for long TR values, generally on the order of a few T<sub>1</sub> for general models (e.g. Equations [](#irEq1) and [](#irEq4)), and up to 5T<sub>1</sub> for long TR approximated models ([Equation 1.3](#irEq3)). It takes about to 10-25 minutes to acquire a single-slice T<sub>1</sub> map using the inversion recovery technique, as only one TI is acquired per TR  (2-5 s) and conventional cartesian gradient readout imaging acquires one phase encode line per excitation (for a total of ~100-200 phase encode lines). The long acquisition time makes it challenging to acquire whole-organ T<sub>1</sub> maps in clinically feasible protocol times. Nonetheless, it is useful as a reference measurement for comparisons against other T<sub>1</sub> mapping methods, or to acquire a single-slice T<sub>1</sub> map of a tissue to get T<sub>1</sub> estimates for optimization of other pulse sequences.
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#irPlot5).
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#irPlot5).
 :class: tip, dropdown
 
 ```octave
@@ -118,14 +118,17 @@ for ii = 1:length(TR_range)
 end
 ```
 
-```
+````
 
-```{admonition} References
+
+````{admonition} References
 :class: seealso
+
 
 ```{bibliography}
 :filter: docname in docnames
 ```
 
-```
+
+````
 
