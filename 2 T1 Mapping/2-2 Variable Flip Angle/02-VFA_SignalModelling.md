@@ -13,11 +13,15 @@ numbering:
 
 The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the Bloch equations for the spoiled gradient echo pulse sequence {<i>θ<sub>n</sub></i>–TR}:
 
-\begin{equation}\tag{1}
+```{math}
+:label: vfaEq1
+:enumerator:2.5
+\begin{equation}
 M_{z}(\theta_n) = M_0 \frac{1-e^{- \frac{TR}{T_1}}}{1-\text{cos}(\theta_n) e^{- \frac{TR}{T_1}}} \text{sin}(\theta_n)
 \end{equation}
+```
 
-where <i>M<sub>z</sub></i> is the longitudinal magnetization, <i>M</i><sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time (Figure 1), and <i>θ<sub>n</sub></i> is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different T<sub>1</sub> values for a range of <i>θ<sub>n</sub></i> and TR values are shown in Figure 2.
+where <i>M<sub>z</sub></i> is the longitudinal magnetization, <i>M</i><sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and <i>θ<sub>n</sub></i> is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different T<sub>1</sub> values for a range of <i>θ<sub>n</sub></i> and TR values are shown in [](#vfaPlot1).
 
 :::{figure} #figvfa2cell
 :label: vfaPlot1
@@ -25,34 +29,39 @@ Example inversion recovery dataset of a healthy adult brain (left). Inversion ti
 :::
 
 
-From Figure 2, it is clearly seen that the flip angle at which the steady-state signal is maximized is dependent on the T<sub>1</sub> and TR values. This flip angle is a well known quantity, called the Ernst angle {cite:p}`Ernst1966`, which can be solved analytically from Equation 1 using properties of calculus:
+From [](#vfaPlot1), it is clearly seen that the flip angle at which the steady-state signal is maximized is dependent on the T<sub>1</sub> and TR values. This flip angle is a well known quantity, called the Ernst angle {cite:p}`Ernst1966`, which can be solved analytically from [Equation 2.5](#vfaEq1) using properties of calculus:
 
-
-\begin{equation}\tag{2}
+```{math}
+:label: vfaEq2
+:enumerator:2.6
+\begin{equation}
 \theta_{Ernst} = \text{acos}(e^{- \frac{TR}{T_1}})
 \end{equation}
+```
 
-The closed-form solution (Equation 1) makes several assumptions which in practice may not always hold true if care is not taken. Mainly, it is assumed that the longitudinal magnetization has reached a steady state after a large number of TRs, and that the transverse magnetization is perfectly spoiled at the end of each TR. Bloch simulations – a numerical approach at solving the Bloch <i>equations</i> for a set of spins at each time point –  provide a more realistic estimate of the signal if the number of repetition times is small (i.e. a steady-state is not achieved). As can be seen from Figure 3, the number of repetitions required to reach a steady state not only depends on T<sub>1</sub>, but also on the flip angle; flip angles near the Ernst angle need more TRs to reach a steady state. Preparation pulses or an outward-in k-space acquisition pattern are typically sufficient to reach a steady state by the time that the center of k-space is acquired, which is where most of the image contrast resides.
+The closed-form solution ([Equation 2.5](#vfaEq1)) makes several assumptions which in practice may not always hold true if care is not taken. Mainly, it is assumed that the longitudinal magnetization has reached a steady state after a large number of TRs, and that the transverse magnetization is perfectly spoiled at the end of each TR. Bloch simulations – a numerical approach at solving the Bloch <i>equations</i> for a set of spins at each time point –  provide a more realistic estimate of the signal if the number of repetition times is small (i.e. a steady-state is not achieved). As can be seen from [](#vfaPlot2), the number of repetitions required to reach a steady state not only depends on T<sub>1</sub>, but also on the flip angle; flip angles near the Ernst angle need more TRs to reach a steady state. Preparation pulses or an outward-in k-space acquisition pattern are typically sufficient to reach a steady state by the time that the center of k-space is acquired, which is where most of the image contrast resides.
 
 :::{figure} #figvfa3cell
 :label: vfaPlot2
+:enumerator: 2.8
 Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The T<sub>1</sub> map (right) was fitted using a RD-NLS algorithm.
 :::
 
 
-Signal curves simulated using Bloch simulations (orange) for a number of repetitions ranging from 1 to 150, plotted against the ideal case (Equation 1 – blue). Simulation details:  TR = 25 ms, T<sub>1</sub> = 900 ms, 100 spins. Ideal spoiling was used for this set of Bloch simulations (transverse magnetization was set to 0 at the end of each TR).
+Signal curves simulated using Bloch simulations (orange) for a number of repetitions ranging from 1 to 150, plotted against the ideal case ([Equation 2.5](#vfaEq1) – blue). Simulation details:  TR = 25 ms, T<sub>1</sub> = 900 ms, 100 spins. Ideal spoiling was used for this set of Bloch simulations (transverse magnetization was set to 0 at the end of each TR).
 
-Sufficient spoiling is likely the most challenging parameter to control for in a VFA experiment. A combination of both gradient spoiling and RF phase spoiling {cite:p}`Handbook2004,Zur1991` are typically recommended (Figure 4). It has also been shown that the use of very strong  gradients, introduces diffusion effects (not considered in Figure 4), further improving the spoiling efficacy in the VFA pulse sequence {cite:p}`Yarnykh2010`.
+Sufficient spoiling is likely the most challenging parameter to control for in a VFA experiment. A combination of both gradient spoiling and RF phase spoiling {cite:p}`Handbook2004,Zur1991` are typically recommended ([](#vfaPlot3)). It has also been shown that the use of very strong  gradients, introduces diffusion effects (not considered in [](#vfaPlot3)), further improving the spoiling efficacy in the VFA pulse sequence {cite:p}`Yarnykh2010`.
 
 
 :::{figure} #figvfa4cell
 :label: vfaPlot3
+:enumerator: 2.9
 Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, T<sub>1</sub> = 900 ms, T<sub>e</sub> = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  ɸ<sub><i>n</i></sub> = ɸ<sub><i>n</i>-1</sub> + <i>n</i>ɸ<sub>0</sub> = ½ ɸ<sub>0</sub>(<i>n</i><sup>2</sup> + <i>n</i> + 2) {cite:p}`Handbook2004` with ɸ<sub>0</sub> = 117° {cite:p}`Zur1991` after each TR.
 :::
 
 
 
-````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 1.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#vfaPlot1).
 :class: tip, dropdown
 
 
@@ -120,7 +129,7 @@ end
 
 
 
-````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 3.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#vfaPlot2).
 :class: tip, dropdown
 
 
@@ -184,7 +193,7 @@ end
 
 
 
-````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 4.
+````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#vfaPlot3).
 :class: tip, dropdown
 
 ```octave
