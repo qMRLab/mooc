@@ -11,6 +11,12 @@ numbering:
     template: Fig. %s
 ---
 
+:::{attention}
+:class: attentionDraft
+:name: attentionDraft
+Figures have not yet been updated with their interactive versions.
+:::
+
 This widespread availability and its turnkey acquisition/fitting procedures are a main contributing factor to the growing interest for including quantitative T<sub>1</sub> maps in clinical and neuroscience studies. T<sub>1</sub> values measured using MP2RAGE showed  high levels of reproducibility for the brain in an inter- and intra-site study at eight sites (same MRI hardware/software and at 7 T) of two subjects (Voelker et al. 2016). Not only does MP2RAGE have one of the fastest acquisition and post-processing times among quantitative T<sub>1</sub> mapping techniques, but it can accomplish this while acquiring very high resolution T<sub>1</sub> maps (1 mm isotropic at 3T and submillimeter at 7T, both in under 10 min (Fujimoto et al. 2014)), opening the doors to cortical studies which greatly benefit from the smaller voxel size (Waehnert et al. 2014; Beck et al. 2018; Haast et al. 2018).
 </p>
 

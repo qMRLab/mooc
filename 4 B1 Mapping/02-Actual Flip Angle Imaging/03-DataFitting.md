@@ -12,6 +12,12 @@ numbering:
     template: Fig. %s
 ---
 
+:::{attention}
+:class: attentionDraft
+:name: attentionDraft
+Figures have not yet been updated with their interactive versions.
+:::
+
 The ratio of Equations 1 and 2, gives rise to Equation 3 that depends on the parameters T1, TR1, TR2 and the excitation flip angle (θ).
 
 ```{figure} img/equation3.png
