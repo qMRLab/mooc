@@ -36,6 +36,7 @@ M_{\alpha}=M_{0}\text{sin}\left( \alpha \right)\text{e}^{\left( -\frac{TE}{T_{2}
 :enumerator:4.2
 \begin{equation}
 M_{2\alpha}=M_{0}\text{sin}\left( 2\alpha \right)\text{e}^{\left( -\frac{TE}{T_{2}} \right)}
+\end{equation}
 ```
 
 
@@ -43,14 +44,12 @@ M_{2\alpha}=M_{0}\text{sin}\left( 2\alpha \right)\text{e}^{\left( -\frac{TE}{T_{
 Thus
 
 
-Msin()=M2sin(2)
-(3)
-
 ```{math}
 :label: daEq3
 :enumerator:4.3
 \begin{equation}
 \frac{M_{\alpha}}{\text{sin}\left(\alpha \right)}=\frac{M_{2\alpha}}{\text{sin}\left(2\alpha \right)}
+\end{equation}
 ```
 
 and
@@ -74,9 +73,7 @@ Using a well known trigonometry identity (see [Appendix A](#daAppendixA) for der
 \end{equation}
 ```
 
-We can simplify Eq. 3,
-
-
+We can simplify Eq. 4.5,
 
 ```{math}
 :label: daEq6
