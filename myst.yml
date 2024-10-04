@@ -62,7 +62,7 @@ project:
 site:
   template: book-theme
   logo: public/icon.png
-  logo_text: qMRI MOOC
+  logo_text: qMRI mOOC
   actions:
     - title: Visit qMRLab
       url: https://qmrlab.org
