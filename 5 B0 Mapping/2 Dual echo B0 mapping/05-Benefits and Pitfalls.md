@@ -25,6 +25,7 @@ The standard deviation of the phase (σphase) is inversely proportional to the S
 :enumerator:5.6
 \begin{equation}
 \sigma_{phase}=\frac{1}{\text{SNR}_{mag}}
+\end{equation}
 ```
 
 A high SNR image will therefore provide a more reliable phase image. With this in mind, the main parameters to choose are the echo times. The first echo time is usually chosen to be quite fast to maximize SNR and minimize phase wraps. The choice of the second echo time is then chosen according to many factors. i) Fat has ~3.35 ppm frequency offset from water. This can cause errors in the fieldmap measurement, where a chemical shift is mistaken for a field shift near and within fatty tissues. TE can be chosen so that fat and water are in phase and reduce this problem (~2.34ms at 3T). Note that different fat components have different chemical shifts. These values are given as first estimates. ii) Longer TE maximizes the difference between the phase measurements and can provide a better estimate if SNR is still sufficient. iii) Shorter TE minimizes the number of wraps and therefore reduces errors due to unwrapping. If the field offset is known, a maximum TE can be calculated to yield no phase wrapping.
