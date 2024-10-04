@@ -2,6 +2,7 @@
 title: Appendix A
 subtitle: Double Angle technique
 date: 2024-07-25
+name: daAppendixA
 authors:
   - name: Mathieu Boudreau
     affiliations:

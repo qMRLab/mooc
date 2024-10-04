@@ -62,7 +62,7 @@ and
 \frac{M_{2\alpha}}{M_{\alpha}}=\frac{\text{sin}\left(2\alpha \right)}{\text{sin}\left(\alpha \right)}
 ```
 
-Using a well known trigonometry identity (see Appendix A for derivation),
+Using a well known trigonometry identity (see[Appendix A](#daAppendixA) for derivation),
 
 
 ```{math}
