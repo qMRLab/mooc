@@ -22,12 +22,21 @@ This pulse sequence uses a 180 degree spin-echo refocusing pulse and acquires tw
 
 Assuming an an refocusing pulse is used (i.e. isn’t dependent on B1), we can develop the equation for a gradient echo and spin echo case.
 
-M=M0sin()e-TET2
-(1)
+```{math}
+:label: daEq1
+:enumerator:4.1
+\begin{equation}
+M_{\alpha}=M_{0}\text{sin}\left( \alpha \right)\text{e}^{\left( -\frac{TE}{T_{2}} \right)}
+\end{equation}
+```
 
 
-M2=M0sin(2)e-TET2
-(2)
+```{math}
+:label: daEq2
+:enumerator:4.2
+\begin{equation}
+M_{2\alpha}=M_{0}\text{sin}\left( 2\alpha \right)\text{e}^{\left( -\frac{TE}{T_{2}} \right)}
+```
 
 
 
@@ -37,37 +46,70 @@ Thus
 Msin()=M2sin(2)
 (3)
 
+```{math}
+:label: daEq3
+:enumerator:4.3
+\begin{equation}
+\frac{M_{\alpha}}{\text{sin}\left(\alpha \right)}=\frac{M_{2\alpha}}{\text{sin}\left(2\alpha \right)}
+```
+
 and
 
-M2M=sin(2)sin()
-(3)
-
+```{math}
+:label: daEq4
+:enumerator:4.4
+\begin{equation}
+\frac{M_{2\alpha}}{M_{\alpha}}=\frac{\text{sin}\left(2\alpha \right)}{\text{sin}\left(\alpha \right)}
+```
 
 Using a well known trigonometry identity (see Appendix A for derivation),
 
 
-sin(2)=2sin()cos()
-(4)
+```{math}
+:label: daEq5
+:enumerator:4.5
+\begin{equation}
+\text{sin}\left( 2\alpha \right)=2\text{sin}\left( \alpha \right)\text{cos}\left( \alpha \right)
+```
 
 We can simplify Eq. 3,
 
-M2M=2sin()cos()sin()
-(5)
 
 
-M2M=2cos()
-(6)
+```{math}
+:label: daEq6
+:enumerator:4.6
+\begin{equation}
+\frac{M_{2\alpha}}{M_{\alpha}}=\frac{2\text{sin}\left( \alpha \right)\text{cos}\left( \alpha \right)}{\text{sin}\left(\alpha \right)}
+```
+
+```{math}
+:label: daEq7
+:enumerator:4.7
+\begin{equation}
+\frac{M_{2\alpha}}{M_{\alpha}}=2\text{cos}\left( \alpha \right)
+```
 
 And the true flip angle can be calculated from the ratio of these two magnetizations / signals / images:
 
-=arcos(M22M)
-(7)
+
+```{math}
+:label: daEq8
+:enumerator:4.8
+\begin{equation}
+\alpha=\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)
+```
 
 Knowing that alpha = B1 alpha_nominal, B1 is thus:
 
-B1=arcos(M22M)nominal
-(7)
 
+```{math}
+:label: daEq9
+:enumerator:4.9
+\begin{equation}
+B_{1}=\frac{\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)}{\alpha_{nominal}}
+
+```
 
 :::{figure} #daFig1cell
 :label: daPlot1
