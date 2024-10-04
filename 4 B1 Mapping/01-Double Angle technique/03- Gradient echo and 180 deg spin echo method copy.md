@@ -60,6 +60,7 @@ and
 :enumerator:4.4
 \begin{equation}
 \frac{M_{2\alpha}}{M_{\alpha}}=\frac{\text{sin}\left(2\alpha \right)}{\text{sin}\left(\alpha \right)}
+\end{equation}
 ```
 
 Using a well known trigonometry identity (see[Appendix A](#daAppendixA) for derivation),
@@ -70,6 +71,7 @@ Using a well known trigonometry identity (see[Appendix A](#daAppendixA) for deri
 :enumerator:4.5
 \begin{equation}
 \text{sin}\left( 2\alpha \right)=2\text{sin}\left( \alpha \right)\text{cos}\left( \alpha \right)
+\end{equation}
 ```
 
 We can simplify Eq. 3,
@@ -81,6 +83,7 @@ We can simplify Eq. 3,
 :enumerator:4.6
 \begin{equation}
 \frac{M_{2\alpha}}{M_{\alpha}}=\frac{2\text{sin}\left( \alpha \right)\text{cos}\left( \alpha \right)}{\text{sin}\left(\alpha \right)}
+\end{equation}
 ```
 
 ```{math}
@@ -88,6 +91,7 @@ We can simplify Eq. 3,
 :enumerator:4.7
 \begin{equation}
 \frac{M_{2\alpha}}{M_{\alpha}}=2\text{cos}\left( \alpha \right)
+\end{equation}
 ```
 
 And the true flip angle can be calculated from the ratio of these two magnetizations / signals / images:
@@ -98,6 +102,7 @@ And the true flip angle can be calculated from the ratio of these two magnetizat
 :enumerator:4.8
 \begin{equation}
 \alpha=\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)
+\end{equation}
 ```
 
 Knowing that alpha = B1 alpha_nominal, B1 is thus:
@@ -108,7 +113,7 @@ Knowing that alpha = B1 alpha_nominal, B1 is thus:
 :enumerator:4.9
 \begin{equation}
 B_{1}=\frac{\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)}{\alpha_{nominal}}
-
+\end{equation}
 ```
 
 :::{figure} #daFig1cell
