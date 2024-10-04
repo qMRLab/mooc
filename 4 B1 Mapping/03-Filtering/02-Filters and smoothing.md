@@ -45,8 +45,8 @@ In terms of equations, the convolution is shown using the symbol ∗, such that 
 where f(t) is the signal of interest and g(t) is the kernel. Not every kernel will lead to smoothing (reduction of high frequencies) of the signal of interest when convolved, however the Gaussian distribution is one such smoothing function:
 
 ```{math}
-:label: filtEq1
-:enumerator:4.1
+:label: filtEq2
+:enumerator:4.2
 \begin{equation}
 f\left( x \right)=\frac{1}{\sqrt{2\pi\sigma^{2}}}\text{e}^{-\frac{\left( x-x_{o} \right)^{2}}{2\sigma^{2}}}
 \end{equation}
@@ -65,8 +65,8 @@ One property of the convolution is that the convolution of two functions is the 
 
 
 ```{math}
-:label: filtEq1
-:enumerator:4.1
+:label: filtEq3
+:enumerator:4.3
 \begin{equation}
 \left( f\otimes g \right)\left( t \right)=\mathcal{F}^{-1}\left( \mathcal{F}\left( k \right) \cdot \mathcal{G}\left( k \right) \right)
 \end{equation}
