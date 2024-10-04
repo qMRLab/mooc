@@ -36,16 +36,16 @@ Table 1: Maximum echo time required to respect the Nyquist criteria for differen
 * - B0 (T)
   - deltaTE (ms)
 * - 0.064
-  - 0.1
-  - 0.3
-  - 1.5
-  - 3
-  - 7
-* - 183.39
+  - 183.39
+* - 0.1
   - 117.37
+* - 0.3
   - 39.12
+* - 1.5
   - 7.82
+* - 3
   - 3.91
+* - 7
   - 1.68
 ```
 
