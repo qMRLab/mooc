@@ -1,5 +1,5 @@
 ---
-title: Transmit and Receive RF field amplitudes
+title: Double Angle method(s)
 subtitle: Double Angle technique
 date: 2024-07-25
 authors:
