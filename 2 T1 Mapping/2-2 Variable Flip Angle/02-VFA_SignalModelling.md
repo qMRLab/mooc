@@ -11,7 +11,7 @@ numbering:
     template: Fig. %s
 ---
 
-The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the Bloch equations for the spoiled gradient echo pulse sequence {<i>θ<sub>n</sub></i>–TR}:
+The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the [Bloch equations](wiki:Bloch_equations) for the spoiled [gradient echo](wiki:Gradient_echo) pulse sequence {<i>θ<sub>n</sub></i>–TR}:
 
 ```{math}
 :label: vfaEq1
@@ -21,16 +21,16 @@ M_{z}(\theta_n) = M_0 \frac{1-e^{- \frac{TR}{T_1}}}{1-\text{cos}(\theta_n) e^{- 
 \end{equation}
 ```
 
-where <i>M<sub>z</sub></i> is the longitudinal magnetization, <i>M</i><sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and <i>θ<sub>n</sub></i> is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different T<sub>1</sub> values for a range of <i>θ<sub>n</sub></i> and TR values are shown in [](#vfaPlot1).
+where <i>M<sub>z</sub></i> is the longitudinal magnetization, <i>M</i><sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and <i>θ<sub>n</sub></i> is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a range of <i>θ<sub>n</sub></i> and TR values are shown in [](#vfaPlot1).
 
 :::{figure} #figvfa2cell
 :label: vfaPlot1
 :enumerator: 2.8
-Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The T<sub>1</sub> map (right) was fitted using a RD-NLS algorithm.
+Variable flip angle technique signal curves ([Equation 2.5](#vfaEq1)) for three different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values, approximating the main types of tissue in the brain at 3T.
 :::
 
 
-From [](#vfaPlot1), it is clearly seen that the flip angle at which the steady-state signal is maximized is dependent on the T<sub>1</sub> and TR values. This flip angle is a well known quantity, called the Ernst angle {cite:p}`Ernst1966`, which can be solved analytically from [Equation 2.5](#vfaEq1) using properties of calculus:
+From [](#vfaPlot1), it is clearly seen that the flip angle at which the steady-state signal is maximized is dependent on the [T<sub>1</sub>](wiki:Spin–lattice_relaxation) and TR values. This flip angle is a well known quantity, called the [Ernst angle](Ernst_angle) {cite:p}`Ernst1966`, which can be solved analytically from [Equation 2.5](#vfaEq1) using properties of calculus:
 
 ```{math}
 :label: vfaEq2
@@ -40,12 +40,12 @@ From [](#vfaPlot1), it is clearly seen that the flip angle at which the steady-s
 \end{equation}
 ```
 
-The closed-form solution ([Equation 2.5](#vfaEq1)) makes several assumptions which in practice may not always hold true if care is not taken. Mainly, it is assumed that the longitudinal magnetization has reached a steady state after a large number of TRs, and that the transverse magnetization is perfectly spoiled at the end of each TR. Bloch simulations – a numerical approach at solving the Bloch <i>equations</i> for a set of spins at each time point –  provide a more realistic estimate of the signal if the number of repetition times is small (i.e. a steady-state is not achieved). As can be seen from [](#vfaPlot2), the number of repetitions required to reach a steady state not only depends on T<sub>1</sub>, but also on the flip angle; flip angles near the Ernst angle need more TRs to reach a steady state. Preparation pulses or an outward-in k-space acquisition pattern are typically sufficient to reach a steady state by the time that the center of k-space is acquired, which is where most of the image contrast resides.
+The [closed-form solution](wiki:Closed-form_expression) ([Equation 2.5](#vfaEq1)) makes several assumptions which in practice may not always hold true if care is not taken. Mainly, it is assumed that the longitudinal magnetization has reached a steady state after a large number of TRs, and that the transverse magnetization is perfectly spoiled at the end of each TR. Bloch simulations – a numerical approach at solving the [Bloch equations](wiki:Bloch_equations) for a set of spins at each time point –  provide a more realistic estimate of the signal if the number of repetition times is small (i.e. a steady-state is not achieved). As can be seen from [](#vfaPlot2), the number of repetitions required to reach a steady state not only depends on [T<sub>1</sub>](wiki:Spin–lattice_relaxation), but also on the flip angle; flip angles near the Ernst angle need more TRs to reach a steady state. Preparation pulses or an outward-in [k-space](wiki:K-space_in_magnetic_resonance_imaging) acquisition pattern are typically sufficient to reach a steady state by the time that the center of [k-space](wiki:K-space_in_magnetic_resonance_imaging) is acquired, which is where most of the image contrast resides.
 
 :::{figure} #figvfa3cell
 :label: vfaPlot2
 :enumerator: 2.9
-Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The T<sub>1</sub> map (right) was fitted using a RD-NLS algorithm.
+Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The [T<sub>1</sub>](wiki:Spin–lattice_relaxation) map (right) was fitted using a RD-NLS algorithm.
 :::
 
 
