@@ -3,11 +3,15 @@
     "dst": "../data",
     "projectName": "qmrlab-t1-book"
     },
-    "03-T2":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.2/03-T2.zip",
+    "03-T2":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.3/03-T2.zip",
     "dst": "../data",
     "projectName": "03-T2"
     },
-    "04-B1-03-Filtering":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.2/04-B1-03-Filtering.zip",
+    "04-B1-01-DoubleAngle":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.3/04-B1-01-DoubleAngle.zip",
+    "dst": "../data",
+    "projectName": "04-B1-01-DoubleAngle"
+    },
+    "04-B1-03-Filtering":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v0.3/04-B1-03-Filtering.zip",
     "dst": "../data",
     "projectName": "04-B1-03-Filtering"
     }
