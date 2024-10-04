@@ -18,7 +18,11 @@ We’ll begin by providing a very brief overview of some key filtering propertie
 Filtering is presented as a convolution process to produce an output that is smoother, meaning less sharp edges. A convolution is the multiplication of a kernel (a predetermined function or property, such as the mean, median, Gaussian function, etc) that is shifted at each point of the signal or image, and the summed value of this multiplication is assigned to the time or spatial point where it was applied. Figure 2 illustrates this for the mean using a three-position mean as a kernel:
 
 
-Figure 2. Convolution using the mean
+:::{figure} #filtFig2cell
+:label: filtPlot2
+:enumerator: 4.2
+Convolution using the mean
+:::
 
 In the context of MRI, the mean is not the best choice for a filter, as it is sensitive to high values relative to the base signal. The median is a better choice, which we’ll demonstrate in the next section.
 In terms of equations, the convolution is shown using the symbol ∗, such that analytically it is represented as:
@@ -33,7 +37,12 @@ f(x)=122e-(x-x0)222
 (2)
 
 where x0 is the center position of the distribution, and  is a measure of the width. The convolution using this function with a 9-point sample for different widths is shown in Figure 3.
-Figure 3. Convolution using a Gaussian kernel
+
+:::{figure} #filtFig3cell
+:label: filtPlot3
+:enumerator: 4.3
+Convolution using a Gaussian kernel
+:::
 
 One property of the convolution is that the convolution of two functions is the multiplication of the Fourier Transforms of each function following by an inverse Fourier transform:
 

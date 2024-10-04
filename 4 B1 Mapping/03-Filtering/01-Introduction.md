@@ -15,12 +15,9 @@ The behaviour of electromagnetic fields produced by RF antennas are bound by the
 
 In practice, measured B1+ maps are rarely perfectly smooth over the anatomy-of-interest being imaged. Figure 1 shows a comparison of measured B1 maps in the brain produced by three methods: double angle, actual flip angle imaging (AFI), and Bloch-Siegert shift.
 
-filtFig1cell
-
-
 :::{figure} #filtFig1cell
 :label: filtPlot1
-:enumerator: 3.1
+:enumerator: 4.1
 Example B1 maps (right column) along with their raw acquired data (left and middle columns) for three different B1 mapping techniques: double angle (top row), actual flip angle imaging (AFI; middle row), and Bloch-Siegert shift (bottom row).
 :::
 
