@@ -15,3 +15,8 @@ The Double Angle method (DA or DAM) is a class of B1 mapping technique swherein 
 
 Figure 1. Pulse sequences 
 
+```{figure} img/daPulseSequences.svg
+:label: daFig1
+:enumerator: 2.1  
+Pulse sequences for double angle methods. A) Double angle method using a gradiend echo. B) Double angle method using a 180 degree refocusing pulse. C) Double angle method using a 2alpha refocusing pulse, acquired with two values alpha1 and alpha2 such that alpha2=2alpha1. 
+```
