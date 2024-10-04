@@ -1,5 +1,5 @@
 ---
-title: Transmit and Receive RF field amplitudes
+title: Gradient echo and 180 degree spin echo method
 subtitle: Double Angle technique
 date: 2024-07-25
 authors:
@@ -11,8 +11,63 @@ numbering:
   figure:
     template: Fig. %s
 ---
-In an MRI experiment, magnetic field amplitude of the radiofrequency field (B1) is an an important physical parameter that is a product of the interaction between RF coil design and the position (volume and relative position to the coil) and properties (electromagnetic permittivity ε and permeability μ) of the object being imaged. In any MRI experiments, two B1 fields appear: the transmit RF field amplitude B1+ and the receive RF field amplitude B1-. The latter, B1-, is often referred to in terms of the receive RF coil sensitivities and this is due to the principle of reciprocity (Hoult and Richards 1976; Hoult 2000) property of RF antennas. In terms of an MRI image, B1- is simply a multiplication factor that varies spatially but doesn’t change between pulse sequences if the subject remains motionless, and techniques to “flatten” images by estimating this field numerically have been developed (Sled et al. 1998). Additionally, many quantitative MRI techniques calculate the ratio of images, which eliminates this B1- component from the resulting image.
 
-B1+, however, impacts the resulting MRI images in a much more complex way and is not a simple multiplication factor. B1+ directly perturbs the system of spins by introducing energy in the system, which practically we quantify as the flip angle of an RF pulse. Two different B1+ values will not have the same impact on voxel for different pulse sequences, as spin dynamics and steady-state conditions will vary. For example, let’s say you acquire a saturation recovery image and also a short TR steady-state gradient echo. For an actual flip angle  = FA*B1, the magnetization after TE will be M0*sin(FA*B1)*exp(-TE/T2) and M0*sin(FA*B1)*(1-exp(-TR/T1))*(1-cos(FA*B1)*exp(-TR/T1))-1. Thus, not only does B1+ not appear as a simple multiplication factor, a change of B1 will not impact this voxel for both sequences by the same ratio. Thus, knowledge of B1+ through B1 mapping can help us retroactively understand the dynamics of the spins accurately, and can play the role of a calibration factor for many quantitative MRI techniques (e.g. VFA, T2/T2*, qMT, etc). In addition, B1 mapping can also map the electromagnetic properties, but this won’t be discussed in this chapter.
+This pulse sequence uses a 180 degree spin-echo refocusing pulse and acquires two images using an excitation pulse α and 2α. It assumes that there is full signal recovery (long TR), and because it refocuses T2*, it eliminates signal variability caused by B0 in the resulting B1 map (Insko and Bolinger 1993). Alternatively, a gradient echo could be used?
 
-In this chapter, we’ll be discussing a simple but widely used class of methods for B1 mapping, the double angle method. For the sake of simplicity, and for consistency with the quantitative MRI literature, we’ll define B1 = B1+ and will explicitly state B1- when referring to the receive field.
+Assuming an an refocusing pulse is used (i.e. isn’t dependent on B1), we can develop the equation for a gradient echo and spin echo case.
+
+M=M0sin()e-TET2
+(1)
+
+
+M2=M0sin(2)e-TET2
+(2)
+
+
+
+Thus
+
+
+Msin()=M2sin(2)
+(3)
+
+and
+
+M2M=sin(2)sin()
+(3)
+
+
+Using a well known trigonometry identity (see Appendix A for derivation),
+
+
+sin(2)=2sin()cos()
+(4)
+
+We can simplify Eq. 3,
+
+M2M=2sin()cos()sin()
+(5)
+
+
+M2M=2cos()
+(6)
+
+And the true flip angle can be calculated from the ratio of these two magnetizations / signals / images:
+
+=arcos(M22M)
+(7)
+
+Knowing that alpha = B1 alpha_nominal, B1 is thus:
+
+B1=arcos(M22M)nominal
+(7)
+
+Figure 2. B1 computed from analytical GRE equations for DA sequence
+
+This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on B1. Figure 3 explores this using Bloch simulations
+
+Figure 3. B1 computed from bloch simulations for ideal spin echo and refocusing pulse where FA = 180*B1
+
+
+Figure 4. B1 computed from bloch simulations for spin echo with refocusing pulse where FA = 180*B1,, and composite pulse 90x-180y-90x where each 90 and 180 are also multiplied by B1.
+
