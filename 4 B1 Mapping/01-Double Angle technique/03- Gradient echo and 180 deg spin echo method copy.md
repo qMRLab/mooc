@@ -63,7 +63,7 @@ and
 \end{equation}
 ```
 
-Using a well known trigonometry identity (see[Appendix A](#daAppendixA) for derivation),
+Using a well known trigonometry identity (see [Appendix A](#daAppendixA) for derivation),
 
 
 ```{math}
