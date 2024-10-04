@@ -11,6 +11,13 @@ numbering:
   figure:
     template: Fig. %s
 ---
+
+:::{attention}
+:class: attentionDraft
+:name: attentionDraft
+This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
+:::
+
 The behaviour of electromagnetic fields produced by RF antennas are bound by the laws of physics. The Maxwell equations impose many limitations on how these fields can not only vary spatially and temporally, but how the electric and magnetic fields are linked. While propagating magnetic fields interface of boundary between materials can be discontinuous (a result of Maxwell’s equations), it’s been shown in the context of MRI and tissues that the magnetic field amplitudes are expected to be smoothly varying when using clinical MRIs (Sled and Pike 1998; Sled et al. 1998). At ultra-high fields, standing wave artifacts can lead to more B1 variations and even signal nulls, however the field amplitude nonetheless varies continuously (Uğurbil 2018; Vaughan et al. 2001; Yang et al. 2002). Thus, for both B1+ and B1-, their amplitude is expected to be a smoothly varying multiplicative field, and at clinical field strength it’s also expected to be a slowly or low frequency varying field.
 
 In practice, measured B1+ maps are rarely perfectly smooth over the anatomy-of-interest being imaged. Figure 1 shows a comparison of measured B1 maps in the brain produced by three methods: double angle, actual flip angle imaging (AFI), and Bloch-Siegert shift.
