@@ -21,7 +21,7 @@ M_{z}(\theta_n) = M_0 \frac{1-e^{- \frac{TR}{T_1}}}{1-\text{cos}(\theta_n) e^{- 
 \end{equation}
 ```
 
-where <i>M<sub>z</sub></i> is the longitudinal magnetization, <i>M</i><sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and <i>θ<sub>n</sub></i> is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a range of <i>θ<sub>n</sub></i> and TR values are shown in [](#vfaPlot1).
+where _M<sub>z</sub>_ is the longitudinal magnetization, _M_<sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and <i>θ<sub>n</sub></i> is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a range of <i>θ<sub>n</sub></i> and TR values are shown in [](#vfaPlot1).
 
 :::{figure} #figvfa2cell
 :label: vfaPlot1
