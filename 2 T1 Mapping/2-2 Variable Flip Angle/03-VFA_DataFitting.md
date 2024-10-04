@@ -68,7 +68,7 @@ B<sub>1</sub> in this context is normalized, meaning that it is unitless and has
 :::{figure} #figvfa6cell
 :label: vfaPlot5
 :enumerator: 2.12
-Mean and standard deviations of fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) B1 correction. Simulation parameters: TR = 25 ms, T<sub>1</sub> = 900 ms, θnominal = 6° and 32° (optimized values for this TR/T<sub>1</sub> combination). Notice how even after B1 correction, fitted [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values at B1 values far from the nominal case (B1 = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/T<sub>1</sub> (Deoni et al. 2003).
+Mean and standard deviations of fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) B<sub>1</sub> correction. Simulation parameters: TR = 25 ms, T<sub>1</sub> = 900 ms, θnominal = 6° and 32° (optimized values for this TR/T<sub>1</sub> combination). Notice how even after B<sub>1</sub> correction, fitted [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values at B<sub>1</sub> values far from the nominal case (B<sub>1</sub> = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/T<sub>1</sub> (Deoni et al. 2003).
 :::
 
 <p style="text-align:justify;">
