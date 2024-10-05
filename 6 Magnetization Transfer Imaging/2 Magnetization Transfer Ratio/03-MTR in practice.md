@@ -158,3 +158,7 @@ These differences in protocol parameters can result in MTR values that vary grea
 </table>
 :::
 
+:::{figure} #fig6p1cell
+:label: mtrPlot1
+MTR values calculated from fundamental qMT tissue parameters for four different MTR imaging protocols.
+:::
