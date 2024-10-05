@@ -12,6 +12,13 @@ numbering:
     template: Fig. %s
 ---
 
+:::{attention}
+:class: attentionDraft
+:name: attentionDraft
+This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
+:::
+
+
 Typically, MTR imaging protocols are implemented on the scanner by adding a relatively long (~5-10 ms) high amplitude off-resonance (~2kHz) preparation RF pulse prior to each TR of an existing imaging sequence. In the early days of MT, the MT pulse was a very long pulse (~10 seconds) prior to one imaging readout of saturation-recovery sequences, but this results in impractically long acquisition times and is very SAR prohibitive. Alternative approaches were explored (eg. 1-2-1 pulses), however now most MT-weighted sequences are done using steady-state sequences (eg SPGR) with a shorter preparation pulse (~10 milliseconds). Figure 1 illustrated this using a spoiled-gradient recalled echo (SPGR) sequence, with a Gaussian-shaped MT preparation pulse prior to the excitation pulse.
 
 ```{figure} img/sequence.png
