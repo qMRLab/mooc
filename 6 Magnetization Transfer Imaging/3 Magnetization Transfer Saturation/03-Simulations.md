@@ -22,6 +22,6 @@ In line with our previous MTR blog post, we employ the qMRLab qMT simulations to
 
 
 :::{table} #qmtParamsTable
-:enumerator: 6.4
+:label: qmtParamsTable2
 Quantitative MT parameters in healthy and diseased human tissue reported for a study at 1.5 T (Sled 2001). 
 :::
