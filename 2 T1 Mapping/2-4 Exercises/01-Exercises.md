@@ -45,11 +45,11 @@ You receive an email from a collaborator in your city asking for help with a T1 
 :  **d.** Test your proposed problem with some of your simulation code.
 :  **e.** What would you propose to your collaborator? Is a new data acquisition protocol required, or can you provide some post-processing corrections prior to fitting the  data?
 
-Problem 7 ⭑⭑⭑ You are currently in charge of a longitudinal study that uses VFA to acquire T1 maps. After an MRI scanner software upgrade, your T1 maps suddenly changed values substantially. Here is one of your old (good) datasets (link), and one of your new (bad) datasets. Using qMRLab, find what you suspect the problem is. Do you think a post-processing correction can be applied, or would an adjustment to the imaging protocol and new data acquisitions be needed ?
+**Problem 7 ⭑⭑⭑** You are currently in charge of a longitudinal study that uses VFA to acquire T1 maps. After an MRI scanner software upgrade, your T1 maps suddenly changed values substantially. Here is one of your old (good) datasets (link), and one of your new (bad) datasets. Using qMRLab, find what you suspect the problem is. Do you think a post-processing correction can be applied, or would an adjustment to the imaging protocol and new data acquisitions be needed ?
 
-Problem 8 ⭑⭑⭑
+**Problem 8 ⭑⭑⭑**
 In this module, we presented methodology on how to fit data acquired using a SPGR pulse sequence for a fixed TR and varying the flip angle (VFA). One could also suggest to fix the flip angle and acquire data by varying TR and then fit for T1 (let’s call this VTR). Explore this idea analytically and numerically. What would be some advantages and disadvantages to VTR? Would you need as many, or more acquisition? Is VTR sensitive to B1?
 
-Problem 9 ⭑⭑⭑
+**Problem 9 ⭑⭑⭑**
 In this module, we presented methodology on how to fit data acquired using an inversion recovery pulse sequence for a fixed TR and inversion time. As with the previous question, explore the idea of fixing the inversion time and varying TR to fit T1 maps.
 
