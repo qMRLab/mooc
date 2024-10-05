@@ -17,7 +17,7 @@ numbering:
 :  **c.** Assuming that the images acquired at the MRI scanner displays magnitude-only images, at approximately which inversion time will the white matter and grey matter have the lowest contrast?
 :  **d.** Which inversion time would result in the best contrast between white matter and grey matter?
 
-<img src="https://github.githubassets.com/images/icons/emoji/octocat.png" height="10">[Discuss on GitHub](https://github.com/qMRLab/mooc/discussions/4)
+<img src="https://github.githubassets.com/images/icons/emoji/octocat.png" height="20px">[Discuss on GitHub](https://github.com/qMRLab/mooc/discussions/4)
 
 **Problem 2 ⭑**
 :  **a.** Using the Plotly figure in the VFA section that displays the signal curves for white matter, gray matter, and CSF, determine the Ernst angle for the following: white matter and a TR of 15 ms, gray matter for a TR of 50 ms, and CSF for a TR of 140 ms.
