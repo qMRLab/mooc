@@ -21,12 +21,6 @@ project:
     headings: true
   open_access: true
   license: CC-BY-4.0
-myst_url_schemes = {
-    "gh-discussion": {
-        "url": "https://github.com/qMRLab/mooc/discussion/{{path}}#{{fragment}}",
-        "classes": ["github"],
-    },
-}
   abbreviations:
     MRI: Magnetic resonance imaging
     NMR: Nuclear Magnetic Resonance
