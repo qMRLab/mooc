@@ -121,7 +121,7 @@ Remember, like MTR, MTsat is calculated from the equations above following the a
 
 <table>
    <tr>
-      <th colspan="2" align="center"></th>
+      <th colspan="3" align="center"></th>
       <th colspan="1" align="center">Helms 2008</th>
       <th colspan="1" align="center">Weiskopf 2013</th>
       <th colspan="1" align="center">Campbell 2018</th>
@@ -167,7 +167,7 @@ Remember, like MTR, MTsat is calculated from the equations above following the a
       <td colspan="1" align="center">1.54/4.55/8.49</td>
    </tr>
    <tr>
-      <th colspan="1" rowspan="2" align="left"><bold>PDw</bold></td>
+      <th colspan="1" rowspan="3" align="left"><bold>PDw</bold></td>
       <th colspan="1" rowspan="1"align="center">FA</td>
       <td colspan="1" align="center">5</td>
       <td colspan="1" align="center">6</td>
