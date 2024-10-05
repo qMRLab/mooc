@@ -171,3 +171,10 @@ In addition to being very sensitive to protocol implementations, MTR values are 
 :label: mtrPlot2
 MTR value for (protocol?) and (tissue?) changes as a function of the underlying T1 value (T1obs or T1f?).
 :::
+
+In addition to being sensitive to tissue properties, MTR is also sensitive to system properties such as B1 (via MT pulse amplitude) and B0 (via off-resonance frequency). In particular, B1 can vary up to 30% the nominal value at 3T, and without correction this can introduce substantial  Figure 4 illustrates how MTR can vary with different B1 values.
+
+:::{figure} #mtrFig3cell
+:label: mtrPlot3
+MTR value for (protocol?) and (tissue?) changes as a function of the underlying B1 value (T1obs or T1f?).
+:::
