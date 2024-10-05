@@ -158,7 +158,16 @@ These differences in protocol parameters can result in MTR values that vary grea
 </table>
 :::
 
-:::{figure} #fig6p1cell
+:::{figure} #mtrFig1cell
 :label: mtrPlot1
 MTR values calculated from fundamental qMT tissue parameters for four different MTR imaging protocols.
+:::
+
+As demonstrated in the above simulations, one MTR value could have the same value for healthy tissue on one scanner as diseased tissue would have on another scanner. So for the most part, MTR is best used / compared within vendors at the very least, though some normalization techniques have been developed.
+
+In addition to being very sensitive to protocol implementations, MTR values are also sensitive to other tissue properties. As seen in the qMT blog post, the parameter most closely related to macromolecular content is the pool-size ratio F. But, if some disease / symptom impacts T1  independently of underlying macromolecular content, MTR will also change. That is to say, MTR is sensitive to tissue’s T1 value independently of the macromolecular content metric F, as shown in Figure 3.
+
+:::{figure} #mtrFig2cell
+:label: mtrPlot2
+MTR value for (protocol?) and (tissue?) changes as a function of the underlying T1 value (T1obs or T1f?).
 :::
