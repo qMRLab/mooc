@@ -42,30 +42,53 @@ Table 2. Literature MTR protocol parameters
       <th colspan="1" align="center">Siemmens/th>
    </tr>
    <tr>
-      <td>Albers Equal Area</td>
-      <td align="right">7,498.7</td>
-      <td align="right">10,847.3</td>
-      <td align="right">35.8</td>
+      <td th colspan="1" align="left">FA (deg)</td>
+      <td th colspan="1" align="center">15</td>
+      <td th colspan="1" align="center">15</td>
+      <td th colspan="1" align="center">6</td>
+      <td th colspan="1" align="center">6</td>
    </tr>
    <tr>
-      <td>Web Mercator</td>
-      <td align="right">13,410.0</td>
-      <td align="right">18,271.4</td>
-      <td align="right">63.0</td>
+      <td th colspan="1" align="left">TR (ms)</td>
+      <td th colspan="1" align="center">30</td>
+      <td th colspan="1" align="center">47</td>
+      <td th colspan="1" align="center">32</td>
+      <td th colspan="1" align="center">32</td>
    </tr>
    <tr>
-      <td>Difference</td>
-      <td align="right" style="background-color: red;color: white">5,911.3</td>
-      <td align="right">7,424.1</td>
-      <td align="right">27.2</td>
+      <td th colspan="1" align="left">TE (ms)</td>
+      <td th colspan="1" align="center">11</td>
+      <td th colspan="1" align="center">8</td>
+      <td th colspan="1" align="center">4</td>
+      <td th colspan="1" align="center">4</td>
    </tr>
    <tr>
-      <td>
-         <bold>Percent Difference</bold>
-      </td>
-      <td align="right" style="background-color: green;color: white">44%</td>
-      <td align="right">41%</td>
-      <td align="right">43%</td>
+      <td th colspan="1" align="left">Offset (Hz)</td>
+      <td th colspan="1" align="center">1500</td>
+      <td th colspan="1" align="center">1100</td>
+      <td th colspan="1" align="center">1200</td>
+      <td th colspan="1" align="center">1200</td>
+   </tr>
+   <tr>
+      <td th colspan="1" align="left">MT Shape</td>
+      <td th colspan="1" align="center">Gaussian</td>
+      <td th colspan="1" align="center">Sinc-Gaussian</td>
+      <td th colspan="1" align="center">Fermi</td>
+      <td th colspan="1" align="center">Gaussian</td>
+   </tr>
+   <tr>
+      <td th colspan="1" align="left">MT pulse length (ms)</td>
+      <td th colspan="1" align="center">7.68</td>
+      <td th colspan="1" align="center">15</td>
+      <td th colspan="1" align="center">8</td>
+      <td th colspan="1" align="center">10</td>
+   </tr>
+   <tr>
+      <td th colspan="1" align="left">MT pulse angle (deg)</td>
+      <td th colspan="1" align="center">500</td>
+      <td th colspan="1" align="center">620</td>
+      <td th colspan="1" align="center">540</td>
+      <td th colspan="1" align="center">540</td>
    </tr>
 </table>
 :::
