@@ -61,32 +61,32 @@ Each MRI vendor optimizes their MT-weighted protocol parameters (eg MT shape, du
       <td colspan="1" align="center">4</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>Offset (Hz)</bold></td>
-      <td th colspan="1" align="center">1500</td>
-      <td th colspan="1" align="center">1100</td>
-      <td th colspan="1" align="center">1200</td>
-      <td th colspan="1" align="center">1200</td>
+      <th colspan="1" align="left"><bold>Offset (Hz)</bold></td>
+      <td colspan="1" align="center">1500</td>
+      <td colspan="1" align="center">1100</td>
+      <td colspan="1" align="center">1200</td>
+      <td colspan="1" align="center">1200</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>MT pulse shape</bold></td>
-      <td th colspan="1" align="center">Gaussian</td>
-      <td th colspan="1" align="center">Sinc-Gaussian</td>
-      <td th colspan="1" align="center">Fermi</td>
-      <td th colspan="1" align="center">Gaussian</td>
+      <th colspan="1" align="left"><bold>MT pulse shape</bold></td>
+      <td colspan="1" align="center">Gaussian</td>
+      <td colspan="1" align="center">Sinc-Gaussian</td>
+      <td colspan="1" align="center">Fermi</td>
+      <td colspan="1" align="center">Gaussian</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>MT pulse length (ms)</bold></td>
-      <td th colspan="1" align="center">7.68</td>
-      <td th colspan="1" align="center">15</td>
-      <td th colspan="1" align="center">8</td>
-      <td th colspan="1" align="center">10</td>
+      <th colspan="1" align="left"><bold>MT pulse length (ms)</bold></td>
+      <td colspan="1" align="center">7.68</td>
+      <td colspan="1" align="center">15</td>
+      <td colspan="1" align="center">8</td>
+      <td colspan="1" align="center">10</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>MT pulse angle (deg)</bold></td>
-      <td th colspan="1" align="center">500</td>
-      <td th colspan="1" align="center">620</td>
-      <td th colspan="1" align="center">540</td>
-      <td th colspan="1" align="center">540</td>
+      <th colspan="1" align="left"><bold>MT pulse angle (deg)</bold></td>
+      <td colspan="1" align="center">500</td>
+      <td colspan="1" align="center">620</td>
+      <td colspan="1" align="center">540</td>
+      <td colspan="1" align="center">540</td>
    </tr>
 </table>
 :::
@@ -108,52 +108,52 @@ These differences in protocol parameters can result in MTR values that vary grea
       <th colspan="1" align="center">Late WM MS lesion</th>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>F</bold></td>
-      <td th colspan="1" align="center">0.072 ± 0.013</td>
-      <td th colspan="1" align="center">0.161 ± 0.025</td>
-      <td th colspan="1" align="center">0.15  ± 0.02</td>
-      <td th colspan="1" align="center">0.12 ± 0.02</td>
-      <td th colspan="1" align="center">0.094 ± 0.015</td>
+      <th colspan="1" align="left"><bold>F</bold></td>
+      <td colspan="1" align="center">0.072 ± 0.013</td>
+      <td colspan="1" align="center">0.161 ± 0.025</td>
+      <td colspan="1" align="center">0.15  ± 0.02</td>
+      <td colspan="1" align="center">0.12 ± 0.02</td>
+      <td colspan="1" align="center">0.094 ± 0.015</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>k<sub>f</sub></bold></td>
-      <td th colspan="1" align="center">2.4 ± 0.013</td>
-      <td th colspan="1" align="center">4.3 ± 1.0</td>
-      <td th colspan="1" align="center">4.9 ± 1.3</td>
-      <td th colspan="1" align="center">3.6 ± 0.8</td>
-      <td th colspan="1" align="center">2.7 ± 0.7</td>
+      <th colspan="1" align="left"><bold>k<sub>f</sub></bold></td>
+      <td colspan="1" align="center">2.4 ± 0.013</td>
+      <td colspan="1" align="center">4.3 ± 1.0</td>
+      <td colspan="1" align="center">4.9 ± 1.3</td>
+      <td colspan="1" align="center">3.6 ± 0.8</td>
+      <td colspan="1" align="center">2.7 ± 0.7</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>R<sub>1,f</sub> (s<sup>-1</sup>)</bold></td>
-      <td th colspan="1" align="center">0.93 ± 0.2</td>
-      <td th colspan="1" align="center">1.8 ± 0.3</td>
-      <td th colspan="1" align="center">1.78 ± 0.4</td>
-      <td th colspan="1" align="center">1.52 ± 0.2</td>
-      <td th colspan="1" align="center">1.26 ± 0.3</td>
+      <th colspan="1" align="left"><bold>R<sub>1,f</sub> (s<sup>-1</sup>)</bold></td>
+      <td colspan="1" align="center">0.93 ± 0.2</td>
+      <td colspan="1" align="center">1.8 ± 0.3</td>
+      <td colspan="1" align="center">1.78 ± 0.4</td>
+      <td colspan="1" align="center">1.52 ± 0.2</td>
+      <td colspan="1" align="center">1.26 ± 0.3</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>R<sub>1,r</sub> (s<sup>-1</sup>)</bold></td>
-      <td th colspan="1" align="center">1</td>
-      <td th colspan="1" align="center">1</td>
-      <td th colspan="1" align="center">1</td>
-      <td th colspan="1" align="center">1</td>
-      <td th colspan="1" align="center">1</td>
+      <th colspan="1" align="left"><bold>R<sub>1,r</sub> (s<sup>-1</sup>)</bold></td>
+      <td colspan="1" align="center">1</td>
+      <td colspan="1" align="center">1</td>
+      <td colspan="1" align="center">1</td>
+      <td colspan="1" align="center">1</td>
+      <td colspan="1" align="center">1</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>T<sub>2,f</sub> (ms)</bold></td>
-      <td th colspan="1" align="center">56 ± 8</td>
-      <td th colspan="1" align="center">37 ± 8</td>
-      <td th colspan="1" align="center">38 ± 7</td>
-      <td th colspan="1" align="center">43 ± 6</td>
-      <td th colspan="1" align="center">52 ± 9</td>
+      <th colspan="1" align="left"><bold>T<sub>2,f</sub> (ms)</bold></td>
+      <td colspan="1" align="center">56 ± 8</td>
+      <td colspan="1" align="center">37 ± 8</td>
+      <td colspan="1" align="center">38 ± 7</td>
+      <td colspan="1" align="center">43 ± 6</td>
+      <td colspan="1" align="center">52 ± 9</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>T<sub>2,r</sub> (μs)</bold></td>
-      <td th colspan="1" align="center">11.1 ± 8</td>
-      <td th colspan="1" align="center">12.3 ± 1.6</td>
-      <td th colspan="1" align="center">11.4 ± 1.4</td>
-      <td th colspan="1" align="center">10.3 ± 1.1</td>
-      <td th colspan="1" align="center">10.9 ± 1.4</td>
+      <th colspan="1" align="left"><bold>T<sub>2,r</sub> (μs)</bold></td>
+      <td colspan="1" align="center">11.1 ± 8</td>
+      <td colspan="1" align="center">12.3 ± 1.6</td>
+      <td colspan="1" align="center">11.4 ± 1.4</td>
+      <td colspan="1" align="center">10.3 ± 1.1</td>
+      <td colspan="1" align="center">10.9 ± 1.4</td>
    </tr>
 </table>
 :::
