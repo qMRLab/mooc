@@ -43,7 +43,6 @@ This content of this section is still a work-in-progress and has not been proofr
 \text{ and }\text{Im}\left( z \right)=\text{Im}\left( q \right) \\
 \text{thus,} \\ \\
 \begin{split}
-\text{cos}\left( 2\alpha \right)+i\text{sin}\left( 2\alpha \right) &= \text{Im}\left( \left( \text{cos}^{2}\left( \alpha \right)-\text{sin}^{2}\left( \alpha \right)\right)+i\left( 2\text{sin}\left( \alpha \right) \text{cos}\left( \alpha \right) \right) \right)\\
 \text{Im}\left( \text{cos}\left( 2\alpha \right)+i\text{sin}\left( 2\alpha \right) \right) &= \text{Im}\left( \left( \text{cos}^{2}\left( \alpha \right)-\text{sin}^{2}\left( \alpha \right)\right)+i\left( 2\text{sin}\left( \alpha \right) \text{cos}\left( \alpha \right) \right) \right)\\
 \text{sin}\left( 2\alpha \right) &= 2\text{sin}\left( \alpha \right) \text{cos}\left( \alpha \right) \\
 \end{split}\\
