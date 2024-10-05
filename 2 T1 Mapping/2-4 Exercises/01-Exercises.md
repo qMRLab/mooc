@@ -11,11 +11,13 @@ numbering:
     template: Fig. %s
 ---
 
-**Problem 1 ⭑**<gh-discussion:4>
+**Problem 1 ⭑**
 :  **a.** Using the Plotly figure in the inversion recovery section that displays the signal curves for white matter, gray matter, and CSF, determine the inversion times that null the signal from each of these tissues.
 :  **b.** In practice, you may not have this type of interactive figure at the scanner. Using the three values nulling inversion time values above, can you find an easy way to approximate the nulling time for any arbitrary T1 value?
 :  **c.** Assuming that the images acquired at the MRI scanner displays magnitude-only images, at approximately which inversion time will the white matter and grey matter have the lowest contrast?
 :  **d.** Which inversion time would result in the best contrast between white matter and grey matter?
+
+[:octocat: Discuss on GitHub](https://github.com/qMRLab/mooc/discussions/4)
 
 **Problem 2 ⭑**
 :  **a.** Using the Plotly figure in the VFA section that displays the signal curves for white matter, gray matter, and CSF, determine the Ernst angle for the following: white matter and a TR of 15 ms, gray matter for a TR of 50 ms, and CSF for a TR of 140 ms.
