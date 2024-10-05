@@ -37,28 +37,28 @@ Each MRI vendor optimizes their MT-weighted protocol parameters (eg MT shape, du
       <th colspan="1" align="center">Siemens</th>
       <th colspan="1" align="center">Philips</th>
       <th colspan="1" align="center">GE</th>
-      <th colspan="1" align="center">Siemmens</th>
+      <th colspan="1" align="center">Siemens</th>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>FA (deg)</bold></td>
-      <td th colspan="1" align="center">15</td>
-      <td th colspan="1" align="center">15</td>
-      <td th colspan="1" align="center">6</td>
-      <td th colspan="1" align="center">6</td>
+      <th colspan="1" align="left"><bold>FA (deg)</bold></td>
+      <td colspan="1" align="center">15</td>
+      <td colspan="1" align="center">15</td>
+      <td colspan="1" align="center">6</td>
+      <td colspan="1" align="center">6</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>TR (ms)</bold></td>
-      <td th colspan="1" align="center">30</td>
-      <td th colspan="1" align="center">47</td>
-      <td th colspan="1" align="center">32</td>
-      <td th colspan="1" align="center">32</td>
+      <th colspan="1" align="left"><bold>TR (ms)</bold></td>
+      <td colspan="1" align="center">30</td>
+      <td colspan="1" align="center">47</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">32</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left"><bold>TE (ms)</bold></td>
-      <td th colspan="1" align="center">11</td>
-      <td th colspan="1" align="center">8</td>
-      <td th colspan="1" align="center">4</td>
-      <td th colspan="1" align="center">4</td>
+      <th th colspan="1" align="left"><bold>TE (ms)</bold></td>
+      <td colspan="1" align="center">11</td>
+      <td colspan="1" align="center">8</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">4</td>
    </tr>
    <tr>
       <td th colspan="1" align="left"><bold>Offset (Hz)</bold></td>
