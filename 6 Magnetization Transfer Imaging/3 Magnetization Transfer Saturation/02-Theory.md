@@ -149,48 +149,113 @@ Remember, like MTR, MTsat is calculated from the equations above following the a
       <td colspan="1" align="center">18</td>
    </tr>
    <tr>
-      <th colspan="1" align="left"><bold>TR (ms)</bold></td>
-      <td colspan="1" align="center">30</td>
-      <td colspan="1" align="center">47</td>
-      <td colspan="1" align="center">32</td>
-      <td colspan="1" align="center">32</td>
-      <td colspan="1" align="center">32</td>
-      <td colspan="1" align="center">32</td>
-   </tr>
-   <tr>
-      <th th colspan="1" align="left"><bold>TE (ms)</bold></td>
+      <th colspan="1" align="center"><bold>TR (ms)</bold></td>
       <td colspan="1" align="center">11</td>
-      <td colspan="1" align="center">8</td>
-      <td colspan="1" align="center">4</td>
-      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">18.7</td>
+      <td colspan="1" align="center">11</td>
+      <td colspan="1" align="center">18</td>
+      <td colspan="1" align="center">18</td>
+      <td colspan="1" align="center">15</td>
    </tr>
    <tr>
-      <th colspan="1" align="left"><bold>Offset (Hz)</bold></td>
-      <td colspan="1" align="center">1500</td>
-      <td colspan="1" align="center">1100</td>
+      <th colspan="1" align="center"><bold>TE (ms)</bold></td>
+      <td colspan="1" align="center">4.92</td>
+      <td colspan="1" align="center">2.2–14.7</td>
+      <td colspan="1" align="center">-</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">1.54/4.55/8.49</td>
+   </tr>
+   <tr>
+      <th colspan="1" rowspan="2" align="left"><bold>PDw</bold></td>
+      <th colspan="1" rowspan="1"align="center">FA</td>
+      <td colspan="1" align="center">5</td>
+      <td colspan="1" align="center">6</td>
+      <td colspan="1" align="center">5</td>
+      <td colspan="1" align="center">6</td>
+      <td colspan="1" align="center">6</td>
+      <td colspan="1" align="center">5</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="center"><bold>TR (ms)</bold></td>
+      <td colspan="1" align="center">25</td>
+      <td colspan="1" align="center">23.7</td>
+      <td colspan="1" align="center">30</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">30</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="center"><bold>TE (ms)</bold></td>
+      <td colspan="1" align="center">4.92</td>
+      <td colspan="1" align="center">2.2–14.7</td>
+      <td colspan="1" align="center">-</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">1.54/4.55/8.49</td>
+   </tr>
+      <th colspan="1" rowspan="7" align="left"><bold>MTw</bold></td>
+      <th colspan="1" rowspan="1"align="center">FA</td>
+      <td colspan="1" align="center">5</td>
+      <td colspan="1" align="center">6</td>
+      <td colspan="1" align="center">5</td>
+      <td colspan="1" align="center">6</td>
+      <td colspan="1" align="center">6</td>
+      <td colspan="1" align="center">5</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="center"><bold>TR (ms)</bold></td>
+      <td colspan="1" align="center">25</td>
+      <td colspan="1" align="center">23.7</td>
+      <td colspan="1" align="center">30</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">30</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="center"><bold>TE (ms)</bold></td>
+      <td colspan="1" align="center">4.92</td>
+      <td colspan="1" align="center">2.2–14.7</td>
+      <td colspan="1" align="center">-</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">1.54/4.55/8.49</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="center"><bold>Offset (Hz)</bold></td>
+      <td colspan="1" align="center">2200</td>
+      <td colspan="1" align="center">2000</td>
+      <td colspan="1" align="center">2200</td>
+      <td colspan="1" align="center">1200</td>
       <td colspan="1" align="center">1200</td>
       <td colspan="1" align="center">1200</td>
    </tr>
    <tr>
       <th colspan="1" align="left"><bold>MT pulse shape</bold></td>
       <td colspan="1" align="center">Gaussian</td>
-      <td colspan="1" align="center">Sinc-Gaussian</td>
+      <td colspan="1" align="center">Gaussian</td>
+      <td colspan="1" align="center">-</td>
       <td colspan="1" align="center">Fermi</td>
+      <td colspan="1" align="center">Gaussian</td>
       <td colspan="1" align="center">Gaussian</td>
    </tr>
    <tr>
       <th colspan="1" align="left"><bold>MT pulse length (ms)</bold></td>
-      <td colspan="1" align="center">7.68</td>
-      <td colspan="1" align="center">15</td>
+      <td colspan="1" align="center">12.8</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">-</td>
       <td colspan="1" align="center">8</td>
       <td colspan="1" align="center">10</td>
+      <td colspan="1" align="center">9.984</td>
    </tr>
    <tr>
       <th colspan="1" align="left"><bold>MT pulse angle (deg)</bold></td>
+      <td colspan="1" align="center">540</td>
+      <td colspan="1" align="center">220</td>
+      <td colspan="1" align="center">540</td>
+      <td colspan="1" align="center">540</td>
+      <td colspan="1" align="center">540</td>
       <td colspan="1" align="center">500</td>
-      <td colspan="1" align="center">620</td>
-      <td colspan="1" align="center">540</td>
-      <td colspan="1" align="center">540</td>
    </tr>
 </table>
 :::
