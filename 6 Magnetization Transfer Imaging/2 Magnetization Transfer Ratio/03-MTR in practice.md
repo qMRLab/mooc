@@ -35,10 +35,11 @@ Table 2. Literature MTR protocol parameters
       <th colspan="2" align="center">Karakuzu 2022</th>
    </tr>
    <tr>
-      <th align="right">Large Horizontal Area</th>
-      <th align="right" style="background: -webkit-linear-gradient(20deg, #09009f, #E743D9); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Large Vertical Area</th>
-      <th align="right">Smaller Square Area
-      <th>
+      <th colspan="1" align="center"></th>
+      <th colspan="1" align="center">Siemens/th>
+      <th colspan="1" align="center">Philips/th>
+      <th colspan="1" align="center">GE/th>
+      <th colspan="1" align="center">Siemmens/th>
    </tr>
    <tr>
       <td>Albers Equal Area</td>
