@@ -178,3 +178,15 @@ In addition to being sensitive to tissue properties, MTR is also sensitive to sy
 :label: mtrPlot3
 MTR value for (protocol?) and (tissue?) changes as a function of the underlying B1 value (T1obs or T1f?).
 :::
+
+Lastly, MTR is sensitive to protocol adjustments, which could be done by a scanner operator to accommodate issues during an imaging session. Figure 5 demonstrates how MTR varies with TR adjustments.
+
+:::{figure} #mtrFig4cell
+:label: mtrPlot4
+MTR value for (protocol?) and (tissue?) changes as a function protocols TR value.
+:::
+
+:::{figure} #mtrFig5cell
+:label: mtrPlot5
+Surface map
+:::
