@@ -25,8 +25,9 @@ Each MRI vendor optimizes their MT-weighted protocol parameters (eg MT shape, du
 Table 2. Literature MTR protocol parameters
 
 
-:::{table} Area Comparisons (written in fancy HTML)
+:::{table} Literature MTR protocol parameters
 :label: tbl:areas-html
+:enumerator: 6.1  
 
 <table>
    <tr>
@@ -93,47 +94,4 @@ Table 2. Literature MTR protocol parameters
 </table>
 :::
 
-Brown 2013
-Krakuzu 2022
-
-
-Siemens
-Philips
-GE
-Siemens
-FA
-15
-15
-6
-6
-TR
-30
-47
-32
-32
-TE
-11
-8
-4
-4
-offset
-1500
-1100
-1200
-1200
-MT shape
-Gaussian
-Sinc-Gaussian
-Fermi
-Gaussian
-MT duration
-7.68
-15
-8
-10
-MT angle
-500
-620
-540
-540
-
+These differences in protocol parameters can result in MTR values that vary greatly between vendors and sites, meaning that MTR can be challenging to compare unless great care in details are taken. Figure 2 shows MTR simulations using the fundamental qMT parameters for four different tissues (Table 3; healthy cortical grey matter, healthy white matter, NAWM, early white matter multiple sclerosis lesion, late white matter multiple sclerosis lesion) using the four MT-weighted SPGR protocols from Table 2.
