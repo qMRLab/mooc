@@ -30,8 +30,8 @@ numbering:
 
 **Problem 4 ⭑⭑**
 :  **a.** Imagine you’re a graduate student in a lab that recently transitioned from human imaging to animal imaging (specifically, mouse models of multiple sclerosis). Because there has never been MRI data acquired in your lab in mouse, your advisor asks you to acquire T1 maps of some healthy mice to get the an estimate of T1 values in white matter so that you can use this value to optimize other pulse sequence protocols (eg protocol parameters for T1-weighted images, optimal flip angle for spoiled gradient angle SNR, etc). You do some literature search and find a paper that measured T1 in mice (Kuo et al. 2005), but using a different pulse sequence.
-
-Using qMRLab, determine if the IR imaging protocol (TR = 1000 ms , TI = [100, 300, 600, 900] ms) you used for your previous human study at 1.5 T (where WM has a T1 of ~600ms) would yield good results if applied to mice (at 9.4 T, (Kuo et al. 2005) reports a WM T1 of ~1700 ms). Assume an SNR of 100. Explain how you’ve reached your conclusion.
+:  
+:  Using qMRLab, determine if the IR imaging protocol (TR = 1000 ms , TI = [100, 300, 600, 900] ms) you used for your previous human study at 1.5 T (where WM has a T1 of ~600ms) would yield good results if applied to mice (at 9.4 T, (Kuo et al. 2005) reports a WM T1 of ~1700 ms). Assume an SNR of 100. Explain how you’ve reached your conclusion.
 :  **b.** If the human T1 mapping 1.5T protocol is not appropriate to image mice at 9.4T, explain via written arguments why this might be the case. Use simulation figures to support your arguments. 
 :  **c.** Propose a new protocol that might yield more precise and/or accurate T1 maps. Why did you make those changes? How did you determine the improvement?
 
@@ -40,8 +40,8 @@ Find an open-source tool besides qMRLab that also has a VFA (also known as DESPO
 
 **Problem 6 ⭑⭑⭑**
 :  **a.** You receive an email from a collaborator in your city asking for help with a T1 dataset they acquired on their new 3T scanner. They tried fitting the data with qMRLab already, but are getting T1 values in the brain that are beyond the expected values (eg, WM: 2000ms, GM, 5000 ms). They send you their acquired data.
-
-Fit a T1 map using their data and plot a few voxel signal curves.
+:  
+:  Fit a T1 map using their data and plot a few voxel signal curves.
 :  **b.** Luckily, you own a standardized quantitative MRI NIST phantom with known T1 values, and are able to go to your collaborators scanner to acquire a dataset using their protocol. Here is data you acquired for a region of the phantom with a known T1 value (900 ms +- 5ms) close to the expected WM values. Plot that data, and simulate the expected signal curve for this T1 value
 :  **c.** Comparing the human and phantom data and the simulated curves, what do you notice? What do you think may be the problem?
 :  **d.** Test your proposed problem with some of your simulation code.
