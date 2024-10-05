@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Theory
 subtitle: Magnetization Transfer Saturation
 date: 2024-07-25
 authors:
