@@ -37,55 +37,55 @@ Table 2. Literature MTR protocol parameters
    </tr>
    <tr>
       <th colspan="1" align="center"></th>
-      <th colspan="1" align="center">Siemens/th>
-      <th colspan="1" align="center">Philips/th>
-      <th colspan="1" align="center">GE/th>
-      <th colspan="1" align="center">Siemmens/th>
+      <th colspan="1" align="center">Siemens</th>
+      <th colspan="1" align="center">Philips</th>
+      <th colspan="1" align="center">GE</th>
+      <th colspan="1" align="center">Siemmens</th>
    </tr>
    <tr>
-      <td th colspan="1" align="left">FA (deg)</td>
+      <td th colspan="1" align="left"><bold>FA (deg)</bold></td>
       <td th colspan="1" align="center">15</td>
       <td th colspan="1" align="center">15</td>
       <td th colspan="1" align="center">6</td>
       <td th colspan="1" align="center">6</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left">TR (ms)</td>
+      <td th colspan="1" align="left"><bold>TR (ms)</bold></td>
       <td th colspan="1" align="center">30</td>
       <td th colspan="1" align="center">47</td>
       <td th colspan="1" align="center">32</td>
       <td th colspan="1" align="center">32</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left">TE (ms)</td>
+      <td th colspan="1" align="left"><bold>TE (ms)</bold></td>
       <td th colspan="1" align="center">11</td>
       <td th colspan="1" align="center">8</td>
       <td th colspan="1" align="center">4</td>
       <td th colspan="1" align="center">4</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left">Offset (Hz)</td>
+      <td th colspan="1" align="left"><bold>Offset (Hz)</bold></td>
       <td th colspan="1" align="center">1500</td>
       <td th colspan="1" align="center">1100</td>
       <td th colspan="1" align="center">1200</td>
       <td th colspan="1" align="center">1200</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left">MT Shape</td>
+      <td th colspan="1" align="left"><bold>MT pulse shape</bold></td>
       <td th colspan="1" align="center">Gaussian</td>
       <td th colspan="1" align="center">Sinc-Gaussian</td>
       <td th colspan="1" align="center">Fermi</td>
       <td th colspan="1" align="center">Gaussian</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left">MT pulse length (ms)</td>
+      <td th colspan="1" align="left"><bold>MT pulse length (ms)</bold></td>
       <td th colspan="1" align="center">7.68</td>
       <td th colspan="1" align="center">15</td>
       <td th colspan="1" align="center">8</td>
       <td th colspan="1" align="center">10</td>
    </tr>
    <tr>
-      <td th colspan="1" align="left">MT pulse angle (deg)</td>
+      <td th colspan="1" align="left"><bold>MT pulse angle (deg)</bold></td>
       <td th colspan="1" align="center">500</td>
       <td th colspan="1" align="center">620</td>
       <td th colspan="1" align="center">540</td>
