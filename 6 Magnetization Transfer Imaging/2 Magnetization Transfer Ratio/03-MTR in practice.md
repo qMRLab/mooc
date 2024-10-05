@@ -30,8 +30,9 @@ Table 2. Literature MTR protocol parameters
 
 <table>
    <tr>
-      <th rowspan="2">Projection</th>
-      <th colspan="3" align="center">Area in square miles</th>
+      <th colspan="1" align="center"></th>
+      <th colspan="2" align="center">Brown 2013</th>
+      <th colspan="2" align="center">Karakuzu 2022</th>
    </tr>
    <tr>
       <th align="right">Large Horizontal Area</th>
