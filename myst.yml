@@ -54,6 +54,7 @@ project:
   exclude:
     - README.md
     - LICENSE.md
+    - venv/*
   bibliography:
     - bibliography/book.bib
     - bibliography/ir.bib
