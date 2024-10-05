@@ -91,3 +91,106 @@ Demonstration through trigonometry of how following a small flip angle alpha2 (e
 Before jumping into how to measure MTsat, let's demonstrate some expected properties and values using known values from a simpler MTR experiment. From the MTR protocol in (Brown, Narayanan, and Arnold 2013) of the MTR blog post, 1=15 deg and TR = 0.03 s, so assuming a T1 at 1.5T (field strength that Brown used) of 0.55 s in healthy WM, so R1 = 1.8. First off, Eq. 5 with no MT pulse (thus delta = 0) should converge close to the well-known SPGR equation [1]. Inputting the values in each equations, we get 0.0816*A for [1], and 0.0815*A, thus they are in close agreement. Next, we can get an estimated value of MTsat, using a known MTR value, the calculated S0 value (which we just did), and then solving [5] for delta using the MTR equation to bring everything together. Doing so is shown in [Appendix 6A](#mtsatAppendixA), from there and using our simulations in the MTR post with Brown2013 for healthier WM (MTR = 46%), we get an MTsat value of 4.92% (delta = 0.0492), which is close to some reported MTsat values in the literature (Karakuzu et al. 2022). From there, and by definition of delta, the modeled alpha2 in Figure 2 for this example is 18 degrees, confirming that earlier assumption that alpha2 < 30 degrees for that approximation.
 
 In that example, we used a known T1 value to extract MTsat using a two-measurement MTR experiment, but in practice this value is not known and varies per-pixel across tissues. Although we could use an additionally measured T1 map to do this, this can be time consuming depending on the method used. (Helms et al. 2008, 2010) thus demonstrated that with one additional T1w measurement that uses no MT preparation pulse but has different alpha1/TR than the MTon (MTw) and MToff (PDw) measurements used for MTR, that MTsat can be calculated analytically, and as a bonus a T1 map is also calculated in the process. (This makes sense, as the VFA T1 mapping sequence is often just two SPGR measurements with different alpha values). Thus, using this three measurement protocol (MTw/PDw/T1w, which we’ll call the MTsat protocol), MTsat and T1 (1/R1) can be calculated analytically pixelwise using the following set of equations (derived from Eq. 5):
+
+```{math}
+:label: mtrEq6
+:enumerator:6.6
+\begin{equation}
+MTsat=\left( A_{app}\cdot \frac{\alpha_{MT}}{S_{MT}}-1 \right)\cdot R_{1}\text{TR}_{\text{MT}}-\frac{\alpha_{MT}^{2}}{2}
+\end{equation}
+```
+
+```{math}
+:label: mtrEq7
+:enumerator:6.7
+A_{app}=S_{PD}S_{T_{1}}\frac{\text{TR}_{\text{PD}}\frac{\alpha_{T_{1}}}{\alpha_{PD}}-\text{TR}_{T_{1}}\frac{\alpha_{PD}}{\alpha_{T_{1}}}}{\text{TR}_{\text{PD}}S_{T_{1}}\alpha_{T_{1}}-\text{TR}_{T_{1}}S_{PD}\alpha_{PD}}
+```
+
+```{math}
+:label: mtrEq8
+:enumerator:6.8
+R_{1}=\frac{1}{2}\cdot \frac{\frac{S_{T_{1}}\alpha_{T_{1}}}{\text{TR}_{T_{1}}}-\frac{S_{PD}\alpha_{PD}}{\text{TR}_{PD}}}{\frac{S_{PD}}{\alpha_{PD}}-\frac{S_{T_{1}}}{\alpha_{T_{1}}}}
+```
+
+
+Remember, like MTR, MTsat is calculated from the equations above following the acquisition of the protocol images; no numerical fitting to a model is required. So effectively, the processing time to produce MTsat maps is the same as MTR, which is nearly instantaneous. Also, unlike MTR, which represents the steady-state signal difference due to the MT effect, MTsat represents the fraction of the longitudinal magnetization saturation caused by a single MT pulse within a TR, after a steady-state is achieved. Conventionally, it is represented as a percentage %, so MTsat is typically reported as delta * 100. Note that MTR and MTsat are not expected to have the same values in magnitude despite both being represented as %, as they represent different changes. A major benefit of MTsat is that it’s expected to have less T1-dependency than MTR, as T1 (1/R1) is separately calculated and accounted for in the calculation of MTsat using the equations above. Although the MTsat metric is more robust against T1 changes, it is inherently sensitive to the MT preparation pulse properties (due to what MTsat physically represents, which is the saturation due to the MT pulse), and thus MTsat is not truly considered a fully quantitative metric as its value will change depending on the chosen protocol parameters and is not solely specific to the tissue properties or the field properties. Table 1 lists some MTsat protocol parameters that have been reported in the literature.
+
+:::{table}  Some reported MTsat protocol parameters in the scientific literature.
+:label: mtsatProtocolTable
+:enumerator: 6.3 
+
+<table>
+   <tr>
+      <th colspan="2" align="center"></th>
+      <th colspan="1" align="center">Helms 2008</th>
+      <th colspan="1" align="center">Weiskopf 2013</th>
+      <th colspan="1" align="center">Campbell 2018</th>
+      <th colspan="2" align="center">Karakuzu 2022</th>
+      <th colspan="1" align="center">York 2022</th>
+
+   </tr>
+   <tr>
+      <th colspan="2" align="center"></th>
+      <th colspan="1" align="center">Siemens</th>
+      <th colspan="1" align="center">Siemens</th>
+      <th colspan="1" align="center">Siemens</th>
+      <th colspan="1" align="center">GE</th>
+      <th colspan="1" align="center">Siemens</th>
+      <th colspan="1" align="center">Siemens</th>
+   </tr>
+   <tr>
+      <th colspan="1" rowspan="2" align="left"><bold>T1w</bold></td>
+      <th colspan="1" rowspan="1"align="center">FA</td>
+      <td colspan="1" align="center">15</td>
+      <td colspan="1" align="center">20</td>
+      <td colspan="1" align="center">15</td>
+      <td colspan="1" align="center">20</td>
+      <td colspan="1" align="center">20</td>
+      <td colspan="1" align="center">18</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="left"><bold>TR (ms)</bold></td>
+      <td colspan="1" align="center">30</td>
+      <td colspan="1" align="center">47</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">32</td>
+      <td colspan="1" align="center">32</td>
+   </tr>
+   <tr>
+      <th th colspan="1" align="left"><bold>TE (ms)</bold></td>
+      <td colspan="1" align="center">11</td>
+      <td colspan="1" align="center">8</td>
+      <td colspan="1" align="center">4</td>
+      <td colspan="1" align="center">4</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="left"><bold>Offset (Hz)</bold></td>
+      <td colspan="1" align="center">1500</td>
+      <td colspan="1" align="center">1100</td>
+      <td colspan="1" align="center">1200</td>
+      <td colspan="1" align="center">1200</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="left"><bold>MT pulse shape</bold></td>
+      <td colspan="1" align="center">Gaussian</td>
+      <td colspan="1" align="center">Sinc-Gaussian</td>
+      <td colspan="1" align="center">Fermi</td>
+      <td colspan="1" align="center">Gaussian</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="left"><bold>MT pulse length (ms)</bold></td>
+      <td colspan="1" align="center">7.68</td>
+      <td colspan="1" align="center">15</td>
+      <td colspan="1" align="center">8</td>
+      <td colspan="1" align="center">10</td>
+   </tr>
+   <tr>
+      <th colspan="1" align="left"><bold>MT pulse angle (deg)</bold></td>
+      <td colspan="1" align="center">500</td>
+      <td colspan="1" align="center">620</td>
+      <td colspan="1" align="center">540</td>
+      <td colspan="1" align="center">540</td>
+   </tr>
+</table>
+:::
