@@ -11,7 +11,7 @@ numbering:
     template: Fig. %s
 ---
 
-**Problem 1 ⭑**
+**[Problem 1 ⭑](gh-discussion:4)**
 :  **a.** Using the Plotly figure in the inversion recovery section that displays the signal curves for white matter, gray matter, and CSF, determine the inversion times that null the signal from each of these tissues.
 :  **b.** In practice, you may not have this type of interactive figure at the scanner. Using the three values nulling inversion time values above, can you find an easy way to approximate the nulling time for any arbitrary T1 value?
 :  **c.** Assuming that the images acquired at the MRI scanner displays magnitude-only images, at approximately which inversion time will the white matter and grey matter have the lowest contrast?
