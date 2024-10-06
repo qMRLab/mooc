@@ -42,7 +42,7 @@ Demonstration through trigonometry of how following a small flip angle alpha2 (e
 In our first simulation, we use the qMRLab qMT-SPGR module to simulate steady-state signals from an MTsat experiment on healthy white matter tissues. We utilize tissue parameters from Sled (2011) and an MTsat protocol derived from Karakuzu (2022). 
 
 :::{dropdown} Code
-:open:
+:closed:
 
 ```matlab
 
