@@ -97,8 +97,12 @@ To assess the relationship between MTsat and T1, we conducted simulations by var
 
 :::{figure} #mtsatFig2cell
 :label: mtsatPlot2
-MTR//T1meas/MTsat vs T1 values
+MTR/T1meas/MTsat vs T1 values
 :::
 
 Similarly, we can investigate the sensitivity of MTsat to B1, which varies substantially in the scanner at magnetic field strengths of 3T and above. In the human brain, B1 typically fluctuates the nominal flip angles within a range of -30% to 10% (Boudreau et al. 2017). Figure 5 displays the calculated MTR, MTsat, and T1 values using a range of B1 values +-30% to both the excitation and MT pulses. All three parameters demonstrate high sensitivity to changes in B1. Notably, while T1 is relatively insensitive to minor magnetic field variations, the calculated T1 values may deviate from accuracy. In contrast, the calculated MTsat inherently reflects the actual saturation induced by the MT pulse, which is directly proportional to B1. This relationship is expected since lower B1 values result in lower true MTsat values, which is particularly relevant when attempting to use MTsat as a biomarker for myelin content. To address this issue, an empirical equation (Weiskopf et al. 2013) has been introduced to estimate the MTsat value that would have been measured if B1 values had been uniform across the brain, although it's essential to emphasize that this is not a representation of the actual MTsat values the tissue experiences, but a means to standardize MTsat even in the presence of inhomogeneous B1 maps if/when RF transmit shimming isn’t done.
 
+:::{figure} #mtsatFig3cell
+:label: mtsatPlot3
+MTR/T1meas/MTsat vs B1 values. Click button to compare values with or without B1-correction
+:::
