@@ -251,7 +251,7 @@ legend('1-Mz_{after}/Mz_{before}')
 
 :::
 
-:::{figure} #mtsatAppendixB3cell
+:::{figure} #mtsatAppendixB1cell
 :label: mtsatAppendixPlotB1
 :::
 
