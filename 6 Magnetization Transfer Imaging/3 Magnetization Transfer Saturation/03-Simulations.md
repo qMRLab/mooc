@@ -85,3 +85,13 @@ In line with our previous MTR blog post, we employ the qMRLab qMT simulations to
    </tr>
 </table>
 :::
+
+:::{figure} #mtsatFig1cell
+:label: mtsatPlot1
+MTsat values calculated from fundamental qMT tissue parameters for four different MTR imaging protocols.
+:::
+
+It's worth noting that MTsat values show a relatively wider range in values across protocols and tissue types (1% to 7%) when compared against our similar simulations for MTR (30%-60%). Additionally, note the change in order of magnitude of the values between MTsat (~5%) and MTR (~50%). As is demonstrated in the simulations above, MTsat values can be quite similar in both healthy and diseased tissues if different imaging protocols are used. So, for practical purposes, it's recommended to use and compare MTsat values that were measured using a consistent imaging protocol (which, due to some proprietary pulse sequence designs, means that consistency will be best when using the same MRI vendor and version for the study). Nevertheless, some normalization techniques have been developed to make MTsat more useful in broader contexts.
+
+To assess the relationship between MTsat and T1, we conducted simulations by varying T1 values as inputs for a specific protocol. In Figure 5, we present the resulting data, which includes calculated MTR (based on MT-on and PDw measurements), MTsat, and T1meas values. As observed previously, MTR exhibits a high sensitivity to alterations in the tissue T1 values. Notably, the calculated T1 values closely mirror the input T1 values, evident in the identity line on the graph. MTsat shows minimal sensitivity to changes in T1, as even a ±30% variation in T1 values corresponds to only around a ±2% fluctuation in MTsat values.
+
