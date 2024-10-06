@@ -194,7 +194,7 @@ Remember, like MTR, MTsat is calculated from the equations above following the a
       <td colspan="1" align="center">4</td>
       <td colspan="1" align="center">1.54/4.55/8.49</td>
    </tr>
-      <th colspan="1" rowspan="7" align="left" writing-mode="vertical-lr"><bold>MTw</bold></td>
+      <th colspan="1" rowspan="7" align="left"><bold>MTw</bold></td>
       <th colspan="1" rowspan="1"align="center">FA</td>
       <td colspan="1" align="center">5</td>
       <td colspan="1" align="center">6</td>
