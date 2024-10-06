@@ -212,3 +212,141 @@ Using the qMRLab Bloch simulations, we can calculate the difference in longitudi
 
 Let’s do that.
 
+:::{dropdown} Code
+:closed:
+
+Some modifications of the qMRLab code are needed to output the before/after magnetizations into a file. 
+
+```matlab
+
+clear all, close all, clc
+ 
+%% Load Mz before and after for each TR
+ 
+load('sim2.mat')
+ 
+%% Plot Mz before and after for each TR
+ 
+figure()
+plot(Mz_before, 'r')
+hold on
+plot(Mz_after, 'b')
+legend('Mz_{before}', 'Mz_{after}')
+ 
+figure()
+plot(Mz_before(end-10+1:end), 'r')
+hold on
+plot(Mz_after(end-10+1:end), 'b')
+legend('Mz_{before}', 'Mz_{after}')
+ 
+figure()
+plot(1-Mz_after./Mz_before)
+legend('1-Mz_{after}/Mz_{before}')
+ 
+figure()
+plot((1-Mz_after./Mz_before)*100)
+legend('1-Mz_{after}/Mz_{before}')
+
+```
+
+:::
+
+:::{figure} #mtsatAppendixB3cell
+:label: mtsatAppendixPlotB1
+:::
+
+From these simulations, we find that there is a 0.314% reduction in longitudinal magnetization before/after the MT pulse after a steady state is achieved, which is an order of magnitude smaller than the MTsat value we calculated earlier for this protocol and tissue parameters (~5%). Either the MTsat theory is wrong, or we’re missing something. Revisiting the pulse sequence (Figure 1) and the MTsat model (Figure 2), we notice that while the MTsat model assumes instant excitation for both pulses, in reality the MT pulse is relatively long (~10 ms, Table 1). So, while there is a decoupling between MT saturation and relaxation in the MTsat model (Figure 2), in reality (and in our simulations) there is relaxation occurring during the MT pulse, and we didn’t account for that in the above simulation.
+
+## Simulation 3: T1 Correction During MT Pulse
+
+In our third simulation, we account for the T1 relaxation during the MT pulse. To simplify the calculations, and like Helms did, we’ll assume a decoupling between the MTsaturation and relaxation and calculate the T1 relaxation recovery independently for the duration of the MT pulse. We’ll then remove this contribution from the Mzafter-Mzbefore we calculated earlier (0.314%).
+
+:::{dropdown} Code
+:closed:
+
+Some modifications of the qMRLab code are needed to output the before/after magnetizations into a file. 
+
+```matlab
+
+
+clear all, close all, clc
+ 
+%% Load Mz before and after for each TR
+ 
+load('sim2.mat')
+ 
+%% Plot Mz before and after for each TR
+ 
+figure()
+ 
+figure()
+plot((1-Mz_after./Mz_before)*100)
+hold on
+plot((1-(Mz_after-delta_Mz_T1relax)./Mz_before)*100)
+ 
+legend('MTsat before T1 correction', 'MTsat after T1 correction')
+ 
+figure()
+plot((1-(Mz_after-delta_Mz_T1relax)./Mz_before)*100)
+legend('1-Mz_{after}/Mz_{before}')
+
+```
+
+:::
+
+
+:::{figure} #mtsatAppendixB2cell
+:label: mtsatAppendixPlotB2
+:::
+
+Upon excluding the T1 contribution, the disparity Δ in Mz values prior to and following the MT pulse increased to 2.1%, which is to say, that the MT contribution of this pulse leads to a reduction of Mz by 2.1%. This outcome aligns with the expected behavior, as T1 relaxation perpetually seeks to increase longitudinal magnetization towards its equilibrium value, which inversely impacts Δ. Consequently, the Δ we just calculated within a given TR is now closer to the initial MTsat calculation based on simulated measurements (2.1% compared to 5.34%). Nevertheless, it is apparent that some critical element eludes our simulations since we’ve only calculated only half of the anticipated value using our Bloch simulations.
+
+## Considering Exchange and Relaxation after the MT Pulse
+
+Once again, let’s compare the actual pulse sequence (Figure 1) and the Helms model (Figure 2). In the MTsat model, all of the magnetization exchange contribution is concentrated into the second instantaneous excitation-saturation pulse alpha2. In the actual pulse sequence and in our Bloch simulations (Figure 1), there is exchange during the MT pulse (which we’ve calculated above), but also when the MT pulse is off (because the longitudinal free and restricted magnetizations are not at equilibrium - see Bloch-McConnell equations in our qMT blog post). So, it’s likely that the contribution of MT when the off-resonance pulse is off also needs to be accounted for, if we want to calculate the MTsat value directly within a TR in Bloch simulations. This additional MT exchange between the restricted and free pool likely causes a reduction in longitudinal free relaxation which is encapsulated in the MTsat value (which makes sense, from the diagrams of the two-pool model of MT).
+
+## Simulation 3: MT contribution after the off-resonance pulse
+
+To calculate this second contribution, we will calculate the difference in Mz between the end of the MT pulse and the end of TR (just prior to the next MT pulse), and just like we did earlier, we’ll also subtract the T1 component (assuming that MT and T1 are decoupled during this time). Note that MTsat is the reduction in magnetization relative to its value prior to the MT pulse, so we need to normalize this contribution by the initial Mz (the same one we used for the MT pulse contribution, at the start of TR). Appendix C extends the diagram from Figure 8 to include the MT contribution after the MT pulse, and although more complex, it demonstrates the need for the note in the previous sentence.
+
+:::{dropdown} Code
+:closed:
+
+Some modifications of the qMRLab code are needed to output the before/after magnetizations into a file. 
+
+```matlab
+
+clear all, close all, clc
+ 
+%% Load Mz before and after for each TR
+ 
+load('sim2.mat')
+ 
+%% Plot Mz before and after for each TR
+ 
+figure()
+ 
+figure()
+plot((1-(Mz_after-delta_Mz_T1relax)./Mz_before)*100)
+ 
+hold on
+plot((1-(M0_remainingTR_free-delta_Mz_T1relax_remaining)./Mz_before)*100)
+plot((1-(Mz_after-delta_Mz_T1relax)./Mz_before)*100+(1-(M0_remainingTR_free-delta_Mz_T1relax_remaining)./Mz_before)*100)
+ 
+legend('MTsat contribution from MT pulse event', 'MTsat contribution from cross-relaxation event', 'Total MTsat for TR')
+
+```
+
+:::
+
+:::{figure} #mtsatAppendixB3cell
+:label: mtsatAppendixPlotB3
+:::
+
+These simulations show through Bloch simulations that the sum of the MT contribution during and after the off-resonance pulse (with the T1 relaxation component removed) leads to a reduction in longitudinal magnetization of 5.49%, very close to the 5.34% that was calculated using the Helms model of MTsat in equations 7-9. A slight overestimate still remains, but this difference is likely impossible to consolidate, as there will always be a difference between the actual MT exchange (where both MT and T1 are counteracting each other at all times) and the modeled MTsat exchange (where instantaneous pulses are assumed, so the MT and T1 contribution are completely separated in this theory).These simulations should however show that the MTsat contribution is not restricted to only the difference in Mz resulting after the effects of the MT pulse, but also to the cross-relaxation occurring between pools in the absence of the MT pulse.
+
+## Interpreting MTSat
+
+In conclusion, our reevaluation of MTSat suggests that it does not model solely the fractional saturation due to the MT pulse within a single TR, as conventionally understood. Instead, MTsat appears to represent the fractional saturation arising from the entire MT contribution during a TR, that is to say, both the MT pulse and the subsequent MT exchange between the two pools that takes place after following the off-resonance pulse. This subtle reinterpretation may challenge existing interpretations, as a greater contribution results from the exchange after the MT preparation pulse due to cross-relaxation caused by the perturbing MT pulse. This analysis highlights the power of open-source qMRI tools like qMRLab in fostering deeper understanding within the field.
+
+Through a meticulous examination of MTSat, we encourage the scientific community to engage in further discussions and research, potentially leading to more refined models and insights into this crucial aspect of MRI physics in modelling tissue components that are difficult to measure directly, such as the semi-solid myelin sheets.
