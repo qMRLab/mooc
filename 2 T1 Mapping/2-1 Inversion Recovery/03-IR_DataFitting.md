@@ -9,9 +9,9 @@ authors:
 numbering:
   heading_2: false
   figure:
-    template: Figure 2.%s
+    template: Figure %s
   equation:
-    template: Eq. 2.%s
+    template: Eq. %s
 ---
 
 Several factors impact the choice of the [inversion recovery](wiki:Inversion_recovery) fitting algorithm.  If only magnitude images are available, then a polarity-inversion is often implemented to restore the non-exponential magnitude curves ([](#irPlot2)) into the [exponential](wiki:Exponential_function) form ([](#irPlot1)). This process is sensitive to noise due to the [Rician](wiki:Rice_distribution) noise creating a non-zero level at the signal null. If phase data is also available, then a phase term must be added to the fitting equation {cite:p}`Barral2010-qm`. [Equation 2.3](#irEq3) must only be used to fit data for the long TR regime (TR > 5T<sub>1</sub>), which in practice is rarely satisfied for all tissues in subjects.

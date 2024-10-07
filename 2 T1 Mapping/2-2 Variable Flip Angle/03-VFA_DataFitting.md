@@ -9,9 +9,9 @@ authors:
 numbering:
   heading_2: true
   figure:
-    template: Figure 2.%s
+    template: Figure %s
   equation:
-    template: Eq. 2.%s
+    template: Eq. %s
 ---
 
 At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([T<sub>1</sub>](wiki:Spin–lattice_relaxation) and _M_<sub>0</sub>). Although this is a valid way of estimating [T<sub>1</sub>](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form <b>y</b> = m<b>x</b>+b {cite:p}`Gupta1977`:

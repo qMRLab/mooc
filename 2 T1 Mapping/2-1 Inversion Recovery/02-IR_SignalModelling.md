@@ -9,9 +9,9 @@ authors:
 numbering:
   heading_2: false
   figure:
-    template: Figure 2.%s
+    template: Figure %s
   equation:
-    template: Eq. 2.%s
+    template: Eq. %s
 ---
 
 The steady-state longitudinal magnetization of an [inversion recovery](wiki:Inversion_recovery) experiment can be derived from the [Bloch equations](wiki:Bloch_equations) for the pulse sequence {θ<sub>180</sub> – TI – θ<sub>90</sub> – (TR-TI)}, and is given by:

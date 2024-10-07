@@ -9,9 +9,9 @@ authors:
 numbering:
   heading_2: false
   figure:
-    template: Figure 2.%s
+    template: Figure %s
   equation:
-    template: Eq. 2.%s
+    template: Eq. %s
 ---
 
 The conventional [inversion recovery](wiki:Inversion_recovery) experiment is considered the gold standard T<sub>1</sub> mapping technique for several reasons: 

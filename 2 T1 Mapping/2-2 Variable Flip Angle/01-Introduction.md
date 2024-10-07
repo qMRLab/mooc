@@ -9,9 +9,9 @@ authors:
 numbering:
   heading_2: true
   figure:
-    template: Figure 2.%s
+    template: Figure %s
   equation:
-    template: Eq. 2.%s
+    template: Eq. %s
 ---
 
 ## Variable Flip Angle T<sub>1</sub> Mapping
