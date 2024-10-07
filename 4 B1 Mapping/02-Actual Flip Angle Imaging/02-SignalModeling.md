@@ -38,7 +38,7 @@ The magnetization of an AFI experiment can be modeled under steady-state conditi
 
 Mz1,2 is the longitudinal magnetization of both pulses, M0 is the magnetization at thermal equilibrium, TR1 is the delay time after the first pulse, TR2 is the delay time after the second identical pulse (Figure 1), and θ is the excitation flip angle. The steady-state longitudinal magnetization Mz curves for different T1 values for a range of θn and TR values are shown in Figure 2.
 
-```{figure} img/plot1.png
+```{figure} #afiFig1cell
 :label: afiPlot1
 
 Longitudinal magnetization before the first radiofrequency pulse (Equation 1, solid lines) and before the second identical pulse (Equation 2, dashed lines) for three different T1 values.
