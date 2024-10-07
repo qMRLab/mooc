@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 :::{attention}
@@ -18,11 +20,11 @@ numbering:
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
-Let’s revisit our initial B1 maps in Figure 1 and see how they respond to the filters we’ve explored in the previous section. The double angle B1 maps were mostly impacted by noise and structural T1 patterns, AFI had some artifacts that were caused by Gibbs ringing in the raw images, and the Bloch-Siegert B1 map had an artifact caused by a phase pole at the end of a fringe line. Figure 9 shows each of the B1 map and the filtered maps using the median, Gaussian, and spline filtering techniques.
+Let’s revisit our initial B1 maps in [](filtPlot1) and see how they respond to the filters we’ve explored in the previous section. The double angle B1 maps were mostly impacted by noise and structural T1 patterns, AFI had some artifacts that were caused by Gibbs ringing in the raw images, and the Bloch-Siegert B1 map had an artifact caused by a phase pole at the end of a fringe line. [](filtPlot9) shows each of the B1 map and the filtered maps using the median, Gaussian, and spline filtering techniques.
 
 :::{figure} #filtFig9cell
 :label: filtPlot9
-:enumerator: 4.9
+:enumerator: 4.22
 Filtered B1 maps
 :::
 

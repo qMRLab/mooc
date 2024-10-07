@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 :::{attention}
@@ -73,7 +75,7 @@ Using a well known trigonometry identity (see [Appendix A](#daAppendixA) for der
 \end{equation}
 ```
 
-We can simplify Eq. 4.5,
+We can simplify [](#daEq5),
 
 ```{math}
 :label: daEq6
@@ -119,7 +121,7 @@ B_{1}=\frac{\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)}{\alpha_{
 B1 computed from analytical GRE equations for DA sequence
 :::
 
-This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on B1. Figure 3 explores this using Bloch simulations
+This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on B1. [](daPlot2) explores this using Bloch simulations
 
 :::{figure} #daFig2cell
 :label: daPlot2

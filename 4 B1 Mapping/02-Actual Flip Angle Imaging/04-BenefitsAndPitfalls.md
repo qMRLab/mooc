@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 B1 mapping is of interest for diverse MRI applications, and several mapping techniques have been developed. The DAM method consists of acquiring two scans at two different flip angles. To avoid the dependence of the signal on T1, long repetition times are required to allow the recovery of the longitudinal magnetization between pulses (Yarnykh 2007; Insko & Bolinger 1993). The AFI method overcomes this practical limitation by repeating the pulse sequence at a fast rate to achieve a pulsed state of magnetization and shorter time delays between pulses. In addition, due to scan-time constraints, B1 mapping methods are often implemented in 2D (Chavez & Stanisz 2011). However, the accuracy of the measurements of 2D B1 mapping techniques is compromised by the slice profile effects due to the problem of nonuniform excitation across slices (Yarnykh 2007; Chavez & Stanisz 2011). The AFI method on the other hand, adresses this issue using a fast 3D implementation leading to scans with an excellent anatomical coverage in clinically feasible times, with an increase in signal-to-noise ratio compared to 2D multislice acquisitions.
