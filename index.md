@@ -11,9 +11,9 @@ date: 2024-07-25
 
 :::{topic} Contributions
 :class: bg-blue-300/30
-**Authors**: Agah Karakuzu, Mathieu Boudreau, Alexandre Dastous, Samuelle Stonge, Juan Velázquez-Reyes
+**Authors**: Mathieu Boudreau, Alexandre Dastous, Agah Karakuzu, Katy Keenan, Nikola Stikov, Samuelle Stonge, Juan Velázquez-Reyes
 
-**Editors**: Benjamin De Leener, Eva-Alonso Ortiz, Julien Cohen-Adad, Nikola Stikov
+**Editors**: Mathieu Boudreau, Julien Cohen-Adad, Benjamin De Leener, Eva-Alonso Ortiz, Nikola Stikov
 :::
 
 ## About 
