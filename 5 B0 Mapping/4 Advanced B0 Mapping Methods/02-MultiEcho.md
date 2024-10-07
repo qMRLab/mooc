@@ -7,16 +7,18 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Multi-echo field mapping (three or more echoes) makes use of more echo times than the dual-echo standard field map. With more time points, the field maps can be expected to be more accurate. All benefits and pitfalls of section 4.2 apply in multi-echo field mapping, with the added criteria that the later echoes should have enough signal to provide a benefit to the technique. As seen in section 4.2, the phase generally evolves linearly with respect to time. Another way to look at B0 field mapping is realizing that we are looking for how much the phase changes per unit time (i.e.: the slope).
 
 ```{math}
-:label: b0Eq7
-:enumerator:5.7
+:label: b0Eq9
+:enumerator:5.9
 \begin{equation}
 \phi\left( \textbf{r}\text{,}t \right)=\phi_{0}\left( \textbf{r}\right)+\gamma \Delta B_{0}\left( \textbf{r} \right)\cdot t
 \end{equation}

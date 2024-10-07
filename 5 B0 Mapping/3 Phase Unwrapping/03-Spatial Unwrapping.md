@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Spatial unwrapping uses the spatial characteristics of images to unwrap the data. The wrapped image should vary smoothly. Spatial unwrapping typically uses a  region-growing algorithm which identifies and rectifies where there are offsets greater than 2. An example of a 1D signal of a linearly evolving phase is shown in Fig. 2 to illustrate the phase that we would want to recover from the wrapped phase that would be acquired through space.

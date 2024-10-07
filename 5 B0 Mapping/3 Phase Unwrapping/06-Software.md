@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Laplacian unwrapping can be very robust even with highly wrapped images but does so at the expense of accuracy. It typically unwraps with an error of low spatial variability. This can be a perfectly reasonable unwrapping technique for some applications such as QSM where the background field (low spatial variability) is subsequently removed. However, in applications such as shimming or qMRI where the accuracy is important, Laplacian unwrapping is not recommended.

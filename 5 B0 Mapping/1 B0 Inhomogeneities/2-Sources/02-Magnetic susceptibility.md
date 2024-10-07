@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Materials have a property called magnetic susceptibility () that reflects their ability to become magnetized in response to an external magnetic field [7]. The change in magnetic field Bz (the subscript “z” is shown to make it explicit that we are referring to the component parallel to the B0 field) is proportional to the magnetic susceptibility value, the magnetic field strength, and can be affected by the geometry and location of the tissues. It can be modeled as a convolution of the difference in magnetic susceptibility  with the component parallel to the magnetic field induced by a unit magnetic dipole (d=(3cos2()-1)4r3) in spherical coordinates where r is the position vector and  is the angle with B0 [8]. 

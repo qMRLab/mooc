@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 In the ideal case, spins rotate at the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession), shown in blue in Fig. 1. In the presence of field inhomogeneities, the frequency of the spins (shown in red) is different and is proportional to the field inhomogeneities. Both the laboratory and rotating frame of reference are shown. Importantly, note that the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) phase appears stationary in the rotating frame of reference. 
@@ -64,8 +66,8 @@ As phase changes linearly with time (t) and with the field offset (B0), it is po
 where TE1 and TE2 are the echo times, and  TE = TE2- TE1. To compute the phase offset , phase subtraction is necessary. The complex difference can be used to keep the phase between - to , although other phase difference techniques are also possible.
 
 ```{math}
-:label: b0Eq5
-:enumerator:5.5
+:label: b0Eq6
+:enumerator:5.6
 \begin{equation}
 \Delta\phi\left( \textbf{r},\Delta\text{TE} \right)=\angle \left( \text{e}^{i\phi\left( \textbf{r}\text{,TE}_{2} \right)} \right)\cdot \left( \text{e}^{-i\phi\left( \textbf{r}\text{,TE}_{1} \right)} \right)
 \end{equation}

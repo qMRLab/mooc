@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 A brain dataset is used to show a concrete example of a field map that could be acquired in practice. Fig 4. shows two phase images where phase accumulation is shown due to frequency offsets that vary spatially. As mentioned previously, phase wraps are visible where phase transitions from - to  and will be discussed in more detail in the next chapter. The phase difference and B0 field maps are also shown. Note that taking the phase difference eliminates the wraps in this example, however, there could be residual wraps when the field is more inhomogeneous. 

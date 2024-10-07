@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 The main magnetic field, also called the B0 field, plays a crucial role in MRI. It dictates the precessional frequency of the spins and sets-up the bulk magnetization, which plays an important role in the image signal-to-noise ratio. Moreover, the radio frequency coils, tuned to the B0 field, are responsible for flipping the spins in the transverse plane and for acquiring the signal. However, imaging reconstruction techniques assume a perfectly homogeneous B0 field to reconstruct the signal from k-space data. An inhomogeneous B0 field can lead to image artifacts such as signal loss, distortions [1], poor fat saturation [2] and many other image artifacts. In extreme cases, it can completely hinder the ability to create an image. B0 inhomogeneities are also problematic for MR spectroscopy (MRS), because they widen the spectral linewidth.

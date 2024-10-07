@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Phase unwrapping stems from the fact that phase can only be measured over the range of - to . If the measured phase crosses from - to , a “wrap” is observed as a 2 jump where in reality, the phase was smoothly varying. In the context of MRI, phase wrapping occurs when measuring phase data that varies by more than 2 within the region of interest. In reality, the number of rotations that a spin can have done is not limited to a single revolution. To accurately recover the true phase information, unwrapping is necessary.

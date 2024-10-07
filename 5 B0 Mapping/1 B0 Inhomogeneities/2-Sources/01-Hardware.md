@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Although scanner manufacturers try to make magnets that are as homogeneous as possible, they are far from perfect. The manufacturing process requires many kilometers of superconducting wire to be wound to create the main magnet and can lead to inhomogeneities due to manufacturing tolerances. Moreover, large metal objects near the scanner can interact with the field created by the scanner and impact the resulting field within the scanner. This is a more important problem with higher field strength. During the installation process, the empty bore is homogenized in a process called passive shimming. During this process, small ferromagnetic pieces are introduced in the scanner at optimized locations to produce a field that counteracts the inhomogeneities. Hardware inhomogeneities are relatively small (less than 1 ppm [3]).

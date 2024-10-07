@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 To excite the spins in the transverse plane, a carrier frequency tuned to the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) is used by the transmit coil. If the frequency of the spins does not match the excitation frequency, it results in a suboptimal tip of the spins in the transverse plane. If the frequency of the spins varies across the ROI, the flip angle is affected differently across the image [12].
 

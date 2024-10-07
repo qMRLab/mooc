@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 
@@ -17,8 +19,8 @@ Temporal unwrapping uses multiple time points (>=2) to unwrap the image. By acqu
 
 
 ```{math}
-:label: b0Eq7
-:enumerator:5.7
+:label: b0Eq8
+:enumerator:5.8
 \begin{equation}
 \Delta f_{0}\left( \textbf{r} \right)=\frac{\gamma}{2\pi}\Delta B_{0}\left( \textbf{r}\text{,}\Delta \text{TE} \right)=\frac{1}{2\pi}\frac{\Delta\phi\left( \textbf{r}\text{,}\Delta \text{TE} \right)}{\Delta \text{TE} }
 \end{equation}
@@ -31,8 +33,7 @@ Table 1: Maximum echo time required to respect the Nyquist criteria for differen
 
 ```{list-table} This table title
 :header-rows: 1
-:label: example-table
-
+:label: b0Table1
 * - B0 (T)
   - deltaTE (ms)
 * - 0.064

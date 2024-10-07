@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 When acquiring a field mapping sequence, many parameters will affect the resulting images. A minimum of two phase images is required to compute B0 field maps, as the initial phase 0(x,y,z) is generally not known and non-zero. Multi-echo field mapping with more than two echoes will be discussed in section 4.3. 
@@ -21,8 +23,8 @@ When acquiring multiple echoes, the readout direction of the even echoes can be 
 The standard deviation of the phase (σphase) is inversely proportional to the SNR of the magnitude image (SNRmag) [18].
 
 ```{math}
-:label: b0Eq6
-:enumerator:5.6
+:label: b0Eq7
+:enumerator:5.7
 \begin{equation}
 \sigma_{phase}=\frac{1}{\text{SNR}_{mag}}
 \end{equation}
