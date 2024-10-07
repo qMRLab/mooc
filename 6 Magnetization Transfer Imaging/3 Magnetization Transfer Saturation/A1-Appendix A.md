@@ -24,13 +24,16 @@ This content of this section is still a work-in-progress and has not been proofr
 From the MTR protocol in Brown 2013 of the MTR blog post, 1=15 deg and TR = 0.03 s, so assuming a T1 at 1.5T (field strength that Brown used) of 0.55 s in healthy WM, so R1 = 1.8, we can calculate the signal from [5] of an experiment with no MT pulse (alpha2 = 0).
 
 
+
 ```{math}
 :label: mtrEqA1
 :enumerated: false
 \begin{equation}
+\\
 S_{0}=0.087\frac{1.8\cdot 0.03}{\frac{0.087^{2}}{2}+0+1.8\cdot 0.03}A \\
 \end{equation}
 ```
+
 
 ```{math}
 :label: mtrEqA2
@@ -47,6 +50,7 @@ For an MT-weighted image, we get an equation as we don’t know alpha2,
 :label: mtrEqA3
 :enumerated: false
 \begin{equation}
+\\
 S_{MT}=0.087\frac{1.8\cdot 0.03}{\frac{0.087^{2}}{2}+\frac{\alpha_{2}^{2}}{2}+1.8\cdot 0.03}A
 \end{equation}
 ```
