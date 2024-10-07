@@ -20,8 +20,7 @@ MP2RAGE is an extension of the conventional MPRAGE pulse sequence widely used in
 
 ```{figure} #mp2rageFig1cell
 :label: mp2rageplot1
-:enumerator: 2.14
-
+:enumerator: 2.15
 _T_{sub}`1`lookup table as a function of _T_{sub}`1` and _S_{sub}`MP2RAGE` value. Inversion times used to acquire this magnitude image dataset were 800 ms and 2700 ms, the flip angles were 4° and 5° (respectively),  TR{sub}`MP2RAGE` = 6000 ms, and TR = 6.7 ms. The code that was used were shared open sourced by the authors of the original MP2RAGE paper (<a href="url">https://github.com/JosePMarques/MP2RAGE-related-scripts</a>).
 ```
 
@@ -30,7 +29,7 @@ To produce _T_{sub}`1` maps with good accuracy and precision using dictionary-ba
 
 ```{figure} #mp2rageFig2cell
 :label: mp2rageplot2
-:enumerator: 2.15
+:enumerator: 2.16
 Example MP2RAGE dataset of a healthy adult brain at 7T and _T_{sub}`1` map. Inversion times used to acquire this magnitude image dataset were 800 ms and 2700 ms, the flip angles were 4° and 5° (respectively),  TR{sub}`MP2RAGE` = 6000 ms, and TR = 6.7 ms. The dataset and code that was used were shared open sourced by the authors of the original MP2RAGE paper (<a href="url">https://github.com/JosePMarques/MP2RAGE-related-scripts</a>).
 ```
 
