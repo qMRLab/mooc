@@ -18,7 +18,7 @@ Myelin water fraction (MWF) imaging demonstrates the clinical relevance of multi
 
 Conventional T2-weighted images often display hyperintense lesions in MS patients. Unfortunately, these hyperintensities lack specificity for the disease and can be indistinguishable from other biological phenomena such as inflammation, edema and axonal loss (Alonso-Ortiz et al., 2015; J. Lee et al., 2021). MWF holds promise as a potential biomarker for identifying early microstructural changes in myelin, which could improve our understanding of demyelinating diseases such as MS, facilitating both early diagnosis and monitoring of disease progression. 
 
-As described by [](t2Eq8), MWF represents the proportion of the MRI signal attributed to myelin water relative to the total water content in the brain. This total water content includes myelin water (MW) and intra/extracellular water (IEW), also referred to as axonal water (J. Lee et al., 2021). 
+As described by [](#t2Eq8), MWF represents the proportion of the MRI signal attributed to myelin water relative to the total water content in the brain. This total water content includes myelin water (MW) and intra/extracellular water (IEW), also referred to as axonal water (J. Lee et al., 2021). 
 
 ```{math}
 :label: t2Eq8

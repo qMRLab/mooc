@@ -15,12 +15,10 @@ numbering:
 ---
 
 :::{attention}
-:class: attentionDraft
-:name: attentionDraft
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
-Let’s revisit our initial B1 maps in [](filtPlot1) and see how they respond to the filters we’ve explored in the previous section. The double angle B1 maps were mostly impacted by noise and structural T1 patterns, AFI had some artifacts that were caused by Gibbs ringing in the raw images, and the Bloch-Siegert B1 map had an artifact caused by a phase pole at the end of a fringe line. [](filtPlot9) shows each of the B1 map and the filtered maps using the median, Gaussian, and spline filtering techniques.
+Let’s revisit our initial B1 maps in [](#filtPlot1) and see how they respond to the filters we’ve explored in the previous section. The double angle B1 maps were mostly impacted by noise and structural T1 patterns, AFI had some artifacts that were caused by Gibbs ringing in the raw images, and the Bloch-Siegert B1 map had an artifact caused by a phase pole at the end of a fringe line. [](#filtPlot9) shows each of the B1 map and the filtered maps using the median, Gaussian, and spline filtering techniques.
 
 :::{figure} #filtFig9cell
 :label: filtPlot9

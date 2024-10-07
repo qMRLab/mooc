@@ -16,8 +16,6 @@ numbering:
 ---
 
 :::{attention}
-:class: attentionDraft
-:name: attentionDraft
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 

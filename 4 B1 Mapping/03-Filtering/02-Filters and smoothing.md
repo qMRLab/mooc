@@ -15,8 +15,6 @@ numbering:
 ---
 
 :::{attention}
-:class: attentionDraft
-:name: attentionDraft
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
@@ -24,7 +22,7 @@ There are two main ways that field maps are smoothened in practice: filters and 
 
 We’ll begin by providing a very brief overview of some key filtering properties, then move on to some illustrative 1D examples related to MRI situations in the next section before finally returning to their applications in actual B1 maps.
 
-Filtering is presented as a convolution process to produce an output that is smoother, meaning less sharp edges. A convolution is the multiplication of a kernel (a predetermined function or property, such as the mean, median, Gaussian function, etc) that is shifted at each point of the signal or image, and the summed value of this multiplication is assigned to the time or spatial point where it was applied. [](filtPlot3) illustrates this for the mean using a three-position mean as a kernel:
+Filtering is presented as a convolution process to produce an output that is smoother, meaning less sharp edges. A convolution is the multiplication of a kernel (a predetermined function or property, such as the mean, median, Gaussian function, etc) that is shifted at each point of the signal or image, and the summed value of this multiplication is assigned to the time or spatial point where it was applied. [](#filtPlot3) illustrates this for the mean using a three-position mean as a kernel:
 
 
 :::{figure} #filtFig2cell
@@ -55,7 +53,7 @@ f\left( x \right)=\frac{1}{\sqrt{2\pi\sigma^{2}}}\text{e}^{-\frac{\left( x-x_{o}
 ```
 
 
-where x0 is the center position of the distribution, and  is a measure of the width. The convolution using this function with a 9-point sample for different widths is shown in [](filtPlot3).
+where x0 is the center position of the distribution, and  is a measure of the width. The convolution using this function with a 9-point sample for different widths is shown in [](#filtPlot3).
 
 :::{figure} #filtFig3cell
 :label: filtPlot3

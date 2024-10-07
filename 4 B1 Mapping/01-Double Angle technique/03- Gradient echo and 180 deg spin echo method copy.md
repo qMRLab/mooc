@@ -15,8 +15,6 @@ numbering:
 ---
 
 :::{attention}
-:class: attentionDraft
-:name: attentionDraft
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
@@ -121,7 +119,7 @@ B_{1}=\frac{\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)}{\alpha_{
 B1 computed from analytical GRE equations for DA sequence
 :::
 
-This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on B1. [](daPlot2) explores this using Bloch simulations
+This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on B1. [](#daPlot2) explores this using Bloch simulations
 
 :::{figure} #daFig2cell
 :label: daPlot2
