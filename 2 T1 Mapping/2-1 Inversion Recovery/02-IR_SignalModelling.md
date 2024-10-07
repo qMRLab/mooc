@@ -18,6 +18,7 @@ The steady-state longitudinal magnetization of an [inversion recovery](wiki:Inve
 
 ```{math}
 :label: irEq1
+:enumerator:2.1
 \begin{equation}
 M_{z}(TI) = M_0 \frac{1-\text{cos}(\theta_{180})e^{- \frac{TR}{T_1}} -[1-\text{cos}(\theta_{180})]e^{- \frac{TI}{T_1}}}{1 - \text{cos}(\theta_{180}) \text{cos}(\theta_{90}) e^{- \frac{TR}{T_1}}}
 \end{equation}
@@ -27,15 +28,17 @@ where M<sub>z</sub> is the longitudinal magnetization prior to the θ<sub>90</su
 
 ```{math}
 :label: irEq2
+:enumerator:2.2
 \begin{equation}
 M_z(TI) = C(1-2e^{- \frac{TI}{T_1}} + e^{- \frac{TR}{T_1}})
 \end{equation}
 ```
 
-where the first three terms and the denominator of [](#irEq1) have been grouped together into the constant C. If the experiment is designed such that TR is long enough to allow for full relaxation of the magnetization (TR > 5T<sub>1</sub>), we can do an additional approximation by dropping the last term in [Equation 2.1](#irEq2):
+where the first three terms and the denominator of [](#irEq1) have been grouped together into the constant C. If the experiment is designed such that TR is long enough to allow for full relaxation of the magnetization (TR > 5T<sub>1</sub>), we can do an additional approximation by dropping the last term in [](#irEq2):
 
 ```{math}
 :label: irEq3
+:enumerator:2.3
 \begin{equation}
 M_z(TI) = C(1-2e^{- \frac{TI}{T_1}})
 \end{equation}
@@ -45,6 +48,7 @@ The simplicity of the signal model described by [Equation 2.3](#irEq3), both in 
 
 :::{figure} #fig2p2cell
 :label: irPlot1
+:enumerator: 2.2
 Inversion recovery curves ([Equation 2.2](#irEq2)) for three different T1 values, approximating the main types of tissue in the brain.
 :::
 
@@ -52,6 +56,7 @@ Practically, [Equation 2.1](#irEq1) is the better choice for simulating the sign
 
 :::{figure} #fig2p3cell
 :label: irPlot2
+:enumerator: 2.3
 Signal recovery curves simulated using [Equation 2.3](#irEq3) (solid) and [Equation 2.1](#irEq1) (dotted) with a TR = 5 s for T1 values ranging between 0.25 to 5 s.
 :::
 

@@ -7,8 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure 2.%s
+  equation:
+    template: Eq. 2.%s
 ---
 
 The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the [Bloch equations](wiki:Bloch_equations) for the spoiled [gradient echo](wiki:Gradient_echo) pulse sequence {<i>θ<sub>n</sub></i>–TR}:

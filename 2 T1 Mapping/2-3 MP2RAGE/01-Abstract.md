@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure 2.%s
+  equation:
+    template: Eq. 2.%s
 ---
 
 Dictionary-based MRI techniques capable of generating T<sub>1</sub> maps are increasing in popularity, due to their growing availability on clinical scanners, rapid scan times, and fast post-processing computation time, thus making quantitative T<sub>1</sub> mapping accessible for clinical applications. Generally speaking, dictionary-based quantitative MRI techniques use numerical dictionaries—databases of pre-calculated signal values simulated for a wide range of tissue and protocol combinations—during the image reconstruction or post-processing stages. Popular examples of dictionary-based techniques that have been applied to T<sub>1</sub> mapping are MR Fingerprinting (MRF) (Ma et al. 2013), certain flavours of compressed sensing (CS) (Doneva et al. 2010; Li et al. 2012), and Magnetization Prepared 2 Rapid Acquisition Gradient Echoes (MP2RAGE) (Marques et al. 2010). Dictionary-based techniques can usually be classified into one of two categories: techniques that use information redundancy from parametric data to assist in accelerated imaging (e.g. CS, MRF), or those that use dictionaries to estimate quantitative maps using the MR images after reconstruction. Because MP2RAGE is a technique implemented primarily for T<sub>1</sub> mapping, and it is becoming increasingly available as a standard pulse sequence on many MRI systems, the remainder of this section will focus solely on this technique. However, many concepts discussed are shared by other dictionary-based techniques.

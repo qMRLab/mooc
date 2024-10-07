@@ -7,8 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure 2.%s
+  equation:
+    template: Eq. 2.%s
 ---
 
 Several factors impact the choice of the [inversion recovery](wiki:Inversion_recovery) fitting algorithm.  If only magnitude images are available, then a polarity-inversion is often implemented to restore the non-exponential magnitude curves ([](#irPlot2)) into the [exponential](wiki:Exponential_function) form ([](#irPlot1)). This process is sensitive to noise due to the [Rician](wiki:Rice_distribution) noise creating a non-zero level at the signal null. If phase data is also available, then a phase term must be added to the fitting equation {cite:p}`Barral2010-qm`. [Equation 2.3](#irEq3) must only be used to fit data for the long TR regime (TR > 5T<sub>1</sub>), which in practice is rarely satisfied for all tissues in subjects.
@@ -28,7 +31,7 @@ where <i>a</i> and <i>b</i> are complex values. If magnitude-only data is availa
 
 :::{figure} #fig2p4cell
 :label: irPlot3
-:enumerator: 1.4
+:enumerator: 2.4
 Fitting comparison of simulated data (blue markers) with T_1 = 1 s and TR = 1.5 to 5 s, using fitted using RD-NLS & [Equation 2.4](#irEq4) (green) and [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) & [Equation 2.2](#irEq2) (orange, long TR approximation).
 :::
 

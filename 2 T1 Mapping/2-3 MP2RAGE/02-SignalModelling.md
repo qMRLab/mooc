@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure 2.%s
+  equation:
+    template: Eq. 2.%s
 ---
 
 Prior to considering the full signal equations, we will first introduce the equation for the MP2RAGE parameter (<i>S</i><sub>MP2RAGE</sub>) that is calculated in addition to the T<sub>1</sub> map. For complex data (magnitude and phase, or real and imaginary), the MP2RAGE signal (<i>S</i><sub>MP2RAGE</sub>) is calculated from the images acquired at two TIs (<i>S</i><sub>GRE,TI1</sub> and <i>S</i><sub>GRE,TI2</sub>) using the following expression (Marques et al. 2010):
