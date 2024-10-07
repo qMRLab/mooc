@@ -7,7 +7,7 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: true
+  heading_2: false
   figure:
     template: Figure 2.%s
   equation:
