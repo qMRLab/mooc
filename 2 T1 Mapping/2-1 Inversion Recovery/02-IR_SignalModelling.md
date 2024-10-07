@@ -7,15 +7,17 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
+  heading_2: false
   figure:
-    template: Fig. %s
+    template: Figure 2.%s
+  equation:
+    template: Eq. 2.%s
 ---
 
 The steady-state longitudinal magnetization of an [inversion recovery](wiki:Inversion_recovery) experiment can be derived from the [Bloch equations](wiki:Bloch_equations) for the pulse sequence {θ<sub>180</sub> – TI – θ<sub>90</sub> – (TR-TI)}, and is given by:
 
 ```{math}
 :label: irEq1
-:enumerator:2.1
 \begin{equation}
 M_{z}(TI) = M_0 \frac{1-\text{cos}(\theta_{180})e^{- \frac{TR}{T_1}} -[1-\text{cos}(\theta_{180})]e^{- \frac{TI}{T_1}}}{1 - \text{cos}(\theta_{180}) \text{cos}(\theta_{90}) e^{- \frac{TR}{T_1}}}
 \end{equation}
@@ -25,7 +27,6 @@ where M<sub>z</sub> is the longitudinal magnetization prior to the θ<sub>90</su
 
 ```{math}
 :label: irEq2
-:enumerator:2.2
 \begin{equation}
 M_z(TI) = C(1-2e^{- \frac{TI}{T_1}} + e^{- \frac{TR}{T_1}})
 \end{equation}
@@ -35,7 +36,6 @@ where the first three terms and the denominator of [Equation 2.1](#irEq1) have b
 
 ```{math}
 :label: irEq3
-:enumerator:2.3
 \begin{equation}
 M_z(TI) = C(1-2e^{- \frac{TI}{T_1}})
 \end{equation}
@@ -45,7 +45,6 @@ The simplicity of the signal model described by [Equation 2.3](#irEq3), both in 
 
 :::{figure} #fig2p2cell
 :label: irPlot1
-:enumerator: 2.2
 Inversion recovery curves ([Equation 2.2](#irEq2)) for three different T1 values, approximating the main types of tissue in the brain.
 :::
 
@@ -53,7 +52,6 @@ Practically, [Equation 2.1](#irEq1) is the better choice for simulating the sign
 
 :::{figure} #fig2p3cell
 :label: irPlot2
-:enumerator: 2.3
 Signal recovery curves simulated using [Equation 2.3](#irEq3) (solid) and [Equation 2.1](#irEq1) (dotted) with a TR = 5 s for T1 values ranging between 0.25 to 5 s.
 :::
 

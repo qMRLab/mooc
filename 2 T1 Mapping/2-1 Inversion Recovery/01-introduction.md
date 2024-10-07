@@ -9,7 +9,9 @@ authors:
 numbering:
   heading_2: false
   figure:
-    template: Fig. %s
+    template: Figure 2.%s
+  equation:
+    template: Eq. 2.%s
 ---
 
 ## Inversion Recovery T<sub>1</sub> Mapping
@@ -20,6 +22,5 @@ Widely considered the gold standard for [T<sub>1</sub>](wiki:Spin–lattice_rela
 
 ```{figure} img/ir_pulsesequences.svg
 :label: irFig1
-:enumerator: 2.1  
 Pulse sequence of an inversion recovery experiment.
 ```
