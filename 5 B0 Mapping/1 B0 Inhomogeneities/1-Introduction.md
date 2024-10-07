@@ -28,7 +28,7 @@ When a subject is introduced in the scanner, the static B0 field can be rendered
 
 where f, f0 and f represent the actual precessional frequency, the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) and the difference between current and the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) (f-f0=f) respectively. B, B0 and B all have similar interpretations as  f, f0 and f but are in units of field strength (T). The relationship between frequency and field strength can be found using the well known [Larmor equation](https://en.wikipedia.org/wiki/Larmor_precession) (f=B2). ppm is the field offset in ppm.
 
-[](#fig5p1cell) shows typical brain magnitude, phase, and B0 field map images of a brain in a 3 T scanner.
+[](#b0Plot1) shows typical brain magnitude, phase, and B0 field map images of a brain in a 3 T scanner.
 
 :::{figure} #fig5p1cell
 :label: b0Plot1

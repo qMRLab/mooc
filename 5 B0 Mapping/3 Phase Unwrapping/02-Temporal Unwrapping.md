@@ -51,7 +51,7 @@ If we assume a maximum field offset f0,max of 1 ppm at 3T (~127 MHz), we can cal
 
 If a longer TE is selected, or if the inhomogeneities are bigger than originally anticipated in some parts of the image, the phase difference image could also have wraps, and spatial unwrapping would be necessary.
 
-Temporal unwrapping can also be performed without phase difference. [](#fig5p10cell) shows the phase of a voxel acquired at four echo times in blue. Note that the last echo time is wrapped (i.e.: the phase rotated by more than 2 and “wrapped” to the positive side). With the assumption that phase does not vary by more than 2, we can unwrap the phase by, in this case, subtracting 2 from the acquired phase to recover the true phase (in red). A linear fit is shown in green. Note that the slope would represent the field map value.
+Temporal unwrapping can also be performed without phase difference. [](#b0Plot10) shows the phase of a voxel acquired at four echo times in blue. Note that the last echo time is wrapped (i.e.: the phase rotated by more than 2 and “wrapped” to the positive side). With the assumption that phase does not vary by more than 2, we can unwrap the phase by, in this case, subtracting 2 from the acquired phase to recover the true phase (in red). A linear fit is shown in green. Note that the slope would represent the field map value.
 
 :::{figure} #fig5p10cell
 :label: b0Plot10
