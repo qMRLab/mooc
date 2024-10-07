@@ -62,8 +62,9 @@ project:
     - figures/2 T1 mapping/figure2-2.ipynb
 site:
   template: book-theme
-  logo: public/icon.png
-  logo_text: qMRI mOOC
+  options:
+    logo: public/icon.png
+    logo_text: qMRI mOOC
   actions:
     - title: Discussions
       url: https://github.com/qMRLab/mooc/discussions

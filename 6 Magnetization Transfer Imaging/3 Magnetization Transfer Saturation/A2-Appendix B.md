@@ -40,7 +40,6 @@ Demonstration through trigonometry of how following a small flip angle alpha2 (e
 In our first simulation, we use the qMRLab qMT-SPGR module to simulate steady-state signals from an MTsat experiment on healthy white matter tissues. We utilize tissue parameters from Sled (2011) and an MTsat protocol derived from Karakuzu (2022). 
 
 :::{dropdown} Code
-:closed:
 
 ```matlab
 
@@ -211,7 +210,6 @@ Using the qMRLab Bloch simulations, we can calculate the difference in longitudi
 Let’s do that.
 
 :::{dropdown} Code
-:closed:
 
 Some modifications of the qMRLab code are needed to output the before/after magnetizations into a file. 
 
@@ -260,7 +258,6 @@ From these simulations, we find that there is a 0.314% reduction in longitudinal
 In our third simulation, we account for the T1 relaxation during the MT pulse. To simplify the calculations, and like Helms did, we’ll assume a decoupling between the MTsaturation and relaxation and calculate the T1 relaxation recovery independently for the duration of the MT pulse. We’ll then remove this contribution from the Mzafter-Mzbefore we calculated earlier (0.314%).
 
 :::{dropdown} Code
-:closed:
 
 Some modifications of the qMRLab code are needed to output the before/after magnetizations into a file. 
 
@@ -308,7 +305,6 @@ Once again, let’s compare the actual pulse sequence (Figure 1) and the Helms m
 To calculate this second contribution, we will calculate the difference in Mz between the end of the MT pulse and the end of TR (just prior to the next MT pulse), and just like we did earlier, we’ll also subtract the T1 component (assuming that MT and T1 are decoupled during this time). Note that MTsat is the reduction in magnetization relative to its value prior to the MT pulse, so we need to normalize this contribution by the initial Mz (the same one we used for the MT pulse contribution, at the start of TR). Appendix C extends the diagram from Figure 8 to include the MT contribution after the MT pulse, and although more complex, it demonstrates the need for the note in the previous sentence.
 
 :::{dropdown} Code
-:closed:
 
 Some modifications of the qMRLab code are needed to output the before/after magnetizations into a file. 
 
