@@ -30,7 +30,7 @@ From the MTR protocol in Brown 2013 of the MTR blog post, 1=15 deg and TR = 0.03
 :enumerated: false
 \begin{equation}
 \\
-S_{0}=0.087\frac{1.8\cdot 0.03}{\frac{0.087^{2}}{2}+0+1.8\cdot 0.03}A \\
+S_{0}=0.087\frac{1.8\cdot 0.03}{\frac{0.087^{2}}{2}+0+1.8\cdot 0.03}A
 \end{equation}
 ```
 
@@ -50,7 +50,6 @@ For an MT-weighted image, we get an equation as we don’t know alpha2,
 :label: mtrEqA3
 :enumerated: false
 \begin{equation}
-\\
 S_{MT}=0.087\frac{1.8\cdot 0.03}{\frac{0.087^{2}}{2}+\frac{\alpha_{2}^{2}}{2}+1.8\cdot 0.03}A
 \end{equation}
 ```
@@ -91,7 +90,7 @@ We’d like to calculate the contribution from the MT pulse, δ. We can do this 
 :label: mtrEqA7
 :enumerated: false
 \begin{equation}
-46=\frac{0.024A-S_{MT}}{0.024A}\cdot 100 \text{, (from 6A1)} \\
+46=\frac{0.024A-S_{MT}}{0.024A}\cdot 100 \text{, (from 6A1)}
 \end{equation}
 ```
 ```{math}
@@ -119,7 +118,7 @@ S_{MT}=0.044A\text{, (refactor)} \\
 :label: mtrEqA11
 :enumerated: false
 \begin{equation}
-\delta=\frac{0.044}{0.0047}-0.0578\text{, (refactor)} \\
+\delta=\frac{0.044}{0.0047}-0.0578\text{, (refactor)}
 \end{equation}
 ```
 ```{math}
