@@ -24,7 +24,7 @@ M_{z}(TI) = M_0 \frac{1-\text{cos}(\theta_{180})e^{- \frac{TR}{T_1}} -[1-\text{c
 \end{equation}
 ```
 
-where M<sub>z</sub> is the longitudinal magnetization prior to the θ<sub>90</sub> pulse. If the in-phase [real](wiki:Complex_number) signal is desired, it can be calculated by multiplying [Equation 2.1](#irEq1) by <i>k</i>sin(θ<sub>90</sub>)e<sup>-TE/T<sub>2</sub></sup>, where <i>k</i> is a constant. This general equation can be simplified by grouping together the constants for each measurements regardless of their values (i.e. at each TI, same TE and θ<sub>90</sub> are used) and assuming an ideal inversion pulse:
+where M<sub>z</sub> is the longitudinal magnetization prior to the θ<sub>90</sub> pulse. If the in-phase [real](wiki:Complex_number) signal is desired, it can be calculated by multiplying [](#irEq1) by <i>k</i>sin(θ<sub>90</sub>)e<sup>-TE/T<sub>2</sub></sup>, where <i>k</i> is a constant. This general equation can be simplified by grouping together the constants for each measurements regardless of their values (i.e. at each TI, same TE and θ<sub>90</sub> are used) and assuming an ideal inversion pulse:
 
 ```{math}
 :label: irEq2
@@ -33,7 +33,7 @@ M_z(TI) = C(1-2e^{- \frac{TI}{T_1}} + e^{- \frac{TR}{T_1}})
 \end{equation}
 ```
 
-where the first three terms and the denominator of [Equation 2.1](#irEq1) have been grouped together into the constant C. If the experiment is designed such that TR is long enough to allow for full relaxation of the magnetization (TR > 5T<sub>1</sub>), we can do an additional approximation by dropping the last term in [Equation 2.1](#irEq2):
+where the first three terms and the denominator of [](#irEq1) have been grouped together into the constant C. If the experiment is designed such that TR is long enough to allow for full relaxation of the magnetization (TR > 5T<sub>1</sub>), we can do an additional approximation by dropping the last term in [Equation 2.1](#irEq2):
 
 ```{math}
 :label: irEq3
