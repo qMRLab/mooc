@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-To fit the data for multi-exponential T2 mapping, [](t2Eq5) can be rewritten to express the signal decay in terms of the initial amplitude (Si) for each tissue component. The multi-exponential T2 signal decay is then given by :
+To fit the data for multi-exponential T2 mapping, [](#t2Eq5) can be rewritten to express the signal decay in terms of the initial amplitude (Si) for each tissue component. The multi-exponential T2 signal decay is then given by :
 
 ```{math}
 :label: t2Eq6
