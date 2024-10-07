@@ -14,7 +14,7 @@ numbering:
     template: Eq. 2.%s
 ---
 
-At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [Equation 2.5](#vfaEq1), which typically only has two free fitting variables ([T<sub>1</sub>](wiki:Spin–lattice_relaxation) and _M_<sub>0</sub>). Although this is a valid way of estimating [T<sub>1</sub>](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [Equation 2.5](#vfaEq1) allows [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [Equation 2.5](#vfaEq1) can be rearranged into the form <b>y</b> = m<b>x</b>+b {cite:p}`Gupta1977`:
+At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([T<sub>1</sub>](wiki:Spin–lattice_relaxation) and _M_<sub>0</sub>). Although this is a valid way of estimating [T<sub>1</sub>](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form <b>y</b> = m<b>x</b>+b {cite:p}`Gupta1977`:
 
 ```{math}
 :label: vfaEq3
@@ -34,7 +34,7 @@ As the third term does not change between measurements (it is constant for each 
 \end{equation}
 ```
 
-With this rearranged form of [Equation 2.5](#vfaEq1), [T<sub>1</sub>](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from <i>S<sub>n</sub></i>/sin(<i>θ<sub>n</sub></i>) and <i>S<sub>n</sub></i>/tan(<i>θ<sub>n</sub></i>) values:
+With this rearranged form of [](#vfaEq1), [T<sub>1</sub>](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from <i>S<sub>n</sub></i>/sin(<i>θ<sub>n</sub></i>) and <i>S<sub>n</sub></i>/tan(<i>θ<sub>n</sub></i>) values:
 
 ```{math}
 :label: vfaEq5
@@ -49,12 +49,12 @@ If data were acquired using only two flip angles – a very common VFA acquisiti
 :::{figure} #figvfa5cell
 :label: vfaPlot4
 :enumerator: 2.11
-Mean and standard deviation of the VFA signal plotted using the nonlinear form ([Equation 2.5](#vfaEq1) – blue) and linear form ([Equation 2.8](#vfaEq4) – red). Monte Carlo simulation details: SNR = 25, N = 1000. VFA simulation details: TR = 25 ms, T<sub>1</sub> = 900 ms.
+Mean and standard deviation of the VFA signal plotted using the nonlinear form ([](#vfaEq1) – blue) and linear form ([](#vfaEq4) – red). Monte Carlo simulation details: SNR = 25, N = 1000. VFA simulation details: TR = 25 ms, T<sub>1</sub> = 900 ms.
 :::
 
 There are two important imaging protocol design considerations that should be taken into account when planning to use VFA: (1) how many and which flip angles to use to acquire VFA data, and (2) correcting inaccurate flip angles due to transmit RF field inhomogeneity. Most VFA experiments use the minimum number of required flip angles (two) to minimize acquisition time. For this case, it has been shown that the flip angle choice resulting in the best precision for VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) estimates for a sample with a single [T<sub>1</sub>](wiki:Spin–lattice_relaxation) value (i.e. single tissue) are the two flip angles that result in 71% of the maximum possible steady-state signal (i.e. at the [Ernst angle](wiki:Ernst_angle)) {cite:p}`Deoni2003,Schabel2008`.
 
-Time allowing, additional flip angles are often acquired at higher values and in between the two above, because greater signal differences between tissue [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values are present there (e.g. [](#vfaPlot1)). Also, for more than two flip angles, Equations [](#vfaEq1) and [](#vfaEq4) do not have the same noise weighting for each fitting point, which may bias [linear least-square](wiki:Linear_least_squares) [T<sub>1</sub>](wiki:Spin–lattice_relaxation) estimates at lower SNRs. Thus, it has been recommended that low SNR data should be fitted with either [Equation 2.5](#vfaEq1) using [non-linear least-squares](wiki:Non-linear_least_squares) (slower fitting) or with a weighted [linear least-square](wiki:Linear_least_squares) form of [Equation 2.8](#vfaEq4) {cite:p}`Chang2008`.
+Time allowing, additional flip angles are often acquired at higher values and in between the two above, because greater signal differences between tissue [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values are present there (e.g. [](#vfaPlot1)). Also, for more than two flip angles, Equations [](#vfaEq1) and [](#vfaEq4) do not have the same noise weighting for each fitting point, which may bias [linear least-square](wiki:Linear_least_squares) [T<sub>1</sub>](wiki:Spin–lattice_relaxation) estimates at lower SNRs. Thus, it has been recommended that low SNR data should be fitted with either [](#vfaEq1) using [non-linear least-squares](wiki:Non-linear_least_squares) (slower fitting) or with a weighted [linear least-square](wiki:Linear_least_squares) form of [](#vfaEq4) {cite:p}`Chang2008`.
 
 Accurate knowledge of the flip angle values is very important to produce accurate [T<sub>1</sub>](wiki:Spin–lattice_relaxation) maps. Because of how the RF field interacts with matter {cite:p}`Sled1998`, the excitation RF field (B<sub>1</sub><sup>+</sup>, or B<sub>1</sub> for short) of a loaded RF coil results in spatial variations in intensity/amplitude, unless RF shimming is available to counteract this effect (not common at clinical field strengths). For quantitative measurements like VFA which are sensitive to this parameter, the flip angle can be corrected (voxelwise) relative to the nominal value by multiplying it with a scaling factor (B<sub>1</sub>) from a B<sub>1</sub> map that is acquired during the same session:
 
