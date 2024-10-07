@@ -12,12 +12,6 @@ numbering:
     template: Fig. %s
 ---
 
-:::{attention}
-:class: attentionDraft
-:name: attentionDraft
-Figures have not yet been updated with their interactive versions.
-:::
-
 The magnetization transfer in a two-pool model is modelled by a set of coupled differential equations (Sled and Pike 2000):
 
 ```{figure} img/5eqs.png

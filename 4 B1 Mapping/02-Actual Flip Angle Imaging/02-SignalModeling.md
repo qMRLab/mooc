@@ -12,12 +12,6 @@ numbering:
     template: Fig. %s
 ---
 
-:::{attention}
-:class: attentionDraft
-:name: attentionDraft
-Figures have not yet been updated with their interactive versions.
-:::
-
 The pulse sequence of the AFI method (Figure 1) is composed of two identical RF pulses and two different delays (TR1 < TR2). After each RF pulse, the signal intensity is acquired followed by a spoiler to destroy the residual transverse magnetization next to the following RF pulse. This method implements a pulsed steady-state signal with a gradient-echo acquisition, thus preventing the use of long repetition times (Yarnykh 2007). It has been demonstrated that if the delays TR1 and TR2 are sufficiently short (e.g. TR1/TR2 = 20 ms/100 ms), and the transverse magnetization is completely spoiled, the ratio of signal intensities (r = S2/S1) depends on the flip angle of applied pulses and is highly insensitive to T1 (Yarnykh 2007).
 
 ```{figure} img/afi_pulsesequence.png

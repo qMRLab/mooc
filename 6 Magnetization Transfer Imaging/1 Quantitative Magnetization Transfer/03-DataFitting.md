@@ -12,12 +12,6 @@ numbering:
     template: Fig. %s
 ---
 
-:::{attention}
-:class: attentionDraft
-:name: attentionDraft
-Figures have not yet been updated with their interactive versions.
-:::
-
 In qMT imaging, the biophysical model relates the parameters observed in the two-pool tissue model to physical quantities such as the fractional size of the pools, relaxation times and magnetization exchange rates of the free and restricted pool (Sled and Pike 2001; Sled 2018). However, qMT experiments usually consist of long acquisition imaging protocols accompanied by complex data fitting. To this end, some software solutions have been proposed (Karakuzu et al. 2020; Tabelow et al. 2019; Wood 2018). qMRLab is an open-source project for quantitative MR analysis that is an extension of qMTLab, a software for data simulation and analysis of three MT models: qMT-SPGR, qMT-bSSFP and qMT-SIRFSE. In addition to the quantitative MT methods, qMRLab also contains semi-quantitative MT models including the magnetization transfer ratio (MTR) and magnetization transfer saturation (MTsat).
 
 The qMT-SPGR method in qMRLab contains three fitting models: Sled and Pike, Ramani, and Yarnykh and Yuan (Sled and Pike 2001; Ramani et al. 2002; Yarnykh 2002). For the Sled and Pike model, the saturation fraction effect of the MT pulse on the free pool is pre-computed to accelerate the processing times. The MT effect of the pulse is approximated as an instantaneous fractional saturation of the longitudinal magnetization of the free pool, assuming the absence of chemical exchange processes (Pike 1996; Sled and Pike 2001). To fit the model, additional parameters related to the pulse sequence are required, namely timing parameters, the absorption lineshape, and the characteristics of the MT pulse, such as the shape and the bandwidth or the time-bandwidth product. In Figure 5, the qMT-SPGR method is used to show a single voxel curve simulation for the same MT data fitted by three different models. The fitted parameters were the pool size ratio F, the magnetization transfer rate from the restricted to the free-water pool (kr), and the transverse relaxation time of the free-water (T2,f) and restricted (T2,r) pool.
