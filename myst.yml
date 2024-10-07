@@ -66,7 +66,7 @@ site:
   logo_text: qMRI mOOC
   actions:
     - title: Discussions
-      url: https://github.com/qMRLab/qMRLab/discussions
+      url: https://github.com/qMRLab/mooc/discussions
     - title: qMRLab
       url: https://qmrlab.org
     - title: NeuroPoly
