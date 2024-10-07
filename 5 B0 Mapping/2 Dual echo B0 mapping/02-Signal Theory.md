@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-In the ideal case, spins rotate at the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession), shown in blue in Fig. 1. In the presence of field inhomogeneities, the frequency of the spins (shown in red) is different and is proportional to the field inhomogeneities. Both the laboratory and rotating frame of reference are shown. Importantly, note that the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) phase appears stationary in the rotating frame of reference. 
+In the ideal case, spins rotate at the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession), shown in blue in [](#fig5p6cell). In the presence of field inhomogeneities, the frequency of the spins (shown in red) is different and is proportional to the field inhomogeneities. Both the laboratory and rotating frame of reference are shown. Importantly, note that the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) phase appears stationary in the rotating frame of reference. 
 
 :::{figure} #fig5p6cell
 :label: b0Plot6
@@ -32,7 +32,7 @@ The phase () evolution follows the following equation (not considering transient
 \end{equation}
 ```
 
-where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio, B0 is the B0 field offset (T) and 0 is an initial constant phase offset (e.g.: coil induced, material induced through local conductivity/permittivity). We can observe phase evolution through time in Fig. 2 by looking at phase data acquired in the brain at progressively longer echo times. The phase at a single voxel changes linearly (not considering transient effects). Note that the sharp variations forming vertical lines in the previous figure are called phase wraps and occur because the phase is defined over - to . Phase-wrapping effects will be discussed in more detail in the following chapter. Wraps can also occur spatially as sharp variations as seen in the following figure. Note that the longer the echo times, the more wraps there are.
+where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio, B0 is the B0 field offset (T) and 0 is an initial constant phase offset (e.g.: coil induced, material induced through local conductivity/permittivity). We can observe phase evolution through time in [](#fig5p7cell) by looking at phase data acquired in the brain at progressively longer echo times. The phase at a single voxel changes linearly (not considering transient effects). Note that the sharp variations forming vertical lines in the previous figure are called phase wraps and occur because the phase is defined over - to . Phase-wrapping effects will be discussed in more detail in the following chapter. Wraps can also occur spatially as sharp variations as seen in the following figure. Note that the longer the echo times, the more wraps there are.
 
 :::{figure} #fig5p7cell
 :label: b0Plot7
@@ -40,7 +40,7 @@ where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio,
 Phase shown at different echo times. The slider can be used to show the phase that would be acquired at different echo times.
 :::
 
-MRI manufacturers do not all output phase data by default. It should be possible to toggle the output of phase data on all MRI systems. It can also be computed from real/imaginary data using Eq. 2.
+MRI manufacturers do not all output phase data by default. It should be possible to toggle the output of phase data on all MRI systems. It can also be computed from real/imaginary data using [](#b0Eq4).
 
 ```{math}
 :label: b0Eq4

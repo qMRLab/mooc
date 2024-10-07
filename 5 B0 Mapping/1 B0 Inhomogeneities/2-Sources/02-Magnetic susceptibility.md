@@ -24,7 +24,7 @@ Materials have a property called magnetic susceptibility () that reflects their 
 \end{equation}
 ```
 
-The dipole kernel (d) is illustrated in Fig. 2 along with the dipole kernel (D) in the k-space domain often used in QSM.
+The dipole kernel (d) is illustrated in [](#fig5p2cell) along with the dipole kernel (D) in the k-space domain often used in QSM.
 
 :::{figure} #fig5p2cell
 :label: b0Plot2
@@ -34,7 +34,7 @@ Dipole kernel (d) in the image domain as well as in the k-space domain (D).
 
 When a subject is introduced in the scanner, it interacts with the B0 field and distorts it. Therefore, a perfectly homogeneous field in an empty bore will usually have an inhomogeneous B0 field once a patient is introduced. This is the reason why active shimming is required when a patient is introduced in the scanner. Although these inhomogeneities happen everywhere in the body, stronger field variations occur at the boundaries of strong susceptibility differences such as air (slightly paramagnetic: +) and water/tissue (diamagnetic: -). 
 
-The following figure shows different susceptibility distributions in ppm for a homogeneous cylinder within a larger homogeneous cylinder placed in a homogeneous background (top) and a brain (bottom). The corresponding B0 field maps are simulated at 7 T and shown in Fig. 3. In the brain, the B0 field inhomogeneities are dominated by air-tissue boundaries. On the right-hand panel, the slow varying spatial variations (also called background field) were removed to show the local field variations.
+The following figure shows different susceptibility distributions in ppm for a homogeneous cylinder within a larger homogeneous cylinder placed in a homogeneous background (top) and a brain (bottom). The corresponding B0 field maps are simulated at 7 T and shown in [](#fig5p3cell). In the brain, the B0 field inhomogeneities are dominated by air-tissue boundaries. On the right-hand panel, the slow varying spatial variations (also called background field) were removed to show the local field variations.
 
 :::{figure} #fig5p3cell
 :label: b0Plot3
