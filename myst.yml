@@ -71,7 +71,7 @@ project:
         - file: 1 Introduction to qMRI/04-encode.md
         - file: 1 Introduction to qMRI/05-sequences.md
         - file: 1 Introduction to qMRI/06-qmri_practice.md
-    - title: _T_{sub}`1` Mapping
+    - title: T<sub>1</sub> Mapping
       children:
         - title: Inversion Recovery
           children:
