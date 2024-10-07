@@ -47,6 +47,10 @@ Figure 7 displays an example human dataset with the input qMRI maps used to fit 
 
 ```{figure} #qmtFig6cell
 :label: qmtFig7
+```
+
+```{figure} #qmtFig7cell
+:label: qmtFig8
 
 Example magnetization transfer spoiled gradient dataset showing qMRI maps used to fit the MT data (top), and the fitted parameters F, kf, T2,f, T2,r (bottom).
 ```
