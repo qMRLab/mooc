@@ -44,20 +44,20 @@ M_z(TI) = C(1-2e^{- \frac{TI}{T_1}})
 \end{equation}
 ```
 
-The simplicity of the signal model described by [Equation 2.3](#irEq3), both in its equation and experimental implementation, has made it the most widely used equation to describe the signal evolution in an inversion recovery T<sub>1</sub> mapping experiment. The magnetization curves are plotted in [](#irPlot1) for approximate T<sub>1</sub> values of three different tissues in the brain. Note that in many practical implementations, magnitude-only images are acquired, so the signal measured would be proportional to the absolute value of [Equation 2.3](#irEq3).
+The simplicity of the signal model described by [](#irEq3), both in its equation and experimental implementation, has made it the most widely used equation to describe the signal evolution in an inversion recovery T<sub>1</sub> mapping experiment. The magnetization curves are plotted in [](#irPlot1) for approximate T<sub>1</sub> values of three different tissues in the brain. Note that in many practical implementations, magnitude-only images are acquired, so the signal measured would be proportional to the absolute value of [](#irEq3).
 
 :::{figure} #fig2p2cell
 :label: irPlot1
 :enumerator: 2.2
-Inversion recovery curves ([Equation 2.2](#irEq2)) for three different T1 values, approximating the main types of tissue in the brain.
+Inversion recovery curves ([](#irEq2)) for three different T1 values, approximating the main types of tissue in the brain.
 :::
 
-Practically, [Equation 2.1](#irEq1) is the better choice for simulating the signal of an [inversion recovery](wiki:Inversion_recovery) experiment, as the TRs are often chosen to be greater than 5T<sub>1</sub> of the tissue-of-interest, which rarely coincides with the longest T<sub>1</sub> present (e.g. TR may be sufficiently long for white matter, but not for CSF which could also be present in the volume). [Equation 2.3](#irEq3) also assumes ideal inversion pulses, which is rarely the case due to slice profile effects. [](#irPlot2) displays the [inversion recovery](wiki:Inversion_recovery) signal magnitude (complete relaxation normalized to 1) of an experiment with TR = 5 s and T<sub>1</sub> values ranging between 250 ms to 5 s, calculated using both equations.
+Practically, [](#irEq1) is the better choice for simulating the signal of an [inversion recovery](wiki:Inversion_recovery) experiment, as the TRs are often chosen to be greater than 5T<sub>1</sub> of the tissue-of-interest, which rarely coincides with the longest T<sub>1</sub> present (e.g. TR may be sufficiently long for white matter, but not for CSF which could also be present in the volume). [](#irEq3) also assumes ideal inversion pulses, which is rarely the case due to slice profile effects. [](#irPlot2) displays the [inversion recovery](wiki:Inversion_recovery) signal magnitude (complete relaxation normalized to 1) of an experiment with TR = 5 s and T<sub>1</sub> values ranging between 250 ms to 5 s, calculated using both equations.
 
 :::{figure} #fig2p3cell
 :label: irPlot2
 :enumerator: 2.3
-Signal recovery curves simulated using [Equation 2.3](#irEq3) (solid) and [Equation 2.1](#irEq1) (dotted) with a TR = 5 s for T1 values ranging between 0.25 to 5 s.
+Signal recovery curves simulated using [](#irEq3) (solid) and [](#irEq1) (dotted) with a TR = 5 s for T1 values ranging between 0.25 to 5 s.
 :::
 
 
