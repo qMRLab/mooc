@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 The main benefit of mono-exponential T2 mapping is its simplicity and straightforward implementation, making it a convenient and efficient method for T2 fitting. Additionally, as mentioned previously, the use of multi-echo spin echo (MESE) sequences significantly reduces the acquisition time, further enhancing its practicality (Fatemi et al., 2020, (Milford et al., 2015). 

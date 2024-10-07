@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 The primary advantage of multi-exponential T2 mapping lies in its improved accuracy in depicting the T2 relaxation of complex tissue microstructure. By considering each voxel as multi-compartmental with multiple tissues each having distinct T2 relaxation times, multiexponential T2 mapping has proven to be more accurate for capturing the T2 relaxation of complex, heterogeneous tissues. As we saw in the previous sections, this makes multi-exponential T2 mapping particularly advantageous in applications such as myelin water fraction imaging, where it is crucial to distinguish the fraction of water attributed to myelin to better understand demyelinating diseases such as MS (Alonso-Ortiz et al., 2015). 

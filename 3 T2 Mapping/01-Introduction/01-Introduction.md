@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 T2 relaxation, also known as the transverse or spin-spin relaxation, is characterized by the dephasing of spins, leading to a reduction of the total magnetization in the x-y plane. In practical terms, the T2 value represents the upper limit of the signal decay time under ideal imaging conditions. In practice, magnetic field inhomogeneities cause the transverse magnetization to decay faster than what is captured by T2 relaxation. These inhomogeneities can be macroscopic, caused by factors such as metallic implants or air-tissue interfaces, or microscopic, resulting from differences in magnetic susceptibility between tissues (Chavhan et al., 2009; Cohen-Adad, 2014). When considering this phenomenon, we refer to the transverse relaxation as T2*. 

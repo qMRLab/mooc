@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Quantitative susceptibility mapping (QSM) is another quantitative MRI technique, which measures variations in tissue magnetic susceptibility (Ruetten et al., 2019; Wang & Liu, 2015). By assessing the differences in magnetic susceptibility between various tissues, QSM can accurately quantify paramagnetic substances like iron, calcium and oxygen, as well as diamagnetic substances such as myelin (Ruetten et al., 2019). The ability to measure these substances has considerable clinical potential, as they provide valuable insights into tissue physiology and integrity. For instance, alterations in iron levels have been linked to neurodegenerative diseases like multiple sclerosis (Stephenson et al., 2014) and Parkinson’s disease (Chen et al., 2019), making QSM a promising technique for identifying biomarkers for these neurodegenerative disorders and emphasizing their importance in clinical research. 

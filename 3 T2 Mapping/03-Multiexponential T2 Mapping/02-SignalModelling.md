@@ -7,29 +7,34 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 For multiexponential T2 mapping, the transverse magnetization (Mxy) acquired at different echo times (TE) can be modeled as a sum of exponential decays :
 
-
-\begin{equation}\label{eq:1}
+```{math}
+:label: t2Eq5
+:enumerator:3.5
+\begin{equation}
 \textit{M}_{xy}\left ( TE \right ) = \sum_{i=1}^{N}M_{z,i}\left ( 0^-{} \right )e^{-TE/T_{2,i}}
 \end{equation}
-
+```
 
 where each term of the summation represents the contribution of the ith tissue component to the overall transverse magnetization decay (Collewet et al., 2022; Dortch, 2020). 
 
-Figure 5 presents a single-voxel simulation of T2 relaxation curves of myelin water (MW) and intra/extracellular water (IEW) using mono-exponential T2 fitting, compared to a multi-exponential fitting for both MW and IEW. In this example, we see that using a multi-exponential model rather than mono-exponential for complex tissues like myelin enables more precise quantification of the T2 relaxation time within each voxel. 
+[](#t2Plot4) presents a single-voxel simulation of T2 relaxation curves of myelin water (MW) and intra/extracellular water (IEW) using mono-exponential T2 fitting, compared to a multi-exponential fitting for both MW and IEW. In this example, we see that using a multi-exponential model rather than mono-exponential for complex tissues like myelin enables more precise quantification of the T2 relaxation time within each voxel. 
 
 :::{figure} #fig3p4cell
 :label: t2Plot4
+:enumerator: 3.4
 Comparison of mono-exponential and multi-exponential T2 fitting. This figure contrasts mono-exponential and multi-exponential fitting approaches for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves represent mono-exponential fittings for MW and IEW, respectively. The dotted purple curve illustrates the multi-exponential fitting, which combines both MW and IEW components. 
 :::
 
 
-```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated Figure 1.
+```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#t2Plot4).
 :class: tip, dropdown
 
 ```matlab

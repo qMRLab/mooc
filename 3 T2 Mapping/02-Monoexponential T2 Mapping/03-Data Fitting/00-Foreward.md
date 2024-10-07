@@ -7,16 +7,22 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 The T2 signal decay for the mono-exponential model is described mathematically as : 
 
-\begin{equation}\label{eq:1}
+```{math}
+:label: t2Eq2
+:enumerator:3.2
+\begin{equation}
 \textit{S}\left ( TE \right ) = S_{0}e^{-TE/T_{2}}
 \end{equation}
+```
 
 where S0 is the signal intensity immediately following the excitation pulse (Dortch, 2020; Milford et al., 2015). 
 
