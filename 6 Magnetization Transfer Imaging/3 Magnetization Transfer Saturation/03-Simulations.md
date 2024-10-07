@@ -9,7 +9,7 @@ authors:
 numbering:
   heading_2: false
   figure:
-    template: Fig. %s
+    template: Figure 6.%s
 ---
 
 :::{attention}

@@ -9,7 +9,7 @@ authors:
 numbering:
   heading_2: false
   figure:
-    template: Fig. %s
+    template: Fig. 6%s
 ---
 
 :::{attention}
@@ -84,7 +84,6 @@ Figure 3 demonstrates how delta, which represents MTsat as was defined in (Helms
 
 ```{figure} img/mtsat_trig.png
 :label: mtsatFig3
-:enumerator: 6.3
 Demonstration through trigonometry of how following a small flip angle alpha2 (eg MT saturation), the value delta = alpha2^2/2 represents the fraction of the reduction in longitudinal magnetization due to the pulse (bigDelta) relative to the value prior to the pulse (Mzbefore).
 ```
 
