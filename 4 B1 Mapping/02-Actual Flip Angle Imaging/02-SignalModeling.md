@@ -46,7 +46,7 @@ Longitudinal magnetization before the first radiofrequency pulse (Equation 1, so
 
 The analytical solution of the Bloch equations in a steady-state experiment (Equation 1 and Equation 2) makes several assumptions leading to practical challenges. First, it is assumed that the longitudinal magnetization has reached a steady state after a sufficiently large number of repetition times (TR), and that the transverse magnetization is perfectly spoiled prior to each pulse. To explore these properties, a numerical approach known as Bloch simulations is used to estimate the signal from an MRI experiment given a set of sequence parameters. Here, the Bloch simulations allow us to estimate the magnetization using a different number of sequence repetitions, and look at a special case when the steady-state is not achieved (due to a small number of sequence repetitions). As can be seen in Figure 3, the number of repetitions required to reach a steady-state depends on T1 and the flip angle.
 
-```{figure} img/plot2.png
+```{figure} #afiFig2cell
 :label: afiPlot2
 
 Signal 1 (blue) and Signal 2 (red) curves simulated using Bloch simulations (solid lines) for a number of repetitions ranging from 1 to 150, plotted against the ideal case (Equations 1 and 2 – dashed lines). Simulation details: TR1 = 20 ms, TR2 = 100 ms, T1 = 900 ms, 100 spins. Ideal spoiling was used for this set of Bloch simulations (transverse magnetization was set to 0 at the end of each TR1,2).
@@ -54,7 +54,7 @@ Signal 1 (blue) and Signal 2 (red) curves simulated using Bloch simulations (sol
 
 In practice, gradient and RF spoiling are important parameters to consider in an AFI experiment. A combination of both (Zur et al. 1991; Bernstein et al. 2004) is typically recommended, and Figure 4 shows how this better approximates the ideal spoiling case.
 
-```{figure} img/plot3.png
+```{figure} #afiFig3cell
 :label: afiPlot3
 
 Signal 1 curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (red), and no spoiling (orange). Simulation details: TR1 = 20 ms, TR2 = 100 ms, T1 = 900 ms, T2 = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete dephasing from gradient spoiling, and the RF phase of the excitation pulse is ɸn = ɸn-1 + nɸ0 = ½ ɸ0(n2 + n + 2) (Bernstein et al. 2004) with ɸ0 = 39° (Zur et al. 1991) after each TR.
