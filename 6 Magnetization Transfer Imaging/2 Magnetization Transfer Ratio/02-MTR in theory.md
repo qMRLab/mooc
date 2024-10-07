@@ -29,11 +29,14 @@ As explained in more detail in Appendix A, an MT experiment involves the conserv
 
 Now that we have a better grasp of the magnetization exchange process, we can see how this applies for MTR. In MTR, we acquire one image with MT saturation (low signal where there is high macromolecular density), and one image without MT saturation (higher relative signal where there are macromolecules). The MTR signal is then simply calculated as a normalized difference in percentage, that is:
 
+
 ```{math}
 :label: mtrEq1
 :enumerator:6.1
 \begin{equation}
-\text{MTR} \left( \text{%} \right) = \frac{S_{0}-S_{MT}}{S_{0}}\cdot 100
+
+\text{MTR} \left( \text{%} \right) = \frac{S_{0}-S_{MT}}{S_{0}} \cdot 100
+
 \end{equation}
 ```
 
