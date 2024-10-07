@@ -21,7 +21,7 @@ Early implementations of [inversion recovery](wiki:Inversion_recovery) fitting a
 ```{math}
 :label: irEq4
 :enumerator:2.4
-\begin{equation}\label{eq:1.4}
+\begin{equation}
 S(TI) = a + be^{- \frac{TI}{T_1}}
 \end{equation}
 ```
