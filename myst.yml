@@ -97,10 +97,8 @@ project:
             - file: 2 T1 Mapping/2-4 Exercises/01-Exercises.md
     - title: T2 Mapping
       children:
-        - title: Introduction
-          children:
-            - file: 3 T2 Mapping/01-Introduction/01-Introduction.md
-            - file: 3 T2 Mapping/01-Introduction/02-T2 mapping vs T2-weighted imaging.md
+        - file: 3 T2 Mapping/01-Introduction/01-Introduction.md
+        - file: 3 T2 Mapping/01-Introduction/02-T2 mapping vs T2-weighted imaging.md
         - title: Monoexponential T2 Mapping
           children:
             - file: 3 T2 Mapping/02-Monoexponential T2 Mapping/01-Introduction.md

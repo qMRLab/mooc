@@ -1,5 +1,5 @@
 ---
-title: Recommendatios, benefits, and pitfalls
+title: Recommendations, benefits, and pitfalls
 subtitle: Filtering
 date: 2024-07-25
 authors:
