@@ -18,6 +18,7 @@ The steady-state longitudinal magnetization of an [inversion recovery](wiki:Inve
 
 ```{math}
 :label: irEq1
+:enumerator: 2.%s
 \begin{equation}
 M_{z}(TI) = M_0 \frac{1-\text{cos}(\theta_{180})e^{- \frac{TR}{T_1}} -[1-\text{cos}(\theta_{180})]e^{- \frac{TI}{T_1}}}{1 - \text{cos}(\theta_{180}) \text{cos}(\theta_{90}) e^{- \frac{TR}{T_1}}}
 \end{equation}
