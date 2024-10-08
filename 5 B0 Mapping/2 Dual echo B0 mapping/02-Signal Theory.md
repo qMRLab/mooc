@@ -19,10 +19,10 @@ In the ideal case, spins rotate at the [Larmor frequency](https://en.wikipedia.o
 :::{figure} #fig5p6cell
 :label: b0Plot6
 :enumerator: 5.6
-Two spins rotating (one at the Larmor frequency (f0), one at a lower frequency). A view of the spins in the transverse plane (left) and of their phase (right) is shown. A dropdown is available to select between the laboratory frame and the rotating frame of reference.
+Two spins rotating (one at the Larmor frequency ({math}`f_{0}`), one at a lower frequency). A view of the spins in the transverse plane (left) and of their phase (right) is shown. A dropdown is available to select between the laboratory frame and the rotating frame of reference.
 :::
 
-The phase () evolution follows the following equation (not considering transient effects such as [eddy currents](https://en.wikipedia.org/wiki/Eddy_current)) in the rotating frame of reference.
+The phase ({math}`\phi`) evolution follows the following equation (not considering transient effects such as [eddy currents](https://en.wikipedia.org/wiki/Eddy_current)) in the rotating frame of reference.
 
 ```{math}
 :label: b0Eq3
@@ -32,7 +32,7 @@ The phase () evolution follows the following equation (not considering transient
 \end{equation}
 ```
 
-where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio, _B_{sub}`0` is the _B_{sub}`0` field offset (T) and 0 is an initial constant phase offset (e.g.: coil induced, material induced through local conductivity/permittivity). We can observe phase evolution through time in [](#b0Plot7) by looking at phase data acquired in the brain at progressively longer echo times. The phase at a single voxel changes linearly (not considering transient effects). Note that the sharp variations forming vertical lines in the previous figure are called phase wraps and occur because the phase is defined over - to . Phase-wrapping effects will be discussed in more detail in the following chapter. Wraps can also occur spatially as sharp variations as seen in the following figure. Note that the longer the echo times, the more wraps there are.
+where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio, _B_{sub}`0` is the _B_{sub}`0` field offset (Tesla) and {math}`\phi_{0}` is an initial constant phase offset (e.g.: coil induced, material induced through local conductivity/permittivity). We can observe phase evolution through time in [](#b0Plot7) by looking at phase data acquired in the brain at progressively longer echo times. The phase at a single voxel changes linearly (not considering transient effects). Note that the sharp variations forming vertical lines in the previous figure are called phase wraps and occur because the phase is defined over - to . Phase-wrapping effects will be discussed in more detail in the following chapter. Wraps can also occur spatially as sharp variations as seen in the following figure. Note that the longer the echo times, the more wraps there are.
 
 :::{figure} #fig5p7cell
 :label: b0Plot7
@@ -50,7 +50,7 @@ MRI manufacturers do not all output phase data by default. It should be possible
 \end{equation}
 ```
 
-where ∠ is the phase operator. 
+where {math}`\angle` is the phase operator. 
 
 As phase changes linearly with time (t) and with the field offset (_B_{sub}`0`), it is possible to acquire two phase images at two different echo times and compute _B_{sub}`0`(x,y,z).
 
@@ -63,7 +63,7 @@ As phase changes linearly with time (t) and with the field offset (_B_{sub}`0`),
 \end{equation}
 ```
 
-where TE1 and TE2 are the echo times, and  TE = TE2- TE1. To compute the phase offset , phase subtraction is necessary. The complex difference can be used to keep the phase between - to , although other phase difference techniques are also possible.
+where TE{sub}`1` and TE{sub}`2` are the echo times, and  TE = TE{sub}`2`- TE{sub}`1`. To compute the phase offset {math}`\Delta \phi`, phase subtraction is necessary. The complex difference can be used to keep the phase between {math}`-\pi` to {math}`+\pi`, although other phase difference techniques are also possible.
 
 ```{math}
 :label: b0Eq6
@@ -73,4 +73,4 @@ where TE1 and TE2 are the echo times, and  TE = TE2- TE1. To compute the phase o
 \end{equation}
 ```
 
-In some sequences, the phase images are exported as a single phase difference image (x,y,z, TE).
+In some sequences, the phase images are exported as a single phase difference image {math}`\Delta \phi \left( x,y,z, \Delta \text{TE} \right)`.
