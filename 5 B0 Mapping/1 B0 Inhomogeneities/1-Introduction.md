@@ -29,7 +29,7 @@ When a subject is introduced in the scanner, the static _B_{sub}`0` field can be
 
 where {math}`f`, {math}`f_{0}` and {math}`\Delta f` represent the actual precessional frequency, the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) and the difference between current and the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) ({math}`f-f_{0}=\Delta f`) respectively. _B_, _B_{sub}_0_ and Δ _B_ all have similar interpretations as {math}`f`, {math}`f_{0}` and {math}`\Delta f` but are in units of field strength (T). The relationship between frequency and field strength can be found using the well known [Larmor equation](https://en.wikipedia.org/wiki/Larmor_precession) ({math}`f=\gamma B / 2\pi`). {math}`\delta_{ppm}` is the field offset in ppm.
 
-[](#_B_{sub}`0`Plot1) shows typical brain magnitude, phase, and B0 field map images of a brain in a 3 T scanner.
+[](#b0Plot1) shows typical brain magnitude, phase, and B0 field map images of a brain in a 3 T scanner.
 
 :::{figure} #fig5p1cell
 :label: b0Plot1

@@ -21,6 +21,10 @@ project:
     headings: true
   open_access: true
   license: CC-BY-4.0
+  date: 2024-10-08
+  authors: everyone
+  exports:
+    - format: pdf
   abbreviations:
     MRI: Magnetic resonance imaging
     NMR: Nuclear Magnetic Resonance
