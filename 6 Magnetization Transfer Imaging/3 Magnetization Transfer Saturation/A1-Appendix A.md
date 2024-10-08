@@ -19,7 +19,7 @@ This content of this section is still a work-in-progress and has not been proofr
 
 ## Derivation
 
-From the MTR protocol in Brown 2013 of the MTR blog post, 1=15 deg and TR = 0.03 s, so assuming a _T_{sub}`1` at 1.5T (field strength that Brown used) of 0.55 s in healthy WM, so _R_{sub}`1` = 1.8, we can calculate the signal from [5] of an experiment with no MT pulse (alpha2 = 0).
+From the MTR protocol in Brown 2013 of the MTR blog post, 1=15 deg and TR = 0.03 s, so assuming a _T_{sub}`1` at 1.5T (field strength that Brown used) of 0.55 s in healthy WM, so _R_{sub}`1` = 1.8, we can calculate the signal from [5] of an experiment with no MT pulse ({math}`\alpha_{2}` = 0).
 
 
 
@@ -42,7 +42,7 @@ S_{0}=0.0815A
 ```
 
 
-For an MT-weighted image, we get an equation as we don’t know alpha2,
+For an MT-weighted image, we get an equation as we don’t know {math}`\alpha_{2}`,
 
 ```{math}
 :label: mtrEqA3
@@ -74,7 +74,7 @@ S_{MT}=\frac{0.0047}{0.0578+\delta}A
 ```
 
 
-We’d like to calculate the contribution from the MT pulse, δ. We can do this by using the measured MTR value for this protocol, which we simulated for in the previous blog post and found to be ~0.46. We can now use the MTR equation and substitute the S0 and SMT, and the solve for δ.
+We’d like to calculate the contribution from the MT pulse, δ. We can do this by using the measured MTR value for this protocol, which we simulated for in the previous blog post and found to be ~0.46. We can now use the MTR equation and substitute the _S_{sub}`0` and _S_{sub}`MT`, and the solve for δ.
 
 ```{math}
 :label: mtrEqA6
