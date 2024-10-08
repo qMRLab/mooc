@@ -3,7 +3,7 @@ title: Multi-Frequency Population
 subtitle: Dual echo B0 mapping
 date: 2024-10-07
 authors:
-  - name:  Alexandre Dastous
+  - name:  Alexandre D'Astous
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:

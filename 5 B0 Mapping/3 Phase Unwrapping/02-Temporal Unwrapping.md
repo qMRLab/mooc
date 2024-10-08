@@ -3,7 +3,7 @@ title: Temporal Unwrapping
 subtitle: Phase Unwrapping
 date: 2024-10-07
 authors:
-  - name:  Alexandre Dastous
+  - name:  Alexandre D'Astous
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:

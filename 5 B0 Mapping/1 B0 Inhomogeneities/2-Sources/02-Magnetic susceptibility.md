@@ -3,7 +3,7 @@ title: Magnetic susceptibility
 subtitle: Sources of B0 Inhomogeneities
 date: 2024-10-07
 authors:
-  - name:  Alexandre Dastous
+  - name:  Alexandre D'Astous
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
