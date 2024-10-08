@@ -1,6 +1,6 @@
 ---
 title: Signal modelling
-subtitle: Monoexponential T2 Mapping
+subtitle: Monoexponential _T_{sub}`2` Mapping
 date: 2024-10-07
 authors:
   - name:  Samuelle St-Onge
@@ -39,7 +39,7 @@ Transverse relaxation decay curves for _T_{sub}`2` and _T_{sub}`2`{sup}`*` value
 
 
 
-In NMR physics, it has been shown that _T_{sub}`2` relaxation times must be equal to or shorter than 2T1 (Levitt, 2008); however, it has been demonstrated that _T_{sub}`2` can exceed T1 in very rare cases (Traficante, 1991). In living organisms however, _T_{sub}`2` is always shorter than _T_{sub}`1`. 
+In NMR physics, it has been shown that _T_{sub}`2` relaxation times must be equal to or shorter than 2 _T_{sub}`1` (Levitt, 2008); however, it has been demonstrated that _T_{sub}`2` can exceed _T_{sub}`1` in very rare cases (Traficante, 1991). In living organisms however, _T_{sub}`2` is always shorter than _T_{sub}`1`. 
 
 
 ```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#t2Plot2).

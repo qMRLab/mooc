@@ -20,7 +20,7 @@ This content of this section is still a work-in-progress and has not been proofr
 
 There are two main ways that field maps are smoothened in practice: filters and fitting. The study of filters is typically presented in a signal processing context, however its basic principles (in particular, convolutions) are observed in many other fields of study, in particular physics.
 
-We’ll begin by providing a very brief overview of some key filtering properties, then move on to some illustrative 1D examples related to MRI situations in the next section before finally returning to their applications in actual B1 maps.
+We’ll begin by providing a very brief overview of some key filtering properties, then move on to some illustrative 1D examples related to MRI situations in the next section before finally returning to their applications in actual _B_{sub}`1` maps.
 
 Filtering is presented as a convolution process to produce an output that is smoother, meaning less sharp edges. A convolution is the multiplication of a kernel (a predetermined function or property, such as the mean, median, Gaussian function, etc) that is shifted at each point of the signal or image, and the summed value of this multiplication is assigned to the time or spatial point where it was applied. [](#filtPlot3) illustrates this for the mean using a three-position mean as a kernel:
 

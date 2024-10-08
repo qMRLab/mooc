@@ -1,6 +1,6 @@
 ---
 title: Benefits and Pitfalls
-subtitle: Dual echo B0 mapping
+subtitle: Dual echo _B_{sub}`0` mapping
 date: 2024-10-07
 authors:
   - name:  Alexandre D'Astous
@@ -14,9 +14,9 @@ numbering:
     template: Eq. %s
 ---
 
-When acquiring a field mapping sequence, many parameters will affect the resulting images. A minimum of two phase images is required to compute B0 field maps, as the initial phase 0(x,y,z) is generally not known and non-zero. Multi-echo field mapping with more than two echoes will be discussed in section 4.3. 
+When acquiring a field mapping sequence, many parameters will affect the resulting images. A minimum of two phase images is required to compute _B_{sub}`0` field maps, as the initial phase 0(x,y,z) is generally not known and non-zero. Multi-echo field mapping with more than two echoes will be discussed in section 4.3. 
 
-These phase maps can be acquired by many sequences. The general principle includes the use of sequences that cause accumulation of phase. This can be done using GRE sequences or using spin-echo sequences with asymmetric echoes (e.g.: first echo at the spin echo and second echo shifted by 1-2 ms to create an accumulation of phase caused by B0 inhomogeneities). The sequence parameters are chosen such that the data does not suffer much from distortions and other artifacts caused by B0 inhomogeneities. High bandwidth, thin slices and multi-shot sequences are therefore preferred [17]. This means EPI sequences are generally not used for field mapping because of their sensitivity to B0 inhomogeneities. 
+These phase maps can be acquired by many sequences. The general principle includes the use of sequences that cause accumulation of phase. This can be done using GRE sequences or using spin-echo sequences with asymmetric echoes (e.g.: first echo at the spin echo and second echo shifted by 1-2 ms to create an accumulation of phase caused by _B_{sub}`0` inhomogeneities). The sequence parameters are chosen such that the data does not suffer much from distortions and other artifacts caused by _B_{sub}`0` inhomogeneities. High bandwidth, thin slices and multi-shot sequences are therefore preferred [17]. This means EPI sequences are generally not used for field mapping because of their sensitivity to _B_{sub}`0` inhomogeneities. 
 
 When acquiring multiple echoes, the readout direction of the even echoes can be chosen to either be in the same direction (monopolar) as the odd echoes or in opposite directions (bipolar). Using opposite directions can slightly reduce TE, but doing so can cause a slight misregistration between the even and odd echoes and we therefore recommend using readouts in the same direction. 
 

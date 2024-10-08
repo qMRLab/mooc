@@ -1,6 +1,6 @@
 ---
-title: Multi-echo B0 Mapping
-subtitle: Advanced B0 Mapping Methods
+title: Multi-echo _B_{sub}`0` Mapping
+subtitle: Advanced _B_{sub}`0` Mapping Methods
 date: 2024-10-07
 authors:
   - name:  Alexandre D'Astous
@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-Multi-echo field mapping (three or more echoes) makes use of more echo times than the dual-echo standard field map. With more time points, the field maps can be expected to be more accurate. All benefits and pitfalls of section 4.2 apply in multi-echo field mapping, with the added criteria that the later echoes should have enough signal to provide a benefit to the technique. As seen in section 4.2, the phase generally evolves linearly with respect to time. Another way to look at B0 field mapping is realizing that we are looking for how much the phase changes per unit time (i.e.: the slope).
+Multi-echo field mapping (three or more echoes) makes use of more echo times than the dual-echo standard field map. With more time points, the field maps can be expected to be more accurate. All benefits and pitfalls of section 4.2 apply in multi-echo field mapping, with the added criteria that the later echoes should have enough signal to provide a benefit to the technique. As seen in section 4.2, the phase generally evolves linearly with respect to time. Another way to look at _B_{sub}`0` field mapping is realizing that we are looking for how much the phase changes per unit time (i.e.: the slope).
 
 ```{math}
 :label: b0Eq9

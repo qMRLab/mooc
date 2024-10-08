@@ -1,6 +1,6 @@
 ---
-title: T2* and quantitative susceptibility mapping (QSM)
-subtitle: Multiexponential T2 Mapping
+title: _T_{sub}`2`{sup}`*` and quantitative susceptibility mapping (QSM)
+subtitle: Multiexponential _T_{sub}`2` Mapping
 date: 2024-10-07
 authors:
   - name:  Samuelle St-Onge

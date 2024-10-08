@@ -1,6 +1,6 @@
 ---
 title: Signal Theory
-subtitle: Dual echo B0 mapping
+subtitle: Dual echo _B_{sub}`0` mapping
 date: 2024-10-07
 authors:
   - name:  Alexandre D'Astous
@@ -32,7 +32,7 @@ The phase () evolution follows the following equation (not considering transient
 \end{equation}
 ```
 
-where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio, B0 is the B0 field offset (T) and 0 is an initial constant phase offset (e.g.: coil induced, material induced through local conductivity/permittivity). We can observe phase evolution through time in [](#b0Plot7) by looking at phase data acquired in the brain at progressively longer echo times. The phase at a single voxel changes linearly (not considering transient effects). Note that the sharp variations forming vertical lines in the previous figure are called phase wraps and occur because the phase is defined over - to . Phase-wrapping effects will be discussed in more detail in the following chapter. Wraps can also occur spatially as sharp variations as seen in the following figure. Note that the longer the echo times, the more wraps there are.
+where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio, _B_{sub}`0` is the _B_{sub}`0` field offset (T) and 0 is an initial constant phase offset (e.g.: coil induced, material induced through local conductivity/permittivity). We can observe phase evolution through time in [](#b0Plot7) by looking at phase data acquired in the brain at progressively longer echo times. The phase at a single voxel changes linearly (not considering transient effects). Note that the sharp variations forming vertical lines in the previous figure are called phase wraps and occur because the phase is defined over - to . Phase-wrapping effects will be discussed in more detail in the following chapter. Wraps can also occur spatially as sharp variations as seen in the following figure. Note that the longer the echo times, the more wraps there are.
 
 :::{figure} #fig5p7cell
 :label: b0Plot7
@@ -52,7 +52,7 @@ MRI manufacturers do not all output phase data by default. It should be possible
 
 where ∠ is the phase operator. 
 
-As phase changes linearly with time (t) and with the field offset (B0), it is possible to acquire two phase images at two different echo times and compute B0(x,y,z).
+As phase changes linearly with time (t) and with the field offset (_B_{sub}`0`), it is possible to acquire two phase images at two different echo times and compute _B_{sub}`0`(x,y,z).
 
 
 ```{math}

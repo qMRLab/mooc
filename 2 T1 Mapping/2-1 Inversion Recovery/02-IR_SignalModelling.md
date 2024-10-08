@@ -49,7 +49,7 @@ The simplicity of the signal model described by [](#irEq3), both in its equation
 :::{figure} #fig2p2cell
 :label: irPlot1
 :enumerator: 2.2
-Inversion recovery curves ([](#irEq2)) for three different T1 values, approximating the main types of tissue in the brain.
+Inversion recovery curves ([](#irEq2)) for three different _T_{sub}`1` values, approximating the main types of tissue in the brain.
 :::
 
 Practically, [](#irEq1) is the better choice for simulating the signal of an [inversion recovery](wiki:Inversion_recovery) experiment, as the TRs are often chosen to be greater than 5_T_{sub}`1` of the tissue-of-interest, which rarely coincides with the longest _T_{sub}`1` present (e.g. TR may be sufficiently long for white matter, but not for CSF which could also be present in the volume). [](#irEq3) also assumes ideal inversion pulses, which is rarely the case due to slice profile effects. [](#irPlot2) displays the [inversion recovery](wiki:Inversion_recovery) signal magnitude (complete relaxation normalized to 1) of an experiment with TR = 5 s and _T_{sub}`1` values ranging between 250 ms to 5 s, calculated using both equations.

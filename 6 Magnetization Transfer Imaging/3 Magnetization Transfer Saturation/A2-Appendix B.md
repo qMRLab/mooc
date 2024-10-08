@@ -201,7 +201,7 @@ T1s =
 
 :::
 
-Our results closely align with expectations (T1 fitted ~= T1 input, MTR ~58, MTsat ~5%). Converting the MTsat value to ɑ2 (see Figure 8), we find that the MTSat value corresponds to an equivalent excitation pulse of approximately 18.7 degrees. Through Helms' interpretation, we infer that the MT pulse should be reducing the longitudinal magnetization by roughly 0.05 (ie Mz_after pulse - Mz_before pulse = 0.05).
+Our results closely align with expectations (_T_{sub}`1` fitted ~= _T_{sub}`1` input, MTR ~58, MTsat ~5%). Converting the MTsat value to ɑ2 (see Figure 8), we find that the MTSat value corresponds to an equivalent excitation pulse of approximately 18.7 degrees. Through Helms' interpretation, we infer that the MT pulse should be reducing the longitudinal magnetization by roughly 0.05 (ie Mz_after pulse - Mz_before pulse = 0.05).
 
 ## Simulation 2: Challenging MTSat Model Assumptions
 
@@ -253,9 +253,9 @@ legend('1-Mz_{after}/Mz_{before}')
 
 From these simulations, we find that there is a 0.314% reduction in longitudinal magnetization before/after the MT pulse after a steady state is achieved, which is an order of magnitude smaller than the MTsat value we calculated earlier for this protocol and tissue parameters (~5%). Either the MTsat theory is wrong, or we’re missing something. Revisiting the pulse sequence (Figure 1) and the MTsat model (Figure 2), we notice that while the MTsat model assumes instant excitation for both pulses, in reality the MT pulse is relatively long (~10 ms, Table 1). So, while there is a decoupling between MT saturation and relaxation in the MTsat model (Figure 2), in reality (and in our simulations) there is relaxation occurring during the MT pulse, and we didn’t account for that in the above simulation.
 
-## Simulation 3: T1 Correction During MT Pulse
+## Simulation 3: _T_{sub}`1` Correction During MT Pulse
 
-In our third simulation, we account for the T1 relaxation during the MT pulse. To simplify the calculations, and like Helms did, we’ll assume a decoupling between the MTsaturation and relaxation and calculate the T1 relaxation recovery independently for the duration of the MT pulse. We’ll then remove this contribution from the Mzafter-Mzbefore we calculated earlier (0.314%).
+In our third simulation, we account for the _T_{sub}`1` relaxation during the MT pulse. To simplify the calculations, and like Helms did, we’ll assume a decoupling between the MTsaturation and relaxation and calculate the _T_{sub}`1` relaxation recovery independently for the duration of the MT pulse. We’ll then remove this contribution from the Mzafter-Mzbefore we calculated earlier (0.314%).
 
 :::{dropdown} Code
 
@@ -294,7 +294,7 @@ legend('1-Mz_{after}/Mz_{before}')
 :label: mtsatAppendixPlotB2
 :::
 
-Upon excluding the T1 contribution, the disparity Δ in Mz values prior to and following the MT pulse increased to 2.1%, which is to say, that the MT contribution of this pulse leads to a reduction of Mz by 2.1%. This outcome aligns with the expected behavior, as T1 relaxation perpetually seeks to increase longitudinal magnetization towards its equilibrium value, which inversely impacts Δ. Consequently, the Δ we just calculated within a given TR is now closer to the initial MTsat calculation based on simulated measurements (2.1% compared to 5.34%). Nevertheless, it is apparent that some critical element eludes our simulations since we’ve only calculated only half of the anticipated value using our Bloch simulations.
+Upon excluding the _T_{sub}`1` contribution, the disparity Δ in Mz values prior to and following the MT pulse increased to 2.1%, which is to say, that the MT contribution of this pulse leads to a reduction of Mz by 2.1%. This outcome aligns with the expected behavior, as _T_{sub}`1` relaxation perpetually seeks to increase longitudinal magnetization towards its equilibrium value, which inversely impacts Δ. Consequently, the Δ we just calculated within a given TR is now closer to the initial MTsat calculation based on simulated measurements (2.1% compared to 5.34%). Nevertheless, it is apparent that some critical element eludes our simulations since we’ve only calculated only half of the anticipated value using our Bloch simulations.
 
 ## Considering Exchange and Relaxation after the MT Pulse
 
@@ -302,7 +302,7 @@ Once again, let’s compare the actual pulse sequence (Figure 1) and the Helms m
 
 ## Simulation 3: MT contribution after the off-resonance pulse
 
-To calculate this second contribution, we will calculate the difference in Mz between the end of the MT pulse and the end of TR (just prior to the next MT pulse), and just like we did earlier, we’ll also subtract the T1 component (assuming that MT and T1 are decoupled during this time). Note that MTsat is the reduction in magnetization relative to its value prior to the MT pulse, so we need to normalize this contribution by the initial Mz (the same one we used for the MT pulse contribution, at the start of TR). Appendix C extends the diagram from Figure 8 to include the MT contribution after the MT pulse, and although more complex, it demonstrates the need for the note in the previous sentence.
+To calculate this second contribution, we will calculate the difference in Mz between the end of the MT pulse and the end of TR (just prior to the next MT pulse), and just like we did earlier, we’ll also subtract the _T_{sub}`1` component (assuming that MT and _T_{sub}`1` are decoupled during this time). Note that MTsat is the reduction in magnetization relative to its value prior to the MT pulse, so we need to normalize this contribution by the initial Mz (the same one we used for the MT pulse contribution, at the start of TR). Appendix C extends the diagram from Figure 8 to include the MT contribution after the MT pulse, and although more complex, it demonstrates the need for the note in the previous sentence.
 
 :::{dropdown} Code
 
@@ -337,7 +337,7 @@ legend('MTsat contribution from MT pulse event', 'MTsat contribution from cross-
 :label: mtsatAppendixPlotB3
 :::
 
-These simulations show through Bloch simulations that the sum of the MT contribution during and after the off-resonance pulse (with the T1 relaxation component removed) leads to a reduction in longitudinal magnetization of 5.49%, very close to the 5.34% that was calculated using the Helms model of MTsat in equations 7-9. A slight overestimate still remains, but this difference is likely impossible to consolidate, as there will always be a difference between the actual MT exchange (where both MT and T1 are counteracting each other at all times) and the modeled MTsat exchange (where instantaneous pulses are assumed, so the MT and T1 contribution are completely separated in this theory).These simulations should however show that the MTsat contribution is not restricted to only the difference in Mz resulting after the effects of the MT pulse, but also to the cross-relaxation occurring between pools in the absence of the MT pulse.
+These simulations show through Bloch simulations that the sum of the MT contribution during and after the off-resonance pulse (with the _T_{sub}`1` relaxation component removed) leads to a reduction in longitudinal magnetization of 5.49%, very close to the 5.34% that was calculated using the Helms model of MTsat in equations 7-9. A slight overestimate still remains, but this difference is likely impossible to consolidate, as there will always be a difference between the actual MT exchange (where both MT and _T_{sub}`1` are counteracting each other at all times) and the modeled MTsat exchange (where instantaneous pulses are assumed, so the MT and _T_{sub}`1` contribution are completely separated in this theory).These simulations should however show that the MTsat contribution is not restricted to only the difference in Mz resulting after the effects of the MT pulse, but also to the cross-relaxation occurring between pools in the absence of the MT pulse.
 
 ## Interpreting MTSat
 

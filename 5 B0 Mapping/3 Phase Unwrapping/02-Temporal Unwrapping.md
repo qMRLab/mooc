@@ -27,9 +27,9 @@ Temporal unwrapping uses multiple time points (>=2) to unwrap the image. By acqu
 ```
 
 
-If we assume a maximum field offset f0,max of 1 ppm at 3T (~127 MHz), we can calculate a maximum field offset (f0,max) of 1 µT or 127 Hz. The [Nyquist criteria](https://en.wikipedia.org/wiki/Nyquist_frequency) can be used to calculate the maximum echo time difference (TE) required to satisfy the no-wrapping requirement in the phase difference image (TE=1 2f0,max). Table 1 shows TE for multiple field strength assuming inhomogeneities of 1 ppm. As shown, the echo spacing is B0 dependent, as higher field offsets are observed at higher field strengths.
+If we assume a maximum field offset f0,max of 1 ppm at 3T (~127 MHz), we can calculate a maximum field offset (f0,max) of 1 µT or 127 Hz. The [Nyquist criteria](https://en.wikipedia.org/wiki/Nyquist_frequency) can be used to calculate the maximum echo time difference (TE) required to satisfy the no-wrapping requirement in the phase difference image (TE=1 2f0,max). Table 1 shows TE for multiple field strength assuming inhomogeneities of 1 ppm. As shown, the echo spacing is _B_{sub}`0` dependent, as higher field offsets are observed at higher field strengths.
 
-```{list-table}  Maximum echo time required to respect the Nyquist criteria for different field strengths for B0 of 1 ppm.
+```{list-table}  Maximum echo time required to respect the Nyquist criteria for different field strengths for _B_{sub}`0` of 1 ppm.
 :header-rows: 1
 :label: b0Table1
 :enumerator:5.1

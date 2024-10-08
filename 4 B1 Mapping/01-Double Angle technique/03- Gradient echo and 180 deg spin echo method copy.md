@@ -18,9 +18,9 @@ numbering:
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
-This pulse sequence uses a 180 degree spin-echo refocusing pulse and acquires two images using an excitation pulse α and 2α. It assumes that there is full signal recovery (long TR), and because it refocuses T2*, it eliminates signal variability caused by B0 in the resulting B1 map (Insko and Bolinger 1993). Alternatively, a gradient echo could be used?
+This pulse sequence uses a 180 degree spin-echo refocusing pulse and acquires two images using an excitation pulse α and 2α. It assumes that there is full signal recovery (long TR), and because it refocuses _T_{sub}`2`{sup}`*`, it eliminates signal variability caused by _B_{sub}`0` in the resulting _B_{sub}`1` map (Insko and Bolinger 1993). Alternatively, a gradient echo could be used?
 
-Assuming an an refocusing pulse is used (i.e. isn’t dependent on B1), we can develop the equation for a gradient echo and spin echo case.
+Assuming an an refocusing pulse is used (i.e. isn’t dependent on _B_{sub}`1`), we can develop the equation for a gradient echo and spin echo case.
 
 ```{math}
 :label: daEq1
@@ -102,7 +102,7 @@ And the true flip angle can be calculated from the ratio of these two magnetizat
 \end{equation}
 ```
 
-Knowing that alpha = B1 alpha_nominal, B1 is thus:
+Knowing that alpha = _B_{sub}`1` alpha_nominal, _B_{sub}`1` is thus:
 
 
 ```{math}
@@ -116,22 +116,22 @@ B_{1}=\frac{\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)}{\alpha_{
 :::{figure} #daFig1cell
 :label: daPlot1
 :enumerator: 4.2
-B1 computed from analytical GRE equations for DA sequence
+_B_{sub}`1` computed from analytical GRE equations for DA sequence
 :::
 
-This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on B1. [](#daPlot2) explores this using Bloch simulations
+This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on _B_{sub}`1`. [](#daPlot2) explores this using Bloch simulations
 
 :::{figure} #daFig2cell
 :label: daPlot2
 :enumerator: 4.3
-B1 computed from bloch simulations for ideal spin echo and refocusing pulse where FA = 180*B1
+_B_{sub}`1` computed from bloch simulations for ideal spin echo and refocusing pulse where FA = 180*_B_{sub}`1`
 :::
 
 
 :::{figure} #daFig3cell
 :label: daPlot3
 :enumerator: 4.4
-B1 computed from bloch simulations for spin echo with refocusing pulse where FA = 180*B1,, and composite pulse 90x-180y-90x where each 90 and 180 are also multiplied by B1.
+_B_{sub}`1` computed from bloch simulations for spin echo with refocusing pulse where FA = 180*_B_{sub}`1`,, and composite pulse 90x-180y-90x where each 90 and 180 are also multiplied by _B_{sub}`1`.
 :::
 
 
