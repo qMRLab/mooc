@@ -35,7 +35,7 @@ r \approx \frac{1+n\text{cos}\left( \theta \right)}{n+\text{cos}\left( \theta \r
 ```
 
 
-Finally, a measure of the actual flip-angle ({math}`\theta`) can be achieved by solving [](#afiEq4) to obtain [](#afiEq5), which only depends on the signal intensities ratio (r = S2/S1) and the parameters TR{sub}`1` and TR{sub}`2`.
+Finally, a measure of the actual flip-angle ({math}`\theta`) can be achieved by solving [](#afiEq4) to obtain [](#afiEq5), which only depends on the signal intensities ratio (r = S{sub}`2`/S{sub}`1`) and the parameters TR{sub}`1` and TR{sub}`2`.
 
 ```{math}
 :label: afiEq5

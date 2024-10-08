@@ -1,5 +1,5 @@
 ---
-title: _B_{sub}`1` map examples
+title: B1 map examples
 subtitle: Filtering
 date: 2024-10-07
 authors:

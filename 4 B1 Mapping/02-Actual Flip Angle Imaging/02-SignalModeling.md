@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-The pulse sequence of the AFI method ([](#afiFig1)) is composed of two identical RF pulses and two different delays (TR{sub}`1` < TR{sub}`2`). After each RF pulse, the signal intensity is acquired followed by a spoiler to destroy the residual transverse magnetization next to the following RF pulse. This method implements a pulsed steady-state signal with a gradient-echo acquisition, thus preventing the use of long repetition times (Yarnykh 2007). It has been demonstrated that if the delays TR{sub}`1` and TR{sub}`2` are sufficiently short (e.g. TR{sub}`1`/TR{sub}`2` = 20 ms/100 ms), and the transverse magnetization is completely spoiled, the ratio of signal intensities (r = S2/S1) depends on the flip angle of applied pulses and is highly insensitive to _T_{sub}`1` (Yarnykh 2007).
+The pulse sequence of the AFI method ([](#afiFig1)) is composed of two identical RF pulses and two different delays (TR{sub}`1` < TR{sub}`2`). After each RF pulse, the signal intensity is acquired followed by a spoiler to destroy the residual transverse magnetization next to the following RF pulse. This method implements a pulsed steady-state signal with a gradient-echo acquisition, thus preventing the use of long repetition times (Yarnykh 2007). It has been demonstrated that if the delays TR{sub}`1` and TR{sub}`2` are sufficiently short (e.g. TR{sub}`1`/TR{sub}`2` = 20 ms/100 ms), and the transverse magnetization is completely spoiled, the ratio of signal intensities (r = S{sub}`2`/S{sub}`1`) depends on the flip angle of applied pulses and is highly insensitive to _T_{sub}`1` (Yarnykh 2007).
 
 ```{figure} img/afi_pulsesequence.png
 :label: afiFig1
@@ -41,7 +41,7 @@ M_{z2}=M_{0}\frac{1-e^{\frac{-\text{TR}_{1}}{_{T_{1}}}}+\left( 1- e^{\frac{-\tex
 \end{equation}
 ```
 
-Mz1,2 is the longitudinal magnetization of both pulses, M0 is the magnetization at thermal equilibrium, TR{sub}`1` is the delay time after the first pulse, TR{sub}`2` is the delay time after the second identical pulse ([](#afiFig1)), and {math}`\theta` is the excitation flip angle. The steady-state longitudinal magnetization Mz curves for different _T_{sub}`1` values for a range of {math}`\theta_{n}` and TR values are shown in [](#afiPlot1).
+Mz{sub}`1,2` is the longitudinal magnetization of both pulses, M0 is the magnetization at thermal equilibrium, TR{sub}`1` is the delay time after the first pulse, TR{sub}`2` is the delay time after the second identical pulse ([](#afiFig1)), and {math}`\theta` is the excitation flip angle. The steady-state longitudinal magnetization Mz curves for different _T_{sub}`1` values for a range of {math}`\theta_{n}` and TR values are shown in [](#afiPlot1).
 
 ```{figure} #afiFig1cell
 :label: afiPlot1
@@ -62,5 +62,5 @@ In practice, gradient and RF spoiling are important parameters to consider in an
 ```{figure} #afiFig3cell
 :label: afiPlot3
 :enumerator: 4.8
-Signal 1 curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (red), and no spoiling (orange). Simulation details: TR{sub}`1` = 20 ms, TR{sub}`2` = 100 ms, _T_{sub}`1` = 900 ms, _T_{sub}`2` = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete dephasing from gradient spoiling, and the RF phase of the excitation pulse is {math}`\Phi_{n}=\Phi_{n-1}+n\Phi_{0}=\textonehalf \Phi_{0}\left( n^{2}+n+2 \right)` (Bernstein et al. 2004) with {math}`\Phi_{0}=39^{\circ}` (Zur et al. 1991) after each TR.
+Signal 1 curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (red), and no spoiling (orange). Simulation details: TR{sub}`1` = 20 ms, TR{sub}`2` = 100 ms, _T_{sub}`1` = 900 ms, _T_{sub}`2` = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete dephasing from gradient spoiling, and the RF phase of the excitation pulse is {math}`\Phi_{n}=\Phi_{n-1}+n\Phi_{0}= 1/2 \Phi_{0}\left( n^{2}+n+2 \right)` (Bernstein et al. 2004) with {math}`\Phi_{0}=39^{\circ}` (Zur et al. 1991) after each TR.
 ```
