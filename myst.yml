@@ -51,6 +51,9 @@ project:
     SNR: Signal-to-noise ratio
     RD-NLS: reduced-dimension non-linear least-squares
     STD: Standard deviation
+    MT: Magnetization Transfer
+    MTsat: Magnetization Transfer saturation
+    SAR: Specific absorption rate
   exclude:
     - README.md
     - LICENSE.md
