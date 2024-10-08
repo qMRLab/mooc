@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-The steady-state longitudinal magnetization of an [inversion recovery](wiki:Inversion_recovery) experiment can be derived from the [Bloch equations](wiki:Bloch_equations) for the pulse sequence {{math}`θ_180` – TI – θ<sub>90</sub> – (TR-TI)}, and is given by:
+The steady-state longitudinal magnetization of an [inversion recovery](wiki:Inversion_recovery) experiment can be derived from the [Bloch equations](wiki:Bloch_equations) for the pulse sequence {{math}`θ_{180}` – TI – {math}`θ_{180}` – (TR-TI)}, and is given by:
 
 ```{math}
 :label: irEq1
@@ -24,7 +24,7 @@ M_{z}(TI) = M_0 \frac{1-\text{cos}(\theta_{180})e^{- \frac{TR}{T_1}} -[1-\text{c
 \end{equation}
 ```
 
-where M<sub>z</sub> is the longitudinal magnetization prior to the θ<sub>90</sub> pulse. If the in-phase [real](wiki:Complex_number) signal is desired, it can be calculated by multiplying [](#irEq1) by <i>k</i>sin(θ<sub>90</sub>)e<sup>-TE/T<sub>2</sub></sup>, where <i>k</i> is a constant. This general equation can be simplified by grouping together the constants for each measurements regardless of their values (i.e. at each TI, same TE and θ<sub>90</sub> are used) and assuming an ideal inversion pulse:
+where {math}`M_{z}` is the longitudinal magnetization prior to the {math}`θ_{90}` pulse. If the in-phase [real](wiki:Complex_number) signal is desired, it can be calculated by multiplying [](#irEq1) by {math}`k \text{sin}\left( θ_{90} \right ) e^{-TE/T_{2}}`, where {math}`k` is a constant. This general equation can be simplified by grouping together the constants for each measurements regardless of their values (i.e. at each TI, same TE and θ<sub>90</sub> are used) and assuming an ideal inversion pulse:
 
 ```{math}
 :label: irEq2
