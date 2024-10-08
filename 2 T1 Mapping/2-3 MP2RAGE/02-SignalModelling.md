@@ -24,7 +24,7 @@ S_{\text{MP2RAGE}}=\text{real}\left( \frac{S_{\text{GRE}_{\text{TI}_{1}}}^{\ast}
 \end{equation}
 ```
 
-This value is bounded between [-0.5, 0.5], and helps reduce some B{sub}`0` inhomogeneity effects using the phase data. For real data, or magnitude data with polarity restoration, this metric is instead calculated as:
+This value is bounded between [-0.5, 0.5], and helps reduce some _B_{sub}`0` inhomogeneity effects using the phase data. For real data, or magnitude data with polarity restoration, this metric is instead calculated as:
 
 ```{math}
 :label: mp2rageEq2
@@ -80,4 +80,4 @@ m_{z,ss}\frac{M_{0}\left[ \beta\left( \text{cos}\left( \theta_{2} \right)\text{E
 \end{equation}
 ```
 
-From Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.13](#mp2rageEq6), it is evident that the MP2RAGE parameter _S_{sub}`MP2RAGE` (Equations [2.11](#mp2rageEq1), [2.12](#mp2rageEq2)) cancels out the effects of receive field sensitivity, _T_{sub}`2`{sup}`*`, and _M_{sub}`0`. The signal sensitivity related to the transmit field (B{sub}`1`{sup}`+`), hidden in Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.16](#mp2rageEq6) within the flip angle values {math}`\theta_{1}` and {math}`\theta_{1}`, can also be reduced by careful pulse sequence protocol design (Marques et al. 2010), but not entirely eliminated (Marques & Gruetter 2013).
+From Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.13](#mp2rageEq6), it is evident that the MP2RAGE parameter _S_{sub}`MP2RAGE` (Equations [2.11](#mp2rageEq1), [2.12](#mp2rageEq2)) cancels out the effects of receive field sensitivity, _T_{sub}`2`{sup}`*`, and _M_{sub}`0`. The signal sensitivity related to the transmit field (_B_{sub}`1`{sup}`+`), hidden in Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.16](#mp2rageEq6) within the flip angle values {math}`\theta_{1}` and {math}`\theta_{1}`, can also be reduced by careful pulse sequence protocol design (Marques et al. 2010), but not entirely eliminated (Marques & Gruetter 2013).
