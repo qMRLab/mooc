@@ -23,7 +23,7 @@ So far we’ve explored a lot of the practical properties of MTsat, but have yet
 
 (figure or quote)
 
-Thus, MTsat is interpreted as being the saturation (i.e. reduction in longitudinal magnetization) occurring from the pulse substituting the MT pulse ([#mtsatFig2]) occurring within a single TR, after steady-state has been reached. A reminder: MTR, in contrast, is a steady-state image difference metric (not “within” a TR).
+Thus, MTsat is interpreted as being the saturation (i.e. reduction in longitudinal magnetization) occurring from the pulse substituting the MT pulse ([](#mtsatFig2)) occurring within a single TR, after steady-state has been reached. A reminder: MTR, in contrast, is a steady-state image difference metric (not “within” a TR).
 
 ## Simulating MTSat through qMRLab
 
