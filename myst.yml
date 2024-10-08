@@ -275,7 +275,6 @@ project:
             - file: Figures/T1/figure_vfa5.ipynb
             - file: Figures/T1/figure_vfa6.ipynb
             - file: Figures/T1/figure_vfa7.ipynb
-            - file: Figures/T1/foreword.md
             - file: Figures/T1/mp2rageFig1.ipynb
             - file: Figures/T1/mp2rageFig2.ipynb
         - title: T2  Mapping
