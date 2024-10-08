@@ -1,5 +1,5 @@
 ---
-title: Abstract
+title: Introduction
 subtitle: Quantitative Magnetization Transfer
 date: 2024-07-25
 authors:
@@ -7,9 +7,11 @@ authors:
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
-  heading_2: false
+  heading_2: true
   figure:
-    template: Fig. %s
+    template: Figure %s
+  equation:
+    template: Eq. %s
 ---
 
 Magnetization Transfer (MT) has been extensively applied to study macromolecular biological tissue composition. The imaging contrast resides in the magnetization transfer between free-water protons and macromolecular proton compartments, through chemical exchange and dipolar interactions. In the two-pool tissue model, highly mobile protons are associated with the free-water pool while protons found in semisolid macromolecular sites are defined as the restricted pool (Sled 2018). A simple method for visualizing MT effects includes acquiring two images with and without an off-resonance MT pulse to calculate the MT ratio (MTR), which is the normalized difference of these two images (Wolff and Balaban 1989). Despite its proven usefulness to study multiple sclerosis (Zheng et al. 2018), Alzheimer’s disease (Fornari et al. 2012) and psychiatric disorders (Chen et al. 2015), the MTR is a semi-quantitative metric that depends critically on the imaging sequence parameters (Wood and Malik 2020). Another semi-quantitative approach is the estimation of MT saturation (MTsat) by fitting the MT signal obtained from an MT-weighted (MTw), a proton density (PD) weighted and T1-weighted (T1w) contrast (Helms et al. 2008). Quantitative MT (qMT) consists of fitting multiple images to a mathematical model to extract tissue-specific parameters related to physical quantities, such as pool sizes, magnetization exchange rates between pools, and T1,T2 relaxation times of each pool. Compared to semi-quantitative approaches (MTR, MTsat), qMT has long acquisition protocols and sometimes needs additional measurements (eg. B0, B1, T1), and the complex models required to fit the quantitative maps makes it a challenging imaging technique.

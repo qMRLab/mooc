@@ -30,11 +30,9 @@ Now that we have a better grasp of the magnetization exchange process, we can se
 
 ```{math}
 :label: mtrEq1
-:enumerator:6.1
+:enumerator:6.7
 \begin{equation}
-
 \text{MTR} \left( \text{\%} \right) = \frac{S_{0}-S_{MT}}{S_{0}} \cdot 100
-
 \end{equation}
 ```
 
