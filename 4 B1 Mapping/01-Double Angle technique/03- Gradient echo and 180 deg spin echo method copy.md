@@ -119,7 +119,7 @@ B_{1}=\frac{\text{arcos}\left( \frac{M_{2\alpha}}{2M_{\alpha}} \right)}{\alpha_{
 _B_{sub}`1` computed from analytical GRE equations for DA sequence
 :::
 
-This equation is also used for alpha-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on _B_{sub}`1`. [](#daPlot2) explores this using Bloch simulations
+This equation is also used for {math}`\alpha`-180 spin echo pulses, however it assumes no dependency on of the refocusing pulse on _B_{sub}`1`. [](#daPlot2) explores this using Bloch simulations
 
 :::{figure} #daFig2cell
 :label: daPlot2
