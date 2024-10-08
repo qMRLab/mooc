@@ -19,5 +19,5 @@ A brain dataset is used to show a concrete example of a field map that could be 
 :::{figure} #fig5p9cell
 :label: b0Plot9
 :enumerator: 5.9
-Two phase images, a phase difference and a _B_{sub}`0` field map. Phase wraps are visible where the phase transitions from  {math}`-\pi` to {math}`+\pi.
+Two phase images, a phase difference and a _B_{sub}`0` field map. Phase wraps are visible where the phase transitions from  {math}`-\pi` to {math}`+\pi`.
 :::
