@@ -18,7 +18,7 @@ numbering:
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
-This pulse sequence uses a 180 degree spin-echo refocusing pulse and acquires two images using an excitation pulse α and 2α. It assumes that there is full signal recovery (long TR), and because it refocuses _T_{sub}`2`{sup}`*`, it eliminates signal variability caused by _B_{sub}`0` in the resulting _B_{sub}`1` map (Insko and Bolinger 1993). Alternatively, a gradient echo could be used?
+This pulse sequence uses a 180 degree spin-echo refocusing pulse and acquires two images using an excitation pulse {math}`\alpha` and {math}`2\alpha`. It assumes that there is full signal recovery (long TR), and because it refocuses _T_{sub}`2`{sup}`*`, it eliminates signal variability caused by _B_{sub}`0` in the resulting _B_{sub}`1` map (Insko and Bolinger 1993). Alternatively, a gradient echo could be used?
 
 Assuming an an refocusing pulse is used (i.e. isn’t dependent on _B_{sub}`1`), we can develop the equation for a gradient echo and spin echo case.
 
@@ -131,7 +131,7 @@ _B_{sub}`1` computed from bloch simulations for ideal spin echo and refocusing p
 :::{figure} #daFig3cell
 :label: daPlot3
 :enumerator: 4.4
-_B_{sub}`1` computed from bloch simulations for spin echo with refocusing pulse where FA = 180*_B_{sub}`1`,, and composite pulse 90x-180y-90x where each 90 and 180 are also multiplied by _B_{sub}`1`.
+_B_{sub}`1` computed from bloch simulations for spin echo with refocusing pulse where FA = 180*_B_{sub}`1`,, and composite pulse 90{sub}`x`-180{sub}`y`-90{sub}`x` where each 90 and 180 are also multiplied by _B_{sub}`1`.
 :::
 
 

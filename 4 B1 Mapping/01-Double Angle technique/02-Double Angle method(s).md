@@ -25,5 +25,5 @@ Figure 1. Pulse sequences
 ```{figure} img/daPulseSequences.png
 :label: daFig1
 :enumerator: 4.1
-Pulse sequences for double angle methods. A) Double angle method using a gradiend echo. B) Double angle method using a 180 degree refocusing pulse. C) Double angle method using a 2alpha refocusing pulse, acquired with two values alpha1 and alpha2 such that alpha2=2alpha1. 
+Pulse sequences for double angle methods. A) Double angle method using a gradiend echo. B) Double angle method using a 180 degree refocusing pulse. C) Double angle method using a 2alpha refocusing pulse, acquired with two values {math}`\alpha_{1}` and alpha2 such that {math}`\alpha_{2}=2\alpha_{1}`. 
 ```
