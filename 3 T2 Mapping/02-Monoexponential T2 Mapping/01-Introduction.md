@@ -1,6 +1,6 @@
 ---
 title: Introduction
-subtitle: Monoexponential _T_{sub}`2` mapping
+subtitle: Monoexponential T2 mapping
 date: 2024-10-07
 authors:
   - name:  Samuelle St-Onge

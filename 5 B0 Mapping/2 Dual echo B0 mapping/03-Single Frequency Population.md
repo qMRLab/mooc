@@ -1,6 +1,6 @@
 ---
 title: Single Frequency Population
-subtitle: Dual echo _B_{sub}`0` mapping
+subtitle: Dual echo B0 mapping
 date: 2024-10-07
 authors:
   - name:  Alexandre D'Astous

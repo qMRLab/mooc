@@ -1,6 +1,6 @@
 ---
 title: Introduction
-subtitle: _T_{sub}`2` Mapping
+subtitle: T2 Mapping
 date: 2024-10-07
 authors:
   - name:  Samuelle St-Onge

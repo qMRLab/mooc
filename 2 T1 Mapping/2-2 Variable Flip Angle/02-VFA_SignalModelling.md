@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the [Bloch equations](wiki:Bloch_equations) for the spoiled [gradient echo](wiki:Gradient_echo) pulse sequence {{math}`θ_{n}`–TR}:
+The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the [Bloch equations](wiki:Bloch_equations) for the spoiled [gradient echo](wiki:Gradient_echo) pulse sequence {{math}`\theta_{n}`–TR}:
 
 ```{math}
 :label: vfaEq1
@@ -24,7 +24,7 @@ M_{z}(\theta_n) = M_0 \frac{1-e^{- \frac{TR}{T_1}}}{1-\text{cos}(\theta_n) e^{- 
 \end{equation}
 ```
 
-where _M<sub>z</sub>_ is the longitudinal magnetization, _M_<sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and {math}`θ_{n}` is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a range of {math}`θ_{n}` and TR values are shown in [](#vfaPlot1).
+where _M<sub>z</sub>_ is the longitudinal magnetization, _M_<sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and {math}`\theta_{n}` is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a range of {math}`\theta_{n}` and TR values are shown in [](#vfaPlot1).
 
 :::{figure} #figvfa2cell
 :label: vfaPlot1

@@ -24,7 +24,7 @@ At first glance, one could be tempted to fit VFA data using a [non-linear least 
 \end{equation}
 ```
 
-As the third term does not change between measurements (it is constant for each {math}`θ_{n}`), it can be grouped into the constant for a simpler representation:
+As the third term does not change between measurements (it is constant for each {math}`\theta_{n}`), it can be grouped into the constant for a simpler representation:
 
 ```{math}
 :label: vfaEq4
@@ -34,7 +34,7 @@ As the third term does not change between measurements (it is constant for each 
 \end{equation}
 ```
 
-With this rearranged form of [](#vfaEq1), [T<sub>1</sub>](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from  {math}`S_{n}/\text{sin}\left( θ_{n}\right)` and {math}`S_{n}/\text{tan}\left( θ_{n}\right)` values:
+With this rearranged form of [](#vfaEq1), [T<sub>1</sub>](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from  {math}`S_{n}/\text{sin}\left( \theta_{n}\right)` and {math}`S_{n}/\text{tan}\left( \theta_{n}\right)` values:
 
 ```{math}
 :label: vfaEq5
@@ -71,7 +71,7 @@ B<sub>1</sub> in this context is normalized, meaning that it is unitless and has
 :::{figure} #figvfa6cell
 :label: vfaPlot5
 :enumerator: 2.12
-Mean and standard deviations of fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) B<sub>1</sub> correction. Simulation parameters: TR = 25 ms, T<sub>1</sub> = 900 ms, θnominal = 6° and 32° (optimized values for this TR/T<sub>1</sub> combination). Notice how even after B<sub>1</sub> correction, fitted [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values at B<sub>1</sub> values far from the nominal case (B<sub>1</sub> = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/T<sub>1</sub> (Deoni et al. 2003).
+Mean and standard deviations of fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) B<sub>1</sub> correction. Simulation parameters: TR = 25 ms, T<sub>1</sub> = 900 ms, {math}`\theta_{nominal}` = 6° and 32° (optimized values for this TR/T<sub>1</sub> combination). Notice how even after B<sub>1</sub> correction, fitted [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values at B<sub>1</sub> values far from the nominal case (B<sub>1</sub> = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/T<sub>1</sub> (Deoni et al. 2003).
 :::
 
 [](#vfaPlot6) displays an example VFA dataset and a B<sub>1</sub> map in a healthy brain, along with the T<sub>1</sub> map estimated using a linear fit (Equations [](#vfaEq4) and [](#vfaEq5)).
@@ -79,7 +79,7 @@ Mean and standard deviations of fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_r
 :::{figure} #figvfa7cell
 :label: vfaPlot6
 :enumerator: 2.13
-Example variable flip angle dataset and B<sub>1</sub> map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`θ_{nominal}` = 3° and 20°. The T<sub>1</sub> map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
+Example variable flip angle dataset and B<sub>1</sub> map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`\theta_{nominal}` = 3° and 20°. The T<sub>1</sub> map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
 :::
 
 

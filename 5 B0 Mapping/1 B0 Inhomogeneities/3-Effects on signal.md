@@ -1,6 +1,6 @@
 ---
 title: Effects on signal
-subtitle: _B_{sub}`0` Inhomogeneities
+subtitle: B0 Inhomogeneities
 date: 2024-10-07
 authors:
   - name:  Alexandre D'Astous

@@ -1,5 +1,5 @@
 ---
-title: _T_{sub}`2` mapping vs _T_{sub}`2`-weighted imaging
+title: T2 mapping vs T2-weighted imaging
 subtitle: T2 Mapping
 date: 2024-10-07
 authors:

@@ -1,6 +1,6 @@
 ---
 title: Signal modelling
-subtitle: Monoexponential _T_{sub}`2` Mapping
+subtitle: Monoexponential T2 Mapping
 date: 2024-10-07
 authors:
   - name:  Samuelle St-Onge

@@ -1,6 +1,6 @@
 ---
 title: Reducing eddy currents
-subtitle: Advanced _B_{sub}`0` Mapping Methods
+subtitle: Advanced B0 Mapping Methods
 date: 2024-10-07
 authors:
   - name:  Alexandre D'Astous

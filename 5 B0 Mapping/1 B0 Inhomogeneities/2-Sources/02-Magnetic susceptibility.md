@@ -1,6 +1,6 @@
 ---
 title: Magnetic susceptibility
-subtitle: Sources of _B_{sub}`0` Inhomogeneities
+subtitle: Sources of B0 Inhomogeneities
 date: 2024-10-07
 authors:
   - name:  Alexandre D'Astous

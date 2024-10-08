@@ -1,6 +1,6 @@
 ---
-title: Benefits and pitfalls of multi-exponential _T_{sub}`2` mapping
-subtitle: Multiexponential _T_{sub}`2` Mapping
+title: Benefits and pitfalls of multi-exponential T2 mapping
+subtitle: Multiexponential T2 Mapping
 date: 2024-10-07
 authors:
   - name:  Samuelle St-Onge
