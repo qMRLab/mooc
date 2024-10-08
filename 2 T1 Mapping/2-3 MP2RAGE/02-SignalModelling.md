@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-Prior to considering the full signal equations, we will first introduce the equation for the MP2RAGE parameter (_S_{sub}`MP2RAGE`) that is calculated in addition to the T<sub>1</sub> map. For complex data (magnitude and phase, or real and imaginary), the MP2RAGE signal (_S_{sub}`MP2RAGE`) is calculated from the images acquired at two TIs (_S_{sub}`GRE,TI1` and _S_{sub}`GRE,TI2`) using the following expression (Marques et al. 2010):
+Prior to considering the full signal equations, we will first introduce the equation for the MP2RAGE parameter (_S_{sub}`MP2RAGE`) that is calculated in addition to the _T_{sub}`1` map. For complex data (magnitude and phase, or real and imaginary), the MP2RAGE signal (_S_{sub}`MP2RAGE`) is calculated from the images acquired at two TIs (_S_{sub}`GRE,TI1` and _S_{sub}`GRE,TI2`) using the following expression (Marques et al. 2010):
 
 ```{math}
 :label: mp2rageEq1
@@ -24,7 +24,7 @@ S_{\text{MP2RAGE}}=\text{real}\left( \frac{S_{\text{GRE}_{\text{TI}_{1}}}^{\ast}
 \end{equation}
 ```
 
-This value is bounded between [-0.5, 0.5], and helps reduce some B<sub>0</sub> inhomogeneity effects using the phase data. For real data, or magnitude data with polarity restoration, this metric is instead calculated as:
+This value is bounded between [-0.5, 0.5], and helps reduce some B{sub}`0` inhomogeneity effects using the phase data. For real data, or magnitude data with polarity restoration, this metric is instead calculated as:
 
 ```{math}
 :label: mp2rageEq2

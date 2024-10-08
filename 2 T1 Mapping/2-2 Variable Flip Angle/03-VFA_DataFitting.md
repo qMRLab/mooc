@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([T<sub>1</sub>](wiki:Spin–lattice_relaxation) and _M_<sub>0</sub>). Although this is a valid way of estimating [T<sub>1</sub>](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form {math}`\textbf{y}=m\textbf{x}+b`  {cite:p}`Gupta1977`:
+At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([_T_{sub}`1`](wiki:Spin–lattice_relaxation) and _M_{sub}`0`). Although this is a valid way of estimating [_T_{sub}`1`](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form {math}`\textbf{y}=m\textbf{x}+b`  {cite:p}`Gupta1977`:
 
 ```{math}
 :label: vfaEq3
@@ -34,7 +34,7 @@ As the third term does not change between measurements (it is constant for each 
 \end{equation}
 ```
 
-With this rearranged form of [](#vfaEq1), [T<sub>1</sub>](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from  {math}`S_{n}/\text{sin}\left( \theta_{n}\right)` and {math}`S_{n}/\text{tan}\left( \theta_{n}\right)` values:
+With this rearranged form of [](#vfaEq1), [_T_{sub}`1`](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from  {math}`S_{n}/\text{sin}\left( \theta_{n}\right)` and {math}`S_{n}/\text{tan}\left( \theta_{n}\right)` values:
 
 ```{math}
 :label: vfaEq5
@@ -49,14 +49,14 @@ If data were acquired using only two flip angles – a very common VFA acquisiti
 :::{figure} #figvfa5cell
 :label: vfaPlot4
 :enumerator: 2.11
-Mean and standard deviation of the VFA signal plotted using the nonlinear form ([](#vfaEq1) – blue) and linear form ([](#vfaEq4) – red). Monte Carlo simulation details: SNR = 25, N = 1000. VFA simulation details: TR = 25 ms, T<sub>1</sub> = 900 ms.
+Mean and standard deviation of the VFA signal plotted using the nonlinear form ([](#vfaEq1) – blue) and linear form ([](#vfaEq4) – red). Monte Carlo simulation details: SNR = 25, N = 1000. VFA simulation details: TR = 25 ms, _T_{sub}`1` = 900 ms.
 :::
 
-There are two important imaging protocol design considerations that should be taken into account when planning to use VFA: (1) how many and which flip angles to use to acquire VFA data, and (2) correcting inaccurate flip angles due to transmit RF field inhomogeneity. Most VFA experiments use the minimum number of required flip angles (two) to minimize acquisition time. For this case, it has been shown that the flip angle choice resulting in the best precision for VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) estimates for a sample with a single [T<sub>1</sub>](wiki:Spin–lattice_relaxation) value (i.e. single tissue) are the two flip angles that result in 71% of the maximum possible steady-state signal (i.e. at the [Ernst angle](wiki:Ernst_angle)) {cite:p}`Deoni2003,Schabel2008`.
+There are two important imaging protocol design considerations that should be taken into account when planning to use VFA: (1) how many and which flip angles to use to acquire VFA data, and (2) correcting inaccurate flip angles due to transmit RF field inhomogeneity. Most VFA experiments use the minimum number of required flip angles (two) to minimize acquisition time. For this case, it has been shown that the flip angle choice resulting in the best precision for VFA [_T_{sub}`1`](wiki:Spin–lattice_relaxation) estimates for a sample with a single [_T_{sub}`1`](wiki:Spin–lattice_relaxation) value (i.e. single tissue) are the two flip angles that result in 71% of the maximum possible steady-state signal (i.e. at the [Ernst angle](wiki:Ernst_angle)) {cite:p}`Deoni2003,Schabel2008`.
 
-Time allowing, additional flip angles are often acquired at higher values and in between the two above, because greater signal differences between tissue [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values are present there (e.g. [](#vfaPlot1)). Also, for more than two flip angles, Equations [](#vfaEq1) and [](#vfaEq4) do not have the same noise weighting for each fitting point, which may bias [linear least-square](wiki:Linear_least_squares) [T<sub>1</sub>](wiki:Spin–lattice_relaxation) estimates at lower SNRs. Thus, it has been recommended that low SNR data should be fitted with either [](#vfaEq1) using [non-linear least-squares](wiki:Non-linear_least_squares) (slower fitting) or with a weighted [linear least-square](wiki:Linear_least_squares) form of [](#vfaEq4) {cite:p}`Chang2008`.
+Time allowing, additional flip angles are often acquired at higher values and in between the two above, because greater signal differences between tissue [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values are present there (e.g. [](#vfaPlot1)). Also, for more than two flip angles, Equations [](#vfaEq1) and [](#vfaEq4) do not have the same noise weighting for each fitting point, which may bias [linear least-square](wiki:Linear_least_squares) [_T_{sub}`1`](wiki:Spin–lattice_relaxation) estimates at lower SNRs. Thus, it has been recommended that low SNR data should be fitted with either [](#vfaEq1) using [non-linear least-squares](wiki:Non-linear_least_squares) (slower fitting) or with a weighted [linear least-square](wiki:Linear_least_squares) form of [](#vfaEq4) {cite:p}`Chang2008`.
 
-Accurate knowledge of the flip angle values is very important to produce accurate [T<sub>1</sub>](wiki:Spin–lattice_relaxation) maps. Because of how the RF field interacts with matter {cite:p}`Sled1998`, the excitation RF field (B<sub>1</sub><sup>+</sup>, or B<sub>1</sub> for short) of a loaded RF coil results in spatial variations in intensity/amplitude, unless RF shimming is available to counteract this effect (not common at clinical field strengths). For quantitative measurements like VFA which are sensitive to this parameter, the flip angle can be corrected (voxelwise) relative to the nominal value by multiplying it with a scaling factor (B<sub>1</sub>) from a B<sub>1</sub> map that is acquired during the same session:
+Accurate knowledge of the flip angle values is very important to produce accurate [_T_{sub}`1`](wiki:Spin–lattice_relaxation) maps. Because of how the RF field interacts with matter {cite:p}`Sled1998`, the excitation RF field (_B_{sub}`1`{sup}`+`, or _B_{sub}`1` for short) of a loaded RF coil results in spatial variations in intensity/amplitude, unless RF shimming is available to counteract this effect (not common at clinical field strengths). For quantitative measurements like VFA which are sensitive to this parameter, the flip angle can be corrected (voxelwise) relative to the nominal value by multiplying it with a scaling factor (_B_{sub}`1`) from a _B_{sub}`1` map that is acquired during the same session:
 
 ```{math}
 :label: vfaEq6
@@ -66,20 +66,20 @@ Accurate knowledge of the flip angle values is very important to produce accurat
 \end{equation}
 ```
 
-B<sub>1</sub> in this context is normalized, meaning that it is unitless and has a value of 1 in voxels where the RF field has the expected amplitude (i.e. where the nominal flip angle is the actual flip angle). [](#vfaPlot5) displays fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values from a [Monte Carlo](wiki:Monte_Carlo_method) dataset simulated using biased flip angle values, and fitted without/with B<sub>1</sub> correction.
+_B_{sub}`1` in this context is normalized, meaning that it is unitless and has a value of 1 in voxels where the RF field has the expected amplitude (i.e. where the nominal flip angle is the actual flip angle). [](#vfaPlot5) displays fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values from a [Monte Carlo](wiki:Monte_Carlo_method) dataset simulated using biased flip angle values, and fitted without/with _B_{sub}`1` correction.
 
 :::{figure} #figvfa6cell
 :label: vfaPlot5
 :enumerator: 2.12
-Mean and standard deviations of fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) B<sub>1</sub> correction. Simulation parameters: TR = 25 ms, T<sub>1</sub> = 900 ms, {math}`\theta_{nominal}` = 6° and 32° (optimized values for this TR/T<sub>1</sub> combination). Notice how even after B<sub>1</sub> correction, fitted [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values at B<sub>1</sub> values far from the nominal case (B<sub>1</sub> = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/T<sub>1</sub> (Deoni et al. 2003).
+Mean and standard deviations of fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) _B_{sub}`1` correction. Simulation parameters: TR = 25 ms, _T_{sub}`1` = 900 ms, {math}`\theta_{nominal}` = 6° and 32° (optimized values for this TR/_T_{sub}`1` combination). Notice how even after _B_{sub}`1` correction, fitted [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values at _B_{sub}`1` values far from the nominal case (_B_{sub}`1` = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/_T_{sub}`1` (Deoni et al. 2003).
 :::
 
-[](#vfaPlot6) displays an example VFA dataset and a B<sub>1</sub> map in a healthy brain, along with the T<sub>1</sub> map estimated using a linear fit (Equations [](#vfaEq4) and [](#vfaEq5)).
+[](#vfaPlot6) displays an example VFA dataset and a _B_{sub}`1` map in a healthy brain, along with the _T_{sub}`1` map estimated using a linear fit (Equations [](#vfaEq4) and [](#vfaEq5)).
 
 :::{figure} #figvfa7cell
 :label: vfaPlot6
 :enumerator: 2.13
-Example variable flip angle dataset and B<sub>1</sub> map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`\theta_{nominal}` = 3° and 20°. The T<sub>1</sub> map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
+Example variable flip angle dataset and _B_{sub}`1` map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`\theta_{nominal}` = 3° and 20°. The _T_{sub}`1` map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
 :::
 
 

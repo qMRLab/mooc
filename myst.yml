@@ -47,7 +47,7 @@ project:
     RF: Radiofrequency
     FA: Flip Angle
     VFA: Variable Flip Angle
-    DESPOT1: Driven Equilibrium Single Pulse Observation of T<sub>1</sub>
+    DESPOT1: Driven Equilibrium Single Pulse Observation of _T_{sub}`1`
     SNR: Signal-to-noise ratio
     RD-NLS: reduced-dimension non-linear least-squares
     STD: Standard deviation
