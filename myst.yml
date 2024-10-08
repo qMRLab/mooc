@@ -92,9 +92,7 @@ project:
             - file: 2 T1 Mapping/2-3 MP2RAGE/02-SignalModelling.md
             - file: 2 T1 Mapping/2-3 MP2RAGE/03-DataFitting.md
             - file: 2 T1 Mapping/2-3 MP2RAGE/04-BenefitsAndPitfalls.md
-        - title: Exercises
-          children:
-            - file: 2 T1 Mapping/2-4 Exercises/01-Exercises.md
+        - file: 2 T1 Mapping/2-4 Exercises/01-Exercises.md
     - title: T2 Mapping
       children:
         - file: 3 T2 Mapping/01-Introduction/01-Introduction.md
