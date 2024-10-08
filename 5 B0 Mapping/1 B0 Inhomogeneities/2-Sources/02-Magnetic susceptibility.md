@@ -20,7 +20,7 @@ Materials have a property called magnetic susceptibility () that reflects their 
 :label: b0Eq2
 :enumerator:5.2
 \begin{equation}
-\Delta B_{z}\left( \overrightarrow{r} \right)=B_{0}\left( \Delta\chi \left( \overrightarrow{r} \right) \otimes  d \left( \overrightarrow{r} \right)\right) 
+\Delta B_{z}\left( \textbf{r} \right)=B_{0}\left( \Delta\chi \left( \textbf{r} \right) \otimes  d \left( \textbf{r} \right)\right) 
 \end{equation}
 ```
 
