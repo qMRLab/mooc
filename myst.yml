@@ -16,7 +16,7 @@ project:
   github: https://github.com/qmrlab/mooc
   banner: banner.jpg
   venue: qMRLab
-  subject: MOOC
+  subject: mOOC
   numbering:
     headings: true
   open_access: true
