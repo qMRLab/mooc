@@ -3,7 +3,7 @@ title: Introduction
 subtitle: _T_{sub}`2` Mapping
 date: 2024-10-07
 authors:
-  - name:  Samuelle Stonge
+  - name:  Samuelle St-Onge
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:

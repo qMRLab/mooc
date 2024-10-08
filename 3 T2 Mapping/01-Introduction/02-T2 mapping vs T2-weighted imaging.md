@@ -3,7 +3,7 @@ title: T2 mapping vs T2-weighted imaging
 subtitle: T2 Mapping
 date: 2024-10-07
 authors:
-  - name:  Samuelle Stonge
+  - name:  Samuelle St-Onge
     affiliations:
       - NeuroPoly Lab, Polytechnique Montreal, Quebec, Canada
 numbering:
