@@ -1,6 +1,6 @@
 ---
 title: Exercises
-subtitle: MP2RAGE
+subtitle: T1 Mapping
 date: 2024-10-07
 authors:
   - name: Mathieu Boudreau
