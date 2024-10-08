@@ -40,14 +40,13 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r binder/requirements.txt
-          apt-get install latexmk
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
       - name: Install MyST Markdown
         run: npm install -g mystmd
       - name: Build HTML Assets
-        run: myst build --execute --html --pdf
+        run: myst build --execute --html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
