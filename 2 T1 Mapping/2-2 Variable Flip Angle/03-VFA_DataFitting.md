@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([T<sub>1</sub>](wiki:Spin–lattice_relaxation) and _M_<sub>0</sub>). Although this is a valid way of estimating [T<sub>1</sub>](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form <b>y</b> = m<b>x</b>+b {cite:p}`Gupta1977`:
+At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([T<sub>1</sub>](wiki:Spin–lattice_relaxation) and _M_<sub>0</sub>). Although this is a valid way of estimating [T<sub>1</sub>](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form {math}`\textbf{y}=m\textbf{x}+b`  {cite:p}`Gupta1977`:
 
 ```{math}
 :label: vfaEq3
@@ -24,7 +24,7 @@ At first glance, one could be tempted to fit VFA data using a [non-linear least 
 \end{equation}
 ```
 
-As the third term does not change between measurements (it is constant for each <i>θ<sub>n</sub></i>), it can be grouped into the constant for a simpler representation:
+As the third term does not change between measurements (it is constant for each {math}`θ_{n}`), it can be grouped into the constant for a simpler representation:
 
 ```{math}
 :label: vfaEq4
@@ -34,7 +34,7 @@ As the third term does not change between measurements (it is constant for each 
 \end{equation}
 ```
 
-With this rearranged form of [](#vfaEq1), [T<sub>1</sub>](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from <i>S<sub>n</sub></i>/sin(<i>θ<sub>n</sub></i>) and <i>S<sub>n</sub></i>/tan(<i>θ<sub>n</sub></i>) values:
+With this rearranged form of [](#vfaEq1), [T<sub>1</sub>](wiki:Spin–lattice_relaxation) can be simply estimated from the slope of a linear regression calculated from  {math}`S_{n}/\text{sin}\left( θ_{n}\right)` and {math}`S_{n}/\text{tan}\left( θ_{n}\right)` values:
 
 ```{math}
 :label: vfaEq5
@@ -79,7 +79,7 @@ Mean and standard deviations of fitted VFA [T<sub>1</sub>](wiki:Spin–lattice_r
 :::{figure} #figvfa7cell
 :label: vfaPlot6
 :enumerator: 2.13
-Example variable flip angle dataset and B<sub>1</sub> map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms, <i>θ<sub>nominal</sub></i> = 3° and 20°. The T<sub>1</sub> map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
+Example variable flip angle dataset and B<sub>1</sub> map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`θ_{nominal}` = 3° and 20°. The T<sub>1</sub> map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
 :::
 
 

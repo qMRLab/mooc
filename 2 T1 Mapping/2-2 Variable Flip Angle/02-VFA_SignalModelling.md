@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the [Bloch equations](wiki:Bloch_equations) for the spoiled [gradient echo](wiki:Gradient_echo) pulse sequence {<i>θ<sub>n</sub></i>–TR}:
+The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the [Bloch equations](wiki:Bloch_equations) for the spoiled [gradient echo](wiki:Gradient_echo) pulse sequence {{math}`θ_{n}`–TR}:
 
 ```{math}
 :label: vfaEq1
@@ -24,7 +24,7 @@ M_{z}(\theta_n) = M_0 \frac{1-e^{- \frac{TR}{T_1}}}{1-\text{cos}(\theta_n) e^{- 
 \end{equation}
 ```
 
-where _M<sub>z</sub>_ is the longitudinal magnetization, _M_<sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and <i>θ<sub>n</sub></i> is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a range of <i>θ<sub>n</sub></i> and TR values are shown in [](#vfaPlot1).
+where _M<sub>z</sub>_ is the longitudinal magnetization, _M_<sub>0</sub> is the magnetization at thermal equilibrium, TR is the pulse sequence repetition time ([](#vfaFig1)), and {math}`θ_{n}` is the excitation flip angle. The <i>M<sub>z</sub></i> curves of different [T<sub>1</sub>](wiki:Spin–lattice_relaxation) values for a range of {math}`θ_{n}` and TR values are shown in [](#vfaPlot1).
 
 :::{figure} #figvfa2cell
 :label: vfaPlot1
@@ -60,7 +60,7 @@ Sufficient spoiling is likely the most challenging parameter to control for in a
 :::{figure} #figvfa4cell
 :label: vfaPlot3
 :enumerator: 2.10
-Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, T<sub>1</sub> = 900 ms, T<sub>e</sub> = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  ɸ<sub>_n_</sub> = ɸ<sub>_n_-1</sub> + _n_ ɸ<sub>0</sub> = ½ ɸ<sub>0</sub>(_n_<sup>2</sup> + _n_ + 2) {cite:p}`Handbook2004` with ɸ<sub>0</sub> = 117° {cite:p}`Zur1991` after each TR.
+Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, T<sub>1</sub> = 900 ms, T<sub>e</sub> = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  {math}`ɸ_{n}` = {math}`ɸ_{n-1}` + _n_ {math}`ɸ_{0}` = ½ {math}`ɸ_{0}`(_n_<sup>2</sup> + _n_ + 2) {cite:p}`Handbook2004` with {math}`ɸ_{0}` = 117° {cite:p}`Zur1991` after each TR.
 :::
 
 
