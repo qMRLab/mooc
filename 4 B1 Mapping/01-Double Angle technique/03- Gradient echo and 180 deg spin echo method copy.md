@@ -131,7 +131,7 @@ _B_{sub}`1` computed from bloch simulations for ideal spin echo and refocusing p
 :::{figure} #daFig3cell
 :label: daPlot3
 :enumerator: 4.4
-_B_{sub}`1` computed from bloch simulations for spin echo with refocusing pulse where FA = 180*_B_{sub}`1`,, and composite pulse 90{sub}`x`-180{sub}`y`-90{sub}`x` where each 90 and 180 are also multiplied by _B_{sub}`1`.
+_B_{sub}`1` computed from bloch simulations for spin echo with refocusing pulse where FA = 180*_B_{sub}`1`, and composite pulse 90{sub}`x`-180{sub}`y`-90{sub}`x` where each 90 and 180 are also multiplied by _B_{sub}`1`.
 :::
 
 
