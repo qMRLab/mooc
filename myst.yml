@@ -52,6 +52,8 @@ project:
     RD-NLS: reduced-dimension non-linear least-squares
     STD: Standard deviation
     MT: Magnetization Transfer
+    MTR: Magnetization Transfer Ratio
+    qMT: Quantitative Magnetization Transfer
     MTsat: Magnetization Transfer saturation
     SAR: Specific absorption rate
   exclude:
