@@ -22,5 +22,5 @@ MP2RAGE is an extension of the conventional MPRAGE pulse sequence widely used in
 ```{figure} img/mp2rage_pulsesequence.png
 :label: mp2rageFig1
 :enumerator: 2.14
-Simplified diagram of an MP2RAGE pulse sequence. TR: repetition time between successive gradient echo readouts, TR{sub}`MP2RAGE`: repetition time between successive adiabatic 180° inversion pulses, TI1 and TI2: inversion times, {math}`\theta_{1}` and {math}`\theta_{1}`: excitation flip angles. The imaging readout events occur within each TR using a constant in-plane phase encode (“y”) gradient set for each TR{sub}`MP2RAGE`, but varying 3D phase encode (“z”) gradients between each successive TR.
+Simplified diagram of an MP2RAGE pulse sequence. TR: repetition time between successive gradient echo readouts, TR{sub}`MP2RAGE`: repetition time between successive adiabatic 180° inversion pulses, TI{sub}`1` and TI{sub}`2`: inversion times, {math}`\theta_{1}` and {math}`\theta_{1}`: excitation flip angles. The imaging readout events occur within each TR using a constant in-plane phase encode (“y”) gradient set for each TR{sub}`MP2RAGE`, but varying 3D phase encode (“z”) gradients between each successive TR.
 ```
