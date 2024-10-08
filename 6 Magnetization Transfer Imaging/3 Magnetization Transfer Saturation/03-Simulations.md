@@ -16,7 +16,7 @@ numbering:
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
-In line with our previous MTR blog post, we employ the qMRLab qMT simulations to model MTsat measurements and subsequently calculate MTsat values from [](#mtsatEq7), [](#mtsatEq8), and [](#mtsatEq9). [](#qmtParamsTable2) lists the essential tissue parameters used for the simulations. [](#mtsatFig4) plots the MTsat values that have been calculated for each protocol outlined in Table 1, while also incorporating the relevant tissue parameters found in [](#qmtParamsTable2).
+In line with our previous MTR blog post, we employ the qMRLab qMT simulations to model MTsat measurements and subsequently calculate MTsat values from [](#mtsatEq7), [](#mtsatEq8), and [](#mtsatEq9). [](#qmtParamsTable2) lists the essential tissue parameters used for the simulations. [](#mtsatPlot1) plots the MTsat values that have been calculated for each protocol outlined in Table 1, while also incorporating the relevant tissue parameters found in [](#qmtParamsTable2).
 
 :::{table} Quantitative MT parameters in healthy and diseased human tissue reported for a study at 1.5 T (Sled 2001). 
 :label: qmtParamsTable2

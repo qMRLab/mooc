@@ -32,7 +32,7 @@ There are many ways to perform multi-echo field mapping. The most straightforwar
 Two different unwrapped solutions from unwrapping phase data of three echoes. A 2 offset is observed between both solutions.
 :::
 
-Another way to perform multi-echo field mapping is to have two echoes that are relatively close to avoid temporal phase wrapping and a later echo with sufficient SNR. The first two echoes can be treated as a dual-echo and the resulting field map can help temporally unwrap the 3rd echo. This 3rd echo can be used to get a better fit. This is shown in [](#fb0PLot16).
+Another way to perform multi-echo field mapping is to have two echoes that are relatively close to avoid temporal phase wrapping and a later echo with sufficient SNR. The first two echoes can be treated as a dual-echo and the resulting field map can help temporally unwrap the 3rd echo. This 3rd echo can be used to get a better fit. This is shown in [](#b0PLot16).
 
 
 :::{figure} #fig5p16cell

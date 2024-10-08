@@ -96,7 +96,7 @@ Each MRI vendor optimizes their MT-weighted protocol parameters (eg MT shape, du
 </table>
 :::
 
-These differences in protocol parameters can result in MTR values that vary greatly between vendors and sites, meaning that MTR can be challenging to compare unless great care in details are taken. [](#mtrPlot1) shows MTR simulations using the fundamental qMT parameters for four different tissues ([](#qmtTabl3); healthy cortical grey matter, healthy white matter, NAWM, early white matter multiple sclerosis lesion, late white matter multiple sclerosis lesion) using the four MT-weighted SPGR protocols from [](#mtrTable2).
+These differences in protocol parameters can result in MTR values that vary greatly between vendors and sites, meaning that MTR can be challenging to compare unless great care in details are taken. [](#mtrPlot1) shows MTR simulations using the fundamental qMT parameters for four different tissues ([](#qmtTable3); healthy cortical grey matter, healthy white matter, NAWM, early white matter multiple sclerosis lesion, late white matter multiple sclerosis lesion) using the four MT-weighted SPGR protocols from [](#mtrTable2).
 
 
 
