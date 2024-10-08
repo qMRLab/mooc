@@ -9,7 +9,7 @@ project:
     binder:
       url: https://mybinder.org
       repo: qmrlab/mooc
-      ref: HEAD
+      ref: mb/dev
   keywords:
     - quantitative MRI
     - education
