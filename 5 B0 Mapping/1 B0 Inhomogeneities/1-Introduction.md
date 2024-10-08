@@ -2,6 +2,7 @@
 title: Introduction
 subtitle: B0 Inhomogeneities
 date: 2024-10-07
+label: b0InhomoIntro
 authors:
   - name:  Alexandre D'Astous
     affiliations:

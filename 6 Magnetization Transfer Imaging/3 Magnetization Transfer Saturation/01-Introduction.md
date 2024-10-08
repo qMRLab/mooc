@@ -2,6 +2,7 @@
 title: Introduction
 subtitle: Magnetization Transfer Saturation
 date: 2024-10-07
+label: mtsatIntro
 authors:
   - name: Mathieu Boudreau
     affiliations:

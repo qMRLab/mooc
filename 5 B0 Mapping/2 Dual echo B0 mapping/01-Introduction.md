@@ -2,6 +2,7 @@
 title: Introduction
 subtitle: Dual echo B0 mapping
 date: 2024-10-07
+label: b0DualEcho
 authors:
   - name:  Alexandre D'Astous
     affiliations:

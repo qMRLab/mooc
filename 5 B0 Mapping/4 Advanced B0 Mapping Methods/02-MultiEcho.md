@@ -2,6 +2,7 @@
 title: Multi-echo B0 Mapping
 subtitle: Advanced B0 Mapping Methods
 date: 2024-10-07
+label: b0MultiEcho
 authors:
   - name:  Alexandre D'Astous
     affiliations:
@@ -14,7 +15,7 @@ numbering:
     template: Eq. %s
 ---
 
-Multi-echo field mapping (three or more echoes) makes use of more echo times than the dual-echo standard field map. With more time points, the field maps can be expected to be more accurate. All benefits and pitfalls of section 4.2 apply in multi-echo field mapping, with the added criteria that the later echoes should have enough signal to provide a benefit to the technique. As seen in section 4.2, the phase generally evolves linearly with respect to time. Another way to look at _B_{sub}`0` field mapping is realizing that we are looking for how much the phase changes per unit time (i.e.: the slope).
+Multi-echo field mapping (three or more echoes) makes use of more echo times than the dual-echo standard field map. With more time points, the field maps can be expected to be more accurate. All [benefits and pitfalls of dual echo _B_{sub}`0`](#b0DualEchoBenPit) mapping apply in multi-echo field mapping, with the added criteria that the later echoes should have enough signal to provide a benefit to the technique. As seen in the [dual echo B0 mapping section](#b0DualEcho), the phase generally evolves linearly with respect to time. Another way to look at _B_{sub}`0` field mapping is realizing that we are looking for how much the phase changes per unit time (i.e.: the slope).
 
 ```{math}
 :label: b0Eq9
@@ -41,7 +42,7 @@ Another way to perform multi-echo field mapping is to have two echoes that are r
 Three-echo acquisition, where the first two echoes respect the [Nyquist criteria](https://en.wikipedia.org/wiki/Nyquist_frequency) and can be temporally unwrapped accurately, while the third echo has a much longer echo time. The first two echoes can be used to predict the number of wraps of the third echo. With all three echoes accurately unwrapped, a fit with three echoes can be computed.
 :::
 
-As mentioned in chapter 4.3, the standard deviation of the phase is inversely proportional to the SNR of the magnitude image of the field mapping acquisition. This means that longer echo times can have a detrimental impact on the field map if it is not accounted for. One way to address the issue is to weigh the contribution of the echoes by the SNR of the magnitude images.
+As mentioned in the [phase unwrapping section](#phaseUnwrapIntro), the standard deviation of the phase is inversely proportional to the SNR of the magnitude image of the field mapping acquisition. This means that longer echo times can have a detrimental impact on the field map if it is not accounted for. One way to address the issue is to weigh the contribution of the echoes by the SNR of the magnitude images.
 
 More complex algorithms such as UMPIRE [24] exploit echo timings to only rely on temporal unwrapping to unwrap the phase images. A minimum of three echoes is necessary for this algorithm. With three echoes, the two echo time differences (ΔTE{sub}`1`=TE{sub}`2`-TE{sub}`1`, ΔTE{sub}`2`=TE{sub}`3`-TE{sub}`2`) are chosen to be slightly different. Doing this allows us to calculate the accrued phase during TE{sub}`2`-TE{sub}`1`= δTE which is chosen to be small and is therefore free of wraps. Using this, the wraps in the different echoes can be estimated and removed yielding unwrapped phase images which can be fit to calculate the field map. An advantage of the technique is that it allows us to select echo times that would normally be too long, as ΔTE{sub}`x` can be larger than {math}`\pi`. An important prerequisite of this algorithm is that the phase offset occurring during δTE should be less than  but greater than zero, such that a good estimate of the phase can still be calculated. [](#b0Plot17) shows an example of a single voxel being unwrapped using UMPIRE. As previously stated, the slope of the linear fit is proportional to the resulting field map. The traces can be toggled on and off by clicking the legend.
 

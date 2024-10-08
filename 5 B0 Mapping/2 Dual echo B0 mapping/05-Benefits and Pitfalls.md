@@ -2,6 +2,7 @@
 title: Benefits and Pitfalls
 subtitle: Dual echo B0 mapping
 date: 2024-10-07
+label: b0DualEchoBenPit
 authors:
   - name:  Alexandre D'Astous
     affiliations:
@@ -14,7 +15,7 @@ numbering:
     template: Eq. %s
 ---
 
-When acquiring a field mapping sequence, many parameters will affect the resulting images. A minimum of two phase images is required to compute _B_{sub}`0` field maps, as the initial phase {math}`\phi_{0}\left( x,y,z \right)` is generally not known and non-zero. Multi-echo field mapping with more than two echoes will be discussed in section 4.3. 
+When acquiring a field mapping sequence, many parameters will affect the resulting images. A minimum of two phase images is required to compute _B_{sub}`0` field maps, as the initial phase {math}`\phi_{0}\left( x,y,z \right)` is generally not known and non-zero. Multi-echo field mapping with more than two echoes will be discussed in the the advanced [_B_{sub}`0` mapping section](#b0MultiEcho). 
 
 These phase maps can be acquired by many sequences. The general principle includes the use of sequences that cause accumulation of phase. This can be done using GRE sequences or using spin-echo sequences with asymmetric echoes (e.g.: first echo at the spin echo and second echo shifted by 1-2 ms to create an accumulation of phase caused by _B_{sub}`0` inhomogeneities). The sequence parameters are chosen such that the data does not suffer much from distortions and other artifacts caused by _B_{sub}`0` inhomogeneities. High bandwidth, thin slices and multi-shot sequences are therefore preferred [17]. This means EPI sequences are generally not used for field mapping because of their sensitivity to _B_{sub}`0` inhomogeneities. 
 

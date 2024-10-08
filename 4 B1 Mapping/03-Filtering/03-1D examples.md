@@ -2,6 +2,7 @@
 title: 1D examples
 subtitle: Filtering
 date: 2024-10-07
+label: filt1D
 authors:
   - name: Mathieu Boudreau
     affiliations:

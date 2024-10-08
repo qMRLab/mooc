@@ -13,7 +13,7 @@ numbering:
 
 ```{exercise}
 :label: t1Problem1
-**a.** Using the Plotly figure in the inversion recovery section that displays the signal curves for white matter, gray matter, and CSF, determine the inversion times that null the signal from each of these tissues.
+**a.** Using the Plotly figure in the [inversion recovery section](#irIntroduction) that displays the signal curves for white matter, gray matter, and CSF, determine the inversion times that null the signal from each of these tissues.
 
 **b.** In practice, you may not have this type of interactive figure at the scanner. Using the three values nulling inversion time values above, can you find an easy way to approximate the nulling time for any arbitrary _T_{sub}`1` value?
 
@@ -27,7 +27,7 @@ numbering:
 ```{exercise}
 **a.** Using the Plotly figure in the [VFA section](#vfaIntroduction) that displays the signal curves for white matter, gray matter, and CSF, determine the Ernst angle for the following: white matter and a TR of 15 ms, gray matter for a TR of 50 ms, and CSF for a TR of 140 ms.
 
-**b.** Calculate the Ernst angle for these tissues and TRs with Equation 2 of that section. Are they in agreement with the values you estimated with the interactive figure?
+**b.** Calculate the Ernst angle for these tissues and TRs with [](vfaEq2). Are they in agreement with the values you estimated with the interactive figure?
 
 **c.** It’s been shown (Deoni, Rutt, and Peters 2003) that the optimal flip angles for a two-measurement VFA _T_{sub}`1` mapping imaging protocol are located at approximately 70% of the Ernst angle. Find the optimal flip angles to image each tissue above using their respective TRs.
 

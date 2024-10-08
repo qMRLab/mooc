@@ -1,7 +1,8 @@
 ---
-title: Abstract
+title: Introduction
 subtitle: Inversion Recovery
 date: 2024-10-07
+label: irIntroduction
 authors:
   - name: Mathieu Boudreau
     affiliations:
