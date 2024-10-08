@@ -1,0 +1,3067 @@
+@ARTICLE{Look1970-wz,
+  title   = "Time Saving in Measurement of {NMR} and {EPR} Relaxation Times",
+  author  = "Look, D C and Locker, D R",
+  journal = "Rev. Sci. Instrum.",
+  volume  =  41,
+  number  =  2,
+  pages   = "250--251",
+  year    =  1970
+}
+,@ARTICLE{Pykett1978-mk,
+  title    = "A line scan image study of a tumorous rat leg by {NMR}",
+  author   = "Pykett, I L and Mansfield, P",
+  journal  = "Phys. Med. Biol.",
+  volume   =  23,
+  number   =  5,
+  pages    = "961--967",
+  month    =  sep,
+  year     =  1978,
+  language = "en"
+}
+,@ARTICLE{Yuan2012-yj,
+  title    = "Quantitative evaluation of dual-flip-angle {T1} mapping on
+              {DCE}-{MRI} kinetic parameter estimation in head and neck",
+  author   = "Yuan, Jing and Chow, Steven Kwok Keung and Yeung, David Ka Wai and
+              Ahuja, Anil T and King, Ann D",
+  journal  = "Quant. Imaging Med. Surg.",
+  volume   =  2,
+  number   =  4,
+  pages    = "245--253",
+  abstract = "PURPOSE: To quantitatively evaluate the kinetic parameter
+              estimation for head and neck (HN) dynamic contrast-enhanced (DCE)
+              MRI with dual-flip-angle (DFA) T1 mapping. MATERIALS AND METHODS:
+              Clinical DCE-MRI datasets of 23 patients with HN tumors were
+              included in this study. T1 maps were generated based on
+              multiple-flip-angle (MFA) method and different DFA combinations.
+              Tofts model parameter maps of k(ep), K(trans) and v(p) based on
+              MFA and DFAs were calculated and compared. Fitted parameter by MFA
+              and DFAs were quantitatively evaluated in primary tumor, salivary
+              gland and muscle. RESULTS: T1 mapping deviations by DFAs produced
+              remarkable kinetic parameter estimation deviations in head and
+              neck tissues. In particular, the DFA of [2º, 7º] overestimated,
+              while [7º, 12º] and [7º, 15º] underestimated K(trans) and v(p),
+              significantly (P<0.01). [2º, 15º] achieved the smallest but still
+              statistically significant overestimation for K(trans) and v(p) in
+              primary tumors, 32.1\% and 16.2\% respectively. k(ep) fitting
+              results by DFAs were relatively close to the MFA reference
+              compared to K(trans) and v(p). CONCLUSIONS: T1 deviations induced
+              by DFA could result in significant errors in kinetic parameter
+              estimation, particularly K(trans) and v(p), through Tofts model
+              fitting. MFA method should be more reliable and robust for
+              accurate quantitative pharmacokinetic analysis in head and neck.",
+  month    =  dec,
+  year     =  2012,
+  keywords = "DCE-MRI; T1 mapping; Tofts model; dual-flip-angle method; head and
+              neck",
+  language = "en"
+}
+,@ARTICLE{Keenan2015-ua,
+  title    = "{T1ρ} Dispersion in Articular Cartilage: Relationship to Material
+              Properties and Macromolecular Content",
+  author   = "Keenan, Kathryn E and Besier, Thor F and Pauly, John M and Smith,
+              R Lane and Delp, Scott L and Beaupre, Gary S and Gold, Garry E",
+  journal  = "Cartilage",
+  volume   =  6,
+  number   =  2,
+  pages    = "113--122",
+  abstract = "OBJECTIVE: This study assessed T1ρ relaxation dispersion, measured
+              by magnetic resonance imaging (MRI), as a tool to noninvasively
+              evaluate cartilage material and biochemical properties. The
+              specific objective was to answer two questions: (1) does cartilage
+              initial elastic modulus (E 0) correlate with T1ρ dispersion
+              effects and (2) does collagen or proteoglycan content correlate
+              with T1ρ dispersion effects? DESIGN: Cadaveric patellae with and
+              without visible cartilage damage on conventional MR were included.
+              T2 and T1ρ relaxation times at 500 and 1000 Hz spin-lock field
+              amplitudes were measured. We estimated T1ρ dispersion effects by
+              measuring T1ρ relaxation time at 500 and 1000 Hz and T2 relaxation
+              time and using a new tool, the ratio T1ρ/T2. Cartilage initial
+              elastic modulus, E 0, was measured from initial response of
+              mechanical indentation creep tests. Collagen and proteoglycan
+              contents were measured at the indentation test sites; proteoglycan
+              content was measured by their covalently linked sulfated
+              glycosaminoglycans (sGAG). Pearson correlation coefficients were
+              determined, taking into account the clustering of multiple samples
+              within a single patella specimen. RESULTS: Cartilage initial
+              elastic modulus, E 0, increased with decreasing values of T1ρ/T2
+              measurements at both 500 Hz (P = 0.034) and 1000 Hz (P = 0.022).
+              1/T1ρ relaxation time (500 Hz) increased with increasing sGAG
+              content (P = 0.041). CONCLUSIONS: T1ρ/T2 ratio, a new tool, and
+              cartilage initial elastic modulus are both measures of
+              water-protein interactions, are dependent on the cartilage
+              structure, and were correlated in this study.",
+  month    =  apr,
+  year     =  2015,
+  keywords = "T1ρ dispersion; articular cartilage; collagen; initial elastic
+              modulus; proteoglycan",
+  language = "en"
+}
+,@ARTICLE{Ma2013-bc,
+  title    = "Magnetic resonance fingerprinting",
+  author   = "Ma, Dan and Gulani, Vikas and Seiberlich, Nicole and Liu, Kecheng
+              and Sunshine, Jeffrey L and Duerk, Jeffrey L and Griswold, Mark A",
+  journal  = "Nature",
+  volume   =  495,
+  number   =  7440,
+  pages    = "187--192",
+  abstract = "Magnetic resonance is an exceptionally powerful and versatile
+              measurement technique. The basic structure of a magnetic resonance
+              experiment has remained largely unchanged for almost 50 years,
+              being mainly restricted to the qualitative probing of only a
+              limited set of the properties that can in principle be accessed by
+              this technique. Here we introduce an approach to data acquisition,
+              post-processing and visualization--which we term 'magnetic
+              resonance fingerprinting' (MRF)--that permits the simultaneous
+              non-invasive quantification of multiple important properties of a
+              material or tissue. MRF thus provides an alternative way to
+              quantitatively detect and analyse complex changes that can
+              represent physical alterations of a substance or early indicators
+              of disease. MRF can also be used to identify the presence of a
+              specific target material or tissue, which will increase the
+              sensitivity, specificity and speed of a magnetic resonance study,
+              and potentially lead to new diagnostic testing methodologies. When
+              paired with an appropriate pattern-recognition algorithm, MRF
+              inherently suppresses measurement errors and can thus improve
+              measurement accuracy.",
+  month    =  mar,
+  year     =  2013,
+  language = "en"
+}
+,@ARTICLE{Yarnykh2002-le,
+  title    = "Pulsed {Z}-spectroscopic imaging of cross-relaxation parameters in
+              tissues for human {MRI}: theory and clinical applications",
+  author   = "Yarnykh, Vasily L",
+  journal  = "Magn. Reson. Med.",
+  volume   =  47,
+  number   =  5,
+  pages    = "929--939",
+  abstract = "A new method of pulsed Z-spectroscopic imaging is proposed for in
+              vivo visualization and quantification of the parameters describing
+              cross-relaxation between protons with liquid-like and solid-like
+              relaxation properties in tissues. The method is based on analysis
+              of the magnetization transfer (MT) effect as a function of the
+              offset frequency and amplitude of a pulsed off- resonance
+              saturation incorporated in a spoiled gradient-echo MRI pulse
+              sequence. The theoretical concept of the method relies on an
+              approximated analytical model of pulsed MT that provides a simple
+              three-parameter equation for a pulsed steady-state Z-spectrum
+              taken far from resonance. Using this model, the parametric images
+              of cross-relaxation rate constant, content, and T(2) of the
+              semisolid proton fraction can be reconstructed from a series of
+              MT-weighted images and a coregistered T(1) map. The method was
+              implemented on a 0.5 T clinical MRI scanner, and it provided
+              high-quality 3D parametric maps within an acceptable scanning
+              time. The estimates of cross-relaxation parameters in brain
+              tissues were shown to be quantitatively consistent with the
+              literature data. Clinical examples of the parametric images of
+              human brain pathologies (multiple sclerosis and glioma)
+              demonstrated high tissue contrast and clear visualization of the
+              lesions.",
+  month    =  may,
+  year     =  2002,
+  language = "en"
+}
+,@ARTICLE{Chen2015-ux,
+  title    = "Errors in quantitative {T1rho} imaging and the correction methods",
+  author   = "Chen, Weitian",
+  journal  = "Quant. Imaging Med. Surg.",
+  volume   =  5,
+  number   =  4,
+  pages    = "583--591",
+  abstract = "The spin-lattice relaxation time constant in rotating frame
+              (T1rho) is useful for assessment of the properties of
+              macromolecular environment inside tissue. Quantification of T1rho
+              is found promising in various clinical applications. However,
+              T1rho imaging is prone to image artifacts and quantification
+              errors, which remains one of the greatest challenges to adopt this
+              technique in routine clinical practice. The conventional
+              continuous wave spin-lock is susceptible to B1 radiofrequency (RF)
+              and B0 field inhomogeneity, which appears as banding artifacts in
+              acquired images. A number of methods have been reported to modify
+              T1rho prep RF pulse cluster to mitigate this effect. Adiabatic RF
+              pulse can also be used for spin-lock with insensitivity to both B1
+              RF and B0 field inhomogeneity. Another source of quantification
+              error in T1rho imaging is signal evolution during imaging data
+              acquisition. Care is needed to affirm such error does not take
+              place when specific pulse sequence is used for imaging data
+              acquisition. Another source of T1rho quantification error is
+              insufficient signal-to-noise ratio (SNR), which is common among
+              various quantitative imaging approaches. Measurement of T1rho
+              within an ROI can mitigate this issue, but at the cost of reduced
+              resolution. Noise-corrected methods are reported to address this
+              issue in pixel-wise quantification. For certain tissue type, T1rho
+              quantification can be confounded by magic angle effect and the
+              presence of multiple tissue components. Review of these
+              confounding factors from inherent tissue properties is not
+              included in this article.",
+  month    =  aug,
+  year     =  2015,
+  keywords = "MRI; Quantitative imaging; T1rho; artifacts correction",
+  language = "en"
+}
+,@ARTICLE{Wang2015-dg,
+  title    = "Chemical exchange in knee cartilage assessed by {R1ρ} (1/{T1ρ})
+              dispersion at {3T}",
+  author   = "Wang, Ping and Block, Jake and Gore, John C",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  33,
+  number   =  1,
+  pages    = "38--42",
+  abstract = "PURPOSE: To quantify the characteristics of proton chemical
+              exchange in knee cartilage in vivo by R1ρ dispersion analysis.
+              MATERIALS AND METHODS: Six healthy subjects (one female and five
+              males, age range 24 to 71 y) underwent T1ρ imaging of knee
+              cartilage on a 3T MRI scanner. Quantitative estimates of R1ρ
+              (=1/T1ρ) were made using 5 different spin-lock durations for each
+              of 12 different spin-lock amplitudes over the range 0 to 550Hz.
+              When the variations of R1ρ with spin-locking strength (the R1ρ
+              dispersion) are dominated by chemical exchange contributions, R1ρ
+              dispersion curves can be analyzed to derive quantitative
+              characteristics of the exchange and provide information on tissue
+              composition. In this work, in vivo R1ρ dispersion of human knee
+              articular cartilage at 3T was analyzed, and the exchange rates of
+              protons between water and macromolecular hydroxyls (mainly in
+              glycosaminoglycans) were estimated based on a theoretical model.
+              RESULTS: R1ρ values showed marked dispersion in articular
+              cartilage and varied by approximately 50\% between low and high
+              values of the locking field, a change much greater than in
+              surrounding tissues, consistent with greater contributions from
+              chemical exchange. From the theoretical model, the exchange rates
+              in cartilage were estimated to be in the range of 1.0-3.0kHz, and
+              varied within the tissue. Variations within a single knee appear
+              to be larger with increasing age. CONCLUSION: R1ρ dispersion
+              analysis may provide more specific information for studying
+              cartilage biochemical composition and form the basis for
+              quantitative evaluation of cartilage disorders.",
+  month    =  jan,
+  year     =  2015,
+  keywords = "Articular cartilage; CEST; R(1ρ) dispersion; T(1ρ)",
+  language = "en"
+}
+,@ARTICLE{Piechnik2010-ci,
+  title    = "Shortened Modified Look-Locker Inversion recovery ({ShMOLLI}) for
+              clinical myocardial {T1}-mapping at 1.5 and 3 {T} within a 9
+              heartbeat breathhold",
+  author   = "Piechnik, Stefan K and Ferreira, Vanessa M and Dall'Armellina,
+              Erica and Cochlin, Lowri E and Greiser, Andreas and Neubauer,
+              Stefan and Robson, Matthew D",
+  journal  = "J. Cardiovasc. Magn. Reson.",
+  volume   =  12,
+  pages    =  69,
+  abstract = "BACKGROUND: T1 mapping allows direct in-vivo quantitation of
+              microscopic changes in the myocardium, providing new diagnostic
+              insights into cardiac disease. Existing methods require long
+              breath holds that are demanding for many cardiac patients. In this
+              work we propose and validate a novel, clinically applicable, pulse
+              sequence for myocardial T1-mapping that is compatible with typical
+              limits for end-expiration breath-holding in patients. MATERIALS
+              AND METHODS: The Shortened MOdified Look-Locker Inversion recovery
+              (ShMOLLI) method uses sequential inversion recovery measurements
+              within a single short breath-hold. Full recovery of the
+              longitudinal magnetisation between sequential inversion pulses is
+              not achieved, but conditional interpretation of samples for
+              reconstruction of T1-maps is used to yield accurate measurements,
+              and this algorithm is implemented directly on the scanner. We
+              performed computer simulations for 100 ms<T1 < 2.7 s and heart
+              rates 40-100 bpm followed by phantom validation at 1.5T and 3T.
+              In-vivo myocardial T1-mapping using this method and the previous
+              gold-standard (MOLLI) was performed in 10 healthy volunteers at
+              1.5T and 3T, 4 volunteers with contrast injection at 1.5T, and 4
+              patients with recent myocardial infarction (MI) at 3T. RESULTS: We
+              found good agreement between the average ShMOLLI and MOLLI
+              estimates for T1 < 1200 ms. In contrast to the original method,
+              ShMOLLI showed no dependence on heart rates for long T1 values,
+              with estimates characterized by a constant 4\% underestimation for
+              T1 = 800-2700 ms. In-vivo, ShMOLLI measurements required 9.0 ± 1.1
+              s (MOLLI = 17.6 ± 2.9 s). Average healthy myocardial T1 s by
+              ShMOLLI at 1.5T were 966 ± 48 ms (mean ± SD) and 1166 ± 60 ms at
+              3T. In MI patients, the T1 in unaffected myocardium (1216 ± 42 ms)
+              was similar to controls at 3T. Ischemically injured myocardium
+              showed increased T1 = 1432 ± 33 ms (p < 0.001). The difference
+              between MI and remote myocardium was estimated 15\% larger by
+              ShMOLLI than MOLLI (p < 0.04) which suffers from heart rate
+              dependencies for long T1. The in-vivo variability within ShMOLLI
+              T1-maps was only 14\% (1.5T) or 18\% (3T) higher than the MOLLI
+              maps, but the MOLLI acquisitions were twice longer than ShMOLLI
+              acquisitions. CONCLUSION: ShMOLLI is an efficient method that
+              generates immediate, high-resolution myocardial T1-maps in a short
+              breath-hold with high precision. This technique provides a
+              valuable clinically applicable tool for myocardial tissue
+              characterisation.",
+  month    =  nov,
+  year     =  2010,
+  language = "en"
+}
+,@ARTICLE{Drain1949-bo,
+  title   = "A Direct Method of Measuring Nuclear Spin-Lattice Relaxation Times",
+  author  = "Drain, L E",
+  journal = "Proc. Phys. Soc. A",
+  volume  =  62,
+  number  =  5,
+  pages   = "301--306",
+  month   =  may,
+  year    =  1949
+}
+,@ARTICLE{Wang2005-nk,
+  title    = "In vivo method for correcting transmit/receive nonuniformities
+              with phased array coils",
+  author   = "Wang, Jinghua and Qiu, Maolin and Constable, R Todd",
+  journal  = "Magn. Reson. Med.",
+  volume   =  53,
+  number   =  3,
+  pages    = "666--674",
+  abstract = "Phased array coils are finding widespread applications in both the
+              research and the clinical setting. However, intensity
+              nonuniformities with such coils can reduce the potential benefits
+              of these coils, particularly for applications such as tissue
+              segmentation. In this work, a method is described for correcting
+              the nonuniform signal response based on in vivo measures of both
+              the transmission field of body coil and the reception sensitivity
+              of phased array coils, separately. For a uniform phantom, the
+              reception sensitivity can be calculated using both Bloch equations
+              and transmission field maps. For a heterogeneous object such as a
+              brain, a minimal contrast acquisition must be obtained to map the
+              receiver nonuniformities. This transmit field/receiver sensitivity
+              (TFRS) approach is compared with the standard methods of using the
+              body coil to obtain a reference scan and low-pass filtering. The
+              quantitative comparison results shows that the TFRS approach
+              provides superior results in correcting intensity nonuniformities
+              for a uniform phantom. This approach reduces the ratio between
+              signal intensity SD of an image and its mean intensity from
+              approximately 21\% before correction to 13\% after correction.
+              Results are also shown demonstrating the utility of this approach
+              in vivo with human brain images. The method is general and can be
+              applied with most pulse sequences, any coil combination for
+              transmission and reception, and in any anatomic region.",
+  month    =  mar,
+  year     =  2005,
+  language = "en"
+}
+,@ARTICLE{Hahn1949-kq,
+  title     = "An Accurate Nuclear Magnetic Resonance Method for Measuring
+               Spin-Lattice Relaxation Times",
+  author    = "Hahn, Erwin L",
+  journal   = "Phys. Rev.",
+  publisher = "American Physical Society",
+  volume    =  76,
+  number    =  1,
+  pages     = "145--146",
+  month     =  jul,
+  year      =  1949
+}
+,@ARTICLE{Santyr1994-be,
+  title    = "Off-resonance spin locking for {MR} imaging",
+  author   = "Santyr, G E and Fairbanks, E J and Kelcz, F and Sorenson, J A",
+  journal  = "Magn. Reson. Med.",
+  volume   =  32,
+  number   =  1,
+  pages    = "43--51",
+  abstract = "Off-resonance spin locking is investigated as a low power method
+              for achieving low field spin-lattice relaxation contrast using
+              high field clinical MR imaging systems (e.g., 1.5 tesla).
+              Spin-lattice relaxation times and equilibrium magnetizations in
+              the off-resonance rotating frame (T1 rho(off), beta) were measured
+              for tissue-mimicking phantom materials as a function of the ratio
+              of the amplitude to the resonance offset of the spin-locking pulse
+              (f1/delta). The phantom materials consisted of vegetable oil to
+              simulate fat and two different gels containing 2\% and 4\% agar to
+              simulate nonfatty tissues with different macromolecular
+              compositions. These measurements were used to verify a signal
+              strength equation for a multislice off-resonance spin-locking
+              technique implemented on a clinical MR imaging system operating at
+              1.5 tesla. Although the oil showed little change in image contrast
+              with increasing f1/delta, the two gels demonstrated a strong
+              variation which provided improved discrimination compared to
+              T1-weighted imaging. Off-resonance spin locking is suggested as a
+              method for improving delineation of breast lesions and a
+              preliminary clinical example from a patient volunteer is
+              presented.",
+  month    =  jul,
+  year     =  1994,
+  language = "en"
+}
+,@MISC{De_Hollander2017-cv,
+  title        = "{PyMP2RAGE}",
+  author       = "de Hollander, Gilles",
+  year         =  2017,
+  howpublished = "\url{https://github.com/Gilles86/pymp2rage}",
+  note         = "Accessed: 2019-1-2"
+}
+,@ARTICLE{Koskinen1999-pd,
+  title    = "{T1ρ} dispersion of rat tissues in vitro",
+  author   = "Koskinen, Seppo K and Virta, Anette M and Niemi, Pekka T and
+              Kajander, Sami A and Komu, Markku E S",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  17,
+  number   =  7,
+  pages    = "1043--1047",
+  abstract = "The purpose of this study was to demonstrate T1ρ dispersion in
+              different rat tissues (liver, brain, spleen, kidney, heart, and
+              skeletal muscle), and to compare the 1/T1ρ data to previous 1/T1
+              data and magnetization transfer of rat tissues at low (0.1 T) B0
+              field. The 1/T1ρ dispersion showed a fairly similar pattern in all
+              tissues. The highest 1/T1ρ relaxation rates were seen in liver and
+              muscle followed by heart, whereas the values for spleen, kidney,
+              and brain were quite similar. Compared to 1/T2 relaxation rate,
+              the greatest difference was seen in liver and muscle. The rank
+              order 1/T1ρ value at each locking field B1 was the same as the
+              transfer rate of magnetization from the water to the
+              macromolecular pool (Rwm) for liver, muscle, heart, and brain. The
+              potential value T1ρ imaging is to combine high T1 contrast of low
+              field imaging with the high signal to noise ratio of high static
+              field imaging. When the T1ρ value for a given tissue is known, the
+              contrast between different tissues can be optimized by adjusting
+              the locking time TL. Further studies are encouraged to fully
+              exploit this. Targets for more detailed research include brain
+              infarct, brain and liver tumors.",
+  month    =  sep,
+  year     =  1999,
+  keywords = "T1ρ; Spin-lock"
+}
+,@ARTICLE{Samson2006-af,
+  title    = "A simple correction for {B1} field errors in magnetization
+              transfer ratio measurements",
+  author   = "Samson, Rebecca S and Wheeler-Kingshott, Claudia A M and Symms,
+              Mark R and Tozer, Daniel J and Tofts, Paul S",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  24,
+  number   =  3,
+  pages    = "255--263",
+  abstract = "B1 errors are a problem in magnetization transfer ratio (MTR)
+              measurements because the MTR value is dependent on the amplitude
+              of the magnetization transfer (MT) pulse. B1 errors can arise from
+              radiofrequency (RF) nonuniformity (caused by the RF coil, or skin
+              effect and dielectric resonance in the subject's head) and also
+              from inaccurate setting of the transmitter output when
+              compensating for varying amounts of loading of the RF coil. B1
+              errors, and hence MTR errors, may be up to 5-10\%, a large source
+              of error in quantitative MR measurements. Radiofrequency
+              nonuniformity may cause MTR histograms to be broadened. The
+              dependence of MTR on B1 was modeled using binary spin bath theory,
+              with a continuous wave (CW) approximation. For B1 reductions of up
+              to 20\%, normalized plots for different brain tissue types could
+              be approximated by a single line, indicating that a systematic
+              correction could be applied to MTR measurements with a known B1
+              error, regardless of tissue type. On a 1.5-T scanner with a
+              birdcage coil, MTR was measured in 18 tissue types in five
+              controls. The MT pulse amplitude was reduced in steps from its
+              nominal value by up to 20\%. Averaging data over all controls and
+              tissue types resulted in a line fitting
+              mtr(normalized)=0.812b(1normalized)+0.193, where mtr(normalized)
+              is the normalized value of MTR (relative to its value at the
+              nominal B1) and b(1normalized) is the normalized value of B1
+              (relative to its nominal value). For a 20\% reduction in MT pulse
+              amplitude (i.e., b(1normalized)=0.80), the mean MTR value for the
+              18 tissue types was 7.0 percent units (pu) below the correct
+              value. After correction using the single equation above for all
+              tissue types, all MTR values were within 1.5 pu of their correct
+              value [root mean square (rms) error=0.7 pu]. Magnetization
+              transfer ratio values tended to be slightly overcorrected because
+              the simple linear correction scheme is only an approximation to
+              the true MTR dependence on B1. A B1 field mapping technique was
+              implemented, based on the double angle method (DAM), with fast
+              spin-echo (FSE) readout, and TR=15 s; this took a total of 6 min
+              of imaging time. This was used to quantify B(1) errors and correct
+              MTR maps and histograms. However, the cerebrospinal fluid (CSF) T1
+              is very long (approximately 4.2 s); thus, to achieve complete
+              longitudinal relaxation (a requirement of the DAM B1 mapping
+              method), an increase in TR and, hence, acquisition time would be
+              required. In general, however, we are not interested in
+              calculating the B1 in the CSF, although it is important that the
+              B1 is determined in partial volume voxels around the CSF. Using
+              our birdcage head coil, whole-brain B1 histograms were found to
+              have full-width half maximums (FWHMs) ranging from just 6.8\% to
+              11.5\% of the nominal B1 value. The FSE DAM B1 field mapping
+              technique was shown to be robust, although a longer TR time may be
+              desirable to ensure complete elimination of CSF partial volume
+              errors. The procedure can be applied on any scanner where the
+              Euro-MT sequence is available, or alternatively, where the
+              amplitude of B1 or of the MT pulse can be manually reduced in
+              order to perform this type of ``calibration'' experiment for the
+              particular MTR sequence used. The MTR is known to be highly
+              dependent on the parameters of the sequence used, in particular,
+              the MT pulse shape, flip angle, duration, and offset frequency,
+              and the repetition time TR' between successive MT pulses.
+              Therefore, correction schemes will differ for different MTR
+              sequences, and new data sets would be required to calculate these
+              different correction schemes.",
+  month    =  apr,
+  year     =  2006,
+  language = "en"
+}
+,@ARTICLE{Bitsch2001-er,
+  title    = "A longitudinal {MRI} study of histopathologically defined
+              hypointense multiple sclerosis lesions",
+  author   = "Bitsch, A and Kuhlmann, T and Stadelmann, C and Lassmann, H and
+              Lucchinetti, C and Brück, W",
+  journal  = "Ann. Neurol.",
+  volume   =  49,
+  number   =  6,
+  pages    = "793--796",
+  abstract = "Severe tissue destruction is the presumed histopathological
+              correlate of hypointense multiple sclerosis (MS) lesions. In this
+              study we correlated changes of lesion hypointensity over time with
+              initial histopathological features in 14 biopsied MS lesions. The
+              extent of hypointensity increased in initially demyelinated
+              plaques and decreased in remyelinating lesions. The initial axonal
+              loss determined the increase of hypointensity over time. In
+              conclusion, both axonal loss and demyelinating activity determine
+              the evolution of hypointensity over time.",
+  month    =  jun,
+  year     =  2001,
+  language = "en"
+}
+,@ARTICLE{Haris2011-ow,
+  title    = "{T1rho} ({T1ρ}) {MR} imaging in Alzheimer's disease and
+              Parkinson's disease with and without dementia",
+  author   = "Haris, Mohammad and Singh, Anup and Cai, Kejia and Davatzikos,
+              Christos and Trojanowski, John Q and Melhem, Elias R and Clark,
+              Christopher M and Borthakur, Arijitt",
+  journal  = "J. Neurol.",
+  volume   =  258,
+  number   =  3,
+  pages    = "380--385",
+  abstract = "In the current study, we aim to measure T1rho (T (1ρ)) in the
+              hippocampus in the brain of control, Alzheimer's disease (AD),
+              Parkinson's disease (PD), and PD patients with dementia (PDD), and
+              to determine efficacy of T (1ρ) in differentiating these cohorts.
+              With informed consent, 53 AD patients, 62 PD patients, 11 PDD
+              patients, and 46 age-matched controls underwent a standardized
+              clinical assessment including mini-mental state examination (MMSE)
+              and brain T (1ρ) MRI on a 1.5-T clinical-scanner. T(1ρ) maps were
+              generated by fitting each pixel's intensity as a function of the
+              spin-lock pulse duration. In control, AD, PD and PDD, mean ± SE T
+              (1ρ) values in the right hippocampus (RH) were 92.15 ± 2.00, 99.65
+              ± 1.98, 85.68 ± 1.87, 102.47 ± 4.66 ms while in the left
+              hippocampus (LH) these values were 90.16 ± 1.82, 99.53 ± 1.91,
+              84.33 ± 2.03, 95.33 ± 4.64 ms. Significant difference for both RH
+              and LH T (1ρ) across the groups (p < 0.001) was observed. Both RH
+              and LH T (1ρ) were significantly increased in AD compared to
+              control (p = 0.034, p = 0.001) and PD (p < 0.001, p < 0.001). In
+              control, both RH and LH T (1ρ) values were significantly increased
+              compared to PD (p = 0.031, p = 0.027) while compared to PDD only
+              the RH T (1ρ) value was significantly decreased (p = 0.043). Both
+              RH and LH T (1ρ) values in PD were significantly lower than PDD (p
+              = 0.004, p = 0.032). No significant correlation between the T (1ρ)
+              and age as well as between T (1ρ) and MMSE scores was observed.
+              The serial measurement of T(1ρ) in both AD and PD may provide the
+              nature of disease progression and may contribute to their early
+              diagnosis.",
+  month    =  mar,
+  year     =  2011,
+  language = "en"
+}
+,@ARTICLE{Chen2011-zz,
+  title    = "Quantitative {T}(1)(ρ) imaging using phase cycling for {B0} and
+              {B1} field inhomogeneity compensation",
+  author   = "Chen, Weitian and Takahashi, Atsushi and Han, Eric",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  29,
+  number   =  5,
+  pages    = "608--619",
+  abstract = "T(1)(ρ) imaging is useful in a number of clinical applications.
+              T(1)(ρ) preparation methods, however, are sensitive to
+              non-uniformities of the B0 magnetic field and the B1 RF field.
+              These common system imperfections can result in image artifacts
+              and quantification errors in T(1)(ρ) imaging. We report on a
+              phase-cycling method which can eliminate B1 RF inhomogeneity
+              effects in T(1)(ρ) imaging. This method does not only correct for
+              image artifacts but also for T(2)(ρ) contamination caused by B1 RF
+              inhomogeneity. The presence of B0 magnetic field inhomogeneity can
+              compromise the effectiveness of this method for B1 RF
+              inhomogeneity correction. We demonstrate that, by combining the
+              spin-locking scheme reported by Dixon et al. (Myocardial
+              suppression in vivo by spin locking with composite pulses. Magn
+              Reson Med 1996; 36:90-94) with phase cycling, we can
+              simultaneously correct B0 magnetic field inhomogeneity effects and
+              B1 RF inhomogeneity effects in T(1)(ρ) imaging. Phantom and in
+              vivo data sets are used to demonstrate the proposed methods and to
+              compare them with other existing T(1)(ρ) preparation methods.",
+  month    =  jun,
+  year     =  2011,
+  language = "en"
+}
+,@ARTICLE{Zur1991-yo,
+  title    = "Spoiling of transverse magnetization in steady-state sequences",
+  author   = "Zur, Y and Wood, M L and Neuringer, L J",
+  journal  = "Magn. Reson. Med.",
+  volume   =  21,
+  number   =  2,
+  pages    = "251--263",
+  abstract = "A detailed analysis is presented of a method to eliminate
+              transverse magnetization prior to each rf excitation in pulse
+              sequences with TR less than T2. It is shown that artifact-free
+              images with high T1 contrast can be obtained only if a phase shift
+              that is incremented during each TR interval is applied to the
+              transverse magnetization. Computer simulations are used to show
+              that when this phase increment is 117 degrees, the steady-state
+              transverse magnetization prior to each rf pulse is nulled over a
+              wide range of T1, T2, and rf tip angles, resulting in optimal T1
+              contrast. Such nulling of steady-state transverse magnetization
+              cannot be obtained by using large gradient pulses, or gradients of
+              random or linearly incremented amplitude. Images of phantoms and
+              human subjects confirm the theoretical predictions.",
+  month    =  oct,
+  year     =  1991,
+  language = "en"
+}
+,@ARTICLE{Cobb2012-cn,
+  title    = "Exchange-mediated contrast agents for spin-lock imaging",
+  author   = "Cobb, Jared G and Xie, Jingping and Li, Ke and Gochberg, Daniel F
+              and Gore, John C",
+  journal  = "Magn. Reson. Med.",
+  volume   =  67,
+  number   =  5,
+  pages    = "1427--1433",
+  abstract = "Measurements of relaxation rates in the rotating frame with
+              spin-locking techniques are sensitive to substances with
+              exchanging protons with appropriate chemical shifts. The authors
+              develop a novel approach to exchange-rate selective imaging based
+              on measured T(1ρ) dispersion with applied locking field strength,
+              and demonstrate the method on samples containing the X-ray
+              contrast agent Iohexol with and without cross-linked bovine serum
+              albumin. T(1ρ) dispersion of water in the phantoms was measured
+              with a Varian 9.4-T magnet by an on-resonance spin-locking pulse
+              with fast spin-echo readout, and the results used to estimate
+              exchange rates. The Iohexol phantom alone gave a fitted exchange
+              rate of ~1 kHz, bovine serum albumin alone was ~11 kHz, and in
+              combination gave rates in between. By using these estimated rates,
+              we demonstrate how a novel spin-locking imaging method may be used
+              to enhance contrast due to the presence of a contrast agent whose
+              protons have specific exchange rates.",
+  month    =  may,
+  year     =  2012,
+  language = "en"
+}
+,@ARTICLE{Akella2001-si,
+  title    = "Proteoglycan-induced changes {inT1}?-relaxation of articular
+              cartilage at {4T}",
+  author   = "Akella, Sarma V S and Reddy Regatte, Ravinder and Gougoutas,
+              Alexander J and Borthakur, Arijitt and Shapiro, Erik M and
+              Kneeland, J Bruce and Leigh, John S and Reddy, Ravinder",
+  journal  = "Magn. Reson. Med.",
+  volume   =  46,
+  number   =  3,
+  pages    = "419--423",
+  abstract = "Abstract Proteoglycan (PG) depletion-induced changes in T1?
+              (spin-lattice relaxation in rotating frame) relaxation and
+              dispersion in articular cartilage were studied at 4T. Using a
+              spin-lock cluster pre-encoded fast spin echo sequence, T1? maps of
+              healthy bovine specimens and specimens that were subjected to PG
+              depletion were computed at varying spin-lock frequencies.
+              Sequential PG depletion was induced by trypsinization of cartilage
+              for varying amounts of time. Results demonstrated that over 50\%
+              depletion of PG from bovine articular cartilage resulted in
+              average T1? increases from 110?170 ms. Regression analysis of the
+              data showed a strong correlation (R2 = 0.987) between changes in
+              PG and T1?. T1? values were highest at the superficial zone and
+              decreased gradually in the middle zone and again showed an
+              increasing trend in the region near the subchondral bone. The
+              potentials of this method in detecting early degenerative changes
+              of cartilage are discussed. Also, T1?-dispersion changes as a
+              function of PG depletion are described. Magn Reson Med 46:419?423,
+              2001. ? 2001 Wiley-Liss, Inc.",
+  month    =  sep,
+  year     =  2001
+}
+,@TECHREPORT{Boss2018-kl,
+  title    = "Magnetic Resonance Imaging Biomarker Calibration Service: Proton
+              Spin Relaxation Times",
+  author   = "Boss, Michael A and Dienstfrey, Andrew M and Gimbutas, Zydrunas
+              and Keenan, Kathryn E and Splett, Jolene D and Stupic, Karl F and
+              Russek, Stephen E",
+  number   = "Special Publication (NIST SP) - 250-97",
+  abstract = "This document describes the calibration service to measure proton
+              spin relaxation times, T1 and T2, of materials used in phantoms
+              (calibration artifacts) to...",
+  month    =  may,
+  year     =  2018,
+  keywords = "Biomarker, NMR, MRI, T1, T2"
+}
+,@ARTICLE{Charagundla2003-dz,
+  title    = "Artifacts in {T}({1rho})-weighted imaging: correction with a
+              self-compensating spin-locking pulse",
+  author   = "Charagundla, Sridhar R and Borthakur, Arijitt and Leigh, John S
+              and Reddy, Ravinder",
+  journal  = "J. Magn. Reson.",
+  volume   =  162,
+  number   =  1,
+  pages    = "113--121",
+  abstract = "Significant artifacts arise in T(1rho)-weighted imaging when
+              nutation angles suffer small deviations from their expected
+              values. These artifacts vary with spin-locking time and amplitude,
+              severely limiting attempts to perform quantitative imaging or
+              measurement of T(1rho) relaxation times. A theoretical model
+              explaining the origin of these artifacts is presented in the
+              context of a T(1rho)-prepared fast spin-echo imaging sequence.
+              Experimentally obtained artifacts are compared to those predicted
+              by theory and related to B(1) inhomogeneity. Finally, a
+              ``self-compensating'' spin-locking preparatory pulse cluster is
+              presented, in which the second half of the spin-locking pulse is
+              phase-shifted by 180 degrees. Use of this pulse sequence maintains
+              relatively uniform signal intensity despite large variations in
+              flip angle, greatly reducing artifacts in T(1rho)-weighted
+              imaging.",
+  month    =  may,
+  year     =  2003,
+  language = "en"
+}
+,@ARTICLE{Englund1986-az,
+  title   = "Relaxation times in relation to grade of malignancy and tissue
+             necrosis in astrocytic gliomas",
+  author  = "Englund, Elisabet and Brun, Arne and Györffy-Wagner, Zoltan and
+             Larsson, Elna-Marie and Persson, Bertil",
+  journal = "Magn. Reson. Imaging",
+  volume  =  4,
+  number  =  5,
+  pages   = "425--429",
+  month   =  jan,
+  year    =  1986
+}
+,@ARTICLE{Kamesh_Iyer2019-cj,
+  title    = "Accelerated free-breathing {3D} {T1}$\rho$ cardiovascular magnetic
+              resonance using multicoil compressed sensing",
+  author   = "Kamesh Iyer, Srikant and Moon, Brianna and Hwuang, Eileen and Han,
+              Yuchi and Solomon, Michael and Litt, Harold and Witschey, Walter R",
+  journal  = "J. Cardiovasc. Magn. Reson.",
+  volume   =  21,
+  number   =  1,
+  pages    =  5,
+  abstract = "Endogenous contrast T1$\rho$ cardiovascular magnetic resonance
+              (CMR) can detect scar or infiltrative fibrosis in patients with
+              ischemic or non-ischemic cardiomyopathy. Existing 2D T1$\rho$
+              techniques have limited spatial coverage or require multiple
+              breath-holds. The purpose of this project was to develop an
+              accelerated, free-breathing 3D T1$\rho$ mapping sequence with
+              whole left ventricle coverage using a multicoil, compressed
+              sensing (CS) reconstruction technique for rapid reconstruction of
+              undersampled k-space data.",
+  month    =  jan,
+  year     =  2019
+}
+,@ARTICLE{Marques2010-mo,
+  title    = "{MP2RAGE}, a self bias-field corrected sequence for improved
+              segmentation and {T1}-mapping at high field",
+  author   = "Marques, José P and Kober, Tobias and Krueger, Gunnar and van der
+              Zwaag, Wietske and Van de Moortele, Pierre-François and Gruetter,
+              Rolf",
+  journal  = "Neuroimage",
+  volume   =  49,
+  number   =  2,
+  pages    = "1271--1281",
+  abstract = "The large spatial inhomogeneity in transmit B(1) field (B(1)(+))
+              observable in human MR images at high static magnetic fields
+              (B(0)) severely impairs image quality. To overcome this effect in
+              brain T(1)-weighted images, the MPRAGE sequence was modified to
+              generate two different images at different inversion times,
+              MP2RAGE. By combining the two images in a novel fashion, it was
+              possible to create T(1)-weighted images where the result image was
+              free of proton density contrast, T(2) contrast, reception bias
+              field, and, to first order, transmit field inhomogeneity. MP2RAGE
+              sequence parameters were optimized using Bloch equations to
+              maximize contrast-to-noise ratio per unit of time between brain
+              tissues and minimize the effect of B(1)(+) variations through
+              space. Images of high anatomical quality and excellent brain
+              tissue differentiation suitable for applications such as
+              segmentation and voxel-based morphometry were obtained at 3 and 7
+              T. From such T(1)-weighted images, acquired within 12 min,
+              high-resolution 3D T(1) maps were routinely calculated at 7 T with
+              sub-millimeter voxel resolution (0.65-0.85 mm isotropic). T(1)
+              maps were validated in phantom experiments. In humans, the T(1)
+              values obtained at 7 T were 1.15+/-0.06 s for white matter (WM)
+              and 1.92+/-0.16 s for grey matter (GM), in good agreement with
+              literature values obtained at lower spatial resolution. At 3 T,
+              where whole-brain acquisitions with 1 mm isotropic voxels were
+              acquired in 8 min, the T(1) values obtained (0.81+/-0.03 s for WM
+              and 1.35+/-0.05 for GM) were once again found to be in very good
+              agreement with values in the literature.",
+  month    =  jan,
+  year     =  2010,
+  language = "en"
+}
+,@ARTICLE{Deoni2003-fv,
+  title    = "Rapid combined {T1} and {T2} mapping using gradient recalled
+              acquisition in the steady state",
+  author   = "Deoni, Sean C L and Rutt, Brian K and Peters, Terry M",
+  journal  = "Magn. Reson. Med.",
+  volume   =  49,
+  number   =  3,
+  pages    = "515--526",
+  abstract = "A novel, fully 3D, high-resolution T(1) and T(2) relaxation time
+              mapping method is presented. The method is based on steady-state
+              imaging with T(1) and T(2) information derived from either
+              spoiling or fully refocusing the transverse magnetization
+              following each excitation pulse. T(1) is extracted from a pair of
+              spoiled gradient recalled echo (SPGR) images acquired at optimized
+              flip angles. This T(1) information is combined with two refocused
+              steady-state free precession (SSFP) images to determine T(2). T(1)
+              and T(2) accuracy was evaluated against inversion recovery (IR)
+              and spin-echo (SE) results, respectively. Error within the T(1)
+              and T(2) maps, determined from both phantom and in vivo
+              measurements, is approximately 7\% for T(1) between 300 and 2000
+              ms and 7\% for T(2) between 30 and 150 ms. The efficiency of the
+              method, defined as the signal-to-noise ratio (SNR) of the final
+              map per voxel volume per square root scan time, was evaluated
+              against alternative mapping methods. With an efficiency of three
+              times that of multipoint IR and three times that of multiecho SE,
+              our combined approach represents the most efficient of those
+              examined. Acquisition time for a whole brain T(1) map (25 x 25 x
+              10 cm) is less than 8 min with 1 mm(3) isotropic voxels. An
+              additional 7 min is required for an identically sized T(2) map and
+              postprocessing time is less than 1 min on a 1 GHz PIII PC. The
+              method therefore permits real-time clinical acquisition and
+              display of whole brain T(1) and T(2) maps for the first time.",
+  month    =  mar,
+  year     =  2003,
+  language = "en"
+}
+,@ARTICLE{Sled1998-mh,
+  title    = "Standing-wave and {RF} penetration artifacts caused by elliptic
+              geometry: an electrodynamic analysis of {MRI}",
+  author   = "Sled, J G and Pike, G B",
+  journal  = "IEEE Trans. Med. Imaging",
+  volume   =  17,
+  number   =  4,
+  pages    = "653--662",
+  abstract = "Motivated by the observation that the diagonal pattern of
+              intensity nonuniformity usually associated with linearly polarized
+              radio-frequency (RF) coils is often present in neurological scans
+              using circularly polarized coils, a theoretical analysis has been
+              conducted of the intensity nonuniformity inherent in imaging an
+              elliptically shaped object using 1.5-T magnets and circularly
+              polarized RF coils. This first principle analysis clarifies, for
+              the general case of conducting objects, the relationship between
+              the excitation field and the reception sensitivity of circularly
+              and linearly polarized coils. The results, validated
+              experimentally using a standard spin-echo imaging sequence and an
+              in vivo B1 field mapping technique, are shown to be accurate to
+              within 1\%-2\% root mean square, suggesting that these
+              electromagnetic interactions with the object account for most of
+              the intensity nonuniformity observed.",
+  month    =  aug,
+  year     =  1998,
+  language = "en"
+}
+,@ARTICLE{Witschey2012-ws,
+  title    = "In vivo chronic myocardial infarction characterization by spin
+              locked cardiovascular magnetic resonance",
+  author   = "Witschey, Walter R T and Zsido, Gerald A and Koomalsingh, Kevin
+              and Kondo, Norihiro and Minakawa, Masahito and Shuto, Takashi and
+              McGarvey, Jeremy R and Levack, Melissa M and Contijoch, Francisco
+              and Pilla, James J and Gorman, 3rd, Joseph H and Gorman, Robert C",
+  journal  = "J. Cardiovasc. Magn. Reson.",
+  volume   =  14,
+  pages    =  37,
+  abstract = "BACKGROUND: Late gadolinium enhanced (LGE) cardiovascular magnetic
+              resonance (CMR) is frequently used to evaluate myocardial
+              viability, estimate total infarct size and transmurality, but is
+              not always straightforward is and contraindicated in patients with
+              renal failure because of the risk of nephrogenic systemic
+              fibrosis. T2- and T1-weighted CMR alone is however relatively
+              insensitive to chronic myocardial infarction (MI) in the absence
+              of a contrast agent. The objective of this manuscript is to
+              explore T1ρ-weighted rotating frame CMR techniques for infarct
+              characterization without contrast agents. We hypothesize that T1ρ
+              CMR accurately measures infarct size in chronic MI on account of a
+              large change in T1ρ relaxation time between scar and myocardium.
+              METHODS: 7Yorkshire swine underwent CMR at 8 weeks post-surgical
+              induction of apical or posterolateral myocardial infarction. Late
+              gadolinium enhanced and T1ρ CMR were performed at high resolution
+              to visualize MI. T1ρ-weighted imaging was performed with a B₁ =
+              500 Hz spin lock pulse on a 3 T clinical MR scanner. Following
+              sacrifice, the heart was excised and infarct size was calculated
+              by optical planimetry. Infarct size was calculated for all three
+              methods (LGE, T1ρ and planimetry) and statistical analysis was
+              performed. T1ρ relaxation time maps were computed from multiple
+              T1ρ-weighted images at varying spin lock duration. RESULTS: Mean
+              infarct contrast-to-noise ratio (CNR) in LGE and T1ρ CMR was 2.8 ±
+              0.1 and 2.7 ± 0.1. The variation in signal intensity of tissues
+              was found to be, in order of decreasing signal intensity, LV
+              blood, fat and edema, infarct and healthy myocardium. Infarct size
+              measured by T1ρ CMR (21.1\% ± 1.4\%) was not significantly
+              different from LGE CMR (22.2\% ± 1.5\%) or planimetry (21.1\% ±
+              2.7\%; p < 0.05).T1ρ relaxation times were T1ρinfarct = 91.7 ms in
+              the infarct and T1ρremote = 47.2 ms in the remote myocardium.
+              CONCLUSIONS: T1ρ-weighted imaging using long spin locking pulses
+              enables high discrimination between infarct and myocardium. T1ρ
+              CMR may be useful to visualizing MI without the need for exogenous
+              contrast agents for a wide range of clinical cardiac applications
+              such as to distinguish edema and scar tissue and tissue
+              characterization of myocarditis and ventricular fibrosis.",
+  month    =  jun,
+  year     =  2012,
+  language = "en"
+}
+,@ARTICLE{Cheng2012-tx,
+  title    = "Practical medical applications of quantitative {MR} relaxometry",
+  author   = "Cheng, Hai-Ling Margaret and Stikov, Nikola and Ghugre, Nilesh R
+              and Wright, Graham A",
+  journal  = "J. Magn. Reson. Imaging",
+  volume   =  36,
+  number   =  4,
+  pages    = "805--824",
+  abstract = "Conventional MR images are qualitative, and their signal intensity
+              is dependent on several complementary contrast mechanisms that are
+              manipulated by the MR hardware and software. In the absence of a
+              quantitative metric for absolute interpretation of pixel signal
+              intensities, one that is independent of scanner hardware and
+              sequences, it is difficult to perform comparisons of MR images
+              across subjects or longitudinally in the same subject.
+              Quantitative relaxometry isolates the contributions of individual
+              MR contrast mechanisms (T1, T2, T2) and provides maps, which are
+              independent of the MR protocol and have a physical interpretation
+              often expressed in absolute units. In addition to providing an
+              unbiased metric for comparing MR scans, quantitative relaxometry
+              uses the relationship between MR maps and physiology to provide a
+              noninvasive surrogate for biopsy and histology. This study
+              provides an overview of some promising clinical applications of
+              quantitative relaxometry, followed by a description of the methods
+              and challenges of acquiring accurate and precise quantitative MR
+              maps. It concludes with three case studies of quantitative
+              relaxometry applied to studying multiple sclerosis, liver iron,
+              and acute myocardial infarction.",
+  month    =  oct,
+  year     =  2012,
+  language = "en"
+}
+,@ARTICLE{Johannessen2006-mj,
+  title    = "Assessment of human disc degeneration and proteoglycan content
+              using {T1rho}-weighted magnetic resonance imaging",
+  author   = "Johannessen, Wade and Auerbach, Joshua D and Wheaton, Andrew J and
+              Kurji, Alykhan and Borthakur, Arijitt and Reddy, Ravinder and
+              Elliott, Dawn M",
+  journal  = "Spine",
+  volume   =  31,
+  number   =  11,
+  pages    = "1253--1257",
+  abstract = "STUDY DESIGN: T1rho relaxation was quantified and correlated with
+              intervertebral disc degeneration and proteoglycan content in
+              cadaveric human lumbar spine tissue. OBJECTIVE: To show the use of
+              T1rho-weighted magnetic resonance imaging (MRI) for the assessment
+              of degeneration and proteoglycan content in the human
+              intervertebral disc. SUMMARY OF BACKGROUND DATA: Loss of
+              proteoglycan in the nucleus pulposus occurs during early
+              degeneration. Conventional MRI techniques cannot detect these
+              early changes in the extracellular matrix content of the disc.
+              T1rho MRI is sensitive to changes in proteoglycan content of
+              articular cartilage and may, therefore, be sensitive to
+              proteoglycan content in the intervertebral disc. METHODS: Intact
+              human cadaveric lumbar spines were imaged on a clinical MR
+              scanner. Average T1rho in the nucleus pulposus was calculated from
+              quantitative T1rho maps. After MRI, the spines were dissected, and
+              proteoglycan content of the nucleus pulposus was measured.
+              Finally, the stage of degeneration was graded using conventional
+              T2 images. RESULTS: T1rho decreased linearly with increasing
+              degeneration (r = -0.76, P < 0.01) and age (r = -0.76, P < 0.01).
+              Biochemical analysis revealed a strong linear correlation between
+              T1rho and sulfated-glycosaminoglycan content. T1rho was moderately
+              correlated with water content. CONCLUSIONS: Results from this
+              study suggest that T1rho may provide a tool for the diagnosis of
+              early degenerative changes in the disc. T1rho-weighted MRI is a
+              noninvasive technique that may provide higher dynamic range than
+              T2 and does not require a high static field or exogenous contrast
+              agents.",
+  month    =  may,
+  year     =  2006,
+  language = "en"
+}
+,@ARTICLE{Vrenken2006-be,
+  title    = "Whole-brain {T1} mapping in multiple sclerosis: global changes of
+              normal-appearing gray and white matter",
+  author   = "Vrenken, Hugo and Geurts, Jeroen J G and Knol, Dirk L and van
+              Dijk, L Noor and Dattola, Vincenzo and Jasperse, Bas and van
+              Schijndel, Ronald A and Polman, Chris H and Castelijns, Jonas A
+              and Barkhof, Frederik and Pouwels, Petra J W",
+  journal  = "Radiology",
+  volume   =  240,
+  number   =  3,
+  pages    = "811--820",
+  abstract = "PURPOSE: To prospectively investigate whether T1 changes in
+              normal-appearing white matter (WM) and normal-appearing gray
+              matter (GM) in multiple sclerosis (MS) are global or regional and
+              their relationship to disease type. MATERIALS AND METHODS: The
+              institutional ethics review board approved study; written informed
+              consent was obtained. Whole-brain T1 maps were obtained in 67
+              patients with MS and 24 healthy control subjects with
+              three-dimensional fast low-angle shot flip angle-array method,
+              with correction for B(1) imperfections. Analysis of variance was
+              performed on T1 histogram parameters of global normal-appearing WM
+              and GM. Regional mean T1 values were analyzed with a multilevel
+              approach. Multiple linear regression analysis was performed to
+              investigate associations with clinical disability and overall
+              atrophy. For patients, T2 lesion load was determined. RESULTS: T1
+              histograms of normal-appearing WM had significantly higher peak
+              positions for patients with MS (792 msec +/- 36 in secondary
+              progressive [SP] MS) than for control subjects (746 msec +/- 23)
+              and were significantly broader and lower (all P < .001).
+              Histograms for cortical normal-appearing GM were significantly
+              shifted (peak positions, 1263 msec +/- 44 in control subjects and
+              1355 msec +/- 62 in patients with SP MS) (P < .001). Histogram
+              peak positions were significantly higher in SP MS than in
+              relapsing-remitting (RR) and primary progressive MS (P < .05). In
+              SP disease, at least 31\% of normal-appearing WM and 20\% of
+              cortical normal-appearing GM were affected. In MS, T1 was
+              significantly elevated in all normal-appearing WM and cortical
+              normal-appearing GM regions (all P < .01) but was elevated only in
+              the thalamus in deep GM (P < .05). Cortical T1 histogram peak
+              position was associated with clinical disability; T2 lesion load
+              was not. CONCLUSION: Results suggest that a global disease process
+              affects large parts of both normal-appearing WM and GM in MS and
+              effects are worse for SP MS than for RR MS.",
+  month    =  sep,
+  year     =  2006,
+  language = "en"
+}
+,@ARTICLE{Li2008-oy,
+  title    = "In vivo {T}({1rho}) mapping in cartilage using {3D}
+              magnetization-prepared angle-modulated partitioned k-space spoiled
+              gradient echo snapshots ({3D} {MAPSS})",
+  author   = "Li, Xiaojuan and Han, Eric T and Busse, Reed F and Majumdar,
+              Sharmila",
+  journal  = "Magn. Reson. Med.",
+  volume   =  59,
+  number   =  2,
+  pages    = "298--307",
+  abstract = "For T(1rho) quantification, a three-dimensional (3D) acquisition
+              is desired to obtain high-resolution images. Current 3D methods
+              that use steady-state spoiled gradient-echo (SPGR) imaging suffer
+              from high SAR, low signal-to-noise ratio (SNR), and the need for
+              retrospective correction of contaminating T(1) effects. In this
+              study, a novel 3D acquisition scheme-magnetization-prepared
+              angle-modulated partitioned-k-space SPGR snapshots (3D MAPSS)-was
+              developed and used to obtain in vivo T(1rho) maps. Transient
+              signal evolving towards the steady-state were acquired in an
+              interleaved segmented elliptical centric phase encoding order
+              immediately after a T(1rho) magnetization preparation sequence. RF
+              cycling was applied to eliminate the adverse impact of
+              longitudinal relaxation on quantitative accuracy. A variable flip
+              angle train was designed to provide a flat signal response to
+              eliminate the filtering effect in k-space caused by transient
+              signal evolution. Experiments in phantoms agreed well with results
+              from simulation. The T(1rho) values were 42.4 +/- 5.2 ms in
+              overall cartilage of healthy volunteers. The average
+              coefficient-of-variation (CV) of mean T(1rho) values (N = 4) for
+              overall cartilage was 1.6\%, with regional CV ranging from 1.7\%
+              to 8.7\%. The fitting errors using MAPSS were significantly lower
+              (P < 0.05) than those using sequences without RF cycling and
+              variable flip angles.",
+  month    =  feb,
+  year     =  2008,
+  language = "en"
+}
+,@ARTICLE{Barral2010-qm,
+  title    = "A robust methodology for in vivo {T1} mapping",
+  author   = "Barral, Joëlle K and Gudmundson, Erik and Stikov, Nikola and
+              Etezadi-Amoli, Maryam and Stoica, Petre and Nishimura, Dwight G",
+  journal  = "Magn. Reson. Med.",
+  volume   =  64,
+  number   =  4,
+  pages    = "1057--1067",
+  abstract = "In this article, a robust methodology for in vivo T(1) mapping is
+              presented. The approach combines a gold standard scanning
+              procedure with a novel fitting procedure. Fitting complex data to
+              a five-parameter model ensures accuracy and precision of the T(1)
+              estimation. A reduced-dimension nonlinear least squares method is
+              proposed. This method turns the complicated multi-parameter
+              minimization into a straightforward one-dimensional search. As the
+              range of possible T(1) values is known, a global grid search can
+              be used, ensuring that a global optimal solution is found. When
+              only magnitude data are available, the algorithm is adapted to
+              concurrently restore polarity. The performance of the new
+              algorithm is demonstrated in simulations and phantom experiments.
+              The new algorithm is as accurate and precise as the conventionally
+              used Levenberg-Marquardt algorithm but much faster. This gain in
+              speed makes the use of the five-parameter model viable. In
+              addition, the new algorithm does not require initialization of the
+              search parameters. Finally, the methodology is applied in vivo to
+              conventional brain imaging and to skin imaging. T(1) values are
+              estimated for white matter and gray matter at 1.5 T and for
+              dermis, hypodermis, and muscle at 1.5 T, 3 T, and 7 T.",
+  month    =  oct,
+  year     =  2010,
+  language = "en"
+}
+,@ARTICLE{Gupta1977-mu,
+  title   = "A new look at the method of variable nutation angle for the
+             measurement of spin-lattice relaxation times using fourier
+             transform {NMR}",
+  author  = "Gupta, Raj K",
+  journal = "J. Magn. Reson.",
+  volume  =  25,
+  number  =  1,
+  pages   = "231--235",
+  month   =  jan,
+  year    =  1977
+}
+,@ARTICLE{Redfield1955-ew,
+  title     = "Nuclear Magnetic Resonance Saturation and Rotary Saturation in
+               Solids",
+  author    = "Redfield, Alfred G",
+  journal   = "Phys. Rev.",
+  publisher = "American Physical Society",
+  volume    =  98,
+  number    =  6,
+  pages     = "1787--1809",
+  month     =  jun,
+  year      =  1955
+}
+,@ARTICLE{Allkemper2014-ho,
+  title    = "Evaluation of fibrotic liver disease with whole-liver {T1ρ} {MR}
+              imaging: a feasibility study at 1.5 {T}",
+  author   = "Allkemper, Thomas and Sagmeister, Florian and Cicinnati, Vito and
+              Beckebaum, Susanne and Kooijman, Hendrik and Kanthak, Christian
+              and Stehling, Christoph and Heindel, Walter",
+  journal  = "Radiology",
+  volume   =  271,
+  number   =  2,
+  pages    = "408--415",
+  abstract = "PURPOSE: To test at 1.5 T whether T1ρ magnetic resonance (MR)
+              imaging of fibrotic liver disease is feasible, to investigate
+              whether liver T1ρ imaging allows assessment of the severity of
+              liver cirrhosis, and to assess the normal liver T1ρ range in
+              healthy patients. MATERIALS AND METHODS: This prospective study
+              was approved by the institutional ethics committee. Written
+              informed consent was obtained. Healthy volunteers (n = 25) and
+              patients (n = 34) with cirrhosis underwent whole-liver T1ρ MR
+              imaging at 1.5 T. Mean T1ρ values were calculated from liver
+              regions of interest. Mean T1ρ values were correlated to clinical
+              data and histopathologic analysis by analysis of variance.
+              Receiver operating characteristic curves were calculated to
+              determine the accuracy of mean T1ρ values for the assessment of
+              Child-Pugh class. RESULTS: Mean T1ρ values of volunteers (mean,
+              40.9 msec ± 2.9 [standard deviation]; range, 33.9-46.3 msec) were
+              significantly lower than those of patients who were Child-Pugh
+              class A (P < .004), B (P < .001), or C (P < .001), and significant
+              differences were found between each Child-Pugh stage (A vs B, P <
+              .002; B vs C, P < .009; A vs C, P < .001). Liver cirrhosis was
+              confirmed via histologic analysis in all patients with liver
+              biopsy. Mean T1ρ values did not correlate with necroinflammatory
+              activity (r = 0.31; P = .23), degree of steatosis (r = -0.016; P =
+              .68), or presence of iron load (r = 0.22; P = .43). Mean T1ρ
+              values performed well by assessing the Child-Pugh stage, with
+              receiver operating characteristic areas of 0.95-0.98. Intraclass
+              correlation coefficient values ranged between 0.890 and 0.987,
+              which indicated excellent imaging and reimaging reproducibility
+              and interobserver and intraobserver variability. CONCLUSION:
+              Whole-liver T1ρ MR imaging at 1.5 T to detect and assess human
+              liver cirrhosis is feasible. Further investigation and
+              optimization of this technique are warranted to cover the entire
+              spectrum of fibrotic liver disease.",
+  month    =  may,
+  year     =  2014,
+  language = "en"
+}
+,@MISC{Marques2017-ws,
+  title        = "{MP2RAGE} related scripts",
+  author       = "Marques, Jose",
+  year         =  2017,
+  howpublished = "\url{https://github.com/JosePMarques/MP2RAGE-related-scripts}",
+  note         = "Accessed: 2019-1-2",
+  language     = "MATLAB"
+}
+,@ARTICLE{Mlynarik2004-ko,
+  title    = "Transverse relaxation mechanisms in articular cartilage",
+  author   = "Mlynárik, V and Szomolányi, P and Toffanin, R and Vittur, F and
+              Trattnig, S",
+  journal  = "J. Magn. Reson.",
+  volume   =  169,
+  number   =  2,
+  pages    = "300--307",
+  abstract = "Relaxation rates in the rotating frame (R1rho) and spin-spin
+              relaxation rates (R2) were measured in articular cartilage at
+              various orientations of cartilage layer to the static magnetic
+              field (B0), at various spin locking field strengths and at two
+              different static magnetic field strengths. It was found that R1rho
+              in the deep radial zone depended on the orientation of specimens
+              in the magnet and decreased with increasing the spin locking field
+              strength. In contrast, R1rho values in the transitional zone were
+              nearly independent of the specimen orientation and the spin
+              locking field strength. Measurements of the same specimens at 2.95
+              and 7.05 T showed an increase of R1rho and most R2 values with
+              increasing B0. The inverse B0 dependence of some R2 values was
+              probably due to a multicomponent character of the transverse
+              magnetization decay. The experiments revealed that the dominant
+              T1rho and T2 relaxation mechanism at B0 < or = 3 T is a dipolar
+              interaction due to slow anisotropic motion of water molecules in
+              the collagen matrix. On average, the contribution of scalar
+              relaxation due to rapid proton exchange in femoral head cartilage
+              at 2.95 T is about 6\% or less of the total R1rho at the spin
+              locking field of 1000 Hz.",
+  month    =  aug,
+  year     =  2004,
+  language = "en"
+}
+,@ARTICLE{Aronen1999-cl,
+  title    = "{3D} spin-lock imaging of human gliomas",
+  author   = "Aronen, H J and Ramadan, U A and Peltonen, T K and Markkola, A T
+              and Tanttu, J I and Jääskeläinen, J and Häkkinen, A M and
+              Sepponen, R",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  17,
+  number   =  7,
+  pages    = "1001--1010",
+  abstract = "We investigated whether the simultaneous use of paramagnetic
+              contrast medium and 3D on-resonance spin lock (SL) imaging could
+              improve the contrast of enhancing brain tumors at 0.1 T. A phantom
+              containing serial concentrations of gadopentetate dimeglumine
+              (Gd-DTPA) in cross-linked bovine serum albumin (BSA) was imaged.
+              Eleven patients with histologically verified glioma were also
+              studied. T1-weighted 3D gradient echo images with and without SL
+              pulse were acquired before and after a Gd-DTPA injection. SL
+              effect, contrast, and contrast-to-noise ratio (CNR) were
+              calculated for each patient. In the glioma patients, the SL effect
+              was significantly smaller in the tumor than in the white and gray
+              matter both before (p = 0.001, p = 0.025, respectively), and after
+              contrast medium injection (p < 0.001, p < 0.001, respectively). On
+              post-contrast images, SL imaging significantly improved tumor
+              contrast (p = 0.001) whereas tumor CNR decreased slightly (p =
+              0.024). The combined use of SL imaging and paramagnetic Gd-DTPA
+              contrast agent offers a modality for improving tumor contrast in
+              magnetic resonance imaging (MRI) of enhancing brain tumors. 3D
+              gradient echo SL imaging has also shown potential to increase
+              tissue characterization properties of MR imaging of human gliomas.",
+  month    =  sep,
+  year     =  1999,
+  language = "en"
+}
+,@ARTICLE{Steen1994-gn,
+  title    = "Precise and accurate measurement of proton {T1} in human brain in
+              vivo: validation and preliminary clinical application",
+  author   = "Steen, R G and Gronemeyer, S A and Kingsley, P B and Reddick, W E
+              and Langston, J S and Taylor, J S",
+  journal  = "J. Magn. Reson. Imaging",
+  volume   =  4,
+  number   =  5,
+  pages    = "681--691",
+  abstract = "Precise and accurate inversion-recovery (PAIR) magnetic resonance
+              (MR) measurements of T1 were obtained in eight brain regions and
+              cerebrospinal fluid of 26 healthy volunteers. Accuracy of the
+              technique was assessed by measuring T1 in small fluid volumes with
+              the PAIR technique and with two independent spectroscopic
+              techniques. The mean difference between T1 measured with PAIR and
+              with the two spectroscopic techniques was 3.1\% +/- 1.3. The
+              precision (reproducibility) of measurements with the PAIR
+              technique was excellent. The coefficient of variation (CV) across
+              16 measurements in a head phantom was 2.0\%, compared with a CV of
+              2.7\% across 45 separate measurements in a single subject. The
+              within-subject CV was 1.8\% +/- 0.6 in white matter and 1.4\% +/-
+              1.0 in basal ganglia. The between-subject CV in 26 healthy
+              volunteers was 3.6\% +/- 0.6 in white matter and 4.1\% +/- 1.9 in
+              basal ganglia. Comparison between a patient with an active
+              recurrent brain tumor and an age-matched patient with an inactive
+              brain tumor showed that T1 was significantly elevated throughout
+              the brain of the active-tumor patient, especially in white matter
+              tracts, even though no tumor or edema was detected in the white
+              matter on standard MR images. Comparisons between five brain tumor
+              patients and four healthy volunteers of similar age showed that T1
+              was significantly and substantially elevated throughout the white
+              matter tracts and in the caudate nucleus, putamen, and thalamus.
+              These results are consistent with the hypothesis that white matter
+              tracts are selectively vulnerable to edema and that T1 increases
+              in white matter are a sensitive indicator of patient status or
+              tumor aggressiveness.",
+  month    =  sep,
+  year     =  1994,
+  language = "en"
+}
+,@ARTICLE{Lee2017-ex,
+  title    = "Analysis of the Precision of Variable Flip Angle {T1} Mapping with
+              Emphasis on the Noise Propagated from {RF} Transmit Field Maps",
+  author   = "Lee, Yoojin and Callaghan, Martina F and Nagy, Zoltan",
+  journal  = "Front. Neurosci.",
+  volume   =  11,
+  pages    =  106,
+  abstract = "In magnetic resonance imaging, precise measurements of
+              longitudinal relaxation time (T1) is crucial to acquire useful
+              information that is applicable to numerous clinical and
+              neuroscience applications. In this work, we investigated the
+              precision of T1 relaxation time as measured using the variable
+              flip angle method with emphasis on the noise propagated from
+              radiofrequency transmit field ([Formula: see text]) measurements.
+              The analytical solution for T1 precision was derived by standard
+              error propagation methods incorporating the noise from the three
+              input sources: two spoiled gradient echo (SPGR) images and a
+              [Formula: see text] map. Repeated in vivo experiments were
+              performed to estimate the total variance in T1 maps and we
+              compared these experimentally obtained values with the theoretical
+              predictions to validate the established theoretical framework.
+              Both the analytical and experimental results showed that variance
+              in the [Formula: see text] map propagated comparable noise levels
+              into the T1 maps as either of the two SPGR images. Improving
+              precision of the [Formula: see text] measurements significantly
+              reduced the variance in the estimated T1 map. The variance
+              estimated from the repeatedly measured in vivoT1 maps agreed well
+              with the theoretically-calculated variance in T1 estimates, thus
+              validating the analytical framework for realistic in vivo
+              experiments. We concluded that for T1 mapping experiments, the
+              error propagated from the [Formula: see text] map must be
+              considered. Optimizing the SPGR signals while neglecting to
+              improve the precision of the [Formula: see text] map may result in
+              grossly overestimating the precision of the estimated T1 values.",
+  month    =  mar,
+  year     =  2017,
+  keywords = "B1+ map; T1 map; error propagation; precision; uncertainty;
+              variable flip angle",
+  language = "en"
+}
+,@ARTICLE{Santyr1989-tt,
+  title    = "Spin locking for magnetic resonance imaging with application to
+              human breast",
+  author   = "Santyr, G E and Henkelman, R M and Bronskill, M J",
+  journal  = "Magn. Reson. Med.",
+  volume   =  12,
+  number   =  1,
+  pages    = "25--37",
+  abstract = "The dependence of rotating frame spin-lattice relaxation, T1 rho
+              on locking field frequency, f1, was measured for phantom materials
+              and human breast tissues. These data were used to predict the
+              relative signal strengths obtainable in a spin-locking imaging
+              sequence. This imaging sequence was implemented on a 0.15-T
+              imaging system and measurements of phantom and tissue signal
+              strength for various imaging parameters agreed with predicted
+              signal strengths. Compared to T1 and T2, T1 rho appears to have
+              unique capability to distinguish tumor from normal fat and fibrous
+              breast tissues. The applications of T1 rho to tissue
+              characterization and imaging at high static field strengths are
+              discussed.",
+  month    =  oct,
+  year     =  1989,
+  language = "en"
+}
+,@ARTICLE{Voelker2016-qs,
+  title    = "The traveling heads: multicenter brain imaging at 7 Tesla",
+  author   = "Voelker, Maximilian N and Kraff, Oliver and Brenner, Daniel and
+              Wollrab, Astrid and Weinberger, Oliver and Berger, Moritz C and
+              Robinson, Simon and Bogner, Wolfgang and Wiggins, Christopher and
+              Trampel, Robert and Stöcker, Tony and Niendorf, Thoralf and Quick,
+              Harald H and Norris, David G and Ladd, Mark E and Speck, Oliver",
+  journal  = "MAGMA",
+  volume   =  29,
+  number   =  3,
+  pages    = "399--415",
+  abstract = "OBJECTIVE: This study evaluates the inter-site and intra-site
+              reproducibility of 7 Tesla brain imaging and compares it to
+              literature values for other field strengths. MATERIALS AND
+              METHODS: The same two subjects were imaged at eight different 7 T
+              sites. MP2RAGE, TSE, TOF, SWI, EPI as well as B1 and B0 field maps
+              were analyzed quantitatively to assess inter-site reproducibility.
+              Intra-site reproducibility was measured with rescans at three
+              sites. RESULTS: Quantitative measures of MP2RAGE scans showed high
+              agreement. Inter-site and intra-site reproducibility errors were
+              comparable to 1.5 and 3 T. Other sequences also showed high
+              reproducibility between the sites, but differences were also
+              revealed. The different RF coils used were the main source for
+              systematic differences between the sites. CONCLUSION: Our results
+              show for the first time that multi-center brain imaging studies of
+              the supratentorial brain can be performed at 7 T with high
+              reproducibility and similar reliability as at 3T. This study
+              develops the basis for future large-scale 7 T multi-site studies.",
+  month    =  jun,
+  year     =  2016,
+  keywords = "Magnetic resonance imaging; Multi-center; Neuroimaging; Ultrahigh
+              field",
+  language = "en"
+}
+,@ARTICLE{Pykett1983-jh,
+  title    = "Measurement of spin-lattice relaxation times in nuclear magnetic
+              resonance imaging",
+  author   = "Pykett, I L and Rosen, B R and Buonanno, F S and Brady, T J",
+  journal  = "Phys. Med. Biol.",
+  volume   =  28,
+  number   =  6,
+  pages    = "723--729",
+  month    =  jun,
+  year     =  1983,
+  language = "en"
+}
+,@ARTICLE{Cobb2014-xt,
+  title    = "Exchange-mediated contrast in {CEST} and spin-lock imaging",
+  author   = "Cobb, Jared Guthrie and Li, Ke and Xie, Jingping and Gochberg,
+              Daniel F and Gore, John C",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  32,
+  number   =  1,
+  pages    = "28--40",
+  abstract = "PURPOSE: Magnetic resonance images of biological media based on
+              chemical exchange saturation transfer (CEST) show contrast that
+              depends on chemical exchange between water and other protons. In
+              addition, spin-lattice relaxation rates in the rotating frame
+              (R1ρ) are also affected by exchange, especially at high fields,
+              and can be exploited to provide novel, exchange-dependent
+              contrast. Here, we evaluate and compare the factors that modulate
+              the exchange contrast for these methods using simulations and
+              experiments on simple, biologically relevant samples. METHODS:
+              Simulations and experimental measurements at 9.4 T of rotating
+              frame relaxation rate dispersion and CEST contrast were performed
+              on solutions of macromolecules containing amide and hydroxyl
+              exchanging protons. RESULTS: The simulations and experimental
+              measurements confirm that both CEST and R1ρ measurements depend on
+              similar exchange parameters, but they manifest themselves
+              differently in their effects on contrast. CEST contrast may be
+              larger in the slow and intermediate exchange regimes for protons
+              with large resonant frequency offsets (e.g. >2 ppm). Spin-locking
+              techniques can produce larger contrast enhancement when resonant
+              frequency offsets are small (<2 ppm) and exchange is in the
+              intermediate-to-fast regime. The image contrasts scale differently
+              with field strength, exchange rate and concentration. CONCLUSION:
+              CEST and R1ρ measurements provide different and somewhat
+              complementary information about exchange in tissues. Whereas CEST
+              can depict exchange of protons with specific chemical shifts,
+              appropriate R1ρ-dependent acquisitions can be employed to
+              selectively portray protons of specific exchange rates.",
+  month    =  jan,
+  year     =  2014,
+  keywords = "CEST; Chemical exchange; R(1ρ); Spin lock",
+  language = "en"
+}
+,@ARTICLE{Schabel2009-aa,
+  title    = "Uncertainty in {T}(1) mapping using the variable flip angle method
+              with two flip angles",
+  author   = "Schabel, Matthias C and Morrell, Glen R",
+  journal  = "Phys. Med. Biol.",
+  volume   =  54,
+  number   =  1,
+  pages    = "N1--8",
+  abstract = "Propagation of errors, in conjunction with the theoretical signal
+              equation for spoiled gradient echo pulse sequences, is used to
+              derive a theoretical expression for uncertainty in quantitative
+              variable flip angle T(1) mapping using two flip angles. This
+              expression is then minimized to derive a rigorous expression for
+              optimal flip angles that elucidates a commonly used empirical
+              result. The theoretical expressions for uncertainty and optimal
+              flip angles are combined to derive a lower bound on the achievable
+              uncertainty for a given set of pulse sequence parameters and
+              signal-to-noise ratio (SNR). These results provide a means of
+              quantitatively determining the effect of changing acquisition
+              parameters on T(1) uncertainty.",
+  month    =  jan,
+  year     =  2009,
+  language = "en"
+}
+,@ARTICLE{Gai2013-dw,
+  title    = "Modified Look-Locker {T1} evaluation using Bloch simulations:
+              human and phantom validation",
+  author   = "Gai, Neville D and Stehning, Christian and Nacif, Marcelo and
+              Bluemke, David A",
+  journal  = "Magn. Reson. Med.",
+  volume   =  69,
+  number   =  2,
+  pages    = "329--336",
+  abstract = "Modified Look-Locker imaging is frequently used for T(1) mapping
+              of the myocardium. However, the specific effect of various MRI
+              parameters (e.g., encoding scheme, modifications of flip angle,
+              heart rate, T(2), and inversion times) on the accuracy of T(1)
+              measurement has not been studied through Bloch simulations. In
+              this work, modified Look-Locker imaging was characterized through
+              a numerical solution for Bloch equations. MRI sequence parameters
+              that may affect T(1) accuracy were systematically varied in the
+              simulation. For validation, phantoms were constructed with various
+              T(2) and T(1) times and compared with Bloch equation simulations.
+              Human volunteers were also evaluated with various pulse sequences
+              parameters to assess the validity of the numerical simulations.
+              There was close agreement between simulated T(1) times and T(1)
+              times measured in phantoms and volunteers. Lower T(2) times (i.e.,
+              <30 ms) resulted in errors greater than 5\% for T(1)
+              determination. Increasing maximum inversion time value improved
+              T(1) accuracy particularly for precontrast myocardial T(1).
+              Balanced steady-state free precession k space centric encoding
+              improved accuracy for short T(1) times (post gadolinium), but
+              linear encoding provided improved accuracy for precontrast T(1)
+              values. Lower flip angles are preferred if the signal-to-noise
+              ratio is sufficiently high. Bloch simulations for modified
+              Look-Locker imaging provide an accurate method to comprehensively
+              quantify the effect of pulse sequence parameters on T(1) accuracy.
+              As an alternative to otherwise lengthy phantom studies or human
+              studies, such simulations may be useful to optimize the modified
+              Look-Locker imaging sequence and compare differences in
+              T(1)-derived measurements from different scanners or institutions.",
+  month    =  feb,
+  year     =  2013,
+  language = "en"
+}
+,@BOOK{Bernstein2004-dt,
+  title     = "Handbook of {MRI} Pulse Sequences",
+  author    = "Bernstein, Matt and King, Kevin and Zhou, Xiaohong",
+  publisher = "Elsevier",
+  abstract  = "Purchase Handbook of MRI Pulse Sequences - 1st Edition. Print
+               Book \& E-Book. ISBN 9780120928613, 9780080533124",
+  month     =  sep,
+  year      =  2004
+}
+,@ARTICLE{Borthakur2006-aq,
+  title    = "Sodium and {T1rho} {MRI} for molecular and diagnostic imaging of
+              articular cartilage",
+  author   = "Borthakur, Arijitt and Mellon, Eric and Niyogi, Sampreet and
+              Witschey, Walter and Kneeland, J Bruce and Reddy, Ravinder",
+  journal  = "NMR Biomed.",
+  volume   =  19,
+  number   =  7,
+  pages    = "781--821",
+  abstract = "In this article, both sodium magnetic resonance (MR) and T1rho
+              relaxation mapping aimed at measuring molecular changes in
+              cartilage for the diagnostic imaging of osteoarthritis are
+              reviewed. First, an introduction to structure of cartilage, its
+              degeneration in osteoarthritis (OA) and an outline of diagnostic
+              imaging methods in quantifying molecular changes and early
+              diagnostic aspects of cartilage degeneration are described. The
+              sodium MRI section begins with a brief overview of the theory of
+              sodium NMR of biological tissues and is followed by a section on
+              multiple quantum filters that can be used to quantify both
+              bi-exponential relaxation and residual quadrupolar interaction.
+              Specifically, (i) the rationale behind the use of sodium MRI in
+              quantifying proteoglycan (PG) changes, (ii) validation studies
+              using biochemical assays, (iii) studies on human OA specimens,
+              (iv) results on animal models and (v) clinical imaging protocols
+              are reviewed. Results demonstrating the feasibility of quantifying
+              PG in OA patients and comparison with that in healthy subjects are
+              also presented. The section concludes with the discussion of
+              advantages and potential issues with sodium MRI and the impact of
+              new technological advancements (e.g. ultra-high field scanners and
+              parallel imaging methods). In the theory section on T1rho, a brief
+              description of (i) principles of measuring T1rho relaxation, (ii)
+              pulse sequences for computing T1rho relaxation maps, (iii) issues
+              regarding radio frequency power deposition, (iv) mechanisms that
+              contribute to T1rho in biological tissues and (v) effects of
+              exchange and dipolar interaction on T1rho dispersion are
+              discussed. Correlation of T1rho relaxation rate with
+              macromolecular content and biomechanical properties in cartilage
+              specimens subjected to trypsin and cytokine-induced
+              glycosaminoglycan depletion and validation against biochemical
+              assay and histopathology are presented. Experimental T1rho data
+              from osteoarthritic specimens, animal models, healthy human
+              subjects and as well from osteoarthritic patients are provided.
+              The current status of T1rho relaxation mapping of cartilage and
+              future directions is also discussed.",
+  month    =  nov,
+  year     =  2006,
+  language = "en"
+}
+,@ARTICLE{Michaeli2006-iz,
+  title    = "{T1rho} {MRI} contrast in the human brain: modulation of the
+              longitudinal rotating frame relaxation shutter-speed during an
+              adiabatic {RF} pulse",
+  author   = "Michaeli, Shalom and Sorce, Dennis J and Springer, Jr, Charles S
+              and Ugurbil, Kamil and Garwood, Michael",
+  journal  = "J. Magn. Reson.",
+  volume   =  181,
+  number   =  1,
+  pages    = "135--147",
+  abstract = "Longitudinal relaxation in the rotating frame (T1rho) is the
+              dominant mechanism during a train of adiabatic full passage (AFP)
+              RF pulses with no interpulse intervals, placed prior to an
+              excitation pulse. Asymptotic apparent time constants (T1rho') were
+              measured for human occipital lobe 1H2O at 4T using brief imaging
+              readouts following such pulse trains. Two members of the
+              hyperbolic secant (HSn) AFP pulse family (n=1 or 4; i.e., arising
+              from different amplitude- and frequency-modulation functions) were
+              used. These produced two different non-monoexponential signal
+              decays during the pulse trains. Thus, there are differing
+              contrasts in asymptotic T1rho' maps derived from these data. This
+              behavior is quite different than that of 1H2O signals from an
+              aqueous protein solution of roughly the same macromolecular volume
+              fraction as tissue. The ROI-averaged decays from the two
+              acquisitions can be simultaneously accommodated by a
+              two-site-exchange model for an equilibrium isochronous process
+              whose exchange condition is modulated during the pulse. The model
+              employs a two-spin description of dipolar interaction fluctuations
+              in each site. The intrinsic site R1rho(identical with T1rho(-1))
+              value is sensitive to fluctuations at the effective Larmor
+              frequency (omegaeff) in the rotating frame, and this is modulated
+              differently during the two types of AFP pulses. Agreement with the
+              data is quite good for site orientation correlation time constants
+              characteristic of macromolecule-interacting water (site A) and
+              bulk-like water (site B). Since R1rhoA is significantly modulated
+              while R1rhoB is not, the intrinsic relaxographic shutter-speed for
+              the process (identical with /R1rhoA-R1rhoB/), and thus the
+              exchange condition, is modulated. However, the mean residence time
+              (67 ms) and intrinsic population fraction (0.2) values found for
+              site A are each rather larger than might be expected, suggesting a
+              disproportionate role for the water molecules known to be
+              ``buried'' within the large and concentrated macromolecules of in
+              vivo tissue.",
+  month    =  jul,
+  year     =  2006,
+  language = "en"
+}
+,@ARTICLE{Duvvuri2001-ba,
+  title    = "Water magnetic relaxation dispersion in biological systems: the
+              contribution of proton exchange and implications for the
+              noninvasive detection of cartilage degradation",
+  author   = "Duvvuri, U and Goldberg, A D and Kranz, J K and Hoang, L and
+              Reddy, R and Wehrli, F W and Wand, A J and Englander, S W and
+              Leigh, J S",
+  journal  = "Proc. Natl. Acad. Sci. U. S. A.",
+  volume   =  98,
+  number   =  22,
+  pages    = "12479--12484",
+  abstract = "Magnetic relaxation has been used extensively to study and
+              characterize biological tissues. In particular, spin-lattice
+              relaxation in the rotating frame (T(1rho)) of water in protein
+              solutions has been demonstrated to be sensitive to macromolecular
+              weight and composition. However, the nature of the contribution
+              from low frequency processes to water relaxation remains unclear.
+              We have examined this problem by studying the water T(1rho)
+              dispersion in peptide solutions ((14)N- and (15)N-labeled),
+              glycosaminoglycan solutions, and samples of bovine articular
+              cartilage before and after proteoglycan degradation. We find in
+              model systems and tissue that hydrogen exchange from NH and OH
+              groups to water dominates the low frequency water T(1rho)
+              dispersion, in the context of the model used to interpret the
+              relaxation data. Further, low frequency dispersion changes are
+              correlated with loss of proteoglycan from the extra-cellular
+              matrix of articular cartilage. This finding has significance for
+              the noninvasive detection of matrix degradation.",
+  month    =  oct,
+  year     =  2001,
+  language = "en"
+}
+,@ARTICLE{Borthakur2008-ls,
+  title    = "{T1rho} {MRI} of Alzheimer's disease",
+  author   = "Borthakur, Arijitt and Sochor, Matthew and Davatzikos, Christos
+              and Trojanowski, John Q and Clark, Christopher M",
+  journal  = "Neuroimage",
+  volume   =  41,
+  number   =  4,
+  pages    = "1199--1205",
+  abstract = "Alzheimer's disease (AD) is the most common form of dementia in
+              the elderly. Classic symptoms of the disease include memory loss
+              and confusion associated with the hallmark neuro-pathologic
+              lesions of neurofibrillary tangles (NFT) and senile plaques (SP)
+              and their sequelae, gray matter atrophy. Volumetric assessment
+              methods measure tissue atrophy, which typically follows early
+              biochemical changes. An alternate MRI contrast mechanism to
+              visualize the early pathological changes is T1rho (or
+              ``T-1-rho''), the spin lattice relaxation time constant in the
+              rotating frame, which determines the decay of the transverse
+              magnetization in the presence of a ``spin-lock'' radio-frequency
+              field. Macromolecular changes (in plaques and tangles) that
+              accompany early AD are expected to alter bulk water T1rho
+              relaxation times. In this work, we measure T1rho MRI on patients
+              with clinically diagnosed AD, MCI and in age-matched cognitively
+              normal control subjects in order to compare T1rho values with
+              changes in brain volume in the same regions of the brain and
+              demonstrate that T1rho can potentially constitute an important
+              biomarker of AD.",
+  month    =  jul,
+  year     =  2008,
+  language = "en"
+}
+,@ARTICLE{Beck2018-qh,
+  title    = "Improved Visualization of Cortical Lesions in Multiple Sclerosis
+              Using {7T} {MP2RAGE}",
+  author   = "Beck, E S and Sati, P and Sethi, V and Kober, T and Dewey, B and
+              Bhargava, P and Nair, G and Cortese, I C and Reich, D S",
+  journal  = "Am. J. Neuroradiol.",
+  abstract = "BACKGROUND AND PURPOSE: Cortical lesions are common and often
+              extensive in multiple sclerosis but are difficult to visualize by
+              MRI, leaving important questions about their clinical implications
+              and response to therapy unanswered. Our aim was to determine
+              whether cortical lesions are better visualized using magnetization
+              prepared 2 rapid acquisition gradient echoes (MP2RAGE) than
+              T2*-weighted imaging on 7T MR imaging. MATERIALS AND METHODS:
+              Brain MR imaging using T1-weighted MP2RAGE at 500-μm isotropic
+              resolution, T2*-weighted gradient-echo, and T2*-weighted segmented
+              echo-planar imaging sequences were collected for 13 patients with
+              MS and 5 age-matched neurologically healthy controls on a 7T
+              research system. One MS case underwent postmortem MR imaging
+              including gradient-echo and MP2RAGE sequences, after which
+              cortical lesions seen on MR imaging were assessed with
+              immunohistochemistry. RESULTS: MP2RAGE detected 203 cortical
+              lesions (median, 16 lesions/case; interquartile range, 15),
+              compared to 92 with T2*gradient-echo (median, 7; interquartile
+              range, 8; P < .001) and 81 with T2*EPI (median, 7; interquartile
+              range, 5; P < .001). This increase in lesion number detected on
+              MP2RAGE versus T2* was observed for juxtacortical, leukocortical,
+              and intracortical lesions. Forty-three percent of all cortical
+              lesions were identified only on MP2RAGE. White matter lesion
+              volume correlated with total juxtacortical (r = 0.86, P < .001)
+              and leukocortical lesion volume (r = 0.70, P < .01) but not
+              intracortical lesion volume, suggesting that pathophysiology may
+              differ by lesion type. Of 4 suspected lesions seen on postmortem
+              imaging, 3 were found to be true cortical lesions while 1
+              represented postmortem tissue damage. CONCLUSIONS: A combination
+              of MP2RAGE and T2*-weighted imaging at 7T improved detection of
+              cortical lesions and should enable longitudinal studies to
+              elucidate their spatiotemporal dynamics and clinical implications.",
+  month    =  feb,
+  year     =  2018,
+  language = "en"
+}
+,@ARTICLE{Fairbanks1995-fr,
+  title    = "One-shot measurement of spin-lattice relaxation times in the
+              off-resonance rotating frame using {MR} imaging, with application
+              to breast",
+  author   = "Fairbanks, E J and Santyr, G E and Sorenson, J A",
+  journal  = "J. Magn. Reson. B",
+  volume   =  106,
+  number   =  3,
+  pages    = "279--283",
+  month    =  mar,
+  year     =  1995,
+  language = "en"
+}
+,@ARTICLE{Koskinen2006-by,
+  title    = "{T1rho} Dispersion profile of rat tissues in vitro at very low
+              locking fields",
+  author   = "Koskinen, Seppo K and Niemi, Pekka T and Kajander, Sami A and
+              Komu, Markku E S",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  24,
+  number   =  3,
+  pages    = "295--299",
+  abstract = "The purpose of this study was to show the T(1rho) dispersion
+              profile in various rat tissues (liver, brain, spleen, kidney,
+              heart and skeletal muscle) at low (0.1 T) B(0) field at very low
+              locking field B1, starting from 10 microT. The T(1rho) dispersion
+              profile showed a quite similar pattern in all tissues. The highest
+              R(1rho) relaxation rates were seen in the liver and muscle
+              followed by the heart, whereas the values for spleen, kidney and
+              brain were rather similar. The greatest difference between R2
+              relaxation rate and R(1rho) relaxation rate at B1=10 microT was
+              seen in the liver and muscle. The steepest slope for a dispersion
+              curve was seen in the muscle. The value of T(1rho) approximately
+              approached the value of T2 when the locking field B1 approached 0.
+              Except for the liver, the calculated apparent relaxation rate R2'
+              was slightly larger than the calculated one. The potential value
+              of T(1rho) imaging is to combine high R1 contrast of low-field
+              imaging with the high signal-to-noise ratio (SNR) of high static
+              field imaging. T(1rho) relaxation and dispersion data presented in
+              the current study help to optimize the rotating-frame MR imaging.",
+  month    =  apr,
+  year     =  2006,
+  language = "en"
+}
+,@ARTICLE{Boudreau2017-tu,
+  title    = "{B1} mapping for bias-correction in quantitative {T1} imaging of
+              the brain at {3T} using standard pulse sequences",
+  author   = "Boudreau, Mathieu and Tardif, Christine L and Stikov, Nikola and
+              Sled, John G and Lee, Wayne and Pike, G Bruce",
+  journal  = "J. Magn. Reson. Imaging",
+  volume   =  46,
+  number   =  6,
+  pages    = "1673--1682",
+  abstract = "PURPOSE: B1 mapping is important for many quantitative imaging
+              protocols, particularly those that include whole-brain T1 mapping
+              using the variable flip angle (VFA) technique. However, B1 mapping
+              sequences are not typically available on many magnetic resonance
+              imaging (MRI) scanners. The aim of this work was to demonstrate
+              that B1 mapping implemented using standard scanner product pulse
+              sequences can produce B1 (and VFA T1 ) maps comparable in quality
+              and acquisition time to advanced techniques. MATERIALS AND
+              METHODS: Six healthy subjects were scanned at 3.0T. An interleaved
+              multislice spin-echo echo planar imaging double-angle (EPI-DA) B1
+              mapping protocol, using a standard product pulse sequence, was
+              compared to two alternative methods (actual flip angle imaging,
+              AFI, and Bloch-Siegert shift, BS). Single-slice spin-echo DA B1
+              maps were used as a reference for comparison (Ref. DA). VFA flip
+              angles were scaled using each B1 map prior to fitting T1 ; the
+              nominal flip angle case was also compared. RESULTS: The
+              pooled-subject voxelwise correlation (ρ) for B1 maps
+              (BS/AFI/EPI-DA) relative to the reference B1 scan (Ref. DA) were ρ
+              = 0.92/0.95/0.98. VFA T1 correlations using these maps were ρ =
+              0.86/0.88/0.96, much better than without B1 correction (ρ = 0.53).
+              The relative error for each B1 map (BS/AFI/EPI-DA/Nominal) had
+              95th percentiles of 5/4/3/13\%. CONCLUSION: Our findings show that
+              B1 mapping implemented using product pulse sequences can provide
+              excellent quality B1 (and VFA T1 ) maps, comparable to other
+              custom techniques. This fast whole-brain measurement (∼2 min) can
+              serve as an excellent alternative for researchers without access
+              to advanced B1 pulse sequences. LEVEL OF EVIDENCE: 1 Technical
+              Efficacy: Stage 1 J. Magn. Reson. Imaging 2017;46:1673-1682.",
+  month    =  dec,
+  year     =  2017,
+  keywords = "B1 mapping; Bloch-Siegert shift; T1 mapping; actual flip angle
+              imaging; double angle method; echo planar imaging",
+  language = "en"
+}
+,@ARTICLE{Wang1987-qq,
+  title    = "Optimizing the precision in {T1} relaxation estimation using
+              limited flip angles",
+  author   = "Wang, H Z and Riederer, S J and Lee, J N",
+  journal  = "Magn. Reson. Med.",
+  volume   =  5,
+  number   =  5,
+  pages    = "399--416",
+  abstract = "In this article we describe the precision in the estimation of the
+              spin-lattice relaxation time T1 from MRI signals acquired for
+              various flip angles with the repetition time TR held constant. We
+              review the estimation procedure itself and present a model for the
+              propagation of noise in the signal into the calculated T1. This
+              model is verified by both Monte Carlo simulations and experimental
+              data taken on image phantoms. Based on this model, we find that
+              for a given TR/T1 there exist two optimal flip angles that will
+              minimize the uncertainty in the estimated T1. We also show how two
+              optimal angles can be selected for a given range of TR/T1 values.
+              In addition, T1 estimation using the two optimal angles can be
+              comparable to or better than using multiple evenly spaced angles.
+              Finally, in an initial comparison with the two-point saturation
+              recovery method of calculating T1, results for equal total
+              scanning time TRTot suggest that for T1 greater than 0.5 TRTot,
+              the limited flip angle approach gives better T1 precision whereas
+              for T1 less than 0.5 TRTot the saturation recovery approach is
+              better.",
+  month    =  nov,
+  year     =  1987,
+  language = "en"
+}
+,@ARTICLE{Waehnert2014-co,
+  title    = "Anatomically motivated modeling of cortical laminae",
+  author   = "Waehnert, M D and Dinse, J and Weiss, M and Streicher, M N and
+              Waehnert, P and Geyer, S and Turner, R and Bazin, P-L",
+  journal  = "Neuroimage",
+  volume   = "93 Pt 2",
+  pages    = "210--220",
+  abstract = "Improvements in the spatial resolution of structural and
+              functional MRI are beginning to enable analysis of intracortical
+              structures such as heavily myelinated layers in 3D, a prerequisite
+              for in-vivo parcellation of individual human brains. This
+              parcellation can only be performed precisely if the profiles used
+              in cortical analysis are anatomically meaningful. Profiles are
+              often constructed as traverses that are perpendicular to computed
+              laminae. In this case they are fully determined by these laminae.
+              The aim of this study is to evaluate models for cortical laminae
+              used so far and to establish a new model. Methods to model the
+              laminae used so far include constructing laminae that keep a
+              constant distance to the cortical boundaries, so-called
+              equidistant laminae. Another way is to compute equipotentials
+              between the cortical boundary surfaces with the Laplace equation.
+              The Laplace profiles resulting from the gradients to the
+              equipotentials were often-used because of their nice mathematical
+              properties. However, the equipotentials these Laplacian profiles
+              are constructed from and the equidistant laminae do not follow the
+              anatomical layers observed using high resolution MRI of cadaver
+              brain. To remedy this problem, we introduce a novel equi-volume
+              model that derives from work by Bok (1929). He argued that
+              cortical segments preserve their volume, while layer thickness
+              changes to compensate cortical folding. We incorporate this
+              preservation of volume in our new equi-volume model to generate a
+              three-dimensional well-adapted undistorted coordinate system of
+              the cortex. When defined by this well-adapted coordinate system,
+              cortical depth is anatomically meaningful. We compare isocontours
+              from these cortical depth values to locations of myelinated bands
+              on high-resolution ex-vivo and in-vivo three-dimensional MR
+              images. A similar comparison was performed with equipotentials
+              computed with the Laplace equation and with equidistant
+              isocontours. A quantitative evaluation of the equi-volume model
+              using measured image intensities confirms that it provides a much
+              better fit to observed cortical layering.",
+  month    =  jun,
+  year     =  2014,
+  keywords = "Bok; Cortical; Cytoarchitecture; High-resolution MRI; Lamina;
+              Layers; Model; Myeloarchitecture; Profiles; Volume",
+  language = "en"
+}
+,@ARTICLE{Regatte2008-to,
+  title    = "Novel contrast mechanisms at 3 Tesla and 7 Tesla",
+  author   = "Regatte, Ravinder R and Schweitzer, Mark E",
+  journal  = "Semin. Musculoskelet. Radiol.",
+  volume   =  12,
+  number   =  3,
+  pages    = "266--280",
+  abstract = "Osteoarthritis (OA) is the most common musculoskeletal
+              degenerative disease, affecting millions of people. Although OA
+              has been considered primarily a cartilage disorder associated with
+              focal cartilage degeneration, it is accompanied by well-known
+              changes in subchondral and trabecular bone, including sclerosis
+              and osteophyte formation. The exact cause of OA initiation and
+              progression remains under debate, but OA typically first affects
+              weightbearing joints such as the knee. Magnetic resonance imaging
+              (MRI) has been recognized as a potential tool for quantitative
+              assessment of cartilage abnormalities due to its excellent soft
+              tissue contrast. Over the last two decades, several new MR
+              biochemical imaging methods have been developed to characterize
+              the disease process and possibly predict the progression of knee
+              OA. These new MR biochemical methods play an important role not
+              only for diagnosis of disease at an early stage, but also for
+              their potential use in monitoring outcome of various drug
+              therapies (success or failure). Recent advances in multicoil
+              radiofrequency technology and high field systems (3 T and above)
+              significantly improve the sensitivity and specificity of imaging
+              studies for the diagnosis of musculoskeletal disorders. The
+              current state-of-the-art MR imaging methods are briefly reviewed
+              for the quantitative biochemical and functional imaging assessment
+              of musculoskeletal systems.",
+  month    =  sep,
+  year     =  2008,
+  language = "en"
+}
+,@ARTICLE{Homer1985-ji,
+  title    = "Driven-equilibrium single-pulse observation of {T1} relaxation. A
+              reevaluation of a rapid “new” method for determining {NMR}
+              spin-lattice relaxation times",
+  author   = "Homer, John and Beevers, Martin S",
+  journal  = "J. Magn. Reson.",
+  volume   =  63,
+  number   =  2,
+  pages    = "287--297",
+  abstract = "The little-used variable nutation angle method that permits the
+              very rapid measurement of NMR spin-lattice relaxation times is
+              reevaluated. The selection of the appropriate experimental
+              conditions is discussed and the sensitivity of the deduced T1′s to
+              these conditions is explored. To facilitate the more widespread
+              use of this time-saving, yet accurate, method the experimental
+              conditions and procedures are reported in some detail. The basic
+              method is extended to provide an extremely rapid method for
+              measuring T1. It is concluded that the driven-equilibrium
+              single-pulse methods of measuring T1, yield values for T1 that are
+              consistent with those obtained from the classical (180-τ-90) pulse
+              sequence and have the advantage of being at least 100 times faster
+              than the classical method.",
+  month    =  jun,
+  year     =  1985
+}
+,@ARTICLE{Li2007-vr,
+  title    = "In vivo {T}({1rho}) and {T}(2) mapping of articular cartilage in
+              osteoarthritis of the knee using 3 {T} {MRI}",
+  author   = "Li, X and Benjamin Ma, C and Link, T M and Castillo, D-D and
+              Blumenkrantz, G and Lozano, J and Carballido-Gamio, J and Ries, M
+              and Majumdar, S",
+  journal  = "Osteoarthritis Cartilage",
+  volume   =  15,
+  number   =  7,
+  pages    = "789--797",
+  abstract = "OBJECTIVE: Evaluation and treatment of patients with early stages
+              of osteoarthritis (OA) is dependent upon an accurate assessment of
+              the cartilage lesions. However, standard cartilage dedicated
+              magnetic resonance (MR) techniques are inconclusive in quantifying
+              early degenerative changes. The objective of this study was to
+              determine the ability of MR T1rho (T(1rho)) and T(2) mapping to
+              detect cartilage matrix degeneration between normal and early OA
+              patients. METHOD: Sixteen healthy volunteers (mean age 41.3)
+              without clinical or radiological evidence of OA and 10 patients
+              (mean age 55.9) with OA were scanned using a 3Tesla (3T) MR
+              scanner. Cartilage volume and thickness, and T(1rho) and T(2)
+              values were compared between normal and OA patients. The
+              relationship between T(1rho) and T(2) values, and
+              Kellgren-Lawrence scores based on plain radiographs and the
+              cartilage lesion grading based on MR images were studied. RESULTS:
+              The average T(1rho) and T(2) values were significantly increased
+              in OA patients compared with controls (52.04+/-2.97ms vs
+              45.53+/-3.28ms with P=0.0002 for T(1rho), and 39.63+/-2.69ms vs
+              34.74+/-2.48ms with P=0.001 for T(2)). Increased T(1rho) and T(2)
+              values were correlated with increased severity in radiographic and
+              MR grading of OA. T(1rho) has a larger range and higher effect
+              size than T(2), 3.7 vs 3.0. CONCLUSION: Our results suggest that
+              both in vivo T(1rho) and T(2) relaxation times increase with the
+              degree of cartilage degeneration. T(1rho) relaxation time may be a
+              more sensitive indicator for early cartilage degeneration than
+              T(2). The ability to detect early cartilage degeneration prior to
+              morphologic changes may allow us to critically monitor the course
+              of OA and injury progression, and to evaluate the success of
+              treatment to patients with early stages of OA.",
+  month    =  jul,
+  year     =  2007,
+  language = "en"
+}
+,@ARTICLE{Bonny1996-ia,
+  title    = "{T2} maximum likelihood estimation from multiple spin-echo
+              magnitude images",
+  author   = "Bonny, J M and Zanca, M and Boire, J Y and Veyre, A",
+  journal  = "Magn. Reson. Med.",
+  volume   =  36,
+  number   =  2,
+  pages    = "287--293",
+  abstract = "An optimal maximum likelihood (ML) method is described for an
+              unbiased estimation of monoexponential T2 from magnitude spin-echo
+              images. The algorithm is based on a Gaussian assumption of noise
+              distribution. The validity of this assumption was checked by a
+              statistical chi 2 test on spin-echo and fast low-angle shot
+              surface coil images. Monte-Carlo simulations of magnitude data
+              showed that the ML estimate standard deviation is lower than that
+              produced by a weighted least-squares fitting on signal logarithm.
+              Correction schemes are proposed to reduce bias deriving from
+              magnitude reconstruction. The variance of the ML estimate
+              converged rapidly toward the theoretical algebraic expression of
+              the Cramér-Rao lower bound.",
+  month    =  aug,
+  year     =  1996,
+  language = "en"
+}
+,@ARTICLE{Wheaton2004-re,
+  title    = "Method for reduced {SAR} {T1rho}-weighted {MRI}",
+  author   = "Wheaton, Andrew J and Borthakur, Arijitt and Corbo, Matthew and
+              Charagundla, Sridhar R and Reddy, Ravinder",
+  journal  = "Magn. Reson. Med.",
+  volume   =  51,
+  number   =  6,
+  pages    = "1096--1102",
+  abstract = "A reduced specific absorption rate (SAR) version of the
+              T(1rho)-weighted MR pulse sequence was designed and implemented.
+              The reduced SAR method employs a partial k-space acquisition
+              approach in which a full power spin-lock pulse is applied to only
+              the central phase-encode lines of k-space, while the remainder of
+              k-space receives a low-power spin-lock pulse. Acquisition of high-
+              and low-power phase-encode lines are interspersed chronologically
+              to minimize average power deposition. In this way, the majority of
+              signal energy in the central portion of k-space receives full
+              T(1rho)-weighting, while the average SAR of the overall
+              acquisition can be reduced, thereby lowering the minimum safely
+              allowable TR. The pulse sequence was used to create T(1rho) maps
+              of a phantom, an in vivo mouse brain, and the brain of a human
+              volunteer. In the images of the human brain, SAR was reduced by
+              40\% while the measurements of T(1rho) differed by only 2\%. The
+              reduced SAR sequence enables T(1rho)-weighted MRI in a clinical
+              setting, even at high field strengths.",
+  month    =  jun,
+  year     =  2004,
+  language = "en"
+}
+,@ARTICLE{Stikov2015-qj,
+  title    = "On the accuracy of {T1} mapping: Searching for common ground",
+  author   = "Stikov, Nikola and Boudreau, Mathieu and Levesque, Ives R and
+              Tardif, Christine L and Barral, Joëlle K and Pike, G Bruce",
+  journal  = "Magn. Reson. Med.",
+  volume   =  73,
+  number   =  2,
+  pages    = "514--522",
+  abstract = "Purpose There are many T1 mapping methods available, each of them
+              validated in phantoms and reporting excellent agreement with
+              literature. However, values in literature vary greatly, with T1 in
+              white matter ranging from 690 to 1100 ms at 3 Tesla. This brings
+              into question the accuracy of one of the most fundamental
+              measurements in quantitative MRI. Our goal was to explain these
+              variations and look into ways of mitigating them. Theory and
+              Methods We evaluated the three most common T1 mapping methods
+              (inversion recovery, Look-Locker, and variable flip angle) through
+              Bloch simulations, a white matter phantom and the brains of 10
+              healthy subjects (single-slice). We pooled the T1 histograms of
+              the subjects to determine whether there is a sequence-dependent
+              bias and whether it is reproducible across subjects. Results We
+              found good agreement between the three methods in phantoms, but
+              poor agreement in vivo, with the white matter T1 histogram peak in
+              healthy subjects varying by more than 30\% depending on the method
+              used. We also found that the pooled brain histograms displayed
+              three distinct white matter peaks, with Look-Locker consistently
+              underestimating, and variable flip angle overestimating the
+              inversion recovery T1 values. The Bloch simulations indicated that
+              incomplete spoiling and inaccurate B1 mapping could account for
+              the observed differences. Conclusion We conclude that the three
+              most common T1 mapping protocols produce stable T1 values in
+              phantoms, but not in vivo. To improve the accuracy of T1 mapping,
+              we recommend that sites perform in vivo validation of their T1
+              mapping method against the inversion recovery reference method, as
+              the first step toward developing a robust calibration scheme. Magn
+              Reson Med 73:514–522, 2015. © 2014 Wiley Periodicals, Inc.",
+  year     =  2015,
+  keywords = "relaxometry T1 mapping quantitative MRI accuracy precision
+              inversion recovery Look-Locker variable flip angle B1 mapping"
+}
+,@ARTICLE{Marques2013-ab,
+  title     = "New Developments and Applications of the {MP2RAGE} Sequence -
+               Focusing the Contrast and High Spatial Resolution {R1} Mapping",
+  author    = "Marques, José P and Gruetter, Rolf",
+  journal   = "PLoS One",
+  publisher = "Public Library of Science",
+  volume    =  8,
+  number    =  7,
+  pages     = "e69294",
+  abstract  = "MR structural T1-weighted imaging using high field systems (>3T)
+               is severely hampered by the existing large transmit field
+               inhomogeneities. New sequences have been developed to better cope
+               with such nuisances. In this work we show the potential of a
+               recently proposed sequence, the MP2RAGE, to obtain improved grey
+               white matter contrast with respect to conventional T1-w
+               protocols, allowing for a better visualization of thalamic nuclei
+               and different white matter bundles in the brain stem.
+               Furthermore, the possibility to obtain high spatial resolution
+               (0.65 mm isotropic) R1 maps fully independent of the transmit
+               field inhomogeneities in clinical acceptable time is
+               demonstrated. In this high resolution R1 maps it was possible to
+               clearly observe varying properties of cortical grey matter
+               throughout the cortex and observe different hippocampus fields
+               with variations of intensity that correlate with known myelin
+               concentration variations.",
+  year      =  2013
+}
+,@INPROCEEDINGS{Zeng2006-jw,
+  title     = "A composite spin-lock pulse for {deltaB0} + {B1} insensitive
+               {T1rho} measurement",
+  author    = "Zeng, Huairen and Gochberg, Daniel and Gatenby, Christophe and
+               Zhao, Yansong and Avison, Malcolm and Gore, John C",
+  booktitle = "Proceedings of the 14th Annual Meeting of ISMRM, Seattle,
+               Washington, USA",
+  pages     =  2356,
+  year      =  2006
+}
+,@ARTICLE{Doneva2010-mq,
+  title    = "Compressed sensing reconstruction for magnetic resonance parameter
+              mapping",
+  author   = "Doneva, Mariya and Börnert, Peter and Eggers, Holger and Stehning,
+              Christian and Sénégas, Julien and Mertins, Alfred",
+  journal  = "Magn. Reson. Med.",
+  volume   =  64,
+  number   =  4,
+  pages    = "1114--1120",
+  abstract = "Compressed sensing (CS) holds considerable promise to accelerate
+              the data acquisition in magnetic resonance imaging by exploiting
+              signal sparsity. Prior knowledge about the signal can be exploited
+              in some applications to choose an appropriate sparsifying
+              transform. This work presents a CS reconstruction for magnetic
+              resonance (MR) parameter mapping, which applies an overcomplete
+              dictionary, learned from the data model to sparsify the signal.
+              The approach is presented and evaluated in simulations and in in
+              vivo T(1) and T(2) mapping experiments in the brain. Accurate T(1)
+              and T(2) maps are obtained from highly reduced data. This
+              model-based reconstruction could also be applied to other MR
+              parameter mapping applications like diffusion and perfusion
+              imaging.",
+  month    =  oct,
+  year     =  2010,
+  language = "en"
+}
+,@ARTICLE{Fujimoto2014-fv,
+  title    = "Quantitative comparison of cortical surface reconstructions from
+              {MP2RAGE} and multi-echo {MPRAGE} data at 3 and 7 {T}",
+  author   = "Fujimoto, Kyoko and Polimeni, Jonathan R and van der Kouwe, André
+              J W and Reuter, Martin and Kober, Tobias and Benner, Thomas and
+              Fischl, Bruce and Wald, Lawrence L",
+  journal  = "Neuroimage",
+  volume   =  90,
+  pages    = "60--73",
+  abstract = "The Magnetization-Prepared 2 Rapid Acquisition Gradient Echo
+              (MP2RAGE) method achieves spatially uniform contrast across the
+              entire brain between gray matter and surrounding white matter
+              tissue and cerebrospinal fluid by rapidly acquiring data at two
+              points during an inversion recovery, and then combining the two
+              volumes so as to cancel out sources of intensity and contrast
+              bias, making it useful for neuroimaging studies at ultrahigh field
+              strengths (≥7T). To quantify the effectiveness of the MP2RAGE
+              method for quantitative morphometric neuroimaging, we performed
+              tissue segmentation and cerebral cortical surface reconstruction
+              of the MP2RAGE data and compared the results with those generated
+              from conventional multi-echo MPRAGE (MEMPRAGE) data across a group
+              of healthy subjects. To do so, we developed a preprocessing scheme
+              for the MP2RAGE image data to allow for automatic cortical
+              segmentation and surface reconstruction using FreeSurfer and
+              analysis methods to compare the positioning of the surface meshes.
+              Using image volumes with 1mm isotropic voxels we found a
+              scan-rescan reproducibility of cortical thickness estimates to be
+              0.15 mm (or 6\%) for the MEMPRAGE data and a slightly lower
+              reproducibility of 0.19 mm (or 8\%) for the MP2RAGE data. We also
+              found that the thickness estimates were systematically smaller in
+              the MP2RAGE data, and that both the interior and exterior cortical
+              boundaries estimated from the MP2RAGE data were consistently
+              positioned within the corresponding boundaries estimated from the
+              MEMPRAGE data. Therefore several measureable differences exist in
+              the appearance of cortical gray matter and its effect on automatic
+              segmentation methods that must be considered when choosing an
+              acquisition or segmentation method for studies requiring cortical
+              surface reconstructions. We propose potential extensions to the
+              MP2RAGE method that may help to reduce or eliminate these
+              discrepancies.",
+  month    =  apr,
+  year     =  2014,
+  keywords = "Brain segmentation; Cortical thickness; FreeSurfer; Quantitative
+              morphometry; Ultra high-field MRI",
+  language = "en"
+}
+,@ARTICLE{Dixon1996-ho,
+  title    = "Myocardial suppressionin vivo by spin locking with composite
+              pulses",
+  author   = "Dixon, W Thomas and Oshinski, John N and Trudeau, Jon D and
+              Arnold, Bradley C and Pettigrew, Roderic I",
+  journal  = "Magn. Reson. Med.",
+  volume   =  36,
+  number   =  1,
+  pages    = "90--94",
+  abstract = "Abstract Improved myocardium-blood contrast by myocardial
+              suppression resulting from T1?-weighting in contrast-enhanced,
+              gradient-echo, bright-blood cine images, acquired at 1.5T, is
+              shown. In the standard images, blood has twice the intensity of
+              muscle. In similar T1?-weighted images, it has 3?4 times the
+              intensity of muscle. A composite spin-lock pulse before each
+              observation pulse provides T1?-weighting. A typical pulse was:
+              90y-135x-360x-135x-90(-y) with element durations: 0.84, 1.26,
+              8.12, 1.26, and 0.84 ms. The tolerance of this composite pulse to
+              shimming and frequency errors allows spin locking with
+              comparatively weak RF and therefore low specific absorption rate
+              (SAR). Initial clinical evaluation on patients with poor
+              ventricular function demonstrates both a qualitative and
+              quantitative improvement in delineation of myocardial borders.",
+  month    =  jul,
+  year     =  1996
+}
+,@ARTICLE{Haast2018-fp,
+  title    = "The impact of {B1+} correction on {MP2RAGE} cortical {T1} and
+              apparent cortical thickness at {7T}",
+  author   = "Haast, Roy A M and Ivanov, Dimo and Uludağ, Kâmil",
+  journal  = "Hum. Brain Mapp.",
+  volume   =  39,
+  number   =  6,
+  pages    = "2412--2425",
+  abstract = "Determination of cortical thickness using MRI has often been
+              criticized due to the presence of various error sources.
+              Specifically, anatomical MRI relying on T1 contrast may be
+              unreliable due to spatially variable image contrast between gray
+              matter (GM), white matter (WM) and cerebrospinal fluid (CSF).
+              Especially at ultra-high field (≥ 7T) MRI, transmit and receive B1
+              -related image inhomogeneities can hamper correct classification
+              of tissue types. In the current paper, we demonstrate that
+              residual B1+ (transmit) inhomogeneities in the T1 -weighted and
+              quantitative T1 images using the MP2RAGE sequence at 7T lead to
+              biases in cortical thickness measurements. As expected, post-hoc
+              correction for the spatially varying B1+ profile reduced the
+              apparent T1 values across the cortex in regions with low B1+, and
+              slightly increased apparent T1 in regions with high B1+. As a
+              result, improved contrast-to-noise ratio both at the GM-CSF and
+              GM-WM boundaries can be observed leading to more accurate surface
+              reconstructions and cortical thickness estimates. Overall, the
+              changes in cortical thickness ranged between a 5\% decrease to a
+              70\% increase after B1+ correction, reducing the variance of
+              cortical thickness values across the brain dramatically and
+              increasing the comparability with normative data. More
+              specifically, the cortical thickness estimates increased in
+              regions characterized by a strong decrease of apparent T1 after
+              B1+ correction in regions with low B1+ due to improved detection
+              of the pial surface. The current results suggest that cortical
+              thickness can be more accurately determined using MP2RAGE data at
+              7T if B1+ inhomogeneities are accounted for.",
+  month    =  jun,
+  year     =  2018,
+  keywords = "7T MRI; MP2RAGE; cortical thickness; quantitative T1; transmit
+              bias field",
+  language = "en"
+}
+,@ARTICLE{Deoni2004-ct,
+  title    = "Determination of optimal angles for variable nutation proton
+              magnetic spin-lattice, {T1}, and spin-spin, {T2}, relaxation times
+              measurement",
+  author   = "Deoni, Sean C L and Peters, Terry M and Rutt, Brian K",
+  journal  = "Magn. Reson. Med.",
+  volume   =  51,
+  number   =  1,
+  pages    = "194--199",
+  abstract = "T1 and T2 can be rapidly determined with a combination of
+              multiangle spoiled gradient recalled echo (SPGR) and steady-state
+              free precession (SSFP) imaging. Previously, we demonstrated a
+              simple method for determining the set of SPGR and SSFP angles that
+              provided greater T1 and T2 precision than a set of uniformly
+              spaced angles. In this article a more rigorous approach for
+              determining angles is described. Weighted least-squares is also
+              introduced for T1 and T2 estimation and a novel weighting function
+              described. This new approach, suited for imaging applications
+              where large T1 and T2 ranges are anticipated, provides high and
+              uniform precision over a wide range of T1 and T2 values.",
+  month    =  jan,
+  year     =  2004,
+  language = "en"
+}
+,@ARTICLE{Liberman2014-cv,
+  title    = "{T1} mapping using variable flip angle {SPGR} data with flip angle
+              correction",
+  author   = "Liberman, Gilad and Louzoun, Yoram and Ben Bashat, Dafna",
+  journal  = "J. Magn. Reson. Imaging",
+  volume   =  40,
+  number   =  1,
+  pages    = "171--180",
+  abstract = "PURPOSE: To improve the calculation of T1 relaxation time from a
+              set of variable flip-angle (FA) spoiled gradient recalled echo
+              images. MATERIALS AND METHODS: The proposed method: (a) uses a
+              uniform weighting of all FAs, (b) takes into account global
+              inaccuracies in the generation of the prescribed FAs by estimating
+              the actual FAs, and (c) incorporates data-driven local B1
+              inhomogeneity corrections. The method was validated and its
+              accuracy tested using simulated data, phantom, and in vivo
+              experiments. Results were compared with existing analysis methods
+              and to inversion recovery (IR). Consistency was assessed by means
+              of repeated scans of two subjects. Reference values were obtained
+              from eight healthy subjects from various brain regions and
+              compared with literature values. RESULTS: The method accurately
+              and consistently estimated T1 values in all cases. The method was
+              more robust, in comparison with the standard method, to the choice
+              of FA set; to inaccuracies in generation of the prescribed FAs (in
+              simulated data, T1 estimation error was 12.1 ms versus 235.5 ms);
+              demonstrated greater consistency (in vivo study showed interscan
+              T1 difference of 80 ms versus 356 ms); and achieved a better
+              agreement with IR on phantom (median absolute difference of 123.8
+              ms versus 790 ms). Reference T1 values were 883/801 ms for
+              female/male in white matter and 1501/1349 ms in gray matter,
+              within the range previously reported. CONCLUSION: The proposed
+              method overcomes some inaccuracies in FA production, providing
+              more accurate estimation of T1 values compared with standard
+              methods, and is applicable for currently available data.",
+  month    =  jul,
+  year     =  2014,
+  keywords = "FA correction, SPGR; T1 mapping; relaxometry",
+  language = "en"
+}
+,@ARTICLE{Christensen1974-ze,
+  title     = "Optimal determination of relaxation times of fourier transform
+               nuclear magnetic resonance. Determination of spin-lattice
+               relaxation times in chemically polarized species",
+  author    = "Christensen, Kenner A and Grant, David M and Schulman, Edward M
+               and Walling, Cheves",
+  journal   = "J. Phys. Chem.",
+  publisher = "American Chemical Society",
+  volume    =  78,
+  number    =  19,
+  pages     = "1971--1977",
+  month     =  sep,
+  year      =  1974
+}
+,@ARTICLE{Koenig1984-sj,
+  title    = "Determinants of proton relaxation rates in tissue",
+  author   = "Koenig, S H and Brown, 3rd, R D",
+  journal  = "Magn. Reson. Med.",
+  volume   =  1,
+  number   =  4,
+  pages    = "437--449",
+  abstract = "It is well established that the longitudinal magnetic relaxation
+              rate of solvent water protons, 1/T1, increases markedly in
+              homogeneous protein solutions as the magnetic field is reduced
+              well below the traditional NMR range. For a 5\% solution of
+              protein of 10(5) Da, for example, 1/T1 increases from about 50\%
+              above the pure water rate of 20 MHz to five times the water rate
+              at 0.01 MHz. For tissue, including blood, the behavior is similar.
+              Data for blood show that extracellular water has ready access to
+              the hemoglobin inside red blood cells, which causes the enhanced
+              relaxation. The extent to which cell water can sample the spatial
+              structure of soft tissue, and how this structure influences
+              relaxation rates, is as yet unknown. Nonetheless, the relaxation
+              data for tissue can be accommodated within the conceptual
+              framework developed earlier for analyzing homogeneous solutions of
+              diamagnetic proteins. The variation of 1/T1 with field differs
+              among tissues, and its magnitude at a given field can vary by more
+              than a factor of three, far more than does the water content of
+              the tissues. Solute complexes of paramagnetic ions with
+              macromolecules, which increase the relaxation rates of solvent
+              protons, can be introduced intravenously in tissue. They are known
+              to accumulate in specific organs, and therefore have potential
+              utility as contrast-enhancing agents in NMR imaging. Mn2+ and
+              Gd3+, for example, produce characteristic dependences of 1/T1 on
+              magnetic field that vary with the chemical state of the agent. The
+              possibility exists, therefore, for monitoring the in vivo
+              biochemistry of these agents.",
+  month    =  dec,
+  year     =  1984,
+  language = "en"
+}
+,@ARTICLE{Jones1966-xh,
+  title     = "Spin-Lattice Relaxation in the Rotating Frame: Weak-Collision
+               Case",
+  author    = "Jones, G P",
+  journal   = "Phys. Rev.",
+  publisher = "American Physical Society",
+  volume    =  148,
+  number    =  1,
+  pages     = "332--335",
+  month     =  aug,
+  year      =  1966
+}
+,@ARTICLE{Li2012-hx,
+  title    = "Fast cardiac {T1} mapping in mice using a model-based compressed
+              sensing method",
+  author   = "Li, Wen and Griswold, Mark and Yu, Xin",
+  journal  = "Magn. Reson. Med.",
+  volume   =  68,
+  number   =  4,
+  pages    = "1127--1134",
+  abstract = "Direct measurement of the longitudinal relaxation time T1 provides
+              objective and quantitative diagnostic information. However,
+              current T1 mapping methods are generally time consuming without
+              the aid of fast imaging. This study used a model-based compressed
+              sensing method for fast cardiac T1 mapping in small animals. Based
+              on the physics of magnetization recovery, the aliasing artifact
+              associated with under-sampling was removed by exploiting the
+              sparsity of the signals in the T1 recovery direction. Simulation
+              study was performed to evaluate the reconstruction accuracy under
+              various experimental conditions. Several approaches that accounted
+              for phase variations were compared for optimized reconstruction in
+              the phantom study. In vivo validation was performed on a cardiac
+              manganese-enhanced MRI study using mice. Accurate reconstruction
+              of the under-sampled images and the resulting T1 maps were
+              achieved in both simulation and MRI studies on phantom and in vivo
+              mice. These results suggest that the current compressed sensing
+              method allows fast (<80 s) T1 mapping of the mouse heart at high
+              spatial resolution (234×469 μm2).",
+  month    =  oct,
+  year     =  2012,
+  language = "en"
+}
+,@ARTICLE{Ernst1966-uh,
+  title     = "Application of Fourier Transform Spectroscopy to Magnetic
+               Resonance",
+  author    = "Ernst, R R and Anderson, W A",
+  journal   = "Rev. Sci. Instrum.",
+  publisher = "American Institute of Physics",
+  volume    =  37,
+  number    =  1,
+  pages     = "93--102",
+  abstract  = "The application of a new Fourier transform technique to magnetic
+               resonance spectroscopy is explored. The method consists of
+               applying a sequence of short rf pulses to the sample to be
+               investigated and Fourier?transforming the response of the system.
+               The main advantages of this technique compared with the usual
+               spectral sweep method are the much shorter time required to
+               record a spectrum and the higher inherent sensitivity. It is
+               shown theoretically and experimentally that it is possible to
+               enhance the sensitivity of high resolution proton magnetic
+               resonance spectroscopy in a restricted time up to a factor of ten
+               or more. The time necessary to achieve the same sensitivity is a
+               factor of 100 shorter than with conventional methods. The
+               enhancement of the sensitivity is essentially given by the square
+               root of the ratio of line width to total width of the spectrum.
+               The method is of particular advantage for complicated high
+               resolution spectra with much fine structure.",
+  month     =  jan,
+  year      =  1966
+}
+,@ARTICLE{Mugler1990-li,
+  title    = "Three-dimensional magnetization-prepared rapid gradient-echo
+              imaging ({3D} {MP} {RAGE})",
+  author   = "Mugler, 3rd, J P and Brookeman, J R",
+  journal  = "Magn. Reson. Med.",
+  volume   =  15,
+  number   =  1,
+  pages    = "152--157",
+  abstract = "A new three-dimensional imaging technique which is applicable for
+              3D MR imaging throughout the body is introduced. In our
+              preliminary investigations we have acquired high-quality 3D image
+              sets of the abdomen showing minimal respiratory artifacts in just
+              over 7 min (voxel size 2.7 X 2.7 X 2.7 mm3), and 3D image sets of
+              the head showing excellent gray/white contrast in less than 6 min
+              (voxel size 1.0 X 2.0 X 1.4 mm3).",
+  month    =  jul,
+  year     =  1990,
+  language = "en"
+}
+,@ARTICLE{Raya2010-rf,
+  title    = "{T2} measurement in articular cartilage: impact of the fitting
+              method on accuracy and precision at low {SNR}",
+  author   = "Raya, José G and Dietrich, Olaf and Horng, Annie and Weber, Jürgen
+              and Reiser, Maximilian F and Glaser, Christian",
+  journal  = "Magn. Reson. Med.",
+  volume   =  63,
+  number   =  1,
+  pages    = "181--193",
+  abstract = "T2 relaxation time is a promising MRI parameter for the detection
+              of cartilage degeneration in osteoarthritis. However, the accuracy
+              and precision of the measured T2 may be substantially impaired by
+              the low signal-to-noise ratio of images available from clinical
+              examinations. The purpose of this work was to assess the accuracy
+              and precision of the traditional fit methods (linear least-squares
+              regression and nonlinear fit to an exponential) and two new
+              noise-corrected fit methods: fit to a noise-corrected exponential
+              and fit of the noise-corrected squared signal intensity to an
+              exponential. Accuracy and precision have been analyzed in
+              simulations, in phantom measurements, and in seven repetitive
+              acquisitions of the patellar cartilage in six healthy volunteers.
+              Traditional fit methods lead to a poor accuracy for low T2, with
+              overestimations of the exact T2 up to 500\%. The noise-corrected
+              fit methods demonstrate a very good accuracy for all T2 values and
+              signal-to-noise ratio. Even more, the fit to a noise-corrected
+              exponential results in precisions comparable to the best
+              achievable precisions (Cramér-Rao lower bound). For in vivo
+              images, the traditional fit methods considerably overestimate T2
+              near the bone-cartilage interface. Therefore, using an adequate
+              fit method may substantially improve the sensitivity of T2 to
+              detect pathology in cartilage and change in T2 follow-up
+              examinations.",
+  month    =  jan,
+  year     =  2010,
+  language = "en"
+}
+,@ARTICLE{Messroghli2004-xl,
+  title    = "Modified Look-Locker inversion recovery ({MOLLI}) for
+              high-resolution {T1} mapping of the heart",
+  author   = "Messroghli, Daniel R and Radjenovic, Aleksandra and Kozerke,
+              Sebastian and Higgins, David M and Sivananthan, Mohan U and
+              Ridgway, John P",
+  journal  = "Magn. Reson. Med.",
+  volume   =  52,
+  number   =  1,
+  pages    = "141--146",
+  abstract = "A novel pulse sequence scheme is presented that allows the
+              measurement and mapping of myocardial T1 in vivo on a 1.5 Tesla MR
+              system within a single breath-hold. Two major modifications of
+              conventional Look-Locker (LL) imaging are introduced: 1) selective
+              data acquisition, and 2) merging of data from multiple LL
+              experiments into one data set. Each modified LL inversion recovery
+              (MOLLI) study consisted of three successive LL inversion recovery
+              (IR) experiments with different inversion times. We acquired
+              images in late diastole using a single-shot steady-state
+              free-precession (SSFP) technique, combined with sensitivity
+              encoding to achieve a data acquisition window of < 200 ms
+              duration. We calculated T1 using signal intensities from regions
+              of interest and pixel by pixel. T1 accuracy at different heart
+              rates derived from simulated ECG signals was tested in phantoms.
+              T1 estimates showed small systematic error for T1 values from 191
+              to 1196 ms. In vivo T1 mapping was performed in two healthy
+              volunteers and in one patient with acute myocardial infarction
+              before and after administration of Gd-DTPA. T1 values for
+              myocardium and noncardiac structures were in good agreement with
+              values available from the literature. The region of infarction was
+              clearly visualized. MOLLI provides high-resolution T1 maps of
+              human myocardium in native and post-contrast situations within a
+              single breath-hold.",
+  month    =  jul,
+  year     =  2004,
+  language = "en"
+}
+,@INPROCEEDINGS{Lutti2013-qw,
+  title     = "Optimizing the accuracy of {T1} mapping accounting for {RF}
+               non-linearities and spoiling characteristics in {FLASH} imaging",
+  author    = "Lutti, Antoine and Weiskopf, Nikolaus",
+  booktitle = "Proceedings of the 21st Annual Meeting of ISMRM, Salt Lake City,
+               Utah, USA",
+  pages     =  2478,
+  year      =  2013
+}
+,@ARTICLE{Cercignani2005-vi,
+  title    = "Three-dimensional quantitative magnetisation transfer imaging of
+              the human brain",
+  author   = "Cercignani, Mara and Symms, Mark R and Schmierer, Klaus and
+              Boulby, Philip A and Tozer, Daniel J and Ron, Maria and Tofts,
+              Paul S and Barker, Gareth J",
+  journal  = "Neuroimage",
+  volume   =  27,
+  number   =  2,
+  pages    = "436--441",
+  abstract = "Quantitative magnetisation transfer (MT) analysis is based on a
+              two-pool model of magnetisation transfer and allows important
+              physical properties of the two proton pools to be assessed. A good
+              signal-to-noise ratio (SNR) for the measured signal is essential
+              in order to estimate reliably the parameters from a small number
+              of samples, thus prompting the use of a sequence with high SNR,
+              such as a three-dimensional spoiled gradient acquisition. Here, we
+              show how full brain coverage can be accomplished efficiently,
+              using a three-dimensional acquisition, in a clinically acceptable
+              time, and without the use of large numbers of slice-selective
+              radio-frequency pulses which could otherwise confound analysis.
+              This acquisition was first compared in post mortem human brain
+              tissue to established two-dimensional acquisition protocols with
+              differing SNR levels and then used to collect data from six
+              healthy subjects. Image data were fitted using the two pool model
+              and showed negligible residual deviations. Quantitative results
+              were assessed in several brain locations. Results were consistent
+              with previous single-slice data, and parametric maps were of good
+              quality. Further investigations are needed to interpret the
+              regional variation of quantitative MT quantities.",
+  month    =  aug,
+  year     =  2005,
+  language = "en"
+}
+,@ARTICLE{Fram1987-au,
+  title    = "Rapid calculation of {T1} using variable flip angle gradient
+              refocused imaging",
+  author   = "Fram, E K and Herfkens, R J and Johnson, G A and Glover, G H and
+              Karis, J P and Shimakawa, A and Perkins, T G and Pelc, N J",
+  journal  = "Magn. Reson. Imaging",
+  volume   =  5,
+  number   =  3,
+  pages    = "201--208",
+  abstract = "We present a method for rapid measurement of T1 relaxation times
+              using gradient refocused images at limited flip angles and short
+              repetition times. This ``variable nutation'' techniques was
+              investigated using a T1 phantom. There was a high correlation
+              between measurements obtained with the variable nutation and
+              partial saturation techniques. The ability of this method to
+              create calculated T1 images is also demonstrated. We conclude that
+              the variable nutation method may allow measurement of T1
+              relaxation times with a significant reduction in acquisition time
+              compared to partial saturation techniques.",
+  year     =  1987,
+  language = "en"
+}
+,@ARTICLE{Muller2017-qr,
+  title    = "Quantitative {T1}-mapping detects cloudy-enhancing tumor
+              compartments predicting outcome of patients with glioblastoma",
+  author   = "Müller, Andreas and Jurcoane, Alina and Kebir, Sied and Ditter,
+              Philip and Schrader, Felix and Herrlinger, Ulrich and Tzaridis,
+              Theophilos and Mädler, Burkhard and Schild, Hans H and Glas,
+              Martin and Hattingen, Elke",
+  journal  = "Cancer Med.",
+  volume   =  6,
+  number   =  1,
+  pages    = "89--99",
+  abstract = "Contrast enhancement of glioblastomas (GBM) is caused by the
+              decrease in relaxation time, T1. Here, we demonstrate that the
+              quantitative measurement of T1 (qT1) discovers a subtle
+              enhancement in GBM patients that is invisible in standard MRI. We
+              assessed the volume change of this ``cloudy'' enhancement during
+              radio-chemotherapy and its impact on patients' progression-free
+              survival (PFS). We enrolled 18 GBM patients in this observational,
+              prospective cohort study and measured 3T-MRI pre- and post
+              contrast agent with standard T1-weighted (T1w) and with sequences
+              to quantify T1 before radiation, and at 6-week intervals during
+              radio-chemotherapy. We measured contrast enhancement by
+              subtracting pre from post contrast contrast images, yielding
+              relative signal increase ∆T1w and relative T1 shortening ∆qT1. On
+              ∆qT1, we identified a solid and a cloudy-enhancing compartment and
+              evaluated the impact of their therapy-related volume change upon
+              PFS. In ∆qT1 maps cloudy-enhancing compartments were found in all
+              but two patients at baseline and in all patients during therapy.
+              The qT1 decrease in the cloudy-enhancing compartment post contrast
+              was 21.64\% versus 1.96\% in the contralateral control tissue (P <
+              0.001). It was located at the margin of solid enhancement which
+              was also seen on T1w. In contrast, the cloudy-enhancing
+              compartment was visually undetectable on ∆T1w. A volume decrease
+              of more than 21.4\% of the cloudy-enhancing compartment at first
+              follow-up predicted longer PFS (P = 0.038). Cloudy-enhancing
+              compartment outside the solid contrast-enhancing area of GBM is a
+              new observation which is only visually detectable with qT1-mapping
+              and may represent tumor infiltration. Its early volume decrease
+              predicts a longer PFS in GBM patients during standard
+              radio-chemotherapy.",
+  month    =  jan,
+  year     =  2017,
+  keywords = "Cloudy-enhancing compartment; T1-mapping; glioblastoma;
+              progression-free survival PFS; quantitative MRI",
+  language = "en"
+}
+,@ARTICLE{Yarnykh2010-wy,
+  title    = "Optimal radiofrequency and gradient spoiling for improved accuracy
+              of {T1} and {B1} measurements using fast steady-state techniques",
+  author   = "Yarnykh, Vasily L",
+  journal  = "Magn. Reson. Med.",
+  volume   =  63,
+  number   =  6,
+  pages    = "1610--1626",
+  abstract = "Variable flip angle T(1) mapping and actual flip-angle imaging
+              B(1) mapping are widely used quantitative MRI methods employing
+              radiofrequency spoiled gradient-echo pulse sequences. Incomplete
+              elimination of the transverse magnetization in these sequences has
+              been found to be a critical source of T(1) and B(1) measurement
+              errors. In this study, comprehensive theoretical analysis of
+              spoiling-related errors in variable flip angle and actual
+              flip-angle imaging methods was performed using the combined
+              isochromat summation and diffusion propagator model and validated
+              by phantom experiments. The key theoretical conclusion is that
+              correct interpretation of spoiling phenomena in fast gradient-echo
+              sequences requires accurate consideration of the diffusion effect.
+              A general strategy for improvement of T(1) and B(1) measurement
+              accuracy was proposed based on the strong spoiling regimen, where
+              diffusion-modulated spatial averaging of isochromats becomes a
+              dominant factor determining magnetization evolution. Practical
+              implementation of strongly spoiled variable flip angle and actual
+              flip-angle imaging techniques requires sufficiently large spoiling
+              gradient areas (A(G)) in combination with optimal radiofrequency
+              phase increments (phi(0)). Optimal regimens providing <2\%
+              relative T(1) and B(1) measurement errors in a variety of tissues
+              were theoretically derived for prospective in vivo variable flip
+              angle (pulse repetition time = 15-20 ms, A(G) = 280-450 mT.ms/m,
+              phi(0) = 169 degrees) and actual flip-angle imaging (pulse
+              repetition time(1)/pulse repetition time(2) = 20/100 ms,
+              A(G1)/A(G2) = 450/2250 mT.ms/m, phi(0) = 39 degrees) applications
+              based on 25 mT/m maximal available gradient strength.",
+  month    =  jun,
+  year     =  2010,
+  language = "en"
+}
+,@ARTICLE{Solomon1959-hv,
+  title     = "Rotary Spin Echoes",
+  author    = "Solomon, I",
+  journal   = "Phys. Rev. Lett.",
+  publisher = "American Physical Society",
+  volume    =  2,
+  number    =  7,
+  pages     = "301--302",
+  month     =  apr,
+  year      =  1959
+}
+,@ARTICLE{Haase1989-vk,
+  title    = "Inversion recovery snapshot {FLASH} {MR} imaging",
+  author   = "Haase, A and Matthaei, D and Bartkowski, R and Dühmke, E and
+              Leibfritz, D",
+  journal  = "J. Comput. Assist. Tomogr.",
+  volume   =  13,
+  number   =  6,
+  pages    = "1036--1040",
+  abstract = "Snapshot fast low angle shot (FLASH) magnetic resonance (MR)
+              imaging techniques have been developed to enable real time imaging
+              of MR parameters. The method is based on a 64 x 128 FLASH tomogram
+              acquired within less than 200 ms. This work describes snapshot
+              FLASH MR using a single 180 degrees pulse prior to the acquisition
+              of a series of FLASH images. The experiment creates continuous
+              dynamic inversion recovery (IR) T1 contrast in successive images.
+              The total acquisition time of 16 images displaying the IR behavior
+              is less than 4 s. Representative snapshot FLASH IR MR images of
+              the abdomen of healthy rats and of an implanted hepatic tumor are
+              illustrated.",
+  month    =  nov,
+  year     =  1989,
+  language = "en"
+}
+,@BOOK{Fukushima1981-ki,
+  title     = "Experimental Pulse {NMR}. A Nuts and Bolts Approach",
+  author    = "Fukushima, E and Roeder, S",
+  publisher = "Addison-Wesley Publ. Comp., Inc.",
+  address   = "Reading, Massachusetts",
+  volume    =  87,
+  pages     = "458--458",
+  year      =  1981
+}
+,@ARTICLE{Hardy2009-sm,
+  title    = "Calculating {T2} in images from a phased array receiver",
+  author   = "Hardy, Peter A and Andersen, Anders H",
+  journal  = "Magn. Reson. Med.",
+  volume   =  61,
+  number   =  4,
+  pages    = "962--969",
+  abstract = "Images reconstructed from multielement, phased array coils and
+              presented as the square root of the sum of the squares of the
+              signals received by the individual elements have a distribution of
+              signal and noise that distorts the relationship between the image
+              intensity and the underlying signal. The distortion is accentuated
+              for long echo times for which the signal-to-noise ratio (SNR) may
+              be low. When measuring T(2) or T(2)* this signal distortion leads
+              to biased estimates of these parameters. We demonstrate this
+              effect and its dependence on the image SNR and the number of
+              elements in a phased array coil. We evaluated the effects of four
+              techniques for calculating T(2) from data acquired in phased array
+              coils (log transform, least squares, lookup table correction, and
+              maximum likelihood [ML] estimation). The ML estimation gave the
+              most accurate T(2) in the presence of this bias.",
+  month    =  apr,
+  year     =  2009,
+  language = "en"
+}
+,@ARTICLE{Muthupillai2004-vp,
+  title    = "Acute myocardial infarction: tissue characterization with
+              {T1rho}-weighted {MR} imaging--initial experience",
+  author   = "Muthupillai, Raja and Flamm, Scott D and Wilson, James M and
+              Pettigrew, Roderic I and Dixon, W Thomas",
+  journal  = "Radiology",
+  volume   =  232,
+  number   =  2,
+  pages    = "606--610",
+  abstract = "Acute myocardial injury was evaluated in 21 patients by using a
+              contrast material-enhanced T1rho-weighted cine turbo field-echo
+              magnetic resonance (MR) imaging sequence and a delayed-enhancement
+              sequence. In 12 of 21 patients, conventional T1-weighted
+              contrast-enhanced cine turbo field-echo MR images were also
+              collected for direct comparison with T1rho-weighted images.
+              Delayed-enhancement technique distinctly characterized
+              irreversible injury (percentage enhancement, 588\% +/- 344). With
+              T1rho weighting, percentage enhancement of irreversibly injured
+              myocardium was 68\% +/- 41, compared with 23\% +/- 24 without
+              T1rho weighting (P <.006). The addition of T1rho weighting to
+              contrast-enhanced cine turbo field-echo MR sequences may offer a
+              new contrast enhancement mechanism for characterization of acutely
+              infarcted myocardium.",
+  month    =  aug,
+  year     =  2004,
+  language = "en"
+}
+,@ARTICLE{Witschey2007-eq,
+  title    = "Artifacts in {T1} rho-weighted imaging: compensation for {B}(1)
+              and {B}(0) field imperfections",
+  author   = "Witschey, 2nd, Walter R T and Borthakur, Arijitt and Elliott, Mark
+              A and Mellon, Eric and Niyogi, Sampreet and Wallman, Daniel J and
+              Wang, Chenyang and Reddy, Ravinder",
+  journal  = "J. Magn. Reson.",
+  volume   =  186,
+  number   =  1,
+  pages    = "75--85",
+  abstract = "The origin of spin locking image artifacts in the presence of B(0)
+              and B(1) magnetic field imperfections is shown theoretically using
+              the Bloch equations and experimentally at low (omega(1) Delta
+              omega(0)) spin locking field strengths. At low spin locking
+              fields, the magnetization is shown to oscillate about an effective
+              field in the rotating frame causing signature banding artifacts in
+              the image. At high spin lock fields, the effect of the resonance
+              offset Deltao mega(0) is quenched, but imperfections in the flip
+              angle cause oscillations about the omega(1) field. A new pulse
+              sequence is presented that consists of an integrated spin echo and
+              spin lock experiment followed by magnetization storage along the
+              -z-axis. It is shown that this sequence almost entirely eliminates
+              banding artifacts from both types of field inhomogeneities at all
+              spin locking field strengths. The sequence was used to obtain
+              artifact free images of agarose in inhomogeneous B(0) and B(1)
+              fields, off-resonance spins in fat and in vivo human brain images
+              at 3 T. The new pulse sequence can be used to probe very low
+              frequency (0-400 Hz) dynamic and static interactions in tissues
+              without contaminating B(0) and B(1) field artifacts.",
+  month    =  may,
+  year     =  2007,
+  language = "en"
+}
+,@ARTICLE{Li2018-jl,
+  title    = "A simple {B} 1 correction method for dynamic contrast-enhanced
+              {MRI}",
+  author   = "Li, Z F and Zhao, W and Qi, T F and Gao, C and Gu, Q and Zhao, J S
+              and Koh, T S",
+  journal  = "Phys. Med. Biol.",
+  volume   =  63,
+  number   =  16,
+  pages    = "16NT01",
+  abstract = "The double-angle method (DAM) is commonly used as a reference
+              standard in radiofrequency field (B 1) mapping studies. This study
+              explored two aspects of DAM: (i) use of small flip angle pairs to
+              reduce the repetition time (TR) needed for adequate longitudinal
+              relaxation (T 1); and (ii) the effect of using different flip
+              angle ratios for B 1 mapping. Results of phantom studies show that
+              B 1 correction using small flip angle pairs ≤ 60° with TR = 5000
+              ms can allow for accurate estimation of T 1 up to about 1500 ms;
+              and that increasing the ratio of the two flip angles used for B 1
+              correction resulted in more accurate estimation of T 1. These
+              modifications allow 3-dimensional (3D) B 1 mapping to be
+              consistently performed with the same 3D spoiled gradient echo
+              sequence used for T 1 mapping in dynamic contrast-enhanced MRI.",
+  month    =  aug,
+  year     =  2018,
+  language = "en"
+}
+,@ARTICLE{Gudbjartsson1995-pf,
+  title    = "The Rician distribution of noisy {MRI} data",
+  author   = "Gudbjartsson, H and Patz, S",
+  journal  = "Magn. Reson. Med.",
+  volume   =  34,
+  number   =  6,
+  pages    = "910--914",
+  abstract = "The image intensity in magnetic resonance magnitude images in the
+              presence of noise is shown to be governed by a Rician
+              distribution. Low signal intensities (SNR < 2) are therefore
+              biased due to the noise. It is shown how the underlying noise can
+              be estimated from the images and a simple correction scheme is
+              provided to reduce the bias. The noise characteristics in phase
+              images are also studied and shown to be very different from those
+              of the magnitude images. Common to both,however, is that the noise
+              distributions are nearly Gaussian for SNR larger than two.",
+  month    =  dec,
+  year     =  1995,
+  language = "en"
+}
+,@ARTICLE{Chen2016-zz,
+  title    = "Breath-hold black blood quantitative {T1rho} imaging of liver
+              using single shot fast spin echo acquisition",
+  author   = "Chen, Weitian and Chan, Queenie and Wáng, Yì-Xiáng J",
+  journal  = "Quant. Imaging Med. Surg.",
+  volume   =  6,
+  number   =  2,
+  pages    = "168--177",
+  abstract = "BACKGROUND: Liver fibrosis is a key feature in most chronic liver
+              diseases. T1rho magnetic resonance imaging is a potentially
+              important technique for noninvasive diagnosis, severity grading,
+              and therapy monitoring of liver fibrosis. However, it remains
+              challenging to perform robust T1rho quantification of liver on
+              human subjects. One major reason is that the presence of rich
+              blood signal in liver can cause artificially high T1rho
+              measurement and makes T1rho quantification susceptible to motion.
+              METHODS: A pulse sequence based on single shot fast/turbo spin
+              echo (SSFSE/SSTSE) acquisition, with theoretical analysis and
+              simulation based on the extended phase graph (EPG) algorithm, was
+              presented for breath-hold single slice quantitative T1rho imaging
+              of liver with suppression of blood signal. The pulse sequence was
+              evaluated in human subjects at 3.0 T with 500 Hz spinlock
+              frequency and time-of-spinlock (TSL) 0, 10, 30 and 50 ms. RESULTS:
+              Human scan demonstrated that the entire T1rho data sets with four
+              spinlock time can be acquired within a single breath-hold of 10
+              seconds with black blood effect. T1rho quantification with
+              suppression of blood signal results in significantly reduced T1rho
+              value of liver compared to the results without blood suppression.
+              CONCLUSIONS: A signal-to-noise ratio (SNR) efficient pulse
+              sequence was reported for T1rho quantification of liver. The black
+              blood effect, together with a short breath-hold, mitigates the
+              risk of quantification errors as would occur in the conventional
+              methods.",
+  month    =  apr,
+  year     =  2016,
+  keywords = "T1rho; black blood; fast spin echo (FSE); liver; quantitative
+              imaging",
+  language = "en"
+}
+,@ARTICLE{Sung2013-ce,
+  title    = "Transmit {B1+} field inhomogeneity and {T1} estimation errors in
+              breast {DCE}-{MRI} at 3 tesla",
+  author   = "Sung, Kyunghyun and Daniel, Bruce L and Hargreaves, Brian A",
+  journal  = "J. Magn. Reson. Imaging",
+  volume   =  38,
+  number   =  2,
+  pages    = "454--459",
+  abstract = "PURPOSE: To quantify B1+ variation across the breasts and to
+              evaluate the accuracy of precontrast T1 estimation with and
+              without B1+ variation in breast MRI patients at 3 Tesla (T).
+              MATERIALS AND METHODS: B1+ and variable flip angle (VFA) T1
+              mapping were included in our dynamic contrast-enhanced (DCE)
+              breast imaging protocol to study a total of 25 patients on a 3.0T
+              GE MR 750 system. We computed precontrast T1 relaxation in fat,
+              which we assumed to be consistent across a cohort of breast
+              imaging subjects, with and without compensation for B1+ variation.
+              The mean and standard deviation of B1+ and T1 values were
+              calculated for statistical data analysis. RESULTS: Our
+              measurements showed a consistent B1+ field difference between the
+              left and right breasts. The left breast has an average 15.4\%
+              higher flip angle than the prescribed flip angle, and the right
+              breast has an average 17.6\% lower flip angle than the prescribed
+              flip angle. This average 33\% flip angle difference, which can be
+              vendor and model specific, creates a 52\% T1 estimation bias in
+              fat between breasts using the VFA T1 mapping technique. The T1
+              variation is reduced to 7\% by including B1+ correction.
+              CONCLUSION: We have shown that severe B1+ variation over the
+              breasts can cause a substantial error in T1 estimation between the
+              breasts, in VFA T1 maps at 3T, but that compensating for these
+              variations can considerably improve accuracy of T1 measurements,
+              which can directly benefit quantitative breast DCE-MRI at 3T.",
+  month    =  aug,
+  year     =  2013,
+  keywords = "B1 field inhomogeneity; T1 mapping; breast imaging; high-field
+              MRI; quantitative DCE-MRI",
+  language = "en"
+}
+,@ARTICLE{Chopra1984-wv,
+  title    = "Rotating-frame relaxation rates of solvent molecules in solutions
+              of paramagnetic ions undergoing solvent exchange",
+  author   = "Chopra, S and McClung, R E D and Jordan, R B",
+  journal  = "J. Magn. Reson.",
+  volume   =  59,
+  number   =  3,
+  pages    = "361--372",
+  abstract = "The theory is developed for the dependence of the rotating-frame
+              relaxation rate (R1ϱ) of bulk solvent nuclei on the magnitude of
+              the spin-locking field H1(= −ω1γ for a dilute solution of a
+              paramagnetic ion dissolved in a solvent which undergoes exchange
+              between bulk and coordinated sites. When certain conditions are
+              satisfied R1ϱ will vary with ω1, according to R1ϱ = R1ϱ∞ + Sϱ2(R2
+              − R1ϱ)ω1−2, 2, where R1ϱ∞ = R2s + PmrmR2m(R2m + rm)−1, Sϱs2 = (R1m
+              + rm)(R2m + rm)−1 {(R2m + rm)2 + Δωm2}, R1m, R2m are the
+              relaxation rates in the coordinated site, Δωm is the chemical
+              shift between the bulk and coordinated sites, rm is the solvent
+              exchange rate from a coordinated site, R2s is the sum of the pure
+              solvent and outer-sphere relaxation rates, and Pm = (no.
+              coordinated solvent molecules) × (metal-ion molality/solvent
+              molality). Data for cobalt(II) in CH3OD and nickel(II) in CH3CN
+              are used to show that the R1ϱ measurements are especially useful
+              in the determination of Δωm. The latter can be combined with bulk
+              solvent shifts to determine the number of coordinated solvent
+              molecules.",
+  month    =  oct,
+  year     =  1984
+}
+,@ARTICLE{Chang2008-pn,
+  title    = "Linear least-squares method for unbiased estimation of {T1} from
+              {SPGR} signals",
+  author   = "Chang, Lin-Ching and Koay, Cheng Guan and Basser, Peter J and
+              Pierpaoli, Carlo",
+  journal  = "Magn. Reson. Med.",
+  volume   =  60,
+  number   =  2,
+  pages    = "496--501",
+  abstract = "The longitudinal relaxation time, T(1), can be estimated from two
+              or more spoiled gradient recalled echo images (SPGR) acquired with
+              different flip angles and/or repetition times (TRs). The function
+              relating signal intensity to flip angle and TR is nonlinear;
+              however, a linear form proposed 30 years ago is currently widely
+              used. Here we show that this linear method provides T(1) estimates
+              that have similar precision but lower accuracy than those obtained
+              with a nonlinear method. We also show that T(1) estimated by the
+              linear method is biased due to improper accounting for noise in
+              the fitting. This bias can be significant for clinical SPGR
+              images; for example, T(1) estimated in brain tissue (800 ms < T(1)
+              < 1600 ms) can be overestimated by 10\% to 20\%. We propose a
+              weighting scheme that correctly accounts for the noise
+              contribution in the fitting procedure. Monte Carlo simulations of
+              SPGR experiments are used to evaluate the accuracy of the
+              estimated T(1) from the widely-used linear, the proposed
+              weighted-uncertainty linear, and the nonlinear methods. We show
+              that the linear method with weighted uncertainties reduces the
+              bias of the linear method, providing T(1) estimates comparable in
+              precision and accuracy to those of the nonlinear method while
+              reducing computation time significantly.",
+  month    =  aug,
+  year     =  2008,
+  language = "en"
+}
+,@ARTICLE{Duvvuri1997-tg,
+  title    = "{T1ρ}-relaxation in articular cartilage: Effects of enzymatic
+              degradation",
+  author   = "Duvvuri, Umamaheswar and Reddy, Ravinder and Patel, Saurabh D and
+              Kaufman, Jonathan H and Kneeland, J Bruce and Leigh, John S",
+  journal  = "Magn. Reson. Med.",
+  volume   =  38,
+  number   =  6,
+  pages    = "863--867",
+  abstract = "Abstract Spin-lattice relaxation in the rotating frame (T1?)
+              dispersion spectroscopy and imaging were used to study normal and
+              enzymatically degraded bovine articular cartilage. Normal
+              specimens demonstrate significant T1? ?dispersion? (?60 to ?130
+              ms) in the 100 Hz to 9 kHz frequency range. Proteoglycan-degraded
+              specimens have 33\% greater T1? values than collagen-degraded or
+              normal samples. T1?-weighted images reveal structure not found in
+              conventional T1-or T2-weighted images. Our results suggest that
+              T1? measurements are selectively sensitive to proteoglycan
+              content. The potential of this method in distinguishing the early
+              degenerative changes in cartilage associated with osteoarthritis
+              is discussed.",
+  month    =  dec,
+  year     =  1997
+}
+,@ARTICLE{Rioux2016-va,
+  title    = "Biexponential longitudinal relaxation in white matter:
+              Characterization and impact on {T1} mapping with {IR}-{FSE} and
+              {MP2RAGE}",
+  author   = "Rioux, James A and Levesque, Ives R and Rutt, Brian K",
+  journal  = "Magn. Reson. Med.",
+  volume   =  75,
+  number   =  6,
+  pages    = "2265--2277",
+  abstract = "PURPOSE: Magnetization transfer in white matter (WM) causes
+              biexponential relaxation, but most quantitative T1 measurements
+              fit data assuming monoexponential relaxation. The resulting
+              monoexponential T1 estimate varies based on scan parameters and
+              represents a source of variation between studies, especially at
+              high fields. In this study, we characterized WM T1 relaxation and
+              performed simulations to determine how to minimize this deviation.
+              METHODS: To characterize biexponential relaxation, four volunteers
+              were scanned at 3T and 7T using inversion recovery fast spin echo
+              (IR-FSE) with 13 inversion times (TIs). Three volunteers were
+              scanned with IR-FSE using TIs chosen by simulations to reduce T1
+              deviation, and with MP2RAGE. RESULTS: At 3T, the biexponential
+              relaxation has a short component of T1 = 48 ms (9\%) and a long
+              component of T1 = 939 ms. At 7T the short component is T1 = 57 ms
+              (11\%) and the long component is 1349 ms (89\%). For IR-FSE,
+              acquiring four TIs with a minimum of 150 ms (3T) or 200 ms (7T)
+              yielded monoexponential T1 estimates that match the long component
+              to within 10 ms. For MP2RAGE, significant differences (90 ms at
+              3T, 125 ms at 7T) remain at all parameter values. CONCLUSION: Many
+              T1 mapping sequences yield robust estimates of the long T1
+              component with suitable choice of TIs, allowing reproducible,
+              sequence-independent T1 values to be measured. However, this is
+              not true of MP2RAGE in its current implementation. Magn Reson Med
+              75:2265-2277, 2016. © 2015 Wiley Periodicals, Inc.",
+  month    =  jun,
+  year     =  2016,
+  keywords = "MP2RAGE; T1 mapping; inversion recovery; quantitative MRI; white
+              matter",
+  language = "en"
+}
+,@ARTICLE{Baudrexel2018-gx,
+  title    = "{T1} mapping with the variable flip angle technique: A simple
+              correction for insufficient spoiling of transverse magnetization",
+  author   = "Baudrexel, Simon and Nöth, Ulrike and Schüre, Jan-Rüdiger and
+              Deichmann, Ralf",
+  journal  = "Magn. Reson. Med.",
+  volume   =  79,
+  number   =  6,
+  pages    = "3082--3092",
+  abstract = "PURPOSE: The variable flip angle method derives T1 maps from
+              radiofrequency-spoiled gradient-echo data sets, acquired with
+              different flip angles α. Because the method assumes validity of
+              the Ernst equation, insufficient spoiling of transverse
+              magnetization yields errors in T1 estimation, depending on the
+              chosen radiofrequency-spoiling phase increment (Δϕ). This paper
+              presents a versatile correction method that uses modified flip
+              angles α' to restore the validity of the Ernst equation. METHODS:
+              Spoiled gradient-echo signals were simulated for three commonly
+              used phase increments Δϕ (50°/117°/150°), different values of α,
+              repetition time (TR), T1 , and a T2 of 85 ms. For each parameter
+              combination, α' (for which the Ernst equation yielded the same
+              signal) and a correction factor CΔϕ (α, TR, T1 ) = α'/α were
+              determined. CΔϕ was found to be independent of T1 and fitted as
+              polynomial CΔϕ (α, TR), allowing to calculate α' for any protocol
+              using this Δϕ. The accuracy of the correction method for T2 values
+              deviating from 85 ms was also determined. The method was tested in
+              vitro and in vivo for variable flip angle scans with different
+              acquisition parameters. RESULTS: The technique considerably
+              improved the accuracy of variable flip angle-based T1 maps in
+              vitro and in vivo. CONCLUSIONS: The proposed method allows for a
+              simple correction of insufficient spoiling in gradient-echo data.
+              The required polynomial parameters are supplied for three common
+              Δϕ. Magn Reson Med 79:3082-3092, 2018. © 2017 International
+              Society for Magnetic Resonance in Medicine.",
+  month    =  jun,
+  year     =  2018,
+  keywords = "RF spoiling; T1 mapping; quantitative MRI (qMRI); variable flip
+              angle (VFA)",
+  language = "en"
+}

@@ -1,7 +1,7 @@
 ---
 title: The million dollar question
 subtitle: Pixels have values, then why is MRI not quantitative? 
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Agah Karakuzu
     affiliations:
@@ -23,7 +23,7 @@ We will start answering this question by looking at the most prominent use cases
 In the clinics, MRI stands out as one of the most preferred imaging methods, because it can generate detailed images with superb soft tissue contrast, without using ionizing radiation or cutting open the human body. Surprisingly, MRI scanners have also been extensively used in food science to study soft tissue. For example, several studies used MRI to observe how moisture migrates towards the center of jellybeans over time [@Troutman:2001vk; @Ziegler:2003th]
 
 Be it in diagnostic radiology, or in food science, it is the superior soft tissue contrast that makes MRI appealing. In routine diagnostic readings, the radiologists browse through MR images to capture abnormalities that may be resolved by conventional MRI contrasts, i.e. `T1-` or `T2-weighted` images. As a result, the detection of pathological patterns depends on a radiologists’ visual assessment, which is then transferred to a written report – _a narration of observations_ – such as:
- > T2 hyperintense appearance in the left parieto-occipital lobe sug- gests hemorrhagic infarction [Fig. %sf](#intFig1). 
+ > _T_{sub}`2` hyperintense appearance in the left parieto-occipital lobe sug- gests hemorrhagic infarction [Fig. %sf](#intFig1). 
  
  Here, the word `hyperintense` implies a relative comparison. [Fig. %se](#intFig1) illustrates that cropping the tumorous region away from the image removes the basis of comparison and makes the hyperintense appearance irrelevant. This is because the pixel brightness of conventional MR images is assigned using an arbitrary scale consisting of shades of gray. Due to the lack of a calibrated measurement scale, conventional MRI is considered to be qualitative.
 

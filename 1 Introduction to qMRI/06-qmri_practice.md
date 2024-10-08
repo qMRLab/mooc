@@ -1,7 +1,7 @@
 ---
 title: Will qMRI take over the world? 
 subtitle: If it is so powerful, why clinical imaging is still – almost purely – conventional?
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Agah Karakuzu
     affiliations:
@@ -13,11 +13,11 @@ numbering:
 
 ## If qMRI is possible and powerful, why is clinical imaging still conventional?
 
-> “The court found that Fonar failed to establish the existence of standard T1 and T2 values, which are limitations of the asserted claims...” (GE vs Fonar 1996, U.S. Fed. Cir.)
+> “The court found that Fonar failed to establish the existence of standard _T_{sub}`1` and _T_{sub}`2` values, which are limitations of the asserted claims...” (GE vs Fonar 1996, U.S. Fed. Cir.)
 
 ::: {admonition} Really?
 :class: hint 
-After decades of research and development since this court decision, which saved GE from spending an additional few million dollars, the standard values for T1 and T2 are still not well known (Bojorquez et al., 2017) and **qMRI has yet to find one clinical application** (still holds in 2024). 
+After decades of research and development since this court decision, which saved GE from spending an additional few million dollars, the standard values for _T_{sub}`1` and _T_{sub}`2` are still not well known (Bojorquez et al., 2017) and **qMRI has yet to find one clinical application** (still holds in 2024). 
 :::
 
 This is partly because of the inherently complex make-up of the human body, where sensitivity alone is not enough to tease out biological variability. Quantifications should also be specific to the targeted microstructure, such as the myelin in the living human brain. For this purpose alone, the literature offers more than 30 methods for quantifying myelin at varying methodological complexity, yet they all appear to be statistically indistinguishable in specifying myelin (Mancini et al., 2020). This indicates that a lack of methodological extensity is not the culprit preventing qMRI from clinical use. Quite the contrary, there is an abundance of solutions, yet we cannot make an informed decision about which method to use. This problem has multiple roots and Figure 2.23 outlines the components of a qMRI study for identifying them.
@@ -31,7 +31,7 @@ This is partly because of the inherently complex make-up of the human body, wher
 
 ### Vendor-native differences challenge the reliability of qMRI
 
-Every qMRI study starts with the acquisition of a set of conventional images. This is often achieved by altering protocol parameters according to the signal representation of the respective pulse sequence, i.e. successive runs. As previously shown in the SPGR example for T1 mapping (Figure 2.20), there are various parameters that are vital to the measurement accuracy and precision. In general, strict metrological standards are established for the manufacturing process of any medical device expected to fulfill some accuracy requirements. For example, all the ventilator vendors are obliged to disclose their measurement uncertainty for inspiratory oxygen concentration (ISO 80601-2-12:2011). However, MRI is exempt from such a class of essential performance assessments on the accuracy and precision, given that the medical diagnoses using conventional MRI depend on qualitative feature recognition (Figure 2.1). In turn, design considerations that matter to the reliability of qMRI measurements fall through the cracks of the device manufacturing and programming processes. Although this is understandable from a vendor’s cost-effectiveness standpoint, it bears dire consequences on the quantitative applications.
+Every qMRI study starts with the acquisition of a set of conventional images. This is often achieved by altering protocol parameters according to the signal representation of the respective pulse sequence, i.e. successive runs. As previously shown in the SPGR example for _T_{sub}`1` mapping (Figure 2.20), there are various parameters that are vital to the measurement accuracy and precision. In general, strict metrological standards are established for the manufacturing process of any medical device expected to fulfill some accuracy requirements. For example, all the ventilator vendors are obliged to disclose their measurement uncertainty for inspiratory oxygen concentration (ISO 80601-2-12:2011). However, MRI is exempt from such a class of essential performance assessments on the accuracy and precision, given that the medical diagnoses using conventional MRI depend on qualitative feature recognition (Figure 2.1). In turn, design considerations that matter to the reliability of qMRI measurements fall through the cracks of the device manufacturing and programming processes. Although this is understandable from a vendor’s cost-effectiveness standpoint, it bears dire consequences on the quantitative applications.
 
 ```{figure} ./img/int_fig24.jpg
 :label: intFig24

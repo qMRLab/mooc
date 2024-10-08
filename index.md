@@ -1,7 +1,7 @@
 ---
 title: qMRI MOOC
 description: A mini open online course powered by qMRLab
-date: 2024-07-25
+date: 2024-10-07
 ---
 
 ```{figure} banner.jpg
@@ -11,9 +11,9 @@ date: 2024-07-25
 
 :::{topic} Contributions
 :class: bg-blue-300/30
-**Authors**: Agah Karakuzu, Mathieu Boudreau, Alexandre Dastous, Samuelle Stonge, Juan Velázquez-Reyes
+**Authors**: Mathieu Boudreau, Alexandre D'Astous, Agah Karakuzu, Katy Keenan, Nikola Stikov, Samuelle St-Onge, Juan Velázquez-Reyes
 
-**Editors**: Benjamin De Leener, Eva-Alonso Ortiz, Julien Cohen-Adad, Nikola Stikov
+**Editors**: Mathieu Boudreau, Julien Cohen-Adad, Benjamin De Leener, Eva-Alonso Ortiz, Nikola Stikov
 :::
 
 ## About 
