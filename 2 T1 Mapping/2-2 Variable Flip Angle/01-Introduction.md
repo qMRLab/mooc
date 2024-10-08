@@ -1,7 +1,7 @@
 ---
 title: Introduction
 subtitle: Variable Flip Angle
-project: vfaIntroduction
+label: vfaIntroduction
 date: 2024-10-07
 authors:
   - name: Mathieu Boudreau
