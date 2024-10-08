@@ -14,9 +14,9 @@ numbering:
     template: Eq. %s
 ---
 
-Several factors impact the choice of the [inversion recovery](wiki:Inversion_recovery) fitting algorithm.  If only magnitude images are available, then a polarity-inversion is often implemented to restore the non-exponential magnitude curves ([](#irPlot2)) into the [exponential](wiki:Exponential_function) form ([](#irPlot1)). This process is sensitive to noise due to the [Rician](wiki:Rice_distribution) noise creating a non-zero level at the signal null. If phase data is also available, then a phase term must be added to the fitting equation {cite:p}`Barral2010-qm`. [Equation 2.3](#irEq3) must only be used to fit data for the long TR regime (TR > 5{math}`T_{1}`), which in practice is rarely satisfied for all tissues in subjects.
+Several factors impact the choice of the [inversion recovery](wiki:Inversion_recovery) fitting algorithm.  If only magnitude images are available, then a polarity-inversion is often implemented to restore the non-exponential magnitude curves ([](#irPlot2)) into the [exponential](wiki:Exponential_function) form ([](#irPlot1)). This process is sensitive to noise due to the [Rician](wiki:Rice_distribution) noise creating a non-zero level at the signal null. If phase data is also available, then a phase term must be added to the fitting equation {cite:p}`Barral2010-qm`. [Equation 2.3](#irEq3) must only be used to fit data for the long TR regime (TR > 5_T_{sub}`1`), which in practice is rarely satisfied for all tissues in subjects.
 
-Early implementations of [inversion recovery](wiki:Inversion_recovery) fitting algorithms were designed around the computational power available at the time. These included the “null method” {cite:p}`Pykett1983`, assuming that each {math}`T_{1}` value has unique zero-crossings (see [](#irPlot1)), and linear fitting of a rearranged version of [Equation 2.3](#irEq3) on a semi-log plot {cite:p}`Fukushima1981`. Nowadays, a [non-linear least-squares](wiki:Non-linear_least_squares) fitting algorithm (e.g. [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm)) is more appropriate, and can be applied to either approximate or general forms of the signal model ([Equation 2.3](#irEq3) or [Equation 2.1](#irEq1)). More recent work {cite:p}`Barral2010-qm` demonstrated that {math}`T_{1}` maps can also be fitted much faster (up to 75 times compared to [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm)) to fit  [Equation 2.1](#irEq1) – without a precision penalty – by using a reduced-dimension [non-linear least-squares](wiki:Non-linear_least_squares) (RD-NLS) algorithm. It was demonstrated that the following simplified 5-parameter equation can be sufficient for accurate {math}`T_{1}` mapping:
+Early implementations of [inversion recovery](wiki:Inversion_recovery) fitting algorithms were designed around the computational power available at the time. These included the “null method” {cite:p}`Pykett1983`, assuming that each _T_{sub}`1` value has unique zero-crossings (see [](#irPlot1)), and linear fitting of a rearranged version of [Equation 2.3](#irEq3) on a semi-log plot {cite:p}`Fukushima1981`. Nowadays, a [non-linear least-squares](wiki:Non-linear_least_squares) fitting algorithm (e.g. [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm)) is more appropriate, and can be applied to either approximate or general forms of the signal model ([Equation 2.3](#irEq3) or [Equation 2.1](#irEq1)). More recent work {cite:p}`Barral2010-qm` demonstrated that _T_{sub}`1` maps can also be fitted much faster (up to 75 times compared to [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm)) to fit  [Equation 2.1](#irEq1) – without a precision penalty – by using a reduced-dimension [non-linear least-squares](wiki:Non-linear_least_squares) (RD-NLS) algorithm. It was demonstrated that the following simplified 5-parameter equation can be sufficient for accurate _T_{sub}`1` mapping:
 
 ```{math}
 :label: irEq4
@@ -26,23 +26,23 @@ S(TI) = a + be^{- \frac{TI}{T_1}}
 \end{equation}
 ```
 
-where {math}`a` and {math}`b` are complex values. If magnitude-only data is available, a 3-parameter model can be sufficient by taking the absolute value of [Equation 2.4](#irEq4).  While the RD-NLS algorithms are too complex to be presented here (the reader is referred to the paper, (Barral et al. 2010)),  the code for these algorithms [was released open-source](http://www-mrsrl.stanford.edu/~jbarral/t1map.html) along with the original publication, and is also available as a [qMRLab](https://github.com/qMRLab/qMRLab) {math}`T_{1}` mapping model. One important thing to note about [Equation 2.4](#irEq4) is that it is general – no assumption is made about TR – and is thus as robust as [Equation 2.1](#irEq1) as long as all pulse sequence parameters other than TI are kept constant between each measurement. [](#irPlot3) compares simulated data ([Equation 2.1](#irEq1)) using a range of TRs (1.5{math}`T_{1}` to 5{math}`T_{1}`) fitted using either RD-NLS & [Equation 2.4](#irEq4) or a [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) fit of [Equation 2.2](#irEq2).
+where {math}`a` and {math}`b` are complex values. If magnitude-only data is available, a 3-parameter model can be sufficient by taking the absolute value of [Equation 2.4](#irEq4).  While the RD-NLS algorithms are too complex to be presented here (the reader is referred to the paper, (Barral et al. 2010)),  the code for these algorithms [was released open-source](http://www-mrsrl.stanford.edu/~jbarral/t1map.html) along with the original publication, and is also available as a [qMRLab](https://github.com/qMRLab/qMRLab) _T_{sub}`1` mapping model. One important thing to note about [Equation 2.4](#irEq4) is that it is general – no assumption is made about TR – and is thus as robust as [Equation 2.1](#irEq1) as long as all pulse sequence parameters other than TI are kept constant between each measurement. [](#irPlot3) compares simulated data ([Equation 2.1](#irEq1)) using a range of TRs (1.5_T_{sub}`1` to 5_T_{sub}`1`) fitted using either RD-NLS & [Equation 2.4](#irEq4) or a [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) fit of [Equation 2.2](#irEq2).
 
 
 :::{figure} #fig2p4cell
 :label: irPlot3
 :enumerator: 2.4
-Fitting comparison of simulated data (blue markers) with {math}`T_{1}` = 1 s and TR = 1.5 to 5 s, using fitted using RD-NLS & [Equation 2.4](#irEq4) (green) and [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) & [Equation 2.2](#irEq2) (orange, long TR approximation).
+Fitting comparison of simulated data (blue markers) with _T_{sub}`1` = 1 s and TR = 1.5 to 5 s, using fitted using RD-NLS & [Equation 2.4](#irEq4) (green) and [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) & [Equation 2.2](#irEq2) (orange, long TR approximation).
 :::
 
 
-[](#irPlot4) displays an example brain dataset from an inversion recovery experiment, along with the {math}`T_{1}` map fitted using the RD-NLS technique.
+[](#irPlot4) displays an example brain dataset from an inversion recovery experiment, along with the _T_{sub}`1` map fitted using the RD-NLS technique.
 
 
 :::{figure} #fig2p5cell
 :label: irPlot4
 :enumerator: 2.5
-Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The {math}`T_{1}` map (right) was fitted using a RD-NLS algorithm.
+Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The _T_{sub}`1` map (right) was fitted using a RD-NLS algorithm.
 :::
 
 
