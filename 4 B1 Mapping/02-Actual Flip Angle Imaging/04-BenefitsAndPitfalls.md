@@ -1,7 +1,7 @@
 ---
 title: Benefits and Pitfalls
 subtitle: B1 AFI
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Juan Velezquez-Reyes
     affiliations:

@@ -1,7 +1,7 @@
 ---
 title: Will qMRI take over the world? 
 subtitle: If it is so powerful, why clinical imaging is still – almost purely – conventional?
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Agah Karakuzu
     affiliations:

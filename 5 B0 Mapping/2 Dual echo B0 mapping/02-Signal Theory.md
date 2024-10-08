@@ -1,7 +1,7 @@
 ---
 title: Signal Theory
 subtitle: Dual echo B0 mapping
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name:  Alexandre Dastous
     affiliations:

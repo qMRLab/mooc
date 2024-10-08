@@ -1,7 +1,7 @@
 ---
 title: Filters and smoothing
 subtitle: Filtering
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Mathieu Boudreau
     affiliations:

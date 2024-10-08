@@ -1,7 +1,7 @@
 ---
 title: Appendix A
 subtitle: Magnetization Transfer Saturation
-date: 2024-07-25
+date: 2024-10-07
 name: mtsatAppendixA
 authors:
   - name: Mathieu Boudreau

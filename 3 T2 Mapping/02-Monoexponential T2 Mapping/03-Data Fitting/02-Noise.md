@@ -1,7 +1,7 @@
 ---
 title: Noise
 subtitle: Monoexponential T2 Mapping
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name:  Samuelle Stonge
     affiliations:

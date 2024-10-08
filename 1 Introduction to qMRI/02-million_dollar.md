@@ -1,7 +1,7 @@
 ---
 title: The million dollar question
 subtitle: Pixels have values, then why is MRI not quantitative? 
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Agah Karakuzu
     affiliations:

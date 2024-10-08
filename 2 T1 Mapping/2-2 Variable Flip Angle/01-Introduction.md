@@ -1,7 +1,7 @@
 ---
 title: Abstract
 subtitle: Variable Flip Angle
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Mathieu Boudreau
     affiliations:

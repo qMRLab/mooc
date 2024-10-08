@@ -1,7 +1,7 @@
 ---
 title: A pictorial and historic journey into how MRI works
 subtitle: From quantum to macro-scales
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Agah Karakuzu
     affiliations:

@@ -1,7 +1,7 @@
 ---
 title: Benefits and pitfalls of multi-exponential T2 mapping
 subtitle: Multiexponential T2 Mapping
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name:  Samuelle Stonge
     affiliations:

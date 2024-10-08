@@ -1,7 +1,7 @@
 ---
 title: Benefits and Pitfalls
 subtitle: Inversion Recovery
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Mathieu Boudreau
     affiliations:
@@ -29,7 +29,7 @@ One important protocol design consideration is to avoid acquiring at inversion t
 :::
 
 
-Despite a widely acknowledged robustness for measuring accurate _T_{sub}`1` maps, inversion recovery is not often used in studies. An important drawback of this technique is the need for long TR values, generally on the order of a few _T_{sub}`1` for general models (e.g. Equations [](#irEq1) and [](#irEq4)), and up to 5_T_{sub}`1` for long TR approximated models ([Equation 2.3](#irEq3)). It takes about to 10-25 minutes to acquire a single-slice _T_{sub}`1` map using the inversion recovery technique, as only one TI is acquired per TR  (2-5 s) and conventional cartesian gradient readout imaging acquires one phase encode line per excitation (for a total of ~100-200 phase encode lines). The long acquisition time makes it challenging to acquire whole-organ _T_{sub}`1` maps in clinically feasible protocol times. Nonetheless, it is useful as a reference measurement for comparisons against other _T_{sub}`1` mapping methods, or to acquire a single-slice _T_{sub}`1` map of a tissue to get _T_{sub}`1` estimates for optimization of other pulse sequences.
+Despite a widely acknowledged robustness for measuring accurate _T_{sub}`1` maps, inversion recovery is not often used in studies. An important drawback of this technique is the need for long TR values, generally on the order of a few _T_{sub}`1` for general models (e.g. Equations [](#irEq1) and [](#irEq4)), and up to 5 _T_{sub}`1` for long TR approximated models ([Equation 2.3](#irEq3)). It takes about to 10-25 minutes to acquire a single-slice _T_{sub}`1` map using the inversion recovery technique, as only one TI is acquired per TR  (2-5 s) and conventional cartesian gradient readout imaging acquires one phase encode line per excitation (for a total of ~100-200 phase encode lines). The long acquisition time makes it challenging to acquire whole-organ _T_{sub}`1` maps in clinically feasible protocol times. Nonetheless, it is useful as a reference measurement for comparisons against other _T_{sub}`1` mapping methods, or to acquire a single-slice _T_{sub}`1` map of a tissue to get _T_{sub}`1` estimates for optimization of other pulse sequences.
 
 
 ````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#irPlot5).

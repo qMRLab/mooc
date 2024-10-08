@@ -1,7 +1,7 @@
 ---
 title: T2 mapping vs T2-weighted imaging
 subtitle: T2 Mapping
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name:  Samuelle Stonge
     affiliations:

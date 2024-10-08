@@ -1,7 +1,7 @@
 ---
 title: qMRI MOOC
 description: A mini open online course powered by qMRLab
-date: 2024-07-25
+date: 2024-10-07
 ---
 
 ```{figure} banner.jpg

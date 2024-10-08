@@ -1,7 +1,7 @@
 ---
 title: Two MRI sequences and two qMRI measurements
 subtitle: Coming full circle back
-date: 2024-07-25
+date: 2024-10-07
 authors:
   - name: Agah Karakuzu
     affiliations:
