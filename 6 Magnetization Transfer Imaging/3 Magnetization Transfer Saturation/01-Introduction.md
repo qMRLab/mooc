@@ -28,7 +28,7 @@ This introduction provides a glimpse into the theoretical basis of MTsat, its pr
 
 ```{figure} img/sequence.png
 :label: mtsatFig1
-:enumerator: 6.14  
+:enumerator: 6.14
 Simplified pulse sequence diagram of an MTR imaging sequence. An off-resonance and high powered MT-preparation pulse is followed by a spoiler gradient to destroy any transverse magnetization prior the application of the imaging sequence, in this case a spoiled gradient recalled echo (SPGR).
 ```
 

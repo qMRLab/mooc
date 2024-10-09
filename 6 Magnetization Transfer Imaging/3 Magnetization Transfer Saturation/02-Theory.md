@@ -115,18 +115,18 @@ R_{1}=\frac{1}{2}\cdot \frac{\frac{S_{T_{1}}\alpha_{T_{1}}}{\text{TR}_{T_{1}}}-\
 
 Remember, like MTR, MTsat is calculated from the equations above following the acquisition of the protocol images; no numerical fitting to a model is required. So effectively, the processing time to produce MTsat maps is the same as MTR, which is nearly instantaneous. Also, unlike MTR, which represents the steady-state signal difference due to the MT effect, MTsat represents the fraction of the longitudinal magnetization saturation caused by a single MT pulse within a TR, after a steady-state is achieved. Conventionally, it is represented as a percentage %, so MTsat is typically reported as {math}`\delta \cdot 100`. Note that MTR and MTsat are not expected to have the same values in magnitude despite both being represented as %, as they represent different changes. A major benefit of MTsat is that it’s expected to have less _T_{sub}`1`-dependency than MTR, as _T_{sub}`1` (1/R{sub}`1`) is separately calculated and accounted for in the calculation of MTsat using the equations above. Although the MTsat metric is more robust against _T_{sub}`1` changes, it is inherently sensitive to the MT preparation pulse properties (due to what MTsat physically represents, which is the saturation due to the MT pulse), and thus MTsat is not truly considered a fully quantitative metric as its value will change depending on the chosen protocol parameters and is not solely specific to the tissue properties or the field properties. [](#mtsatProtocolTable)lists some MTsat protocol parameters that have been reported in the literature.
 
-:::{table}  Some reported MTsat protocol parameters in the scientific literature.
+:::{table}  Some reported MTsat protocol parameters in the scientific literature (sources: [@Helms2008-wf;@Weiskopf2013-lp;@Campbell2018-hi;@Karakuzu2022-af;@York2022-fl])
 :label: mtsatProtocolTable
 :enumerator: 6.4 
 
 <table>
    <tr>
       <th colspan="2" align="center"></th>
-      <th colspan="1" align="center">[@Helms2008-wf]</th>
-      <th colspan="1" align="center">[@Weiskopf2013-lp]</th>
-      <th colspan="1" align="center">[@Campbell2018-hi]</th>
-      <th colspan="2" align="center">[@Karakuzu2022-af]</th>
-      <th colspan="1" align="center">[@York2022-fl]</th>
+      <th colspan="1" align="center">Helms 2008</th>
+      <th colspan="1" align="center">Weiskopf 2013</th>
+      <th colspan="1" align="center">Campbell 2018</th>
+      <th colspan="2" align="center">Karakuzu 2022</th>
+      <th colspan="1" align="center">York 2022</th>
 
    </tr>
    <tr>

@@ -29,15 +29,15 @@ Simplified pulse sequence diagram of an MTR imaging sequence. An off-resonance a
 
 Each MRI vendor optimizes their MT-weighted protocol parameters (eg MT shape, duration, frequency, and amplitude), and few of these details are typically shared with the end-user. [](#mtrTable2) shares protocol parameters used by different MRI manufacturers as reported by two publications.
 
-:::{table} Literature MTR protocol parameters
+:::{table} Literature MTR protocol parameters (sources: [@Brown2013-eg;@Karakuzu2022-af])
 :label: mtrTable2
 :enumerator: 6.2  
 
 <table>
    <tr>
       <th colspan="1" align="center"></th>
-      <th colspan="2" align="center">[@Brown2013-eg]</th>
-      <th colspan="2" align="center">[@Karakuzu2022-af]</th>
+      <th colspan="2" align="center">Brown 2013</th>
+      <th colspan="2" align="center">Karakuzu 2022</th>
    </tr>
    <tr>
       <th colspan="1" align="center"></th>
