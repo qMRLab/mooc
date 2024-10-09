@@ -71,7 +71,7 @@ Finally, the effect of the parameter n on the signal ratio r ([](#afiPlot6)) doe
 Effect of n (TR{sub}`2` to TR{sub}`1` ratio) on the ratio r. The signal intensities ratio is plotted as a function of the flip angle for the complete analytical solution ([](#afiEq3) - blue) and the first-order approximation ([](#afiEq4) - orange). AFI simulation details: Variable n ranging from 2 to 6, fixed TR{sub}`1` = 20 ms and _T_{sub}`1` = 900 ms.
 ```
 
-[](#afiPlot7) displays an example AFI dataset and its corresponding field _B_{sub}`1` map in a healthy human brain. Although not clearly visible, both AFI images present a small Gibbs ringing artifact that is propagated and amplified due to the AFI calculation consisting of the division of both images (Boudreau et al. 2017). The ringing artifact is clearly seen in the unfiltered/raw _B_{sub}`1` field map shown in [](#afiPlot7) (right).
+[](#afiPlot7) displays an example AFI dataset and its corresponding field _B_{sub}`1` map in a healthy human brain. Although not clearly visible, both AFI images present a small Gibbs ringing artifact that is propagated and amplified due to the AFI calculation consisting of the division of both images [@Boudreau2017-ik]. The ringing artifact is clearly seen in the unfiltered/raw _B_{sub}`1` field map shown in [](#afiPlot7) (right).
 
 ```{figure} #afiFig7cell
 :label: afiPlot7

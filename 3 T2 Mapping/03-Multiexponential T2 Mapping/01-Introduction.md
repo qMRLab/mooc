@@ -2,6 +2,7 @@
 title: Introduction
 subtitle: Multiexponential T2 Mapping
 date: 2024-10-07
+label: t2Multiexpo
 authors:
   - name:  Samuelle St-Onge
     affiliations:

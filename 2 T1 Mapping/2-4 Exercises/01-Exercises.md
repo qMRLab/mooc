@@ -27,7 +27,7 @@ numbering:
 ```{exercise}
 **a.** Using the Plotly figure in the [VFA section](#vfaIntroduction) that displays the signal curves for white matter, gray matter, and CSF, determine the Ernst angle for the following: white matter and a TR of 15 ms, gray matter for a TR of 50 ms, and CSF for a TR of 140 ms.
 
-**b.** Calculate the Ernst angle for these tissues and TRs with [](vfaEq2). Are they in agreement with the values you estimated with the interactive figure?
+**b.** Calculate the Ernst angle for these tissues and TRs with [](#vfaEq2). Are they in agreement with the values you estimated with the interactive figure?
 
 **c.** It’s been shown (Deoni, Rutt, and Peters 2003) that the optimal flip angles for a two-measurement VFA _T_{sub}`1` mapping imaging protocol are located at approximately 70% of the Ernst angle. Find the optimal flip angles to image each tissue above using their respective TRs.
 

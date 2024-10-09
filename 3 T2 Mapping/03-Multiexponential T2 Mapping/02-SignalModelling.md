@@ -23,7 +23,7 @@ For multiexponential _T_{sub}`2` mapping, the transverse magnetization (Mxy) acq
 \end{equation}
 ```
 
-where each term of the summation represents the contribution of the ith tissue component to the overall transverse magnetization decay (Collewet et al., 2022; Dortch, 2020). 
+where each term of the summation represents the contribution of the ith tissue component to the overall transverse magnetization decay [@Collewet2022-wj;@Dortch2020-nq]. 
 
 [](#t2Plot4) presents a single-voxel simulation of _T_{sub}`2` relaxation curves of myelin water (MW) and intra/extracellular water (IEW) using mono-exponential _T_{sub}`2` fitting, compared to a multi-exponential fitting for both MW and IEW. In this example, we see that using a multi-exponential model rather than mono-exponential for complex tissues like myelin enables more precise quantification of the _T_{sub}`2` relaxation time within each voxel. 
 

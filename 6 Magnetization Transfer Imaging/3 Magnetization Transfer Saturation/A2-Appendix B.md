@@ -19,11 +19,11 @@ numbering:
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
-So far we’ve explored a lot of the practical properties of MTsat, but have yet to explore what this parameter represents in reality. We begin this discussion by looking at how (Helms et al. 2008) interpreted MTsat:
+So far we’ve explored a lot of the practical properties of MTsat, but have yet to explore what this parameter represents in reality. We begin this discussion by looking at how [@Helms2008-wf] interpreted MTsat:
 
 (figure or quote)
 
-Thus, MTsat is interpreted as being the saturation (i.e. reduction in longitudinal magnetization) occurring from the pulse substituting the MT pulse ([#mtsatFig2]) occurring within a single TR, after steady-state has been reached. A reminder: MTR, in contrast, is a steady-state image difference metric (not “within” a TR).
+Thus, MTsat is interpreted as being the saturation (i.e. reduction in longitudinal magnetization) occurring from the pulse substituting the MT pulse ([](#mtsatFig2)) occurring within a single TR, after steady-state has been reached. A reminder: MTR, in contrast, is a steady-state image difference metric (not “within” a TR).
 
 ## Simulating MTSat through qMRLab
 
@@ -39,7 +39,7 @@ Demonstration through trigonometry of how following a small flip angle alpha2 (e
 
 ## Simulation 1: Revisiting MTsat Theory
 
-In our first simulation, we use the qMRLab qMT-SPGR module to simulate steady-state signals from an MTsat experiment on healthy white matter tissues. We utilize tissue parameters from Sled (2011) and an MTsat protocol derived from Karakuzu (2022). 
+In our first simulation, we use the qMRLab qMT-SPGR module to simulate steady-state signals from an MTsat experiment on healthy white matter tissues. We utilize tissue parameters from [@Sled2001-fz] and an MTsat protocol derived from [@Karakuzu2022-af]. 
 
 :::{dropdown} Code
 
@@ -203,7 +203,7 @@ T1s =
 
 :::
 
-Our results closely align with expectations (_T_{sub}`1` fitted ~= _T_{sub}`1` input, MTR ~58, MTsat ~5%). Converting the MTsat value to ɑ2 (see Figure 8), we find that the MTSat value corresponds to an equivalent excitation pulse of approximately 18.7 degrees. Through Helms' interpretation, we infer that the MT pulse should be reducing the longitudinal magnetization by roughly 0.05 (ie Mz_after pulse - Mz_before pulse = 0.05).
+Our results closely align with expectations (_T_{sub}`1` fitted ~= _T_{sub}`1` input, MTR ~58, MTsat ~5%). Converting the MTsat value to ɑ2 (see [#mtsatFig3]), we find that the MTSat value corresponds to an equivalent excitation pulse of approximately 18.7 degrees. Through Helms' interpretation, we infer that the MT pulse should be reducing the longitudinal magnetization by roughly 0.05 (ie Mz_after pulse - Mz_before pulse = 0.05).
 
 ## Simulation 2: Challenging MTSat Model Assumptions
 
@@ -253,7 +253,7 @@ legend('1-Mz_{after}/Mz_{before}')
 :label: mtsatAppendixPlotB1
 :::
 
-From these simulations, we find that there is a 0.314% reduction in longitudinal magnetization before/after the MT pulse after a steady state is achieved, which is an order of magnitude smaller than the MTsat value we calculated earlier for this protocol and tissue parameters (~5%). Either the MTsat theory is wrong, or we’re missing something. Revisiting the pulse sequence (Figure 1) and the MTsat model (Figure 2), we notice that while the MTsat model assumes instant excitation for both pulses, in reality the MT pulse is relatively long (~10 ms, Table 1). So, while there is a decoupling between MT saturation and relaxation in the MTsat model (Figure 2), in reality (and in our simulations) there is relaxation occurring during the MT pulse, and we didn’t account for that in the above simulation.
+From these simulations, we find that there is a 0.314% reduction in longitudinal magnetization before/after the MT pulse after a steady state is achieved, which is an order of magnitude smaller than the MTsat value we calculated earlier for this protocol and tissue parameters (~5%). Either the MTsat theory is wrong, or we’re missing something. Revisiting the pulse sequence ([#mtsatFig1]) and the MTsat model ([#mtsatFig2]), we notice that while the MTsat model assumes instant excitation for both pulses, in reality the MT pulse is relatively long (~10 ms, [#mtsatProtocolTable]). So, while there is a decoupling between MT saturation and relaxation in the MTsat model ([#mtsatFig2]), in reality (and in our simulations) there is relaxation occurring during the MT pulse, and we didn’t account for that in the above simulation.
 
 ## Simulation 3: _T_{sub}`1` Correction During MT Pulse
 

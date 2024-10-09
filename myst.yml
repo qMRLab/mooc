@@ -16,11 +16,15 @@ project:
   github: https://github.com/qmrlab/mooc
   banner: banner.jpg
   venue: qMRLab
-  subject: MOOC
+  subject: mOOC
   numbering:
     headings: true
   open_access: true
   license: CC-BY-4.0
+  date: 2024-10-08
+  authors: everyone
+  exports:
+    - format: pdf
   abbreviations:
     MRI: Magnetic resonance imaging
     NMR: Nuclear Magnetic Resonance
@@ -63,6 +67,15 @@ project:
   bibliography:
     - bibliography/book.bib
     - bibliography/ir.bib
+    - bibliography/b0chapter.bib
+    - bibliography/t2chapter.bib
+    - bibliography/t1chapter.bib
+    - bibliography/doubleangle.bib
+    - bibliography/afi.bib
+    - bibliography/filtering.bib
+    - bibliography/qmtchapter.bib
+    - bibliography/mtrchapter.bib
+    - bibliography/mtsatchapter.bib
   resources:
     - figures/2 T1 mapping/figure2-2.ipynb
   toc:
@@ -271,7 +284,6 @@ project:
             - file: Figures/T1/figure_vfa5.ipynb
             - file: Figures/T1/figure_vfa6.ipynb
             - file: Figures/T1/figure_vfa7.ipynb
-            - file: Figures/T1/foreword.md
             - file: Figures/T1/mp2rageFig1.ipynb
             - file: Figures/T1/mp2rageFig2.ipynb
         - title: T2  Mapping
