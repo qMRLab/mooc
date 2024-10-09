@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-Prior to considering the full signal equations, we will first introduce the equation for the MP2RAGE parameter (_S_{sub}`MP2RAGE`) that is calculated in addition to the _T_{sub}`1` map. For complex data (magnitude and phase, or real and imaginary), the MP2RAGE signal (_S_{sub}`MP2RAGE`) is calculated from the images acquired at two TIs (_S_{sub}`GRE,TI1` and _S_{sub}`GRE,TI2`) using the following expression (Marques et al. 2010):
+Prior to considering the full signal equations, we will first introduce the equation for the MP2RAGE parameter (_S_{sub}`MP2RAGE`) that is calculated in addition to the _T_{sub}`1` map. For complex data (magnitude and phase, or real and imaginary), the MP2RAGE signal (_S_{sub}`MP2RAGE`) is calculated from the images acquired at two TIs (_S_{sub}`GRE,TI1` and _S_{sub}`GRE,TI2`) using the following expression [@Marques2010-mo]:
 
 ```{math}
 :label: mp2rageEq1
@@ -35,7 +35,7 @@ S_{\text{MP2RAGE}}=\text{real}\left( \frac{S_{\text{GRE}_{\text{TI}_{1}}}^{\ast}
 ```
 
 
-Because MP2RAGE is a hybrid of pulse sequences used for inversion recovery and VFA, the resulting signal equations are more complex. Typically, a steady state is not achieved during the short train of GRE imaging blocks, so the signal at the center of k-space for each readout (which defines the contrast weighting) will depend on the number of phase-encoding steps. For simplicity, the equations presented here assume that the 3D phase-encoding dimension is fully sampled (no partial Fourier or parallel imaging acceleration). For this case (see appendix of (Marques et al. 2010) for derivation details), the signal equations are:
+Because MP2RAGE is a hybrid of pulse sequences used for inversion recovery and VFA, the resulting signal equations are more complex. Typically, a steady state is not achieved during the short train of GRE imaging blocks, so the signal at the center of k-space for each readout (which defines the contrast weighting) will depend on the number of phase-encoding steps. For simplicity, the equations presented here assume that the 3D phase-encoding dimension is fully sampled (no partial Fourier or parallel imaging acceleration). For this case (see appendix of [@Marques2010-mo] for derivation details), the signal equations are:
 
 
 ```{math}
@@ -80,4 +80,4 @@ m_{z,ss}\frac{M_{0}\left[ \beta\left( \text{cos}\left( \theta_{2} \right)\text{E
 \end{equation}
 ```
 
-From Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.13](#mp2rageEq6), it is evident that the MP2RAGE parameter _S_{sub}`MP2RAGE` (Equations [2.11](#mp2rageEq1), [2.12](#mp2rageEq2)) cancels out the effects of receive field sensitivity, _T_{sub}`2`{sup}`*`, and _M_{sub}`0`. The signal sensitivity related to the transmit field (_B_{sub}`1`{sup}`+`), hidden in Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.16](#mp2rageEq6) within the flip angle values {math}`\theta_{1}` and {math}`\theta_{2}`, can also be reduced by careful pulse sequence protocol design (Marques et al. 2010), but not entirely eliminated (Marques & Gruetter 2013).
+From Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.13](#mp2rageEq6), it is evident that the MP2RAGE parameter _S_{sub}`MP2RAGE` (Equations [2.11](#mp2rageEq1), [2.12](#mp2rageEq2)) cancels out the effects of receive field sensitivity, _T_{sub}`2`{sup}`*`, and _M_{sub}`0`. The signal sensitivity related to the transmit field (_B_{sub}`1`{sup}`+`), hidden in Equations [2.13](#mp2rageEq3), [2.14](#mp2rageEq4), [2.15](#mp2rageEq5), and [2.16](#mp2rageEq6) within the flip angle values {math}`\theta_{1}` and {math}`\theta_{2}`, can also be reduced by careful pulse sequence protocol design [@Marques2010-mo], but not entirely eliminated [@Marques2013-ab].
