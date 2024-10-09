@@ -2,6 +2,7 @@
 title: Introduction
 subtitle: MP2RAGE
 date: 2024-10-07
+label: mp2rageIntroduction
 authors:
   - name: Mathieu Boudreau
     affiliations:

@@ -73,6 +73,7 @@ project:
     - bibliography/doubleangle.bib
     - bibliography/afi.bib
     - bibliography/filtering.bib
+    - bibliography/qmtchapter.bib
   resources:
     - figures/2 T1 mapping/figure2-2.ipynb
   toc:
