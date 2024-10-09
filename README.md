@@ -2,7 +2,7 @@
 
 [View book](https://www.qmrlab.org/mooc)
 
-[!banner.jpg]
+[](banner.jpg)
 
 **Authors**: Mathieu Boudreau, Alexandre D'Astous, Agah Karakuzu, Katy Keenan, Nikola Stikov, Samuelle St-Onge, Juan Velázquez-Reyes
 
