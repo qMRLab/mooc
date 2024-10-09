@@ -21,7 +21,7 @@ This content of this section is still a work-in-progress and has not been proofr
 
 ## Derivation
 
-From the MTR protocol in Brown 2013 of the MTR blog post, 1=15 deg and TR = 0.03 s, so assuming a _T_{sub}`1` at 1.5T (field strength that Brown used) of 0.55 s in healthy WM, so _R_{sub}`1` = 1.8, we can calculate the signal from [5] of an experiment with no MT pulse ({math}`\alpha_{2}` = 0).
+From the MTR protocol in [Brown2013-eg] of the MTR section, {math}`\alpha_{1}`=15 deg and TR = 0.03 s, so assuming a _T_{sub}`1` at 1.5T (field strength that Brown used) of 0.55 s in healthy WM, so _R_{sub}`1` = 1.8, we can calculate the signal from [#mtsatEq6] of an experiment with no MT pulse ({math}`\alpha_{2}` = 0).
 
 
 
