@@ -25,21 +25,21 @@ The decay of the transverse magnetization (Mxy) is exponential and can be derive
 \end{equation}
 ```
 
-where Mz(0-) is the longitudinal magnetization immediately preceding the 90 degree excitation pulse. By using this equation, we make the assumption that the measured signal is proportional to the transverse magnetization (Mxy), and that Mz(0-) remains constant regardless of echo time (TE) (Dortch, 2020). 
+where Mz(0-) is the longitudinal magnetization immediately preceding the 90 degree excitation pulse. By using this equation, we make the assumption that the measured signal is proportional to the transverse magnetization (Mxy), and that Mz(0-) remains constant regardless of echo time (TE) [@Dortch2020-nq]. 
 
-[](#t2Plot2) shows transverse relaxation curves for _T_{sub}`2` and _T_{sub}`2`{sup}`*` values for white matter and gray matter, using the relaxation times from Siemonsen et al. (2008). 
+[](#t2Plot2) shows transverse relaxation curves for _T_{sub}`2` and _T_{sub}`2`{sup}`*` values for white matter and gray matter, using the relaxation times from [@Siemonsen2008-bc]. 
 
 
 
 :::{figure} #fig3p2cell
 :label: t2Plot2
 :enumerator: 3.3
-Transverse relaxation decay curves for _T_{sub}`2` and _T_{sub}`2`{sup}`*` values in white matter and gray matter. The _T_{sub}`2` and _T_{sub}`2`{sup}`*` constants were taken from Siemonsen et al. (2008).
+Transverse relaxation decay curves for _T_{sub}`2` and _T_{sub}`2`{sup}`*` values in white matter and gray matter. The _T_{sub}`2` and _T_{sub}`2`{sup}`*` constants were taken from [@Siemonsen2008-bc].
 :::
 
 
 
-In NMR physics, it has been shown that _T_{sub}`2` relaxation times must be equal to or shorter than 2 _T_{sub}`1` (Levitt, 2008); however, it has been demonstrated that _T_{sub}`2` can exceed _T_{sub}`1` in very rare cases (Traficante, 1991). In living organisms however, _T_{sub}`2` is always shorter than _T_{sub}`1`. 
+In NMR physics, it has been shown that _T_{sub}`2` relaxation times must be equal to or shorter than 2 _T_{sub}`1` [@Levitt2008-zk]; however, it has been demonstrated that _T_{sub}`2` can exceed _T_{sub}`1` in very rare cases [@Traficante1991-es]. In living organisms however, _T_{sub}`2` is always shorter than _T_{sub}`1`. 
 
 
 ```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#t2Plot2).

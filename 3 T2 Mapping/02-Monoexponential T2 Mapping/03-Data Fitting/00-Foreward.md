@@ -24,6 +24,6 @@ The _T_{sub}`2` signal decay for the mono-exponential model is described mathema
 \end{equation}
 ```
 
-where S0 is the signal intensity immediately following the excitation pulse (Dortch, 2020; Milford et al., 2015). 
+where S0 is the signal intensity immediately following the excitation pulse [@Dortch2020-nq;@Milford2015-ef]. 
 
-In practice, _B_{sub}`1` inhomogeneities and RF pulse imperfections can influence the _T_{sub}`2` signal decay curve and result in inaccurate _T_{sub}`2` estimations. This may cause refocusing pulses to deviate from the ideal 180 degrees, generating additional echoes known as stimulated or spurious echoes. These unwanted echoes can contaminate the signal decay, resulting in erroneous _T_{sub}`2` estimations (McPhee & Wilman, 2018). To account for these stimulated echoes, some studies have shown that _T_{sub}`2` fitting accuracy can be improved either by using only even-numbered echoes (Focke et al., 2011; Kim et al., 2009), or by discarding the first echo (Biasiolli et al., 2013; Milford et al., 2015). 
+In practice, _B_{sub}`1` inhomogeneities and RF pulse imperfections can influence the _T_{sub}`2` signal decay curve and result in inaccurate _T_{sub}`2` estimations. This may cause refocusing pulses to deviate from the ideal 180 degrees, generating additional echoes known as stimulated or spurious echoes. These unwanted echoes can contaminate the signal decay, resulting in erroneous _T_{sub}`2` estimations [@McPhee2018-wd]. To account for these stimulated echoes, some studies have shown that _T_{sub}`2` fitting accuracy can be improved either by using only even-numbered echoes [@Focke2011-xh;@Kim2009-yf], or by discarding the first echo [@Biasiolli2013-vy;@Milford2015-ef]. 
