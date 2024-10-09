@@ -60,4 +60,4 @@ Although UMPIRE has many advantages, it suffers from being susceptible to noise.
 Effect of noise using UMPIRE. A slider is provided to change the field offset of the second echo and to see its effect on the resulting unwrapped data and linear fit.
 :::
 
-Unwrappers, such as PRELUDE [20] are less susceptible to noise, but do not have the ability to resolve {math}`>\pi` phase offsets between timepoints and can take longer to unwrap the data. The SEGUE [21] algorithm performs similarly to PRELUDE but can be much faster. ROMEO [23] is also an algorithm that is quite fast and has been shown to perform better than PRELUDE and BEST PATH[22] with noise.
+Unwrappers, such as PRELUDE [@Jenkinson2003-vy] are less susceptible to noise, but do not have the ability to resolve {math}`>\pi` phase offsets between timepoints and can take longer to unwrap the data. The SEGUE [@Karsa2019-rd] algorithm performs similarly to PRELUDE but can be much faster. ROMEO [@Dymerska2021-kq] is also an algorithm that is quite fast and has been shown to perform better than PRELUDE and BEST PATH[@Abdul-Rahman2007-pv] with noise.
