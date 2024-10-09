@@ -70,6 +70,7 @@ project:
     - bibliography/b0chapter.bib
     - bibliography/t2chapter.bib
     - bibliography/t1chapter.bib
+    - bibliography/doubleangle.bib
   resources:
     - figures/2 T1 mapping/figure2-2.ipynb
   toc:
