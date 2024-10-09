@@ -36,8 +36,8 @@ Each MRI vendor optimizes their MT-weighted protocol parameters (eg MT shape, du
 <table>
    <tr>
       <th colspan="1" align="center"></th>
-      <th colspan="2" align="center">Brown 2013</th>
-      <th colspan="2" align="center">Karakuzu 2022</th>
+      <th colspan="2" align="center">[@Brown2013-eg]</th>
+      <th colspan="2" align="center">[@Karakuzu2022-af]</th>
    </tr>
    <tr>
       <th colspan="1" align="center"></th>
@@ -102,7 +102,7 @@ These differences in protocol parameters can result in MTR values that vary grea
 
 
 
-:::{table} Quantitative MT parameters in healthy and diseased human tissue reported for a study at 1.5 T (Sled 2001).
+:::{table} Quantitative MT parameters in healthy and diseased human tissue reported for a study at 1.5 T [@Sled2001-fz].
 :label: qmtTable3
 :enumerator: 6.2  
 <table>
