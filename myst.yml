@@ -67,6 +67,7 @@ project:
   bibliography:
     - bibliography/book.bib
     - bibliography/ir.bib
+    - bibliography/b0chapter.bib
   resources:
     - figures/2 T1 mapping/figure2-2.ipynb
   toc:
