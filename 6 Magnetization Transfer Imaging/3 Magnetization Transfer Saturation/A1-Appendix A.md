@@ -50,7 +50,7 @@ For an MT-weighted image, we get an equation as we don’t know {math}`\alpha_{2
 :label: mtrEqA3
 :enumerated: false
 \begin{equation}
-S_{MT}=0.087\frac{1.8\cdot 0.03}{\frac{0.087^{2}}{2}+\frac{\alpha_{2}^{2}}{2}+1.8\cdot 0.03}A
+S_{MT}=0.087\frac{\left(1.8\cdot 0.03\right)}{\frac{0.087^{2}}{2}+\frac{\alpha_{2}^{2}}{2}+1.8\cdot 0.03}A
 \end{equation}
 ```
 
@@ -82,7 +82,7 @@ We’d like to calculate the contribution from the MT pulse, δ. We can do this 
 :label: mtrEqA6
 :enumerated: false
 \begin{equation}
-\text{MTR}=\frac{S_{0}-S_{MT}}{S_{0}}\cdot 100
+\text{MTR}=\frac{\left(S_{0}-S_{MT}\right)}{S_{0}}\cdot 100
 \end{equation}
 ```
 
@@ -90,7 +90,7 @@ We’d like to calculate the contribution from the MT pulse, δ. We can do this 
 :label: mtrEqA7
 :enumerated: false
 \begin{equation}
-46=\frac{0.024A-S_{MT}}{0.024A}\cdot 100 \text{, (from 6A1)}
+46=\frac{0.0815A-S_{MT}}{0.0815A}\cdot 100 \text{, (from 6A1)}
 \end{equation}
 ```
 ```{math}
@@ -118,7 +118,7 @@ S_{MT}=0.044A\text{, (refactor)} \\
 :label: mtrEqA11
 :enumerated: false
 \begin{equation}
-\delta=\frac{0.044}{0.0047}-0.0578\text{, (refactor)}
+\delta=\frac{0.0047}{0.044}-0.0578\text{, (refactor)}
 \end{equation}
 ```
 ```{math}
