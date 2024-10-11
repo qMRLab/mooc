@@ -1,5 +1,5 @@
 ---
-title: A pictorial and historic journey into how MRI works
+title: Origins of MRI: A Visual History
 subtitle: From quantum to macro-scales
 date: 2024-10-07
 authors:

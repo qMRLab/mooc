@@ -1,5 +1,5 @@
 ---
-title: The million dollar question
+title: Why MRI Isn't Quantitative (Yet)
 subtitle: Pixels have values, then why is MRI not quantitative? 
 date: 2024-10-07
 authors:
