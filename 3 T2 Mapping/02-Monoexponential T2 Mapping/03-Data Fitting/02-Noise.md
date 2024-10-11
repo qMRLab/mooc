@@ -17,7 +17,7 @@ In MRI, noise in the data can make it harder to accurately fit the _T_{sub}`2` d
 
 
 
-:::{figure} #fig3p3cell
+:::{figure} #t2Fig3jn
 :label: t2Plot3
 :enumerator: 3.4
  Impact of noise on _T_{sub}`2` relaxometry fitting. The figure shows a single voxel fit with a true _T_{sub}`2` relaxation time of 109 ms. As the noise level increases, the accuracy of the _T_{sub}`2` fitting decreases, leading to deviations in the estimated _T_{sub}`2` relaxation time from the true value. This demonstrates how higher noise levels can adversely affect the reliability of _T_{sub}`2` measurements and may result in inaccurate representations of tissue relaxation properties.

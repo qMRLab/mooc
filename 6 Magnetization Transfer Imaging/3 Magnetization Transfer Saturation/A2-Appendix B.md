@@ -249,7 +249,7 @@ legend('1-Mz_{after}/Mz_{before}')
 
 :::
 
-:::{figure} #mtsatAppendixB1cell
+:::{figure} #mtsatFigB1jn
 :label: mtsatAppendixPlotB1
 :::
 
@@ -292,7 +292,7 @@ legend('1-Mz_{after}/Mz_{before}')
 :::
 
 
-:::{figure} #mtsatAppendixB2cell
+:::{figure} #mtsatFigB2jn
 :label: mtsatAppendixPlotB2
 :::
 
@@ -335,7 +335,7 @@ legend('MTsat contribution from MT pulse event', 'MTsat contribution from cross-
 
 :::
 
-:::{figure} #mtsatAppendixB3cell
+:::{figure} #mtsatFigB3jn
 :label: mtsatAppendixPlotB3
 :::
 

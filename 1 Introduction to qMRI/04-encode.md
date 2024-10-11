@@ -1,5 +1,5 @@
 ---
-title: Measuring and encoding the MRI signal
+title: From spin dynamics to images
 date: 2024-10-07
 authors:
   - name: Agah Karakuzu

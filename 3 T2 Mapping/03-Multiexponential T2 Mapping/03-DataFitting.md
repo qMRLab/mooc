@@ -39,9 +39,10 @@ For example, the multi-exponential signal from [](#t2Plot4) can be expressed as 
 
 [](#t2Plot5) presents an example of multi-exponential _T_{sub}`2` fitting applied to an image of the spinal cord. The figure shows the myelin water fraction (MWF) map, which highlights the distribution of myelin water across the spinal cord, as well as the _T_{sub}`2` maps for intra/extracellular water and myelin water. The multi-exponential fitting approach allows for the separation of these components, enhancing tissue characterization in complex structures compared to mono-exponential models. In the following section, we will explain why MWF imaging is a key application of multi-exponential _T_{sub}`2` mapping, and how it provides valuable insights into the microstructure of the spinal cord, highlighting its potential benefits for understanding and diagnosing neurological conditions.
 
-:::{figure} #fig3p5cell
+
+:::{figure} #t2Fig5jn
 :label: t2Plot5
-:enumerator: 3.6
+:enumerator: 3.5
 Multi-exponential _T_{sub}`2` mapping example of the spinal cord. The left image displays multi-exponential (ME) T2w data acquired at different echo times (TE) used for the data fitting. The right image presents the resulting myelin water fraction (MWF) map and _T_{sub}`2` relaxation maps for myelin water (MW) and intra/extracellular water (IEW). 
 :::
 

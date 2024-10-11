@@ -165,7 +165,7 @@ These differences in protocol parameters can result in MTR values that vary grea
 </table>
 :::
 
-:::{figure} #mtrFig1cell
+:::{figure} #mtrFig1jn
 :label: mtrPlot1
 :enumerator:6.9
 MTR values calculated from fundamental qMT tissue parameters for four different MTR imaging protocols.
@@ -175,7 +175,7 @@ As demonstrated in the above simulations, one MTR value could have the same valu
 
 In addition to being very sensitive to protocol implementations, MTR values are also sensitive to other tissue properties. As seen in the qMT blog post, the parameter most closely related to macromolecular content is the pool-size ratio _F_. But, if some disease / symptom impacts _T_{sub}`1`  independently of underlying macromolecular content, MTR will also change. That is to say, MTR is sensitive to tissue’s _T_{sub}`1` value independently of the macromolecular content metric F, as shown in [](#mtrPlot2).
 
-:::{figure} #mtrFig2cell
+:::{figure} #mtrFig2jn
 :label: mtrPlot2
 :enumerator: 6.10
 MTR value for (protocol?) and (tissue?) changes as a function of the underlying _T_{sub}`1` value (_T_{sub}`1,obs`obs or _T_{sub}`1,f`?).
@@ -183,7 +183,7 @@ MTR value for (protocol?) and (tissue?) changes as a function of the underlying 
 
 In addition to being sensitive to tissue properties, MTR is also sensitive to system properties such as _B_{sub}`1` (via MT pulse amplitude) and _B_{sub}`0` (via off-resonance frequency). In particular, _B_{sub}`1` can vary up to 30% the nominal value at 3T, and without correction this can introduce substantial  [](#mtrPlot3) illustrates how MTR can vary with different _B_{sub}`1` values.
 
-:::{figure} #mtrFig3cell
+:::{figure} #mtrFig3jn
 :label: mtrPlot3
 :enumerator: 6.11
 MTR value for (protocol?) and (tissue?) changes as a function of the underlying _B_{sub}`1` value (_T_{sub}`1,obs`obs or _T_{sub}`1,f`?).
@@ -191,13 +191,13 @@ MTR value for (protocol?) and (tissue?) changes as a function of the underlying 
 
 Lastly, MTR is sensitive to protocol adjustments, which could be done by a scanner operator to accommodate issues during an imaging session. [](#mtrPlot4) demonstrates how MTR varies with TR adjustments.
 
-:::{figure} #mtrFig4cell
+:::{figure} #mtrFig4jn
 :label: mtrPlot4
 :enumerator: 6.12
 MTR value for (protocol?) and (tissue?) changes as a function protocols TR value.
 :::
 
-:::{figure} #mtrFig5cell
+:::{figure} #mtrFig5jn
 :label: mtrPlot5
 :enumerator: 6.13
 Surface map

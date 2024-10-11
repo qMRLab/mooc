@@ -22,7 +22,7 @@ The conventional [inversion recovery](wiki:Inversion_recovery) experiment is con
 One important protocol design consideration is to avoid acquiring at inversion times where the signal for _T_{sub}`1` values of the tissue-of-interest is nulled, as the magnitude images at this TI time will be dominated by [Rician](wiki:Rice_distribution) noise which can negatively impact the fit under low SNR circumstances ([](#irPlot5)). Inversion recovery can also often be acquired using commonly available standard pulse sequences available on most MRI scanners by setting up a customized acquisition protocol, and does not require any additional calibration measurements. For an example, please visit the interactive preprint of the ISMRM Reproducible Research Group 2020 Challenge on inversion recovery _T_{sub}`1` mapping {cite:p}`Boudreau2023`. 
 
 
-:::{figure} #fig2p6cell
+:::{figure} #irFig6jn
 :label: irPlot5
 :enumerator: 2.6
 [Monte Carlo](wiki:Monte_Carlo_method) simulations (mean and standard deviation (STD), blue markers) and fitted _T_{sub}`1` values (mean and STD, red and green respectively) generated for a _T_{sub}`1` value of 900 ms and 5 TI values linearly spaced across the TR (ranging from 1 to 5 s). A bump in _T_{sub}`1` STD occurs near TR = 3000 ms, which coincides with the TR where the second TI is located near a null point for this _T_{sub}`1` value.
