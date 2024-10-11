@@ -41,6 +41,7 @@ project:
     TI: Inversion Time
     CSF: Cerebrospinal fluid
     T1: Longitudinal magnetization relaxation time constant
+    _T_{sub}`1`: Longitudinal magnetization relaxation time constant
     T2: Transverse magnetization relaxation time constant
     SE: Spin Echo
     GRE: Gradient Echo
