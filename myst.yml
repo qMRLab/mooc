@@ -177,6 +177,9 @@ project:
             - title: Notebooks
               children:
               - file: 3 T2 Mapping/03-Multiexponential T2 Mapping/Notebooks/Figure-3-3-1.ipynb
+            - title: Notebooks
+              children:
+              - file: 3 T2 Mapping/03-Multiexponential T2 Mapping/Notebooks/Figure-3-3-2.ipynb
         - title: Notebooks
           children:
             - file: 3 T2 Mapping/01-Introduction/Notebooks/Figure-3-1-1.ipynb

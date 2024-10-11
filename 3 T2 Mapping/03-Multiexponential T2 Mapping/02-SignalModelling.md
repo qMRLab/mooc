@@ -33,6 +33,11 @@ where each term of the summation represents the contribution of the ith tissue c
 Comparison of mono-exponential and multi-exponential _T_{sub}`2` fitting. This figure contrasts mono-exponential and multi-exponential fitting approaches for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves represent mono-exponential fittings for MW and IEW, respectively. The dotted purple curve illustrates the multi-exponential fitting, which combines both MW and IEW components. 
 :::
 
+:::{figure} #t2Fig6jn
+:label: t2Plot7
+:enumerator: 3.7
+Comparison of mono-exponential and multi-exponential _T_{sub}`2` fitting. This figure contrasts mono-exponential and multi-exponential fitting approaches for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves represent mono-exponential fittings for MW and IEW, respectively. The dotted purple curve illustrates the multi-exponential fitting, which combines both MW and IEW components. 
+:::
 
 ```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#t2Plot4).
 :class: tip, dropdown
