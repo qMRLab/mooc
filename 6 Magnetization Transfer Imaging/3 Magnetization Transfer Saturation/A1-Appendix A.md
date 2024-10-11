@@ -90,7 +90,7 @@ We’d like to calculate the contribution from the MT pulse, δ. We can do this 
 :label: mtrEqA7
 :enumerated: false
 \begin{equation}
-46=\frac{0.0815A-S_{MT}}{0.0815A}\cdot 100 \text{, (from 6A1)}
+46=\frac{\left(0.0815A-S_{MT}\right)}{0.0815A}\cdot 100 \text{, (from 6A1)}
 \end{equation}
 ```
 ```{math}
@@ -104,14 +104,14 @@ S_{MT}=0.044A\text{, (refactor)} \\
 :label: mtrEq9
 :enumerated: false
 \begin{equation}
-\frac{0.0047}{0.0578+\delta}A=0.044A\text{, (from 6A3)}
+\left(\frac{0.0047}{0.0578+\delta}\right)A=0.044A\text{, (from 6A3)}
 \end{equation}
 ```
 ```{math}
 :label: mtrEqA10
 :enumerated: false
 \begin{equation}
-\frac{0.0047}{0.0578+\delta}=0.044\text{, (A cancels out)}
+\frac{\left(0.004\right)7}{\left(0.0578+\delta\right)}=0.044\text{, (A cancels out)}
 \end{equation}
 ```
 ```{math}
