@@ -118,7 +118,7 @@ S_{MT}=0.044A\text{, (refactor)} \\
 :label: mtrEqA11
 :enumerated: false
 \begin{equation}
-\delta=\frac{0.0047}{0.044}-0.0578\text{, (refactor)}
+\delta=\left(\frac{0.0047}{0.044}\right)-0.0578\text{, (refactor)}
 \end{equation}
 ```
 ```{math}
