@@ -111,7 +111,7 @@ S_{MT}=0.044A\text{, (refactor)} \\
 :label: mtrEqA10
 :enumerated: false
 \begin{equation}
-\frac{\left(0.004\right)7}{\left(0.0578+\delta\right)}=0.044\text{, (A cancels out)}
+\frac{\left(0.0047\right)}{\left(0.0578+\delta\right)}=0.044\text{, (A cancels out)}
 \end{equation}
 ```
 ```{math}
