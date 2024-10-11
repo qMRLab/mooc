@@ -63,7 +63,7 @@ S_{MT}=\frac{0.0047}{0.0578+\frac{\alpha_{2}^{2}}{2}}A
 ```
 
 
-To simplify (and for reasons seen later), let’s define  δ=22/2 ,
+To simplify (and for reasons seen later), let’s define {math}`\delta=\alpha_{2}^{2}/2`,
 
 
 
