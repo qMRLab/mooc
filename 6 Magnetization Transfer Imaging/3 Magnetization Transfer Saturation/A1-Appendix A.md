@@ -30,7 +30,7 @@ From the MTR protocol in [@Brown2013-eg] of the MTR section, {math}`\alpha_{1}`=
 :enumerated: false
 \begin{equation}
 \\
-S_{0}=0.087\frac{1.8\cdot 0.03}{\frac{0.087^{2}}{2}+0+1.8\cdot 0.03}A
+S_{0}=0.087\frac{\left(1.8\cdot 0.03\right)}{\frac{0.087^{2}}{2}+0+1.8\cdot 0.03}A
 \end{equation}
 ```
 
