@@ -46,7 +46,7 @@ T_1 = - \frac{TR}{ \text{ln}(slope)}
 
 If data were acquired using only two flip angles – a very common VFA acquisition protocol – then the slope can be calculated using the elementary slope equation. [](#vfaPlot4) displays both Equations [](#vfaEq1) and [](#vfaEq4) plotted for a noisy dataset.
 
-:::{figure} #figvfa5cell
+:::{figure} #vfaFig5jn
 :label: vfaPlot4
 :enumerator: 2.11
 Mean and standard deviation of the VFA signal plotted using the nonlinear form ([](#vfaEq1) – blue) and linear form ([](#vfaEq4) – red). Monte Carlo simulation details: SNR = 25, N = 1000. VFA simulation details: TR = 25 ms, _T_{sub}`1` = 900 ms.
@@ -68,7 +68,7 @@ Accurate knowledge of the flip angle values is very important to produce accurat
 
 _B_{sub}`1` in this context is normalized, meaning that it is unitless and has a value of 1 in voxels where the RF field has the expected amplitude (i.e. where the nominal flip angle is the actual flip angle). [](#vfaPlot5) displays fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values from a [Monte Carlo](wiki:Monte_Carlo_method) dataset simulated using biased flip angle values, and fitted without/with _B_{sub}`1` correction.
 
-:::{figure} #figvfa6cell
+:::{figure} #vfaFig6jn
 :label: vfaPlot5
 :enumerator: 2.12
 Mean and standard deviations of fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) _B_{sub}`1` correction. Simulation parameters: TR = 25 ms, _T_{sub}`1` = 900 ms, {math}`\theta_{nominal}` = 6° and 32° (optimized values for this TR/_T_{sub}`1` combination). Notice how even after _B_{sub}`1` correction, fitted [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values at _B_{sub}`1` values far from the nominal case (_B_{sub}`1` = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/_T_{sub}`1` (Deoni et al. 2003).
@@ -76,7 +76,7 @@ Mean and standard deviations of fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_rel
 
 [](#vfaPlot6) displays an example VFA dataset and a _B_{sub}`1` map in a healthy brain, along with the _T_{sub}`1` map estimated using a linear fit (Equations [](#vfaEq4) and [](#vfaEq5)).
 
-:::{figure} #figvfa7cell
+:::{figure} #vfaFig7jn
 :label: vfaPlot6
 :enumerator: 2.13
 Example variable flip angle dataset and _B_{sub}`1` map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`\theta_{nominal}` = 3° and 20°. The _T_{sub}`1` map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).

@@ -18,7 +18,7 @@ In qMT imaging, the biophysical model relates the parameters observed in the two
 
 The qMT-SPGR method in qMRLab contains three fitting models: Sled and Pike, Ramani, and Yarnykh and Yuan [@Sled2001-fz;@Ramani2002-pq;@Yarnykh2002-dq]. For the Sled and Pike model, the saturation fraction effect of the MT pulse on the free pool is pre-computed to accelerate the processing times. The MT effect of the pulse is approximated as an instantaneous fractional saturation of the longitudinal magnetization of the free pool, assuming the absence of chemical exchange processes [@Pike1996-wq;@Sled2001-fz]. To fit the model, additional parameters related to the pulse sequence are required, namely timing parameters, the absorption lineshape, and the characteristics of the MT pulse, such as the shape and the bandwidth or the time-bandwidth product. In [](#qmtFig5), the qMT-SPGR method is used to show a single voxel curve simulation for the same MT data fitted by three different models. The fitted parameters were the pool size ratio F, the magnetization transfer rate from the restricted to the free-water pool (_k_{sub}`r`), and the transverse relaxation time of the free-water (_T_{sub}`2,f`) and restricted (_T_{sub}`2,r`) pool.
 
-```{figure} #qmtFig4cell
+```{figure} #qmtFig4jn
 :label: qmtFig5
 :enumerator: 6.5
 Sled and Pike, Ramani, and Yarnykh and Yuan models to fit the MT data from a qMT-SPGR experiment.
@@ -36,7 +36,7 @@ R_{1,f}=R_{1}^{meas}-\frac{k_{f}\left( R_{1,r}-R_{1}^{meas} \right)}{\left( R_{1
 ```
 
 
-```{figure} #qmtFig5cell
+```{figure} #qmtFig5jn
 :label: qmtFig6
 :enumerator: 6.6
 Errors (%) in fitted parameters when input maps of different quality are used. A _B_{sub}`1` map of 0.9 means that the input has a 10% lower value than expected. The fitted parameters include the pool size ratio, F, the magnetization exchange rate, _k_{sub}`f`, the free pool _T_{sub}`2,f`, and the restricted pool _T_{sub}`2,r`. The errors were simulated for _B_{sub}`0`, _B_{sub}`1` and _T_{sub}`1` maps of different quality.
@@ -46,7 +46,7 @@ As described above in [](#qmtFig6), inaccurate MT pulse flip angles and excitati
 
 [](#qmtFig8) displays an example human dataset with the input qMRI maps used to fit the qMT parameters F, _k_{sub}`f`, _T_{sub}`2,f`, _T_{sub}`2,r`.
 
-```{figure} #qmtFig6cell
+```{figure} #qmtFig6jn
 :label: qmtFig7
 ```
 

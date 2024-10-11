@@ -97,18 +97,37 @@ project:
             - file: 2 T1 Mapping/2-1 Inversion Recovery/03-IR_DataFitting.md
             - file: 2 T1 Mapping/2-1 Inversion Recovery/04-IR_BenefitsAndPitfalls.md
             - file: 2 T1 Mapping/2-1 Inversion Recovery/05-IR_OtherMethods.md
+            - title: Notebooks
+              children:
+                - file: 2 T1 Mapping/2-1 Inversion Recovery/Notebooks/Figure-2-1-1.ipynb
+                - file: 2 T1 Mapping/2-1 Inversion Recovery/Notebooks/Figure-2-1-2.ipynb
+                - file: 2 T1 Mapping/2-1 Inversion Recovery/Notebooks/Figure-2-1-3.ipynb
+                - file: 2 T1 Mapping/2-1 Inversion Recovery/Notebooks/Figure-2-1-4.ipynb
+                - file: 2 T1 Mapping/2-1 Inversion Recovery/Notebooks/Figure-2-1-5.ipynb
         - title: Variable Flip Angle
           children:
             - file: 2 T1 Mapping/2-2 Variable Flip Angle/01-Introduction.md
             - file: 2 T1 Mapping/2-2 Variable Flip Angle/02-VFA_SignalModelling.md
             - file: 2 T1 Mapping/2-2 Variable Flip Angle/03-VFA_DataFitting.md
             - file: 2 T1 Mapping/2-2 Variable Flip Angle/04-VFA_BenefitsAndPitfalls.md
+            - title: Notebooks
+              children:
+                - file: 2 T1 Mapping/2-2 Variable Flip Angle/Notebooks/Figure-2-2-1.ipynb
+                - file: 2 T1 Mapping/2-2 Variable Flip Angle/Notebooks/Figure-2-2-2.ipynb
+                - file: 2 T1 Mapping/2-2 Variable Flip Angle/Notebooks/Figure-2-2-3.ipynb
+                - file: 2 T1 Mapping/2-2 Variable Flip Angle/Notebooks/Figure-2-2-4.ipynb
+                - file: 2 T1 Mapping/2-2 Variable Flip Angle/Notebooks/Figure-2-2-5.ipynb
+                - file: 2 T1 Mapping/2-2 Variable Flip Angle/Notebooks/Figure-2-2-6.ipynb
         - title: MP2RAGE
           children:
             - file: 2 T1 Mapping/2-3 MP2RAGE/01-Introduction.md
             - file: 2 T1 Mapping/2-3 MP2RAGE/02-SignalModelling.md
             - file: 2 T1 Mapping/2-3 MP2RAGE/03-DataFitting.md
             - file: 2 T1 Mapping/2-3 MP2RAGE/04-BenefitsAndPitfalls.md
+            - title: Notebooks
+              children:
+                - file: 2 T1 Mapping/2-3 MP2RAGE/Notebooks/Figure-2-3-1.ipynb
+                - file: 2 T1 Mapping/2-3 MP2RAGE/Notebooks/Figure-2-3-2.ipynb
         - file: 2 T1 Mapping/2-4 Exercises/01-Exercises.md
     - title: T2 Mapping
       children:
@@ -132,6 +151,10 @@ project:
             - file: >-
                 3 T2 Mapping/02-Monoexponential T2 Mapping/04-Benefits and
                 pitfalls.md
+            - title: Notebooks
+              children:
+                - file: 3 T2 Mapping/02-Monoexponential T2 Mapping/Notebooks/Figure-3-2-1.ipynb
+                - file: 3 T2 Mapping/02-Monoexponential T2 Mapping/Notebooks/Figure-3-2-2.ipynb
         - title: Multiexponential T2 Mapping
           children:
             - file: 3 T2 Mapping/03-Multiexponential T2 Mapping/01-Introduction.md
@@ -151,6 +174,12 @@ project:
                     3 T2 Mapping/03-Multiexponential T2
                     Mapping/04-Applications/03-Benefits and pitfalls of
                     multi-exponential T2 mapping.md
+            - title: Notebooks
+              children:
+              - file: 3 T2 Mapping/03-Multiexponential T2 Mapping/Notebooks/Figure-3-3-1.ipynb
+        - title: Notebooks
+          children:
+            - file: 3 T2 Mapping/01-Introduction/Notebooks/Figure-3-1-1.ipynb
     - title: B1 Mapping
       children:
         - title: Double Angle Methods
@@ -163,12 +192,26 @@ project:
                 4 B1 Mapping/01-Double Angle technique/03- Gradient echo and 180 deg
                 spin echo method copy.md
             - file: 4 B1 Mapping/01-Double Angle technique/A1-Appendix A.md
+            - title: Notebooks
+              children:
+                - file: 4 B1 Mapping/01-Double Angle technique/Notebooks/Figure-4-1-1.ipynb
+                - file: 4 B1 Mapping/01-Double Angle technique/Notebooks/Figure-4-1-2.ipynb
+                - file: 4 B1 Mapping/01-Double Angle technique/Notebooks/Figure-4-1-3.ipynb
         - title: Actual Flip Angle Imaging
           children:
             - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/01-abstract.md
             - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/02-SignalModeling.md
             - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/03-DataFitting.md
             - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/04-BenefitsAndPitfalls.md
+            - title: Notebooks
+              children:
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-1.ipynb
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-2.ipynb
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-3.ipynb
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-4.ipynb
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-6.ipynb
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-7.ipynb
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-8.ipynb
         - title: Filtering
           children:
             - file: 4 B1 Mapping/03-Filtering/01-Introduction.md
@@ -178,6 +221,17 @@ project:
             - file: >-
                 4 B1 Mapping/03-Filtering/05-Recommendations, benefits, and
                 pitfalls.md
+            - title: Notebooks
+              children:
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-1.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-2.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-3.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-4.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-5.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-6.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-7.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-8.ipynb
+                - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-9.ipynb
     - title: B0 Mapping
       children:
         - title: B0 Inhomogeneities
@@ -190,6 +244,13 @@ project:
                     5 B0 Mapping/1 B0 Inhomogeneities/2-Sources/02-Magnetic
                     susceptibility.md
             - file: 5 B0 Mapping/1 B0 Inhomogeneities/3-Effects on signal.md
+            - title: Notebooks
+              children:
+                - file: 5 B0 Mapping/1 B0 Inhomogeneities/Notebooks/Figure-5-1-1.ipynb
+                - file: 5 B0 Mapping/1 B0 Inhomogeneities/Notebooks/Figure-5-1-2.ipynb
+                - file: 5 B0 Mapping/1 B0 Inhomogeneities/Notebooks/Figure-5-1-3.ipynb
+                - file: 5 B0 Mapping/1 B0 Inhomogeneities/Notebooks/Figure-5-1-4.ipynb
+                - file: 5 B0 Mapping/1 B0 Inhomogeneities/Notebooks/Figure-5-1-5.ipynb
         - title: Dual Echo B0 Mapping
           children:
             - file: 5 B0 Mapping/2 Dual echo B0 mapping/01-Introduction.md
@@ -199,6 +260,12 @@ project:
                 Population.md
             - file: 5 B0 Mapping/2 Dual echo B0 mapping/04-Multi-Frequency Population.md
             - file: 5 B0 Mapping/2 Dual echo B0 mapping/05-Benefits and Pitfalls.md
+            - title: Notebooks
+              children:
+                - file: 5 B0 Mapping/2 Dual echo B0 mapping/Notebooks/Figure-5-2-1.ipynb
+                - file: 5 B0 Mapping/2 Dual echo B0 mapping/Notebooks/Figure-5-2-2.ipynb
+                - file: 5 B0 Mapping/2 Dual echo B0 mapping/Notebooks/Figure-5-2-3.ipynb
+                - file: 5 B0 Mapping/2 Dual echo B0 mapping/Notebooks/Figure-5-2-4.ipynb
         - title: Phase Unwrapping
           children:
             - file: 5 B0 Mapping/3 Phase Unwrapping/01-Introduction.md
@@ -209,6 +276,13 @@ project:
                 5 B0 Mapping/3 Phase Unwrapping/05-Problematic phase map
                 properties.md
             - file: 5 B0 Mapping/3 Phase Unwrapping/06-Software.md
+            - title: Notebooks
+              children:
+                - file: 5 B0 Mapping/3 Phase Unwrapping/Notebooks/Figure-5-3-1.ipynb
+                - file: 5 B0 Mapping/3 Phase Unwrapping/Notebooks/Figure-5-3-2.ipynb
+                - file: 5 B0 Mapping/3 Phase Unwrapping/Notebooks/Figure-5-3-3.ipynb
+                - file: 5 B0 Mapping/3 Phase Unwrapping/Notebooks/Figure-5-3-4.ipynb
+                - file: 5 B0 Mapping/3 Phase Unwrapping/Notebooks/Figure-5-3-5.ipynb
         - title: Advanced B0 Mapping Methods
           children:
             - file: 5 B0 Mapping/4 Advanced B0 Mapping Methods/01-Introduction.md
@@ -217,6 +291,12 @@ project:
                 5 B0 Mapping/4 Advanced B0 Mapping Methods/03-Reducing eddy
                 currents.md
             - file: 5 B0 Mapping/4 Advanced B0 Mapping Methods/04-Realtime.md
+            - title: Notebooks
+              children:
+                - file: 5 B0 Mapping/4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-1.ipynb
+                - file: 5 B0 Mapping/4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-2.ipynb
+                - file: 5 B0 Mapping/4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-3.ipynb
+                - file: 5 B0 Mapping/4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-4.ipynb
         - file: 5 B0 Mapping/5 Conclusion/5 Conclusion.md
     - title: Magnetization Transfer Imaging
       children:
@@ -234,6 +314,26 @@ project:
             - file: >-
                 6 Magnetization Transfer Imaging/1 Quantitative Magnetization
                 Transfer/04-Summary.md
+            - title: Notebooks
+              children:
+                - file: >-
+                    6 Magnetization Transfer Imaging/1 Quantitative Magnetization
+                    Transfer/Notebooks/Figure-6-1-1.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/1 Quantitative Magnetization
+                    Transfer/Notebooks/Figure-6-1-2.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/1 Quantitative Magnetization
+                    Transfer/Notebooks/Figure-6-1-3.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/1 Quantitative Magnetization
+                    Transfer/Notebooks/Figure-6-1-4.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/1 Quantitative Magnetization
+                    Transfer/Notebooks/Figure-6-1-5.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/1 Quantitative Magnetization
+                    Transfer/Notebooks/Figure-6-1-6.ipynb
         - title: Magnetization Transfer Ratio
           children:
             - file: >-
@@ -251,6 +351,24 @@ project:
             - file: >-
                 6 Magnetization Transfer Imaging/2 Magnetization Transfer Ratio/A1-
                 Appendix A.md
+            - title: Notebooks
+              children:
+                - file: >-
+                    6 Magnetization Transfer Imaging/2 Magnetization Transfer
+                    Ratio/Notebooks/Figure-6-2-1.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/2 Magnetization Transfer
+                    Ratio/Notebooks/Figure-6-2-2.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/2 Magnetization Transfer
+                    Ratio/Notebooks/Figure-6-2-3.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/2 Magnetization Transfer
+                    Ratio/Notebooks/Figure-6-2-4.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/2 Magnetization Transfer
+                    Ratio/Notebooks/Figure-6-2-5.ipynb
+
         - title: Magnetization Transfer Saturation
           children:
             - file: >-
@@ -268,92 +386,26 @@ project:
             - file: >-
                 6 Magnetization Transfer Imaging/3 Magnetization Transfer
                 Saturation/A2-Appendix B.md
-    - title: Figures
-      children:
-        - title: T1  Mapping
-          children:
-            - file: Figures/T1/figure_2-2.ipynb
-            - file: Figures/T1/figure_2-3.ipynb
-            - file: Figures/T1/figure_2-4.ipynb
-            - file: Figures/T1/figure_2-5.ipynb
-            - file: Figures/T1/figure_2-6.ipynb
-            - file: Figures/T1/figure_vfa2.ipynb
-            - file: Figures/T1/figure_vfa3.ipynb
-            - file: Figures/T1/figure_vfa4.ipynb
-            - file: Figures/T1/figure_vfa5.ipynb
-            - file: Figures/T1/figure_vfa6.ipynb
-            - file: Figures/T1/figure_vfa7.ipynb
-            - file: Figures/T1/mp2rageFig1.ipynb
-            - file: Figures/T1/mp2rageFig2.ipynb
-        - title: T2  Mapping
-          children:
-            - file: Figures/T2/fig3p1.ipynb
-            - file: Figures/T2/fig3p2.ipynb
-            - file: Figures/T2/fig3p3.ipynb
-            - file: Figures/T2/fig3p4.ipynb
-            - file: Figures/T2/fig3p5.ipynb
-        - title: B1  Mapping
-          children:
-            - file: Figures/B1/afiFig1.ipynb
-            - file: Figures/B1/afiFig2.ipynb
-            - file: Figures/B1/afiFig3.ipynb
-            - file: Figures/B1/afiFig4.ipynb
-            - file: Figures/B1/afiFig5.ipynb
-            - file: Figures/B1/afiFig6.ipynb
-            - file: Figures/B1/afiFig7.ipynb
-            - file: Figures/B1/afiFig8.ipynb
-            - file: Figures/B1/daFig1.ipynb
-            - file: Figures/B1/daFig2.ipynb
-            - file: Figures/B1/daFig3.ipynb
-            - file: Figures/B1/filtFig1.ipynb
-            - file: Figures/B1/filtFig2.ipynb
-            - file: Figures/B1/filtFig3.ipynb
-            - file: Figures/B1/filtFig4.ipynb
-            - file: Figures/B1/filtFig5.ipynb
-            - file: Figures/B1/filtFig6.ipynb
-            - file: Figures/B1/filtFig7.ipynb
-            - file: Figures/B1/filtFig8.ipynb
-            - file: Figures/B1/filtFig9.ipynb
-        - title: B0  Mapping
-          children:
-            - file: Figures/B0/fig5p1.ipynb
-            - file: Figures/B0/fig5p2.ipynb
-            - file: Figures/B0/fig5p3.ipynb
-            - file: Figures/B0/fig5p4.ipynb
-            - file: Figures/B0/fig5p5.ipynb
-            - file: Figures/B0/fig5p6.ipynb
-            - file: Figures/B0/fig5p7.ipynb
-            - file: Figures/B0/fig5p8.ipynb
-            - file: Figures/B0/fig5p9.ipynb
-            - file: Figures/B0/fig5p10.ipynb
-            - file: Figures/B0/fig5p11.ipynb
-            - file: Figures/B0/fig5p12.ipynb
-            - file: Figures/B0/fig5p13.ipynb
-            - file: Figures/B0/fig5p14.ipynb
-            - file: Figures/B0/fig5p15.ipynb
-            - file: Figures/B0/fig5p16.ipynb
-            - file: Figures/B0/fig5p17.ipynb
-            - file: Figures/B0/fig5p18.ipynb
-        - title: MT
-          children:
-            - file: Figures/MT/mtrFig1.ipynb
-            - file: Figures/MT/mtrFig2.ipynb
-            - file: Figures/MT/mtrFig3.ipynb
-            - file: Figures/MT/mtrFig4.ipynb
-            - file: Figures/MT/mtrFig5.ipynb
-            - file: Figures/MT/mtsatAppendixB1.ipynb
-            - file: Figures/MT/mtsatAppendixB2.ipynb
-            - file: Figures/MT/mtsatAppendixB3.ipynb
-            - file: Figures/MT/mtsatFig1.ipynb
-            - file: Figures/MT/mtsatFig2.ipynb
-            - file: Figures/MT/mtsatFig3.ipynb
-            - file: Figures/MT/qmtFig1.ipynb
-            - file: Figures/MT/qmtFig2.ipynb
-            - file: Figures/MT/qmtFig3.ipynb
-            - file: Figures/MT/qmtFig4.ipynb
-            - file: Figures/MT/qmtFig5.ipynb
-            - file: Figures/MT/qmtFig6.ipynb
-    
+            - title: Notebooks
+              children:
+                - file: >-
+                    6 Magnetization Transfer Imaging/3 Magnetization Transfer
+                    Saturation/Notebooks/Figure-6-3-1.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/3 Magnetization Transfer
+                    Saturation/Notebooks/Figure-6-3-2.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/3 Magnetization Transfer
+                    Saturation/Notebooks/Figure-6-3-3.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/3 Magnetization Transfer
+                    Saturation/Notebooks/Figure-6-3-B1.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/3 Magnetization Transfer
+                    Saturation/Notebooks/Figure-6-3-B2.ipynb
+                - file: >-
+                    6 Magnetization Transfer Imaging/3 Magnetization Transfer
+                    Saturation/Notebooks/Figure-6-3-B3.ipynb
 site:
   template: book-theme
   options:

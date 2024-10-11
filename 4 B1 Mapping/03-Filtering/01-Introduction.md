@@ -22,7 +22,7 @@ The behaviour of electromagnetic fields produced by RF antennas are bound by the
 
 In practice, measured _B_{sub}`1`{sup}`+` maps are rarely perfectly smooth over the anatomy-of-interest being imaged. [](#filtPlot1) shows a comparison of measured _B_{sub}`1` maps in the brain produced by three methods: double angle, actual flip angle imaging (AFI), and Bloch-Siegert shift.
 
-:::{figure} #filtFig1cell
+:::{figure} #filtFig1jn
 :label: filtPlot1
 :enumerator: 4.14
 Example _B_{sub}`1` maps (right column) along with their raw acquired data (left and middle columns) for three different _B_{sub}`1` mapping techniques: double angle (top row), actual flip angle imaging (AFI; middle row), and Bloch-Siegert shift (bottom row).

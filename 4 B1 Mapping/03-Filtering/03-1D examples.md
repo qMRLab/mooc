@@ -22,7 +22,7 @@ This content of this section is still a work-in-progress and has not been proofr
 Let’s explore how different filters and smoothing functions behave under different circumstances, in order to help provide you with some insights on how to decide which one may be the best choice for your _B_{sub}`1` map. In [](#filtPlot4) we generated a 1D distribution to simulate a rectangular “object” with no sharp edges and no noise, which we’ll define as the “true signal”. Applying three different filters (Gaussian, Median, Spline) to this ideal signal, we can see how the filter and it’s width impacts the signal.
 
 
-:::{figure} #filtFig4cell
+:::{figure} #filtFig4jn
 :label: filtPlot4
 :enumerator: 4.17
 Convolution on the ideal function
@@ -33,7 +33,7 @@ This illustrates that simply the act of applying the filter can have undesired e
 Let’s add some noise.
 
 
-:::{figure} #filtFig5cell
+:::{figure} #filtFig5jn
 :label: filtPlot5
 :enumerator: 4.18
 Ideal function + noise
@@ -44,7 +44,7 @@ Here in [](#filtPlot5) we start to see a real benefit of the use of the filters.
 
 What happens if there is a pixel or small region that has a very high signal relative to the nearby voxels? Will all our filters work well at restoring the true signal? [](#filtPlot6) demonstrates this.
 
-:::{figure} #filtFig6cell
+:::{figure} #filtFig6jn
 :label: filtPlot6
 :enumerator: 4.19
 Ideal function + delta
@@ -54,7 +54,7 @@ If the filter strength is strong enough, the median filter works much better at 
 
 What happens at the interface of the brain, where the _B_{sub}`1` signal abruptly drops to zero? [](#filtPlot7) illustrates this using a step-function boundary on the right side of our original signal:
 
-:::{figure} #filtFig7cell
+:::{figure} #filtFig7jn
 :label: filtPlot7
 :enumerator: 4.20
 Ideal function + step/sharp edge
@@ -64,7 +64,7 @@ Here we see again that the median function works well if the filter strength is 
 
 [](#filtPlot8) shows one last example, our original signal multiplied by a “comb” function (i.e. repeated pattern of the delta signal), which could be present in cases where there is Gibbs ringing in the image. Interpretation of the benefits and drawbacks for each filter for different filter strength here is left to the reader.
 
-:::{figure} #filtFig8cell
+:::{figure} #filtFig8jn
 :label: filtPlot8
 :enumerator: 4.21
 Ideal function + comb

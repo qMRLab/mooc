@@ -18,7 +18,7 @@ To excite the spins in the transverse plane, a carrier frequency tuned to the [L
 When a signal is acquired, it is demodulated to remove the carrier frequency ([Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession)) from the signal. An example of a FID is shown in [](#b0Plot4). The number of species represent the number of isochromats in the simulation. An isochromat represents an ensemble of spins with the same properties rotating at the same [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession). For a single isochromat, if the acquired signal and demodulation frequency perfectly match, the _T_{sub}`2` signal can be recovered. If the carrier frequency is different from the expected frequency (such as when there are inhomogeneities), the demodulation introduces low-frequency variations. A non-homogeneous sample is also shown featuring many isochromats. Alternatively, a homogeneous sample with a non-homogeneous _B_{sub}`0` field could be simulated as well and would have a similar shape as the one with multiple species. In that case, the difference from the _T_{sub}`2` curve would reflect _T_{sub}`2`{sup}`*` ({math}`1/T_{2}^{*}=1/T_{2}+1/T_{2}^{'}`) effects. During the relaxation process, spins precessing at different frequencies, due to the presence  of _B_{sub}`0` inhomogeneities, will give rise to phase offsets between the spins within a voxel. This intravoxel phase dispersion leads to signal decay. 
 
 
-:::{figure} #fig5p4cell
+:::{figure} #b0Fig4jn
 :label: b0Plot4
 :enumerator: 5.4
 FID curves with signal demodulation at [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) (single species), at two different frequencies ([Larmor](https://en.wikipedia.org/wiki/Larmor_precession) and offset frequency, two species) and at multiple frequencies ([Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) and many other offset frequencies, multiple species). The resulting shape of the graphs depends on the relative amplitudes and frequencies.
@@ -26,7 +26,7 @@ FID curves with signal demodulation at [Larmor frequency](https://en.wikipedia.o
 
 _B_{sub}`0` inhomogeneities can lead to distorted k-space trajectories during the readout gradient. This effect is worse during further k-space traversal due to the compounding of the errors. When inhomogeneities are present, the frequencies of the spins are altered. The one-to-one relationship between frequency and spatial location (required to obtain accurate spatial correspondence) is broken. This leads to geometric distortions. [](#b0Plot5) shows an animation of the filing of k-space of an EPI sequence using bi-polar readouts. A theoretical trajectory is shown as well as a trajectory where a constant parasite gradient in the phase encoding direction has been added. One can observe the trajectory differences.
 
-:::{figure} #fig5p5cell
+:::{figure} #b0Fig5jn
 :label: b0Plot5
 :enumerator: 5.5
  K-space trajectory of an EPI sequence using bi-polar readout gradients (blue). A constant gradient in the positive phase encoding direction is applied to simulate inhomogeneities (red). The trajectory with the parasite gradient deviates from the theoretical trajectory. All encoding gradients (G) are instantaneously applied at 40 mT/m. A parasit G{sub}`p,phase` of 0.1mT/m (G/G{sub}`p,phase`=0.25%) is added to simulate inhomogeneities. 64 encoding steps are used in both the frequency and phase encoding directions but only one in five phase encoding lines is shown for visualization purposes.

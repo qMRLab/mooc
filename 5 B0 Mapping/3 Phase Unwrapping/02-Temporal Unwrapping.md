@@ -53,7 +53,7 @@ If a longer TE is selected, or if the inhomogeneities are bigger than originally
 
 Temporal unwrapping can also be performed without phase difference. [](#b0Plot10) shows the phase of a voxel acquired at four echo times in blue. Note that the last echo time is wrapped (i.e.: the phase rotated by more than {math}`2\pi` and “wrapped” to the positive side). With the assumption that phase does not vary by more than {math}`2\pi`, we can unwrap the phase by, in this case, subtracting {math}`2\pi` from the acquired phase to recover the true phase (in red). A linear fit is shown in green. Note that the slope would represent the field map value.
 
-:::{figure} #fig5p10cell
+:::{figure} #b0Fig10jn
 :label: b0Plot10
 :enumerator: 5.10
 Four phase voxels acquired at different echo times (blue). The phase is unwrapped temporally and plotted, which in this case changes the phase of the 4th echo (red). A linear fit is also shown (green).

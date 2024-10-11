@@ -16,7 +16,7 @@ numbering:
 
 In the ideal case, spins rotate at the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession), shown in blue in [](#b0Plot6). In the presence of field inhomogeneities, the frequency of the spins (shown in red) is different and is proportional to the field inhomogeneities. Both the laboratory and rotating frame of reference are shown. Importantly, note that the [Larmor frequency](https://en.wikipedia.org/wiki/Larmor_precession) phase appears stationary in the rotating frame of reference. 
 
-:::{figure} #fig5p6cell
+:::{figure} #b0Fig6jn
 :label: b0Plot6
 :enumerator: 5.6
 Two spins rotating (one at the Larmor frequency ({math}`f_{0}`), one at a lower frequency). A view of the spins in the transverse plane (left) and of their phase (right) is shown. A dropdown is available to select between the laboratory frame and the rotating frame of reference.
@@ -34,7 +34,7 @@ The phase ({math}`\phi`) evolution follows the following equation (not consideri
 
 where x,y,z are the coordinate locations, t is time,  is the gyromagnetic ratio, _B_{sub}`0` is the _B_{sub}`0` field offset (Tesla) and {math}`\phi_{0}` is an initial constant phase offset (e.g.: coil induced, material induced through local conductivity/permittivity). We can observe phase evolution through time in [](#b0Plot7) by looking at phase data acquired in the brain at progressively longer echo times. The phase at a single voxel changes linearly (not considering transient effects). Note that the sharp variations forming vertical lines in the previous figure are called phase wraps and occur because the phase is defined over - to . Phase-wrapping effects will be discussed in more detail in the following section. Wraps can also occur spatially as sharp variations as seen in the following figure. Note that the longer the echo times, the more wraps there are.
 
-:::{figure} #fig5p7cell
+:::{figure} #b0Fig7jn
 :label: b0Plot7
 :enumerator: 5.7
 Phase shown at different echo times. The slider can be used to show the phase that would be acquired at different echo times.

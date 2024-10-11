@@ -31,7 +31,7 @@ where {math}`f`, {math}`f_{0}` and {math}`\Delta f` represent the actual precess
 
 [](#b0Plot1) shows typical brain magnitude, phase, and B0 field map images of a brain in a 3 T scanner.
 
-:::{figure} #fig5p1cell
+:::{figure} #b0Fig1jn
 :label: b0Plot1
 :enumerator: 5.1
 Magnitude image of the reconstructed MRI signal acquired at 3 T (A), the phase in radians (B), and a computed field map in Hz (C), 𝜇T (D) and ppm (E). The dropdown can be used to select between the different images.

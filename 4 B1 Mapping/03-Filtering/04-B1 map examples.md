@@ -20,7 +20,7 @@ This content of this section is still a work-in-progress and has not been proofr
 
 Let’s revisit our initial _B_{sub}`1` maps in [](#filtPlot1) and see how they respond to the filters we’ve explored in the previous section. The double angle _B_{sub}`1` maps were mostly impacted by noise and structural _T_{sub}`1` patterns, AFI had some artifacts that were caused by Gibbs ringing in the raw images, and the Bloch-Siegert _B_{sub}`1` map had an artifact caused by a phase pole at the end of a fringe line. [](#filtPlot9) shows each of the _B_{sub}`1` map and the filtered maps using the median, Gaussian, and spline filtering techniques.
 
-:::{figure} #filtFig9cell
+:::{figure} #filtFig9jn
 :label: filtPlot9
 :enumerator: 4.22
 Filtered _B_{sub}`1` maps

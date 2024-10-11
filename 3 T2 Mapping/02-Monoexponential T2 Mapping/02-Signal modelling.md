@@ -31,7 +31,7 @@ where Mz(0-) is the longitudinal magnetization immediately preceding the 90 degr
 
 
 
-:::{figure} #fig3p2cell
+:::{figure} #t2Fig2jn
 :label: t2Plot2
 :enumerator: 3.3
 Transverse relaxation decay curves for _T_{sub}`2` and _T_{sub}`2`{sup}`*` values in white matter and gray matter. The _T_{sub}`2` and _T_{sub}`2`{sup}`*` constants were taken from [@Siemonsen2008-bc].

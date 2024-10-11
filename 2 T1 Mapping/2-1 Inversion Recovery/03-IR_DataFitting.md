@@ -29,7 +29,7 @@ S(TI) = a + be^{- \frac{TI}{T_1}}
 where {math}`a` and {math}`b` are complex values. If magnitude-only data is available, a 3-parameter model can be sufficient by taking the absolute value of [Equation 2.4](#irEq4).  While the RD-NLS algorithms are too complex to be presented here (the reader is referred to the paper, (Barral et al. 2010)),  the code for these algorithms [was released open-source](http://www-mrsrl.stanford.edu/~jbarral/t1map.html) along with the original publication, and is also available as a [qMRLab](https://github.com/qMRLab/qMRLab) _T_{sub}`1` mapping model. One important thing to note about [Equation 2.4](#irEq4) is that it is general – no assumption is made about TR – and is thus as robust as [Equation 2.1](#irEq1) as long as all pulse sequence parameters other than TI are kept constant between each measurement. [](#irPlot3) compares simulated data ([Equation 2.1](#irEq1)) using a range of TRs (1.5_T_{sub}`1` to 5_T_{sub}`1`) fitted using either RD-NLS & [Equation 2.4](#irEq4) or a [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) fit of [Equation 2.2](#irEq2).
 
 
-:::{figure} #fig2p4cell
+:::{figure} #irFig4jn
 :label: irPlot3
 :enumerator: 2.4
 Fitting comparison of simulated data (blue markers) with _T_{sub}`1` = 1 s and TR = 1.5 to 5 s, using fitted using RD-NLS & [Equation 2.4](#irEq4) (green) and [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) & [Equation 2.2](#irEq2) (orange, long TR approximation).
@@ -39,7 +39,7 @@ Fitting comparison of simulated data (blue markers) with _T_{sub}`1` = 1 s and T
 [](#irPlot4) displays an example brain dataset from an inversion recovery experiment, along with the _T_{sub}`1` map fitted using the RD-NLS technique.
 
 
-:::{figure} #fig2p5cell
+:::{figure} #irFig5jn
 :label: irPlot4
 :enumerator: 2.5
 Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The _T_{sub}`1` map (right) was fitted using a RD-NLS algorithm.

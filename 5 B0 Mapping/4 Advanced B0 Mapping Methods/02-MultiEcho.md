@@ -27,7 +27,7 @@ Multi-echo field mapping (three or more echoes) makes use of more echo times tha
 
 There are many ways to perform multi-echo field mapping. The most straightforward way (after dual-echo) is to spatially unwrap the phase of all the echo times, then temporally unwrap the resulting data to remove any {math}`2n\pi` offsets between time points that could arise from spatial unwrapping. A linear fit can then be done to retrieve the field map. This technique requires the echo times between time points to be reasonably short so that temporal unwrapping can accurately unwrap the data ({math}`\Delta \phi < \pi `). [](#b0Plot15) shows two solutions that can be obtained from this processing (note the exact {math}`2\pi` difference at each timepoint). The difference could be explained from the choice of seed voxel used for unwrapping spatially. However, as the slope (change in phase over time) is the same for both solutions, an accurate field map can still be recovered even if the underlying phase maps have a {math}`2n\pi` offset. This is another advantage over phase difference algorithms.
 
-:::{figure} #fig5p15cell
+:::{figure} #b0Fig15jn
 :label: b0Plot15
 :enumerator: 5.15
 Two different unwrapped solutions from unwrapping phase data of three echoes. A 2 offset is observed between both solutions.
@@ -36,7 +36,7 @@ Two different unwrapped solutions from unwrapping phase data of three echoes. A 
 Another way to perform multi-echo field mapping is to have two echoes that are relatively close to avoid temporal phase wrapping and a later echo with sufficient SNR. The first two echoes can be treated as a dual-echo and the resulting field map can help temporally unwrap the 3rd echo. This 3rd echo can be used to get a better fit. This is shown in [](#b0PLot16).
 
 
-:::{figure} #fig5p16cell
+:::{figure} #b0Fig16jn
 :label: b0Plot16
 :enumerator: 5.16
 Three-echo acquisition, where the first two echoes respect the [Nyquist criteria](https://en.wikipedia.org/wiki/Nyquist_frequency) and can be temporally unwrapped accurately, while the third echo has a much longer echo time. The first two echoes can be used to predict the number of wraps of the third echo. With all three echoes accurately unwrapped, a fit with three echoes can be computed.
@@ -46,7 +46,7 @@ As mentioned in the [phase unwrapping section](#phaseUnwrapIntro), the standard 
 
 More complex algorithms such as UMPIRE [24] exploit echo timings to only rely on temporal unwrapping to unwrap the phase images. A minimum of three echoes is necessary for this algorithm. With three echoes, the two echo time differences (ΔTE{sub}`1`=TE{sub}`2`-TE{sub}`1`, ΔTE{sub}`2`=TE{sub}`3`-TE{sub}`2`) are chosen to be slightly different. Doing this allows us to calculate the accrued phase during TE{sub}`2`-TE{sub}`1`= δTE which is chosen to be small and is therefore free of wraps. Using this, the wraps in the different echoes can be estimated and removed yielding unwrapped phase images which can be fit to calculate the field map. An advantage of the technique is that it allows us to select echo times that would normally be too long, as ΔTE{sub}`x` can be larger than {math}`\pi`. An important prerequisite of this algorithm is that the phase offset occurring during δTE should be less than  but greater than zero, such that a good estimate of the phase can still be calculated. [](#b0Plot17) shows an example of a single voxel being unwrapped using UMPIRE. As previously stated, the slope of the linear fit is proportional to the resulting field map. The traces can be toggled on and off by clicking the legend.
 
-:::{figure} #fig5p17cell
+:::{figure} #b0Fig17jn
 :label: b0Plot17
 :enumerator: 5.17
 Three echo data unwrapped using the UMPIRE algorithm. Note that UMPIRE is able to unwrap phase data that varies by more than π. The different traces can be toggled on or off clicking the desired trace in the legend.
@@ -54,7 +54,7 @@ Three echo data unwrapped using the UMPIRE algorithm. Note that UMPIRE is able t
 
 Although UMPIRE has many advantages, it suffers from being susceptible to noise. [](#b0Plot18) uses the same phase data as the previous figure, but adds a slider that simulates a phase offset added to the second echo. 
 
-:::{figure} #fig5p18cell
+:::{figure} #b0Fig18jn
 :label: b0Plot18
 :enumerator: 5.18
 Effect of noise using UMPIRE. A slider is provided to change the field offset of the second echo and to see its effect on the resulting unwrapped data and linear fit.
