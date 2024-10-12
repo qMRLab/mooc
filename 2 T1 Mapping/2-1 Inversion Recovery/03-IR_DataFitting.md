@@ -42,8 +42,10 @@ Fitting comparison of simulated data (blue markers) with _T_{sub}`1` = 1 s and T
 :::{figure} #irFig5jn
 :label: irPlot4
 :enumerator: 2.5
-Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The _T_{sub}`1` map (right) was fitted using a RD-NLS algorithm.
+Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The _T_{sub}`1` map[^footnote] (right) was fitted using a RD-NLS algorithm.
 :::
+
+[^footnote]: _T_{sub}`1` maps are displayed using the Lipari colorscale, as proposed by [@fuderer2024co].
 
 
 ````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#irPlot3).

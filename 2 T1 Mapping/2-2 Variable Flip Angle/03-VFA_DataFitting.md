@@ -79,9 +79,10 @@ Mean and standard deviations of fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_rel
 :::{figure} #vfaFig7jn
 :label: vfaPlot6
 :enumerator: 2.13
-Example variable flip angle dataset and _B_{sub}`1` map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`\theta_{nominal}` = 3° and 20°. The _T_{sub}`1` map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
+Example variable flip angle dataset and _B_{sub}`1` map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`\theta_{nominal}` = 3° and 20°. The _T_{sub}`1` map[^footnote] (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
 :::
 
+[^footnote]: _T_{sub}`1` maps are displayed using the Lipari colorscale, as proposed by [@fuderer2024co].
 
 ````{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#vfaPlot4).
 :class: tip, dropdown

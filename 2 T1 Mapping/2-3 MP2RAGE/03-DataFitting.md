@@ -30,7 +30,9 @@ To produce _T_{sub}`1` maps with good accuracy and precision using dictionary-ba
 ```{figure} #mp2rageFig3jn
 :label: mp2rageplot2
 :enumerator: 2.16
-Example MP2RAGE dataset of a healthy adult brain at 7T and _T_{sub}`1` map. Inversion times used to acquire this magnitude image dataset were 800 ms and 2700 ms, the flip angles were 4° and 5° (respectively),  TR{sub}`MP2RAGE` = 6000 ms, and TR = 6.7 ms. The dataset and code that was used were shared open sourced by the authors of the original MP2RAGE paper [@Marques2017-ws].
+Example MP2RAGE dataset of a healthy adult brain at 7T and _T_{sub}`1` map[^footnote]. Inversion times used to acquire this magnitude image dataset were 800 ms and 2700 ms, the flip angles were 4° and 5° (respectively),  TR{sub}`MP2RAGE` = 6000 ms, and TR = 6.7 ms. The dataset and code that was used were shared open sourced by the authors of the original MP2RAGE paper [@Marques2017-ws].
 ```
+
+[^footnote]: _T_{sub}`1` maps are displayed using the Lipari colorscale, as proposed by [@fuderer2024co].
 
 The MP2RAGE pulse sequence is increasingly being distributed by MRI vendors, thus typically a data fitting package is also available to reconstruct the _T_{sub}`1` maps online. Alternatively, several open source packages to create _T_{sub}`1` maps from MP2RAGE data are available online [@Marques2017-ws;@De_Hollander2017-cv], and for new users these are recommended—as opposed to programming one from scratch—as there are many potential pitfalls (e.g. adjusting the equations to handle partial Fourier or parallel imaging acceleration).

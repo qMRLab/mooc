@@ -53,6 +53,9 @@ As described above in [](#qmtFig6), inaccurate MT pulse flip angles and excitati
 ```{figure} #qmtFig7cell
 :label: qmtFig8
 :enumerator: 6.7
-Example magnetization transfer spoiled gradient dataset showing qMRI maps used to fit the MT data (top), and the fitted parameters F, _k_{sub}`f`, _T_{sub}`2,f`, _T_{sub}`2,r` (bottom).
+Example magnetization transfer spoiled gradient dataset showing qMRI maps[^footnote][^footnote2] used to fit the MT data (top), and the fitted parameters F, _k_{sub}`f`, _T_{sub}`2,f`, _T_{sub}`2,r` (bottom).
 ```
 
+[^footnote]: _R_{sub}`1` maps are displayed using the inverse Lipari colorscale, as proposed by [@fuderer2024co].
+
+[^footnote2]: _T_{sub}`2` maps are displayed using the Navia colorscale, as proposed by [@fuderer2024co].
