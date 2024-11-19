@@ -7,7 +7,7 @@
 
 **Authors**: Mathieu Boudreau, Alexandre D'Astous, Agah Karakuzu, Katy Keenan, Nikola Stikov, Samuelle St-Onge, Juan Velázquez-Reyes
 
-**Editors**: Mathieu Boudreau, Julien Cohen-Adad, Benjamin De Leener, Eva-Alonso Ortiz, Nikola Stikov
+**Editors**: Mathieu Boudreau, Julien Cohen-Adad, Benjamin De Leener, Eva Alonso-Ortiz, Nikola Stikov
 
 ## About 
 
