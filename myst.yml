@@ -26,6 +26,7 @@ project:
     - format: pdf
   abbreviations:
     MRI: Magnetic resonance imaging
+    MR: Magnetic resonance
     NMR: Nuclear Magnetic Resonance
     qMRI: quantitative magnetic resonance imaging
     GPT: Generative Pre-trained Transformer
