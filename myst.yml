@@ -196,7 +196,7 @@ project:
             - file: 4 B1 Mapping/01-Double Angle technique/02-Double Angle method(s).md
             - file: >-
                 4 B1 Mapping/01-Double Angle technique/03- Gradient echo and 180 deg
-                spin echo method copy.md
+                spin echo method.md
             - file: 4 B1 Mapping/01-Double Angle technique/A1-Appendix A.md
             - title: Notebooks
               children:
