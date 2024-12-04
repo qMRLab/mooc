@@ -14,7 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
-At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([_T_{sub}`1`](wiki:Spin–lattice_relaxation) and _M_{sub}`0`). Although this is a valid way of estimating [_T_{sub}`1`](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form {math}`\textbf{y}=m\textbf{x}+b`  {cite:p}`Gupta1977`:
+At first glance, one could be tempted to fit VFA data using a [non-linear least squares](wiki:Non-linear_least_squares) fitting algorithm such as Levenberg-Marquardt with [](#vfaEq1), which typically only has two free fitting variables ([_T_{sub}`1`](wiki:Spin–lattice_relaxation) and _M_{sub}`0`). Although this is a valid way of estimating [_T_{sub}`1`](wiki:Spin–lattice_relaxation) from VFA data, it is rarely done in practice because a simple refactoring of [](#vfaEq1) allows [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values to be estimated with a [linear least square](wiki:Linear_least_squares) fitting algorithm, which substantially reduces the processing time. Without any approximations, [](#vfaEq1) can be rearranged into the form {math}`\textbf{y}=m\textbf{x}+b`  {cite:p}`Gupta1977`:
 
 ```{math}
 :label: vfaEq3
@@ -70,7 +70,7 @@ _B_{sub}`1` in this context is normalized, meaning that it is unitless and has a
 
 :::{figure} #vfaFig6jn
 :label: vfaPlot5
-:enumerator: 2.12
+:enumerator: 2.11
 Mean and standard deviations of fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values for a set of [Monte Carlo](wiki:Monte_Carlo_method) simulations (SNR = 100, N = 1000), simulated using a wide range of biased flip angles and fitted without (blue) or with (red) _B_{sub}`1` correction. Simulation parameters: TR = 25 ms, _T_{sub}`1` = 900 ms, {math}`\theta_{nominal}` = 6° and 32° (optimized values for this TR/_T_{sub}`1` combination). Notice how even after _B_{sub}`1` correction, fitted [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values at _B_{sub}`1` values far from the nominal case (_B_{sub}`1` = 1) exhibit larger variance, as the actual flip angles of the simulated signal deviate from the optimal values for this TR/_T_{sub}`1` (Deoni et al. 2003).
 :::
 
@@ -78,7 +78,7 @@ Mean and standard deviations of fitted VFA [_T_{sub}`1`](wiki:Spin–lattice_rel
 
 :::{figure} #vfaFig7jn
 :label: vfaPlot6
-:enumerator: 2.13
+:enumerator: 2.12
 Example variable flip angle dataset and _B_{sub}`1` map of a healthy adult brain (left). The relevant VFA protocol parameters used were: TR = 15 ms,  {math}`\theta_{nominal}` = 3° and 20°. The _T_{sub}`1` map (right) was fitted using a linear regression (Equations [](#vfaEq4) and [](#vfaEq5)).
 :::
 
@@ -357,14 +357,3 @@ B1map = imrotate(squeeze(B1map.*Mask),-90);
 ```
 
 ````
-
-
-```{admonition} References
-:class: seealso
-
-```{bibliography}
-:filter: docname in docnames
-```
-
-```
-
