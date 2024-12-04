@@ -26,6 +26,8 @@ The foundation of MTsat lies in a 2008 model by Helms and colleagues [@Helms2008
 
 This introduction provides a glimpse into the theoretical basis of MTsat, its practical applications, and sensitivity to variables like tissue _T_{sub}`1` and _B_{sub}`1`. By exploring the unique properties and potential of MTsat, we hope to give readers a better understanding of the advantages and limitations of this MRI technique in both research and clinical practice, as well as give a deeper conceptual understanding of what the MTsat value means.
 
+MTsat, like MTR and many flavours of quantitative MT, is based on spoiled gradient recalled echo (SPGR) images [@Haase1986-kt;@Sekihara1987-bs;@Hargreaves2012-kj] preceded by an off-resonance RF pulse to provide magnetization transfer contrast [@Wolff1989-ag;@Henkelman1993-lt;@Sled2000-pc;@Sled2018-zr]. [](#mtsatFig1) presents a simplified diagram of this MT-prepared SPGR pulse sequence (imaging gradients are not shown). A standard SPGR sequence (low flip angle [~5-10°], short TR [~10-30ms], and a strong spoiler gradient) are preceded by a long (~10 ms) off-resonance (~1-5 kHz) pulse with a strong peak amplitude (the total pulse has an equivalent on-resonance flip angle of 200°-700°). A smooth shape (e.g. Gaussian or Fermi) is typically used for the off-resonance pulse in order to have a single off-resonance frequency (from Fourier analysis). A strong spoiler gradient is also added between the off-resonance MT-preparation pulse and the on-resonance excitation pulse in order to destroy residual transverse magnetization that may have been created by the off-resonance pulse. Images acquired without MT saturation are acquired using the same timing as this sequence, but with the off-resonance RF pulse either completely off or using a very large off-resonance frequency (e.g. ~30+ kHz).
+
 ```{figure} img/sequence.png
 :label: mtsatFig1
 :enumerator: 6.14
@@ -39,5 +41,3 @@ In the initial MTsat paper [@Helms2008-wf;@Helms2010-kv], the main innovation st
 :enumerator: 6.15  
 Pulse sequence model used in MTSat to approximate the effects occurring in the actual MT-weighted sequence ([](#mtsatFig1)), but as a dual-excitation sequence. Note that the defined TR is shifted so that the beginning of the TR occurs at the excitation pulse, instead of the MT pulse as per [](#mtsatFig1), which once a steady-state is established won’t impact the calculations.
 ```
-
-As has been derived in many introductory MRI physics textbooks, the steady-state signal equation for a standard SPGR pulse sequence (that is, one excitation flip angle per entire TR) has been shown to be:
