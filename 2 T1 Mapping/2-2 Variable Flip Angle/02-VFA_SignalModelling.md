@@ -48,11 +48,8 @@ The [closed-form solution](wiki:Closed-form_expression) ([](#vfaEq1)) makes seve
 :::{figure} #vfaFig3jn
 :label: vfaPlot2
 :enumerator: 2.9
-Example inversion recovery dataset of a healthy adult brain (left). Inversion times used to acquire this magnitude image dataset were 30 ms, 530 ms, 1030 ms, and 1530 ms, and the TR used was 1550 ms. The [_T_{sub}`1`](wiki:Spin–lattice_relaxation) map (right) was fitted using a RD-NLS algorithm.
-:::
-
-
 Signal curves simulated using Bloch simulations (orange) for a number of repetitions ranging from 1 to 150, plotted against the ideal case ([](#vfaEq1) – blue). Simulation details:  TR = 25 ms, _T_{sub}`1` = 900 ms, 100 spins. Ideal spoiling was used for this set of Bloch simulations (transverse magnetization was set to 0 at the end of each TR).
+:::
 
 Sufficient spoiling is likely the most challenging parameter to control for in a VFA experiment. A combination of both gradient spoiling and RF phase spoiling {cite:p}`Handbook2004,Zur1991` are typically recommended ([](#vfaPlot3)). It has also been shown that the use of very strong  gradients, introduces diffusion effects (not considered in [](#vfaPlot3)), further improving the spoiling efficacy in the VFA pulse sequence {cite:p}`Yarnykh2010`.
 
