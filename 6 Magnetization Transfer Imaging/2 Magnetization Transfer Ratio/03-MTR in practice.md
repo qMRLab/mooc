@@ -104,7 +104,7 @@ These differences in protocol parameters can result in MTR values that vary grea
 
 :::{table} Quantitative MT parameters in healthy and diseased human tissue reported for a study at 1.5 T [@Sled2001-fz].
 :label: qmtTable3
-:enumerator: 6.2  
+:enumerator: 6.3  
 <table>
    <tr>
       <th colspan="1" align="center"></th>
@@ -181,7 +181,7 @@ In addition to being very sensitive to protocol implementations, MTR values are 
 MTR value for (protocol?) and (tissue?) changes as a function of the underlying _T_{sub}`1` value (_T_{sub}`1,obs`obs or _T_{sub}`1,f`?).
 :::
 
-In addition to being sensitive to tissue properties, MTR is also sensitive to system properties such as _B_{sub}`1` (via MT pulse amplitude) and _B_{sub}`0` (via off-resonance frequency). In particular, _B_{sub}`1` can vary up to 30% the nominal value at 3T, and without correction this can introduce substantial  [](#mtrPlot3) illustrates how MTR can vary with different _B_{sub}`1` values.
+In addition to being sensitive to tissue properties, MTR is also sensitive to system properties such as _B_{sub}`1` (via MT pulse amplitude) and _B_{sub}`0` (via off-resonance frequency). In particular, _B_{sub}`1` can vary up to 30% the nominal value at 3T, and without correction this can introduce substantial errors. [](#mtrPlot3) illustrates how MTR can vary with different _B_{sub}`1` values.
 
 :::{figure} #mtrFig3jn
 :label: mtrPlot3
