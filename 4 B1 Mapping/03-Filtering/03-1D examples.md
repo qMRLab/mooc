@@ -19,7 +19,7 @@ numbering:
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
 :::
 
-Let’s explore how different filters and smoothing functions behave under different circumstances, in order to help provide you with some insights on how to decide which one may be the best choice for your _B_{sub}`1` map. In [](#filtPlot4) we generated a 1D distribution to simulate a rectangular “object” with no sharp edges and no noise, which we’ll define as the “true signal”. Applying three different filters (Gaussian, Median, Spline) to this ideal signal, we can see how the filter and it’s width impacts the signal.
+Let’s explore how different filters and smoothing functions behave under different circumstances, to provide some insights on how to decide which one may be the best choice for your _B_{sub}`1` map. In [](#filtPlot4) we generated a 1D distribution to simulate a rectangular “object” with no sharp edges and no noise, which we’ll define as the “true signal”. Applying three different filters (Gaussian, Median, Spline) to this ideal signal, we can see how the filter and it’s width impacts the signal.
 
 
 :::{figure} #filtFig4jn

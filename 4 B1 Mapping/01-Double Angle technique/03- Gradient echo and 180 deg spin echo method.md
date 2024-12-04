@@ -20,7 +20,7 @@ This content of this section is still a work-in-progress and has not been proofr
 
 This pulse sequence uses a 180 degree spin-echo refocusing pulse and acquires two images using an excitation pulse {math}`\alpha` and {math}`2\alpha`. It assumes that there is full signal recovery (long TR), and because it refocuses _T_{sub}`2`{sup}`*`, it eliminates signal variability caused by _B_{sub}`0` in the resulting _B_{sub}`1` map [@Insko1993-ik]. Alternatively, a gradient echo could be used?
 
-Assuming an an refocusing pulse is used (i.e. isn’t dependent on _B_{sub}`1`), we can develop the equation for a gradient echo and spin echo case.
+Assuming a refocusing pulse is used (i.e. isn’t dependent on _B_{sub}`1`), we can develop the equation for a gradient echo and spin echo case.
 
 ```{math}
 :label: daEq1
@@ -102,7 +102,7 @@ And the true flip angle can be calculated from the ratio of these two magnetizat
 \end{equation}
 ```
 
-Knowing that alpha = _B_{sub}`1` alpha_nominal, _B_{sub}`1` is thus:
+Knowing that {math}`\alpha = B_{1}` alpha_nominal, _B_{sub}`1` is thus:
 
 
 ```{math}

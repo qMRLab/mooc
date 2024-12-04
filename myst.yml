@@ -58,6 +58,7 @@ project:
     STD: Standard deviation
     MT: Magnetization Transfer
     MTR: Magnetization Transfer Ratio
+    MS: Multiple Sclerosis
     qMT: Quantitative Magnetization Transfer
     MTsat: Magnetization Transfer saturation
     SAR: Specific absorption rate
@@ -195,7 +196,7 @@ project:
             - file: 4 B1 Mapping/01-Double Angle technique/02-Double Angle method(s).md
             - file: >-
                 4 B1 Mapping/01-Double Angle technique/03- Gradient echo and 180 deg
-                spin echo method copy.md
+                spin echo method.md
             - file: 4 B1 Mapping/01-Double Angle technique/A1-Appendix A.md
             - title: Notebooks
               children:
@@ -214,6 +215,7 @@ project:
                 - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-2.ipynb
                 - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-3.ipynb
                 - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-4.ipynb
+                - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-5.ipynb
                 - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-6.ipynb
                 - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-7.ipynb
                 - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-8.ipynb
