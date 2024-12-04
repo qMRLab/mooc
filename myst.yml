@@ -58,6 +58,7 @@ project:
     STD: Standard deviation
     MT: Magnetization Transfer
     MTR: Magnetization Transfer Ratio
+    MS: Multiple Sclerosis
     qMT: Quantitative Magnetization Transfer
     MTsat: Magnetization Transfer saturation
     SAR: Specific absorption rate
