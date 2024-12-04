@@ -14,15 +14,15 @@ numbering:
     template: Eq. %s
 ---
 
-The pulse sequence of the AFI method ([](#afiFig1)) is composed of two identical RF pulses and two different delays (TR{sub}`1` < TR{sub}`2`). After each RF pulse, the signal intensity is acquired followed by a spoiler to destroy the residual transverse magnetization next to the following RF pulse. This method implements a pulsed steady-state signal with a gradient-echo acquisition, thus preventing the use of long repetition times [@Yarnykh2007-bv]. It has been demonstrated that if the delays TR{sub}`1` and TR{sub}`2` are sufficiently short (e.g. TR{sub}`1`/TR{sub}`2` = 20 ms/100 ms), and the transverse magnetization is completely spoiled, the ratio of signal intensities (r = S{sub}`2`/S{sub}`1`) depends on the flip angle of applied pulses and is highly insensitive to _T_{sub}`1` [@Yarnykh2007-bv].
+The pulse sequence of the AFI method ([](#afiFigPS)) is composed of two identical RF pulses and two different delays (TR{sub}`1` < TR{sub}`2`). After each RF pulse, the signal intensity is acquired followed by a spoiler to destroy the residual transverse magnetization next to the following RF pulse. This method implements a pulsed steady-state signal with a gradient-echo acquisition, thus preventing the use of long repetition times [@Yarnykh2007-bv]. It has been demonstrated that if the delays TR{sub}`1` and TR{sub}`2` are sufficiently short (e.g. TR{sub}`1`/TR{sub}`2` = 20 ms/100 ms), and the transverse magnetization is completely spoiled, the ratio of signal intensities (r = S{sub}`2`/S{sub}`1`) depends on the flip angle of applied pulses and is highly insensitive to _T_{sub}`1` [@Yarnykh2007-bv].
 
 ```{figure} img/afi_pulsesequence.png
-:label: afiFig1
+:label: afiFigPS
 :enumerator: 4.5
 Simplified pulse sequence diagram of an actual flip-angle imaging (AFI) pulse sequence with a gradient echo readout. TR{sub}`1`: repetition time 1, TR{sub}`2`: repetition time 2, {math}`\theta`: excitation flip angle for the measurement, IMG: image acquisition (k-space readout), SPOIL: spoiler gradient.
 ```
 
-The magnetization of an AFI experiment can be modeled under steady-state conditions by the implementation of a fast repetition of the sequence (TR{sub}`1` < TR{sub}`2` < _T_{sub}`1`). The solution of the Bloch equations for the AFI method is given by Equations 1 and 2 that represent the longitudinal magnetization before the application of the RF pulses:
+The magnetization of an AFI experiment can be modeled under steady-state conditions by the implementation of a fast repetition of the sequence (TR{sub}`1` < TR{sub}`2` < _T_{sub}`1`). The solution of the [Bloch equations](wiki:Bloch_equations) for the AFI method is given by Equations 1 and 2 that represent the longitudinal magnetization before the application of the RF pulses:
 
 ```{math}
 :label: afiEq1
