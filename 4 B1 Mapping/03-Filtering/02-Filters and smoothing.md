@@ -20,7 +20,7 @@ This content of this section is still a work-in-progress and has not been proofr
 
 There are two main ways that field maps are smoothened in practice: filters and fitting. The study of filters is typically presented in a signal processing context, however its basic principles (in particular, convolutions) are observed in many other fields of study, in particular physics.
 
-We’ll begin by providing a very brief overview of some key filtering properties, then move on to some illustrative 1D examples related to MRI situations in the next section before finally returning to their applications in actual _B_{sub}`1` maps.
+We’ll begin by providing a very brief overview of some key filtering properties, then move on to some illustrative 1D examples related to MRI situations before finally returning to their applications in actual _B_{sub}`1` maps.
 
 Filtering is presented as a convolution process to produce an output that is smoother, meaning less sharp edges. A convolution is the multiplication of a kernel (a predetermined function or property, such as the mean, median, Gaussian function, etc) that is shifted at each point of the signal or image, and the summed value of this multiplication is assigned to the time or spatial point where it was applied. [](#filtPlot3) illustrates this for the mean using a three-position mean as a kernel:
 
@@ -38,7 +38,7 @@ In terms of equations, the convolution is shown using the symbol {math}`\otimes`
 :label: filtEq1
 :enumerator:4.15
 \begin{equation}
-\left( f \otimes g \right)=\int_{-\infty }^{\infty }f\left( u \right)g\left( t-u \right)du
+\left( f \otimes g \right)\left( t \right) =\int_{-\infty }^{\infty }f\left( u \right)g\left( t-u \right)du
 \end{equation}
 ```
 
@@ -48,12 +48,12 @@ where {math}`f\left( t \right)` is the signal of interest and {math}`g\left( t \
 :label: filtEq2
 :enumerator:4.16
 \begin{equation}
-f\left( x \right)=\frac{1}{\sqrt{2\pi\sigma^{2}}}\text{e}^{-\frac{\left( x-x_{o} \right)^{2}}{2\sigma^{2}}}
+g\left( x \right)=\frac{1}{\sqrt{2\pi\sigma^{2}}}\text{e}^{-\frac{\left( x-x_{o} \right)^{2}}{2\sigma^{2}}}
 \end{equation}
 ```
 
 
-where {math}`x_{0}` is the center position of the distribution, and  is a measure of the width. The convolution using this function with a 9-point sample for different widths is shown in [](#filtPlot3).
+where {math}`x_{0}` is the center position of the distribution, and {math}`\sigma` is a measure of the width. The convolution using this function with a 9-point sample for different widths is shown in [](#filtPlot3).
 
 :::{figure} #filtFig3jn
 :label: filtPlot3
@@ -61,7 +61,7 @@ where {math}`x_{0}` is the center position of the distribution, and  is a measur
 Convolution using a Gaussian kernel
 :::
 
-One property of the convolution is that the convolution of two functions is the multiplication of the Fourier Transforms of each function following by an inverse Fourier transform:
+One property of the convolution is that the convolution of two functions is the multiplication of the [Fourier transforms](Fourier_transform) of each function following by an [inverse Fourier transform](https://en.wikipedia.org/wiki/Fourier_inversion_theorem):
 
 
 ```{math}
