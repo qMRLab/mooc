@@ -45,6 +45,7 @@ project:
     _T_{sub}`1`: Longitudinal magnetization relaxation time constant
     T2: Transverse magnetization relaxation time constant
     SE: Spin Echo
+    MESE: Multi-Echo Spin Echo
     GRE: Gradient Echo
     SPGR: Spoiled Gradient Echo (sequence)
     UMAP: Uniform manifold approximation and projection

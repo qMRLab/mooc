@@ -42,10 +42,9 @@ For example, the multi-exponential signal from [](#t2Plot4) can be expressed as 
 
 :::{figure} #t2Fig5jn
 :label: t2Plot5
-:enumerator: 3.5
-Multi-exponential _T_{sub}`2` mapping example of the spinal cord. The left image displays multi-exponential (ME) T2w data acquired at different echo times (TE) used for the data fitting. The right image presents the resulting myelin water fraction (MWF) map and _T_{sub}`2` relaxation maps for myelin water (MW) and intra/extracellular water (IEW). 
+:enumerator: 3.6
+Comparison of mono-exponential and multi-exponential _T_{sub}`2` fitting. This figure contrasts mono-exponential and multi-exponential fitting approaches for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves represent mono-exponential fittings for MW and IEW, respectively. The dotted purple curve illustrates the multi-exponential fitting, which combines both MW and IEW components. 
 :::
-
 
 
 ```{admonition} Click here to view the qMRLab (MATLAB/Octave) code that generated [](#t2Plot5).
