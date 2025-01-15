@@ -39,6 +39,6 @@ The following figure shows different susceptibility distributions in ppm for a h
 :::{figure} #b0Fig3jn
 :label: b0Plot3
 :enumerator: 5.3
-Cylinder (top) and brain (bottom) of susceptibility distributions (left), simulated _B_{sub}`0` field map (middle) and the _B_{sub}`0` field map with the background field removed (right). An in-vivo susceptibility map was used for the brain and was surrounded by a bone interface, a tissue interface and the rest of the FOV was filled with air. Note that this simplistic representation still shows the field map being dominated by air-tissue interfaces even though the spatial characteristics of the field are not perfectly representative of reality. This dataset was introduced in this publication [@Lusebrink2021-kj] and is publicly available [@Lusebrink2020-iy;@noauthor_undated-ms]. An in-vivo field map can be seen in [](#b0Plot9).
+Cylinder (top) and brain (bottom) of susceptibility distributions (left), simulated _B_{sub}`0` field map (middle) and the _B_{sub}`0` field map with the background field removed (right). An in-vivo susceptibility map was used for the brain and was surrounded with air. Note that this simplistic representation still shows the field map being dominated by air-tissue interfaces even though the spatial characteristics of the field are not perfectly representative of reality. An in-vivo field map can be seen in [](#b0Plot9).
 :::
 

@@ -41,7 +41,7 @@ M_{z2}=M_{0}\frac{1-e^{\frac{-\text{TR}_{1}}{_{T_{1}}}}+\left( 1- e^{\frac{-\tex
 \end{equation}
 ```
 
-Mz{sub}`1,2` is the longitudinal magnetization of both pulses, M0 is the magnetization at thermal equilibrium, TR{sub}`1` is the delay time after the first pulse, TR{sub}`2` is the delay time after the second identical pulse ([](#afiFig1)), and {math}`\theta` is the excitation flip angle. The steady-state longitudinal magnetization Mz curves for different _T_{sub}`1` values for a range of {math}`\theta_{n}` and TR values are shown in [](#afiPlot1).
+Mz{sub}`1,2` is the longitudinal magnetization of both pulses, M0 is the magnetization at thermal equilibrium, TR{sub}`1` is the delay time after the first pulse, TR{sub}`2` is the delay time after the second identical pulse ([](#afiPlot1)), and {math}`\theta` is the excitation flip angle. The steady-state longitudinal magnetization Mz curves for different _T_{sub}`1` values for a range of {math}`\theta_{n}` and TR values are shown in [](#afiPlot1).
 
 ```{figure} #afiFig1jn
 :label: afiPlot1

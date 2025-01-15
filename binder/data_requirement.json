@@ -3,47 +3,47 @@
     "dst": "../data",
     "projectName": "qmrlab-t1-book"
     },
-    "02-T1-01-IR":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/02-T1-01-IR.zip",
+    "02-T1-01-IR":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/02-T1-01-IR.zip",
     "dst": "../data",
     "projectName": "02-T1-IR"
     },
-    "02-T1-02-VFA":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/02-T1-02-VFA.zip",
+    "02-T1-02-VFA":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/02-T1-02-VFA.zip",
     "dst": "../data",
     "projectName": "02-T1-02-VFA"
     },
-    "02-T1-03-MP2RAGE":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/02-T1-03-MP2RAGE.zip",
+    "02-T1-03-MP2RAGE":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/02-T1-03-MP2RAGE.zip",
     "dst": "../data",
     "projectName": "02-T1-03-MP2RAGE"
     },
-    "03-T2":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/03-T2.zip",
+    "03-T2":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/03-T2.zip",
     "dst": "../data",
     "projectName": "03-T2"
     },
-    "04-B1-01-DoubleAngle":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/04-B1-01-DoubleAngle.zip",
+    "04-B1-01-DoubleAngle":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/04-B1-01-DoubleAngle.zip",
     "dst": "../data",
     "projectName": "04-B1-01-DoubleAngle"
     },
-    "04-B1-02-AFI":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/04-B1-02-AFI.zip",
+    "04-B1-02-AFI":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/04-B1-02-AFI.zip",
     "dst": "../data",
     "projectName": "04-B1-02-AFI"
     },
-    "04-B1-03-Filtering":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/04-B1-03-Filtering.zip",
+    "04-B1-03-Filtering":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/04-B1-03-Filtering.zip",
     "dst": "../data",
     "projectName": "04-B1-03-Filtering"
     },
-    "05-B0":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/05-B0.zip",
+    "05-B0":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/05-B0.zip",
     "dst": "../data",
     "projectName": "05-B0"
     },
-    "06-MT-01-qMT":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/06-MT-01-qMT.zip",
+    "06-MT-01-qMT":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/06-MT-01-qMT.zip",
     "dst": "../data",
     "projectName": "06-MT-01-qMT"
     },
-    "06-MT-02-MTR":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/06-MT-02-MTR.zip",
+    "06-MT-02-MTR":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/06-MT-02-MTR.zip",
     "dst": "../data",
     "projectName": "06-MT-02-MTR"
     },
-    "06-MT-03-MTsat":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.0/06-MT-03-MTsat.zip",
+    "06-MT-03-MTsat":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/06-MT-03-MTsat.zip",
     "dst": "../data",
     "projectName": "06-MT-03-MTsat"
     }
