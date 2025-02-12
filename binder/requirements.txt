@@ -10,3 +10,5 @@ matplotlib
 nbformat>=4.2.0
 pandas
 nibabel
+jupyter
+scikit-learn

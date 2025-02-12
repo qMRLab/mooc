@@ -9,7 +9,7 @@ project:
     binder:
       url: https://mybinder.org
       repo: qmrlab/mooc
-      ref: mb/dev
+      ref: mb/flair
   keywords:
     - quantitative MRI
     - education
@@ -413,6 +413,39 @@ project:
                 - file: >-
                     6 Magnetization Transfer Imaging/3 Magnetization Transfer
                     Saturation/Notebooks/Figure-6-3-B3.ipynb
+    - title: Class Application Excersicses
+      children:
+        - file: 7 - Class Application Examples/T1 Chapter Case Study.md
+        - title: Question 1
+          children:
+              - file: >-
+                  7 - Class Application Examples/Question 1/t1cc-1-a.md
+              - file: >-
+                  7 - Class Application Examples/Question 1/t1cc-1-b.md
+              - file: >-
+                  7 - Class Application Examples/Question 1/t1cc-1-c.md
+              - file: >-
+                  7 - Class Application Examples/Question 1/t1cc-1-d.md
+              - file: >-
+                  7 - Class Application Examples/Question 1/t1cc-1-answer.md
+              - file: >-
+                  7 - Class Application Examples/Question 1/t1cc-2-question.md
+        - title: Question 2
+          children:
+              - file: >-
+                  7 - Class Application Examples/Question 2/t1cc-2-a.md
+              - file: >-
+                  7 - Class Application Examples/Question 2/t1cc-2-b.md
+              - file: >-
+                  7 - Class Application Examples/Question 2/t1cc-2-c.md
+              - file: >-
+                  7 - Class Application Examples/Question 2/t1cc-2-d.md
+              - file: >-
+                  7 - Class Application Examples/Question 2/t1cc-2-answer.md
+        - title: Notebooks
+          children:
+              - file: >-
+                  7 - Class Application Examples/Notebooks/flair_1.ipynb
 site:
   template: book-theme
   options:

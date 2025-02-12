@@ -46,5 +46,9 @@
     "06-MT-03-MTsat":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/06-MT-03-MTsat.zip",
     "dst": "../data",
     "projectName": "06-MT-03-MTsat"
+    },
+    "07-Applications-01-FLAIR":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.2/07-Applications.zip",
+    "dst": "../data",
+    "projectName": "07-Applications"
     }
 }
