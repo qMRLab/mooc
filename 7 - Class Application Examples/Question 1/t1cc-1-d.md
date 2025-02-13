@@ -16,6 +16,8 @@ numbering:
 
 ## INCORRECT ANSWER
 
+**The correct answer was: (T1-weighted, T2-weighted)**
+
 ```{embed} #zzzflairt1cc1answer
 ```
 
