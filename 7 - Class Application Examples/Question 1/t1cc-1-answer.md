@@ -37,7 +37,7 @@ numbering:
 
 T1-weighted images are optimized for greater T1 contrast between tissues-of-interest, while T2-weighted images are optimized for greater T2 contrast between tissues-of-interest.
 
-Revisiting [](#irPlot1) and [](#t2Plot2), can you explain out why the T1w parameters were chosen to be [TR = 1 s, TE = 15 ms] and not [TR = 5s, TE = 150 ms]? Why was T2w protocol parameters [TR = 5s, TE = 150 ms] instead of [TR = 1 s, TE = 15 ms]?
+Revisiting [](#vfaPlot1) and [](#t2Plot2), can you explain out why the T1w parameters were chosen to be [TR = 1 s, TE = 15 ms] and not [TR = 5s, TE = 150 ms]? Why was T2w protocol parameters [TR = 5s, TE = 150 ms] instead of [TR = 1 s, TE = 15 ms]?
 
 ```{embed} #irPlot1
 ```
