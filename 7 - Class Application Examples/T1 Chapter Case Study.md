@@ -31,13 +31,15 @@ MRI Evidence:
 
 The practicing radiologist provides you with two images and their acquisition protocols. Based on the parameters, you need to determine what types of images these are. Here are the protocols again for reference:
 
-:::{figure} #flair1jn
-:label: flairPlot2
+:::{figure} #flair2jn
+:label: flairPlot1
+:enumerator: 7.1
 Image A: spoiled gradient echo, 2 mm^2 in-plane resolution, 5 mm slice, TR = 1 s, TE = 15 ms, FA = 70 degrees
 :::
 
-:::{figure} #flair2jn
-:label: flairPlot1
+:::{figure} #flair1jn
+:label: flairPlot2
+:enumerator: 7.2
 Image B: spoiled gradient echo, 2 mm^2 in-plane resolution, 5 mm slice, TR = 5 s, TE = 150 ms, FA = 90 degrees
 :::
 

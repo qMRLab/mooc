@@ -1,8 +1,8 @@
 ---
-title: Answer B
+title: Answer C
 subtitle: T1 Chapter Case Study
 date: 2025-02-12
-label: flairt1cc2b
+label: flairt1cc5c
 authors:
   - name: Mathieu Boudreau
     affiliations:
@@ -11,12 +11,11 @@ numbering:
   headings: false
 ---
 
-# (T1 decreases, T2 increases)
+# (TI = 3 s, TR = 1 s, TE = 150 ms, FA = 45 deg)
 
 ## INCORRECT ANSWER
 
-```{embed} #zzzflairt1cc2answer
-```
+You selected a TR that's shorter than TI, which is not possible. Go back and try again.
 
-```{embed} #zzzflairt1cc3question
-```
+{button}`Go back <#zzzflairt1cc5question>`
+
