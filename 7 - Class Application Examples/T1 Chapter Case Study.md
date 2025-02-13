@@ -39,16 +39,16 @@ The practicing radiologist provides you with two images and their acquisition pr
 :::{figure} #flair2jn
 :label: flairPlot1
 :enumerator: 7.1
-Image A: spoiled gradient echo, 2 mm^2 in-plane resolution, 5 mm slice, TR = 1 s, TE = 15 ms, FA = 70 degrees
+Spoiled gradient echo, 2 mm^2 in-plane resolution, 5 mm slice, TR = 1 s, TE = 15 ms, FA = 70 degrees
 :::
 
 :::{figure} #flair1jn
 :label: flairPlot2
 :enumerator: 7.2
-Image B: spoiled gradient echo, 2 mm^2 in-plane resolution, 5 mm slice, TR = 5 s, TE = 150 ms, FA = 90 degrees
+Spoiled gradient echo, 2 mm^2 in-plane resolution, 5 mm slice, TR = 5 s, TE = 150 ms, FA = 90 degrees
 :::
 
-What types of MRI images are (Image A, Image B)?
+What types of MRI images are ([](#flairPlot1), [](#flairPlot2))?
 
 **A** - {button}`(PD-weighted, T1-weighted) <#flairt1cc1a>`
 
