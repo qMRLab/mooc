@@ -1,5 +1,5 @@
 ---
-title: Question 3
+title: Answer
 subtitle: T1 Chapter Case Study
 date: 2025-02-12
 label: flairt1cc3
