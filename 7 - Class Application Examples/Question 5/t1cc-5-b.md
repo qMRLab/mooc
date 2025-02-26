@@ -15,7 +15,7 @@ numbering:
 
 Here is what an inversion recovery image with this protocol would look like:
 
-:::{figure} #flair4bjn
+:::{figure} #flair5bjn
 :label: flairPlot5b
 :enumerator: 7.8
 Inversion recovery image with TI = 3 s, TR = 5 s, TE = 15 ms, FA = 20 degrees
