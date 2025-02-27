@@ -86,8 +86,8 @@ project:
     - file: 1 Introduction.md
     - file: 2 T1 mapping.md
     - file: 3 T2 mapping.md
-    - file: 4 B1 Mapping.md
-    - file: 5 B0 Mapping.md
+    - file: 4 B1 Mapping.md 
+    - file: 5 B0 mapping.md 
     - file: 6 Magnetization Transfer Imaging.md
     - title: Class Application Examples
       children:
