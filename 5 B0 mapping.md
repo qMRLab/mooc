@@ -73,7 +73,10 @@ When a subject is introduced in the scanner, it interacts with the _B_{sub}`0` f
 
 The following figure shows different susceptibility distributions in ppm for a homogeneous cylinder within a larger homogeneous cylinder placed in a homogeneous background (top) and a brain (bottom). The corresponding _B_{sub}`0` field maps are simulated at 7 T and shown in [](#b0Plot3). In the brain, the _B_{sub}`0` field inhomogeneities are dominated by air-tissue boundaries. On the right-hand panel, the slow varying spatial variations (also called background field) were removed to show the local field variations.
 
-:::{figure} #b0Fig3jn
+:::{figure} #b0Fig3ajn
+:::
+
+:::{figure} #b0Fig3bjn
 :label: b0Plot3
 :enumerator: 5.3
 Cylinder (top) and brain (bottom) of susceptibility distributions (left), simulated _B_{sub}`0` field map (middle) and the _B_{sub}`0` field map with the background field removed (right). An in-vivo susceptibility map was used for the brain and was surrounded with air. Note that this simplistic representation still shows the field map being dominated by air-tissue interfaces even though the spatial characteristics of the field are not perfectly representative of reality. An in-vivo field map can be seen in [](#b0Plot9).

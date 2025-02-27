@@ -23,7 +23,7 @@ As we have covered in [a previous section](#t2T2star), _T_{sub}`2`{sup}`*` accou
 The following figure shows different susceptibility distributions in ppm a brain resuting from a _B_{sub}`0` field map, simulated at 7 T. Two components of the B0 fields were seperated out: a high frequency component (left) and a low frequency component (middle). 
 
 :::{figure} #t2Fig7jn
-:label: t2Plot7
+:label: t2Plot9
 :enumerator: 3.7
 Susceptibility distributions in ppm a brain resuting from a _B_{sub}`0` field map, simulated at 7 T. Two components of the B0 fields were seperated out: a high frequency component (left) and a low frequency component (middle). 
 :::
