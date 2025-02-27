@@ -555,9 +555,17 @@ In MRI, the acquired signal is complex, consisting of a magnitude and phase comp
 
 As we have covered in [a previous section](#t2T2star), _T_{sub}`2`{sup}`*` accounts for both _T_{sub}`2` relaxation times and the relaxation due to magnetic field inhomogeneities, characterized by _T_{sub}`2`’. These inhomogeneities induce signal dephasing in MRI. As differences in magnetic susceptibility between tissues are a primary cause of these inhomogeneities, phase information is crucial for measuring tissue susceptibility [@Ruetten2019-ox]. In QSM, the combination of both magnitude and phase data from _T_{sub}`2`{sup}`*` acquisitions enables the quantification and spatial mapping of magnetic susceptibility within tissues [@Shmueli2020-vt]. 
 
+
+The following figure shows different susceptibility distributions in ppm a brain resuting from a _B_{sub}`0` field map, simulated at 7 T. Two components of the B0 fields were seperated out: a high frequency component (left) and a low frequency component (middle). 
+
+:::{figure} #t2Fig7jn
+:label: t2Plot7
+:enumerator: 3.7
+Susceptibility distributions in ppm a brain resuting from a _B_{sub}`0` field map, simulated at 7 T. Two components of the B0 fields were seperated out: a high frequency component (left) and a low frequency component (middle). 
+:::
+
+
 ### Benefits and pitfalls of multi-exponential T2 mapping
-
-
 
 The primary advantage of multi-exponential _T_{sub}`2` mapping lies in its improved accuracy in depicting the _T_{sub}`2` relaxation of complex tissue microstructure. By considering each voxel as multi-compartmental with multiple tissues each having distinct _T_{sub}`2` relaxation times, multiexponential _T_{sub}`2` mapping has proven to be more accurate for capturing the _T_{sub}`2` relaxation of complex, heterogeneous tissues. As we saw in the previous sections, this makes multi-exponential _T_{sub}`2` mapping particularly advantageous in applications such as myelin water fraction imaging, where it is crucial to distinguish the fraction of water attributed to myelin to better understand demyelinating diseases such as MS [@Alonso-Ortiz2015-yj]. 
 
