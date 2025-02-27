@@ -2,6 +2,7 @@
 title: Other Saturation-Recovery T1 Mapping techniques
 subtitle: Inversion Recovery
 date: 2024-10-07
+label: irOtherMethods
 authors:
   - name: Mathieu Boudreau
     affiliations:

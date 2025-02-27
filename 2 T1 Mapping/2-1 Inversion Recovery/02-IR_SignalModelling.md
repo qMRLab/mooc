@@ -2,6 +2,7 @@
 title: Signal Modelling
 subtitle: Inversion Recovery
 date: 2024-10-07
+label: irSignalModelling
 authors:
   - name: Mathieu Boudreau
     affiliations:

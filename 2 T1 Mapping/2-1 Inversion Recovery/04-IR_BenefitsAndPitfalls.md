@@ -2,6 +2,7 @@
 title: Benefits and Pitfalls
 subtitle: Inversion Recovery
 date: 2024-10-07
+label: irBenefitsAndPitfalls
 authors:
   - name: Mathieu Boudreau
     affiliations:
