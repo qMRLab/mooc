@@ -225,6 +225,7 @@ project:
         - file: 6 Magnetization Transfer Imaging/3 Magnetization Transfer Saturation/Notebooks/Figure-6-3-B1.ipynb
         - file: 6 Magnetization Transfer Imaging/3 Magnetization Transfer Saturation/Notebooks/Figure-6-3-B2.ipynb
         - file: 6 Magnetization Transfer Imaging/3 Magnetization Transfer Saturation/Notebooks/Figure-6-3-B3.ipynb
+        - file: 7 - Class Application Examples/Notebooks/flair_1.ipynb
 site:
   template: book-theme
   options:
