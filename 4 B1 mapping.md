@@ -332,6 +332,7 @@ The overall “shape” of the _B_{sub}`1` map is the same for all three maps, a
 
 Although not a perfect solution, researchers often smoothen their _B_{sub}`1` maps [@Yarnykh2007-ul;@Lutti2010-bt;@Boudreau2017-ik] in an effort to mitigate the error propagation from the _B_{sub}`1`{sup}`+` map noise and artifacts prior to use for other techniques. This chapter will discuss some common ways this _B_{sub}`1` map smoothing is achieved, show some examples of their benefits and weaknesses, and discuss some best practices.
 
+(filt1D)=
 ## Filters and smoothing
 
 :::{attention}
@@ -428,6 +429,7 @@ If your filtered _B_{sub}`1` map is intended for use at boundary edges, such as 
 
 Finally, remember that using the unfiltered _B_{sub}`1` map is also a choice, and many researchers use these. It’s important to report if you filtered or not your _B_{sub}`1` maps when reporting them in your research.
 
+(daAppendixA)=
 # Appendix A
 
 

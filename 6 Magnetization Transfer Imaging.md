@@ -14,6 +14,7 @@ numbering:
     template: Eq. %s
 ---
 
+(qmtIntro)=
 # Quantitative Magnetization Transfer
 
 
@@ -400,9 +401,8 @@ To sum up, our exploration of Magnetization Transfer Ratio (MTR) has highlighted
 
 In our next section, we'll shift our focus to MTsat, which is a promising semi-quantitative metric that rivals MTR for its ease of use and rapid acquisition times. MTsat aims to address some of the challenges associated with MTR, while still offering robust sensitivity to macromolecular content.
 
+(mtsatIntro)=
 # Magnetization Transfer Saturation
-
-
 
 :::{attention}
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
@@ -778,9 +778,8 @@ Similarly, we can investigate the sensitivity of MTsat to _B_{sub}`1`, which var
 MTR/_T_{sub}`1,meas`/MTsat vs _B_{sub}`1` values. Click button to compare values with or without _B_{sub}`1`-correction
 :::
 
+(mtrAppendixA)=
 # Appendix A
-
-
 
 :::{attention}
 This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
@@ -798,6 +797,7 @@ Ultimately, the conservation of energy and its transfer between different spin p
 Thesis figure
 ```
 
+(mtsatAppendixA)=
 # Appendix B
 
 

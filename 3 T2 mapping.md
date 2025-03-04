@@ -244,6 +244,7 @@ where S0 is the signal intensity immediately following the excitation pulse [@Do
 
 In practice, _B_{sub}`1` inhomogeneities and RF pulse imperfections can influence the _T_{sub}`2` signal decay curve and result in inaccurate _T_{sub}`2` estimations. This may cause refocusing pulses to deviate from the ideal 180 degrees, generating additional echoes known as stimulated or spurious echoes. These unwanted echoes can contaminate the signal decay, resulting in erroneous _T_{sub}`2` estimations [@McPhee2018-wd]. To account for these stimulated echoes, some studies have shown that _T_{sub}`2` fitting accuracy can be improved either by using only even-numbered echoes [@Focke2011-xh;@Kim2009-yf], or by discarding the first echo [@Biasiolli2013-vy;@Milford2015-ef]. 
 
+(t2T2star)=
 ### T2*
 
 
@@ -362,6 +363,7 @@ The main benefit of mono-exponential _T_{sub}`2` mapping is its simplicity and s
 
 Despite these advantages, mono-exponential methods have certain drawbacks. First, by assuming a single _T_{sub}`2` relaxation constant per voxel, the mono-exponential method tends to over-simplify the tissue microstructure, potentially leading to inaccurate _T_{sub}`2` estimations. This limitation can be particularly problematic when studying tissues that have a complex microstructure, where a single voxel may contain components with different _T_{sub}`2` relaxation times. Furthermore, it has been shown that MESE sequences are sensitive to imperfections in the radiofrequency pulses. For instance, factors such as _B_{sub}`1` inhomogeneities and reduced flip angles have been shown to overestimate _T_{sub}`2` times when using mono-exponential methods [@Fatemi2020-tm]. 
 
+(t2Multiexpo)=
 # Multiexponential T2 mapping
 
 By using the mono-exponential curve described in the previous sections, we use a single compartment tissue model. This means that we assume that all tissue components contained in a voxel have the same _T_{sub}`2` relaxation time. However, in practice, the assumption of _T_{sub}`2` decay uniformity within a voxel can result in inaccurate fittings, as a voxel may contain different tissue compartments with different _T_{sub}`2` times. For example, a voxel at a tissue boundary inside the brain can contain both cerebrospinal fluid and gray matter, a phenomenon which is also commonly referred to as the partial volume effect. In such cases, it would be preferable to compartmentalize different tissues inside a single voxel: this is made possible with multi-exponential _T_{sub}`2` mapping, where we consider the _T_{sub}`2` relaxation contribution of each tissue compartment within a voxel. The multi-exponential _T_{sub}`2` mapping method, which will be described in this section, can be useful in many applications, such as myelin water fraction imaging which will be explained further in the [section on applications](#t2Applications). 
@@ -525,6 +527,7 @@ save("multiexpo_T2_image.mat", "ME_TE_1", "ME_TE_2", "ME_TE_3", "ME_TE_4", "Echo
 
 ````
 
+(t2Applications)=
 ## Applications
 
 ### Myelin water fraction (MWF) imaging

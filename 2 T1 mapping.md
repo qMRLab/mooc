@@ -15,7 +15,7 @@ numbering:
 ---
 
 
-
+(irIntroduction)=
 # Inversion Recovery _T_{sub}`1` Mapping
 
 Widely considered the gold standard for [_T_{sub}`1`](wiki:Spin–lattice_relaxation) mapping, the [inversion recovery](wiki:Inversion_recovery) technique estimates [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values by fitting the signal recovery curve acquired at different delays after an inversion pulse (180°). In a typical [inversion recovery](wiki:Inversion_recovery) experiment ([](#irFig1)), the [magnetization](wiki:Magnetization) at thermal equilibrium is inverted using a 180° RF pulse. After the longitudinal [magnetization](wiki:Magnetization) recovers through [spin-lattice relaxation](wiki:Spin–lattice_relaxation) for predetermined delay (inversion time, TI), a 90° excitation pulse is applied, followed by a readout imaging sequence (typically a [spin-echo](wiki:Spin_echo) or [gradient-echo](wiki:MRI_pulse_sequence#Gradient_echo) readout) to create a snapshot of the longitudinal [magnetization](wiki:Magnetization) state at that TI.
@@ -530,7 +530,7 @@ Several variations of the [inversion recovery](wiki:Inversion_recovery) pulse se
 
 Another [inversion recovery](wiki:Inversion_recovery) variant that’s worth mentioning is saturation recovery, in which the inversion pulse is replaced with a saturation pulse: {{math}`\theta_{90}` – TI – {math}`\theta_{90}`}. This technique was used to acquire the very first _T_{sub}`1` map {cite:p}`Pykett1978`. Unlike [inversion recovery](wiki:Inversion_recovery), this pulse sequence does not need a long TR to recover to its initial condition; every {math}`\theta_{90}` pulse resets the longitudinal magnetization to the same initial state. However, to properly sample the recovery curve, TIs still need to reach the order of ~_T_{sub}`1`, the dynamic range of signal potential is cut in half ([0, {math}`M_{0}`]), and the short TIs (which have the fastest acquisition times) have the lowest SNRs.
 
-
+(vfaIntroduction)=
 # Variable Flip Angle _T_{sub}`1` Mapping
 
 Variable flip angle (VFA) [_T_{sub}`1`](wiki:Spin–lattice_relaxation) mapping {cite:p}`Christensen1974,Fram1987,Gupta1977`, also known as Driven Equilibrium Single Pulse Observation of [_T_{sub}`1`](wiki:Spin–lattice_relaxation) (DESPOT1) {cite:p}`Homer1985,Deoni2003`, is a rapid quantitative [_T_{sub}`1`](wiki:Spin–lattice_relaxation) measurement technique that is widely used to acquire 3D [_T_{sub}`1`](wiki:Spin–lattice_relaxation) maps (e.g. whole-brain) in a clinically feasible time. VFA estimates [_T_{sub}`1`](wiki:Spin–lattice_relaxation) values by acquiring multiple spoiled [gradient echo](wiki:Gradient_echo) acquisitions, each with different excitation flip angles ({math}`\theta_{n}` for n = 1, 2, .., N and {math}`\theta_{i}` ≠ {math}`\theta_{j}`). The steady-state signal of this pulse sequence ([](#vfaFig1)) uses very short TRs (on the order of magnitude of 10 ms) and is very sensitive to [_T_{sub}`1`](wiki:Spin–lattice_relaxation) for a wide range of flip angles.
@@ -1153,6 +1153,7 @@ It has been well reported in recent years that the accuracy of VFA [_T_{sub}`1`]
 
 Despite some drawbacks, VFA is still one of the most widely used [_T_{sub}`1`](wiki:Spin–lattice_relaxation) mapping methods in research. Its rapid acquisition time, rapid image processing time, and widespread availability makes it a great candidate for use in other quantitative imaging acquisition protocols like quantitative magnetization transfer imaging {cite:p}`Cercignani2005,Yarnykh2002` and dynamic contrast enhanced imaging {cite:p}`Li2018,Sung2013`.
 
+(mp2rageIntroduction)=
 # MP2RAGE
 
 

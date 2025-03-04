@@ -20,7 +20,6 @@ A 32-year-old female presents to the neurology clinic with a 3-month history of 
 The patient’s symptoms are consistent with a demyelinating disorder, such as multiple sclerosis (MS). To confirm the diagnosis, the neurologist orders an MRI of the brain and spinal cord.
 
 :::{dropdown} McDonald Criteria (2017) for MS Diagnosis
-:close:
 **Clinical Attacks**: At least two clinical attacks with evidence of two or more lesions OR two clinical attacks with evidence of one lesion (dissemination in space, DIS) and historical evidence of a prior attack.
 
 **MRI Evidence:**
