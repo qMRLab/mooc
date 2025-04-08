@@ -305,7 +305,7 @@ Spatial unwrapping uses the spatial characteristics of images to unwrap the data
 A more complex example is shown in [](#b0Plot12) where phase varies spatially in a non-linear fashion. When the signal is unwrapped, different solutions are expected. These solutions vary by {math}`2n\pi`. Its cause and potential remedy are described in the following section.
 
 
-:::{figure} #b0Fig12jn
+:::{figure} ./5 B0 Mapping/3 Phase Unwrapping/videos/PhaseUnwrapping.mp4
 :label: b0Plot12
 :enumerator: 5.12
 A more complex example of a signal wrapped and unwrapped. Note that three possibilities are possible when unwrapping, depending on which part of the signal is selected to be the true phase. The slider can be moved left to right to show the wrapped and unwrapped data.
