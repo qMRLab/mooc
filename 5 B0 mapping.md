@@ -168,7 +168,7 @@ As phase changes linearly with time (t) and with the field offset (_B_{sub}`0`),
 \end{equation}
 ```
 
-where TE{sub}`1` and TE{sub}`2` are the echo times, and  TE = TE{sub}`2`- TE{sub}`1`. To compute the phase offset {math}`\Delta \phi`, phase subtraction is necessary. The complex difference can be used to keep the phase between {math}`-\pi` to {math}`+\pi`, although other phase difference techniques are also possible.
+where TE{sub}`1` and TE{sub}`2` are the echo times, and  {math}`\Delta`TE = TE{sub}`2`- TE{sub}`1`. To compute the phase offset {math}`\Delta \phi`, phase subtraction is necessary. The complex difference can be used to keep the phase between {math}`-\pi` to {math}`+\pi`, although other phase difference techniques are also possible.
 
 ```{math}
 :label: b0Eq6
