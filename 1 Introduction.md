@@ -406,7 +406,7 @@ After a number of GRE excitation pulses, the longitudinal magnetization reaches 
 \theta_E = \arccos(e^{\frac{-TR}{T1}})
 ```
 
-where {math}`\theta_E` is known as the Ernst Angle (Ernst and Anderson, 1966). [](#intFig18) shows this relationship by simulating an SPGR signal across multiple FA at a fixed TR of 30ms for a substance with _T_{sub}`1`=800ms. It can be seen that the signal is maximized around an FA of 15°, as given by the Equation [](#int3seq) for these settings ([](#intFig19)).
+where {math}`\theta_E` is known as the Ernst Angle (Ernst and Anderson, 1966). [](#intFig19) shows this relationship by simulating an SPGR signal across multiple FA at a fixed TR of 30ms for a substance with _T_{sub}`1`=800ms. It can be seen that the signal is maximized around an FA of 15°, as given by the Equation [](#int3seq) for these settings ([](#intFig19)).
 
 ```{figure} 1 Introduction to qMRI/img/int_fig19.png
 :label: intFig19
