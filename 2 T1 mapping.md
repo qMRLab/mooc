@@ -588,7 +588,7 @@ Sufficient spoiling is likely the most challenging parameter to control for in a
 :::{figure} #vfaFig4jn
 :label: vfaPlot3
 :enumerator: 2.10
-Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, _T_{sub}`1` = 900 ms, T{sub}`e` = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  {math}`\Phi_{n}=\Phi_{n-1}+n\Phi_{0}=1/2\Phi_{0}\left( n^{2}+n+2 \right)` {cite:p}`Handbook2004` with {math}`\Phi_{0}` = 117° {cite:p}`Zur1991` after each TR.
+Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, _T_{sub}`1` = 900 ms, T{sub}`2` = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  {math}`\Phi_{n}=\Phi_{n-1}+n\Phi_{0}=1/2\Phi_{0}\left( n^{2}+n+2 \right)` {cite:p}`Handbook2004` with {math}`\Phi_{0}` = 117° {cite:p}`Zur1991` after each TR.
 :::
 
 
