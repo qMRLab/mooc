@@ -235,7 +235,7 @@ S(TI) = a + be^{- \frac{TI}{T_1}}
 \end{equation}
 ```
 
-where {math}`a` and {math}`b` are complex values. If magnitude-only data is available, a 3-parameter model can be sufficient by taking the absolute value of [Equation 2.4](#irEq4).  While the RD-NLS algorithms are too complex to be presented here (the reader is referred to the paper, {cite:p}`Barral2010-qm`),  the code for these algorithms [was released open-source](http://www-mrsrl.stanford.edu/~jbarral/t1map.html) along with the original publication, and is also available as a [qMRLab](https://github.com/qMRLab/qMRLab) _T_{sub}`1` mapping model. One important thing to note about [Equation 2.4](#irEq4) is that it is general – no assumption is made about TR – and is thus as robust as [Equation 2.1](#irEq1) as long as all pulse sequence parameters other than TI are kept constant between each measurement. [](#irPlot3) compares simulated data ([Equation 2.1](#irEq1)) using a range of TRs (1.5 _T_{sub}`1` to 5 _T_{sub}`1`) fitted using either RD-NLS & [Equation 2.4](#irEq4) or a [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) fit of [Equation 2.2](#irEq2).
+where {math}`a` and {math}`b` are complex values. If magnitude-only data is available, a 3-parameter model can be sufficient by taking the absolute value of [Equation 2.4](#irEq4).  While the RD-NLS algorithms are too complex to be presented here (the reader is referred to the paper, {cite:p}`Barral2010-qm`),  the code for these algorithms [was released open-source](https://web.archive.org/web/20150620030019/http://www-mrsrl.stanford.edu/~jbarral/t1map.html) along with the original publication, and is also available as a [qMRLab](https://github.com/qMRLab/qMRLab) _T_{sub}`1` mapping model. One important thing to note about [Equation 2.4](#irEq4) is that it is general – no assumption is made about TR – and is thus as robust as [Equation 2.1](#irEq1) as long as all pulse sequence parameters other than TI are kept constant between each measurement. [](#irPlot3) compares simulated data ([Equation 2.1](#irEq1)) using a range of TRs (1.5 _T_{sub}`1` to 5 _T_{sub}`1`) fitted using either RD-NLS & [Equation 2.4](#irEq4) or a [Levenberg-Marquardt](wiki:Levenberg–Marquardt_algorithm) fit of [Equation 2.2](#irEq2).
 
 
 :::{figure} #irFig4jn
@@ -588,7 +588,7 @@ Sufficient spoiling is likely the most challenging parameter to control for in a
 :::{figure} #vfaFig4jn
 :label: vfaPlot3
 :enumerator: 2.10
-Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, _T_{sub}`1` = 900 ms, T{sub}`e` = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  {math}`\Phi_{n}=\Phi_{n-1}+n\Phi_{0}=1/2\Phi_{0}\left( n^{2}+n+2 \right)` {cite:p}`Handbook2004` with {math}`\Phi_{0}` = 117° {cite:p}`Zur1991` after each TR.
+Signal curves estimated using Bloch simulations for three categories of signal spoiling: (1) ideal spoiling (blue), gradient & RF Spoiling (orange), and no spoiling (green). Simulations details: TR = 25 ms, _T_{sub}`1` = 900 ms, T{sub}`2` = 100 ms, TE = 5 ms, 100 spins. For the ideal spoiling case, the transverse magnetization is set to zero at the end of each TR. For the gradient & RF spoiling case, each spin is rotated by different increments of phase (2𝜋 / # of spins) to simulate complete decoherence from gradient spoiling, and the RF phase of the excitation pulse is  {math}`\Phi_{n}=\Phi_{n-1}+n\Phi_{0}=1/2\Phi_{0}\left( n^{2}+n+2 \right)` {cite:p}`Handbook2004` with {math}`\Phi_{0}` = 117° {cite:p}`Zur1991` after each TR.
 :::
 
 
@@ -799,6 +799,7 @@ end
 
 ````
 
+(vfaDataFitting)=
 ## Data Fitting
 
 

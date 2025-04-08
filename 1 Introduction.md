@@ -406,7 +406,7 @@ After a number of GRE excitation pulses, the longitudinal magnetization reaches 
 \theta_E = \arccos(e^{\frac{-TR}{T1}})
 ```
 
-where {math}`\theta_E` is known as the Ernst Angle (Ernst and Anderson, 1966). [](#intFig18) shows this relationship by simulating an SPGR signal across multiple FA at a fixed TR of 30ms for a substance with _T_{sub}`1`=800ms. It can be seen that the signal is maximized around an FA of 15°, as given by the Equation [](#int3seq) for these settings ([](#intFig19)).
+where {math}`\theta_E` is known as the Ernst Angle (Ernst and Anderson, 1966). [](#intFig19) shows this relationship by simulating an SPGR signal across multiple FA at a fixed TR of 30ms for a substance with _T_{sub}`1`=800ms. It can be seen that the signal is maximized around an FA of 15°, as given by the Equation [](#int3seq) for these settings ([](#intFig19)).
 
 ```{figure} 1 Introduction to qMRI/img/int_fig19.png
 :label: intFig19
@@ -424,7 +424,7 @@ However, this relationship is valid under the assumption that the transverse mag
 The influence of spoiling on SPGR signal is simulated for (a) the spoiling gradient area ranging from 0 to 10 (cyc/voxel), (b) enabling/disabling RF spoiling at 117° quadratic phase increment and (c) different phase increment values ranging from 0 to 180°.
 ```
 
-[](#intFig21) shows an example _T_{sub}`1` mapping application using the SPGR sequence in a phantom with known values. The acquisitions were performed at two flip angles of 20° (a) and 6° (b), and TR=32ms. Both images show the center of a plate accommodating 14 spheres with _T_{sub}`1` values ranging from 0.1 to 1.99 seconds in clockwise ascending order (R1 to R10). In agreement with the Equation 2.4, the image acquired at the higher FA shows superior _T_{sub}`1` contrast (a), as the pixel brightness varies inversely with the reference _T_{sub}`1` values (d). On the other hand, spheres in the lower FA image show similar brightness (b), in proportion with the spin density of the spheres. From this image pair, a _T_{sub}`1` map (c) was estimated using a linear fit as described in (Mathieu), exhibiting good accuracy across the reference values.
+[](#intFig21) shows an example _T_{sub}`1` mapping application using the SPGR sequence in a phantom with known values. The acquisitions were performed at two flip angles of 20° (a) and 6° (b), and TR=32ms. Both images show the center of a plate accommodating 14 spheres with _T_{sub}`1` values ranging from 0.1 to 1.99 seconds in clockwise ascending order (R1 to R10). In agreement with the Equation 2.4, the image acquired at the higher FA shows superior _T_{sub}`1` contrast (a), as the pixel brightness varies inversely with the reference _T_{sub}`1` values (d). On the other hand, spheres in the lower FA image show similar brightness (b), in proportion with the spin density of the spheres. From this image pair, a _T_{sub}`1` map (c) was estimated using a linear fit as described in [the VFA section of this book](#vfaDataFitting), exhibiting good accuracy across the reference values.
 
 ```{figure} 1 Introduction to qMRI/img/int_fig21.jpg
 :label: intFig21

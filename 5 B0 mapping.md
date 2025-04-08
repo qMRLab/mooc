@@ -98,7 +98,7 @@ FID curves with signal demodulation at [Larmor frequency](https://en.wikipedia.o
 
 _B_{sub}`0` inhomogeneities can lead to distorted k-space trajectories during the readout gradient. This effect is worse during further k-space traversal due to the compounding of the errors. When inhomogeneities are present, the frequencies of the spins are altered. The one-to-one relationship between frequency and spatial location (required to obtain accurate spatial correspondence) is broken. This leads to geometric distortions. [](#b0Plot5) shows an animation of the filing of k-space of an EPI sequence using bi-polar readouts. A theoretical trajectory is shown as well as a trajectory where a constant parasite gradient in the phase encoding direction has been added. One can observe the trajectory differences.
 
-:::{figure} #b0Fig5jn
+:::{figure} ./5 B0 Mapping/1 B0 inhomogeneities/videos/KSpace.mp4
 :label: b0Plot5
 :enumerator: 5.5
  K-space trajectory of an EPI sequence using bi-polar readout gradients (blue). A constant gradient in the positive phase encoding direction is applied to simulate inhomogeneities (red). The trajectory with the parasite gradient deviates from the theoretical trajectory. All encoding gradients (G) are instantaneously applied at 40 mT/m. A parasit G{sub}`p,phase` of 0.1mT/m (G/G{sub}`p,phase`=0.25%) is added to simulate inhomogeneities. 64 encoding steps are used in both the frequency and phase encoding directions but only one in five phase encoding lines is shown for visualization purposes.
@@ -168,7 +168,7 @@ As phase changes linearly with time (t) and with the field offset (_B_{sub}`0`),
 \end{equation}
 ```
 
-where TE{sub}`1` and TE{sub}`2` are the echo times, and  TE = TE{sub}`2`- TE{sub}`1`. To compute the phase offset {math}`\Delta \phi`, phase subtraction is necessary. The complex difference can be used to keep the phase between {math}`-\pi` to {math}`+\pi`, although other phase difference techniques are also possible.
+where TE{sub}`1` and TE{sub}`2` are the echo times, and  {math}`\Delta`TE = TE{sub}`2`- TE{sub}`1`. To compute the phase offset {math}`\Delta \phi`, phase subtraction is necessary. The complex difference can be used to keep the phase between {math}`-\pi` to {math}`+\pi`, although other phase difference techniques are also possible.
 
 ```{math}
 :label: b0Eq6
@@ -305,7 +305,7 @@ Spatial unwrapping uses the spatial characteristics of images to unwrap the data
 A more complex example is shown in [](#b0Plot12) where phase varies spatially in a non-linear fashion. When the signal is unwrapped, different solutions are expected. These solutions vary by {math}`2n\pi`. Its cause and potential remedy are described in the following section.
 
 
-:::{figure} #b0Fig12jn
+:::{figure} ./5 B0 Mapping/3 Phase Unwrapping/videos/PhaseUnwrapping.mp4
 :label: b0Plot12
 :enumerator: 5.12
 A more complex example of a signal wrapped and unwrapped. Note that three possibilities are possible when unwrapping, depending on which part of the signal is selected to be the true phase. The slider can be moved left to right to show the wrapped and unwrapped data.
