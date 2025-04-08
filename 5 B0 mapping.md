@@ -98,7 +98,7 @@ FID curves with signal demodulation at [Larmor frequency](https://en.wikipedia.o
 
 _B_{sub}`0` inhomogeneities can lead to distorted k-space trajectories during the readout gradient. This effect is worse during further k-space traversal due to the compounding of the errors. When inhomogeneities are present, the frequencies of the spins are altered. The one-to-one relationship between frequency and spatial location (required to obtain accurate spatial correspondence) is broken. This leads to geometric distortions. [](#b0Plot5) shows an animation of the filing of k-space of an EPI sequence using bi-polar readouts. A theoretical trajectory is shown as well as a trajectory where a constant parasite gradient in the phase encoding direction has been added. One can observe the trajectory differences.
 
-:::{figure} #b0Fig5jn
+:::{figure} ./5 B0 Mapping/1 B0 inhomogeneities/videos/KSpace.mp4
 :label: b0Plot5
 :enumerator: 5.5
  K-space trajectory of an EPI sequence using bi-polar readout gradients (blue). A constant gradient in the positive phase encoding direction is applied to simulate inhomogeneities (red). The trajectory with the parasite gradient deviates from the theoretical trajectory. All encoding gradients (G) are instantaneously applied at 40 mT/m. A parasit G{sub}`p,phase` of 0.1mT/m (G/G{sub}`p,phase`=0.25%) is added to simulate inhomogeneities. 64 encoding steps are used in both the frequency and phase encoding directions but only one in five phase encoding lines is shown for visualization purposes.
