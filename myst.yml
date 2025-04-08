@@ -62,6 +62,7 @@ project:
     qMT: Quantitative Magnetization Transfer
     MTsat: Magnetization Transfer saturation
     SAR: Specific absorption rate
+    FWHM: Full width at half maximum
   exclude:
     - README.md
     - LICENSE.md
