@@ -1,394 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T1 Mapping - Inversion Recovery</title>
-    
-    <!-- Reveal.js CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css">
-    
-    <style>
-        /* Custom fixes */
-        /*.reveal .slides {
-            position: absolute !important;
-        }*/
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Magnetization Transfer Imaging</title><!-- Reveal.js CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" rel="stylesheet">
+	<style>
+	       /* Custom fixes */
+	       /*.reveal .slides {
+	           position: absolute !important;
+	       }*/
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            }
+	       html, body {
+	           margin: 0;
+	           padding: 0;
+	           height: 100%;
+	           overflow: hidden;
+	           }
 
-            .reveal {
-            height: 100% !important;
-            width: 100% !important;
-            overflow: hidden;
-            }
+	           .reveal {
+	           height: 100% !important;
+	           width: 100% !important;
+	           overflow: hidden;
+	           }
 
-            .reveal .slides {
-            height: 100% !important;
-            }
+	           .reveal .slides {
+	           height: 100% !important;
+	           }
 
-        .mt-list > li {
-        margin-bottom: 0.2em;
-        }
+	       .mt-list > li {
+	       margin-bottom: 0.2em;
+	       }
 
-        .mt-list li ul {
-        margin-top: 0.1em;
-        margin-bottom: 0;
-        }
+	       .mt-list li ul {
+	       margin-top: 0.1em;
+	       margin-bottom: 0;
+	       }
 
-        .top-title {
-            position: relative;
-            top: 0;
-            margin-top: 0.5em; /* Add space above the title */
-            text-align: center; /* Optional: keeps it centered */
-        }
-        /* Ensure Reveal container itself has no padding/margin */
-        .reveal, 
-        .reveal .slides, 
-        .reveal .slides section, 
-        .reveal .plot-slide {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
+	       .top-title {
+	           position: relative;
+	           top: 0;
+	           margin-top: 0.5em; /* Add space above the title */
+	           text-align: center; /* Optional: keeps it centered */
+	       }
+	       /* Ensure Reveal container itself has no padding/margin */
+	       .reveal, 
+	       .reveal .slides, 
+	       .reveal .slides section, 
+	       .reveal .plot-slide {
+	           margin: 0 !important;
+	           padding: 0 !important;
+	       }
 
-        .plot-slide {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100%  !important;
-            height: 100%  !important;
-            overflow: hidden;
-        }
+	       .plot-slide {
+	           margin: 0 !important;
+	           padding: 0 !important;
+	           width: 100%  !important;
+	           height: 100%  !important;
+	           overflow: hidden;
+	       }
 
-        .plot-container {
-            position: relative;
-            width: 100%  !important;
-            height: 100%  !important;
-            margin: 0;
-            padding: 0;
-            overflow: hidden !important;
-        }
+	       .plot-container {
+	           position: relative;
+	           width: 100%  !important;
+	           height: 100%  !important;
+	           margin: 0;
+	           padding: 0;
+	           overflow: hidden !important;
+	       }
+	       .math {
+	           margin: 0;
+	           padding: 0;
+	           line-height: 1;
+	       }
+	       .plot-container iframe {
+	           position: absolute;
+	           top: 0;
+	           left: 0;
+	           width: 100% !important;
+	           height: 100% !important;
+	           border: none;
+	           margin: 0;
+	           padding: 0;
+	       }
+           .reveal h1,
+           .reveal h2,
+           .reveal h3,
+           .reveal h4,
+           .reveal h5,
+           .reveal h6 {
+                text-transform: none !important;
+           }
+	       .reveal .plot-slide.present {
+	           top: 0 !important;
+	           transform: none !important; /* also disable vertical translate centering */
+	       }
+	       
+	       .MathJax {
+	           font-size: 1em;
+	       }
+	       /* Compact title slide */
+	       .title-slide h1 {
+	           font-size: 2.2em !important;
+	           margin-bottom: 0.3em !important;
+	       }
+	       
+	       .title-slide h3 {
+	           font-size: 1.3em !important;
+	           margin-bottom: 1.5em !important;
+	       }
+	       .title-slide h4 {
+	           font-size: 1.2em !important;
+	           margin-bottom: 0.5em !important;
+	       }
+	       /* Remove all spacing and enforce full screen */
 
-        .plot-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100% !important;
-            height: 100% !important;
-            border: none;
-            margin: 0;
-            padding: 0;
-        }
+	       .reveal .slides {
+	           height: 100%;
+	           top: 0;
+	           margin-top: 0;
+	           }
 
-        .reveal .plot-slide.present {
-            top: 0 !important;
-            transform: none !important; /* also disable vertical translate centering */
-        }
+	           .reveal .slides>section>section {
+	           min-height: 100%;
+	           }
+	           section {
+	               padding-top: 0 !important;
+	               margin-top: 0 !important;
+	           }
+	.reveal .slides section.no-padding-slide,
+	.reveal .slides section.no-padding-slide .plot-container,
+	.reveal .slides section.no-padding-slide .plot-container iframe {
+	 padding: 0 !important;
+	 margin: 0 !important;
+	 border: none !important;
+	 width: 100% !important;
+	 height: 100% !important;
+	 max-width: 100% !important;
+	 max-height: 100% !important;
+	 box-sizing: border-box !important;
+	 display: block !important;
+	 position: relative !important;
+	}
 
-        
-        /* Compact title slide */
-        .title-slide h1 {
-            font-size: 2.2em !important;
-            margin-bottom: 0.3em !important;
-        }
-        
-        .title-slide h3 {
-            font-size: 1.3em !important;
-            margin-bottom: 1.5em !important;
-        }
-        .title-slide h4 {
-            font-size: 1.2em !important;
-            margin-bottom: 0.5em !important;
-        }
-        /* Remove all spacing and enforce full screen */
+	.reveal .slides section.no-padding-slide {
+	 height: 100vh !important;
+	}
 
-        .reveal .slides {
-            height: 100%;
-            top: 0;
-            margin-top: 0;
-            }
+	/* Fix MathJax padding */
+	.MathJax_Display, .MJXc-display, .MathJax_SVG_Display {
+	   margin: 0 !important;
+	   padding: 0.5em !important;
+	   overflow: hidden !important;
+	   font-size: 1em;
+	}
 
+	/* Specifically target SVG output if needed */
+	.MathJax_SVG_Display {
+	   line-height: 0 !important;
+	}
 
+	/* Ensure equations don't create extra space */
+	.MathJax_Display {
+	   display: inline !important;
+	}
+	       /* Make the table more responsive on smaller screens */
+	       @media (max-width: 600px) {
+	/* Add this to your existing table styles */
+	table {
+	   border-collapse: collapse;
+	   border-spacing: 0;
+	}
 
-            .reveal .slides>section>section {
-            min-height: 100%;
-            }
-            section {
-                padding-top: 0 !important;
-                margin-top: 0 !important;
-            }
-.reveal .slides section.no-padding-slide,
-.reveal .slides section.no-padding-slide .plot-container,
-.reveal .slides section.no-padding-slide .plot-container iframe {
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  box-sizing: border-box !important;
-  display: block !important;
-  position: relative !important;
-}
+	td {
+	   padding: 0 !important;
+	   margin: 0 !important;
+	   vertical-align: middle; /* Keeps equations vertically centered */
+	}
+	li *:empty{
+	 display: none;
+	}
+	.mjx-chtml.MJXc-display{
+	 margin: 0;
+	}
+	tr {
+	   margin: 0 !important;
+	   padding: 0 !important;
+	   line-height: 1; /* Tight line spacing */
+	}
+	           .math {
+	               display: block;
+	               overflow-wrap: break-word;  /* Make sure equations wrap properly */
+	               white-space: normal;  /* Allow the equation to break lines if needed */
+	           }
+	       }
+	       table.equation-table {
+	   border-collapse: collapse;
+	   border-spacing: 0;
+	   width: 100%;
+	   font-size: 1em;
+	   table-layout: fixed;
+	}
 
-.reveal .slides section.no-padding-slide {
-  height: 100vh !important;
-}
- 
+	table.equation-table tr,
+	table.equation-table td {
+	   margin: 0 !important;
+	   padding: 0 !important;
+	   line-height: 0 !important;
+	   vertical-align: middle !important;
+	   border: none !important;
+	}
 
-        /* Make the table more responsive on smaller screens */
-        @media (max-width: 600px) {
-            table {
-                font-size: 1em;  /* Slightly larger font for better readability on small screens */
-                word-wrap: break-word;  /* Allow long equations to wrap */
-            }
-            
-            td {
-                padding: 1px;  /* Reduce padding to avoid overflow */
-            }
-
-            .math {
-                display: block;
-                overflow-wrap: break-word;  /* Make sure equations wrap properly */
-                white-space: normal;  /* Allow the equation to break lines if needed */
-            }
-        }
-    </style>
+	</style>
 </head>
 <body>
-    <div class="reveal">
-        <div class="slides">
-
-            <!-- Title Slide -->
-            <section class="title-slide">
-                <h1>Magnetization Transfer Techniques</h1>            </section>
-
-            <!-- Introduction -->
+	<div class="reveal">
+		<div class="slides">
+			<!-- Title Slide -->
+			<section class="title-slide">
+				<h1>Magnetization Transfer Imaging</h1>
+			</section><!-- Introduction -->
+			<section>
+				<h2>Techniques</h2>
+				<div style="font-size: 0.85em; margin-left: 2em">
+					<ul class="mt-list">
+						<li>
+							<b>Magnetization Transfer Ratio (MTR)</b>
+							<ul>
+								<li>Quick but <span style="color: #cc4444;">not quantitative</span></li>
+							</ul>
+						</li>
+						<li>
+							<b>Magnetization Transfer Saturation (MTsat)</b>
+							<ul>
+								<li>Quick and <span style="color: #cc4444;">semi-quantitative</span></li>
+							</ul>
+						</li>
+						<li>
+							<b>Quantitative MT</b>
+							<ul>
+								<li>Slow but <span style="color: #cc4444;">fully quantitative</span></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section>
+				<h2 class="top-title">Pulse Sequence</h2><img alt="MT-Prepares SPGR Pulse Sequence" src="mtspgr_pulsesequence.png" style="max-height: 70vh; margin-top: 0;">
+				<h4>MT-prepared SPGR</h4><!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: 10px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmtfig1" target="_blank">Link to chapter</a>
+				</div>
+			</section><!-- Signal Modeling -->
+			<section>
+				<h3>Bloch-McConnell Equations</h3>
+				<table class="equation-table" style="width: 100%; font-size: 1em; table-layout: fixed; border-collapse: collapse;">
+					<tr>
+						<td style="padding: 0px; border: none;">
+							<div class="math">
+								\[ \frac{d M_{x,f}}{dt}= \underbrace{-\frac{M_{x,f}}{T_{2,f}}}_{\color{blue}{\text{relaxation}}} +\underbrace{\Delta M_{y,f}}_{\color{orange}{\text{precession}}} -\underbrace{\text{Im}\left( \omega_{1} \right)M_{z,f}}_{\color{purple}{\text{nutation}}} \]
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding: 0px; border: none;">
+							<div class="math">
+								\[ \frac{d M_{y,f}}{dt}= \underbrace{-\frac{M_{y,f}}{T_{2,f}}}_{\color{blue}{\text{relaxation}}} +\underbrace{\Delta M_{x,f}}_{\color{orange}{\text{precession}}} -\underbrace{\text{Re}\left( \omega_{1} \right)M_{z,f}}_{\color{purple}{\text{nutation}}} \]
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding: 0px; border: none;">
+							<div class="math">
+								\[ \frac{d M_{z,f}}{dt}= \underbrace{-\frac{\left( M_{0,f}-M_{z,f} \right)}{T_{1,f}}}_{\color{blue}{\text{relaxation}}} +\underbrace{k_{r}M_{z,r}}_{\color{green}{\text{exchange}}} +\underbrace{\left( \text{Im}\left( \omega_{1} \right)M_{x,f}-\text{Re}\left( \omega_{1} \right)M_{y,f} \right)}_{\color{purple}{\text{nutation}}} \]
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding: 0px; border: none;">
+							<div class="math">
+								\[ \frac{d M_{z,r}}{dt}= \underbrace{-\frac{\left( M_{0,r}-M_{z,r} \right)}{T_{1,r}}}_{\color{blue}{\text{relaxation}}} +\underbrace{\left( -k_{r}M_{z,r}+k_{f}M_{z,f} \right)}_{\color{green}{\text{exchange}}} +\underbrace{W\left(\omega_1,\Delta,T_{2,r} \right)M_{z,r}}_{\color{red}{\text{RF pumping}}} \]
+							</div>
+						</td>
+					</tr>
+				</table>
+				<aside class="notes">
+					- Blue: Relaxation - Orange: Precession - Green: Exchange - Purple: Nutation - Red: RF Pumping
+				</aside><!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: 10px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmteq1" target="_blank">Link to chapter</a>
+				</div>
+			</section><!-- Figure 1 -->
+			<section class="plot-slide no-padding-slide" data-background-iframe="mt_fig_1.html" data-background-interactive="">
+				<!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: -5px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmtfig5" target="_blank">Link to chapter</a>
+				</div>
+			</section><!-- Figure 1 -->
+			<section class="plot-slide no-padding-slide" data-background-iframe="qmtmaps.html" data-background-interactive="">
+				<!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: 200px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmtfig8" target="_blank">Link to chapter</a>
+				</div>
+			</section><!-- Signal Modeling -->
+			<section>
+				<h2>MTR Equation</h2>
+				<table style="width: 100%; font-size: 2em; table-layout: fixed; border-collapse: collapse;">
+					<tr>
+						<td style="padding: 1px; padding-top: 20%; border: none;">
+							<div class="math">
+								\[ \text{MTR} \left( \% \right) = \frac{S_{0}-S_{MT}}{S_{0}} \cdot 100 \]
+							</div>
+						</td>
+					</tr>
+				</table><!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: -300px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtreq1" target="_blank">Link to chapter</a>
+				</div>
+			</section><!-- Figure 1 -->
+			<section class="plot-slide no-padding-slide" data-background-iframe="mtrsensitivity.html" data-background-interactive="">
+				<!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: 200px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtrplot2" target="_blank">Link to chapter</a>
+				</div>
+			</section>
+			<section>
+				<h5>MTsat model</h5><img alt="MTsat model" src="mtsat_model_sequence.png" style="max-height: 60vh; margin-top: 0;">
+				<h6>MT-prepared SPGR</h6><img alt="MT-Prepares SPGR Pulse Sequence" src="mtspgr_pulsesequence.png" style="max-height: 20vh; margin-top: 0;"> <!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: 50px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtsatfig2" target="_blank">Link to chapter</a>
+				</div>
+			</section>
             <section>
-                    <h2>Techniques</h2>
-                    <ul style="font-size: 0.85em;">
-                        <ul class="mt-list">
-                            <li><b>Magnetization Transfer Ratio (MTR)</b>
-                              <ul>
-                                <li>Quick but <span style="color: #cc4444;">not quantitative</span></li>
-                              </ul>
-                            </li>
-                            <li><b>Magnetization Transfer Saturation (MTsat)</b>
-                              <ul>
-                                <li>Quick and <span style="color: #cc4444;">semi-quantitative</span></li>
-                              </ul>
-                            </li>
-                            <li><b>Quantitative MT</b>
-                              <ul>
-                                <li>Slow but <span style="color: #cc4444;">fully quantitative</span></li>
-                              </ul>
-                            </li>
-                          </ul>
+                <h3>MTsat Equations</h3>
+                <table class="equation-table" style="width: 100%; font-size: 1em; table-layout: fixed; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 0px; border: none;">
+                            <div class="math">
+                                \[ MTsat=\left( A_{app}\cdot \frac{\alpha_{MT}}{S_{MT}}-1 \right)\cdot R_{1}\text{TR}_{\text{MT}}-\frac{\alpha_{MT}^{2}}{2} \]
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0px; border: none;">
+                            <div class="math">
+                                \[ A_{app}=S_{PD}S_{T_{1}}\frac{\text{TR}_{\text{PD}}\frac{\alpha_{T_{1}}}{\alpha_{PD}}-\text{TR}_{T_{1}}\frac{\alpha_{PD}}{\alpha_{T_{1}}}}{\text{TR}_{\text{PD}}S_{T_{1}}\alpha_{T_{1}}-\text{TR}_{T_{1}}S_{PD}\alpha_{PD}} \]
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0px; border: none;">
+                            <div class="math">
+                                \[ R_{1}=\frac{1}{2}\cdot \frac{\frac{S_{T_{1}}\alpha_{T_{1}}}{\text{TR}_{T_{1}}}-\frac{S_{PD}\alpha_{PD}}{\text{TR}_{PD}}}{\frac{S_{PD}}{\alpha_{PD}}-\frac{S_{T_{1}}}{\alpha_{T_{1}}}} \]
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <aside class="notes">
+                    - Equation 6.7: MTsat calculation
+                    - Equation 6.8: Apparent exchange term
+                    - Equation 6.9: Relaxation rate term
+                </aside>
+				<!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: 10px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtsateq7" target="_blank">Link to chapter</a>
+				</div>
             </section>
+			<section class="plot-slide no-padding-slide" data-background-iframe="mtsatvst1b1.html" data-background-interactive="">
+				<!-- Footer for this slide only -->
+				<div class="slide-footer" style=" position: absolute; bottom: 200px; left: 10px; font-size: 18px; color: gray;">
+					<a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtsatplot2" target="_blank">Link to chapter</a>
+				</div>
+			</section>
             <section>
-                <h2 class="top-title">Pulse Sequence</h2>
-                <img src="mtspgr_pulsesequence.png" alt="MT-Prepares SPGR Pulse Sequence" 
-                     style="max-height: 70vh; margin-top: 0;">
-                     <h4>MT-prepared SPGR</h4>
-                    <!-- Footer for this slide only -->
-                    <div class="slide-footer" style="
-                        position: absolute;
-                        bottom: 10px;
-                        left: 10px;
-                        font-size: 18px;
-                        color: gray;
-                    ">
-                        <a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmtfig1" target="_blank">Link to chapter</a>   
+                <h2>Summary</h2>
+                <div style="display: flex; justify-content: space-around; margin-top: 2em; text-align: left; font-size: 0.85em;">
+                    <!-- qMT Card -->
+                    <div style="width: 28%; padding: 15px; background: #e8f4fc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: #2b7bba; margin-top: 0; text-align: center;">qMT</h3>
+                        <ul style="padding-left: 20px; margin: 10px 0;">
+                            <li style="font-size: 0.7em;"><strong>Fully quantitative</strong></li>
+                            <li style="font-size: 0.7em;">10+ measurements</li>
+                            <li style="font-size: 0.7em;">Needs additional B<sub>0</sub>/B<sub>1</sub>/T<sub>1</sub> maps</li>
+                            <li style="font-size: 0.7em;">Long acquisition & processing times</li>
+                            <li style="font-size: 0.7em;">Pool-size ratio: 5-20%</li>
+                        </ul>
                     </div>
-            </section>
-        <!-- Signal Modeling -->
-        <section>
-            <h2>Bloch-McConnell Equations</h2>
+                    
+                    <!-- MTR Card -->
+                    <div style="width: 28%; padding: 15px; background: #fef3e8; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: #d35400; margin-top: 0; text-align: center;">MTR</h3>
+                        <ul style="padding-left: 20px; margin: 10px 0;">
+                            <li style="font-size: 0.7em;"><strong>Non-quantitative</strong></li>
+                            <li style="font-size: 0.7em;">2 measurements</li>
+                            <li style="font-size: 0.7em;">Sensitive to B<sub>1</sub> and T<sub>1</sub></li>
+                            <li style="font-size: 0.7em;">Instantaneous processing time</li>
+                            <li style="font-size: 0.7em;">MTR: 40-60%</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- MTsat Card -->
+                    <div style="width: 28%; padding: 15px; background: #e8f8f0; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: #27ae60; margin-top: 0; text-align: center;">MTsat</h3>
+                        <ul style="padding-left: 20px; margin: 10px 0;">
+                            <li style="font-size: 0.7em;"><strong>Semi-quantitative</strong></li>
+                            <li style="font-size: 0.7em;">3 measurements</li>
+                            <li style="font-size: 0.7em;">Needs additional B<sub>1</sub> map</li>
+                            <li style="font-size: 0.7em;">Fast processing time</li>
+                            <li style="font-size: 0.7em;">MTsat: 2-6%</li>
+                        </ul>
+                    </div>
+                </div>
             
-            <table style="width: 100%; font-size: 0.6em; table-layout: fixed; border-collapse: collapse;">
-                <tr>
-                    <td style="padding: 1px; border: none;">
-                        <div class="math">
-                            \[
-                            \frac{d M_{x,f}}{dt}=-\frac{M_{x,f}}{T_{2,f}}+\Delta M_{y,f}-\text{Im}\left( \omega_{1} \right)M_{z,f}
-                            \]
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 1px; border: none;">
-                        <div class="math">
-                            \[
-                            \frac{d M_{y,f}}{dt}=-\frac{M_{y,f}}{T_{2,f}}+\Delta M_{x,f}-\text{Re}\left( \omega_{1} \right)M_{z,f}
-                            \]
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 1px; border: none;">
-                        <div class="math">
-                            \[
-                            \frac{d M_{z,f}}{dt}=-\frac{\left( M_{0,f}-M_{z,f} \right)}{T_{1,f}}+k_{r}M_{z,r}+\text{Im}\left( \omega_{1} \right)M_{x,f}-\text{Re}\left( \omega_{1} \right)M_{y,f}
-                            \]
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 1px; border: none;">
-                        <div class="math">
-                            \[
-                            \frac{d M_{z,r}}{dt}=-\frac{\left( M_{0,r}-M_{z,r} \right)}{T_{1,r}}-k_{r}M_{z,r}+k_{f}M_{z,f}+WM_{z,r}
-                            \]
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1" style="padding: 1px; text-align: center; border: none;">
-                        <div class="math">
-                            \[
-                            W=\pi\omega_{1}^{2}G\left(\Delta,T_{2,r}  \right)
-                            \]
-                        </div>
-                    </td>
-                </tr>
-            </table>
-                    <!-- Footer for this slide only -->
-                    <div class="slide-footer" style="
-                        position: absolute;
-                        bottom: 10px;
-                        left: 10px;
-                        font-size: 18px;
-                        color: gray;
-                    ">
-                        <a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmteq1" target="_blank">Link to chapter</a>   
-                    </div>
-        </section>
-
-            <!-- Figure 1 -->     
-            <section class="plot-slide no-padding-slide" data-background-iframe="mt_fig_1.html" data-background-interactive>
-                    <!-- Footer for this slide only -->
-                    <div class="slide-footer" style="
-                        position: absolute;
-                        bottom: -5px;
-                        left: 10px;
-                        font-size: 18px;
-                        color: gray;
-                    ">
-                        <a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmtfig5" target="_blank">Link to chapter</a>   
-                    </div>
+                <aside class="notes">
+                    Quick notes: qMT is gold-standard but slow, MTR is fast but qualitative, MTsat balances speed and quantitation.
+                </aside>
             </section>
-
-            <!-- Figure 1 -->     
-            <section class="plot-slide no-padding-slide" data-background-iframe="qmtmaps.html" data-background-interactive>
-                    <!-- Footer for this slide only -->
-                    <div class="slide-footer" style="
-                        position: absolute;
-                        bottom: 200px;
-                        left: 10px;
-                        font-size: 18px;
-                        color: gray;
-                    ">
-                        <a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#qmtfig8" target="_blank">Link to chapter</a>   
-                    </div>
-            </section>
-
-        <!-- Signal Modeling -->
-        <section>
-            <h2>MTR Equation</h2>
-            
-            <table style="width: 100%; font-size: 0.6em; table-layout: fixed; border-collapse: collapse;">
-                <tr>
-                    <td style="padding: 1px; border: none;">
-                        <div class="math">
-                            \[
-                            \text{MTR} \left( \% \right) = \frac{S_{0}-S_{MT}}{S_{0}} \cdot 100
-                            \]
-                        </div>
-                    </td>
-                </tr>
-           </table>
-                    <!-- Footer for this slide only -->
-                    <div class="slide-footer" style="
-                        position: absolute;
-                        bottom: -300px;
-                        left: 10px;
-                        font-size: 18px;
-                        color: gray;
-                    ">
-                        <a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtreq1" target="_blank">Link to chapter</a>   
-                    </div>
-        </section>
+		</div>
+	</div><!-- Reveal.js Scripts -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js">
+	</script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js">
+	</script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js">
+	</script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/math/math.min.js">
+	</script> 
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+	</script> 
+	<script>
+	   Reveal.initialize({
+	       minScale: 0.2,
+	       maxScale: 1.0,
+	       controls: true,
+	       progress: true,
+	       center: true,
+	       hash: true,
+	       transition: 'slide',
+	       plugins: [ RevealMarkdown, RevealHighlight],
+	       postMessageEvents: true,
+	       // Add this
+	       slideNumber: true,
+	       embedded: true,
+	});
 
 
-            <!-- Figure 1 -->     
-            <section class="plot-slide no-padding-slide" data-background-iframe="mtrsensitivity.html" data-background-interactive>
-                    <!-- Footer for this slide only -->
-                    <div class="slide-footer" style="
-                        position: absolute;
-                        bottom: 200px;
-                        left: 10px;
-                        font-size: 18px;
-                        color: gray;
-                    ">
-                        <a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtrplot2" target="_blank">Link to chapter</a>   
-                    </div>
-            </section>
-
-            <section>
-                     <h5>MTsat model</h5>
-                     <img src="mtsat_model_sequence.png" alt="MTsat model" 
-                     style="max-height: 60vh; margin-top: 0;">
-                     <h6>MT-prepared SPGR</h6>
-                     <img src="mtspgr_pulsesequence.png" alt="MT-Prepares SPGR Pulse Sequence" 
-                          style="max-height: 20vh; margin-top: 0;">
-                    <!-- Footer for this slide only -->
-                    <div class="slide-footer" style="
-                        position: absolute;
-                        bottom: 50px;
-                        left: 10px;
-                        font-size: 18px;
-                        color: gray;
-                    ">
-                        <a href="https://qmrlab.org/mooc/magnetization-transfer-imaging#mtsatfig2" target="_blank">Link to chapter</a>   
-                    </div>
-            </section>
-
-        </div>
-    </div>
-
-    <!-- Reveal.js Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/math/math.min.js"></script>
-    <script>
-    Reveal.initialize({
-        minScale: 0.2,
-        maxScale: 1.0,
-        controls: true,
-        progress: true,
-        center: true,
-        hash: true,
-        transition: 'slide',
-        plugins: [ RevealMarkdown, RevealHighlight, RevealMath ],
-        postMessageEvents: true,
-        // Add this
-        slideNumber: true,
-        embedded: true,
-});
-
-
-    </script>
-
-
-
-
-
+	</script>
 </body>
 </html>
