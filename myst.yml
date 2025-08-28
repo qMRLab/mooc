@@ -153,6 +153,9 @@ project:
                         7 - Class Application Examples/1 T1 mapping/Question 5/t1cc-5-d.md
                     - file: >-
                         7 - Class Application Examples/1 T1 mapping/Question 5/t1cc-5-answer.md
+    - title: Slides
+      children:
+        - file: 8 Slides/6 - Magnetization Transfer Imaging.md
     - title: Notebooks
       children:
         - file: 2 T1 Mapping/2-1 Inversion Recovery/Notebooks/Figure-2-1-1.ipynb
@@ -234,6 +237,7 @@ site:
   options:
     logo: public/icon.png
     logo_text: qMRI mOOC
+    style: ./my-style.css
   actions:
     - title: Discussions
       url: https://github.com/qMRLab/mooc/discussions
