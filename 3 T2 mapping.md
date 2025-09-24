@@ -148,9 +148,6 @@ To fit the data using the mono-exponential model, homogeneity within each voxel 
 
 ## Signal Modelling
 
-
-
-
 The decay of the transverse magnetization (Mxy) is exponential and can be derived from the transverse component of the Bloch equations: 
 
 ```{math}
@@ -386,13 +383,13 @@ where each term of the summation represents the contribution of the ith tissue c
 
 :::{figure} #t2Fig4jn
 :label: t2Plot4
-:enumerator: 3.4
+:enumerator: 3.5
 Comparison of mono-exponential and multi-exponential _T_{sub}`2` fitting. This figure contrasts mono-exponential and multi-exponential fitting approaches for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves represent mono-exponential fittings for MW and IEW, respectively. The dotted purple curve illustrates the multi-exponential fitting, which combines both MW and IEW components. 
 :::
 
 :::{figure} #t2Fig6jn
 :label: t2Plot7
-:enumerator: 3.7
+:enumerator: 3.6
 Comparison of mono-exponential and multi-exponential _T_{sub}`2` fitting. This figure contrasts mono-exponential and multi-exponential fitting approaches for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves represent mono-exponential fittings for MW and IEW, respectively. The dotted purple curve illustrates the multi-exponential fitting, which combines both MW and IEW components. 
 :::
 
@@ -476,7 +473,7 @@ For example, the multi-exponential signal from [](#t2Plot4) can be expressed as 
 
 :::{figure} #t2Fig5jn
 :label: t2Plot5
-:enumerator: 3.5
+:enumerator: 3.7
 Multi-exponential _T_{sub}`2` mapping example of the spinal cord. The left image displays multi-exponential (ME) T2w data acquired at different echo times (TE) used for the data fitting. The right image presents the resulting myelin water fraction (MWF) map and _T_{sub}`2` relaxation maps for myelin water (MW) and intra/extracellular water (IEW). 
 :::
 
@@ -575,3 +572,39 @@ The primary advantage of multi-exponential _T_{sub}`2` mapping lies in its impro
 However, acquiring multi-exponential _T_{sub}`2` mapping comes with its challenges. First, the increased complexity of multi-exponential mapping compared to mono-exponential models results in longer acquisition times [@Kumar2012-uv]. Additionally, multi-exponential methods are also sensitive to noise [@Dula2009-bj], which can make accurate fittings challenging. 
 
 In conclusion, the choice of mono-exponential versus multi-exponential will depend on the specific clinical or research application as well as the complexity of the tissues being studied. While mono-exponential _T_{sub}`2` mapping offers simplicity and efficiency, multi-exponential _T_{sub}`2` mapping provides a comprehensive and accurate characterization of tissue properties, particularly in heterogeneous or pathological tissues. 
+
+# Exercises
+
+```{exercise}
+**a.** Using [](#t2Plot2), determine the approximate optimal echo time for _T_{sub}`2` contrast between white matter and gray matter.
+
+**b.** Repeat for the _T_{sub}`2`{sup}`*` signal curves.
+
+**c.** Observe [](#t2Plot1), which shows the signal at different TE values and the corresponding _T_{sub}`2` map. In practice, which TE out of these four images would you choose for a _T_{sub}`2`-weighted image and explain why that value coincides or doesn’t with the optimal TE you found above.
+
+```
+
+```{exercise}
+:label: t2Problem2
+**a.** Using [](#t2Plot4), determine the echo time at which the signal myelin water (MW) signal has reduced by: 50%, 63%, and 90%.
+
+**b.** Using the signal curve for intra/extra-cellular (IEW) water presented in the same figure, determine the echo time at which the signal has reduced by: 50%, 63%, and 90%.
+
+**c.** Without fitting, estimate the _T_{sub}`2` value for MW and IEW in this figure.
+
+**d.** Determine the (erroneous) mono-exponential _T_{sub}`2` value for voxels that would contain 50% MW and 50% IEW - is it closer to the _T_{sub}`2` value of MW or IEW?
+
+```
+
+```{exercise}
+Using [](#t2Eq8) and the MW/IEW T2 values estimated in [](#t2Problem2), calculate the myelin water fraction (MWF) values at the following TEs: 25, 50, 75, 100, 200, 300. Assume that there is 50% MW and 50% IEW.
+```
+
+```{exercise}
+**a.** The signal curves in [](#t2Plot3) were simulated for different SNR values, however these are relative to the maximum signal (i.e. TE=0). Using Binder or MATLAB and the notebook that was used to generate that figure, estimate the SNR of images acquired TE = 12.8, 128, 256, and 384 ms for a maximum signal SNR of 100.
+
+**b.** Repeat the same calculations for a _T_{sub}`2`{sup}`*` of 30 ms.
+
+**c.** Comment on these results and on how they would impact your imaging protocol planning. What’s the maximum TE you think is useful for each case? 
+
+```

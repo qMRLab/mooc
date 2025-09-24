@@ -413,3 +413,75 @@ Up to this point we have assumed that the phase changes linearly with time. Howe
 
 Specific applications impose constraints that can make field mapping protocols different. One such application is to acquire field maps as close to real-time as possible to characterize the effect of respiration on the field through time. The constraint is therefore to acquire a field map in much less time than a respiration cycle. To save some time, the association of the field with time can be done by acquiring slices one at a time. A 2D scan is therefore preferable in this case, as the slice timing can be associated with the field of the slice rather than using the volume time and the entire volume. An EPI can be used to acquire a field map much faster than a standard gradient-echo. However, as mentioned previously, the distortions might not make this a suitable solution. A 2D dual-echo gradient-echo can be used with minimum TR. Short TEs and RF pulses are also preferable to again reduce the TEs and the TR.
 
+# Exercises
+
+```{exercise}
+A researcher wants to map the _B_{sub}`0` field but fears potential errors that could occur from phase unwrapping. What {math}`\delta`TE should the researcher choose in a dual-echo GRE acquisition considering he/she expects a maximum field offset of 1.5ppm at 1.5T so that no phase unwrapping is necessary?
+```
+
+```{exercise}
+What is the phase offset created by an inhomogeneous _B_{sub}`0 field of 50Hz in a dual-echo GRE acquisition with {math}`\delta`TE = 3 ms.
+```
+
+```{exercise}
+A perfectly homogeneous field of exactly 3T in the entire FOV is being imaged in a homogeneous phantom on a 3T scanner. Due to manipulation errors, the imaging frequency (_f_{sub}`0`/Larmor frequency) was set to that of the field 3T - 4.69731 {math}`\mu`T. 
+
+**a.** In a dual-echo GRE with {math}`\delta`TE=5ms, explain what the field-map would look like.
+
+**b.** If the imaging frequency offset was set to 3T - 2.35 {math}`\mu`T, what would the field map look like?
+
+```
+
+
+```{exercise}
+Here is a 3-echo GRE dataset.
+
+**a. ** From this data, calculate a field-map using the first 2 echoes
+
+**b.** Calculate a field map using all echoes
+
+**c.** Compute the difference
+```
+
+
+```{exercise}
+You are wearing a smart watch that’s connected to the internet, and is always in sync with your international time zone. One morning, you walk into the lab at 9 am and see that your room’s analog wall clock also shows 9 am. Some time later, you see that the wall clock shows it’s 9:45 am, but your watch shows 9:30am.
+
+```{figure} 5 B0 Mapping/img/clock1.png
+:label: clockFig1
+```
+
+
+**a.** Is the wall clock running fast or slow?
+
+**b.** What frequency is the wall clock running at, in terms of minutes on the wall clock per true hours?
+
+**c.** Does it make a difference if “some time later” is the same day, or different days?
+
+Someone comes in and repairs the clock, but they accidentally broke the hour hand, leaving only the minute hand. They assure you though that the minute hand is accurate, but you still are in doubt. Every break you take, as well as when you arrive and leave, you decide to track the time it shows on your watch vs the number that the minute hand points to on the clock . After a day, you have the following table:
+
+```{figure} 5 B0 Mapping/img/clock2.png
+:label: clockFig2
+```
+
+**d.** Can you tell if the wall clock is running fast or slow?
+
+**e.** Estimate the frequency of the wall clock (minutes on wall clock per true hours)if you believe it is running fast.
+
+**f.** Estimate the frequency if you believe it is running slow
+
+**g.** Are there other frequencies it could be running at?
+
+A post-doc nearby sees what you’re doing, and suggests that maybe you should consider shortening the time on your watch between when you track the wall clock time, and to take the angle relative to the 12 position for better precision. You take the angle every 5 minutes for an hour, and get the following angles (in degrees) of the wall clock:
+
+```{figure} 5 B0 Mapping/img/clock3.png
+:label: clockFig3
+```
+
+**h.** Can you tell if the wall clock is running fast or slow?
+
+**i.** Estimate the frequency of the wall clock in terms of radians per hour.
+
+**j.** Are you confident in this value? Could it be other frequencies?
+
+```
