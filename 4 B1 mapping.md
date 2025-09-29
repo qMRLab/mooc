@@ -467,3 +467,27 @@ This content of this section is still a work-in-progress and has not been proofr
 Q.E.D.
 \end{equation}
 ```
+
+# Exercises
+
+```{exercise}
+In practice, B_1_ values in the brain have been reported to range from 0.7 to 1.2  [@Boudreau2017-ik]. Using [](#daFig3jn), estimate the approximate range in error in measured B1 values for B1 maps computed using the double angle method with hard or composite refocusing pulsers.
+```
+
+```{exercise}
+
+You are provided with an animal model subject that has tissue with T_1 values on the order of 100 ms +- 30 ms. Using the figures and accompanying Jupyter Notebooks, develop an imaging protocol for B_1_ mapping using the AFI techhnique that will be insensitive to the T_1 of the tissue. Demonstrate that the resulting B_1_ map will have errors of less than < 1% for this range of T_1 values.
+
+```
+
+```{exercise}
+
+You are provided with B_1_ mapping data which appears to be very sensitive to the motion of blood in the vessels (i.e. you see bright spots in the B_1_ maps). The researcher indicates that they do not needs accurate B_1_ maps inside these regions, but would like to filter the maps in the brain tissue.
+
+* Without a mask, mhich filter method should you use to filter the B_1_ maps? Why?
+
+* How would you create a mask for the blood vessels in the B_1_ maps?
+
+* With a mask, which filter method should you use to filter the B_1_ maps? Why?
+
+```
