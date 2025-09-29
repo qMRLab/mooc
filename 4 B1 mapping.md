@@ -471,7 +471,7 @@ Q.E.D.
 # Exercises
 
 ```{exercise}
-In practice, B_1_ values in the brain have been reported to range from 0.7 to 1.2  [@Boudreau2017-ik]. Using [](#daFig3jn), estimate the approximate range in error in measured B1 values for B1 maps computed using the double angle method with hard or composite refocusing pulsers.
+In practice, B_1_ values in the brain have been reported to range from 0.7 to 1.2  [@Boudreau2017-ik]. Using [](#daPlot3), estimate the approximate range in error in measured B1 values for B1 maps computed using the double angle method with hard or composite refocusing pulsers.
 ```
 
 ```{exercise}
