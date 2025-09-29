@@ -1253,7 +1253,7 @@ Through a meticulous examination of MTSat, we encourage the scientific community
 # Exercises
 
 ```{exercise}
-Using [](#daPlot3), calculate the MTR values for each measurement of the z-spectrum.
+Using [](#qmtFig3), calculate the MTR values for each measurement of the z-spectrum.
 ```
 
 ```{exercise}
