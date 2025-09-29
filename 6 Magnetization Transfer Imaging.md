@@ -1249,3 +1249,68 @@ These simulations show through Bloch simulations that the sum of the MT contribu
 In conclusion, our reevaluation of MTSat suggests that it does not model solely the fractional saturation due to the MT pulse within a single TR, as conventionally understood. Instead, MTsat appears to represent the fractional saturation arising from the entire MT contribution during a TR, that is to say, both the MT pulse and the subsequent MT exchange between the two pools that takes place after following the off-resonance pulse. This subtle reinterpretation may challenge existing interpretations, as a greater contribution results from the exchange after the MT preparation pulse due to cross-relaxation caused by the perturbing MT pulse. This analysis highlights the power of open-source qMRI tools like qMRLab in fostering deeper understanding within the field.
 
 Through a meticulous examination of MTSat, we encourage the scientific community to engage in further discussions and research, potentially leading to more refined models and insights into this crucial aspect of MRI physics in modelling tissue components that are difficult to measure directly, such as the semi-solid myelin sheets.
+
+# Exercises
+
+```{exercise}
+Using [](#daPlot3), calculate the MTR values for each measurement of the z-spectrum.
+```
+
+```{exercise}
+Using qMRlab, compute the MTR values (using the Brown 2013 Siemens protocol) for the following tissue parameters:
+
+- F = 0.0
+- kf = 5.0
+- T1,f = 1200 ms
+- R1,r = 1 s
+- T2,f = 100 ms
+- T2,r = 10 microseconds
+```
+
+```{exercise}
+Using qMRlab, compute the MTR values (using the Brown 2013 Siemens protocol) for the following tissue parameters:
+
+- F = 10.0
+- kf = 5.0
+- T1,f = 1200 ms
+- R1,r = 1 s
+- T2,f = 100 ms
+- T2,r = 10 microseconds
+```
+
+```{exercise}
+Using qMRlab, compute the MTR values (using the Brown 2013 Siemens protocol) for the following tissue parameters:
+
+- F = 20.0
+- kf = 5.0
+- T1,f = 1200 ms
+- R1,r = 1 s
+- T2,f = 100 ms
+- T2,r = 10 microseconds
+```
+
+```{exercise}
+Using qMRlab, compute the MTR values (using the Brown 2013 Siemens protocol) for the following tissue parameters:
+
+- F = 20.0
+- kf = 2.50
+- T1,f = 1200 ms
+- R1,r = 1 s
+- T2,f = 100 ms
+- T2,r = 10 microseconds
+```
+
+```{exercise}
+Using qMRlab, compute the MTR values (using the Brown 2013 Siemens protocol) for the following tissue parameters:
+
+- F = 20.0
+- kf = 0
+- T1,f = 1200 ms
+- R1,r = 1 s
+- T2,f = 100 ms
+- T2,r = 10 microseconds
+```
+
+```{exercise}
+Reflect and provide observations on the previous 5 exercises.
+```
