@@ -58,8 +58,6 @@ jobs:
       - name: Build HTML Assets
         run: |
           source venv/bin/activate
-          export JUPYTER_PATH=$(python -c "import jupyter_core; print(jupyter_core.jupyter_path()[0])")
-          mkdir -p $JUPYTER_PATH
           myst build --execute --html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
