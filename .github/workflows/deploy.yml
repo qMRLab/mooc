@@ -58,7 +58,7 @@ jobs:
       - name: Build HTML Assets
         run: |
           source venv/bin/activate
-          myst build --execute --html
+          myst build --html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
