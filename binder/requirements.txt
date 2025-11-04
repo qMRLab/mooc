@@ -12,3 +12,6 @@ pandas
 nibabel
 jupyter
 scikit-learn
+ipykernel 
+myst-nb
+jupyter-cache
