@@ -47,7 +47,8 @@ jobs:
           pip install -r binder/requirements.txt
       - name: Install and configure Jupyter
         run: |
-          python -m ipykernel install --user
+          source venv/bin/activate
+          python -m ipykernel install --user --name=venv
           jupyter kernelspec list --json
       - uses: actions/setup-node@v4
         with:
