@@ -4,6 +4,7 @@ on:
     # Runs on pushes targeting the default branch
     branches: 
       - main
+      - mb/evidence
 env:
   # `BASE_URL` determines the website is served from, including CSS & JS assets
   # You may need to change this to `BASE_URL: ''`
@@ -46,7 +47,8 @@ jobs:
           pip install -r binder/requirements.txt
       - name: Install and configure Jupyter
         run: |
-          python -m ipykernel install --user
+          source venv/bin/activate
+          python -m ipykernel install --user --name=venv
           jupyter kernelspec list --json
       - uses: actions/setup-node@v4
         with:
@@ -55,8 +57,7 @@ jobs:
         run: npm install -g mystmd
       - name: Build HTML Assets
         run: |
-          export JUPYTER_PATH=$(python -c "import jupyter_core; print(jupyter_core.paths.jupyter_path()[0])")
-          mkdir -p $JUPYTER_PATH
+          source venv/bin/activate
           myst build --execute --html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
