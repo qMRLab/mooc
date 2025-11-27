@@ -14,6 +14,14 @@ numbering:
     template: Eq. %s
 ---
 
+# Introduction
+
+The main magnetic field (_B_{sub}`0`) plays a crucial role in MRI, dictating the precessional frequency of spins and establishing the bulk magnetization that determines image signal-to-noise ratio. However, imaging reconstruction techniques assume a perfectly homogeneous _B_{sub}`0` field, an assumption that rarely holds true in practice. _B_{sub}`0` inhomogeneities can lead to significant image artifacts including signal loss, geometric distortions {cite:p}`Jezzard1995-qd`, poor fat saturation {cite:p}`Anzai1992-jl`, and spectral linewidth broadening in MR spectroscopy. These field variations arise from multiple sources including hardware imperfections during manufacturing {cite:p}`Webb2016-xp` and magnetic susceptibility differences at tissue interfaces {cite:p}`Schenck1996-gu`.
+
+Accurate mapping of _B_{sub}`0` field variations is essential for both prospective correction through active shimming and retrospective correction of acquired data. _B_{sub}`0` maps enable compensation for geometric distortions in techniques like EPI {cite:p}`Jenkinson2012-np`, recovery of signal decay for _T_{sub}`2`{sup}`*` mapping {cite:p}`An2002-ys`, and form the foundation for quantitative susceptibility mapping (QSM) to characterize tissue magnetic properties.
+
+This chapter explores the fundamental principles and advanced methodologies of _B_{sub}`0` field mapping. We begin with the dual-echo phase difference technique, the most widely adopted approach that leverages the linear accumulation of phase over time to compute field maps through simple phase subtraction. While conceptually straightforward, this method faces challenges with phase wrapping artifacts and sensitivity to noise {cite:p}`Brown2014-mv`, which we address through comprehensive discussion of both temporal and spatial phase unwrapping techniques. Building on these foundations, we examine multi-echo field mapping approaches that provide enhanced accuracy through improved phase unwrapping capabilities, as well as specialized methods for real-time field mapping and mitigation of eddy current effects. Throughout, we emphasize practical considerations for protocol optimization and the relative strengths of each technique for different clinical and research applications.
+
 (b0InhomoIntro)=
 # B0 inhomogeneities
 
