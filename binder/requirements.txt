@@ -17,3 +17,4 @@ ipykernel
 myst-nb
 jupyter-cache
 pyyaml>=6.0.2
+markdown
