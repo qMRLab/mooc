@@ -67,6 +67,8 @@ project:
     - README.md
     - LICENSE.md
     - venv/*
+    - docs/**
+    - 8 Slides/t1-deck/**
   bibliography:
     - bibliography/book.bib
     - bibliography/ir.bib

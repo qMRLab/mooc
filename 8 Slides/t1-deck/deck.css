@@ -1,0 +1,111 @@
+/* T1 deck theme: light, high-contrast, projector-friendly. System fonts only (works offline).
+   Colours: ink for text, one blue accent for links and emphasis, warm orange for "caution" points. */
+:root {
+  --ink: #1d2733;
+  --muted: #5b6776;
+  --accent: #1f5f99;
+  --caution: #b45309;
+  --panel: #f2f5f8;
+  --rule: #d8dee6;
+  --bg: #ffffff;
+  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.reveal-viewport { background: var(--bg); }
+.reveal { font-family: var(--font); font-size: 30px; color: var(--ink); }
+
+.reveal .slides section {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 30px 56px 62px;
+  text-align: left;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: var(--font);
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.reveal h1 { font-size: 2.3em; margin: 0 0 0.3em; }
+.reveal h2 { font-size: 1.5em; margin: 0 0 0.55em; }
+.reveal h3 { font-size: 1em; margin: 0 0 0.3em; }
+.reveal p { margin: 0 0 0.6em; line-height: 1.4; }
+.reveal ul { display: block; margin: 0 0 0 1.1em; }
+.reveal li { line-height: 1.4; }
+.reveal li + li { margin-top: 0.45em; }
+.reveal li ul { margin-top: 0.3em; font-size: 0.9em; }
+.reveal ul + p, .reveal .cols + p { margin-top: 0.9em; }
+.reveal a { color: var(--accent); }
+.reveal b, .reveal strong { font-weight: 700; }
+.reveal .hl { color: var(--accent); font-weight: 700; }
+.reveal .caution { color: var(--caution); font-weight: 700; }
+.reveal .muted { color: var(--muted); }
+.reveal .small { font-size: 0.78em; }
+.reveal .cite { color: var(--muted); font-size: 0.8em; white-space: nowrap; }
+
+/* Title and section-divider slides: content sits in a vertically centred column. */
+.reveal .center-col { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+.reveal .kicker { font-size: 0.62em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4em; }
+.reveal .subtitle { font-size: 1.05em; color: var(--muted); }
+.reveal .byline { font-size: 0.66em; color: var(--muted); margin-top: 2.2em; }
+.reveal section.divider h1 { font-size: 2.2em; }
+.reveal section.divider .subtitle { max-width: 34em; }
+
+/* Equations */
+.reveal .eq { margin: 0.5em 0; font-size: 1.1em; }
+.reveal .eq-note { font-size: 0.78em; color: var(--muted); }
+.reveal .eq-box { background: var(--panel); border-radius: 10px; padding: 0.35em 0.8em; margin: 0.4em 0 0.7em; }
+.reveal .katex-display { margin: 0.35em 0; }
+
+/* Two columns */
+.reveal .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.reveal .cols > * { min-width: 0; }
+
+/* Cards (three methods) */
+.reveal .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 0.4em; }
+.reveal .card { background: var(--panel); border-radius: 12px; padding: 22px 24px; font-size: 0.8em; border-top: 6px solid var(--card); }
+.reveal .card h3 { font-size: 1.45em; margin-bottom: 0.5em; }
+.reveal .card p { margin-bottom: 0.5em; }
+.reveal .card.ir { --card: #0072b2; }
+.reveal .card.vfa { --card: #e69f00; }
+.reveal .card.mp2rage { --card: #009e73; }
+
+/* Images (pulse sequences) */
+.reveal .pulse img { display: block; margin: 0.8em auto 0; max-width: 100%; max-height: 470px; }
+.reveal .caption { font-size: 0.72em; color: var(--muted); text-align: center; margin-top: 0.8em; }
+
+/* Book figures: the host fills the space under the title; deck.js scales the figure to fit. */
+/* Reveal sets an inline display on <section>, so the column layout lives on an inner wrapper. */
+.reveal section.figure { padding-top: 16px; padding-bottom: 48px; }
+.reveal .fig-layout { height: 100%; display: flex; flex-direction: column; }
+.reveal section.figure h2 { font-size: 1.15em; margin-bottom: 0.3em; flex: none; }
+.reveal .fig-hint { flex: none; }
+/* Square figures: title and hint in a left column so the figure can use the full slide height. */
+.reveal section.figure.side .fig-layout { display: grid; grid-template-columns: 300px 1fr; grid-template-rows: auto 1fr; column-gap: 32px; }
+.reveal section.figure.side h2 { grid-column: 1; grid-row: 1; margin-top: 0.6em; }
+.reveal section.figure.side .fig-hint { grid-column: 1; grid-row: 2; text-align: left; font-size: 0.6em; }
+.reveal section.figure.side .fig-host { grid-column: 2; grid-row: 1 / span 2; }
+.reveal .fig-host { flex: 1; min-height: 0; display: flex; justify-content: center; align-items: flex-start; }
+.reveal .fig-frame { position: relative; flex: none; }
+.reveal .fig-plot { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+.reveal .fig-hint { font-size: 0.55em; color: var(--muted); text-align: center; margin: 0.2em 0 0; }
+.reveal .fig-fallback { align-self: center; background: var(--panel); border-radius: 10px; padding: 1em 1.4em; font-size: 0.75em; }
+
+/* Link back to the book: same place on every slide. */
+.reveal .book-link {
+  position: absolute;
+  left: 56px;
+  bottom: 18px;
+  font-size: 17px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+.reveal .book-link:hover, .reveal .book-link:focus-visible { color: var(--accent); }
+.reveal .slide-number { font-family: var(--font); background: transparent; color: var(--muted); font-size: 15px; right: 18px; bottom: 14px; }
+.reveal .controls { color: var(--accent); }
+.reveal .progress { color: var(--accent); }

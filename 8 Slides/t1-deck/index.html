@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>T1 Mapping · qMRI mOOC slides</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ================================================================ Opening -->
+
+<section data-book="top">
+  <div class="center-col">
+    <p class="kicker">qMRI mOOC · Chapter 2</p>
+    <h1>T<sub>1</sub> Mapping</h1>
+    <p class="subtitle">Inversion recovery · Variable flip angle · MP2RAGE</p>
+    <p class="byline">Slides from the qMRLab mOOC chapter by Mathieu Boudreau<br>NeuroPoly Lab, Polytechnique Montréal</p>
+  </div>
+  <aside class="notes">Every slide links back to the matching place in the book (bottom left). Keys: arrows to move, S for speaker notes, Esc for the overview, F for full screen. Interactive figures are the book's own: use their sliders and dropdowns with the mouse.</aside>
+</section>
+
+<section data-book="introduction">
+  <h2>Why map T<sub>1</sub>?</h2>
+  <ul>
+    <li><b>T<sub>1</sub></b>, the spin–lattice relaxation time: the rate at which excited spins return to equilibrium with their surroundings</li>
+    <li>A <span class="hl">quantitative biomarker</span></li>
+    <li>Needed to <b>optimize protocols</b>, e.g. the Ernst angle for maximum SNR in spoiled gradient echo <span class="cite">(Ernst 1966)</span></li>
+    <li>A <b>correction factor</b> for other qMRI techniques: quantitative MT <span class="cite">(Cercignani 2005; Yarnykh 2002)</span> and DCE <span class="cite">(Li 2018; Sung 2013)</span></li>
+  </ul>
+  <aside class="notes">T1 characterizes the rate at which excited nuclear spins return to equilibrium with their environment. Beyond its value as a biomarker, accurate T1 knowledge is essential for optimizing imaging protocols, such as computing the Ernst angle. T1 values also serve as correction factors in qMT and DCE, making T1 mapping a crucial part of comprehensive qMRI protocols.</aside>
+</section>
+
+<section data-book="introduction">
+  <h2>Three approaches in this chapter</h2>
+  <div class="cards">
+    <div class="card ir">
+      <h3>Inversion recovery</h3>
+      <p>Samples the recovery of M<sub>z</sub> after an inversion pulse.</p>
+      <p><b>Gold standard</b>, but needs TR of 2–5 T<sub>1</sub>, so whole-organ maps are hard in clinical times.</p>
+    </div>
+    <div class="card vfa">
+      <h3>Variable flip angle</h3>
+      <p>Several spoiled gradient echo images with different flip angles.</p>
+      <p><b>Rapid 3D</b>, but sensitive to flip-angle errors, so it needs a B<sub>1</sub> map.</p>
+    </div>
+    <div class="card mp2rage">
+      <h3>MP2RAGE</h3>
+      <p>Dictionary-based; combines elements of IR and VFA.</p>
+      <p><b>Turnkey</b> and increasingly available on clinical scanners.</p>
+    </div>
+  </div>
+  <aside class="notes">Inversion recovery is widely considered the gold standard (Stikov 2015) but requires long TRs (Steen 1994). VFA offers rapid 3D T1 mapping but is sensitive to flip angle inaccuracies from transmit field inhomogeneities, so it needs B1 mapping (Sled 1998, Boudreau 2017). Dictionary-based approaches like MP2RAGE combine elements of both and use pre-calculated dictionaries; their availability on clinical scanners makes quantitative T1 mapping increasingly accessible.</aside>
+</section>
+
+<!-- ================================================================ Inversion recovery -->
+
+<section class="divider" data-book="irintroduction">
+  <div class="center-col">
+    <p class="kicker">Method 1 · Inversion recovery</p>
+    <h1>Inversion Recovery T<sub>1</sub> Mapping</h1>
+    <p class="subtitle">Widely considered the gold standard for T<sub>1</sub> mapping</p>
+  </div>
+  <aside class="notes">Inversion recovery estimates T1 by fitting the signal recovery curve acquired at different delays after an inversion pulse (180°).</aside>
+</section>
+
+<section data-book="irintroduction">
+  <h2>The inversion recovery experiment</h2>
+  <ul>
+    <li>A <b>180° RF pulse</b> inverts the magnetization at thermal equilibrium</li>
+    <li>M<sub>z</sub> recovers through spin–lattice relaxation for a set delay, the <b>inversion time (TI)</b></li>
+    <li>A <b>90° excitation</b>, then a readout (spin echo or gradient echo), takes a snapshot of M<sub>z</sub> at that TI</li>
+    <li>Repeat for several TIs, then <span class="hl">fit the recovery curve</span> to estimate T<sub>1</sub></li>
+  </ul>
+  <aside class="notes">In a typical IR experiment the magnetization at thermal equilibrium is inverted with a 180° RF pulse. After the longitudinal magnetization recovers through spin-lattice relaxation for a predetermined delay (TI), a 90° excitation pulse is applied, followed by a readout imaging sequence (typically spin-echo or gradient-echo) to create a snapshot of the longitudinal magnetization state at that TI.</aside>
+</section>
+
+<section data-book="irintroduction">
+  <h2>Where it comes from</h2>
+  <ul>
+    <li>First developed for <b>NMR in the 1940s</b> <span class="cite">(Hahn 1949; Drain 1949)</span></li>
+    <li>The first T<sub>1</sub> <b>map</b> used <b>saturation recovery</b>: a 90° preparation pulse instead of 180° <span class="cite">(Pykett 1978)</span></li>
+  </ul>
+  <aside class="notes">Inversion recovery was first developed for NMR in the 1940s (Hahn 1949, Drain 1949), and the first T1 map was acquired using a saturation-recovery technique (90° as a preparation pulse instead of 180°) by Pykett 1978.</aside>
+</section>
+
+<section data-book="irintroduction">
+  <h2>Strengths, and the catch</h2>
+  <div class="cols">
+    <div>
+      <h3 class="hl">Strengths</h3>
+      <ul>
+        <li>Large dynamic range of signal change</li>
+        <li>Insensitive to pulse sequence parameter imperfections <span class="cite">(Stikov 2015)</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="caution">The catch</h3>
+      <ul>
+        <li>Conventional implementations need TR on the order of <b>2 to 5 T<sub>1</sub></b> <span class="cite">(Steen 1994)</span></li>
+        <li>Whole-organ T<sub>1</sub> maps are hard to get in a clinically feasible time</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:1em">So IR is scarcely used in practice, but it is the <span class="hl">reference measurement</span> for developing and comparing T<sub>1</sub> methods. Several variations make it practical for some applications <span class="cite">(Messroghli 2004; Piechnik 2010)</span>.</p>
+  <aside class="notes">Despite its proven robustness, inversion recovery is scarcely used in practice because conventional implementations require TRs on the order of 2 to 5 T1, making whole-organ maps challenging in a clinically feasible time. Nonetheless, it is continuously used as a reference measurement during the development of new techniques, or when comparing different T1 mapping techniques.</aside>
+</section>
+
+<section class="pulse" data-book="irfig1">
+  <h2>Pulse sequence</h2>
+  <img src="img/ir_pulsesequences.png" alt="Pulse sequence of an inversion recovery experiment: a 180 degree inversion pulse, an inversion time TI, a 90 degree excitation and a readout, repeated every TR.">
+  <p class="caption">Figure 2.1. Pulse sequence of an inversion recovery experiment.</p>
+  <aside class="notes">Figure 2.1: pulse sequence of an inversion recovery experiment. One TI is acquired per TR.</aside>
+</section>
+
+<section data-book="ireq1">
+  <h2>Signal modelling: the general equation</h2>
+  <p>Steady-state M<sub>z</sub> from the Bloch equations for {θ<sub>180</sub> – TI – θ<sub>90</sub> – (TR − TI)}:</p>
+  <div class="eq eq-box">$$M_{z}(TI) = M_0 \frac{1-\cos(\theta_{180})e^{- \frac{TR}{T_1}} -[1-\cos(\theta_{180})]e^{- \frac{TI}{T_1}}}{1 - \cos(\theta_{180}) \cos(\theta_{90}) e^{- \frac{TR}{T_1}}}\qquad\text{(2.1)}$$</div>
+  <ul class="small">
+    <li>M<sub>z</sub> is the longitudinal magnetization just before the θ<sub>90</sub> pulse</li>
+    <li>For the in-phase real signal, multiply by \(k\sin(\theta_{90})\,e^{-TE/T_2}\), where k is a constant</li>
+  </ul>
+  <aside class="notes">The steady-state longitudinal magnetization of an IR experiment can be derived from the Bloch equations for the pulse sequence θ180 – TI – θ90 – (TR−TI). Mz is the longitudinal magnetization prior to the θ90 pulse. If the in-phase real signal is desired, multiply Eq. 2.1 by k·sin(θ90)·e^(−TE/T2), where k is a constant.</aside>
+</section>
+
+<section data-book="ireq2">
+  <h2>Simplifying: constants and an ideal inversion</h2>
+  <p>Group the constants for each measurement (the same TE and θ<sub>90</sub> at every TI) and assume an <b>ideal inversion pulse</b>:</p>
+  <div class="eq eq-box">$$M_z(TI) = C\left(1-2e^{- \frac{TI}{T_1}} + e^{- \frac{TR}{T_1}}\right)\qquad\text{(2.2)}$$</div>
+  <p class="small muted">C groups the first three terms and the denominator of Eq. 2.1.</p>
+  <aside class="notes">The general equation can be simplified by grouping together the constants for each measurement regardless of their values (at each TI, the same TE and θ90 are used) and assuming an ideal inversion pulse. The first three terms and the denominator of Eq. 2.1 are grouped into the constant C.</aside>
+</section>
+
+<section data-book="ireq3">
+  <h2>Simplifying further: the long-TR approximation</h2>
+  <p>If TR is long enough for full relaxation (<b>TR &gt; 5 T<sub>1</sub></b>), drop the last term of Eq. 2.2:</p>
+  <div class="eq eq-box">$$M_z(TI) = C\left(1-2e^{- \frac{TI}{T_1}}\right)\qquad\text{(2.3)}$$</div>
+  <ul>
+    <li>Simple in both equation and experiment: the <span class="hl">most widely used</span> IR signal model</li>
+    <li>Many implementations acquire <b>magnitude-only</b> images, so the measured signal is proportional to |Eq. 2.3|</li>
+  </ul>
+  <aside class="notes">If the experiment is designed such that TR is long enough to allow for full relaxation (TR &gt; 5 T1), the last term of Eq. 2.2 can be dropped. Its simplicity has made Eq. 2.3 the most widely used equation for IR T1 mapping. In many practical implementations only magnitude images are acquired, so the measured signal is proportional to the absolute value of Eq. 2.3.</aside>
+</section>
+
+<section class="figure" data-book="irplot1">
+  <div class="fig-layout">
+    <h2>Inversion recovery curves for brain tissues</h2>
+    <div class="fig-host" data-fig="irPlot1"></div>
+  </div>
+  <aside class="notes">Figure 2.2: inversion recovery curves for three T1 values approximating the main tissue types in the brain (WM 0.9 s, GM 1.5 s, CSF 4.0 s). Hover to read values. Each curve crosses zero at a different TI: this is the basis of the null method, and of Exercise 1.</aside>
+</section>
+
+<section data-book="irplot2">
+  <h2>When the approximation breaks down</h2>
+  <p>In practice, Eq. 2.1 is the better choice for simulating an IR experiment:</p>
+  <ul>
+    <li>TR is chosen to exceed 5 T<sub>1</sub> of the <b>tissue of interest</b>, which is rarely the longest T<sub>1</sub> present: long enough for white matter, but <span class="caution">not for CSF</span></li>
+    <li>Eq. 2.3 also assumes ideal inversion pulses, rarely the case because of <b>slice profile</b> effects</li>
+  </ul>
+  <p class="small muted">Next: magnitude signal for TR = 5 s and T<sub>1</sub> from 250 ms to 5 s, computed with both equations.</p>
+  <aside class="notes">Eq. 2.1 is the better choice for simulation, as TRs are often chosen to be greater than 5 T1 of the tissue of interest, which rarely coincides with the longest T1 present (TR may be sufficient for white matter but not for CSF in the same volume). Eq. 2.3 also assumes ideal inversion pulses, which is rarely the case due to slice profile effects.</aside>
+</section>
+
+<section class="figure" data-book="irplot2">
+  <div class="fig-layout">
+    <h2>General equation vs long-TR approximation</h2>
+    <div class="fig-host" data-fig="irPlot2"></div>
+    <p class="fig-hint">Drag the slider to change T<sub>1</sub>.</p>
+  </div>
+  <aside class="notes">Figure 2.3: signal recovery curves simulated using Eq. 2.3 (solid) and Eq. 2.1 (dotted) with TR = 5 s, for T1 values from 0.25 to 5 s. The curves agree for short T1 and diverge as T1 approaches TR.</aside>
+</section>
+
+<section data-book="data-fitting">
+  <h2>Data fitting: what to watch for</h2>
+  <ul>
+    <li><b>Magnitude-only images:</b> polarity inversion restores the exponential form, but it is sensitive to noise: <span class="caution">Rician noise</span> gives a non-zero level at the signal null</li>
+    <li><b>Phase data available:</b> a phase term must be added to the fitting equation <span class="cite">(Barral 2010)</span></li>
+    <li><b>Eq. 2.3</b> must only be used for long-TR data (TR &gt; 5 T<sub>1</sub>), which in practice is rarely true for every tissue</li>
+  </ul>
+  <aside class="notes">If only magnitude images are available, a polarity inversion is often implemented to restore the non-exponential magnitude curves into the exponential form. This is sensitive to noise due to the Rician noise creating a non-zero level at the signal null. If phase data is available, a phase term must be added to the fitting equation (Barral 2010). Eq. 2.3 must only be used in the long-TR regime, rarely satisfied for all tissues in subjects.</aside>
+</section>
+
+<section data-book="data-fitting">
+  <h2>Fitting algorithms</h2>
+  <h3 class="muted">Early methods, built for the computers of the time</h3>
+  <ul>
+    <li><b>Null method:</b> each T<sub>1</sub> has a unique zero crossing <span class="cite">(Pykett 1983)</span></li>
+    <li><b>Linear fit</b> of a rearranged Eq. 2.3 on a semi-log plot <span class="cite">(Fukushima 1981)</span></li>
+  </ul>
+  <h3 class="muted" style="margin-top:0.8em">Today</h3>
+  <ul>
+    <li><b>Non-linear least squares</b>, e.g. Levenberg–Marquardt, on the approximate (Eq. 2.3) or general (Eq. 2.1) model</li>
+  </ul>
+  <aside class="notes">Early implementations were designed around the computational power available at the time: the null method (Pykett 1983), assuming each T1 has unique zero-crossings, and linear fitting of a rearranged Eq. 2.3 on a semi-log plot (Fukushima 1981). Nowadays a non-linear least-squares algorithm such as Levenberg-Marquardt is more appropriate, applied to either Eq. 2.3 or Eq. 2.1.</aside>
+</section>
+
+<section data-book="ireq4">
+  <h2>Reduced-dimension NLS (RD-NLS)</h2>
+  <ul>
+    <li>Fits Eq. 2.1 up to <span class="hl">75× faster</span> than Levenberg–Marquardt, <b>without a precision penalty</b> <span class="cite">(Barral 2010)</span></li>
+    <li>A simplified 5-parameter model is sufficient for accurate T<sub>1</sub> mapping:</li>
+  </ul>
+  <div class="eq eq-box">$$S(TI) = a + b\,e^{- \frac{TI}{T_1}}\qquad\text{(2.4)}$$</div>
+  <ul>
+    <li><i>a</i> and <i>b</i> are complex; for magnitude-only data, a 3-parameter fit of |Eq. 2.4| can be sufficient</li>
+    <li><b>General:</b> no assumption about TR, so as robust as Eq. 2.1 when every parameter except TI is kept constant</li>
+    <li>Open-source code released with the paper, and available as a <b>qMRLab</b> T<sub>1</sub> model</li>
+  </ul>
+  <aside class="notes">Barral 2010 showed that T1 maps can be fitted up to 75 times faster than Levenberg-Marquardt, without a precision penalty, using reduced-dimension non-linear least squares. Eq. 2.4 is general: no assumption is made about TR. The code was released open source and is available as a qMRLab T1 model. Next figure: simulated data (Eq. 2.1) over a range of TRs, fitted with RD-NLS and Eq. 2.4, or with Levenberg-Marquardt and the long-TR model.</aside>
+</section>
+
+<section class="figure" data-book="irplot3">
+  <div class="fig-layout">
+    <h2>RD-NLS vs the long-TR model</h2>
+    <div class="fig-host" data-fig="irPlot3"></div>
+    <p class="fig-hint">Drag the slider to change TR.</p>
+  </div>
+  <aside class="notes">Figure 2.4: fitting comparison of simulated data (blue markers) with T1 = 1 s and TR from 1.5 to 5 s, fitted using RD-NLS and Eq. 2.4 (green) and Levenberg-Marquardt with the long-TR approximation (orange). Watch the fitted T1 values in the legend as TR shortens.</aside>
+</section>
+
+<section class="figure" data-book="irplot4">
+  <div class="fig-layout">
+    <h2>Example: brain dataset and T<sub>1</sub> map</h2>
+    <div class="fig-host" data-fig="irPlot4"></div>
+    <p class="fig-hint">Use the buttons to switch inversion time.</p>
+  </div>
+  <aside class="notes">Figure 2.5: inversion recovery dataset of a healthy adult brain (left). Magnitude images at TI = 30, 530, 1030 and 1530 ms, TR = 1550 ms. The T1 map (right) was fitted with RD-NLS.</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls">
+  <h2>Why it is the gold standard</h2>
+  <ul>
+    <li>A typical protocol uses a <b>long TR</b> and enough inversion times for a stable fit (typically <b>5 or more</b>), covering [0, TR]</li>
+    <li>A <b>wide dynamic range</b>, up to [−kM<sub>0</sub>, kM<sub>0</sub>]: many TIs with high SNR along the recovery curve <span class="cite">(Fukushima 1981)</span></li>
+    <li>Largely <b>insensitive to flip-angle inaccuracies and imperfect spoiling</b> <span class="cite">(Stikov 2015)</span>: only TI changes, and a single acquisition is made per TR</li>
+  </ul>
+  <aside class="notes">The conventional IR experiment is considered the gold standard for several reasons: a long TR and a sufficient number of TIs (typically 5 or more) covering [0, TR]; a wide dynamic range of signals, allowing a number of TIs with high SNR; and T1 maps that are largely insensitive to inaccurate excitation flip angles and imperfect spoiling, since all parameters except TI are constant and only one acquisition is made per TR.</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls">
+  <h2>Protocol design</h2>
+  <ul>
+    <li><span class="caution">Avoid inversion times that null</span> the signal of the tissue of interest: those magnitude images are dominated by Rician noise, which can hurt the fit at low SNR</li>
+    <li>Runs on <b>standard pulse sequences</b> available on most scanners, using a customized protocol</li>
+    <li>Needs <b>no extra calibration</b> measurements</li>
+  </ul>
+  <p class="small muted">Example: the interactive preprint of the ISMRM Reproducible Research Study Group 2020 challenge on IR T<sub>1</sub> mapping <span class="cite">(Boudreau 2023)</span>.</p>
+  <aside class="notes">One important protocol design consideration is to avoid TIs where the signal of the tissue of interest is nulled: magnitude images there are dominated by Rician noise, which can negatively impact the fit under low SNR. Next figure: Monte Carlo simulations for T1 = 900 ms with TIs spaced across TR.</aside>
+</section>
+
+<section class="figure side" data-book="irplot5">
+  <div class="fig-layout">
+    <h2>Noise at the null point: Monte Carlo simulations</h2>
+    <div class="fig-host" data-fig="irPlot5"></div>
+    <p class="fig-hint">Drag the slider to change TR.</p>
+  </div>
+  <aside class="notes">Figure 2.6: Monte Carlo simulations (mean and STD, blue markers) and fitted T1 values (mean and STD, red and green) for T1 = 900 ms, with TIs linearly spaced across TR (1 to 5 s). The STD bump near TR = 3000 ms is where the second TI sits near the null point for this T1.</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls">
+  <h2>The main drawback: time</h2>
+  <ul>
+    <li>Long TRs are needed: a few T<sub>1</sub> for general models (Eqs. 2.1, 2.4), up to 5 T<sub>1</sub> for the long-TR model (Eq. 2.3)</li>
+    <li>One TI per TR (2–5 s) and one phase-encode line per excitation (~100–200 lines): <span class="caution">10–25 minutes for a single-slice T<sub>1</sub> map</span></li>
+    <li>So whole-organ maps are hard to get in clinically feasible times</li>
+  </ul>
+  <p>Still useful as a <span class="hl">reference measurement</span>, or for a single-slice T<sub>1</sub> estimate used to optimize other pulse sequences.</p>
+  <aside class="notes">An important drawback is the need for long TR values. It takes about 10–25 minutes to acquire a single-slice T1 map, as only one TI is acquired per TR (2–5 s) and conventional cartesian readouts acquire one phase-encode line per excitation (~100–200 lines). Nonetheless IR is useful as a reference, or to get T1 estimates of a tissue to optimize other sequences.</aside>
+</section>
+
+<section data-book="other-saturation-recovery-t1-mapping-techniques">
+  <h2>Faster variants: Look-Locker</h2>
+  <ul>
+    <li>After the inversion, a periodic train of small pulses θ samples the recovery <span class="cite">(Look 1970)</span>:</li>
+  </ul>
+  <div class="eq">$$\theta_{180} - \tau - \theta - \tau - \theta - \dots \qquad \tau = TR/n$$</div>
+  <ul>
+    <li>Samples the inversion recovery curve <b>much more efficiently</b>, at the cost of <b>lower SNR</b></li>
+    <li>Each TI depends on the previous θ pulses, so it is <span class="caution">more sensitive to B<sub>1</sub> inhomogeneity and imperfect spoiling</span> <span class="cite">(Gai 2013; Stikov 2015)</span></li>
+    <li>Widely used for rapid T<sub>1</sub> mapping; <b>MOLLI</b> and <b>ShMOLLI</b> for cardiac T<sub>1</sub> mapping <span class="cite">(Messroghli 2004; Piechnik 2010)</span></li>
+  </ul>
+  <aside class="notes">Instead of a single 90° acquisition per TR, Look-Locker applies a periodic train of small excitation pulses after the inversion, with τ = TR/n and n the number of samples. This samples the recovery much more efficiently, but at a cost of lower SNR, and because each TI measurement depends on the previous excitations it is more sensitive to B1 inhomogeneities and imperfect spoiling than IR.</aside>
+</section>
+
+<section data-book="other-saturation-recovery-t1-mapping-techniques">
+  <h2>Saturation recovery</h2>
+  <ul>
+    <li>The inversion pulse is replaced with a <b>saturation pulse</b>: θ<sub>90</sub> – TI – θ<sub>90</sub>; used for the very first T<sub>1</sub> map <span class="cite">(Pykett 1978)</span></li>
+    <li><span class="hl">No long TR needed:</span> every θ<sub>90</sub> resets M<sub>z</sub> to the same initial state</li>
+    <li>But:
+      <ul>
+        <li>TIs still need to reach the order of T<sub>1</sub></li>
+        <li>The dynamic range is halved: [0, M<sub>0</sub>]</li>
+        <li>The shortest TIs, the fastest to acquire, have the lowest SNR</li>
+      </ul>
+    </li>
+  </ul>
+  <aside class="notes">Saturation recovery replaces the inversion pulse with a saturation pulse. Unlike IR it does not need a long TR, since every θ90 pulse resets the longitudinal magnetization to the same initial state. However, TIs still need to reach the order of T1 to sample the curve, the dynamic range is cut in half, and the short TIs (fastest acquisitions) have the lowest SNR.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/irPlot1.js"></script>
+<script src="js/figures/irPlot2.js"></script>
+<script src="js/figures/irPlot3.js"></script>
+<script src="js/figures/irPlot4.js"></script>
+<script src="js/figures/irPlot5.js"></script>
+<script src="js/deck.js"></script>
+</body>
+</html>
