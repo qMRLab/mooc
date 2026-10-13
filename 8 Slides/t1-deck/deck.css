@@ -40,6 +40,10 @@
 .reveal li ul { margin-top: 0.3em; font-size: 0.9em; }
 .reveal ul + p, .reveal .cols + p { margin-top: 0.9em; }
 .reveal a { color: var(--accent); }
+/* reveal's reset.css flattens sub/sup; restore them (line-height 0 keeps line spacing even). */
+.reveal sub, .reveal sup { font-size: 0.7em; line-height: 0; position: relative; }
+.reveal sub { vertical-align: sub; }
+.reveal sup { vertical-align: super; }
 .reveal b, .reveal strong { font-weight: 700; }
 .reveal .hl { color: var(--accent); font-weight: 700; }
 .reveal .caution { color: var(--caution); font-weight: 700; }

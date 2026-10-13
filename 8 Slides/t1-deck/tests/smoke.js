@@ -51,12 +51,18 @@ async function checkSlides(page, label) {
           drawn: !!h.querySelector('.main-svg') && (h.querySelector('.fig-frame') || { offsetHeight: 0 }).offsetHeight > 300,
         })),
         overflow: Math.round(overflow),
+        // Subscripts and superscripts must render as such (reveal's reset flattens them).
+        flatScripts: [...s.querySelectorAll('sub, sup')].filter((e) => {
+          const va = getComputedStyle(e).verticalAlign;
+          return va !== (e.tagName === 'SUB' ? 'sub' : 'super');
+        }).length,
       };
     });
     const tag = `${label} slide ${i + 1} "${r.title}"`;
     if (!r.link) problems.push(`${tag}: no book link`);
     for (const f of r.figs) if (f.state !== 'mounted' || !f.drawn) problems.push(`${tag}: figure ${f.name} is ${f.state}`);
     if (r.overflow > 2) problems.push(`${tag}: content overflows the slide by ${r.overflow}px`);
+    if (r.flatScripts) problems.push(`${tag}: ${r.flatScripts} sub/superscripts render as plain text`);
     await page.screenshot({ path: path.join(SHOTS, `${label}-${String(i + 1).padStart(2, '0')}.png`) });
   }
   return problems;
