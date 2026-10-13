@@ -1,0 +1,13 @@
+{
+  "name": "qmrlab-t1-deck",
+  "private": true,
+  "description": "Slides for the T1 mapping chapter of the qMRLab mOOC",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "smoke": "node tests/smoke.js",
+    "vendor": "node tools/vendor.js"
+  },
+  "devDependencies": {
+    "playwright": "1.64.0"
+  }
+}
