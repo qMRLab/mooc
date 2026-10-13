@@ -107,6 +107,20 @@
   border-bottom: 1px dotted currentColor;
 }
 .reveal .book-link:hover, .reveal .book-link:focus-visible { color: var(--accent); }
+.reveal .pop-out {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  z-index: 40;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--rule);
+}
+.reveal .pop-out:hover, .reveal .pop-out:focus-visible { background: var(--bg); }
 .reveal .slide-number { font-family: var(--font); background: transparent; color: var(--muted); font-size: 15px; right: 18px; bottom: 14px; }
 .reveal .controls { color: var(--accent); }
 .reveal .progress { color: var(--accent); }

@@ -7,4 +7,4 @@ label: page-t1
 <iframe class="reveal-frame" src="/mooc/slides/t1/index.html" allowfullscreen></iframe>
 </div>
 
-[Open the slides in a new tab](/mooc/slides/t1/index.html). Click the slides first, then use the arrow keys to move, **F** for full screen, **S** for speaker notes and **Esc** for the overview.
+Use **Open in new tab ↗** (top right of the slides) to present them in their own window. Click the slides first, then use the arrow keys to move, **F** for full screen, **S** for speaker notes and **Esc** for the overview.
