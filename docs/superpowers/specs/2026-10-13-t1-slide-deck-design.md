@@ -1,205 +1,232 @@
-# T1 Mapping Slide Deck — Design
+# T1 Mapping Slide Deck: Design
 
-- **Date:** 2026-10-13
+- **Date:** 2026-10-13 (revision 2: reuse the book's figures and text)
 - **Author:** Mathieu Boudreau (with Claude)
 - **Status:** Draft, awaiting review
 - **Branch:** `mb/t1-slides`
 
 ## 1. Purpose
 
-Nikola Stikov asked for slides derived from the T1 mapping chapter, in the style of the existing MT deck (`8 Slides/6 - Magnetization Transfer Imaging.md`, which iframes `mtslides.html` from S3). The 2025 ChatGPT-era IR demo (`s3/t1summary.html`) covers only inversion recovery, has no links back to the book, and embeds a separate 4–6 MB Plotly export per figure.
+Nikola Stikov asked for slides derived from the T1 mapping chapter, in the style of the existing MT deck (`8 Slides/6 - Magnetization Transfer Imaging.md`, which iframes `mtslides.html` from S3). This deck covers the whole chapter: inversion recovery (IR), variable flip angle (VFA) and MP2RAGE. It replaces the 2025 IR-only demo (`s3/t1summary.html`), which has no links back to the book and embeds a separate 4–6 MB Plotly export per figure.
 
-This deck replaces that demo with one polished, interactive, web-hosted deck covering the whole chapter: inversion recovery (IR), variable flip angle (VFA), and MP2RAGE.
+**The deck mirrors the book.** It does not extend it.
+
+- **Figures:** the chapter's own figures, identical to what the book publishes. The only changes are larger fonts and fitting each figure to the slide.
+- **Text:** condensed from the chapter. Slides carry enough to state the main points and set up each figure. They don't reproduce every paragraph, and the deck adds no new explanations.
 
 ### Audience and use
 
-- **Primary:** an instructor (Nikola) presenting live in class. They need sparse slides, live sliders for "what if" questions, speaker notes, and a way to hide answers so the exercises can be done in class.
+- **Primary:** Nikola teaching a 3-hour class, about 40 minutes per method including discussion and pauses on the interactive figures.
 - **Secondary:** students browsing the mOOC, who reach the deck through an embedded page in the book's *Slides* section.
 
 ### Success criteria
 
-1. Opening one URL (or double-clicking `index.html` offline) gives a ~43-slide deck covering IR, VFA, and MP2RAGE.
-2. Every content slide has a consistently placed link to the exact book anchor it comes from (`https://qmrlab.org/mooc/t1-mapping#<label>`).
-3. Closed-form figures are live: dragging a slider (TR, TI, flip angle, T1, B1) redraws the curve instantly.
-4. Every equation and simulated value matches the chapter, and automated tests check the JS model against Python reference values.
-5. The whole deck weighs ≤ 8 MB (today's IR demo with its figure iframes is ~26 MB) and has no runtime network dependency.
+1. One URL (or double-clicking `index.html` with no network) opens a 66-slide deck: 22 IR, 21 VFA, 18 MP2RAGE, plus 3 opening and 2 closing slides.
+2. All 16 chapter figures appear: 3 pulse-sequence images and 13 Plotly figures. (The book numbers them 2.1–2.15 because two figures share 2.11.) The Plotly figures are rendered from the exact JSON the book publishes and keep the book's own interactivity: sliders, dropdowns and hover.
+3. Every slide has a consistently placed link to the exact book anchor it comes from (`https://qmrlab.org/mooc/t1-mapping#<label>`).
+4. Every bullet, speaker note and equation can be traced to a sentence or equation in the chapter.
+5. No runtime network requests, and total weight ≤ 10 MB. The 13 figures account for 5.5 MB of JSON, compared with ~26 MB for the old IR demo's 5 figures.
 
-### Decisions already made
+### Decisions made
 
 | Decision | Choice |
 |---|---|
 | Scope | Deck only. The worked problem solution in qMRLab format is a separate follow-up project. |
 | Hosting | Undecided, so the deck is a portable static folder with relative paths only. |
-| Depth | Detailed, 10–15 slides per method. |
-| Approach | reveal.js deck, live JS model for closed-form figures, precomputed data for simulations and brain datasets. |
+| Depth | About 40 min per method: IR and VFA 20–25 slides, MP2RAGE as much as its shorter section supports. Text density is calibrated on the MT and old IR decks, slightly more detailed. |
+| Figures | The book's published Plotly JSON, rendered by the same plotly.js version the book uses (2.35.2). The pulse-sequence PNGs come from the chapter's `img/` folders. |
+| Text | Condensed from the chapter only. |
 
 ## 2. Architecture
 
 ```
 mooc/8 Slides/t1-deck/
-  index.html              slide markup only
-  deck.css                theme (16:9, light, book-matched typography)
+  index.html                slide markup only
+  deck.css                  theme (16:9, light, projector-friendly)
   js/
-    t1-models.js          pure math, no DOM (UMD: browser global + Node require)
-    deck.js               Reveal init, KaTeX render, book-link footers, figure lifecycle
-    figures/<name>.js     one module per interactive figure
-    data/<name>.js        precomputed data as JS files (window.T1Data.<name> = {...})
-  img/                    pulse-sequence PNG/SVG copied from the chapter img/ folders
-  vendor/                 pinned reveal.js 5.x, KaTeX 0.16.x (+fonts), plotly.js cartesian dist 2.x
+    deck.js                 Reveal init, KaTeX, book-link footers, figure lifecycle, font scaling
+    figures/<label>.js      one file per book figure: window.T1Figures["irPlot1"] = {data, layout, ...}
+  img/                      ir_pulsesequences.png, vfa_pulsesequence.png, mp2rage_pulsesequence.png
+  vendor/                   reveal.js 5.2.1, KaTeX 0.16.11 (+woff2 fonts), plotly.js 2.35.2 (cartesian dist)
   tools/
-    export_data.py        builds js/data/*.js and tests/fixtures/*.json
-    check_links.py        checks every data-book anchor exists on the live chapter page
+    fetch_book_figures.py   pulls the published figure JSON from the live book into js/figures/
+    vendor.js               copies the pinned library builds from npm into vendor/
+    check_links.py          checks every data-book anchor exists on the live chapter page
   tests/
-    models.test.js        node --test, no npm dependencies
-    fixtures/*.json       Python-generated reference values
-  README.md               how to present, edit, re-export data, test, deploy
+    deck.test.js            node --test: structure checks (labels, scripts, figures)
+    smoke.js                headless Chromium walk-through at two sizes, offline
+  README.md                 present, edit, refresh figures, test, deploy
 ```
 
 ### Key choices
 
-- **Classic scripts, not ES modules, with data as `.js` files rather than JSON.** Browsers block `fetch()` and module imports on `file://`, so this is the only way double-clicking `index.html` on a laptop with no internet still works. Each file attaches to one namespace: `window.T1Models`, `window.T1Figures`, `window.T1Data`.
-- **Figures render inline in `<div>`s, not iframes.** This removes the iframe sizing hacks and the duplicated plotly.js. `deck.js` mounts a figure when its slide (or the next one) becomes current, and unmounts figures two or more slides away, which keeps memory flat. In `?print-pdf` mode every figure mounts once with default parameters, so PDF export shows a static snapshot.
-- **Figure contract:** `T1Figures.<name> = { mount(el, opts) -> { unmount() } }`. A figure reads only `T1Models`, `T1Data`, and the shared plot style. Slides declare `data-fig="<name>"`.
-- **Keyboard isolation:** while focus is on a figure control, keydown events are stopped before they reach Reveal, so arrow keys on a slider never change the slide.
-- **Libraries are vendored and pinned:** no CDN at runtime. Exact versions are recorded in `vendor/VERSIONS.md`.
-- **One shared plot style** (`T1Figures._style`) sets fixed tissue colours used everywhere (WM, GM, CSF, plus the "with/without correction" pair), fonts, margins, and hover format. Colours are chosen with the dataviz guidance and checked for colour-blind safety.
+- **The figures come from the published book, not from regeneration.** The chapter page's JSON (`https://qmrlab.org/mooc/t1-mapping.json`) lists every notebook output. Each Plotly output is either inline or stored at `/mooc/build/<hash>.json`. `fetch_book_figures.py` walks the page JSON, finds the figure container label (`irPlot1` … `mp2rageplot2`), downloads that output and writes it unchanged into `js/figures/<label>.js`. Re-running it after a book rebuild refreshes the deck. Running the notebooks, downloading data or matching Python versions are not needed.
+- **The same renderer as the book:** plotly.js 2.35.2, the version the book's outputs load. The cartesian dist covers the scatter and heatmap traces that all 13 figures use.
+- **Only two display adjustments, applied at render time in `deck.js` so the stored JSON stays byte-identical to the book:**
+  1. The fixed `width`/`height` (540–600 px wide in the book) is removed so the figure fills the slide's figure area. Sliders, menus and annotations are positioned in paper coordinates, so they move with the figure.
+  2. Every font size in the layout is multiplied by one factor (`FONT_SCALE`, default 1.5) so text reads from the back of a room. This covers the global font, axis titles and ticks, legend, annotations, slider and menu labels, and colorbars.
+
+  Nothing else changes: not the colours, traces, ranges or default slider positions.
+- **Classic scripts only:** no ES modules and no `fetch()`, so `index.html` works from `file://` on a laptop with no network.
+- **Figures render inline,** not as iframes. `deck.js` creates a figure (`Plotly.newPlot` on a deep copy of the stored JSON) when its slide or the next one becomes current, and purges figures two or more slides away. In `?print-pdf` mode every figure renders once.
+- **Keyboard isolation:** while focus is on a Plotly slider or menu, arrow keys stay with the figure. Escape gives them back to the slides.
 
 ## 3. Slide outline
 
-Each row is one slide. **Live** means computed in the browser from `t1-models.js`. **Pre** means precomputed data exported from the chapter's notebooks or datasets. **New** marks a visual that illustrates a statement in the chapter text but has no matching book figure.
+Each row is one slide. The "Source" column names the chapter anchor the slide's content comes from, which is also its book link. "Figure 2.x" rows show the book figure. Other rows hold condensed chapter text or equations.
 
 ### Opening (3)
 
-| # | Slide | Media | Book anchor |
-|---|---|---|---|
-| 1 | Title: *T1 Mapping*, qMRI mOOC Chapter 2 | — | chapter top |
-| 2 | Why measure T1? Biomarker, Ernst angle, correction factor for qMT and DCE | text | chapter top |
-| 3 | Three methods at a glance: IR (gold standard), VFA (fast, B1-sensitive), MP2RAGE (dictionary) | 3 cards | chapter top |
+| # | Slide | Source |
+|---|---|---|
+| 1 | Title: *T1 Mapping*, qMRI mOOC Chapter 2 | chapter top |
+| 2 | What T1 is and why map it: a biomarker; needed for the Ernst angle; a correction factor for qMT and DCE | `introduction` |
+| 3 | Three approaches: IR (gold standard, long TR), VFA (rapid 3D, B1-sensitive), dictionary-based such as MP2RAGE (turnkey, clinical availability) | `introduction` |
 
-### Inversion recovery (13)
+### Inversion recovery (22, about 40 min)
 
-| # | Slide | Media | Book anchor |
-|---|---|---|---|
-| 4 | Section: Inversion Recovery, "the gold standard" | — | `irintroduction` |
-| 5 | Pulse sequence: 180° – TI – 90° – readout | image | `irfig1` |
-| 6 | Full signal model, Eq. 2.1, with colour-coded terms | math | `ireq1` |
-| 7 | Simplifications Eq. 2.2 → 2.3, revealed step by step with the "TR > 5 T1" condition | math | `ireq2`, `ireq3` |
-| 8 | IR curves for WM/GM/CSF. Sliders: TR, T1 per tissue. Toggles: real vs magnitude, **show null points** (off by default) | Live `ir-curves` | `irplot1` |
-| 9 | Eq. 2.1 (dotted) vs Eq. 2.3 (solid) for T1 = 0.25–5 s. Slider: TR | Live `ir-trcompare` | `irplot2` |
-| 10 | Fitting approaches: null method, semi-log linear, NLLS, RD-NLS, plus Eq. 2.4 | text + math | `ireq4` |
-| 11 | RD-NLS vs Levenberg-Marquardt long-TR fit, T1 = 1 s, TR = 1.5–5 s | Pre `ir-fitcompare` | `irplot3` |
-| 12 | Brain dataset: 4 TI images + T1 map. Click a voxel to plot its 4 samples and the fitted curve | Pre `ir-brain` | `irplot4` |
-| 13 | Why IR is robust: long TR, wide dynamic range, insensitive to flip angle and spoiling | text | `irplot5` section |
-| 14 | Pitfall: null points and Rician noise. Monte Carlo T1 mean/STD vs TR | Pre `ir-nullnoise` | `irplot5` |
-| 15 | Pitfall: scan time, TR × N_TI × N_PE ≈ 10–25 min per slice | text + math | `irplot5` section |
-| 16 | Variants: Look-Locker, MOLLI/ShMOLLI, saturation recovery | text | `irplot5` section |
+| # | Slide | Source |
+|---|---|---|
+| 4 | Section: Inversion Recovery T1 Mapping. "Widely considered the gold standard" | `irintroduction` |
+| 5 | The experiment: invert with 180°, recover for TI, take a 90° snapshot, read out with SE or GRE | `irintroduction` |
+| 6 | History: NMR in the 1940s (Hahn, Drain); the first T1 map used saturation recovery (Pykett 1978) | `irintroduction` |
+| 7 | Strengths and the catch: large dynamic range, insensitive to imperfections; TR of 2–5 T1, so it serves as a reference measurement | `irintroduction` |
+| 8 | **Figure 2.1** pulse sequence | `irfig1` |
+| 9 | Eq. 2.1, the general steady-state model; in-phase signal × k sin θ90 e^(−TE/T2) | `ireq1` |
+| 10 | Eq. 2.2: constants grouped into C, ideal inversion | `ireq2` |
+| 11 | Eq. 2.3: TR > 5 T1, the most widely used model; magnitude images give \|Eq. 2.3\| | `ireq3` |
+| 12 | **Figure 2.2** IR curves for WM/GM/CSF | `irplot1` |
+| 13 | Why simulate with Eq. 2.1: TR rarely exceeds 5 T1 for every tissue (e.g. CSF), and inversion is not ideal (slice profile) | `irplot2` |
+| 14 | **Figure 2.3** Eq. 2.1 vs Eq. 2.3, T1 slider | `irplot2` |
+| 15 | Fitting considerations: magnitude data needs polarity restoration (Rician noise at the null); phase data needs a phase term; use Eq. 2.3 only for long TR | `data-fitting` |
+| 16 | Fitting methods: null method, semi-log linear fit, non-linear least squares (Levenberg–Marquardt) | `data-fitting` |
+| 17 | RD-NLS (Barral 2010): Eq. 2.4, up to 75× faster with no loss of precision, makes no TR assumption, open source and in qMRLab | `ireq4` |
+| 18 | **Figure 2.4** RD-NLS vs Levenberg–Marquardt, TR slider | `irplot3` |
+| 19 | **Figure 2.5** brain dataset and T1 map, TI dropdown | `irplot4` |
+| 20 | Why it is the gold standard: long TR with ≥ 5 TIs; dynamic range [−kM0, kM0]; insensitive to flip angle and spoiling | `benefits-and-pitfalls` |
+| 21 | Protocol design: avoid TIs at the tissue's null (Rician noise); runs on standard sequences with no calibration | `benefits-and-pitfalls` |
+| 22 | **Figure 2.6** Monte Carlo T1 mean/STD vs TR, TR slider | `irplot5` |
+| 23 | Drawback: 10–25 min per slice (one TI per TR of 2–5 s, 100–200 phase-encode lines); still useful as a reference | `benefits-and-pitfalls` |
+| 24 | Look-Locker: a θ pulse train after the inversion; efficient but lower SNR and B1/spoiling-sensitive; MOLLI/ShMOLLI for cardiac | `other-saturation-recovery-t1-mapping-techniques` |
+| 25 | Saturation recovery: a 90° preparation needs no long TR; TIs still ~T1; half the dynamic range; low SNR at short TIs | `other-saturation-recovery-t1-mapping-techniques` |
 
-### Variable flip angle (14)
+### Variable flip angle (21, about 40 min)
 
-| # | Slide | Media | Book anchor |
-|---|---|---|---|
-| 17 | Section: VFA / DESPOT1, "fast 3D T1" | — | `vfaintroduction` |
-| 18 | Pulse sequence: spoiled GRE, θ_n – TR | image | `vfafig1` |
-| 19 | SPGR steady-state signal, Eq. 2.5 | math | `vfaeq1` |
-| 20 | VFA curves for WM/GM/CSF. Sliders: TR, T1s. Toggle: **show Ernst angles** (off by default) | Live `vfa-curves` | `vfaplot1` |
-| 21 | Ernst angle, Eq. 2.6, with a small live readout: enter T1 and TR to get θ_E | math + Live mini | `vfaeq2` |
-| 22 | Approach to steady state: Bloch simulation vs ideal | Pre `vfa-steadystate` | `vfaplot2` |
-| 23 | Spoiling: ideal vs gradient+RF vs none | Pre `vfa-spoiling` | `vfaplot3` |
-| 24 | Linearisation, Eq. 2.7 → 2.8 → 2.9, revealed step by step | math | `vfaeq3`–`vfaeq5` |
-| 25 | Nonlinear vs linear space, Monte Carlo. Sliders: SNR, two flip angles. Shows the fitted line and T1 estimate | Live `vfa-linear` (seeded MC) | `vfaplot4` |
-| 26 | Choosing two flip angles: the 71 %-of-Ernst-signal rule. Toggle: **show optimal angles** (off by default) | Live `vfa-optimal` (New) | `vfaplot4` section |
-| 27 | B1 correction, Eq. 2.10 | math | `vfaeq6` |
-| 28 | Fitted T1 vs B1 bias, without and with correction, Monte Carlo. Sliders: nominal angles, SNR | Live `vfa-b1bias` (seeded MC) | `vfaplot5` |
-| 29 | Brain dataset: FA 3°, FA 20°, B1 map, T1 map. Toggle: **B1 correction on/off** recomputes the T1 map live | Pre data + Live fit `vfa-brain` | `vfaplot6` |
-| 30 | Benefits & pitfalls: up to 30 % spoiling bias, B1-map quality, fast, widely available | text | `vfaplot6` section |
+| # | Slide | Source |
+|---|---|---|
+| 26 | Section: Variable Flip Angle (DESPOT1). "Rapid… 3D T1 maps in a clinically feasible time" | `vfaintroduction` |
+| 27 | The idea: several spoiled GRE acquisitions with different θn; short TR (~10 ms); sensitive to T1 over a wide range of angles | `vfaintroduction` |
+| 28 | Origins and strengths: from NMR; time-efficient; 3D acquisition gives more SNR and fewer slice-profile effects | `vfaintroduction` |
+| 29 | The catch: flip-angle accuracy (up to ±30 % at 3T) needs a B1 map, and B1 errors propagate into T1 | `vfaintroduction` |
+| 30 | **Figure 2.7** pulse sequence | `vfafig1` |
+| 31 | Eq. 2.5, the SPGR steady-state signal | `vfaeq1` |
+| 32 | **Figure 2.8** VFA curves for WM/GM/CSF, TR slider | `vfaplot1` |
+| 33 | Eq. 2.6, the Ernst angle: the signal maximum depends on T1 and TR | `vfaeq2` |
+| 34 | Model assumptions: steady state after many TRs, perfect spoiling; Bloch simulations are more realistic | `vfaeq2` |
+| 35 | **Figure 2.9** Bloch simulation vs analytical, nth-TR slider | `vfaplot2` |
+| 36 | Spoiling, the hardest parameter to control: gradient plus RF spoiling (Φ0 = 117°); strong gradients add diffusion effects | `vfaplot3` |
+| 37 | **Figure 2.10** ideal vs gradient+RF vs no spoiling, nth-TR slider | `vfaplot3` |
+| 38 | Fitting: NLLS on Eq. 2.5 is valid, but Gupta's rearrangement (Eq. 2.7 → 2.8) allows a linear fit | `vfaeq3` |
+| 39 | Eq. 2.9: T1 from the slope; with two angles, the elementary slope | `vfaeq5` |
+| 40 | **Figure 2.11** nonlinear vs linear form, Monte Carlo | `vfaplot4` |
+| 41 | Choosing flip angles: two angles at 71 % of the maximum signal (Deoni 2003, Schabel 2008); extra angles; at low SNR use NLLS or weighted LLS | `vfadatafitting` |
+| 42 | B1 correction, Eq. 2.10; B1 is normalised and unitless | `vfaeq6` |
+| 43 | **Figure 2.11** (book's second 2.11) fitted T1 vs B1, with and without correction | `vfaplot5` |
+| 44 | **Figure 2.12** brain dataset, B1 map and T1 map, image dropdown | `vfaplot6` |
+| 45 | Pitfalls: sensitive to implementation; spoiling bias up to 30 % vs IR; depends on B1-map quality | `benefits-and-pitfalls-1` |
+| 46 | Why it is still widely used: fast acquisition and processing, widely available, an input to qMT and DCE | `benefits-and-pitfalls-1` |
 
-### MP2RAGE (11)
+### MP2RAGE (18, about 40 min)
 
-| # | Slide | Media | Book anchor |
-|---|---|---|---|
-| 31 | Section: MP2RAGE, "dictionary-based T1" (MRF, CS, MP2RAGE) | — | `mp2rageintroduction` |
-| 32 | Pulse sequence: inversion + two GRE blocks | image | `mp2ragefig1` |
-| 33 | Mz trajectory over one TR_MP2RAGE for WM/GM/CSF, with shaded GRE blocks. Sliders: TI1, TI2, θ1, θ2 | Live `mp2rage-trajectory` (New) | `mp2ragefig1` |
-| 34 | S_MP2RAGE, Eq. 2.11/2.12: bounded in [−0.5, 0.5]; cancels M0, B1⁻ and T2* | math | `mp2rageeq1`, `mp2rageeq2` |
-| 35 | Signal equations, Eq. 2.13–2.16, compact with highlighted terms; detail in speaker notes | math | `mp2rageeq3`–`mp2rageeq6` |
-| 36 | Lookup table S_MP2RAGE ↔ T1. Sliders: TI1, TI2, θ1, θ2. Hover reads T1 off the curve | Live `mp2rage-lut` | `mp2rageplot1` |
-| 37 | Dictionary fitting: measured S → interpolate the lookup table → T1, fast enough to run on the scanner console | text + diagram | `mp2rageplot1` section |
-| 38 | B1 sensitivity: lookup curves for B1 = 0.8 / 1.0 / 1.2, and a 2-D [T1, B1, S] dictionary | Live `mp2rage-b1` (New) | `mp2rageplot1` section |
-| 39 | 7T brain dataset: UNI image + T1 map, with hover values | Pre `mp2rage-brain` | `mp2rageplot2` |
-| 40 | Benefits: reproducibility (Voelker 2016), speed, sub-mm resolution | text | `mp2rageplot2` section |
-| 41 | Pitfalls: dictionary dependence across sites, residual B1, acceleration-specific equations | text | `mp2rageplot2` section |
+| # | Slide | Source |
+|---|---|---|
+| 47 | Section: MP2RAGE | `mp2rageintroduction` |
+| 48 | Dictionary-based techniques: pre-computed signal databases (MRF, CS, MP2RAGE), growing clinical availability, fast processing | `mp2rageintroduction` |
+| 49 | MP2RAGE: an extension of MPRAGE and a hybrid of IR and VFA. A 180°, then two low-flip-angle GRE blocks at TI1 and TI2 | `mp2rageintroduction` |
+| 50 | Encoding: a constant "y" phase encode per TR_MP2RAGE, varying "z" per TR; the k-space centre is acquired at TI1 and TI2 | `mp2rageintroduction` |
+| 51 | **Figure 2.13** pulse sequence | `mp2ragefig1` |
+| 52 | Eq. 2.11, S_MP2RAGE for complex data: bounded in [−0.5, 0.5], reduces some B0 effects | `mp2rageeq1` |
+| 53 | Eq. 2.12, for real or polarity-restored data | `mp2rageeq2` |
+| 54 | Signal equations: no steady state within a GRE block; assumes full sampling (no partial Fourier or parallel imaging) | `mp2rageeq3` |
+| 55 | Eq. 2.13 and Eq. 2.14 | `mp2rageeq3` |
+| 56 | Definitions: ER, EA, EB, EC, and TA/TB/TC from the TIs, n and TR | `mp2rageeq4` |
+| 57 | Eq. 2.15 and Eq. 2.16, steady-state m_z,ss and β | `mp2rageeq5` |
+| 58 | What S_MP2RAGE removes (B1⁻, T2*, M0) and what remains (B1⁺ through θ1, θ2), which protocol design can reduce | `mp2rageeq6` |
+| 59 | Dictionary fitting: interpolate a pre-computed table, with no Levenberg–Marquardt; fast enough to run on the scanner console | `data-fitting-1` |
+| 60 | **Figure 2.14** T1 lookup table over S_MP2RAGE × B1 | `mp2rageplot1` |
+| 61 | **Figure 2.15** 7T brain dataset and T1 map, image dropdown | `mp2rageplot2` |
+| 62 | Software: vendor reconstruction or open-source packages (Marques 2017, de Hollander 2017), not your own code | `data-fitting-1` |
+| 63 | Benefits: turnkey; reproducible across 8 sites (Voelker 2016); fast; 1 mm at 3T and sub-mm at 7T in under 10 min | `benefits-and-pitfalls-2` |
+| 64 | Pitfalls: one dictionary per study; residual B1 sensitivity, and B1 mapping brings its own errors | `benefits-and-pitfalls-2` |
 
 ### Closing (2)
 
-| # | Slide | Media | Book anchor |
+| # | Slide | Source |
+|---|---|---|
+| 65 | Summary of the three methods, using only statements from the chapter introduction and the benefits/pitfalls sections | `introduction` |
+| 66 | Exercises and discussion: link to the chapter exercises and GitHub Discussions | `exercises` |
+
+**Speaker notes:** each slide carries 2–4 sentences condensed from the chapter paragraph it draws on. Figure slides carry the book's figure caption, shortened.
+
+**Equations** are copied from the chapter's LaTeX. Obvious typos (§8) are fixed and the fix is noted in the speaker notes.
+
+## 4. Figures
+
+| Label | Book figure | Size | Built-in interactivity |
 |---|---|---|---|
-| 42 | Comparison cards IR / VFA / MP2RAGE: accuracy, speed, B1 sensitivity, typical use (MT-summary style) | cards | chapter top |
-| 43 | Exercises & discussion: links to the chapter exercises and GitHub Discussions; key references; CC-BY 4.0 | links | `exercises` |
+| `irPlot1` | 2.2 IR curves | 120 KB | hover |
+| `irPlot2` | 2.3 Eq. 2.1 vs 2.3 | 1.5 MB | T1 slider |
+| `irPlot3` | 2.4 fitting comparison | 229 KB | TR slider |
+| `irPlot4` | 2.5 IR brain | 554 KB | TI dropdown |
+| `irPlot5` | 2.6 Monte Carlo | 888 KB | TR slider |
+| `vfaPlot1` | 2.8 VFA curves | 282 KB | TR slider |
+| `vfaPlot2` | 2.9 Bloch steady state | 74 KB | nth-TR slider |
+| `vfaPlot3` | 2.10 spoiling | 86 KB | nth-TR slider |
+| `vfaPlot4` | 2.11 linear vs nonlinear | 19 KB | hover |
+| `vfaPlot5` | 2.11 B1 Monte Carlo | 10 KB | hover |
+| `vfaPlot6` | 2.12 VFA brain | 381 KB | image dropdown |
+| `mp2rageplot1` | 2.14 lookup table | 35 KB | hover |
+| `mp2rageplot2` | 2.15 MP2RAGE brain | 1.4 MB | image dropdown |
 
-**Answer-hiding toggles** (slides 8, 20, 26) are off by default because they reveal answers to chapter Exercises 1–2. The instructor turns them on after the class has tried the problem.
+(Sizes and interactivity checked against the live book on 2026-10-13.)
 
-**Speaker notes:** every content slide carries 2–4 notes condensed from the chapter paragraph it summarises (the reveal speaker view opens with `S`).
-
-## 4. Models and data
-
-### `t1-models.js` (live, pure functions, units in ms and degrees)
-
-- `irFull(TI, TR, T1, {theta180=180, theta90=90, M0=1})`: Eq. 2.1
-- `irGeneral(TI, TR, T1, C=1)`: Eq. 2.2
-- `irLongTR(TI, T1, C=1)`: Eq. 2.3
-- `irNullTI(T1, TR)`: zero crossing of Eq. 2.2, `T1·ln(2/(1+e^{−TR/T1}))`
-- `spgr(theta, TR, T1, M0=1)`: Eq. 2.5
-- `ernst(TR, T1)`: Eq. 2.6
-- `vfaOptimalPair(TR, T1, frac=0.71)`: the two angles where the SPGR signal equals 71 % of the Ernst maximum
-- `vfaLinearFit(S[], theta[], TR)`: Eqs. 2.8–2.9; returns `{T1, M0}`
-- `mp2rageSignals(T1, protocol, B1=1)`: Eqs. 2.13–2.16, following Marques et al.'s open-source `MPRAGEfunc` (not the chapter typesetting; see §8)
-- `mp2rageUNI(S1, S2)`: Eq. 2.12
-- `mp2rageLUT(protocol, T1range, B1=1)`
-- `mzTrajectory(T1, protocol)`: discrete magnetisation stepping for slide 33
-- `rng(seed)` (seeded PRNG) and `gaussian(rng)`, so Monte Carlo figures reproduce exactly
-
-### `tools/export_data.py`
-
-- Downloads datasets the same way the notebooks do, via `binder/data_requirement.json` and repo2data (IR, VFA, MP2RAGE, and the `qmrlab-t1-book` pickles).
-- Writes `js/data/<name>.js`:
-  - `ir-fitcompare`, `ir-nullnoise`, `vfa-steadystate`, `vfa-spoiling`: the pickled arrays the notebooks plot.
-  - `ir-brain`, `vfa-brain`, `mp2rage-brain`: the single slice the book shows, cropped to the brain bounding box, stored as Float32 base64 with shape and scale metadata.
-- Writes `tests/fixtures/*.json`: NumPy evaluations of each closed-form equation on a parameter grid; the book's MP2RAGE lookup table (`fig1.mat`); Monte Carlo summary statistics from the pickles.
-- Is deterministic and re-runnable. Its outputs are committed, so presenting never needs Python.
+`fetch_book_figures.py` fails loudly if any of the 13 labels is missing from the page, so a renamed figure in the book can't silently drop a slide.
 
 ## 5. Book links and embedding
 
-- Slides declare `data-book="irplot1"`. `deck.js` turns this into a footer link `📖 Figure 2.2 · Inversion Recovery` with the same position and style on every slide. It opens `BOOK_BASE + '#' + label` in a new tab, where `BOOK_BASE = 'https://qmrlab.org/mooc/t1-mapping'` is defined once.
-- The label → display text table (e.g. `irplot1 → "Figure 2.2"`, `vfaeq2 → "Eq. 2.6"`) lives in `deck.js` and matches the chapter's `:enumerator:` values.
-- A slide that covers several anchors links to the first one.
-- **MyST page:** new `8 Slides/2 - T1 Mapping.md` (label `page-t1`), modelled on the MT page. It iframes the deck and adds two links under it: *Open full screen* and *Open in new tab*. It goes in the `Slides` toc entry ahead of MT.
-- The iframe `src` is set from the deployment chosen at review time. The default is the S3 bucket path `…/t1/index.html`, matching MT.
-- `docs/**` and `8 Slides/t1-deck/**` are added to `myst.yml` `exclude`, so MyST doesn't try to process the spec or the deck sources.
+- Each slide declares `data-book="<anchor>"`. `deck.js` turns it into a footer link such as `📖 Figure 2.2 · Inversion Recovery`, with the same position and style on every slide, opening `https://qmrlab.org/mooc/t1-mapping#<anchor>` in a new tab.
+- The anchor → text table (e.g. `irplot1 → "Figure 2.2"`, `vfaeq2 → "Eq. 2.6"`) lives in `deck.js` and uses the book's displayed numbers. Text-only slides link to their section heading (`data-fitting`, `benefits-and-pitfalls-1`, …). All anchors were verified on the live page on 2026-10-13. Heading ids are generated by MyST, so the link checker guards them.
+- **MyST page:** a new `8 Slides/2 - T1 Mapping.md` (label `page-t1`), modelled on the MT page. It iframes the deck, with an *Open in new tab* link under it, and goes in the `Slides` toc entry ahead of MT. The iframe `src` follows the chosen deployment, defaulting to the S3 path `…/t1/index.html` to match MT.
+- `docs/**` and `8 Slides/t1-deck/**` are added to the `exclude` list in `myst.yml`.
 
 ## 6. Error handling
 
-- If a figure's data or model throws on mount, the figure's `<div>` shows a card that says "This figure couldn't load. See it in the book →" with the slide's book link. The rest of the deck keeps working, and the error goes to the console.
-- If `T1Data.<name>` is missing (data not exported), the same fallback card appears.
-- Slider ranges are clamped to physically meaningful values (e.g. TI < TR, TI2 > TI1 + GRE block length) so the models never receive impossible protocols. When a slider pushes another value out of range, a short inline message explains the adjustment.
+- If a figure fails to render (missing file or a Plotly error), its area shows "This figure couldn't load. See it in the book →" with the slide's book link. The rest of the deck keeps working, and the error goes to the console.
+- `fetch_book_figures.py` refuses to write partial output. Either all 13 figures are fetched or no file changes.
 
 ## 7. Testing
 
-1. **Model tests** (`node --test tests/`, no dependencies): each `t1-models.js` function vs the Python fixtures, with relative error < 1e-9 for closed-form equations. The MP2RAGE lookup table is compared with the book's `fig1.mat` within 1 % in T1 over the monotonic range.
-2. **Monte Carlo tests:** the seeded JS Monte Carlo for `vfa-linear` and `vfa-b1bias` at the book's parameters (N = 1000) matches the pickled mean/STD within 3 standard errors.
-3. **Link check** (`tools/check_links.py`): every `data-book` label exists as an `id` on the live chapter page. All 36 labels used (33 equation/figure labels plus `irintroduction`, `vfaintroduction`, `exercises`) were verified on 2026-10-13.
-4. **Browser smoke test:** a headless Chromium run (Playwright via `npx`, a development-only tool) steps through every slide at 1280×720 and 1920×1080. It asserts no console errors, a visible book link on each content slide, and a non-empty figure on each `data-fig` slide, and saves screenshots for visual review.
-5. **Manual check:** open `index.html` from `file://` with networking disabled, run through the deck, try every slider, speaker view, and `?print-pdf`.
+1. **Fidelity:** `fetch_book_figures.py --check` re-downloads the figures and compares them with `js/figures/*.js`, reporting "identical" or the labels that changed. A deck test asserts that each stored figure parses and has the trace count and slider/menu count listed in §4.
+2. **Structure** (`node --test`): every `data-book` value has a label entry; every `<script src>` exists; every figure slide's label has a figure file loaded by a script tag; each of the 13 figures appears exactly once.
+3. **Link check** (`tools/check_links.py`): every `data-book` anchor exists on the live chapter page.
+4. **Browser smoke test:** headless Chromium (Playwright pinned in a dev-only `package.json`; `node_modules/` gitignored). It steps through every slide at 1280×720 and 1920×1080 with all network blocked. It asserts no console errors, a book link on every slide, every figure drawn, and no slide overflowing, and saves screenshots for visual review. It also checks that arrow keys on a focused Plotly slider don't change the slide, and that rapid navigation leaves at most 3 figures mounted.
+5. **Manual:** open `index.html` from `file://` with networking off; use speaker view (`S`) and `?print-pdf`.
 
 ## 8. Out of scope, and findings to report
 
-- **Out of scope:**
-  - The worked problem solution in qMRLab format (separate follow-up).
-  - Uploading to S3 or changing the deploy workflow; Mathieu deploys.
-  - Changes to the chapter text.
-  - Refactoring the MT deck. The architecture allows porting it later.
-  - Deleting `t1summary.html` from S3.
-- **Chapter issues found while reading:**
-  - Eq. 2.15 (`mp2rageEq5`) is missing the `=` after `m_{z,ss}`.
-  - The MP2RAGE *Data Fitting* paragraph links "2.16" to `#mp2rageEq3`.
-  - The deck uses the corrected forms. These issues will be reported to Mathieu, not fixed in this branch.
-- **New visuals (slides 26, 33, 38):** these illustrate statements made in the chapter text but have no corresponding book figure. They are flagged here so they can be dropped at review if the deck should be strictly figure-for-figure.
+**Out of scope:**
+- The worked problem solution in qMRLab format (a separate follow-up).
+- Uploading to S3 or changing the deploy workflow; Mathieu deploys.
+- Changes to the chapter.
+- Refactoring the MT deck.
+- Deleting `t1summary.html` from S3.
+
+**Chapter issues found while preparing the deck.** These will be reported to Mathieu, not fixed on this branch.
+- Eq. 2.15 (`mp2rageEq5`) is missing the `=` after `m_{z,ss}`.
+- The MP2RAGE *Data Fitting* paragraph links "2.16" to `#mp2rageEq3`.
+- Figure 2.2's caption says it plots Eq. 2.2, but the data are Eq. 2.3, the long-TR form (checked against the pickled curves).
+- Figure 2.6's caption says 5 TI values; the data use 6.
+- `vfaPlot4` and `vfaPlot5` are both numbered "Figure 2.11".
+- Eq. 2.11 conjugates both GRE signals, whereas Marques et al. (2010) conjugate only S_TI1.
+- In `fig2.mat`, the UNI image is stored under the key `B1map`.
+- Figures 2.14 and 2.15 were generated with different MP2RAGE inversion efficiencies (1.0 vs 0.96).
