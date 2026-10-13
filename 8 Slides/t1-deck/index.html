@@ -304,6 +304,462 @@
   <aside class="notes">Saturation recovery replaces the inversion pulse with a saturation pulse. Unlike IR it does not need a long TR, since every θ90 pulse resets the longitudinal magnetization to the same initial state. However, TIs still need to reach the order of T1 to sample the curve, the dynamic range is cut in half, and the short TIs (fastest acquisitions) have the lowest SNR.</aside>
 </section>
 
+<!-- ================================================================ Variable flip angle -->
+
+<section class="divider" data-book="vfaintroduction">
+  <div class="center-col">
+    <p class="kicker">Method 2 · Variable flip angle</p>
+    <h1>Variable Flip Angle T<sub>1</sub> Mapping</h1>
+    <p class="subtitle">Also known as DESPOT1: rapid quantitative T<sub>1</sub>, widely used to acquire 3D (e.g. whole-brain) maps in a clinically feasible time</p>
+  </div>
+  <aside class="notes">Variable flip angle (VFA) T1 mapping (Christensen 1974, Fram 1987, Gupta 1977), also known as Driven Equilibrium Single Pulse Observation of T1 (DESPOT1) (Homer 1985, Deoni 2003), is a rapid quantitative T1 measurement technique widely used to acquire 3D T1 maps in a clinically feasible time.</aside>
+</section>
+
+<section data-book="vfaintroduction">
+  <h2>The idea</h2>
+  <ul>
+    <li>Acquire <b>several spoiled gradient echo</b> images, each with a <b>different excitation flip angle</b> θ<sub>n</sub> (θ<sub>i</sub> ≠ θ<sub>j</sub>)</li>
+    <li>Very <b>short TRs</b>, on the order of 10 ms</li>
+    <li>The steady-state signal is <span class="hl">very sensitive to T<sub>1</sub></span> over a wide range of flip angles</li>
+  </ul>
+  <aside class="notes">VFA estimates T1 values by acquiring multiple spoiled gradient echo acquisitions, each with different excitation flip angles (θn for n = 1, 2, …, N and θi ≠ θj). The steady-state signal of this pulse sequence uses very short TRs (on the order of 10 ms) and is very sensitive to T1 for a wide range of flip angles.</aside>
+</section>
+
+<section data-book="vfaintroduction">
+  <h2>Origins and strengths</h2>
+  <ul>
+    <li>Originates from <b>NMR</b>: adopted for its <b>time efficiency</b> and its ability to measure accurate T<sub>1</sub> values simultaneously over a wide range <span class="cite">(Christensen 1974; Gupta 1977)</span></li>
+    <li>For imaging, VFA can use a <b>3D acquisition</b> instead of multislice:
+      <ul>
+        <li>higher SNR</li>
+        <li>reduced slice profile effects</li>
+      </ul>
+    </li>
+  </ul>
+  <aside class="notes">VFA originates from the NMR field and was adopted because of its time efficiency and its ability to acquire accurate T1 values simultaneously for a wide range of values. For imaging, VFA also benefits from an increase in SNR because it can be acquired using a 3D acquisition instead of multislice, which also helps to reduce slice profile effects.</aside>
+</section>
+
+<section data-book="vfaintroduction">
+  <h2>The catch: flip angle accuracy</h2>
+  <ul>
+    <li>The signal is <span class="caution">very sensitive to inaccuracies in the flip angle</span></li>
+    <li>The nominal flip angle (set at the scanner) differs from the actual one experienced by the spins: up to <b>±30 % at 3.0 T</b>, increasing with field strength</li>
+    <li>VFA typically needs another quantitative map, the transmit RF amplitude <b>B<sub>1</sub><sup>+</sup></b> (B<sub>1</sub>), to calibrate the flip angle <span class="cite">(Sled 1998)</span></li>
+    <li>The extra B<sub>1</sub> map <b>reduces the time savings</b>, and its errors <b>propagate</b> into the T<sub>1</sub> map <span class="cite">(Boudreau 2017; Lee 2017)</span></li>
+  </ul>
+  <aside class="notes">One important drawback of VFA is that the signal is very sensitive to inaccuracies in the flip angle value. In practice the nominal flip angle differs from the actual flip angle (at 3.0 T, variations of up to ±30%), an issue that increases with field strength. The need for an additional B1 map reduces the time savings offered by VFA over saturation-recovery techniques, and inaccuracies or imprecisions of the B1 map are also propagated into the VFA T1 map.</aside>
+</section>
+
+<section class="pulse" data-book="vfafig1">
+  <h2>Pulse sequence</h2>
+  <img src="img/vfa_pulsesequence.png" alt="Simplified VFA pulse sequence: an excitation flip angle theta n, a gradient echo image readout and a spoiler gradient, repeated every TR.">
+  <p class="caption">Figure 2.7. Simplified VFA pulse sequence with a gradient echo readout. TR: repetition time; θ<sub>n</sub>: excitation flip angle of the n<sup>th</sup> measurement; IMG: image acquisition (k-space readout); SPOIL: spoiler gradient.</p>
+  <aside class="notes">Figure 2.7: simplified pulse sequence diagram of a variable flip angle pulse sequence with a gradient echo readout.</aside>
+</section>
+
+<section data-book="vfaeq1">
+  <h2>Signal modelling</h2>
+  <p>Steady-state M<sub>z</sub> of an ideal VFA experiment, solved analytically from the Bloch equations for the spoiled gradient echo sequence {θ<sub>n</sub> – TR}:</p>
+  <div class="eq eq-box">$$M_{z}(\theta_n) = M_0 \frac{1-e^{- \frac{TR}{T_1}}}{1-\cos(\theta_n) e^{- \frac{TR}{T_1}}} \sin(\theta_n)\qquad\text{(2.5)}$$</div>
+  <ul class="small">
+    <li>M<sub>0</sub>: magnetization at thermal equilibrium; TR: repetition time; θ<sub>n</sub>: excitation flip angle</li>
+  </ul>
+  <p class="small muted">Next: M<sub>z</sub> curves for three brain-tissue T<sub>1</sub> values over a range of θ<sub>n</sub> and TR.</p>
+  <aside class="notes">The steady-state longitudinal magnetization of an ideal variable flip angle experiment can be analytically solved from the Bloch equations for the spoiled gradient echo pulse sequence θn–TR. Mz is the longitudinal magnetization, M0 the magnetization at thermal equilibrium, TR the repetition time and θn the excitation flip angle.</aside>
+</section>
+
+<section class="figure" data-book="vfaplot1">
+  <div class="fig-layout">
+    <h2>VFA signal curves for brain tissues</h2>
+    <div class="fig-host" data-fig="vfaPlot1"></div>
+    <p class="fig-hint">Drag the slider to change TR.</p>
+  </div>
+  <aside class="notes">Figure 2.8: variable flip angle signal curves (Eq. 2.5) for three T1 values approximating the main tissue types in the brain at 3T. The flip angle that maximizes the steady-state signal depends on T1 and TR.</aside>
+</section>
+
+<section data-book="vfaeq2">
+  <h2>The Ernst angle</h2>
+  <p>The flip angle that <b>maximizes the steady-state signal</b> depends on T<sub>1</sub> and TR. It can be solved analytically from Eq. 2.5 <span class="cite">(Ernst 1966)</span>:</p>
+  <div class="eq eq-box">$$\theta_{Ernst} = \text{acos}\left(e^{- \frac{TR}{T_1}}\right)\qquad\text{(2.6)}$$</div>
+  <aside class="notes">From Figure 2.8 it is clearly seen that the flip angle at which the steady-state signal is maximized depends on the T1 and TR values. This flip angle is the Ernst angle (Ernst 1966), which can be solved analytically from Eq. 2.5 using calculus.</aside>
+</section>
+
+<section data-book="vfaeq2">
+  <h2>Model assumptions</h2>
+  <p>The closed-form solution (Eq. 2.5) assumes:</p>
+  <ul>
+    <li>The longitudinal magnetization has reached a <b>steady state</b> after a large number of TRs</li>
+    <li>The transverse magnetization is <b>perfectly spoiled</b> at the end of each TR</li>
+  </ul>
+  <p>These may not hold if care is not taken. <b>Bloch simulations</b>, which solve the Bloch equations numerically for a set of spins at each time point, give a more realistic estimate when a steady state is not reached.</p>
+  <aside class="notes">The closed-form solution makes several assumptions which in practice may not always hold if care is not taken: that the longitudinal magnetization has reached a steady state after a large number of TRs, and that the transverse magnetization is perfectly spoiled at the end of each TR. Bloch simulations provide a more realistic estimate of the signal if the number of repetitions is small.</aside>
+</section>
+
+<section class="figure" data-book="vfaplot2">
+  <div class="fig-layout">
+    <h2>Approach to steady state: Bloch simulations</h2>
+    <div class="fig-host" data-fig="vfaPlot2"></div>
+    <p class="fig-hint">Drag the slider to change the number of TRs. Flip angles near the Ernst angle need more TRs to reach a steady state.</p>
+  </div>
+  <aside class="notes">Figure 2.9: Bloch simulations (orange) for 1 to 150 repetitions, against the ideal case (Eq. 2.5, blue). TR = 25 ms, T1 = 900 ms, 100 spins, ideal spoiling. The number of repetitions needed to reach a steady state depends on T1 and on the flip angle. Preparation pulses or an outward-in k-space acquisition are typically sufficient to reach a steady state by the time the centre of k-space is acquired.</aside>
+</section>
+
+<section data-book="vfaplot3">
+  <h2>Spoiling</h2>
+  <ul>
+    <li>Sufficient spoiling is likely <span class="caution">the most challenging parameter to control</span> in a VFA experiment</li>
+    <li>A combination of <b>gradient spoiling</b> and <b>RF phase spoiling</b> is typically recommended <span class="cite">(Handbook 2004; Zur 1991)</span></li>
+    <li>RF phase increment after each TR: \(\Phi_{n}=\Phi_{n-1}+n\Phi_{0}\), with \(\Phi_0 = 117°\) <span class="cite">(Zur 1991)</span></li>
+    <li>Very strong gradients introduce diffusion effects that further improve spoiling <span class="cite">(Yarnykh 2010)</span></li>
+  </ul>
+  <aside class="notes">Sufficient spoiling is likely the most challenging parameter to control in a VFA experiment. A combination of gradient spoiling and RF phase spoiling is typically recommended. The use of very strong gradients introduces diffusion effects (not considered in the next figure), further improving spoiling efficacy (Yarnykh 2010).</aside>
+</section>
+
+<section class="figure" data-book="vfaplot3">
+  <div class="fig-layout">
+    <h2>Ideal vs gradient &amp; RF vs no spoiling</h2>
+    <div class="fig-host" data-fig="vfaPlot3"></div>
+    <p class="fig-hint">Drag the slider to change the number of TRs.</p>
+  </div>
+  <aside class="notes">Figure 2.10: Bloch simulations for three categories of spoiling: ideal (blue), gradient and RF spoiling (orange), and no spoiling (green). TR = 25 ms, T1 = 900 ms, T2 = 100 ms, TE = 5 ms, 100 spins. Ideal spoiling sets the transverse magnetization to zero at the end of each TR; gradient spoiling dephases each spin by a different increment, and RF spoiling uses Φ0 = 117°.</aside>
+</section>
+
+<section data-book="vfaeq3">
+  <h2>Data fitting: linearizing the signal</h2>
+  <ul>
+    <li>Non-linear least squares on Eq. 2.5 (two free variables: T<sub>1</sub> and M<sub>0</sub>) is valid, but rarely done in practice</li>
+    <li>A simple refactoring of Eq. 2.5, <b>without any approximation</b>, gives the form <b>y = mx + b</b> <span class="cite">(Gupta 1977)</span>:</li>
+  </ul>
+  <div class="eq eq-box">$$\frac{S_n}{\sin(\theta_n)} = e^{- \frac{TR}{T_1}} \frac{S_n}{\tan(\theta_n)} + C \left(1-e^{- \frac{TR}{T_1}}\right)\qquad\text{(2.7)}$$</div>
+  <p>The last term is the same for every θ<sub>n</sub>, so it can be grouped into the constant:</p>
+  <div class="eq eq-box">$$\frac{S_n}{\sin(\theta_n)} = e^{- \frac{TR}{T_1}} \frac{S_n}{\tan(\theta_n)} + C\qquad\text{(2.8)}$$</div>
+  <aside class="notes">One could fit VFA data with a non-linear least squares algorithm such as Levenberg-Marquardt using Eq. 2.5, typically with two free variables (T1 and M0). This is rarely done in practice because a simple refactoring of Eq. 2.5 allows T1 to be estimated with a linear least squares algorithm, which substantially reduces processing time.</aside>
+</section>
+
+<section data-book="vfaeq5">
+  <h2>T<sub>1</sub> from the slope</h2>
+  <p>A linear regression of S<sub>n</sub>/sin(θ<sub>n</sub>) against S<sub>n</sub>/tan(θ<sub>n</sub>) gives T<sub>1</sub> from its slope:</p>
+  <div class="eq eq-box">$$T_1 = - \frac{TR}{\ln(slope)}\qquad\text{(2.9)}$$</div>
+  <ul>
+    <li>With only <b>two flip angles</b>, a very common protocol, the slope is simply the elementary slope between the two points</li>
+  </ul>
+  <p class="small muted">Next: both forms of the signal (Eq. 2.5 and Eq. 2.8) for a noisy dataset.</p>
+  <aside class="notes">With the rearranged form of Eq. 2.5, T1 can be simply estimated from the slope of a linear regression of Sn/sin(θn) and Sn/tan(θn). If data were acquired with only two flip angles, the slope can be calculated using the elementary slope equation.</aside>
+</section>
+
+<section class="figure" data-book="vfaplot4">
+  <div class="fig-layout">
+    <h2>Nonlinear and linear forms, with noise</h2>
+    <div class="fig-host" data-fig="vfaPlot4"></div>
+  </div>
+  <aside class="notes">Figure 2.11: mean and standard deviation of the VFA signal plotted using the nonlinear form (Eq. 2.5, blue) and the linear form (Eq. 2.8, red). Monte Carlo simulation: SNR = 25, N = 1000. VFA simulation: TR = 25 ms, T1 = 900 ms.</aside>
+</section>
+
+<section data-book="vfadatafitting">
+  <h2>Protocol design: which flip angles?</h2>
+  <ul>
+    <li>Most VFA experiments use the <b>minimum number of flip angles, two</b>, to minimize acquisition time</li>
+    <li>For a single T<sub>1</sub>, the best precision comes from the two flip angles that give <span class="hl">71 % of the maximum signal</span> (at the Ernst angle) <span class="cite">(Deoni 2003; Schabel 2008)</span></li>
+    <li>Time allowing, extra flip angles are acquired at higher values and in between, where differences between tissue T<sub>1</sub> values are larger</li>
+    <li>With more than two angles, the points no longer share the same noise weighting, which may bias linear fits at low SNR: use non-linear least squares or a <b>weighted</b> linear fit <span class="cite">(Chang 2008)</span></li>
+  </ul>
+  <aside class="notes">There are two important protocol design considerations: how many and which flip angles to use, and correcting inaccurate flip angles due to transmit RF field inhomogeneity. For more than two flip angles, Eqs. 2.5 and 2.8 do not have the same noise weighting for each fitting point, which may bias linear least-squares T1 estimates at lower SNRs; low SNR data should be fitted with Eq. 2.5 using non-linear least squares, or with a weighted linear least-squares form of Eq. 2.8.</aside>
+</section>
+
+<section data-book="vfaeq6">
+  <h2>Correcting the flip angle with a B<sub>1</sub> map</h2>
+  <ul>
+    <li>The excitation RF field (B<sub>1</sub><sup>+</sup>) of a loaded coil varies in space, unless RF shimming is available, which is not common at clinical field strengths <span class="cite">(Sled 1998)</span></li>
+    <li>Correct the flip angle voxelwise with a B<sub>1</sub> map acquired in the same session:</li>
+  </ul>
+  <div class="eq eq-box">$$\theta_{corrected} = B_1\, \theta_{nominal}\qquad\text{(2.10)}$$</div>
+  <ul>
+    <li>B<sub>1</sub> is <b>normalized</b>: unitless, and equal to 1 where the RF field has the expected amplitude</li>
+  </ul>
+  <p class="small muted">Next: fitted T<sub>1</sub> from Monte Carlo data simulated with biased flip angles, fitted without and with B<sub>1</sub> correction.</p>
+  <aside class="notes">Accurate knowledge of the flip angle values is very important for accurate T1 maps. Because of how the RF field interacts with matter, the excitation field of a loaded RF coil varies spatially. For methods sensitive to this, like VFA, the flip angle can be corrected voxelwise by multiplying the nominal value by a scaling factor B1 from a B1 map acquired in the same session.</aside>
+</section>
+
+<section class="figure" data-book="vfaplot5">
+  <div class="fig-layout">
+    <h2>Fitted T<sub>1</sub> vs B<sub>1</sub>: without and with correction</h2>
+    <div class="fig-host" data-fig="vfaPlot5"></div>
+  </div>
+  <aside class="notes">Figure 2.11 (the book's second figure with this number): mean and STD of fitted VFA T1 values from Monte Carlo simulations (SNR = 100, N = 1000) with a wide range of biased flip angles, fitted without (blue) or with (red) B1 correction. TR = 25 ms, T1 = 900 ms, nominal angles 6° and 32° (optimized for this TR and T1). Even after correction, B1 values far from 1 show larger variance, because the actual flip angles move away from the optimal values (Deoni 2003).</aside>
+</section>
+
+<section class="figure" data-book="vfaplot6">
+  <div class="fig-layout">
+    <h2>Example: VFA dataset, B<sub>1</sub> map and T<sub>1</sub> map</h2>
+    <div class="fig-host" data-fig="vfaPlot6"></div>
+    <p class="fig-hint">Use the buttons to switch between the two flip angles and the B<sub>1</sub> map.</p>
+  </div>
+  <aside class="notes">Figure 2.12: VFA dataset and B1 map of a healthy adult brain (left). TR = 15 ms, nominal flip angles 3° and 20°. The T1 map (right) was fitted with a linear regression (Eqs. 2.8 and 2.9).</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls-1">
+  <h2>Pitfalls</h2>
+  <ul>
+    <li>Accuracy is <b>very sensitive to the pulse sequence implementation</b>, so VFA is less robust than inversion recovery <span class="cite">(Baudrexel 2017; Lutti 2013; Stikov 2015)</span></li>
+    <li>Insufficient spoiling can bias T<sub>1</sub> by <span class="caution">up to 30 %</span> relative to inversion recovery <span class="cite">(Stikov 2015)</span></li>
+    <li>Accuracy and precision depend strongly on the <b>quality of the B<sub>1</sub> map</b> <span class="cite">(Lee 2017)</span>, which varies between implementations <span class="cite">(Boudreau 2017)</span></li>
+    <li>Omitting B<sub>1</sub> correction is <b>not recommended</b>: most scanners have default sequences that, with careful settings, give B<sub>1</sub> maps of sufficient quality very rapidly <span class="cite">(Boudreau 2017; Samson 2006; Wang 2005)</span></li>
+  </ul>
+  <aside class="notes">Modern rapid B1 mapping sequences are not as widely available as VFA, so some groups generate an artificial B1 map with image processing (Liberman 2013) or omit B1 correction altogether (Yuan 2012). The latter is not recommended, because most scanners have default sequences that can provide B1 maps of sufficient quality very rapidly.</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls-1">
+  <h2>Why VFA is still widely used</h2>
+  <ul>
+    <li>One of the <span class="hl">most widely used</span> T<sub>1</sub> mapping methods in research</li>
+    <li><b>Rapid acquisition</b> and <b>rapid image processing</b></li>
+    <li><b>Widespread availability</b></li>
+    <li>A great candidate for other quantitative protocols: <b>quantitative MT</b> <span class="cite">(Cercignani 2005; Yarnykh 2002)</span> and <b>DCE</b> <span class="cite">(Li 2018; Sung 2013)</span></li>
+  </ul>
+  <aside class="notes">Despite some drawbacks, VFA is still one of the most widely used T1 mapping methods in research. Its rapid acquisition time, rapid image processing time, and widespread availability make it a great candidate for use in other quantitative imaging protocols like qMT and DCE.</aside>
+</section>
+
+<!-- ================================================================ MP2RAGE -->
+
+<section class="divider" data-book="mp2rageintroduction">
+  <div class="center-col">
+    <p class="kicker">Method 3 · Dictionary-based</p>
+    <h1>MP2RAGE</h1>
+    <p class="subtitle">Magnetization Prepared 2 Rapid Acquisition Gradient Echoes</p>
+  </div>
+  <aside class="notes">MP2RAGE: Magnetization Prepared 2 Rapid Acquisition Gradient Echoes (Marques 2010).</aside>
+</section>
+
+<section data-book="mp2rageintroduction">
+  <h2>Dictionary-based techniques</h2>
+  <ul>
+    <li>Growing in popularity: <b>available on clinical scanners</b>, rapid scan times, fast post-processing</li>
+    <li>They use <b>numerical dictionaries</b>: databases of pre-calculated signal values simulated for a wide range of tissue and protocol combinations</li>
+    <li>Examples for T<sub>1</sub>: MR Fingerprinting <span class="cite">(Ma 2013)</span>, some compressed sensing methods <span class="cite">(Doneva 2010; Li 2012)</span>, and <b>MP2RAGE</b> <span class="cite">(Marques 2010)</span></li>
+    <li>Two categories:
+      <ul>
+        <li>dictionaries that exploit redundancy in parametric data to accelerate imaging (CS, MRF)</li>
+        <li>dictionaries that estimate quantitative maps from the reconstructed images (MP2RAGE)</li>
+      </ul>
+    </li>
+  </ul>
+  <aside class="notes">Dictionary-based techniques are increasing in popularity due to their growing availability on clinical scanners, rapid scan times and fast post-processing, making quantitative T1 mapping accessible for clinical applications. Because MP2RAGE is implemented primarily for T1 mapping and is increasingly available as a standard sequence, the chapter focuses on it; many concepts are shared by other dictionary-based techniques.</aside>
+</section>
+
+<section data-book="mp2rageintroduction">
+  <h2>MP2RAGE: a hybrid of IR and VFA</h2>
+  <ul>
+    <li>An extension of the conventional <b>MPRAGE</b> sequence widely used in clinical studies <span class="cite">(Haase 1989; Mugler 1990)</span></li>
+    <li>A <b>180° inversion pulse</b> prepares the magnetization for T<sub>1</sub> sensitivity at the start of each TR<sub>MP2RAGE</sub></li>
+    <li>Then <b>two images</b> at two inversion times, using gradient echo (GRE) blocks with <b>low flip angles</b> and <b>short TRs</b></li>
+  </ul>
+  <aside class="notes">MP2RAGE can be seen as a hybrid between the inversion recovery and VFA pulse sequences: a 180° inversion pulse prepares the magnetization for T1 sensitivity at the beginning of each TR_MP2RAGE, and two images are then acquired at different inversion times using gradient recalled echo imaging blocks with low flip angles and short repetition times.</aside>
+</section>
+
+<section data-book="mp2rageintroduction">
+  <h2>Encoding, and why two images</h2>
+  <ul>
+    <li>Within a GRE block, each excitation is followed by a constant in-plane ("y") phase encode, varied for each TR<sub>MP2RAGE</sub>, and a different 3D ("z") phase encode, varied at each TR</li>
+    <li>The <b>centre of k-space</b> in the 3D direction is acquired at each block's TI</li>
+    <li>Motivation: an MPRAGE-like image with <b>self-bias correction</b> of B<sub>0</sub> and B<sub>1</sub><sup>−</sup>, and a first-order correction of B<sub>1</sub><sup>+</sup></li>
+    <li>Because <span class="hl">two TIs</span> are acquired (MPRAGE acquires one), T<sub>1</sub> can be inferred, giving <b>quantitative T<sub>1</sub> maps</b></li>
+  </ul>
+  <aside class="notes">The main motivation for developing MP2RAGE was to provide a metric similar to MPRAGE but with self-bias correction of the static (B0) and receive (B1−) fields, and a first-order correction of the transmit field (B1+). Because two images at different TIs are acquired, information about T1 can also be inferred.</aside>
+</section>
+
+<section class="pulse" data-book="mp2ragefig1">
+  <h2>Pulse sequence</h2>
+  <img src="img/mp2rage_pulsesequence.png" alt="Simplified MP2RAGE pulse sequence: an adiabatic 180 degree inversion pulse followed by two gradient echo readout blocks centred at TI1 and TI2 with flip angles theta 1 and theta 2, repeated every TR MP2RAGE.">
+  <p class="caption">Figure 2.13. TR: time between GRE readouts; TR<sub>MP2RAGE</sub>: time between adiabatic 180° inversions; TI<sub>1</sub>, TI<sub>2</sub>: inversion times; θ<sub>1</sub>, θ<sub>2</sub>: excitation flip angles.</p>
+  <aside class="notes">Figure 2.13: simplified diagram of an MP2RAGE pulse sequence. The readouts in each TR use a constant in-plane phase encode ("y") gradient set for each TR_MP2RAGE, but varying 3D phase encode ("z") gradients between successive TRs.</aside>
+</section>
+
+<section data-book="mp2rageeq1">
+  <h2>The MP2RAGE signal</h2>
+  <p>For <b>complex data</b> (magnitude and phase, or real and imaginary), S<sub>MP2RAGE</sub> combines the images at the two TIs <span class="cite">(Marques 2010)</span>:</p>
+  <div class="eq eq-box">$$S_{\text{MP2RAGE}}=\text{real}\left( \frac{S_{\text{GRE}_{\text{TI}_{1}}}^{\ast}S_{\text{GRE}_{\text{TI}_{2}}}^{\ast}}{\left| S_{\text{GRE}_{\text{TI}_{1}}} \right|^{2}+ \left| S_{\text{GRE}_{\text{TI}_{2}}} \right|^{2}} \right)\qquad\text{(2.11)}$$</div>
+  <ul>
+    <li>Bounded between <b>[−0.5, 0.5]</b></li>
+    <li>The phase data help reduce some <b>B<sub>0</sub> inhomogeneity</b> effects</li>
+  </ul>
+  <aside class="notes">The MP2RAGE parameter is calculated in addition to the T1 map. For complex data it is computed from the images at the two TIs with Eq. 2.11. It is bounded between −0.5 and 0.5, and helps reduce some B0 inhomogeneity effects using the phase data. (Eq. 2.11 is shown as printed in the book.)</aside>
+</section>
+
+<section data-book="mp2rageeq2">
+  <h2>Real or polarity-restored data</h2>
+  <p>For real data, or magnitude data with polarity restoration:</p>
+  <div class="eq eq-box">$$S_{\text{MP2RAGE}}=\text{real}\left( \frac{S_{\text{GRE}_{\text{TI}_{1}}}^{\ast}S_{\text{GRE}_{\text{TI}_{2}}}^{\ast}}{S_{\text{GRE}_{\text{TI}_{1}}}^{2}+ S_{\text{GRE}_{\text{TI}_{2}}}^{2}} \right)\qquad\text{(2.12)}$$</div>
+  <aside class="notes">For real data, or magnitude data with polarity restoration, the MP2RAGE metric is instead calculated with Eq. 2.12.</aside>
+</section>
+
+<section data-book="mp2rageeq3">
+  <h2>Signal equations: assumptions</h2>
+  <ul>
+    <li>MP2RAGE is a hybrid of IR and VFA, so its signal equations are <b>more complex</b></li>
+    <li>A <b>steady state is not reached</b> during the short GRE train: the signal at the centre of k-space, which defines the contrast, depends on the number of phase-encoding steps</li>
+    <li>The equations that follow assume the 3D phase-encoding dimension is <b>fully sampled</b>: no partial Fourier or parallel imaging</li>
+  </ul>
+  <p class="small muted">Derivation: appendix of Marques et al. 2010.</p>
+  <aside class="notes">Typically a steady state is not achieved during the short train of GRE imaging blocks, so the signal at the centre of k-space for each readout depends on the number of phase-encoding steps. For simplicity, the equations assume the 3D phase-encoding dimension is fully sampled (no partial Fourier or parallel imaging acceleration).</aside>
+</section>
+
+<section data-book="mp2rageeq3">
+  <h2>Signal at the two inversion times</h2>
+  <div class="eq eq-small">$$\begin{aligned}
+S_{\text{GRE}_{\text{TI}_{1}}}=&B_{1}^{-}e^{-\text{TE}/T_{2}^{\ast }}M_{0}\sin\left( \theta_{1} \right) \\
+&\times \Bigg[ \left( \frac{-\text{eff}\,m_{z,ss}}{M_{0}}\text{EA}+\left( 1-\text{EA} \right) \right)\left( \cos\left( \theta_{1} \right) \text{ER} \right)^{n/2-1}\\
+&\quad+\left( 1-\text{ER} \right) \frac{1-\left( \cos\left( \theta_{1} \right)\text{ER} \right)^{n/2-1}}{1-\cos\left( \theta_{1} \right)\text{ER}} \Bigg]
+\end{aligned}\qquad\text{(2.13)}$$</div>
+  <div class="eq eq-small">$$\begin{aligned}
+S_{\text{GRE}_{\text{TI}_{2}}}=&B_{1}^{-}e^{-\text{TE}/T_{2}^{\ast }}M_{0}\sin\left( \theta_{2} \right) \\
+&\times \Bigg[\frac{ \frac{m_{z,ss}}{M_{0}}\text{EA}+\left( 1-\text{EC} \right)}{\text{EC}\left( \cos\left( \theta_{2} \right)\text{ER} \right)^{n/2}}-\left( 1-\text{ER} \right)\frac{\left( \cos\left( \theta_{2} \right)\text{ER} \right)^{-n/2}-1 }{1-\cos\left( \theta_{2} \right)\text{ER} } \Bigg]
+\end{aligned}\qquad\text{(2.14)}$$</div>
+  <aside class="notes">Eqs. 2.13 and 2.14: GRE signals at the two inversion times, for a fully sampled 3D phase-encode direction (see Marques 2010, appendix, for the derivation). The definitions of the terms are on the next slide.</aside>
+</section>
+
+<section data-book="mp2rageeq4">
+  <h2>Definitions</h2>
+  <div class="cols">
+    <ul class="small">
+      <li>B<sub>1</sub><sup>−</sup>: receive field sensitivity</li>
+      <li>eff: adiabatic inversion pulse efficiency</li>
+      <li>ER = exp(−TR/T<sub>1</sub>), EA = exp(−TA/T<sub>1</sub>), EB = exp(−TB/T<sub>1</sub>), EC = exp(−TC/T<sub>1</sub>)</li>
+      <li>n: number of voxels in the 3D phase-encode direction, varied within each GRE block</li>
+      <li>m<sub>z,ss</sub>: steady-state M<sub>z</sub> just before the inversion pulse</li>
+    </ul>
+    <ul class="small">
+      <li><b>TA</b>: inversion pulse → start of GRE<sub>1</sub>; TA = TI<sub>1</sub> − (n/2)TR</li>
+      <li><b>TB</b>: end of GRE<sub>1</sub> → start of GRE<sub>2</sub>; TB = TI<sub>2</sub> − (TI<sub>1</sub> + nTR)</li>
+      <li><b>TC</b>: end of GRE<sub>2</sub> → end of the TR<sub>MP2RAGE</sub>; TC = TR<sub>MP2RAGE</sub> − (TI<sub>2</sub> + (n/2)TR)</li>
+      <li class="muted">(TA, TB, TC as given for no k-space acceleration)</li>
+    </ul>
+  </div>
+  <aside class="notes">TA: time between the inversion pulse and the beginning of the GRE1 block; TB: time between the end of GRE1 and the beginning of GRE2; TC: time between the end of GRE2 and the end of the TR. The expressions for TA, TB and TC hold when there is no partial Fourier or parallel imaging acceleration. Note: the book writes TC with TI1; since TC runs from the end of GRE2, it is TI2 here.</aside>
+</section>
+
+<section data-book="mp2rageeq5">
+  <h2>Steady state before the inversion</h2>
+  <div class="eq eq-small">$$m_{z,ss}=\frac{M_{0}\left[ \beta\left( \cos\left( \theta_{2} \right)\text{ER} \right)^{n}+\left( 1-\text{ER} \right)\frac{1-\left( \cos\left( \theta_{2} \right)\text{ER} \right)^{n}}{1-\cos\left( \theta_{2} \right)\text{ER} } \right]\text{EC}+\left( 1- \text{EC}\right)}{1+\text{eff}\left( \cos\left( \theta_{1} \right) \cos\left( \theta_{2} \right) \right)^{n}e^{-TR_{\text{MP2RAGE}}/T_{1}}}\qquad\text{(2.15)}$$</div>
+  <div class="eq eq-small">$$\beta=\bigg( \left( 1-\text{EA} \right) \left( \cos\left( \theta_{1}\right)\text{ER}  \right)^{n}+\left( 1-\text{ER} \right)\frac{1-\left( \cos\left( \theta_{1}\right)\text{ER}  \right)^{n}}{1-\cos\left( \theta_{1}\right)\text{ER}  }\bigg)\text{EB}+\left( 1-\text{EB} \right)\qquad\text{(2.16)}$$</div>
+  <aside class="notes">mz,ss is the steady-state longitudinal magnetization prior to the inversion pulse (Eqs. 2.15 and 2.16). Note: the "=" after m_z,ss is missing from Eq. 2.15 in the book; it is added here.</aside>
+</section>
+
+<section data-book="mp2rageeq6">
+  <h2>What S<sub>MP2RAGE</sub> removes, and what remains</h2>
+  <div class="cols">
+    <div>
+      <h3 class="hl">Cancels out</h3>
+      <ul>
+        <li>Receive field sensitivity, B<sub>1</sub><sup>−</sup></li>
+        <li>T<sub>2</sub><sup>*</sup></li>
+        <li>M<sub>0</sub></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="caution">Remains</h3>
+      <ul>
+        <li>Transmit field <b>B<sub>1</sub><sup>+</sup></b>, hidden in θ<sub>1</sub> and θ<sub>2</sub></li>
+        <li>Can be reduced by careful protocol design <span class="cite">(Marques 2010)</span>, but not entirely eliminated <span class="cite">(Marques 2013)</span></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">From Eqs. 2.13–2.16, the MP2RAGE parameter (Eqs. 2.11, 2.12) cancels out the effects of receive field sensitivity, T2* and M0. The sensitivity to the transmit field, hidden within θ1 and θ2, can be reduced by careful protocol design but not entirely eliminated.</aside>
+</section>
+
+<section data-book="data-fitting-1">
+  <h2>Data fitting with a dictionary</h2>
+  <ul>
+    <li>No conventional minimization (e.g. Levenberg–Marquardt): MP2RAGE uses <b>pre-calculated signal values</b> over a wide range of T<sub>1</sub>, then <b>interpolates</b> to find the T<sub>1</sub> that matches the observed signal</li>
+    <li>Dictionaries can be generated before scanning, and interpolating is much faster than most fitting algorithms, so maps can be shown <span class="hl">directly on the scanner console</span></li>
+    <li>Signal curves must be <b>unique</b> for each parameter value: S<sub>MP2RAGE</sub> is unique for each T<sub>1</sub> for a given protocol, so a [T<sub>1</sub>, S<sub>MP2RAGE</sub>] dictionary is enough <span class="cite">(Marques 2010)</span></li>
+    <li>B<sub>1</sub> sensitivity is reduced with protocol optimization, and further by adding <b>B<sub>1</sub> as a dictionary dimension</b> [T<sub>1</sub>, B<sub>1</sub>, S<sub>MP2RAGE</sub>], at the cost of an extra B<sub>1</sub> map <span class="cite">(Marques 2013)</span></li>
+  </ul>
+  <aside class="notes">Dictionary-based techniques do not typically use conventional minimization algorithms. Instead they use pre-calculated signal values for a wide range of parameter values and interpolate within the dictionary to estimate the T1 that matches the observed signal. Adding B1 as a dictionary dimension requires an additional B1 map, which lengthens the scan time.</aside>
+</section>
+
+<section class="figure" data-book="mp2rageplot1">
+  <div class="fig-layout">
+    <h2>T<sub>1</sub> lookup table</h2>
+    <div class="fig-host" data-fig="mp2rageplot1"></div>
+    <p class="fig-hint">Hover to read T<sub>1</sub> for each S<sub>MP2RAGE</sub> and B<sub>1</sub>.</p>
+  </div>
+  <aside class="notes">Figure 2.14: T1 lookup table as a function of T1 and S_MP2RAGE. TI = 800 and 2700 ms, flip angles 4° and 5°, TR_MP2RAGE = 6000 ms, TR = 6.7 ms. The code was shared open source by the authors of the original MP2RAGE paper (Marques 2017).</aside>
+</section>
+
+<section class="figure" data-book="mp2rageplot2">
+  <div class="fig-layout">
+    <h2>Example: 7T MP2RAGE dataset and T<sub>1</sub> map</h2>
+    <div class="fig-host" data-fig="mp2rageplot2"></div>
+    <p class="fig-hint">Use the buttons to switch between the two inversion images and S<sub>MP2RAGE</sub>.</p>
+  </div>
+  <aside class="notes">Figure 2.15: MP2RAGE dataset of a healthy adult brain at 7T and its T1 map. TI = 800 and 2700 ms, flip angles 4° and 5°, TR_MP2RAGE = 6000 ms, TR = 6.7 ms. Dataset and code shared open source by the authors of the original MP2RAGE paper (Marques 2017).</aside>
+</section>
+
+<section data-book="data-fitting-1">
+  <h2>Software</h2>
+  <ul>
+    <li>MP2RAGE is increasingly distributed by MRI vendors, typically with a fitting package that reconstructs T<sub>1</sub> maps <b>online</b></li>
+    <li>Several <b>open-source packages</b> are also available <span class="cite">(Marques 2017; de Hollander 2017)</span></li>
+    <li>For new users these are recommended over programming one from scratch: there are <span class="caution">many potential pitfalls</span>, e.g. adjusting the equations for partial Fourier or parallel imaging</li>
+  </ul>
+  <aside class="notes">The MP2RAGE pulse sequence is increasingly distributed by MRI vendors, typically with a data fitting package to reconstruct T1 maps online. Open source packages are recommended for new users over programming one from scratch, as there are many potential pitfalls.</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls-2">
+  <h2>Benefits</h2>
+  <ul>
+    <li>Widespread availability and <b>turnkey</b> acquisition and fitting: a main reason for growing interest in quantitative T<sub>1</sub> in clinical and neuroscience studies</li>
+    <li><b>Highly reproducible</b> brain T<sub>1</sub> in an inter- and intra-site study at eight sites (same hardware and software, 7T) <span class="cite">(Voelker 2016)</span></li>
+    <li>Among the <b>fastest</b> acquisition and post-processing times of quantitative T<sub>1</sub> methods</li>
+    <li><span class="hl">Very high resolution</span>: 1 mm isotropic at 3T and submillimeter at 7T, both in under 10 min <span class="cite">(Fujimoto 2014)</span>, opening the door to cortical studies <span class="cite">(Waehnert 2014; Beck 2018; Haast 2018)</span></li>
+  </ul>
+  <aside class="notes">This widespread availability and turnkey acquisition/fitting procedures are a main contributing factor to the growing interest in quantitative T1 maps in clinical and neuroscience studies. MP2RAGE has one of the fastest acquisition and post-processing times, while acquiring very high resolution T1 maps.</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls-2">
+  <h2>Pitfalls</h2>
+  <ul>
+    <li>Reproducibility depends on using <b>one pre-calculated dictionary</b>: different dictionaries (e.g. across sites and vendors) give minor differences in T<sub>1</sub> for the same data</li>
+    <li>Residual <b>B<sub>1</sub> sensitivity</b> can be large enough to need correction with a measured B<sub>1</sub> map <span class="cite">(Marques 2013; Haast 2018)</span>, but B<sub>1</sub> mapping brings <span class="caution">its own errors</span>: choose the method and post-processing (e.g. filtering) carefully <span class="cite">(Boudreau 2017)</span></li>
+    <li>The equations, and so the dictionaries, assume <b>monoexponential</b> longitudinal relaxation: suboptimal estimates of the long T<sub>1</sub> component under a biexponential model <span class="cite">(Rioux 2016)</span>, more important at higher fields</li>
+  </ul>
+  <aside class="notes">MP2RAGE and similar dictionary-based techniques have limitations to consider before incorporating them in a study: dictionary dependence, residual B1 sensitivity (with B1 mapping as an additional source of error), and the monoexponential relaxation assumption.</aside>
+</section>
+
+<!-- ================================================================ Closing -->
+
+<section data-book="introduction">
+  <h2>Summary</h2>
+  <div class="cards">
+    <div class="card ir">
+      <h3>Inversion recovery</h3>
+      <p><b>Gold standard</b>: wide dynamic range, insensitive to flip angle and spoiling errors.</p>
+      <p>Long TR: 10–25 min per slice. Used as a reference.</p>
+    </div>
+    <div class="card vfa">
+      <h3>Variable flip angle</h3>
+      <p><b>Rapid 3D</b> acquisition and processing; widely available.</p>
+      <p>Sensitive to spoiling (up to 30 % bias) and needs a good B<sub>1</sub> map.</p>
+    </div>
+    <div class="card mp2rage">
+      <h3>MP2RAGE</h3>
+      <p><b>Turnkey</b>, fast, high resolution and reproducible.</p>
+      <p>Depends on its dictionary; residual B<sub>1</sub><sup>+</sup> sensitivity.</p>
+    </div>
+  </div>
+  <aside class="notes">Summary of the benefits and pitfalls sections of each method, as stated in the chapter.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercises and discussion</h2>
+  <ul>
+    <li>The chapter ends with <b>nine exercises</b> that use the interactive figures, the notebooks (on Binder) and qMRLab</li>
+    <li>Example: using Figure 2.2, find the inversion times that null white matter, grey matter and CSF</li>
+    <li>Questions and answers: <a href="https://github.com/qMRLab/mooc/discussions" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions</a></li>
+  </ul>
+  <p style="margin-top:1.2em"><a href="https://qmrlab.org/mooc/t1-mapping#exercises" target="_blank" rel="noopener">Open the exercises in the book →</a></p>
+  <aside class="notes">Exercise 1a: using the Plotly figure in the inversion recovery section that displays the signal curves for white matter, grey matter and CSF, determine the inversion times that null the signal from each of these tissues. Exercise 1 has its own discussion thread: github.com/qMRLab/mooc/discussions/4.</aside>
+</section>
 </div>
 </div>
 
@@ -317,6 +773,14 @@
 <script src="js/figures/irPlot3.js"></script>
 <script src="js/figures/irPlot4.js"></script>
 <script src="js/figures/irPlot5.js"></script>
+<script src="js/figures/vfaPlot1.js"></script>
+<script src="js/figures/vfaPlot2.js"></script>
+<script src="js/figures/vfaPlot3.js"></script>
+<script src="js/figures/vfaPlot4.js"></script>
+<script src="js/figures/vfaPlot5.js"></script>
+<script src="js/figures/vfaPlot6.js"></script>
+<script src="js/figures/mp2rageplot1.js"></script>
+<script src="js/figures/mp2rageplot2.js"></script>
 <script src="js/deck.js"></script>
 </body>
 </html>

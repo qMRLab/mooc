@@ -223,6 +223,7 @@ Each row is one slide. The "Source" column names the chapter anchor the slide's 
 
 **Chapter issues found while preparing the deck.** These will be reported to Mathieu, not fixed on this branch.
 - Eq. 2.15 (`mp2rageEq5`) is missing the `=` after `m_{z,ss}`.
+- The TC definition after Eq. 2.14 uses TI₁ where it should use TI₂ (TC runs from the end of GRE₂ to the end of TR_MP2RAGE).
 - The MP2RAGE *Data Fitting* paragraph links "2.16" to `#mp2rageEq3`.
 - Figure 2.2's caption says it plots Eq. 2.2, but the data are Eq. 2.3, the long-TR form (checked against the pickled curves).
 - Figure 2.6's caption says 5 TI values; the data use 6.
