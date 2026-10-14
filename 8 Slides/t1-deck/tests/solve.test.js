@@ -71,3 +71,49 @@ test('inputs are validated without throwing', () => {
   assert.equal(solve.fitThroughOrigin([], []).ok, false);
   assert.equal(solve.fitThroughOrigin([0, 0], [1, 2]).ok, false);
 });
+
+// The Octave cell from the IR blog notebook that generated the data for Figure 2.2 (cell 11).
+const NOTEBOOK_CELL = `params.TR = 5.0;
+params.TI = linspace(0.001, params.TR, 1000);
+
+params.TE = 0.004;
+params.T2 = 0.040;
+
+params.EXC_FA = 90;  % Excitation flip angle
+params.INV_FA = 180; % Inversion flip angle
+
+params.signalConstant = 1;
+
+% White matter
+params.T1 = 0.900; % in seconds
+signal_WM = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);
+
+% Grey matter
+params.T1 = 1.500;  % in seconds
+signal_GM = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);
+
+% CSF
+params.T1 = 4.000;  % in seconds
+signal_CSF = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);`;
+
+test('the notebook cell is read into curves (Ex. 3a)', () => {
+  const r = solve.parseIrCode(NOTEBOOK_CELL);
+  assert.equal(r.ok, true, r.error);
+  assert.deepEqual(r.ti, { start: 0.001, stop: 5, n: 1000 });
+  assert.deepEqual(r.curves.map((c) => [c.name, c.t1, c.tr, c.longTR, c.constant]), [
+    ['WM', 0.9, 5, true, 1], ['GM', 1.5, 5, true, 1], ['CSF', 4, 5, true, 1],
+  ]);
+});
+
+test('edited values, option 1 and extra curves are read; bad code is reported by line', () => {
+  const edited = NOTEBOOK_CELL.replace('0.900', '0.650').replace('1.500', '1.2').replace(/'GRE-IR', 4\);\s*$/, "'GRE-IR', 1);")
+    + '\nparams.T1 = 2.0;\nsignal_X = inversion_recovery.analytical_solution(params, \'GRE-IR\', 4);';
+  const r = solve.parseIrCode(edited);
+  assert.equal(r.ok, true, r.error);
+  assert.deepEqual(r.curves.map((c) => [c.name, c.t1, c.longTR]), [['WM', 0.65, true], ['GM', 1.2, true], ['CSF', 4, false], ['X', 2, true]]);
+  assert.match(solve.parseIrCode('params.T1 = abc;').error, /line 1/i);
+  assert.match(solve.parseIrCode('params.T1 = 0.9;\nsignal_WM = inversion_recovery.analytical_solution(params, \'GRE-IR\', 2);').error, /option 2/);
+  assert.match(solve.parseIrCode('params.TR = 5;\nsignal_WM = inversion_recovery.analytical_solution(params, \'GRE-IR\', 4);').error, /T1/);
+  assert.match(solve.parseIrCode('% nothing here').error, /analytical_solution/);
+  assert.match(solve.parseIrCode('plot(x)').error, /line 1/i);
+});

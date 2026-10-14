@@ -183,6 +183,33 @@ async function checkInputs(browser) {
   return problems;
 }
 
+// Exercise 3a: opened directly by its link, the notebook code runs; edited code reruns; bad code shows its line.
+async function checkCodeSlide(browser) {
+  const problems = [];
+  const { page, errors } = await openDeck(browser, 'exercise-3.html#/1', 1280, 720);
+  const legend = () => page.evaluate(() => {
+    const gd = Reveal.getCurrentSlide().querySelector('.result-host .js-plotly-plot');
+    return gd ? gd.data.map((t) => t.name).join(' | ') : '';
+  });
+  await page.waitForFunction(() => Reveal.getCurrentSlide().querySelector('.result-host .main-svg'), null, { timeout: 5000 }).catch(() => {});
+  if (!/0\.90 s/.test(await legend())) problems.push(`ex3a deep link: the book's values were not drawn ("${await legend()}")`);
+  const code = page.locator('section.present textarea[data-key="code"]');
+  await code.fill((await code.inputValue()).replace('0.900', '0.650').replace('1.500', '1.200'));
+  await code.press('Control+Enter');
+  await page.waitForTimeout(500);
+  if (!/0\.65 s/.test(await legend()) || !/1\.20 s/.test(await legend())) problems.push(`ex3a Run: edited values not drawn ("${await legend()}")`);
+  await code.fill('params.T1 = abc;');
+  await page.locator('section.present button[data-run="ex3-curves"]:not([data-step])').click();
+  await page.waitForTimeout(300);
+  if (!/Line 1/.test(await resultText(page))) problems.push(`ex3a: bad code did not report its line ("${await resultText(page)}")`);
+  await page.locator('section.present button[data-reset="ex3-curves"]').click();
+  await page.waitForTimeout(500);
+  if (!/0\.90 s/.test(await legend())) problems.push('ex3a Reset: the book values were not restored');
+  problems.push(...errors.map((e) => `ex3a: ${e}`));
+  await page.close();
+  return problems;
+}
+
 // Live qmrust results must appear within about a second of reaching the slide.
 async function checkLiveSpeed(browser) {
   const problems = [];
@@ -236,6 +263,7 @@ async function checkQmRustFallback(browser) {
       }
     }
     problems.push(...(await checkInputs(browser)));
+    problems.push(...(await checkCodeSlide(browser)));
     problems.push(...(await checkLiveSpeed(browser)));
     problems.push(...(await checkQmRustFallback(browser)));
   } finally {

@@ -51,18 +51,20 @@
   action('ex4-mc', {
     run(ctx) {
       const p = protocol(ctx, true);
+      const t1h = ctx.num('t1human', 'Human WM T₁');
+      const t1m = ctx.num('t1mouse', 'Mouse WM T₁');
       return withQmRust(ctx, () => {
-        const human = ctx.step >= 1 ? Q.monteCarlo({ ...p, t1: HUMAN.t1, seed: SEED }) : null;
-        const mouse = ctx.step >= 1 ? Q.monteCarlo({ ...p, t1: MOUSE.t1, seed: SEED }) : null;
+        const human = ctx.step >= 1 ? Q.monteCarlo({ ...p, t1: t1h, seed: SEED }) : null;
+        const mouse = ctx.step >= 1 ? Q.monteCarlo({ ...p, t1: t1m, seed: SEED }) : null;
         ctx.plot({
-          data: [...tissueTraces(HUMAN.t1, p, COLORS[0], 'Human', human), ...tissueTraces(MOUSE.t1, p, COLORS[1], 'Mouse', mouse)],
+          data: [...tissueTraces(t1h, p, COLORS[0], `Human (T<sub>1</sub> ${fmt(t1h)} ms)`, human), ...tissueTraces(t1m, p, COLORS[1], `Mouse (T<sub>1</sub> ${fmt(t1m)} ms)`, mouse)],
           layout: irLayout({ legend: { x: 0.25, y: 0.99 }, xaxis: { range: [0, p.tr], autorange: false }, yaxis: yHeadroom }),
         });
         if (!human) {
-          ctx.say(`The protocol’s ${p.tis.length} TIs on each tissue’s signal, TR = ${fmt(p.tr)} ms.`);
+          ctx.say(`The protocol’s ${p.tis.length} TIs on each tissue’s noiseless signal (general equation, TR = ${fmt(p.tr)} ms).`);
           return;
         }
-        ctx.say(`<table class="measure">${HEADER}${row('Human', HUMAN.t1, human)}${row('Mouse', MOUSE.t1, mouse)}</table>`);
+        ctx.say(`<table class="measure">${HEADER}${row('Human', t1h, human)}${row('Mouse', t1m, mouse)}</table>`);
         ctx.slide.querySelector('.ans-ratio').textContent = fmt(mouse.cv / human.cv, 1);
         ctx.slide.querySelector('.ans-mouse').textContent = fmt(mouse.cv);
         ctx.slide.querySelector('.ans-human').textContent = fmt(human.cv);
@@ -95,7 +97,7 @@
           layout: irLayout({ legend: { x: 0.2, y: 0.99, font: { family: 'Times New Roman', size: 12 } }, xaxis: { range: [0, tr], autorange: false }, yaxis: yHeadroom }),
         });
         if (ctx.step < 1) {
-          ctx.say('The signal each tissue gives with the human protocol (TR = 1000 ms), and its four TIs.');
+          ctx.say(`The signal of human WM (<i>T</i><sub>1</sub> = ${fmt(HUMAN.t1)} ms) and mouse WM (<i>T</i><sub>1</sub> = ${fmt(MOUSE.t1)} ms) with the human protocol (TR = 1000 ms), and its four TIs.`);
           return;
         }
         ctx.say(`<table class="measure"><tr><th></th><th>e<sup>−TR/T<sub>1</sub></sup></th><th>Signal range</th>${
@@ -109,12 +111,13 @@
   action('ex4-proposed', {
     run(ctx) {
       const p = protocol(ctx, false);
+      const t1m = ctx.num('t1mouse', 'Mouse WM T₁');
       const human = { ...HUMAN_PROTOCOL, snr: p.snr, trials: 500 };
       return withQmRust(ctx, () => {
-        const before = Q.monteCarlo({ ...human, t1: MOUSE.t1, seed: SEED });
-        const after = ctx.step >= 1 ? Q.monteCarlo({ ...p, t1: MOUSE.t1, seed: SEED }) : null;
-        const data = tissueTraces(MOUSE.t1, human, COLORS[1], 'Human protocol', before);
-        if (after) data.push(...tissueTraces(MOUSE.t1, p, COLORS[2], 'New protocol', after));
+        const before = Q.monteCarlo({ ...human, t1: t1m, seed: SEED });
+        const after = ctx.step >= 1 ? Q.monteCarlo({ ...p, t1: t1m, seed: SEED }) : null;
+        const data = tissueTraces(t1m, human, COLORS[1], 'Human protocol', before);
+        if (after) data.push(...tissueTraces(t1m, p, COLORS[2], 'New protocol', after));
         ctx.plot({
           data,
           layout: irLayout({ legend: { x: 0.3, y: 0.99 }, xaxis: { range: [0, Math.max(after ? p.tr : 0, 1000)], autorange: false }, yaxis: yHeadroom }),

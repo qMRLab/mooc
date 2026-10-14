@@ -6,8 +6,6 @@
   const { action, bookLayout, axisTitles, COLORS, fmt, withQmRust } = window.T1Exercise;
   const S = window.T1Solve;
   const Q = window.QmRust;
-  const NAMES = ['White Matter', 'Grey Matter', 'Cerebrospinal Fluid'];
-  const SHORT = ['WM', 'GM', 'CSF'];
   const CAUTION = '#b45309';
   const range = (a, b, step) => Array.from({ length: Math.floor((b - a) / step) + 1 }, (_, i) => a + i * step);
 
@@ -19,32 +17,42 @@
     }, overrides));
   }
 
-  // a. Step 0: Figure 2.2 (Eq. 2.3) at 1.5 T. Step 1: the book's 3 T curves, dashed. Step 2: the null times.
+  // a. Step 0: runs the notebook code on the slide (as loaded, it reproduces Figure 2.2).
+  //    Step 1: the book's own 3 T curves, dashed. Step 2: the null times of the curves in the code.
+  //    Times are in seconds here, as in the notebook.
+  const TISSUE = { WM: 'White Matter', GM: 'Grey Matter', CSF: 'Cerebrospinal Fluid' };
   action('ex3-curves', {
     run(ctx) {
-      const t1 = [ctx.num('wm', 'WM T₁'), ctx.num('gm', 'GM T₁'), ctx.num('csf', 'CSF T₁')];
+      const code = S.parseIrCode(ctx.slide.querySelector('[data-key="code"]').value);
+      if (!code.ok) throw new window.T1Exercise.InputError(code.error);
       return withQmRust(ctx, () => {
-        const data = t1.map((t, i) => {
-          const c = Q.curve({ t1: t, tiMax: 5000, n: 501, model: 'longTR', magnitude: false });
-          return { x: c.ti, y: c.s, mode: 'lines', name: `T<sub>1</sub> = ${fmt(t / 1000, 2)} s (${NAMES[i]}), 1.5 T`,
-            line: { color: COLORS[i], width: 2.5 } };
+        const { start, stop, n } = code.ti;
+        const ti = Array.from({ length: n }, (_, i) => (start + ((stop - start) * i) / (n - 1)) * 1000);
+        const data = code.curves.map((c, i) => {
+          const s = Q.signal({ t1: c.t1 * 1000, tr: c.tr * 1000, tis: ti, model: c.longTR ? 'longTR' : 'general', magnitude: false });
+          const label = `T<sub>1</sub> = ${fmt(c.t1, 2)} s (${TISSUE[c.name] || c.name})`;
+          return { x: ti.map((t) => t / 1000), y: s.map((v) => v * c.constant), mode: 'lines', name: label, text: label,
+            hoverinfo: 'x+y+text', line: { color: COLORS[i % COLORS.length], width: 2.5 } };
         });
         if (ctx.step >= 1) {
           window.T1Figures.irPlot1.data.forEach((tr, i) => {
-            data.push({ x: tr.x.map((s) => s * 1000), y: tr.y, mode: 'lines', name: `${tr.name.replace(/ \(.*/, '')}, 3 T (book)`,
+            data.push({ x: tr.x, y: tr.y, mode: 'lines', name: `${tr.name.replace(/ \(.*/, '')}, book (3 T)`,
               line: { color: COLORS[i], width: 1.5, dash: 'dash' }, opacity: 0.7, hoverinfo: 'skip' });
           });
         }
+        let nulls = [];
         if (ctx.step >= 2) {
-          const nulls = t1.map((t) => S.irNullLongTR(t));
-          data.push({ x: nulls, y: nulls.map(() => 0), mode: 'markers+text', name: 'Null times, 1.5 T', text: SHORT,
-            textposition: 'top left', textfont: { family: 'Times New Roman', size: 15 },
-            marker: { size: 12, color: 'black', symbol: 'x' } });
-          ctx.slide.querySelector('.ans-nulls').textContent =
-            nulls.map((n, i) => `${SHORT[i]} ${fmt(n)} ms`).join(', ');
+          nulls = code.curves.map((c) => ({ name: c.name, t: c.longTR ? S.irNullLongTR(c.t1) : S.irNullGeneral(c.t1, c.tr) }));
+          data.push({ x: nulls.map((x) => x.t), y: nulls.map(() => 0), mode: 'markers+text', name: 'Null times', text: nulls.map((x) => x.name),
+            textposition: 'top left', textfont: { family: 'Times New Roman', size: 15 }, marker: { size: 12, color: 'black', symbol: 'x' } });
         }
-        ctx.plot({ data, layout: irLayout({ legend: { x: 0.42, y: 0.05, font: { family: 'Times New Roman', size: 12 } } }) });
-        ctx.say(ctx.step >= 1 ? '' : 'Figure 2.2 recomputed by qmrust for the 1.5 T values.');
+        // The book's own figure layout; only the x-axis title is corrected to seconds.
+        const layout = bookLayout('irPlot1', {});
+        layout.annotations[0].text = 'Inversion Time – TI (s)';
+        ctx.plot({ data, layout });
+        ctx.say(nulls.length
+          ? `<p class="answer">Null times (<i>TI</i><sub>null</sub> = <i>T</i><sub>1</sub> ln 2): ${nulls.map((x) => `${x.name} <b>${fmt(x.t * 1000)} ms</b>`).join(', ')}.</p>`
+          : '');
       });
     },
   });
@@ -94,41 +102,67 @@
     },
   });
 
-  // c. Step 0: the measured signal (general equation), as Figure 2.3. Step 1: the long-TR model.
-  //    Step 2: where their difference matters, around the null.
-  action('ex3-models', {
+  // c. Which TIs affect the fitted T1 the most. Step 0: the data (general equation, magnitude) at TIs
+  //    every 100 ms. Step 1: add a small error to one TI at a time, refit with the long-TR model, and
+  //    plot how far T1 moves (bottom panel). Step 2: shade the most sensitive TIs. Step 3: why (markup).
+  action('ex3-sensitivity', {
     run(ctx) {
       const t1 = ctx.num('t1', 'WM T₁');
       const tr = ctx.num('tr', 'TR');
+      const err = ctx.num('err', 'Signal error') / 100;
       return withQmRust(ctx, () => {
-        const general = Q.curve({ t1, tr, tiMax: tr - 1, n: 601, model: 'general', magnitude: true });
-        const data = [{ x: general.ti, y: general.s, mode: 'lines', name: '[Eq. 2.2] – General Equation (measured)', line: { color: COLORS[1], width: 2.5, dash: 'dash' } }];
-        if (ctx.step >= 1) {
-          const longTR = Q.curve({ t1, tr, tiMax: tr - 1, n: 601, model: 'longTR', magnitude: true });
-          data.unshift({ x: longTR.ti, y: longTR.s, mode: 'lines', name: '[Eq. 2.3] – Long TR approximation (fitted)', line: { color: COLORS[0], width: 2.5 } });
-        }
-        const nullG = S.irNullGeneral(t1, tr);
-        const nullL = S.irNullLongTR(t1);
-        const shapes = ctx.step >= 2
-          ? [{ type: 'rect', xref: 'x', yref: 'paper', x0: nullG - 150, x1: nullL + 150, y0: 0, y1: 1, fillcolor: CAUTION, opacity: 0.12, line: { width: 0 } }]
-          : [];
-        ctx.plot({
-          data,
-          layout: irLayout({
-            annotations: axisTitles('Inversion Time – TI (ms)', 'Signal (magnitude)', { xy: -0.16, yx: -0.15 }),
-            legend: { x: 0.35, y: 0.35 },
-            showlegend: true,
-            xaxis: { range: [0, tr], autorange: false },
-            yaxis: { range: [0, 1.05], autorange: false },
-            shapes,
-          }),
-        });
-        const say = [
-          `What the scanner measures: WM, <i>T</i><sub>1</sub> = ${fmt(t1)} ms, TR = ${fmt(tr)} ms.`,
-          `The long-TR model is off by e<sup>−TR/T<sub>1</sub></sup> = ${fmt(Math.exp(-tr / t1), 3)} everywhere.`,
-          `That offset is a large <i>relative</i> error where the signal is small, around the nulls (shaded): <b>${fmt(nullG)} ms</b> measured vs <b>${fmt(nullL)} ms</b> in the model.`,
+        const tis = range(100, tr - 100, 100);
+        const signal = Q.signal({ t1, tr, tis, model: 'general', magnitude: true });
+        const curve = Q.curve({ t1, tr, tiMax: tr - 1, n: 601, model: 'general', magnitude: true });
+        const data = [
+          { x: curve.ti, y: curve.s, mode: 'lines', name: 'Signal (Eq. 2.2)', line: { color: COLORS[1], width: 2 }, hoverinfo: 'skip' },
+          { x: tis, y: signal, mode: 'markers', name: 'Protocol TIs', marker: { size: 7, color: 'black' } },
         ];
-        ctx.say(say.slice(0, ctx.step + 1).join(' '));
+        const nullG = S.irNullGeneral(t1, tr);
+        const two = ctx.step >= 1;
+        let shift = [];
+        let zone = null;
+        if (two) {
+          const base = Q.fit({ tis, signal, model: 'longTR' }).t1;
+          shift = tis.map((t, i) => {
+            const s2 = signal.slice();
+            s2[i] += err;
+            return Math.abs(Q.fit({ tis, signal: s2, model: 'longTR' }).t1 - base);
+          });
+          data.push({ x: tis, y: shift, type: 'bar', name: `|ΔT<sub>1</sub>| for a ${fmt(err * 100, 1)}% error at that TI`,
+            marker: { color: COLORS[0] }, xaxis: 'x', yaxis: 'y2', width: 70 });
+          if (ctx.step >= 2) {
+            const top = Math.max(...shift);
+            const hot = tis.filter((t, i) => shift[i] >= top / 2);
+            zone = [hot[0], hot[hot.length - 1]];
+          }
+        }
+        const font = { family: 'Times New Roman', size: 20 };
+        const layout = bookLayout('irPlot1', {
+          width: 580, height: 470,
+          margin: { l: 90, r: 30, t: 10, b: 70 },
+          legend: { x: 0.42, y: two ? 0.62 : 0.3, font: { family: 'Times New Roman', size: 12 } },
+          xaxis: { range: [0, tr], autorange: false, anchor: two ? 'y2' : 'y' },
+          yaxis: { range: [0, 1.05], autorange: false, domain: two ? [0.5, 1] : [0, 1] },
+          annotations: [
+            { font, showarrow: false, text: 'Inversion Time – TI (ms)', x: 0.5, xref: 'paper', y: -0.14, yref: 'paper' },
+            { font, showarrow: false, text: 'Signal', textangle: -90, x: -0.14, xref: 'paper', y: two ? 0.77 : 0.5, yref: 'paper' },
+            ...(two ? [{ font, showarrow: false, text: '|ΔT<sub>1</sub>| (ms)', textangle: -90, x: -0.14, xref: 'paper', y: 0.2, yref: 'paper' }] : []),
+          ],
+          shapes: [
+            { type: 'line', xref: 'x', yref: 'paper', x0: nullG, x1: nullG, y0: 0, y1: 1, line: { color: CAUTION, dash: 'dot', width: 1.5 } },
+            ...(zone ? [{ type: 'rect', xref: 'x', yref: 'paper', x0: zone[0] - 50, x1: zone[1] + 50, y0: 0, y1: 1, fillcolor: CAUTION, opacity: 0.13, line: { width: 0 } }] : []),
+          ],
+        });
+        if (two) layout.yaxis2 = { domain: [0, 0.4], linecolor: 'black', linewidth: 2, showgrid: false, rangemode: 'tozero' };
+        ctx.plot({ data, layout });
+        if (!two) {
+          ctx.say(`The data: WM, <i>T</i><sub>1</sub> = ${fmt(t1)} ms, TR = ${fmt(tr)} ms, a TI every 100 ms. Null (dotted) at ${fmt(nullG)} ms.`);
+        } else if (!zone) {
+          ctx.say(`Each bar: how far the long-TR fit of <i>T</i><sub>1</sub> moves when only that TI’s signal is off by ${fmt(err * 100, 1)}%.`);
+        } else {
+          ctx.say(`An error at TIs from <b>${fmt(zone[0])}</b> to <b>${fmt(zone[1])} ms</b> (shaded, up to ≈ ${fmt(zone[1] / t1, 1)} <i>T</i><sub>1</sub>) moves <i>T</i><sub>1</sub> the most, peaking around the null (${fmt(nullG)} ms).`);
+        }
       });
     },
   });

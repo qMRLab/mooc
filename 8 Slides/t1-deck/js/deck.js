@@ -119,10 +119,16 @@
   // to fill the host. Fonts, margins and annotations keep the book's proportions.
   // Also used by the exercise slides for their computed figures. Returns the plot element.
   function drawFigure(host, fig) {
-    if (host._plot) window.Plotly.purge(host._plot);
-    host.replaceChildren();
     const w = fig.layout.width;
     const h = fig.layout.height;
+    const config = Object.assign({ displayModeBar: false, showLink: false }, fig.config || {}, { responsive: false });
+    // Redrawing at the same size updates the plot in place: purging a plot mid-render breaks Plotly.
+    if (host._plot && host._plot.isConnected && host._plotSize === `${w}x${h}`) {
+      window.Plotly.react(host._plot, fig.data, fig.layout, config);
+      return host._plot;
+    }
+    if (host._plot) window.Plotly.purge(host._plot);
+    host.replaceChildren();
     const k = fitScale(w, h, host.clientWidth, host.clientHeight);
     const frame = document.createElement('div');
     frame.className = 'fig-frame';
@@ -135,9 +141,9 @@
     plot.style.transform = `scale(${k})`;
     frame.appendChild(plot);
     host.appendChild(frame);
-    const config = Object.assign({ displayModeBar: false, showLink: false }, fig.config || {}, { responsive: false });
     window.Plotly.newPlot(plot, fig.data, fig.layout, config);
     host._plot = plot;
+    host._plotSize = `${w}x${h}`;
     return plot;
   }
 
@@ -162,6 +168,7 @@
     if (!host.dataset.state) return;
     if (host._plot) window.Plotly.purge(host._plot);
     host._plot = null;
+    host._plotSize = null;
     host.replaceChildren();
     delete host.dataset.state;
   }

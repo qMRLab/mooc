@@ -27,32 +27,46 @@
 
 <section class="ex" data-book="irplot1" data-auto="ex3-curves">
   <div class="ex-layout">
-    <h2>a. Figure 2.2 at 1.5 T</h2>
-    <div class="ex-cols">
+    <h2>a. Regenerate Figure 2.2 at 1.5 T (WM ~650 ms, GM ~1200 ms)</h2>
+    <div class="ex-cols even">
       <div class="ex-text">
-        <p class="question"><b>a.</b> Regenerate Figure 2.2 for <i>T</i><sub>1</sub> values at 1.5 T (WM ~ 650 ms, GM ~ 1200 ms). Assume the CSF value does not change.</p>
-        <table class="measure">
-          <tr><th>Tissue</th><th><i>T</i><sub>1</sub> at 1.5 T (ms)</th><th>at 3 T (book)</th></tr>
-          <tr><td>White matter</td><td><input data-key="wm" value="650" aria-label="WM T1"></td><td>900</td></tr>
-          <tr><td>Grey matter</td><td><input data-key="gm" value="1200" aria-label="GM T1"></td><td>1500</td></tr>
-          <tr><td>CSF</td><td><input data-key="csf" value="4000" aria-label="CSF T1"></td><td>4000</td></tr>
-        </table>
+        <p class="code-caption">From the IR blog notebook (Octave + qMRLab) that generated Figure 2.2’s data. Edit it, then ▶ Run (Ctrl/⌘+Enter): qmrust recomputes it here.</p>
+        <textarea class="code" data-key="code" rows="22" spellcheck="false" aria-label="Notebook code">% All times are in seconds
+params.TR = 5.0;
+params.TI = linspace(0.001, params.TR, 1000);
+params.TE = 0.004;
+params.T2 = 0.040;
+params.EXC_FA = 90;  % Excitation flip angle
+params.INV_FA = 180; % Inversion flip angle
+params.signalConstant = 1;
+
+% Option 4: long TR approximation (Eq. 2.3)
+
+% White matter
+params.T1 = 0.900; % in seconds
+signal_WM = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);
+
+% Grey matter
+params.T1 = 1.500;  % in seconds
+signal_GM = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);
+
+% CSF
+params.T1 = 4.000;  % in seconds
+signal_CSF = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);</textarea>
         <div class="btn-row">
-          <button data-run="ex3-curves" data-step="1">1 · Compare with 3 T</button>
-          <button data-run="ex3-curves" data-step="2">2 · Null times</button>
-          <button class="secondary" data-run="ex3-curves">Recompute</button>
+          <button data-run="ex3-curves">▶ Run</button>
           <button class="secondary" data-reset="ex3-curves">Reset</button>
+          <button class="secondary" data-run="ex3-curves" data-step="1">1 · Book (3 T)</button>
+          <button class="secondary" data-run="ex3-curves" data-step="2">2 · Nulls</button>
         </div>
         <div class="fragment step" data-action="ex3-curves"></div>
+        <div class="fragment step" data-action="ex3-curves"></div>
         <div class="result"></div>
-        <div class="fragment" data-action="ex3-curves">
-          <p class="answer">Shorter <i>T</i><sub>1</sub> at 1.5 T, so earlier nulls (<i>TI</i><sub>null</sub> = <i>T</i><sub>1</sub> ln 2): <span class="ans-nulls"></span>.</p>
-        </div>
       </div>
       <div class="result-host"></div>
     </div>
   </div>
-  <aside class="notes">The slide opens on Eq. 2.3 at the 1.5 T values, computed by qmrust: the regenerated figure. Click 1: the book's 3 T curves from Figure 2.2, dashed. Click 2: the null times: WM and GM move from 624 and 1040 ms to about 451 and 832 ms; CSF does not change.</aside>
+  <aside class="notes">The code is cell 11 of the original IR blog notebook (Octave with qMRLab), which generated the data for Figure 2.2; only some comment lines are trimmed. As loaded, Run reproduces the book's Figure 2.2. In class: change params.T1 to 0.650 (WM) and 1.200 (GM), leave CSF, and Run. On this slide the code is not run by Octave: the page reads the params assignments, linspace and analytical_solution calls (options 4 and 1) and computes the same equations with qmrust. Click 1: the book's 3 T curves, dashed, for comparison. Click 2: the null times of the curves in the code (T1 ln 2 with option 4): WM and GM move from 624 and 1040 ms to about 451 and 832 ms; CSF does not change. Note the x-axis is in seconds, as the notebook's TI (the book's Figure 2.2 labels it ms).</aside>
 </section>
 
 <section class="ex" data-book="irplot3" data-auto="ex3-longtr">
@@ -85,37 +99,41 @@
   <aside class="notes">As in Figure 2.4. The slide opens on the data: simulated with the general equation (Eq. 2.2) at TIs from 50 to 1500 ms, by qmrust. Click 1: the long-TR fit (Eq. 2.3). Click 2: the general fit for reference, which recovers T1 exactly. Click 3: the same long-TR fit at both field strengths, and the conclusion. At TR = 3 s the long-TR fit underestimates WM T1 by about 1.7% at 1.5 T (TR/T1 = 4.6) and about 5.8% at 3 T (TR/T1 = 3.3). The neglected term is e^(−TR/T1): 0.010 at 1.5 T and 0.036 at 3 T. So: usable at 1.5 T, biased by about 6% at 3 T.</aside>
 </section>
 
-<section class="ex" data-book="irplot2" data-auto="ex3-models">
+<section class="ex" data-book="irplot2" data-auto="ex3-sensitivity">
   <div class="ex-layout">
-    <h2>c. Where the long-TR model is most wrong</h2>
+    <h2>c. Which TIs affect the fitted <i>T</i><sub>1</sub> the most?</h2>
     <div class="ex-cols">
       <div class="ex-text">
         <p class="question"><b>c.</b> Are there any inversion times you should avoid using when designing an IR <i>T</i><sub>1</sub> mapping protocol at 1.5T when using this TR?</p>
         <table class="measure">
           <tr><td>WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1" value="650" aria-label="WM T1"></td></tr>
           <tr><td>TR (ms)</td><td><input data-key="tr" value="3000" aria-label="TR"></td></tr>
+          <tr><td>Signal error (% of M<sub>0</sub>)</td><td><input data-key="err" value="1" aria-label="Signal error in percent"></td></tr>
         </table>
         <div class="btn-row">
-          <button data-run="ex3-models" data-step="1">1 · Long-TR model</button>
-          <button data-run="ex3-models" data-step="2">2 · Where it matters</button>
-          <button class="secondary" data-run="ex3-models">Recompute</button>
+          <button data-run="ex3-sensitivity" data-step="1">1 · Add an error</button>
+          <button data-run="ex3-sensitivity" data-step="2">2 · Most sensitive</button>
+          <button data-run="ex3-sensitivity" data-step="3">3 · Why</button>
         </div>
-        <div class="fragment step" data-action="ex3-models"></div>
-        <div class="fragment step" data-action="ex3-models"></div>
+        <div class="fragment step" data-action="ex3-sensitivity"></div>
+        <div class="fragment step" data-action="ex3-sensitivity"></div>
         <div class="result"></div>
+        <div class="fragment" data-action="ex3-sensitivity">
+          <p class="answer">Avoid relying on TIs <b>around the null</b>: the signal is close to zero there, so noise, and the long-TR model’s offset e<sup>−TR/T<sub>1</sub></sup>, are relatively largest, and errors at those TIs move the fitted <i>T</i><sub>1</sub> the most.</p>
+        </div>
       </div>
       <div class="result-host"></div>
     </div>
   </div>
-  <aside class="notes">As in Figure 2.3. The slide opens on the magnitude signal of the general equation: what the scanner measures, for WM at 1.5 T and TR = 3 s. Click 1: the long-TR model, what the fit assumes. Click 2: where the difference matters. They differ by a constant, e^(−TR/T1) ≈ 0.01, which matters most where the signal is small: around the null. The true null is at T1 ln[2/(1 + e^(−TR/T1))] ≈ 444 ms; the model's is at T1 ln 2 ≈ 451 ms.</aside>
+  <aside class="notes">The slide opens on the data: WM at 1.5 T, TR = 3 s, sampled every 100 ms (general equation, magnitude, by qmrust). Click 1: add a small error (1% of M0, like noise) to one TI at a time, refit with the long-TR model, and plot how far the fitted T1 moves: the bottom panel. Click 2: the TIs where an error moves T1 the most, shaded: around the null (≈ 444 ms) and up to about T1. Click 3: why to avoid them. Errors at TIs far past the null hardly move T1: those points carry little T1 information, which the next slide shows. The shifts are small here (about 1 ms) because 29 TIs share the load; with a 4-TI protocol the same error moves T1 about five times more.</aside>
 </section>
 
 <section class="ex" data-book="exercises">
   <div class="ex-layout">
-    <h2>c. Which inversion times to avoid</h2>
+    <h2>c. A protocol that samples only there</h2>
     <div class="ex-cols">
       <div class="ex-text">
-        <p>A protocol of three TIs, 100 ms apart. Slide it along the recovery and fit each position with the long-TR model (noise-free data, WM at 1.5 T, TR = 3 s).</p>
+        <p>Three TIs, 100 ms apart, slid along the recovery. Each position is fitted with the long-TR model, whose offset e<sup>−TR/<i>T</i><sub>1</sub></sup> acts as an error at every TI (noise-free data, WM at 1.5 T, TR = 3 s).</p>
         <div class="btn-row">
           <button data-run="ex3-windows" data-step="1">1 · Sweep</button>
           <button data-run="ex3-windows" data-step="2">2 · Problem zones</button>
@@ -125,13 +143,13 @@
         <div class="fragment step" data-action="ex3-windows"></div>
         <div class="result"></div>
         <div class="fragment" data-action="ex3-windows">
-          <p class="answer">Avoid sampling mostly <b>around the null</b> (≈ 450 ms), where the model error is large relative to the signal, or <b>far past it</b> (≳ 2.5 <i>T</i><sub>1</sub>), where the curve is flat. Spread the TIs across the recovery, and keep TI below TR minus the readout.</p>
+          <p class="answer">Avoid protocols that sample mostly <b>around the null</b> (≈ 450 ms), where errors move <i>T</i><sub>1</sub> the most, or <b>far past it</b> (≳ 2.5 <i>T</i><sub>1</sub>), where the curve is flat and carries no <i>T</i><sub>1</sub> information. Spread the TIs across the recovery, and keep TI below TR minus the readout.</p>
         </div>
       </div>
       <div class="result-host"></div>
     </div>
   </div>
-  <aside class="notes">Three clicks. 1: the sweep: each point is a long-TR fit by qmrust to three TIs (centre ± 100 ms) of noise-free data. 2: the problem zones, marked. 3: the answer. Near the null the fit error swings to ±20–30%; from about 1.6 s on, the three samples lie on the plateau and the fit cannot find T1 at all (it runs to its bounds). Spread-out protocols keep the bias near the 1.7% of part b. This is a proposed answer: discuss what else the class would avoid (for example, TIs too close together).</aside>
+  <aside class="notes">Three clicks. 1: the sweep: each point is a long-TR fit by qmrust to three TIs (centre ± 100 ms) of noise-free data. The only error is the long-TR model's own offset. 2: the problem zones, marked. Near the null, where the previous slide showed T1 is most sensitive to errors, the fit error swings to ±20–30%; from about 1.6 s on, the three samples lie on the plateau and the fit cannot find T1 at all (it runs to its bounds). Spread-out protocols keep the bias near the 1.7% of part b. 3: the answer.</aside>
 </section>
 
 <section data-book="exercises">

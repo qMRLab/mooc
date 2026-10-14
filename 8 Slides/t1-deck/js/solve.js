@@ -116,9 +116,63 @@
     return { ok: true, value };
   }
 
+  // ---------------------------------------------------------------- notebook code (Ex. 3a)
+
+  // Reads the Octave/qMRLab cell from the IR blog notebook that generated Figure 2.2's data:
+  // `params.X = number;` assignments, `params.TI = linspace(a, b, n);` and
+  // `signal_NAME = inversion_recovery.analytical_solution(params, 'GRE-IR', option);` calls
+  // (option 4: long-TR approximation, Eq. 2.3; option 1: general equation, Eq. 2.2).
+  // Returns { ok, ti: {start, stop, n}, curves: [{name, t1, tr, longTR, constant}] } in seconds,
+  // or { ok: false, error } naming the line. Nothing is evaluated: only these forms are recognized.
+  function parseIrCode(text) {
+    const params = {};
+    const curves = [];
+    let ti = null;
+    const NUM = '([-+]?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][-+]?\\d+)?)';
+    const value = (token) => {
+      const t = token.trim();
+      const p = t.match(/^params\.(\w+)$/);
+      if (p) return params[p[1]];
+      return new RegExp(`^${NUM}$`).test(t) ? Number(t) : undefined;
+    };
+    const lines = String(text).split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const fail = (msg) => ({ ok: false, error: `Line ${i + 1}: ${msg}` });
+      const code = lines[i].replace(/%.*$/, '').trim().replace(/;$/, '').trim();
+      if (!code || /^clear(\s+all)?$/.test(code)) continue;
+      let m = code.match(/^params\.TI\s*=\s*linspace\(([^,]+),([^,]+),([^)]+)\)$/);
+      if (m) {
+        const [start, stop, n] = [value(m[1]), value(m[2]), value(m[3])];
+        if (![start, stop, n].every(Number.isFinite) || n < 2 || stop <= start || start < 0) return fail('linspace needs numbers: start ≥ 0, stop > start, and at least 2 points.');
+        ti = { start, stop, n: Math.min(Math.round(n), 5000) };
+        continue;
+      }
+      m = code.match(/^params\.(\w+)\s*=\s*(.+)$/);
+      if (m) {
+        const v = value(m[2]);
+        if (!Number.isFinite(v)) return fail(`“${m[2].trim()}” is not a number.`);
+        params[m[1]] = v;
+        continue;
+      }
+      m = code.match(/^signal_(\w+)\s*=\s*inversion_recovery\.analytical_solution\(\s*params\s*,\s*'GRE-IR'\s*,\s*(\d+)\s*\)$/);
+      if (m) {
+        const option = Number(m[2]);
+        if (option !== 1 && option !== 4) return fail(`option ${option} is not available here (use 4 for the long-TR approximation or 1 for the general equation).`);
+        if (!(params.T1 > 0)) return fail('set params.T1 (in seconds) before calling analytical_solution.');
+        if (!ti) return fail('set params.TI before calling analytical_solution.');
+        if (option === 1 && !(params.TR > 0)) return fail('option 1 needs params.TR (in seconds).');
+        curves.push({ name: m[1], t1: params.T1, tr: params.TR, longTR: option === 4, constant: params.signalConstant ?? 1 });
+        continue;
+      }
+      return fail(`can’t run “${code}” on this slide (only params assignments, linspace and analytical_solution).`);
+    }
+    if (!curves.length) return { ok: false, error: 'No signal computed: call inversion_recovery.analytical_solution at least once.' };
+    return { ok: true, ti, curves };
+  }
+
   return {
     irLongTR, irNullLongTR, irNullGeneral, irMagnitudeCrossing, irMaxContrastTI,
     ernst, spgr, deoniPair, spgrMaxContrastAngle,
-    fitThroughOrigin, parsePositive, parseList,
+    fitThroughOrigin, parsePositive, parseList, parseIrCode,
   };
 });

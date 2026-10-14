@@ -151,12 +151,12 @@
 .reveal .problem.long p, .reveal .problem.long li { font-size: 0.66em; }
 .reveal table.measure { border-collapse: collapse; margin: 0.2em 0 0.6em; }
 .reveal table.measure th, .reveal table.measure td { padding: 0.18em 0.6em; border-bottom: 1px solid var(--rule); text-align: right; }
-.reveal table.measure th:first-child, .reveal table.measure td:first-child { text-align: left; }
+.reveal table.measure th:first-child, .reveal table.measure td:first-child { text-align: left; white-space: nowrap; }
 .reveal table.measure th { font-size: 0.85em; color: var(--muted); font-weight: 600; }
 .reveal input[data-key] { font: inherit; width: 4.6em; padding: 1px 6px; border: 1px solid #9aa7b5; border-radius: 4px; text-align: right; background: #fffdf3; }
 .reveal input[data-key].list { width: 13em; text-align: left; }
-.reveal .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 0.3em 0 0.5em; }
-.reveal .btn-row button { font: inherit; font-size: 0.9em; padding: 0.2em 0.9em; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+.reveal .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0.3em 0 0.5em; }
+.reveal .btn-row button { font: inherit; font-size: 0.85em; padding: 0.2em 0.75em; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
 .reveal .btn-row button.secondary { background: #fff; color: var(--accent); }
 .reveal .btn-row button:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
 .reveal .result { min-height: 1.3em; line-height: 1.4; }
@@ -167,3 +167,14 @@
 .reveal ul.answer li + li { margin-top: 0.3em; }
 /* Invisible step: lets → (or a clicker) trigger a Solve. */
 .reveal .fragment.step { display: block; height: 0; overflow: hidden; }
+
+/* Editable notebook code (Exercise 3a). */
+.reveal textarea.code {
+  display: block; box-sizing: border-box; width: 100%; resize: none;
+  font: 12px/1.4 "SF Mono", Menlo, Consolas, monospace; color: #1d2733;
+  background: #f7f8fa; border: 1px solid #c9d2dc; border-left: 4px solid var(--accent); border-radius: 6px;
+  padding: 8px 10px; margin: 0 0 0.4em; white-space: pre; overflow: auto; tab-size: 2;
+}
+.reveal textarea.code:focus { outline: 3px solid #f2b705; outline-offset: 1px; }
+.reveal .code-caption { font-size: 0.78em; color: var(--muted); margin: 0 0 0.3em; }
+.reveal .ex-cols.even { grid-template-columns: 1fr 1fr; }

@@ -12,6 +12,7 @@
  *   <button data-reset="id">                 restores the slide's inputs to their defaults and redraws.
  *   <button data-preset='{"key": "value"}' data-run="id">  fills inputs, then runs.
  *   <input data-key="wm" value="624">        an editable value; Enter redraws (or takes the first step).
+ *   <textarea data-key="code">               editable code; Ctrl/⌘+Enter redraws.
  *   .result / .result-host                   where actions write their text / draw their figure.
  *
  * Exercise files register actions with T1Exercise.action(id, { run(ctx), undo(ctx) }); ctx.step is the
@@ -60,6 +61,7 @@
         slide.querySelectorAll('.result-host').forEach((h) => {
           if (h._plot) window.Plotly.purge(h._plot);
           h._plot = null;
+          h._plotSize = null;
           h.replaceChildren();
         });
       },
@@ -169,7 +171,7 @@
 
   function onReset(button) {
     const slide = button.closest('section');
-    slide.querySelectorAll('input[data-key]').forEach((el) => { el.value = el.defaultValue; });
+    slide.querySelectorAll('input[data-key], textarea[data-key]').forEach((el) => { el.value = el.defaultValue; });
     const id = button.dataset.reset;
     if (activeActions(slide).includes(id)) render(slide, id);
   }
@@ -190,7 +192,9 @@
       else if (resetBtn) onReset(resetBtn);
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' || !e.target.matches('input[data-key]')) return;
+      // Enter in a value box, or Ctrl/⌘+Enter in a code box, redraws the slide (or takes the first step).
+      const isCode = e.target.matches('textarea[data-key]');
+      if (e.key !== 'Enter' || !(e.target.matches('input[data-key]') || (isCode && (e.ctrlKey || e.metaKey)))) return;
       const btn = e.target.closest('section').querySelector('button[data-run]');
       if (!btn) return;
       e.preventDefault();
@@ -207,8 +211,13 @@
     window.Reveal.on('fragmentshown', onFragments);
     window.Reveal.on('fragmenthidden', onFragments);
     window.Reveal.on('slidechanged', (e) => refresh(e.currentSlide));
-    window.Reveal.on('ready', (e) => refresh(e.currentSlide));
-    if (window.Reveal.isReady()) refresh(window.Reveal.getCurrentSlide());
+    // The exercise's own script (js/exN.js) loads after this one: refresh only once every script has run.
+    const start = () => {
+      window.Reveal.on('ready', (e) => refresh(e.currentSlide));
+      if (window.Reveal.isReady()) refresh(window.Reveal.getCurrentSlide());
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+    else start();
   }
 
   // ---------------------------------------------------------------- figure helpers
