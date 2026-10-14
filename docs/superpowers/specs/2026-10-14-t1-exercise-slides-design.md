@@ -20,7 +20,8 @@ Every exercise deck follows the same flow:
 
 1. Opening `exercise-1.html` … `exercise-4.html` (hosted, or double-clicked with no network) starts on the problem slide and steps through the parts in order.
 2. Parts that read values off a figure use the **book's own interactive figure**, exactly as on the book page (the same JSON the T1 deck uses).
-3. "Measured" values sit in **editable boxes, pre-filled with our readings**. **Solve** computes from whatever is in the boxes, and **Reset** restores our readings. Pressing → on a solve slide triggers Solve too, so a presenter's clicker works.
+3. **Answers build up step by step**, one click each: the data first, then the fit or computed result, then the proof or explanation (Mathieu's feedback on Exercise 1b, 2026-10-14). ← undoes a step.
+4. "Measured" values sit in **editable boxes, pre-filled with our readings**. **Solve** computes from whatever is in the boxes, and **Reset** restores our readings. Pressing → on a solve slide triggers Solve too, so a presenter's clicker works.
 4. Exercises 3 and 4 recompute live in the page with **qmrust**, the Rust/WASM port of qMRLab, drawn in the same layout as the book figure they extend.
 5. Each result appears within about 1 s on a laptop.
 6. Every slide links back to the book (`#exercises`, or the figure's own anchor).

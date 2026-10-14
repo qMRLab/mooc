@@ -138,7 +138,7 @@
 .reveal .ex-cols > * { min-width: 0; min-height: 0; }
 /* Book figures are wide (e.g. 600 × 350): give them more of the slide. */
 .reveal .ex-cols:has(> .fig-host) { grid-template-columns: 0.7fr 1.3fr; }
-.reveal .ex-text { font-size: 0.74em; }
+.reveal .ex-text { font-size: 0.7em; }
 .reveal .ex-text p { margin-bottom: 0.5em; }
 .reveal .ex-cols .fig-host, .reveal .result-host { height: 100%; display: flex; justify-content: center; align-items: flex-start; }
 .reveal .question { background: var(--panel); border-left: 6px solid var(--accent); border-radius: 6px; padding: 0.45em 0.8em; margin: 0 0 0.7em; }

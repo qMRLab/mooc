@@ -52,18 +52,25 @@
           <tr><td>Grey matter</td><td><input data-key="t1gm" value="1500" aria-label="GM T1"></td><td><input data-key="gm" value="1040" aria-label="GM null TI"></td></tr>
           <tr><td>CSF</td><td><input data-key="t1csf" value="4000" aria-label="CSF T1"></td><td><input data-key="csf" value="2773" aria-label="CSF null TI"></td></tr>
         </table>
-        <div class="btn-row"><button data-run="ex1-fit">Solve</button><button class="secondary" data-reset="ex1-fit">Reset</button></div>
+        <div class="btn-row">
+          <button data-run="ex1-fit" data-step="1">1 · Plot</button>
+          <button data-run="ex1-fit" data-step="2">2 · Fit</button>
+          <button data-run="ex1-fit" data-step="3">3 · Prove</button>
+          <button class="secondary" data-reset="ex1-fit">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex1-fit"></div>
+        <div class="fragment step" data-action="ex1-fit"></div>
         <p class="result"></p>
         <div class="fragment" data-action="ex1-fit">
           <div class="answer">Setting Eq. 2.3 to zero:
-            <div class="eq-small">$$0 = C\left(1-2e^{- \frac{TI_{null}}{T_1}}\right) \;\Rightarrow\; TI_{null} = T_1 \ln 2 \approx 0.69\,T_1$$</div>
+            <div class="eq-small">$$\begin{aligned} 0 &= C\left(1-2e^{- \frac{TI_{null}}{T_1}}\right) \;\Rightarrow\; e^{- \frac{TI_{null}}{T_1}} = \frac{1}{2} \\ TI_{null} &= T_1 \ln 2 \approx 0.693\,T_1 \end{aligned}$$</div>
           </div>
         </div>
       </div>
       <div class="result-host"></div>
     </div>
   </div>
-  <aside class="notes">Type in the class's readings if they differ. Solve fits a straight line through the origin, TI_null = k·T1. The slope comes out at ln 2 ≈ 0.693, which is what setting Eq. 2.3 to zero gives. This holds for the long-TR approximation (Eq. 2.3) used in Figure 2.2. With a finite TR (Eq. 2.2), the null comes slightly earlier.</aside>
+  <aside class="notes">Type in the class's readings if they differ. Three clicks. 1: the readings plotted against T1: they fall on a straight line through the origin. 2: a least-squares line through the origin, TI_null = k·T1, gives k ≈ 0.693. 3: proof: setting Eq. 2.3 to zero gives TI_null = T1 ln 2, and ln 2 = 0.693. This holds for the long-TR approximation (Eq. 2.3) used in Figure 2.2. With a finite TR (Eq. 2.2), the null comes slightly earlier.</aside>
 </section>
 
 <section class="ex" data-book="irplot1">
@@ -72,9 +79,12 @@
     <div class="ex-cols">
       <div class="ex-text">
         <p class="question"><b>c.</b> Assuming that the images acquired at the MRI scanner displays magnitude-only images, at approximately which inversion time will the white matter and grey matter have the lowest contrast?</p>
-        <div class="btn-row"><button data-run="ex1-magnitude">Show magnitude |<i>M</i><sub>z</sub>|</button></div>
+        <div class="btn-row">
+          <button data-run="ex1-magnitude" data-step="1">1 · Magnitude |<i>M</i><sub>z</sub>|</button>
+          <button data-run="ex1-magnitude" data-step="2">2 · Crossing</button>
+        </div>
         <div class="fragment step" data-action="ex1-magnitude"></div>
-        <div class="fragment" data-action="ex1-crossing">
+        <div class="fragment" data-action="ex1-magnitude">
           <p class="answer">Between the two nulls, |<i>M</i><sub>z</sub>| of WM and GM cross at <b>TI ≈ <span class="ans-crossing">800</span> ms</b>: the two tissues look the same.</p>
           <p class="footnote">The crossing solves e<sup>−TI/T<sub>1,WM</sub></sup> + e<sup>−TI/T<sub>1,GM</sub></sup> = 1, with the T<sub>1</sub> values of Figure 2.2.</p>
         </div>
@@ -83,7 +93,7 @@
       <div class="fig-host" data-fig="irPlot1"></div>
     </div>
   </div>
-  <aside class="notes">First click: the same book data shown as magnitude, which is what a magnitude image displays. Second click: the WM and GM magnitudes cross at about 797 ms, so they have no contrast there. Signed (real) images would still separate them, because WM is positive and GM negative at that TI.</aside>
+  <aside class="notes">Two clicks. 1: the same book data shown as magnitude, which is what a magnitude image displays. 2: the WM and GM magnitudes cross at about 797 ms, so they have no contrast there. Signed (real) images would still separate them, because WM is positive and GM negative at that TI.</aside>
 </section>
 
 <section class="ex" data-book="irplot1">
@@ -92,19 +102,26 @@
     <div class="ex-cols">
       <div class="ex-text">
         <p class="question"><b>d.</b> Which inversion time would result in the best contrast between white matter and grey matter?</p>
-        <div class="btn-row"><button data-run="ex1-difference">Show WM − GM</button></div>
+        <div class="btn-row">
+          <button data-run="ex1-difference" data-step="1">1 · WM − GM</button>
+          <button data-run="ex1-difference" data-step="2">2 · Maximum</button>
+          <button data-run="ex1-difference" data-step="3">3 · Prove</button>
+        </div>
         <div class="fragment step" data-action="ex1-difference"></div>
-        <div class="fragment" data-action="ex1-best">
+        <div class="fragment" data-action="ex1-difference">
           <p class="answer">The difference peaks at <b>TI ≈ <span class="ans-best">1150</span> ms</b>.</p>
-          <div class="eq-small">$$TI_{best} = \frac{T_{1,WM}\,T_{1,GM}}{T_{1,GM}-T_{1,WM}}\ln\frac{T_{1,GM}}{T_{1,WM}}$$</div>
-          <p class="footnote">From differentiating Eq. 2.3 for WM minus GM. Both tissues are positive there, so magnitude images give the same answer.</p>
+        </div>
+        <div class="fragment" data-action="ex1-difference">
+          <p>Setting the derivative of Eq. 2.3 for WM minus GM to zero:</p>
+          <div class="eq-small">$$\begin{aligned} &\frac{d}{dTI}\left(e^{-\frac{TI}{T_{1,GM}}} - e^{-\frac{TI}{T_{1,WM}}}\right) = 0 \\ &\Rightarrow\; TI_{best} = \frac{T_{1,WM}\,T_{1,GM}}{T_{1,GM}-T_{1,WM}}\ln\frac{T_{1,GM}}{T_{1,WM}} \end{aligned}$$</div>
+          <p class="footnote">Both tissues are positive there, so magnitude images give the same answer.</p>
         </div>
         <p class="result"></p>
       </div>
       <div class="fig-host" data-fig="irPlot1"></div>
     </div>
   </div>
-  <aside class="notes">First click adds the curve Mz(WM) − Mz(GM) to the book figure. Second click marks its maximum, about 1149 ms for T1 of 900 and 1500 ms. Setting the derivative of e^(−TI/T1,GM) − e^(−TI/T1,WM) to zero gives the formula.</aside>
+  <aside class="notes">Three clicks. 1: adds the curve Mz(WM) − Mz(GM) to the book figure. 2: marks its maximum, about 1149 ms for T1 of 900 and 1500 ms. 3: proof: setting the derivative of e^(−TI/T1,GM) − e^(−TI/T1,WM) to zero gives the formula.</aside>
 </section>
 
 <section data-book="exercises">

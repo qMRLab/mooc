@@ -21,7 +21,8 @@ The interactive figures are the book's own Plotly figures. Use their sliders, bu
 
 Each exercise is its own short deck, linked from the T1 deck's *Exercises* slide. It opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
 
-- **Editable values.** "Measured" values sit in input boxes, pre-filled with our readings. **Solve** (or →, or a clicker) computes from whatever is in the boxes; **Reset** restores them.
+- **Step by step.** Each answer builds up one click at a time: the data first, then what a fit or calculation gives, then the proof or explanation. → (or a clicker) takes the next step and ← undoes it; the numbered buttons (1 · Plot, 2 · Fit, 3 · Prove…) jump to a step.
+- **Editable values.** "Measured" values sit in input boxes, pre-filled with our readings. Every step computes from whatever is in the boxes (Enter redraws); **Reset** restores them.
 - **Exercises 1–2** work on the book's own Figures 2.2 and 2.8, with overlays (magnitude, WM − GM) added on click.
 - **Exercises 3–4** run live in the page with [qmrust](https://github.com/qMRLab/qmrust), the Rust/WebAssembly port of qMRLab: IR signals, long-TR and general-equation fits, and Monte Carlo noise simulations. Results appear in well under a second. If WebAssembly can't load, the plots show a fallback card.
 

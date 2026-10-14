@@ -62,6 +62,13 @@ async function checkSlides(page, label, { stepFragments = false } = {}) {
         })),
         overflow: Math.round(overflow),
         errors: [...s.querySelectorAll('.result.error')].map((e) => e.textContent),
+        // Equations wider than their column spill into the neighbouring figure. KaTeX's own box keeps the
+        // column width while its content overflows, so measure the rendered pieces.
+        wideMath: [...s.querySelectorAll('.katex-display')].filter((d) => {
+          const col = d.closest('.ex-text, .ex-cols > div, section').getBoundingClientRect();
+          const right = Math.max(...[...d.querySelectorAll('.katex-html .base')].map((e) => e.getBoundingClientRect().right));
+          return d.offsetParent && right > col.right + 2;
+        }).length,
         // Computed figures: every result area must hold a drawn plot once its steps have run.
         results: [...s.querySelectorAll('.result-host')].map((h) => !!h.querySelector('.main-svg') && h.querySelector('.fig-frame').offsetHeight > 300),
         // Subscripts and superscripts must render as such (reveal's reset flattens them).
@@ -77,6 +84,7 @@ async function checkSlides(page, label, { stepFragments = false } = {}) {
     if (r.overflow > 2) problems.push(`${tag}: content overflows the slide by ${r.overflow}px`);
     if (r.flatScripts) problems.push(`${tag}: ${r.flatScripts} sub/superscripts render as plain text`);
     for (const e of r.errors) problems.push(`${tag}: shows an error: ${e}`);
+    if (r.wideMath) problems.push(`${tag}: ${r.wideMath} equation(s) wider than their column`);
     if (r.results.some((ok) => !ok)) problems.push(`${tag}: a computed figure was not drawn`);
     await page.screenshot({ path: path.join(SHOTS, `${label}-${String(i + 1).padStart(2, '0')}.png`) });
   }
@@ -120,16 +128,27 @@ const slideWith = (page, selector) =>
   page.evaluate((sel) => Reveal.getSlides().findIndex((s) => s.querySelector(sel) || s.matches(sel)), selector);
 const resultText = (page) => page.evaluate(() => Reveal.getCurrentSlide().querySelector('.result').textContent);
 
-// Typing values, Enter, Solve and Reset on Exercise 1b; presets and Run on Exercise 4c.
+// Steps, typing values, Enter and Reset on Exercise 1b; ← undoing a step; presets on Exercise 4c.
 async function checkInputs(browser) {
   const problems = [];
+  const traces = (page) => page.evaluate(() => Reveal.getCurrentSlide().querySelector('.result-host .js-plotly-plot').data.length);
   const { page, errors } = await openDeck(browser, 'exercise-1.html', 1280, 720);
   await page.evaluate((n) => Reveal.slide(n), await slideWith(page, '[data-action="ex1-fit"]'));
   await page.waitForTimeout(400);
-  await page.locator('section.present button[data-run="ex1-fit"]').click();
+  // Step 1 plots the readings only; step 2 adds the fit.
+  await page.locator('section.present button[data-run="ex1-fit"][data-step="1"]').click();
   await page.waitForTimeout(300);
-  if (!/k = 0\.693/.test(await resultText(page))) problems.push(`ex1 Solve: unexpected result "${await resultText(page)}"`);
-  // Arrow keys typed into an input must not change slide.
+  if ((await traces(page)) !== 1 || /k =/.test(await resultText(page))) problems.push('ex1 step 1: expected the readings alone, without a fit');
+  await page.locator('section.present button[data-run="ex1-fit"][data-step="2"]').click();
+  await page.waitForTimeout(300);
+  if ((await traces(page)) !== 2 || !/k = 0\.693/.test(await resultText(page))) problems.push(`ex1 step 2: unexpected result "${await resultText(page)}"`);
+  // ← goes back one step: the fit disappears again.
+  await page.evaluate(() => Reveal.prevFragment());
+  await page.waitForTimeout(300);
+  if ((await traces(page)) !== 1) problems.push('ex1: going back a step did not remove the fit');
+  await page.evaluate(() => Reveal.nextFragment());
+  await page.waitForTimeout(300);
+  // Arrow keys typed into an input must not change slide; Enter redraws with the edited value.
   const before = await page.evaluate(() => Reveal.getIndices().h);
   await page.locator('section.present input[data-key="wm"]').fill('700');
   await page.keyboard.press('ArrowRight');
@@ -138,23 +157,27 @@ async function checkInputs(browser) {
   if ((await page.evaluate(() => Reveal.getIndices().h)) !== before) problems.push('ex1: an arrow key typed in an input changed the slide');
   if (/k = 0\.693/.test(await resultText(page))) problems.push('ex1: Enter did not re-solve with the edited value');
   await page.locator('section.present input[data-key="wm"]').fill('abc');
-  await page.locator('section.present button[data-run="ex1-fit"]').click();
+  await page.keyboard.press('Enter');
   await page.waitForTimeout(200);
   if (!(await page.evaluate(() => Reveal.getCurrentSlide().querySelector('.result.error')))) problems.push('ex1: invalid input did not show an error');
   await page.locator('section.present button[data-reset="ex1-fit"]').click();
   await page.waitForTimeout(300);
   const wm = await page.locator('section.present input[data-key="wm"]').inputValue();
   if (wm !== '624' || !/k = 0\.693/.test(await resultText(page))) problems.push(`ex1 Reset: value ${wm}, result "${await resultText(page)}"`);
-  problems.push(...errors.filter((e) => !/Could not compute/.test(e)).map((e) => `ex1 inputs: ${e}`));
+  problems.push(...errors.map((e) => `ex1 inputs: ${e}`));
   await page.close();
 
   const ex4 = await openDeck(browser, 'exercise-4.html', 1280, 720);
   await ex4.page.evaluate((n) => Reveal.slide(n), await slideWith(ex4.page, '[data-auto="ex4-proposed"]'));
-  await ex4.page.waitForFunction(() => /On the slide/.test(Reveal.getCurrentSlide().querySelector('.result').textContent), null, { timeout: 5000 });
-  await ex4.page.locator('section.present button', { hasText: 'Human protocol' }).click();
+  await ex4.page.waitForFunction(() => /Human/.test(Reveal.getCurrentSlide().querySelector('.result').textContent), null, { timeout: 5000 });
+  if (/New/.test(await resultText(ex4.page))) problems.push('ex4c: the new protocol shows before its step');
+  await ex4.page.locator('section.present input[data-key="tr"]').fill('3000');
+  await ex4.page.locator('section.present button', { hasText: 'Proposed' }).click();
+  await ex4.page.locator('section.present button[data-step="1"]').click();
   await ex4.page.waitForTimeout(400);
   const tr = await ex4.page.locator('section.present input[data-key="tr"]').inputValue();
-  if (tr !== '1000') problems.push(`ex4 preset: TR is ${tr}, expected 1000`);
+  if (tr !== '5000') problems.push(`ex4 preset: TR is ${tr}, expected 5000`);
+  if (!/New/.test(await resultText(ex4.page))) problems.push('ex4c step 1: no row for the new protocol');
   problems.push(...ex4.errors.map((e) => `ex4 inputs: ${e}`));
   await ex4.page.close();
   return problems;

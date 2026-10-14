@@ -36,16 +36,22 @@
           <tr><td>SNR</td><td><input data-key="snr" value="100" aria-label="SNR"></td></tr>
           <tr><td>Noise trials</td><td><input data-key="trials" value="500" aria-label="Number of noise trials"></td></tr>
         </table>
-        <div class="btn-row"><button data-run="ex4-mc">Run</button><button class="secondary" data-reset="ex4-mc">Reset</button></div>
+        <div class="btn-row">
+          <button data-run="ex4-mc" data-step="1">1 · Monte Carlo</button>
+          <button data-run="ex4-mc" data-step="2">2 · Conclusion</button>
+          <button class="secondary" data-run="ex4-mc">Run</button>
+          <button class="secondary" data-reset="ex4-mc">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex4-mc"></div>
         <div class="result"></div>
-        <div class="fragment" data-action="ex4-mc-answer">
+        <div class="fragment" data-action="ex4-mc">
           <p class="answer">The mean is still close to the truth, but the spread is <b><span class="ans-ratio">2.3</span>× larger</b> for mouse WM (CV <span class="ans-mouse">11</span>% vs <span class="ans-human">5</span>%): the protocol is <b>not good enough</b> for mice.</p>
         </div>
       </div>
       <div class="result-host"></div>
     </div>
   </div>
-  <aside class="notes">As in Figure 2.6: for each T1, qmrust simulates the four TIs with Rician noise at SNR 100, 500 times, and fits each repetition with the general-equation model (RD-NLS, qMRLab's default). Markers are the mean noisy signal ± 1 SD; the table gives the mean and SD of the fitted T1. Human WM (600 ms): CV about 5%. Mouse WM (1700 ms): CV about 11%, so about 5 times more averaging would be needed to match the human precision. Change SNR or the trials live if asked.</aside>
+  <aside class="notes">As in Figure 2.6. The slide opens on the noiseless signal of each tissue with the protocol's four TIs. Click 1: for each T1, qmrust simulates the four TIs with Rician noise at SNR 100, 500 times, and fits each repetition with the general-equation model (RD-NLS, qMRLab's default). Markers are the mean noisy signal ± 1 SD; the table gives the mean and SD of the fitted T1. Click 2: the conclusion. Human WM (600 ms): CV about 5%. Mouse WM (1700 ms): CV about 11%, so about 5 times more averaging would be needed to match the human precision. Change SNR or the trials live if asked.</aside>
 </section>
 
 <section class="ex" data-book="irplot2" data-auto="ex4-why">
@@ -54,8 +60,15 @@
     <div class="ex-cols">
       <div class="ex-text">
         <p class="question"><b>b.</b> Explain why the human 1.5 T protocol is not appropriate to image mice at 9.4 T. Use simulation figures to support your arguments.</p>
+        <div class="btn-row">
+          <button data-run="ex4-why" data-step="1">1 · Full recovery</button>
+          <button data-run="ex4-why" data-step="2">2 · Long-TR fit</button>
+          <button data-run="ex4-why" data-step="3">3 · Why</button>
+        </div>
+        <div class="fragment step" data-action="ex4-why"></div>
+        <div class="fragment step" data-action="ex4-why"></div>
         <div class="result"></div>
-        <div class="fragment" data-action="ex4-why-answer">
+        <div class="fragment" data-action="ex4-why">
           <ul class="answer">
             <li><b>TR ≪ <i>T</i><sub>1</sub></b>: TR = 1000 ms is 0.6 <i>T</i><sub>1</sub>, far from the 2–5 <i>T</i><sub>1</sub> of conventional IR, so the magnetization barely recovers between inversions.</li>
             <li><b>Small signal range</b> across the four TIs, so noise matters more.</li>
@@ -66,7 +79,7 @@
       <div class="result-host"></div>
     </div>
   </div>
-  <aside class="notes">Solid: the signal actually measured at TR = 1000 ms (general equation). Dashed: what full recovery (long TR) would give. The mouse curve is compressed: the inversion starts from a magnetization that has not recovered (e^(−TR/T1) = 0.56, against 0.19 for human WM), so the signal varies over a much smaller range across the four TIs. A general-equation fit can still be accurate on average, but it is noisy. A pipeline using the long-TR model would be badly wrong for both: about 410 ms for human WM and 550 ms for mouse WM at this TR.</aside>
+  <aside class="notes">The slide opens on the signal actually measured at TR = 1000 ms (general equation), with the four TIs. Click 1: dashed, what full recovery (long TR) would give, and the signal ranges. Click 2: what a long-TR fit would report. Click 3: the arguments. The mouse curve is compressed: the inversion starts from a magnetization that has not recovered (e^(−TR/T1) = 0.56, against 0.19 for human WM), so the signal varies over a much smaller range across the four TIs. A general-equation fit can still be accurate on average, but it is noisy. A pipeline using the long-TR model would be badly wrong for both: about 410 ms for human WM and 550 ms for mouse WM at this TR.</aside>
 </section>
 
 <section class="ex" data-book="irplot5" data-auto="ex4-proposed">
@@ -80,19 +93,23 @@
           <tr><td>SNR</td><td><input data-key="snr" value="100" aria-label="SNR"></td></tr>
         </table>
         <div class="btn-row">
-          <button data-run="ex4-proposed" data-preset='{"tr": "1000", "tis": "100, 300, 600, 900"}'>Human protocol</button>
-          <button data-run="ex4-proposed" data-preset='{"tr": "5000", "tis": "100, 1000, 2000, 4000"}'>Proposed</button>
+          <button class="secondary" data-run="ex4-proposed" data-preset='{"tr": "5000", "tis": "100, 1000, 2000, 4000"}'>Proposed</button>
           <button class="secondary" data-run="ex4-proposed">Run</button>
         </div>
+        <div class="btn-row">
+          <button data-run="ex4-proposed" data-step="1">1 · New protocol</button>
+          <button data-run="ex4-proposed" data-step="2">2 · Why it works</button>
+        </div>
+        <div class="fragment step" data-action="ex4-proposed"></div>
         <div class="result"></div>
-        <div class="fragment" data-action="ex4-proposed-answer">
+        <div class="fragment" data-action="ex4-proposed">
           <p class="answer">TR ≈ 3 <i>T</i><sub>1</sub> lets the magnetization recover, and TIs spread past the null to ≈ 2.4 <i>T</i><sub>1</sub> sample the whole curve. Precision improves even per unit of scan time.</p>
         </div>
       </div>
       <div class="result-host"></div>
     </div>
   </div>
-  <aside class="notes">The proposed protocol (TR = 5000 ms, TI = 100, 1000, 2000, 4000 ms) was chosen by Monte Carlo simulation among a range of TRs and TI sets, keeping four TIs. It brings the CV of mouse WM T1 from about 11% to about 2.3%. It takes 5 times longer per slice, but the CV × √(scan time) column, which compares precision for equal scan time, still improves about twofold. Edit the TR and TIs to test the class's own proposals.</aside>
+  <aside class="notes">The slide opens on the human protocol applied to mouse WM (the baseline from part a). Click 1: the protocol in the boxes, compared with it. Click 2: why it works. The proposed protocol (TR = 5000 ms, TI = 100, 1000, 2000, 4000 ms) was chosen by Monte Carlo simulation among a range of TRs and TI sets, keeping four TIs. It brings the CV of mouse WM T1 from about 11% to about 2.3%. It takes 5 times longer per slice, but the CV × √(scan time) column, which compares precision for equal scan time, still improves about twofold. Edit the TR and TIs to test the class's own proposals.</aside>
 </section>
 
 <section data-book="exercises">

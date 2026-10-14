@@ -1,18 +1,22 @@
-/* Exercise slides: actions bound to slides, editable "measured" values, Solve/Reset buttons.
+/* Exercise slides: step-by-step answers, editable "measured" values, Solve/Reset buttons.
+ *
+ * An action draws a slide's answer up to a *step*. Each click (→, a clicker, or a step button) shows
+ * one more fragment of that action, and the action redraws itself at the new step, so an answer
+ * builds up as data → result → explanation. Going back (←) redraws at the lower step.
  *
  * Markup (see exercise-*.html):
- *   <div class="fragment" data-action="id">  runs action `id` when the fragment is shown (→ or a clicker),
- *                                           undoes it when hidden (←).
- *   <section data-auto="id">                 runs action `id` whenever the slide is shown.
- *   <button data-run="id">                   Solve: shows the action's fragment, or reruns it if already shown.
- *   <button data-reset="id">                 restores the slide's inputs to their defaults and reruns.
+ *   <div class="fragment" data-action="id">  one step of action `id`; the n-th visible one is step n.
+ *                                           It may hold content (e.g. an answer box) or be an empty .step.
+ *   <section data-auto="id">                 also draws action `id` at step 0 whenever the slide is shown.
+ *   <button data-run="id" data-step="2">     goes to step 2 (showing steps 1–2), or redraws if already there.
+ *   <button data-reset="id">                 restores the slide's inputs to their defaults and redraws.
  *   <button data-preset='{"key": "value"}' data-run="id">  fills inputs, then runs.
- *   <input data-key="wm" value="624">        an editable value; Enter runs the slide's first data-run button.
+ *   <input data-key="wm" value="624">        an editable value; Enter redraws (or takes the first step).
  *   .result / .result-host                   where actions write their text / draw their figure.
  *
- * Exercise files register actions with T1Exercise.action(id, { run(ctx), undo(ctx) }).
- * Actions rerun whenever a book figure on their slide is redrawn (deck.js purges figures away
- * from the current slide), so overlays and results survive navigation. */
+ * Exercise files register actions with T1Exercise.action(id, { run(ctx), undo(ctx) }); ctx.step is the
+ * current step. Actions also redraw whenever a book figure on their slide is redrawn (deck.js purges
+ * figures away from the current slide), so overlays and results survive navigation. */
 (function () {
   'use strict';
 
@@ -27,11 +31,12 @@
 
   // ---------------------------------------------------------------- context given to actions
 
-  function context(slide, id) {
+  function context(slide, id, step = 0) {
     const resultEl = slide.querySelector('.result');
     return {
       slide,
       id,
+      step,
       // A positive number from input `key`; throws InputError naming the field.
       num(key, label) {
         const el = slide.querySelector(`[data-key="${key}"]`);
@@ -88,11 +93,11 @@
     }
   }
 
-  function run(slide, id) {
+  function run(slide, id, step) {
     const def = actions[id];
     if (!def) { showError(slide, new Error(`no action "${id}"`)); return; }
     try {
-      const out = def.run(context(slide, id));
+      const out = def.run(context(slide, id, step));
       if (out && typeof out.catch === 'function') out.catch((err) => showError(slide, err));
     } catch (err) {
       showError(slide, err);
@@ -101,21 +106,45 @@
 
   function undo(slide, id) {
     const def = actions[id];
-    if (def && def.undo) def.undo(context(slide, id));
-    else context(slide, id).clear();
+    if (def && def.undo) def.undo(context(slide, id, 0));
+    else context(slide, id, 0).clear();
   }
 
-  // ---------------------------------------------------------------- which actions are active
+  // ---------------------------------------------------------------- steps
+
+  const stepsOf = (slide, id) => [...slide.querySelectorAll(`.fragment[data-action="${id}"]`)];
+  const isAuto = (slide, id) => (slide.dataset.auto || '').split(/\s+/).includes(id);
+
+  // How far action `id` has got on this slide: the number of its fragments now showing.
+  function stepOf(slide, id) {
+    return stepsOf(slide, id).filter((f) => f.classList.contains('visible')).length;
+  }
+
+  // Draws action `id` at its current step, or undoes it if it has no step showing and isn't automatic.
+  function render(slide, id) {
+    const step = stepOf(slide, id);
+    if (step === 0 && !isAuto(slide, id)) undo(slide, id);
+    else run(slide, id, step);
+  }
 
   function activeActions(slide) {
-    const ids = [];
-    if (slide.dataset.auto) ids.push(...slide.dataset.auto.split(/\s+/));
+    const ids = (slide.dataset.auto || '').split(/\s+/).filter(Boolean);
     slide.querySelectorAll('.fragment[data-action].visible').forEach((f) => ids.push(f.dataset.action));
-    return ids;
+    return [...new Set(ids)];
   }
 
   function refresh(slide) {
-    if (slide) activeActions(slide).forEach((id) => run(slide, id));
+    if (slide) activeActions(slide).forEach((id) => render(slide, id));
+  }
+
+  // Shows action `id` up to `step` through Reveal, so → / ← stay in sync (fragment events then redraw).
+  function goToStep(slide, id, step) {
+    const target = stepsOf(slide, id)[step - 1];
+    if (target && !target.classList.contains('visible')) {
+      window.Reveal.navigateFragment(Number(target.dataset.fragmentIndex));
+    } else {
+      render(slide, id);
+    }
   }
 
   // ---------------------------------------------------------------- buttons and inputs
@@ -130,20 +159,27 @@
         if (el) el.value = value;
       });
     }
-    const frag = slide.querySelector(`.fragment[data-action="${id}"]`);
-    if (frag && !frag.classList.contains('visible')) {
-      // Show the step through Reveal so → / ← stay in sync; fragmentshown then runs it.
-      window.Reveal.navigateFragment(Number(frag.dataset.fragmentIndex));
-    } else {
-      run(slide, id);
-    }
+    // A step button goes to its step. A plain button (Run, a preset) redraws the current step, or takes
+    // the first step when nothing is showing yet and the action isn't drawn automatically.
+    const step = button.dataset.step ? Number(button.dataset.step) : stepOf(slide, id);
+    if (step > 0) goToStep(slide, id, step);
+    else if (isAuto(slide, id) || !stepsOf(slide, id).length) render(slide, id);
+    else goToStep(slide, id, 1);
   }
 
   function onReset(button) {
     const slide = button.closest('section');
     slide.querySelectorAll('input[data-key]').forEach((el) => { el.value = el.defaultValue; });
     const id = button.dataset.reset;
-    if (activeActions(slide).includes(id)) run(slide, id);
+    if (activeActions(slide).includes(id)) render(slide, id);
+  }
+
+  function onFragments(e) {
+    const touched = new Map();
+    (e.fragments || [e.fragment]).forEach((f) => {
+      if (f.dataset.action) touched.set(`${f.dataset.action}`, f.closest('section'));
+    });
+    touched.forEach((slide, id) => render(slide, id));
   }
 
   function wire() {
@@ -156,23 +192,20 @@
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' || !e.target.matches('input[data-key]')) return;
       const btn = e.target.closest('section').querySelector('button[data-run]');
-      if (btn) { e.preventDefault(); onRun(btn); }
+      if (!btn) return;
+      e.preventDefault();
+      const slide = btn.closest('section');
+      const id = btn.dataset.run;
+      if (stepOf(slide, id) || isAuto(slide, id)) render(slide, id);
+      else onRun(btn);
     });
     // A book figure was (re)drawn: put this slide's overlays and results back on it.
     document.addEventListener('figuremounted', (e) => {
       const slide = e.target.closest('section');
       if (slide === window.Reveal.getCurrentSlide()) refresh(slide);
     });
-    window.Reveal.on('fragmentshown', (e) => {
-      (e.fragments || [e.fragment]).forEach((f) => {
-        if (f.dataset.action) run(f.closest('section'), f.dataset.action);
-      });
-    });
-    window.Reveal.on('fragmenthidden', (e) => {
-      (e.fragments || [e.fragment]).forEach((f) => {
-        if (f.dataset.action) undo(f.closest('section'), f.dataset.action);
-      });
-    });
+    window.Reveal.on('fragmentshown', onFragments);
+    window.Reveal.on('fragmenthidden', onFragments);
     window.Reveal.on('slidechanged', (e) => refresh(e.currentSlide));
     window.Reveal.on('ready', (e) => refresh(e.currentSlide));
     if (window.Reveal.isReady()) refresh(window.Reveal.getCurrentSlide());
