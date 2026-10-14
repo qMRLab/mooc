@@ -88,7 +88,7 @@ test('figures stay mounted only near the current slide', () => {
 
 // ---------------------------------------------------------------- exercise pages
 
-const EXERCISES = [1, 2, 3, 4].map((n) => `exercise-${n}.html`);
+const EXERCISES = [1, 2, 3, 4, 6].map((n) => `exercise-${n}.html`);
 
 function page(file) {
   const text = fs.readFileSync(path.join(DECK, file), 'utf8');

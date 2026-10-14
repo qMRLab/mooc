@@ -80,3 +80,41 @@ test('bad input is rejected with a message, not a crash', async () => {
   assert.throws(() => QmRust.monteCarlo({ t1: 900, tr: 3000, tis: [100, 200], snr: 50 }), /at least 3/);
   assert.throws(() => QmRust.monteCarlo({ t1: 900, tr: 1000, tis: [100, 500, 1200], snr: 50 }), /shorter than TR/);
 });
+
+test('fitVolume: voxel-major layout, mask, T1 in ms', async () => {
+  await QmRust.ready();
+  const tis = [50, 400, 1100, 2500];
+  const t1s = [300, 600, 900, 1200, 1500, 1800];
+  const data = new Float64Array(t1s.length * 4);
+  t1s.forEach((t1, v) => QmRust.signal({ t1, tr: 2550, tis, model: 'general' }).forEach((s, k) => { data[v * 4 + k] = s; }));
+  const mask = Uint8Array.from([1, 1, 1, 1, 0, 1]);
+  const t1 = QmRust.fitVolume({ tis, data, nx: 3, ny: 2, mask });
+  t1s.forEach((want, v) => {
+    if (mask[v]) near(t1[v], want, 1, `voxel ${v}`);
+    else assert.ok(Number.isNaN(t1[v]), 'masked-out voxels are NaN');
+  });
+  assert.throws(() => QmRust.fitVolume({ tis, data, nx: 2, ny: 2, mask }), /size/);
+});
+
+test('Exercise 6 data: delivered order gives WM > GM; reordered matches the challenge', async () => {
+  await QmRust.ready();
+  const ctx = { window: {} };
+  vm.runInNewContext(fs.readFileSync(path.join(DECK, 'js', 'data', 'ex6.js'), 'utf8'), ctx);
+  const ex6 = ctx.window.T1ExerciseData.ex6;
+  const h = ex6.human;
+  const bytes = (b64) => Uint8Array.from(Buffer.from(b64, 'base64'));
+  const raw = new Int16Array(bytes(h.data).buffer);
+  const mask = bytes(h.mask);
+  const rois = bytes(h.rois);
+  const roiMedians = (t1) => [1, 2, 3, 4].map((r) => {
+    const v = [...t1].filter((_, i) => rois[i] === r && Number.isFinite(_)).sort((a, b) => a - b);
+    return v[Math.floor(v.length / 2)];
+  });
+  const delivered = QmRust.fitVolume({ tis: ex6.tisHeader, data: Float64Array.from(raw), nx: h.nx, ny: h.ny, mask });
+  const [genu, splenium, deepGM, cortGM] = roiMedians(delivered);
+  assert.ok(genu > 1500 && splenium > 1400 && deepGM < 1100 && cortGM < 1100, `as delivered: ${roiMedians(delivered)}`);
+  const reordered = Float64Array.from(raw);
+  for (let v = 0; v < h.nx * h.ny; v++) reordered.set(raw.slice(v * 4, v * 4 + 4).reverse(), v * 4);
+  const fixed = roiMedians(QmRust.fitVolume({ tis: ex6.tisHeader, data: reordered, nx: h.nx, ny: h.ny, mask }));
+  [866, 912, 1253, 1389].forEach((want, i) => near(fixed[i], want, 15, `${h.roiNames[i]} after reordering`));
+});

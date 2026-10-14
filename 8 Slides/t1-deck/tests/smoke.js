@@ -7,7 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const DECK = path.resolve(__dirname, '..');
-const EXERCISES = [1, 2, 3, 4].map((n) => `exercise-${n}.html`);
+const EXERCISES = [1, 2, 3, 4, 6].map((n) => `exercise-${n}.html`);
 const SHOTS = path.join(__dirname, 'screenshots');
 const SIZES = [[1280, 720], [1920, 1080]];
 

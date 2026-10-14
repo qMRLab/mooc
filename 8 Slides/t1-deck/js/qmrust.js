@@ -135,6 +135,25 @@
     };
   }
 
+  // Fits every voxel in `mask` of an nx × ny slice. `data` is voxel-major: the TIs of voxel 0 (in the order
+  // of `tis`), then voxel 1, and so on — the layout qmrust's fit_volume reads. Returns T1 in ms per voxel,
+  // NaN outside the mask or where the fit fails.
+  function fitVolume({ tis, data, nx, ny, mask, model = 'general', magnitude = true }) {
+    checkTimes(tis);
+    const n = nx * ny;
+    if (data.length !== n * tis.length || mask.length !== n) throw new Error('Data and mask size do not match the slice.');
+    // qmrust needs increasing TIs: reorder each voxel's samples to match.
+    const nt = tis.length;
+    const order = ascending(tis);
+    const sorted = new Float64Array(data.length);
+    for (let v = 0; v < n; v++) order.forEach((i, k) => { sorted[v * nt + k] = data[v * nt + i]; });
+    const ids = JSON.stringify(order.map((i) => ({ InversionTime: sec(tis[i]) })));
+    const maps = engine().fit_volume(recipe(order.map((i) => tis[i]), magnitude, model), sorted,
+      new Uint32Array([nx, ny, 1, nt]), ids, Uint8Array.from(mask), '', '');
+    const t1 = maps instanceof Map ? maps.get('T1') : maps.T1;
+    return Float64Array.from(t1, (s, v) => (mask[v] && Number.isFinite(s) && s > 0 ? s * 1000 : NaN));
+  }
+
   // Dense curve for drawing, on a whole-ms grid from 0 to tiMax.
   function curve({ t1, tr, tiMax, n = 200, model = 'general', magnitude = true }) {
     const ti = Array.from({ length: n }, (_, i) => Math.round((tiMax * i) / (n - 1)));
@@ -145,5 +164,5 @@
     return Array.from(JSON.parse(JSON.stringify(engine().list_models())));
   }
 
-  return { ready, signal, fit, monteCarlo, curve, models };
+  return { ready, signal, fit, fitVolume, monteCarlo, curve, models };
 });

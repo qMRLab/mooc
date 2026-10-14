@@ -1,6 +1,6 @@
 # T1 Mapping slides
 
-Slides for the [T1 Mapping chapter](https://qmrlab.org/mooc/t1-mapping) of the qMRLab mOOC: inversion recovery, variable flip angle and MP2RAGE (66 slides, about 40 minutes per method), plus worked solutions to the chapter's Exercises 1–4 (`exercise-1.html` … `exercise-4.html`).
+Slides for the [T1 Mapping chapter](https://qmrlab.org/mooc/t1-mapping) of the qMRLab mOOC: inversion recovery, variable flip angle and MP2RAGE (66 slides, about 40 minutes per method), plus worked solutions to the chapter's Exercises 1–4 and 6 (`exercise-1.html` … `exercise-6.html`).
 
 The deck is a static folder. Open `index.html` directly (it works offline, even from `file://`) or put the folder on any static host.
 
@@ -32,6 +32,7 @@ Each exercise is its own short deck, linked from the T1 deck's *Exercises* slide
 | 2 · Ernst angle, optimal VFA angles, SPGR contrast | 7 | Figure 2.8 + Eqs. 2.5–2.6 |
 | 3 · IR at 1.5 T with TR = 3 s | 6 | qmrust |
 | 4 · From human to mouse: IR protocol design | 5 | qmrust |
+| 6 · A collaborator's strange T1 values (images in reverse TI order) | 8 | qmrust on real data: ISMRM 2020 T1 challenge, human + NIST phantom |
 
 ## What's here
 
@@ -44,6 +45,7 @@ Each exercise is its own short deck, linked from the T1 deck's *Exercises* slide
 | `js/exercise.js` | Exercise runtime: Solve/Reset buttons, inputs, click-to-solve steps |
 | `js/solve.js` | The maths of the solutions (Node-tested) |
 | `js/qmrust.js` | Loads qmrust and wraps its inversion recovery model (times in ms) |
+| `js/data/ex6.js` | Exercise 6 data, one slice each of the human brain and NIST phantom (rebuild with `python3 -I tools/build_ex6_data.py`) |
 | `vendor/qmrust/` | qmrust WebAssembly engine and glue; provenance in `SOURCE.md` (refresh with `python3 -I tools/extract_qmrust.py`) |
 | `js/figures/*.js` | The book's published figures, copied unchanged. Do not edit |
 | `img/` | Pulse-sequence diagrams from the chapter |

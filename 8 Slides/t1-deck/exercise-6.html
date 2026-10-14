@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 6 · T1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem long" data-book="exercises">
+  <p class="kicker">T<sub>1</sub> Mapping · Exercise 6</p>
+  <h2>A collaborator’s strange T<sub>1</sub> values</h2>
+  <p>You receive an email from a collaborator in your city asking for help with a <i>T</i><sub>1</sub> dataset they acquired on their new 3T scanner. They tried fitting the data with qMRLab already, but are getting <i>T</i><sub>1</sub> values in the brain that are beyond the expected values (eg, WM: 2000ms, GM, 5000 ms).<sup>*</sup> They send you their acquired data.</p>
+  <ol>
+    <li><b>a.</b> Fit a <i>T</i><sub>1</sub> map using their data and plot a few voxel signal curves.</li>
+    <li><b>b.</b> Luckily, you own a standardized quantitative MRI NIST phantom with known <i>T</i><sub>1</sub> values, and are able to go to your collaborators scanner to acquire a dataset using their protocol. Here is data you acquired for a region of the phantom with a known <i>T</i><sub>1</sub> value (900 ms +- 5ms)<sup>*</sup> close to the expected WM values. Plot that data, and simulate the expected signal curve for this <i>T</i><sub>1</sub> value</li>
+    <li><b>c.</b> Comparing the human and phantom data and the simulated curves, what do you notice? What do you think may be the problem?</li>
+    <li><b>d.</b> Test your proposed problem with some of your simulation code.</li>
+    <li><b>e.</b> What would you propose to your collaborator? Is a new data acquisition protocol required, or can you provide some post-processing corrections prior to fitting the data?</li>
+  </ol>
+  <p class="footnote"><sup>*</sup> Data: ISMRM 2020 <i>T</i><sub>1</sub> mapping challenge, one brain and one NIST phantom scanned on the same GE 3T with the same IR protocol (TR 2550 ms). With these data the collaborator’s fit gives WM ≈ 1.6–1.7 s with GM <i>below</i> WM, and the phantom sphere’s reference <i>T</i><sub>1</sub> is 987 ms. Fits run live in this page with qmrust.</p>
+  <aside class="notes">Exercise 6 from the end of the T1 chapter, quoted as written; the footnote gives the numbers these data actually produce. The data are real: subject 01 and the NIST phantom (serial 46) from the USC site of the ISMRM 2020 T1 mapping challenge (osf.io/ywc9g), 2D spin-echo IR, TR 2550 ms, TI 50, 400, 1100, 2500 ms. The fault, kept for the reveal: the images were saved in the reverse order of the TIs listed in the header.</aside>
+</section>
+
+<section class="ex" data-book="exercises" data-auto="ex6-map">
+  <div class="ex-layout">
+    <h2>a. Fit their data</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>a.</b> Fit a <i>T</i><sub>1</sub> map using their data.</p>
+        <div class="btn-row">
+          <button data-run="ex6-map" data-step="1">1 · Fit</button>
+          <button data-run="ex6-map" data-step="2">2 · Expected?</button>
+        </div>
+        <div class="fragment step" data-action="ex6-map"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex6-map">
+          <p class="answer">WM comes out <b>longer</b> than GM. In brain tissue it is the other way round: WM has the shorter <i>T</i><sub>1</sub> (Figure 2.2: WM 0.9 s, GM 1.5 s).</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the four images with the TIs their header gives. Click 1: qmrust fits every brain voxel (general-equation RD-NLS, magnitude, as qMRLab's inversion_recovery), about 37,000 voxels in a second or two. The table gives the median T1 in four ROIs from the challenge analysis. Click 2: WM longer than GM is the red flag.</aside>
+</section>
+
+<section class="ex" data-book="exercises" data-auto="ex6-curves">
+  <div class="ex-layout">
+    <h2>a. Voxel signal curves</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>a.</b> … and plot a few voxel signal curves.</p>
+        <div class="btn-row">
+          <button data-run="ex6-curves" data-step="1">1 · Fitted curves</button>
+          <button data-run="ex6-curves" data-step="2">2 · Anything wrong?</button>
+        </div>
+        <div class="fragment step" data-action="ex6-curves"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex6-curves">
+          <p class="answer">The fits go through the points: <b>nothing looks wrong</b> in the brain data on their own. To find the problem, we need data whose <i>T</i><sub>1</sub> we know.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the mean signal of each ROI against the header TIs. Click 1: the fitted curves (qmrust, general equation). They pass through the data and still look like inversion recovery curves, just with the null near 1100 ms: that is why the collaborator's fit runs without complaint. Click 2: a reference with known T1 is needed, which is part b.</aside>
+</section>
+
+<section class="ex" data-book="exercises" data-auto="ex6-phantom">
+  <div class="ex-layout">
+    <h2>b. The NIST phantom, same scanner and protocol</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Plot the data from a phantom region with a known <i>T</i><sub>1</sub>, and simulate the expected signal curve for this <i>T</i><sub>1</sub>.</p>
+        <div class="btn-row">
+          <button data-run="ex6-phantom" data-step="1">1 · Plot the data</button>
+          <button data-run="ex6-phantom" data-step="2">2 · Simulate</button>
+        </div>
+        <div class="fragment step" data-action="ex6-phantom"></div>
+        <div class="fragment step" data-action="ex6-phantom"></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the phantom image, with sphere 3 circled: NIST reference T1 987 ms at 20 °C (phantom serial 46). Click 1: its mean signal against the header TIs. Click 2: the expected signal from the general equation (Eq. 2.2, TR 2550 ms, magnitude), computed by qmrust. Data and simulation are each divided by their maximum, so only the shapes are compared.</aside>
+</section>
+
+<section class="ex" data-book="exercises" data-auto="ex6-compare">
+  <div class="ex-layout">
+    <h2>c. What do you notice?</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> Comparing the human and phantom data and the simulated curves, what do you notice? What do you think may be the problem?</p>
+        <div class="btn-row">
+          <button data-run="ex6-compare" data-step="1">1 · Notice</button>
+          <button data-run="ex6-compare" data-step="2">2 · Hypothesis</button>
+        </div>
+        <div class="fragment step" data-action="ex6-compare"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex6-compare">
+          <p class="answer">The data look like the simulation <b>read backwards</b>: the images may be stored in the reverse order of the TIs in the header.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">Human WM, the phantom sphere and the simulation, all normalized to their maximum. Click 1: the simulation's dip (its null) is at 400 ms; both data sets dip at 1100 ms and are highest at the shortest TI, where an inversion recovery should be most negative. Click 2: the hypothesis: the images are in reverse TI order.</aside>
+</section>
+
+<section class="ex" data-book="exercises" data-auto="ex6-test">
+  <div class="ex-layout">
+    <h2>d. Test the hypothesis</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>d.</b> Test your proposed problem with some of your simulation code.</p>
+        <div class="btn-row">
+          <button data-run="ex6-test" data-step="1">1 · Reverse the simulation</button>
+          <button data-run="ex6-test" data-step="2">2 · Refit the phantom</button>
+        </div>
+        <div class="fragment step" data-action="ex6-test"></div>
+        <div class="fragment step" data-action="ex6-test"></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the phantom data and the simulation, as in part b. Click 1: the simulated values taken in reverse TI order follow the measured pattern; the leftover differences (e.g. at the longest TI) come from the real, imperfect inversion pulse, which the fit's free a and b parameters absorb. Click 2: fitting the phantom spheres with the images in reverse order recovers the NIST reference values; as delivered they are far off.</aside>
+</section>
+
+<section class="ex" data-book="exercises" data-auto="ex6-fix">
+  <div class="ex-layout">
+    <h2>e. What to tell the collaborator</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>e.</b> Is a new data acquisition protocol required, or can you provide some post-processing corrections prior to fitting the data?</p>
+        <div class="btn-row">
+          <button data-run="ex6-fix" data-step="1">1 · Reorder and refit</button>
+          <button data-run="ex6-fix" data-step="2">2 · Proposal</button>
+        </div>
+        <div class="fragment step" data-action="ex6-fix"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex6-fix">
+          <p class="answer"><b>No new acquisition.</b> Reorder the images by the TI stored in each image’s own header, then refit. Check the result on the phantom.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the collaborator's T1 map. Click 1: the same data with the four images in reverse order, refitted by qmrust: WM about 0.87–0.91 s and GM about 1.25–1.39 s, WM now shorter than GM. Click 2: the proposal. The images were probably sorted by something other than TI (series number, file name), so the TI list and the images no longer matched; the data themselves are fine.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 6: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>The fit gives WM ≈ 1.6–1.7 s and GM ≈ 0.9 s, WM longer than GM; the voxel fits look fine on their own</td></tr>
+    <tr><td>b</td><td>The phantom sphere (987 ms) does not follow the simulated curve for its known <i>T</i><sub>1</sub></td></tr>
+    <tr><td>c</td><td>The data look like the simulation read backwards: images in reverse TI order</td></tr>
+    <tr><td>d</td><td>Reversing the simulated order matches the data, and refitting the reordered phantom recovers the NIST values</td></tr>
+    <tr><td>e</td><td>No new acquisition: reorder the images by TI and refit (WM ≈ 0.9 s, GM ≈ 1.3 s)</td></tr>
+  </table>
+  <p class="muted small">Data: ISMRM 2020 <i>T</i><sub>1</sub> mapping challenge (osf.io/ywc9g), USC, GE 3T. Fits: qmrust, running in the browser.</p>
+  <aside class="notes">Summary of the five parts.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="vendor/qmrust/qmrust_wasm.js"></script>
+<script src="vendor/qmrust/qmrust_wasm_b64.js"></script>
+<script src="js/figures/irPlot1.js"></script>
+<script src="js/data/ex6.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/qmrust.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex6.js"></script>
+</body>
+</html>
