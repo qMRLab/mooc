@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 3 · T1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <p class="kicker">T<sub>1</sub> Mapping · Exercise 3</p>
+  <h2>Inversion recovery at 1.5 T with a fixed TR of 3 s</h2>
+  <ol>
+    <li><b>a.</b> The IR signal curves for WM/GM/CSF in Figure 2.2<sup>*</sup> were simulated for 3T <i>T</i><sub>1</sub> tissue values. Using Binder and the notebook that was used to generate that figure<sup>*</sup>, regenerate that figure for <i>T</i><sub>1</sub> values at 1.5 T (WM ~ 650 ms and GM ~ 1200 ms as reported by (Wright et al. 2008)). Assume the CSF value does not change.</li>
+    <li><b>b.</b> An IR <i>T</i><sub>1</sub> mapping pulse sequence that a previous student developed and is available at the MRI scanner has a fixed TR of 3 seconds. Could you use a data analysis pipeline that only has the long-TR IR <i>T</i><sub>1</sub> fitting option available to map <i>T</i><sub>1</sub> in WM, at 1.5T and/or 3T? Show this visually via simulations.</li>
+    <li><b>c.</b> Are there any inversion times you should avoid using when designing an IR <i>T</i><sub>1</sub> mapping protocol at 1.5T when using this TR? If so, demonstrate why and which one(s) using modified code from one of these notebook figures.</li>
+  </ol>
+  <p class="footnote"><sup>*</sup> The book cites Figure 2.3 and “that blog post”; the WM/GM/CSF curves are Figure 2.2. The simulations on the next slides run live in this page with qmrust, the Rust/WebAssembly port of qMRLab.</p>
+  <aside class="notes">Exercise 3 from the end of the T1 chapter. Part a points to the wrong figure in the book (irPlot2, Figure 2.3, is the single-T1 slider figure); the WM/GM/CSF curves are Figure 2.2. Every figure in this exercise is computed in the browser by qmrust, so the values can be changed during class.</aside>
+</section>
+
+<section class="ex" data-book="irplot1" data-auto="ex3-curves">
+  <div class="ex-layout">
+    <h2>a. Figure 2.2 at 1.5 T</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>a.</b> Regenerate Figure 2.2 for <i>T</i><sub>1</sub> values at 1.5 T (WM ~ 650 ms, GM ~ 1200 ms). Assume the CSF value does not change.</p>
+        <table class="measure">
+          <tr><th>Tissue</th><th><i>T</i><sub>1</sub> at 1.5 T (ms)</th><th>at 3 T (book)</th></tr>
+          <tr><td>White matter</td><td><input data-key="wm" value="650" aria-label="WM T1"></td><td>900</td></tr>
+          <tr><td>Grey matter</td><td><input data-key="gm" value="1200" aria-label="GM T1"></td><td>1500</td></tr>
+          <tr><td>CSF</td><td><input data-key="csf" value="4000" aria-label="CSF T1"></td><td>4000</td></tr>
+        </table>
+        <div class="btn-row"><button data-run="ex3-curves">Recompute</button><button class="secondary" data-reset="ex3-curves">Reset</button></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex3-nulls">
+          <p class="answer">At 1.5 T every tissue with a shorter <i>T</i><sub>1</sub> nulls earlier (<i>TI</i><sub>null</sub> = <i>T</i><sub>1</sub> ln 2): <span class="ans-nulls"></span>.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">Solid lines: Eq. 2.3 at the 1.5 T values, computed by qmrust. Dashed: the book's 3 T curves from Figure 2.2. The WM and GM nulls move from 624 and 1040 ms to about 451 and 832 ms; CSF does not change. Click once more to show the null times.</aside>
+</section>
+
+<section class="ex" data-book="irplot3" data-auto="ex3-longtr">
+  <div class="ex-layout">
+    <h2>b. Long-TR fitting with TR = 3 s</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Could you use a data analysis pipeline that only has the long-TR IR <i>T</i><sub>1</sub> fitting option available to map <i>T</i><sub>1</sub> in WM, at 1.5T and/or 3T?</p>
+        <table class="measure">
+          <tr><td>WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1" value="650" aria-label="WM T1"></td></tr>
+          <tr><td>TR (ms)</td><td><input data-key="tr" value="3000" aria-label="TR"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex3-longtr" data-preset='{"t1": "650"}'>WM at 1.5 T</button>
+          <button data-run="ex3-longtr" data-preset='{"t1": "900"}'>WM at 3 T</button>
+          <button class="secondary" data-reset="ex3-longtr">Reset</button>
+        </div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">As in Figure 2.4: data simulated with the general equation (Eq. 2.2) at TIs from 50 to 1500 ms, then fitted with the long-TR model (Eq. 2.3) and with the general model, both by qmrust. At TR = 3 s the long-TR fit underestimates WM T1 by about 1.7% at 1.5 T (TR/T1 = 4.6) and about 5.8% at 3 T (TR/T1 = 3.3). The neglected term is e^(−TR/T1): 0.010 at 1.5 T and 0.036 at 3 T. So: usable at 1.5 T, biased by about 6% at 3 T.</aside>
+</section>
+
+<section class="ex" data-book="irplot2" data-auto="ex3-models">
+  <div class="ex-layout">
+    <h2>c. Where the long-TR model is most wrong</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> Are there any inversion times you should avoid using when designing an IR <i>T</i><sub>1</sub> mapping protocol at 1.5T when using this TR?</p>
+        <table class="measure">
+          <tr><td>WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1" value="650" aria-label="WM T1"></td></tr>
+          <tr><td>TR (ms)</td><td><input data-key="tr" value="3000" aria-label="TR"></td></tr>
+        </table>
+        <div class="btn-row"><button data-run="ex3-models">Recompute</button><button class="secondary" data-reset="ex3-models">Reset</button></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">As in Figure 2.3: the magnitude signal of the general equation (what the scanner measures) and of the long-TR model (what the fit assumes), for WM at 1.5 T and TR = 3 s. They differ by a constant, e^(−TR/T1) ≈ 0.01, which matters most where the signal is small: around the null. The true null is at T1 ln[2/(1 + e^(−TR/T1))] ≈ 444 ms; the model's is at T1 ln 2 ≈ 451 ms.</aside>
+</section>
+
+<section class="ex" data-book="exercises" data-auto="ex3-windows">
+  <div class="ex-layout">
+    <h2>c. Which inversion times to avoid</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p>Long-TR fits of three TIs, 100 ms apart, centred on each TI (noise-free general-equation data, WM at 1.5 T, TR = 3 s):</p>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex3-avoid">
+          <p class="answer">Avoid protocols that sample mostly <b>near the null</b> (≈ 450 ms), where the model error is largest relative to the signal, and <b>TIs far past the null</b> (≳ 2.5 <i>T</i><sub>1</sub>), where the curve is flat and carries no <i>T</i><sub>1</sub> information. TI must also stay below TR minus the readout.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">Each point is a long-TR fit to three TIs (centre ± 100 ms) of noise-free data, by qmrust. Near the null the fit error swings to ±20–30%; from about 1.6 s on, the three samples lie on the plateau and the fit cannot find T1 at all (it runs to its bounds). Spread-out protocols keep the bias near the 1.7% of part b. This is a proposed answer: discuss what else the class would avoid (for example, TIs too close together).</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 3: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>At 1.5 T the WM and GM nulls move earlier: ≈ 451 ms (WM) and 832 ms (GM); CSF is unchanged (2773 ms)</td></tr>
+    <tr><td>b</td><td>With TR = 3 s the long-TR fit underestimates WM <i>T</i><sub>1</sub> by ≈ 1.7% at 1.5 T and ≈ 5.8% at 3 T: fine at 1.5 T, biased at 3 T</td></tr>
+    <tr><td>c</td><td>Don’t concentrate TIs around the null (≈ 450 ms) or far past it (≳ 1.6 s, on the plateau); spread them across the recovery</td></tr>
+  </table>
+  <p class="muted small">All simulations and fits on these slides: qmrust (Rust/WebAssembly port of qMRLab), running in the browser.</p>
+  <aside class="notes">Summary. The numbers assume ideal pulses and noise-free data, as in Figures 2.2–2.4.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="vendor/qmrust/qmrust_wasm.js"></script>
+<script src="vendor/qmrust/qmrust_wasm_b64.js"></script>
+<script src="js/figures/irPlot1.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/qmrust.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex3.js"></script>
+</body>
+</html>

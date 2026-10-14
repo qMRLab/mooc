@@ -1,0 +1,103 @@
+/* Exercise 1: IR null times and WM/GM contrast, worked on the book's Figure 2.2 (irPlot1).
+ * Figure 2.2's x values are in seconds; its traces are WM (0.9 s), GM (1.5 s), CSF (4.0 s). */
+(function () {
+  'use strict';
+  const { action, bookLayout, axisTitles, COLORS, fmt } = window.T1Exercise;
+  const S = window.T1Solve;
+  const T1_WM = 900;
+  const T1_GM = 1500;
+
+  // b. Fit TI_null = k·T1 through the origin, using the values typed on the slide.
+  action('ex1-fit', {
+    run(ctx) {
+      const t1 = [ctx.num('t1wm', 'WM T₁'), ctx.num('t1gm', 'GM T₁'), ctx.num('t1csf', 'CSF T₁')];
+      const ti = [ctx.num('wm', 'WM null TI'), ctx.num('gm', 'GM null TI'), ctx.num('csf', 'CSF null TI')];
+      const fit = S.fitThroughOrigin(t1, ti);
+      if (!fit.ok) throw new window.T1Exercise.InputError(fit.error);
+      const xMax = Math.max(...t1) * 1.15;
+      ctx.plot({
+        data: [
+          { x: t1, y: ti, mode: 'markers', name: 'Read from Figure 2.2', marker: { size: 11, color: COLORS[0] },
+            text: ['WM', 'GM', 'CSF'], hoverinfo: 'text+x+y' },
+          { x: [0, xMax], y: [0, fit.k * xMax], mode: 'lines', name: `Fit: TI<sub>null</sub> = ${fmt(fit.k, 3)} T<sub>1</sub>`,
+            line: { color: COLORS[1], width: 2 } },
+        ],
+        layout: bookLayout('irPlot1', {
+          width: 560, height: 430,
+          margin: { l: 100, r: 30, t: 10, b: 70 },
+          annotations: axisTitles('T<sub>1</sub> (ms)', 'Null TI (ms)', { xy: -0.16, yx: -0.2 }),
+          legend: { x: 0.03, y: 0.97 },
+          xaxis: { range: [0, xMax] },
+          yaxis: { range: [0, Math.max(...ti) * 1.15] },
+        }),
+      });
+      ctx.say(`Slope <b>k = ${fmt(fit.k, 3)}</b> (R² = ${fmt(fit.r2, 4)}); ln 2 = 0.693.`);
+    },
+  });
+
+  // c. The book's data shown as magnitude: |Mz|.
+  action('ex1-magnitude', {
+    run(ctx) {
+      const gd = ctx.bookPlot();
+      if (!gd || gd._exMagnitude) return;
+      window.Plotly.restyle(gd, { y: gd.data.slice(0, 3).map((t) => t.y.map(Math.abs)) }, [0, 1, 2]);
+      window.Plotly.relayout(gd, { 'annotations[1].text': '|M<sub>z</sub>| (magnitude)' });
+      gd._exMagnitude = true;
+    },
+    undo(ctx) { ctx.restoreBookFigure(); },
+  });
+
+  // c. Where |Mz(WM)| = |Mz(GM)|.
+  action('ex1-crossing', {
+    run(ctx) {
+      const ti = S.irMagnitudeCrossing(T1_WM, T1_GM);
+      ctx.slide.querySelector('.ans-crossing').textContent = fmt(ti);
+      const gd = ctx.bookPlot();
+      if (!gd || gd._exCrossing) return;
+      const y = Math.abs(S.irLongTR(ti, T1_WM));
+      window.Plotly.addTraces(gd, {
+        x: [ti / 1000], y: [y], mode: 'markers', name: `|WM| = |GM| at ${fmt(ti)} ms`,
+        marker: { size: 13, color: 'black', symbol: 'x' }, hoverinfo: 'name',
+      });
+      gd._exCrossing = true;
+    },
+    undo(ctx) {
+      const gd = ctx.bookPlot();
+      if (gd && gd._exCrossing) { window.Plotly.deleteTraces(gd, gd.data.length - 1); gd._exCrossing = false; }
+    },
+  });
+
+  // d. Add Mz(WM) − Mz(GM) to the book figure, from the book's own traces.
+  action('ex1-difference', {
+    run(ctx) {
+      const gd = ctx.bookPlot();
+      if (!gd || gd._exDifference) return;
+      const [wm, gm] = gd.data;
+      window.Plotly.addTraces(gd, {
+        x: wm.x, y: wm.y.map((v, i) => v - gm.y[i]), mode: 'lines', name: 'M<sub>z</sub>(WM) − M<sub>z</sub>(GM)',
+        line: { color: 'black', dash: 'dash', width: 2 }, hoverinfo: 'x+y+name',
+      });
+      gd._exDifference = true;
+    },
+    undo(ctx) { ctx.restoreBookFigure(); },
+  });
+
+  // d. Mark the maximum of the difference.
+  action('ex1-best', {
+    run(ctx) {
+      const ti = S.irMaxContrastTI(T1_WM, T1_GM);
+      ctx.slide.querySelector('.ans-best').textContent = fmt(ti);
+      const gd = ctx.bookPlot();
+      if (!gd || gd._exBest) return;
+      window.Plotly.addTraces(gd, {
+        x: [ti / 1000], y: [S.irLongTR(ti, T1_WM) - S.irLongTR(ti, T1_GM)], mode: 'markers',
+        name: `Maximum at ${fmt(ti)} ms`, marker: { size: 13, color: 'black', symbol: 'x' }, hoverinfo: 'name',
+      });
+      gd._exBest = true;
+    },
+    undo(ctx) {
+      const gd = ctx.bookPlot();
+      if (gd && gd._exBest) { window.Plotly.deleteTraces(gd, gd.data.length - 1); gd._exBest = false; }
+    },
+  });
+})();

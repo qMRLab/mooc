@@ -2,7 +2,7 @@
 
 - **Date:** 2026-10-14
 - **Author:** Mathieu Boudreau (with Claude)
-- **Status:** Draft, awaiting review
+- **Status:** Implemented (Mathieu: "just go", review on the live version)
 - **Branch:** `mb/t1-exercises`, branched from `mb/t1-slides`, which is not merged yet
 
 ## 1. Purpose
@@ -140,10 +140,14 @@ Text in *italics* is quoted from the book. "Answer" slides show results computed
 5. **(b) Answer:**
    - Fitted vs true T₁ at both fields. The error grows as TR/T₁ shrinks: e^(−TR/T₁) is 0.010 at 1.5 T and 0.036 at 3 T.
    - Whether each is acceptable is stated against a ±5 % line. Final numbers come from qmrust.
-6. **(c) Live: dropping one TI at a time.**
-   - An editable TI list. For each TI left out in turn, a bar chart shows the bias of the long-TR fit.
-   - The TI nearest the WM null (TI<sub>null</sub> = T₁ ln[2/(1+e^(−TR/T₁))] ≈ 444 ms) is highlighted.
-7. **(c) Answer:** see open question Q1 in §6.
+6. **(c) Live, as Figure 2.3:** the measured signal (general equation) against the long-TR model in magnitude, at WM 650 ms and TR 3 s. They differ by the constant e^(−TR/T₁) ≈ 0.01. The region around the two nulls (444 and 451 ms) is shaded.
+7. **(c) Which TIs to avoid, live:** the long-TR fit error for three TIs (centre ± 100 ms) as the centre moves along the recovery.
+   - Near the null the error swings from about −26 % to +33 %.
+   - From about 1.6 s (≈ 2.5 T₁) on, the samples sit on the plateau and the fit fails.
+   - Spread-out protocols stay at the −1.7 % of part b.
+   - **Answer:** don't concentrate TIs around the null or far past it, and keep TI below TR minus the readout.
+
+   (The first idea, leaving one TI out of a spread-out protocol, barely changed the bias: −1.5 % to −1.7 %. With noise, a near-null TI only raised the SD from about 5 % to 7.7 %. So the slide shows clustered TIs instead.)
 
 ### Exercise 4: mouse WM at 9.4 T with a human 1.5 T protocol (qmrust, about 6 slides)
 
@@ -165,6 +169,12 @@ Text in *italics* is quoted from the book. "Answer" slides show results computed
    - **Run** shows the old and new CV side by side.
    - The protocol stays editable so the class can try its own.
 6. **(c) Answer:** the CV and bias before and after, plus the scan-time cost of the longer TR.
+
+As built:
+- The human protocol gives a CV of 4.8 % on human WM and 11.5 % on mouse WM.
+- The proposed protocol is TR 5000 ms with TI 100 / 1000 / 2000 / 4000 ms. It gives a CV of 2.3 %, and CV·√time improves from 23 to 10.5.
+- A long-TR fit at TR 1000 ms would give about 414 ms (human) and 553 ms (mouse).
+- The answers and the summary are folded into the slides themselves, giving 5 slides.
 
 ## 4. Corrections to the exercise text
 
@@ -196,9 +206,5 @@ The README's chapter-issues list gains both corrections, plus the units of Figur
 
 ## 6. Open questions for review
 
-- **Q1, intended answer to Ex. 3c.** My reading: with magnitude data and the long-TR model, TIs near the WM null (≈ 444 ms at 1.5 T, TR 3 s) hurt the most, for two reasons:
-  - Near the null the signal is close to zero, so noise and the Rician floor dominate it.
-  - The model's null (T₁ ln 2 ≈ 451 ms) differs from the true one, so the fit flips the sign of points between the two.
-
-  The slide would show this with the leave-one-out bias chart and a Monte Carlo. There is also the trivial constraint TI < TR − readout. If you meant something else, tell me and the slide follows your answer.
+- **Q1, intended answer to Ex. 3c.** Implemented as described in §3 (Exercise 3, slides 6–7) and labelled in the speaker notes as a proposed answer. Mathieu reviews it on the live version.
 - **Q2, provenance of qmrust.** The WASM is reused as a compiled binary. The Rust source for the `long_tr_lm` fit and the `signal_mean`/`signal_std` sim outputs exists only as uncommitted changes on qmrust branch `mb/dims` (in `projects/mooc-rust/qmrust`). `VERSIONS.md` will record the source file and its sha256. Committing that qmrust work is outside this task.

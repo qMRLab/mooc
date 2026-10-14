@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 1 · T1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <p class="kicker">T<sub>1</sub> Mapping · Exercise 1</p>
+  <h2>Inversion recovery: null times and contrast</h2>
+  <ol>
+    <li><b>a.</b> Using the Plotly figure in the inversion recovery section that displays the signal curves for white matter, gray matter, and CSF, determine the inversion times that null the signal from each of these tissues.</li>
+    <li><b>b.</b> In practice, you may not have this type of interactive figure at the scanner. Using the three values nulling inversion time values above, can you find an easy way to approximate the nulling time for any arbitrary <i>T</i><sub>1</sub> value?</li>
+    <li><b>c.</b> Assuming that the images acquired at the MRI scanner displays magnitude-only images, at approximately which inversion time will the white matter and grey matter have the lowest contrast?</li>
+    <li><b>d.</b> Which inversion time would result in the best contrast between white matter and grey matter?</li>
+  </ol>
+  <aside class="notes">Exercise 1 from the end of the T1 chapter, quoted as written. Everything needed is in Figure 2.2 (WM 0.9 s, GM 1.5 s, CSF 4.0 s) and Eq. 2.3. Next slide: the figure, for part a.</aside>
+</section>
+
+<section class="ex" data-book="irplot1">
+  <div class="ex-layout">
+    <h2>a. Find the null inversion times</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>a.</b> Using the Plotly figure in the inversion recovery section that displays the signal curves for white matter, gray matter, and CSF, determine the inversion times that null the signal from each of these tissues.</p>
+        <p class="muted">Hover over each curve where it crosses zero.</p>
+        <p class="footnote">Figure 2.2 from the book. Its x-axis is labelled ms but its values are in seconds: hover readings of 0.62 mean 620 ms.</p>
+      </div>
+      <div class="fig-host" data-fig="irPlot1"></div>
+    </div>
+  </div>
+  <aside class="notes">Ask the class to read each zero crossing by hovering. Expected readings: WM about 0.62 s, GM about 1.04 s, CSF about 2.77 s. The book figure's axis title says ms but its data are in seconds.</aside>
+</section>
+
+<section class="ex" data-book="exercises">
+  <div class="ex-layout">
+    <h2>b. A rule of thumb for the null time</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Using the three values nulling inversion time values above, can you find an easy way to approximate the nulling time for any arbitrary <i>T</i><sub>1</sub> value?</p>
+        <table class="measure">
+          <tr><th>Tissue</th><th><i>T</i><sub>1</sub> (ms)</th><th>Null TI read from the figure (ms)</th></tr>
+          <tr><td>White matter</td><td><input data-key="t1wm" value="900" aria-label="WM T1"></td><td><input data-key="wm" value="624" aria-label="WM null TI"></td></tr>
+          <tr><td>Grey matter</td><td><input data-key="t1gm" value="1500" aria-label="GM T1"></td><td><input data-key="gm" value="1040" aria-label="GM null TI"></td></tr>
+          <tr><td>CSF</td><td><input data-key="t1csf" value="4000" aria-label="CSF T1"></td><td><input data-key="csf" value="2773" aria-label="CSF null TI"></td></tr>
+        </table>
+        <div class="btn-row"><button data-run="ex1-fit">Solve</button><button class="secondary" data-reset="ex1-fit">Reset</button></div>
+        <p class="result"></p>
+        <div class="fragment" data-action="ex1-fit">
+          <div class="answer">Setting Eq. 2.3 to zero:
+            <div class="eq-small">$$0 = C\left(1-2e^{- \frac{TI_{null}}{T_1}}\right) \;\Rightarrow\; TI_{null} = T_1 \ln 2 \approx 0.69\,T_1$$</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">Type in the class's readings if they differ. Solve fits a straight line through the origin, TI_null = k·T1. The slope comes out at ln 2 ≈ 0.693, which is what setting Eq. 2.3 to zero gives. This holds for the long-TR approximation (Eq. 2.3) used in Figure 2.2. With a finite TR (Eq. 2.2), the null comes slightly earlier.</aside>
+</section>
+
+<section class="ex" data-book="irplot1">
+  <div class="ex-layout">
+    <h2>c. Lowest WM/GM contrast in magnitude images</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> Assuming that the images acquired at the MRI scanner displays magnitude-only images, at approximately which inversion time will the white matter and grey matter have the lowest contrast?</p>
+        <div class="btn-row"><button data-run="ex1-magnitude">Show magnitude |<i>M</i><sub>z</sub>|</button></div>
+        <div class="fragment step" data-action="ex1-magnitude"></div>
+        <div class="fragment" data-action="ex1-crossing">
+          <p class="answer">Between the two nulls, |<i>M</i><sub>z</sub>| of WM and GM cross at <b>TI ≈ <span class="ans-crossing">800</span> ms</b>: the two tissues look the same.</p>
+          <p class="footnote">The crossing solves e<sup>−TI/T<sub>1,WM</sub></sup> + e<sup>−TI/T<sub>1,GM</sub></sup> = 1, with the T<sub>1</sub> values of Figure 2.2.</p>
+        </div>
+        <p class="result"></p>
+      </div>
+      <div class="fig-host" data-fig="irPlot1"></div>
+    </div>
+  </div>
+  <aside class="notes">First click: the same book data shown as magnitude, which is what a magnitude image displays. Second click: the WM and GM magnitudes cross at about 797 ms, so they have no contrast there. Signed (real) images would still separate them, because WM is positive and GM negative at that TI.</aside>
+</section>
+
+<section class="ex" data-book="irplot1">
+  <div class="ex-layout">
+    <h2>d. Best WM/GM contrast</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>d.</b> Which inversion time would result in the best contrast between white matter and grey matter?</p>
+        <div class="btn-row"><button data-run="ex1-difference">Show WM − GM</button></div>
+        <div class="fragment step" data-action="ex1-difference"></div>
+        <div class="fragment" data-action="ex1-best">
+          <p class="answer">The difference peaks at <b>TI ≈ <span class="ans-best">1150</span> ms</b>.</p>
+          <div class="eq-small">$$TI_{best} = \frac{T_{1,WM}\,T_{1,GM}}{T_{1,GM}-T_{1,WM}}\ln\frac{T_{1,GM}}{T_{1,WM}}$$</div>
+          <p class="footnote">From differentiating Eq. 2.3 for WM minus GM. Both tissues are positive there, so magnitude images give the same answer.</p>
+        </div>
+        <p class="result"></p>
+      </div>
+      <div class="fig-host" data-fig="irPlot1"></div>
+    </div>
+  </div>
+  <aside class="notes">First click adds the curve Mz(WM) − Mz(GM) to the book figure. Second click marks its maximum, about 1149 ms for T1 of 900 and 1500 ms. Setting the derivative of e^(−TI/T1,GM) − e^(−TI/T1,WM) to zero gives the formula.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 1: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>Null TIs ≈ 624 ms (WM), 1040 ms (GM), 2773 ms (CSF)</td></tr>
+    <tr><td>b</td><td><i>TI</i><sub>null</sub> ≈ 0.69 <i>T</i><sub>1</sub> = <i>T</i><sub>1</sub> ln 2 (long-TR approximation)</td></tr>
+    <tr><td>c</td><td>Lowest magnitude contrast at TI ≈ 800 ms, where |<i>M</i><sub>z</sub>| of WM and GM cross</td></tr>
+    <tr><td>d</td><td>Best contrast at TI ≈ 1150 ms</td></tr>
+  </table>
+  <p class="muted small">Discuss Exercise 1 on GitHub: <a href="https://github.com/qMRLab/mooc/discussions/4" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions/4</a></p>
+  <aside class="notes">Summary of the four parts. The numbers assume Figure 2.2's T1 values (0.9, 1.5 and 4.0 s) and the long-TR approximation.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/irPlot1.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex1.js"></script>
+</body>
+</html>

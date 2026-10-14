@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 2 · T1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <p class="kicker">T<sub>1</sub> Mapping · Exercise 2</p>
+  <h2>Variable flip angle: the Ernst angle and contrast</h2>
+  <ol>
+    <li><b>a.</b> Using the Plotly figure in the VFA section that displays the signal curves for white matter, gray matter, and CSF, determine the Ernst angle for the following: white matter and a TR of 15 ms, gray matter for a TR of 50 ms, and CSF for a TR of 140 ms.</li>
+    <li><b>b.</b> Calculate the Ernst angle for these tissues and TRs with Eq. 2.6. Are they in agreement with the values you estimated with the interactive figure?</li>
+    <li><b>c.</b> It’s been shown (Deoni, Rutt, and Peters 2003) that the optimal flip angles for a two-measurement VFA <i>T</i><sub>1</sub> mapping imaging protocol are located at approximately 70% of the Ernst angle. Find the optimal flip angles to image each tissue above using their respective TRs.<sup>*</sup></li>
+    <li><b>d.</b> For a TR of 30 ms, which flip angle would result in the best contrast between white matter and grey matter in an SPGR image?</li>
+  </ol>
+  <p class="footnote"><sup>*</sup> Deoni et al. place the two angles where the <i>signal</i> is about 71% of the Ernst signal, one on each side of the Ernst angle. Part c is solved that way.</p>
+  <aside class="notes">Exercise 2 from the end of the T1 chapter, quoted as written. Correction for part c: Deoni, Rutt and Peters (2003) show the two optimal angles are those giving about 71% of the maximum (Ernst) signal, one below and one above the Ernst angle; not 70% of the Ernst angle itself. Taken literally, 0.7 × θE would give 7.3° (WM), 10.3° (GM) and 10.5° (CSF), a single angle each.</aside>
+</section>
+
+<section class="ex" data-book="vfaplot1">
+  <div class="ex-layout">
+    <h2>a. Read the Ernst angles off Figure 2.8</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>a.</b> Using the Plotly figure in the VFA section that displays the signal curves for white matter, gray matter, and CSF, determine the Ernst angle for the following: white matter and a TR of 15 ms, gray matter for a TR of 50 ms, and CSF for a TR of 140 ms.</p>
+        <p class="muted">Drag the slider to each TR, then hover over the peak of the matching curve.</p>
+      </div>
+      <div class="fig-host" data-fig="vfaPlot1"></div>
+    </div>
+  </div>
+  <aside class="notes">The Ernst angle is the flip angle of maximum signal. Expected readings (the figure is sampled every 1°): WM at TR 15 ms about 10°, GM at TR 50 ms about 15°, CSF at TR 140 ms about 15°.</aside>
+</section>
+
+<section class="ex" data-book="vfaeq2">
+  <div class="ex-layout">
+    <h2>b. Compare with Eq. 2.6</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Calculate the Ernst angle for these tissues and TRs with Eq. 2.6. Are they in agreement with the values you estimated with the interactive figure?</p>
+        <div class="eq-small">$$\theta_{Ernst} = \text{acos}\left(e^{- \frac{TR}{T_1}}\right)\qquad\text{(2.6)}$$</div>
+        <table class="measure">
+          <tr><th>Tissue</th><th>TR (ms)</th><th><i>T</i><sub>1</sub> (ms)</th><th>Read (°)</th></tr>
+          <tr><td>WM</td><td>15</td><td>900</td><td><input data-key="wm" value="10" aria-label="WM Ernst angle read"></td></tr>
+          <tr><td>GM</td><td>50</td><td>1500</td><td><input data-key="gm" value="15" aria-label="GM Ernst angle read"></td></tr>
+          <tr><td>CSF</td><td>140</td><td>4000</td><td><input data-key="csf" value="15" aria-label="CSF Ernst angle read"></td></tr>
+        </table>
+        <div class="btn-row"><button data-run="ex2-ernst">Calculate</button><button class="secondary" data-reset="ex2-ernst">Reset</button></div>
+        <div class="fragment step" data-action="ex2-ernst"></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">Eq. 2.6 gives 10.4° (WM), 14.7° (GM) and 15.1° (CSF): within half a degree of the figure, which is sampled every 1°. GM and CSF land on almost the same angle because the Ernst angle depends only on TR/T1, and 50/1500 = 0.033 is close to 140/4000 = 0.035. The plot shows Eq. 2.6 as a function of TR/T1 with the readings on it.</aside>
+</section>
+
+<section class="ex" data-book="exercises">
+  <div class="ex-layout">
+    <h2>c. Optimal flip angles for two-point VFA</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> It’s been shown (Deoni, Rutt, and Peters 2003) that the optimal flip angles for a two-measurement VFA <i>T</i><sub>1</sub> mapping imaging protocol are located at approximately 70% of the Ernst angle. Find the optimal flip angles to image each tissue above using their respective TRs.</p>
+        <p class="footnote">As shown by Deoni et al.: the two angles where the signal (Eq. 2.5) is 71% of its value at the Ernst angle.</p>
+        <div class="btn-row"><button data-run="ex2-deoni">Solve</button></div>
+        <div class="fragment step" data-action="ex2-deoni"></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">Each curve is Eq. 2.5 divided by its value at the Ernst angle, so all three peak at 1. The two angles where it crosses 0.71 are the optimal pair: WM 4.4° and 24.7°, GM 6.2° and 34.4°, CSF 6.3° and 35.2°. Note the asymmetry: the high angle is much further from the Ernst angle than the low one. The exercise's literal "70% of the Ernst angle" (7.3°, 10.3°, 10.5°) is a misreading of the paper.</aside>
+</section>
+
+<section class="ex" data-book="vfaplot1">
+  <div class="ex-layout">
+    <h2>d. Best WM/GM contrast at TR = 30 ms</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>d.</b> For a TR of 30 ms, which flip angle would result in the best contrast between white matter and grey matter in an SPGR image?</p>
+        <p class="muted">Set the slider to 30 ms and compare the WM and GM curves.</p>
+      </div>
+      <div class="fig-host" data-fig="vfaPlot1"></div>
+    </div>
+  </div>
+  <aside class="notes">At TR 30 ms the WM curve peaks near 15° and GM near 11°. The contrast is the gap between them, which keeps growing past both peaks before shrinking. Next slide: the difference curve.</aside>
+</section>
+
+<section class="ex" data-book="vfaeq1">
+  <div class="ex-layout">
+    <h2>d. The WM − GM signal difference</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p>Signal difference from Eq. 2.5 for WM (<i>T</i><sub>1</sub> = 900 ms) and GM (1500 ms):</p>
+        <table class="measure">
+          <tr><td>TR (ms)</td><td><input data-key="tr" value="30" aria-label="TR"></td></tr>
+        </table>
+        <div class="btn-row"><button data-run="ex2-contrast">Solve</button><button class="secondary" data-reset="ex2-contrast">Reset</button></div>
+        <div class="fragment step" data-action="ex2-contrast"></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The WM − GM difference peaks at about 22° for TR = 30 ms, well above both Ernst angles (14.7° for WM and 11.4° for GM). Best contrast and best signal are different goals. Try other TRs: the best angle grows with TR.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 2: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>Ernst angles read from Figure 2.8: ≈ 10° (WM, TR 15 ms), 15° (GM, TR 50 ms), 15° (CSF, TR 140 ms)</td></tr>
+    <tr><td>b</td><td>Eq. 2.6: 10.4°, 14.7°, 15.1°, in agreement within the figure’s 1° sampling</td></tr>
+    <tr><td>c</td><td>Angle pairs at 71% of the Ernst signal: WM 4.4° / 24.7°, GM 6.2° / 34.4°, CSF 6.3° / 35.2°</td></tr>
+    <tr><td>d</td><td>Best WM/GM contrast at TR 30 ms: ≈ 22°</td></tr>
+  </table>
+  <aside class="notes">Summary of the four parts, with the chapter's T1 values for WM (900 ms), GM (1500 ms) and CSF (4000 ms).</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/vfaPlot1.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex2.js"></script>
+</body>
+</html>

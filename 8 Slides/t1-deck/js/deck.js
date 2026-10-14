@@ -82,7 +82,7 @@
     return Math.min(boxW / figW, boxH / figH);
   }
 
-  const deck = { BOOK_BASE, SECTIONS, LABELS, bookLink, shouldMount, fitScale, start, ready: false };
+  const deck = { BOOK_BASE, SECTIONS, LABELS, bookLink, shouldMount, fitScale, start, drawFigure, ready: false };
 
   // ---------------------------------------------------------------- browser only
 
@@ -115,33 +115,42 @@
     return card;
   }
 
-  // The book's figure is drawn at its own width and height, unchanged, then scaled as a whole
-  // to fill the slide. Fonts, margins and annotations keep the book's proportions.
+  // A Plotly figure is drawn at its own width and height, unchanged, then scaled as a whole
+  // to fill the host. Fonts, margins and annotations keep the book's proportions.
+  // Also used by the exercise slides for their computed figures. Returns the plot element.
+  function drawFigure(host, fig) {
+    if (host._plot) window.Plotly.purge(host._plot);
+    host.replaceChildren();
+    const w = fig.layout.width;
+    const h = fig.layout.height;
+    const k = fitScale(w, h, host.clientWidth, host.clientHeight);
+    const frame = document.createElement('div');
+    frame.className = 'fig-frame';
+    frame.style.width = `${w * k}px`;
+    frame.style.height = `${h * k}px`;
+    const plot = document.createElement('div');
+    plot.className = 'fig-plot';
+    plot.style.width = `${w}px`;
+    plot.style.height = `${h}px`;
+    plot.style.transform = `scale(${k})`;
+    frame.appendChild(plot);
+    host.appendChild(frame);
+    const config = Object.assign({ displayModeBar: false, showLink: false }, fig.config || {}, { responsive: false });
+    window.Plotly.newPlot(plot, fig.data, fig.layout, config);
+    host._plot = plot;
+    return plot;
+  }
+
   function mountFigure(host) {
     if (host.dataset.state) return;
     const label = host.dataset.fig;
     try {
       const stored = window.T1Figures && window.T1Figures[label];
       if (!stored) throw new Error(`figure "${label}" is not loaded`);
-      const fig = JSON.parse(JSON.stringify(stored));
-      const w = fig.layout.width;
-      const h = fig.layout.height;
-      const k = fitScale(w, h, host.clientWidth, host.clientHeight);
-      const frame = document.createElement('div');
-      frame.className = 'fig-frame';
-      frame.style.width = `${w * k}px`;
-      frame.style.height = `${h * k}px`;
-      const plot = document.createElement('div');
-      plot.className = 'fig-plot';
-      plot.style.width = `${w}px`;
-      plot.style.height = `${h}px`;
-      plot.style.transform = `scale(${k})`;
-      frame.appendChild(plot);
-      host.appendChild(frame);
-      const config = Object.assign({ displayModeBar: false, showLink: false }, fig.config || {}, { responsive: false });
-      window.Plotly.newPlot(plot, fig.data, fig.layout, config);
-      host._plot = plot;
+      drawFigure(host, JSON.parse(JSON.stringify(stored)));
       host.dataset.state = 'mounted';
+      // Lets the exercise slides re-apply their overlays whenever a book figure is (re)drawn.
+      host.dispatchEvent(new CustomEvent('figuremounted', { bubbles: true }));
     } catch (err) {
       console.error(`[t1-deck] ${label}:`, err);
       host.replaceChildren(fallbackCard(host));
