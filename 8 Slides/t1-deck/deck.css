@@ -56,7 +56,7 @@
 .reveal .kicker { font-size: 0.62em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4em; }
 /* Exercise problem slides: the qMRLab logo and the course name above the kicker. */
 .reveal .brand { display: flex; align-items: center; gap: 0.45em; margin-bottom: 0.7em; font-size: 0.78em; font-weight: 700; }
-.reveal .brand img { height: 2.2em; width: auto; margin: 0; }
+.reveal .brand img { height: 1.5em; width: auto; margin: 0; }
 .reveal .subtitle { font-size: 1.05em; color: var(--muted); }
 .reveal .byline { font-size: 0.66em; color: var(--muted); margin-top: 2.2em; }
 .reveal section.divider h1 { font-size: 2.2em; }
