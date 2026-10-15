@@ -100,57 +100,26 @@ signal_CSF = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);</texta
   <aside class="notes">As in Figure 2.4. The slide opens on the data: simulated with the general equation (Eq. 2.2) at TIs from 50 to 1500 ms, by qmrust. Click 1: the long-TR fit (Eq. 2.3). Click 2: the general fit for reference, which recovers T1 exactly. Click 3: the same long-TR fit at both field strengths, and the conclusion. At TR = 3 s the long-TR fit underestimates WM T1 by about 1.7% at 1.5 T (TR/T1 = 4.6) and about 5.8% at 3 T (TR/T1 = 3.3). The neglected term is e^(−TR/T1): 0.010 at 1.5 T and 0.036 at 3 T. So: usable at 1.5 T, biased by about 6% at 3 T.</aside>
 </section>
 
-<section class="ex" data-book="irplot2" data-auto="ex3-sensitivity">
+<section class="ex" data-book="irplot5">
   <div class="ex-layout">
-    <h2>c. Which TIs affect the fitted <i>T</i><sub>1</sub> the most?</h2>
+    <h2>c. TIs to avoid: Figure 2.6</h2>
     <div class="ex-cols">
       <div class="ex-text">
         <p class="question"><b>c.</b> Are there any inversion times you should avoid using when designing an IR <i>T</i><sub>1</sub> mapping protocol at 1.5T when using this TR?</p>
-        <table class="measure">
-          <tr><td>WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1" value="650" aria-label="WM T1"></td></tr>
-          <tr><td>TR (ms)</td><td><input data-key="tr" value="3000" aria-label="TR"></td></tr>
-          <tr><td>Signal error (% of M<sub>0</sub>)</td><td><input data-key="err" value="1" aria-label="Signal error in percent"></td></tr>
-        </table>
         <div class="btn-row">
-          <button data-run="ex3-sensitivity" data-step="1">1 · Add an error</button>
-          <button data-run="ex3-sensitivity" data-step="2">2 · Most sensitive</button>
-          <button data-run="ex3-sensitivity" data-step="3">3 · Why</button>
+          <button data-run="ex3-null" data-step="1">1 · TI on the null</button>
+          <button data-run="ex3-null" data-step="2">2 · Answer</button>
         </div>
-        <div class="fragment step" data-action="ex3-sensitivity"></div>
-        <div class="fragment step" data-action="ex3-sensitivity"></div>
+        <div class="fragment step" data-action="ex3-null"></div>
         <div class="result"></div>
-        <div class="fragment" data-action="ex3-sensitivity">
-          <p class="answer">Avoid relying on TIs <b>around the null</b>: the signal is close to zero there, so noise, and the long-TR model’s offset e<sup>−TR/T<sub>1</sub></sup>, are relatively largest, and errors at those TIs move the fitted <i>T</i><sub>1</sub> the most.</p>
+        <div class="fragment" data-action="ex3-null">
+          <p class="answer">Avoid TIs at the <b>null</b> of the tissue you want to measure: magnitude images there are dominated by Rician noise, which can negatively impact the fit under low SNR. For WM at 1.5 T with TR = 3 s, that is TI ≈ <span class="ans-null">444</span> ms.</p>
         </div>
       </div>
-      <div class="result-host"></div>
+      <div class="fig-host" data-fig="irPlot5"></div>
     </div>
   </div>
-  <aside class="notes">The slide opens on the data: WM at 1.5 T, TR = 3 s, sampled every 100 ms (general equation, magnitude, by qmrust). Click 1: add a small error (1% of M0, like noise) to one TI at a time, refit with the long-TR model, and plot how far the fitted T1 moves: the bottom panel. Click 2: the TIs where an error moves T1 the most, shaded: around the null (≈ 444 ms) and up to about T1. Click 3: why to avoid them. Errors at TIs far past the null hardly move T1: those points carry little T1 information, which the next slide shows. The shifts are small here (about 1 ms) because 29 TIs share the load; with a 4-TI protocol the same error moves T1 about five times more.</aside>
-</section>
-
-<section class="ex" data-book="exercises">
-  <div class="ex-layout">
-    <h2>c. A protocol that samples only there</h2>
-    <div class="ex-cols">
-      <div class="ex-text">
-        <p>Three TIs, 100 ms apart, slid along the recovery. Each position is fitted with the long-TR model, whose offset e<sup>−TR/<i>T</i><sub>1</sub></sup> acts as an error at every TI (noise-free data, WM at 1.5 T, TR = 3 s).</p>
-        <div class="btn-row">
-          <button data-run="ex3-windows" data-step="1">1 · Sweep</button>
-          <button data-run="ex3-windows" data-step="2">2 · Problem zones</button>
-          <button data-run="ex3-windows" data-step="3">3 · Answer</button>
-        </div>
-        <div class="fragment step" data-action="ex3-windows"></div>
-        <div class="fragment step" data-action="ex3-windows"></div>
-        <div class="result"></div>
-        <div class="fragment" data-action="ex3-windows">
-          <p class="answer">Avoid protocols that sample mostly <b>around the null</b> (≈ 450 ms), where errors move <i>T</i><sub>1</sub> the most, or <b>far past it</b> (≳ 2.5 <i>T</i><sub>1</sub>), where the curve is flat and carries no <i>T</i><sub>1</sub> information. Spread the TIs across the recovery, and keep TI below TR minus the readout.</p>
-        </div>
-      </div>
-      <div class="result-host"></div>
-    </div>
-  </div>
-  <aside class="notes">Three clicks. 1: the sweep: each point is a long-TR fit by qmrust to three TIs (centre ± 100 ms) of noise-free data. The only error is the long-TR model's own offset. 2: the problem zones, marked. Near the null, where the previous slide showed T1 is most sensitive to errors, the fit error swings to ±20–30%; from about 1.6 s on, the three samples lie on the plateau and the fit cannot find T1 at all (it runs to its bounds). Spread-out protocols keep the bias near the 1.7% of part b. 3: the answer.</aside>
+  <aside class="notes">The slide opens on Figure 2.6 as the book publishes it: Monte Carlo simulations for T1 = 900 ms with six TIs linearly spaced up to TR; the insets give the mean and STD of the fitted T1 against TR. Click 1: the slider moves to TR = 2900 ms, where the second TI (TR/5 = 580 ms) lands on the null (589 ms). Both are circled: that TI on the signal curve, and the STD of the fitted T1 in the inset, which blips up there (about 90 ms, against about 70–75 ms for nearby TRs). The simulations are noisy, so other TRs wobble too; drag the slider around 2600–3000 ms to show it. Click 2: the answer, from the book's text: avoid TIs where the signal of the tissue of interest is nulled. For WM at 1.5 T (650 ms) with TR = 3 s, the null is at 444 ms (Eq. 2.2; 451 ms with the long-TR approximation, as in part a).</aside>
 </section>
 
 <section data-book="exercises">
@@ -159,10 +128,10 @@ signal_CSF = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);</texta
     <tr><th>Part</th><th>Answer</th></tr>
     <tr><td>a</td><td>At 1.5 T the WM and GM nulls move earlier: ≈ 451 ms (WM) and 832 ms (GM); CSF is unchanged (2773 ms)</td></tr>
     <tr><td>b</td><td>With TR = 3 s the long-TR fit underestimates WM <i>T</i><sub>1</sub> by ≈ 1.7% at 1.5 T and ≈ 5.8% at 3 T: fine at 1.5 T, biased at 3 T</td></tr>
-    <tr><td>c</td><td>Don’t concentrate TIs around the null (≈ 450 ms) or far past it (≳ 1.6 s, on the plateau); spread them across the recovery</td></tr>
+    <tr><td>c</td><td>Avoid TIs at the WM null, ≈ 444 ms at TR = 3 s: Figure 2.6 shows the STD of the fitted <i>T</i><sub>1</sub> blips up when a TI lands on the null</td></tr>
   </table>
-  <p class="muted small">All simulations and fits on these slides: qmrust (Rust/WebAssembly port of qMRLab), running in the browser.</p>
-  <aside class="notes">Summary. The numbers assume ideal pulses and noise-free data, as in Figures 2.2–2.4.</aside>
+  <p class="muted small">Simulations and fits in parts a and b: qmrust (Rust/WebAssembly port of qMRLab), running in the browser.</p>
+  <aside class="notes">Summary. Parts a and b assume ideal pulses and noise-free data, as in Figures 2.2–2.4; part c uses the Monte Carlo simulations of Figure 2.6.</aside>
 </section>
 
 </div>
@@ -176,6 +145,7 @@ signal_CSF = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);</texta
 <script src="vendor/qmrust/qmrust_wasm.js"></script>
 <script src="vendor/qmrust/qmrust_wasm_b64.js"></script>
 <script src="js/figures/irPlot1.js"></script>
+<script src="js/figures/irPlot5.js"></script>
 <script src="js/deck.js"></script>
 <script src="js/solve.js"></script>
 <script src="js/qmrust.js"></script>
