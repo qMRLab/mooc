@@ -128,18 +128,25 @@ const slideWith = (page, selector) =>
   page.evaluate((sel) => Reveal.getSlides().findIndex((s) => s.querySelector(sel) || s.matches(sel)), selector);
 const resultText = (page) => page.evaluate(() => Reveal.getCurrentSlide().querySelector('.result').textContent);
 
+// A reading typed on part a fills the later slides' copies (inputs and answer text); clearing it restores
+// their defaults. `key` is the data-share name, `fallback` the default the later copies hold.
+async function checkShared(page, key, typed, fallback) {
+  const problems = [];
+  const values = () => page.evaluate((k) => [...document.querySelectorAll(`[data-share="${k}"]`)].map((el) => el.value ?? el.textContent), key);
+  await page.evaluate((n) => Reveal.slide(n), await slideWith(page, `input[data-share="${key}"]`));
+  await page.locator(`section.present input[data-share="${key}"]`).fill(typed);
+  if ((await values()).join() !== [typed, typed, typed].join()) problems.push(`${key} shared readings: ${(await values()).join()}`);
+  await page.locator(`section.present input[data-share="${key}"]`).fill('');
+  if ((await values()).join() !== ['', fallback, fallback].join()) problems.push(`${key} cleared readings: ${(await values()).join()}`);
+  return problems;
+}
+
 // Steps, typing values, Enter and Reset on Exercise 1b; ← undoing a step; presets on Exercise 4c.
 async function checkInputs(browser) {
   const problems = [];
   const traces = (page) => page.evaluate(() => Reveal.getCurrentSlide().querySelector('.result-host .js-plotly-plot').data.length);
   const { page, errors } = await openDeck(browser, 'exercise-1.html', 1280, 720);
-  // Readings typed on part a fill part b's table and the answers slide; clearing them restores the book's.
-  const shared = () => page.evaluate(() => [...document.querySelectorAll('[data-share="ex1-wm"]')].map((el) => el.value ?? el.textContent));
-  await page.evaluate((n) => Reveal.slide(n), await slideWith(page, 'input[data-share="ex1-wm"]'));
-  await page.locator('section.present input[data-share="ex1-wm"]').fill('610');
-  if ((await shared()).join() !== '610,610,610') problems.push(`ex1 shared readings: ${(await shared()).join()}`);
-  await page.locator('section.present input[data-share="ex1-wm"]').fill('');
-  if ((await shared()).join() !== ',624,624') problems.push(`ex1 cleared readings: ${(await shared()).join()}`);
+  problems.push(...(await checkShared(page, 'ex1-wm', '610', '624')));
   await page.evaluate((n) => Reveal.slide(n), await slideWith(page, '[data-action="ex1-fit"]'));
   await page.waitForTimeout(400);
   // Step 1 plots the readings only; step 2 adds the fit.
@@ -173,6 +180,11 @@ async function checkInputs(browser) {
   if (wm !== '624' || !/k = 0\.693/.test(await resultText(page))) problems.push(`ex1 Reset: value ${wm}, result "${await resultText(page)}"`);
   problems.push(...errors.map((e) => `ex1 inputs: ${e}`));
   await page.close();
+
+  const ex2 = await openDeck(browser, 'exercise-2.html', 1280, 720);
+  problems.push(...(await checkShared(ex2.page, 'ex2-gm', '14', '15')));
+  problems.push(...ex2.errors.map((e) => `ex2 inputs: ${e}`));
+  await ex2.page.close();
 
   const ex4 = await openDeck(browser, 'exercise-4.html', 1280, 720);
   await ex4.page.evaluate((n) => Reveal.slide(n), await slideWith(ex4.page, '[data-auto="ex4-proposed"]'));
