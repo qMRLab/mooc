@@ -46,10 +46,8 @@
           data.push({ x: nulls.map((x) => x.t), y: nulls.map(() => 0), mode: 'markers+text', name: 'Null times', text: nulls.map((x) => x.name),
             textposition: 'top left', textfont: { family: 'Times New Roman', size: 15 }, marker: { size: 12, color: 'black', symbol: 'x' } });
         }
-        // The book's own figure layout; only the x-axis title is corrected to seconds.
-        const layout = bookLayout('irPlot1', {});
-        layout.annotations[0].text = 'Inversion Time – TI (s)';
-        ctx.plot({ data, layout });
+        // The book's own figure layout.
+        ctx.plot({ data, layout: bookLayout('irPlot1', {}) });
         ctx.say(nulls.length
           ? `<p class="answer">Null times (<i>TI</i><sub>null</sub> = <i>T</i><sub>1</sub> ln 2): ${nulls.map((x) => `${x.name} <b>${fmt(x.t * 1000)} ms</b>`).join(', ')}.</p>`
           : '');

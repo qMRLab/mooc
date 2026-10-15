@@ -86,6 +86,6 @@ Copy `index.html`, `exercise-*.html`, `deck.css`, `js/`, `img/` and `vendor/` to
 - Figure 2.6's caption says 5 TI values; the data use 6.
 - Two figures are numbered 2.11 (`vfaPlot4` and `vfaPlot5`).
 - Eq. 2.11 conjugates both GRE signals; Marques et al. (2010) conjugate only S<sub>TI1</sub>.
-- Figures 2.2 and 2.3 label their x-axis "TI (ms)", but the data are in seconds.
+- Figures 2.2 and 2.3 labelled their x-axis "TI (ms)", but the data are in seconds. Fixed in the book notebooks (Figure-2-1-1/2) and, by hand, in `js/figures/irPlot1.js` and `irPlot2.js`.
 - Exercise 2c: Deoni et al. (2003) place the two optimal angles where the signal is ≈ 71% of the Ernst signal, not at "70% of the Ernst angle" (footnoted on the slide).
 - Exercise 3a cites Figure 2.3 (`irPlot2`) and "that blog post"; the WM/GM/CSF curves are Figure 2.2 (corrected on the slide).
