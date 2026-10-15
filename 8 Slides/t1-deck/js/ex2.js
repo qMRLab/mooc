@@ -60,14 +60,17 @@
       const rows = TISSUES.map((t, i) => {
         const e = S.ernst(t.tr, t.t1);
         const peak = S.spgr(e, t.tr, t.t1);
+        // Whole degrees only: Figure 2.8 is sampled every 1°, so that is all one can read or set.
         const pair = S.deoniPair(t.tr, t.t1);
+        const low = Math.round(pair.low);
+        const high = Math.round(pair.high);
         data.push({ x: theta, y: theta.map((a) => S.spgr(a, t.tr, t.t1) / peak), mode: 'lines',
           name: `${t.name}, TR ${t.tr} ms`, line: { color: COLORS[i], width: 2 } });
         if (ctx.step >= 2) {
-          data.push({ x: [pair.low, pair.high], y: [0.71, 0.71], mode: 'markers', showlegend: false,
+          data.push({ x: [low, high], y: [low, high].map((a) => S.spgr(a, t.tr, t.t1) / peak), mode: 'markers', showlegend: false,
             marker: { size: 11, color: COLORS[i], line: { color: 'black', width: 1 } }, hoverinfo: 'x' });
         }
-        return { ...t, e, ...pair };
+        return { ...t, e, low, high };
       });
       if (ctx.step >= 2) {
         data.push({ x: [0, 60], y: [0.71, 0.71], mode: 'lines', name: '71% of the Ernst signal',
@@ -82,11 +85,9 @@
           yaxis: { range: [0, 1.05], autorange: false },
         }),
       });
-      const literal = ctx.slide.querySelector('.ans-literal');
-      if (literal) literal.textContent = rows.map((r) => `${fmt(0.7 * r.e, 1)}°`).join(', ');
       ctx.say(ctx.step >= 2
         ? `<table class="measure"><tr><th>Tissue</th><th>Ernst</th><th>Low</th><th>High</th></tr>${
-          rows.map((r) => `<tr><td>${r.name}</td><td>${fmt(r.e, 1)}°</td><td><b>${fmt(r.low, 1)}°</b></td><td><b>${fmt(r.high, 1)}°</b></td></tr>`).join('')
+          rows.map((r) => `<tr><td>${r.name}</td><td>${fmt(r.e)}°</td><td><b>${r.low}°</b></td><td><b>${r.high}°</b></td></tr>`).join('')
         }</table>`
         : 'Each tissue’s signal (Eq. 2.5 at its TR), divided by its value at the Ernst angle.');
     },
