@@ -12,6 +12,7 @@
  *   <button data-reset="id">                 restores the slide's inputs to their defaults and redraws.
  *   <button data-preset='{"key": "value"}' data-run="id">  fills inputs, then runs.
  *   <input data-key="wm" value="624">        an editable value; Enter redraws (or takes the first step).
+ *   <input data-share="k">                   a value that also fills every other [data-share="k"] (later slides, answers).
  *   <textarea data-key="code">               editable code; Ctrl/⌘+Enter redraws.
  *   .result / .result-host                   where actions write their text / draw their figure.
  *
@@ -176,6 +177,20 @@
     if (activeActions(slide).includes(id)) render(slide, id);
   }
 
+  // A value typed in an input[data-share="k"] fills every other [data-share="k"] in the page: inputs on
+  // later slides, and spans in answer text. Clearing the box puts each copy back to its own default.
+  function onShare(src) {
+    const value = src.value.trim();
+    document.querySelectorAll(`[data-share="${src.dataset.share}"]`).forEach((el) => {
+      if (el === src) return;
+      if (el.matches('input')) el.value = value || el.defaultValue;
+      else {
+        if (!('default' in el.dataset)) el.dataset.default = el.textContent;
+        el.textContent = value || el.dataset.default;
+      }
+    });
+  }
+
   function onFragments(e) {
     const touched = new Map();
     (e.fragments || [e.fragment]).forEach((f) => {
@@ -190,6 +205,9 @@
       const resetBtn = e.target.closest('button[data-reset]');
       if (runBtn) onRun(runBtn);
       else if (resetBtn) onReset(resetBtn);
+    });
+    document.addEventListener('input', (e) => {
+      if (e.target.matches('input[data-share]')) onShare(e.target);
     });
     document.addEventListener('keydown', (e) => {
       // Enter in a value box, or Ctrl/⌘+Enter in a code box, redraws the slide (or takes the first step).

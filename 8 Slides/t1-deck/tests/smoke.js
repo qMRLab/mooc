@@ -133,6 +133,13 @@ async function checkInputs(browser) {
   const problems = [];
   const traces = (page) => page.evaluate(() => Reveal.getCurrentSlide().querySelector('.result-host .js-plotly-plot').data.length);
   const { page, errors } = await openDeck(browser, 'exercise-1.html', 1280, 720);
+  // Readings typed on part a fill part b's table and the answers slide; clearing them restores the book's.
+  const shared = () => page.evaluate(() => [...document.querySelectorAll('[data-share="ex1-wm"]')].map((el) => el.value ?? el.textContent));
+  await page.evaluate((n) => Reveal.slide(n), await slideWith(page, 'input[data-share="ex1-wm"]'));
+  await page.locator('section.present input[data-share="ex1-wm"]').fill('610');
+  if ((await shared()).join() !== '610,610,610') problems.push(`ex1 shared readings: ${(await shared()).join()}`);
+  await page.locator('section.present input[data-share="ex1-wm"]').fill('');
+  if ((await shared()).join() !== ',624,624') problems.push(`ex1 cleared readings: ${(await shared()).join()}`);
   await page.evaluate((n) => Reveal.slide(n), await slideWith(page, '[data-action="ex1-fit"]'));
   await page.waitForTimeout(400);
   // Step 1 plots the readings only; step 2 adds the fit.

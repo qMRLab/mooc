@@ -14,6 +14,7 @@
 <div class="slides">
 
 <section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">T<sub>1</sub> Mapping · Exercise 1</p>
   <h2>Inversion recovery: null times and contrast</h2>
   <ol>
@@ -31,13 +32,19 @@
     <div class="ex-cols">
       <div class="ex-text">
         <p class="question"><b>a.</b> Using the Plotly figure in the inversion recovery section that displays the signal curves for white matter, gray matter, and CSF, determine the inversion times that null the signal from each of these tissues.</p>
-        <p class="muted">Hover over each curve where it crosses zero.</p>
+        <p class="muted">Hover over each curve where it crosses zero, and type your readings here. They carry over to the next slides.</p>
+        <table class="measure">
+          <tr><th>Tissue</th><th>Null TI (ms)</th></tr>
+          <tr><td>White matter</td><td><input data-key="wm" data-share="ex1-wm" value="" placeholder="?" aria-label="WM null TI"></td></tr>
+          <tr><td>Grey matter</td><td><input data-key="gm" data-share="ex1-gm" value="" placeholder="?" aria-label="GM null TI"></td></tr>
+          <tr><td>CSF</td><td><input data-key="csf" data-share="ex1-csf" value="" placeholder="?" aria-label="CSF null TI"></td></tr>
+        </table>
         <p class="footnote">Figure 2.2 from the book. Its x-axis is labelled ms but its values are in seconds: hover readings of 0.62 mean 620 ms.</p>
       </div>
       <div class="fig-host" data-fig="irPlot1"></div>
     </div>
   </div>
-  <aside class="notes">Ask the class to read each zero crossing by hovering. Expected readings: WM about 0.62 s, GM about 1.04 s, CSF about 2.77 s. The book figure's axis title says ms but its data are in seconds.</aside>
+  <aside class="notes">Ask the class to read each zero crossing by hovering, and type the readings (in ms) in the boxes. Expected readings: WM about 0.62 s, GM about 1.04 s, CSF about 2.77 s. The book figure's axis title says ms but its data are in seconds. The readings fill the null TI column of part b and the answers slide; boxes left empty keep the book's values there.</aside>
 </section>
 
 <section class="ex" data-book="exercises">
@@ -48,9 +55,9 @@
         <p class="question"><b>b.</b> Using the three values nulling inversion time values above, can you find an easy way to approximate the nulling time for any arbitrary <i>T</i><sub>1</sub> value?</p>
         <table class="measure">
           <tr><th>Tissue</th><th><i>T</i><sub>1</sub> (ms)</th><th>Null TI read from the figure (ms)</th></tr>
-          <tr><td>White matter</td><td><input data-key="t1wm" value="900" aria-label="WM T1"></td><td><input data-key="wm" value="624" aria-label="WM null TI"></td></tr>
-          <tr><td>Grey matter</td><td><input data-key="t1gm" value="1500" aria-label="GM T1"></td><td><input data-key="gm" value="1040" aria-label="GM null TI"></td></tr>
-          <tr><td>CSF</td><td><input data-key="t1csf" value="4000" aria-label="CSF T1"></td><td><input data-key="csf" value="2773" aria-label="CSF null TI"></td></tr>
+          <tr><td>White matter</td><td><input data-key="t1wm" value="900" aria-label="WM T1"></td><td><input data-key="wm" data-share="ex1-wm" value="624" aria-label="WM null TI"></td></tr>
+          <tr><td>Grey matter</td><td><input data-key="t1gm" value="1500" aria-label="GM T1"></td><td><input data-key="gm" data-share="ex1-gm" value="1040" aria-label="GM null TI"></td></tr>
+          <tr><td>CSF</td><td><input data-key="t1csf" value="4000" aria-label="CSF T1"></td><td><input data-key="csf" data-share="ex1-csf" value="2773" aria-label="CSF null TI"></td></tr>
         </table>
         <div class="btn-row">
           <button data-run="ex1-fit" data-step="1">1 · Plot</button>
@@ -98,37 +105,36 @@
 
 <section class="ex" data-book="irplot1">
   <div class="ex-layout">
-    <h2>d. Best WM/GM contrast</h2>
+    <h2>d. Best WM/GM contrast in magnitude images</h2>
     <div class="ex-cols">
       <div class="ex-text">
         <p class="question"><b>d.</b> Which inversion time would result in the best contrast between white matter and grey matter?</p>
         <div class="btn-row">
-          <button data-run="ex1-difference" data-step="1">1 · WM − GM</button>
+          <button data-run="ex1-difference" data-step="1">1 · Contrast</button>
           <button data-run="ex1-difference" data-step="2">2 · Maximum</button>
           <button data-run="ex1-difference" data-step="3">3 · Prove</button>
         </div>
         <div class="fragment step" data-action="ex1-difference"></div>
         <div class="fragment" data-action="ex1-difference">
-          <p class="answer">The difference peaks at <b>TI ≈ <span class="ans-best">1150</span> ms</b>.</p>
+          <p class="answer">The magnitude contrast peaks at <b>TI ≈ <span class="ans-best">1150</span> ms</b>.</p>
         </div>
         <div class="fragment" data-action="ex1-difference">
-          <p>Setting the derivative of Eq. 2.3 for WM minus GM to zero:</p>
+          <p>Both tissues are past their null there, so |<i>M</i><sub>z</sub>| = <i>M</i><sub>z</sub>. Setting the derivative of Eq. 2.3 for WM minus GM to zero:</p>
           <div class="eq-small">$$\begin{aligned} &\frac{d}{dTI}\left(e^{-\frac{TI}{T_{1,GM}}} - e^{-\frac{TI}{T_{1,WM}}}\right) = 0 \\ &\Rightarrow\; TI_{best} = \frac{T_{1,WM}\,T_{1,GM}}{T_{1,GM}-T_{1,WM}}\ln\frac{T_{1,GM}}{T_{1,WM}} \end{aligned}$$</div>
-          <p class="footnote">Both tissues are positive there, so magnitude images give the same answer.</p>
         </div>
         <p class="result"></p>
       </div>
       <div class="fig-host" data-fig="irPlot1"></div>
     </div>
   </div>
-  <aside class="notes">Three clicks. 1: adds the curve Mz(WM) − Mz(GM) to the book figure. 2: marks its maximum, about 1149 ms for T1 of 900 and 1500 ms. 3: proof: setting the derivative of e^(−TI/T1,GM) − e^(−TI/T1,WM) to zero gives the formula.</aside>
+  <aside class="notes">Magnitude images, as in part c: the book figure is shown as |Mz|. Three clicks. 1: adds the WM/GM contrast, ||Mz(WM)| − |Mz(GM)||. It is zero at the crossing of part c, has a smaller peak at the WM null (0.32 at 624 ms) and its highest point past the GM null. 2: marks its maximum, about 1149 ms (0.37) for T1 of 900 and 1500 ms. The curve is flat between the GM null and about 1300 ms, so any TI there gives nearly the best contrast. 3: proof: both tissues are positive there, so magnitude equals Mz, and setting the derivative of e^(−TI/T1,GM) − e^(−TI/T1,WM) to zero gives the formula.</aside>
 </section>
 
 <section data-book="exercises">
   <h2>Exercise 1: answers</h2>
   <table class="measure summary">
     <tr><th>Part</th><th>Answer</th></tr>
-    <tr><td>a</td><td>Null TIs ≈ 624 ms (WM), 1040 ms (GM), 2773 ms (CSF)</td></tr>
+    <tr><td>a</td><td>Null TIs ≈ <span data-share="ex1-wm">624</span> ms (WM), <span data-share="ex1-gm">1040</span> ms (GM), <span data-share="ex1-csf">2773</span> ms (CSF)</td></tr>
     <tr><td>b</td><td><i>TI</i><sub>null</sub> ≈ 0.69 <i>T</i><sub>1</sub> = <i>T</i><sub>1</sub> ln 2 (long-TR approximation)</td></tr>
     <tr><td>c</td><td>Lowest magnitude contrast at TI ≈ 800 ms, where |<i>M</i><sub>z</sub>| of WM and GM cross</td></tr>
     <tr><td>d</td><td>Best contrast at TI ≈ 1150 ms</td></tr>

@@ -47,16 +47,22 @@
     },
   });
 
+  // The book figure on this slide redrawn as magnitude images show it, |Mz|. Returns the plot.
+  function showMagnitude(ctx) {
+    ctx.restoreBookFigure();
+    const gd = ctx.bookPlot();
+    window.Plotly.restyle(gd, { y: gd.data.slice(0, 3).map((t) => t.y.map(Math.abs)) }, [0, 1, 2]);
+    window.Plotly.relayout(gd, { 'annotations[1].text': '|M<sub>z</sub>| (magnitude)' });
+    return gd;
+  }
+
   // c. Step 1: the book's data as magnitude, |Mz|. Step 2: where |Mz(WM)| = |Mz(GM)|.
   action('ex1-magnitude', {
     run(ctx) {
       const ti = S.irMagnitudeCrossing(T1_WM, T1_GM);
       ctx.slide.querySelector('.ans-crossing').textContent = fmt(ti);
       if (!ctx.bookPlot()) return;
-      ctx.restoreBookFigure();
-      const gd = ctx.bookPlot();
-      window.Plotly.restyle(gd, { y: gd.data.slice(0, 3).map((t) => t.y.map(Math.abs)) }, [0, 1, 2]);
-      window.Plotly.relayout(gd, { 'annotations[1].text': '|M<sub>z</sub>| (magnitude)' });
+      const gd = showMagnitude(ctx);
       if (ctx.step >= 2) {
         window.Plotly.addTraces(gd, marker(ti / 1000, Math.abs(S.irLongTR(ti, T1_WM)), `|WM| = |GM| at ${fmt(ti)} ms`));
       }
@@ -64,17 +70,17 @@
     undo(ctx) { ctx.restoreBookFigure(); },
   });
 
-  // d. Step 1: Mz(WM) − Mz(GM) from the book's own traces. Step 2: its maximum. Step 3: the proof (markup).
+  // d. Magnitude images, as in c. Step 1: the WM/GM contrast, ||Mz(WM)| − |Mz(GM)||, from the book's
+  //    own traces. Step 2: its maximum. Step 3: the proof (markup).
   action('ex1-difference', {
     run(ctx) {
       const best = S.irMaxContrastTI(T1_WM, T1_GM);
       ctx.slide.querySelector('.ans-best').textContent = fmt(best);
       if (!ctx.bookPlot()) return;
-      ctx.restoreBookFigure();
-      const gd = ctx.bookPlot();
+      const gd = showMagnitude(ctx);
       const [wm, gm] = gd.data;
       window.Plotly.addTraces(gd, {
-        x: wm.x, y: wm.y.map((v, i) => v - gm.y[i]), mode: 'lines', name: 'M<sub>z</sub>(WM) − M<sub>z</sub>(GM)',
+        x: wm.x, y: wm.y.map((v, i) => Math.abs(v - gm.y[i])), mode: 'lines', name: 'Contrast: ||WM| − |GM||',
         line: { color: 'black', dash: 'dash', width: 2 }, hoverinfo: 'x+y+name',
       });
       if (ctx.step >= 2) {
