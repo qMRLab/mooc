@@ -70,14 +70,15 @@
     undo(ctx) { ctx.restoreBookFigure(); },
   });
 
-  // d. Magnitude images, as in c. Step 1: the WM/GM contrast, ||Mz(WM)| − |Mz(GM)||, from the book's
-  //    own traces. Step 2: its maximum. Step 3: the proof (markup).
+  // d. Step 0 (on opening): the book figure as magnitude, as in c. Step 1: the WM/GM contrast,
+  //    ||Mz(WM)| − |Mz(GM)||, from the book's own traces. Step 2: its maximum. Step 3: the proof (markup).
   action('ex1-difference', {
     run(ctx) {
       const best = S.irMaxContrastTI(T1_WM, T1_GM);
       ctx.slide.querySelector('.ans-best').textContent = fmt(best);
       if (!ctx.bookPlot()) return;
       const gd = showMagnitude(ctx);
+      if (ctx.step < 1) return;
       const [wm, gm] = gd.data;
       window.Plotly.addTraces(gd, {
         x: wm.x, y: wm.y.map((v, i) => Math.abs(v - gm.y[i])), mode: 'lines', name: 'Contrast: ||WM| − |GM||',
@@ -87,6 +88,5 @@
         window.Plotly.addTraces(gd, marker(best / 1000, S.irLongTR(best, T1_WM) - S.irLongTR(best, T1_GM), `Maximum at ${fmt(best)} ms`));
       }
     },
-    undo(ctx) { ctx.restoreBookFigure(); },
   });
 })();
