@@ -1,12 +1,13 @@
-/* Exercise 6: a collaborator's IR data with the images in reverse TI order. Real data (ISMRM 2020 T1
- * mapping challenge, js/data/ex6.js); every fit and simulation runs live in qmrust.
+/* Exercise 6: a collaborator's IR data with the images in reverse TI order. Data from the ISMRM 2020 T1
+ * mapping challenge, resampled to 10 TIs (js/data/ex6.js); every fit and simulation runs live in qmrust.
  * Each action draws its slide up to ctx.step: data first, then the result, then the explanation. */
 (function () {
   'use strict';
   const { action, bookLayout, axisTitles, COLORS, fmt, withQmRust } = window.T1Exercise;
   const Q = window.QmRust;
   const D = window.T1ExerciseData.ex6;
-  const TI = D.tisHeader; // what the header says: 50, 400, 1100, 2500 ms
+  const TI = D.tisHeader; // what the header says: 10 TIs from 50 to 2500 ms, increasing
+  const N = TI.length;
   const SPHERE = 3; // NIST sphere 3: reference T1 987 ms
   const CAUTION = '#b45309';
   const GRAY = [[0, 'rgb(0,0,0)'], [1, 'rgb(255,255,255)']];
@@ -17,9 +18,9 @@
   function unpack(o) {
     const raw = new Int16Array(bytes(o.data).buffer);
     const n = o.nx * o.ny;
-    // The fix: the same voxels with each voxel's four samples in reverse order.
+    // The fix: the same voxels with each voxel's samples in reverse order.
     const reordered = new Float64Array(raw.length);
-    for (let v = 0; v < n; v++) for (let k = 0; k < 4; k++) reordered[v * 4 + k] = raw[v * 4 + 3 - k];
+    for (let v = 0; v < n; v++) for (let k = 0; k < N; k++) reordered[v * N + k] = raw[v * N + N - 1 - k];
     return { ...o, n, delivered: Float64Array.from(raw), reordered, mask: bytes(o.mask), labels: bytes(o.rois || o.spheres) };
   }
   const human = unpack(D.human);
@@ -27,18 +28,18 @@
 
   // Image k of a slice, as rows (row 0 at the top).
   function image(s, k, data = s.delivered) {
-    return Array.from({ length: s.ny }, (_, y) => Array.from({ length: s.nx }, (_, x) => data[(y * s.nx + x) * 4 + k]));
+    return Array.from({ length: s.ny }, (_, y) => Array.from({ length: s.nx }, (_, x) => data[(y * s.nx + x) * N + k]));
   }
   const toRows = (s, flat) => Array.from({ length: s.ny }, (_, y) => Array.from(flat.slice(y * s.nx, (y + 1) * s.nx), (v) => (Number.isFinite(v) ? v : null)));
 
   // Mean signal of a labelled region, per image.
   function regionMean(s, label, data = s.delivered) {
-    const sum = [0, 0, 0, 0];
+    const sum = new Array(N).fill(0);
     let count = 0;
     for (let v = 0; v < s.n; v++) {
       if (s.labels[v] !== label) continue;
       count++;
-      for (let k = 0; k < 4; k++) sum[k] += data[v * 4 + k];
+      for (let k = 0; k < N; k++) sum[k] += data[v * N + k];
     }
     return sum.map((x) => x / count);
   }
@@ -107,7 +108,7 @@
       width: 580, height: 430,
       margin: { l: 90, r: 30, t: 10, b: 70 },
       annotations: axisTitles('Inversion Time – TI (ms), as in the header', 'Signal (normalized)', { xy: -0.16, yx: -0.15 }),
-      xaxis: { range: [0, 2700], autorange: false, tickvals: TI },
+      xaxis: { range: [0, 2700], autorange: false, dtick: 500 },
       // Headroom above the data so the legend sits clear of it.
       yaxis: { range: [0, 1.5], autorange: false, tickvals: [0, 0.2, 0.4, 0.6, 0.8, 1] },
       legend: { x: 0.25, y: 0.99, font: { family: 'Times New Roman', size: 13 } },
@@ -133,35 +134,38 @@
 
   // ---------------------------------------------------------------- slides
 
-  // a. Step 0: the four images with their header TIs. Step 1: the T1 map and ROI medians. Step 2: answer (markup).
+  // a. Step 0: the images with their header TIs. Step 1: the T1 map and ROI medians. Step 2: answer (markup).
   action('ex6-map', {
     run(ctx) {
       return withQmRust(ctx, async () => {
         if (ctx.step < 1) {
-          // A 2 × 2 grid: columns x, rows y (top row first), with room for a title above each image.
-          const xd = [[0, 0.48], [0.52, 1]];
-          const yd = [[0.52, 0.94], [0.02, 0.44]];
-          const data = [0, 1, 2, 3].map((k) => ({
+          // A grid of COLS columns (top row first), with room for a title above each image.
+          const COLS = 4;
+          const rows = Math.ceil(N / COLS);
+          const ks = [...TI.keys()];
+          const xd = ks.map((k) => [(k % COLS) / COLS + 0.01, ((k % COLS) + 1) / COLS - 0.01]);
+          const yd = ks.map((k) => { const r = Math.floor(k / COLS); return [1 - (r + 1) / rows + 0.01, 1 - r / rows - 0.06]; });
+          const data = ks.map((k) => ({
             type: 'heatmap', z: image(human, k), colorscale: GRAY, showscale: false, hoverinfo: 'skip',
             xaxis: k ? `x${k + 1}` : 'x', yaxis: k ? `y${k + 1}` : 'y',
           }));
           const layout = imageLayout(human, { margin: { l: 5, r: 5, t: 5, b: 5 } });
-          [0, 1, 2, 3].forEach((k) => {
+          ks.forEach((k) => {
             const n = k ? k + 1 : '';
-            layout[`xaxis${n}`] = { ...blank, domain: xd[k % 2], anchor: `y${n}`, constrain: 'domain' };
-            layout[`yaxis${n}`] = { ...blank, domain: yd[Math.floor(k / 2)], anchor: `x${n}`, autorange: 'reversed', scaleanchor: `x${n}`, constrain: 'domain' };
+            layout[`xaxis${n}`] = { ...blank, domain: xd[k], anchor: `y${n}`, constrain: 'domain' };
+            layout[`yaxis${n}`] = { ...blank, domain: yd[k], anchor: `x${n}`, autorange: 'reversed', scaleanchor: `x${n}`, constrain: 'domain' };
           });
-          layout.annotations = [0, 1, 2, 3].map((k) => ({
+          layout.annotations = ks.map((k) => ({
             text: `TI = ${TI[k]} ms`, showarrow: false, xref: 'paper', yref: 'paper', yanchor: 'bottom',
-            x: (xd[k % 2][0] + xd[k % 2][1]) / 2, y: yd[Math.floor(k / 2)][1] + 0.005, font: { family: 'Times New Roman', size: 17 },
+            x: (xd[k][0] + xd[k][1]) / 2, y: yd[k][1] + 0.003, font: { family: 'Times New Roman', size: 14 },
           }));
           ctx.plot({ data, layout });
-          ctx.say('The four images they sent, with the TI their header gives for each.');
+          ctx.say(`The ${N} images they sent, with the TI their header gives for each.`);
           return;
         }
         if (!maps['human-delivered']) { ctx.say(`Fitting ${human.mask.reduce((a, b) => a + b, 0).toLocaleString('en-US')} voxels with qmrust…`); await paint(); }
         const t1 = t1Map(human, 'delivered');
-        ctx.plot({ data: [t1Heatmap(human, t1, 3000), roiMarkers()], layout: imageLayout(human) });
+        ctx.plot({ data: [t1Heatmap(human, t1, 5000), roiMarkers()], layout: imageLayout(human) });
         ctx.say(roiTable(t1, 'as delivered'));
       });
     },
@@ -204,7 +208,7 @@
           const [cx, cy] = centroid(nist, SPHERE);
           ctx.plot({
             data: [
-              { type: 'heatmap', z: image(nist, 3), colorscale: GRAY, showscale: false, hoverinfo: 'skip' },
+              { type: 'heatmap', z: image(nist, N - 1), colorscale: GRAY, showscale: false, hoverinfo: 'skip' },
               { x: [cx], y: [cy], mode: 'markers+text', text: [`sphere ${SPHERE}`], textposition: 'top center',
                 textfont: { color: '#f2b705', size: 16, family: 'Times New Roman' },
                 marker: { size: 34, color: 'rgba(0,0,0,0)', line: { color: '#f2b705', width: 3 } } },
@@ -229,19 +233,24 @@
     run(ctx) {
       return withQmRust(ctx, () => {
         const sim = simulated();
+        const wm = normalize(wmMean(human.delivered));
+        const sphere = normalize(regionMean(nist, SPHERE));
+        // Where each dips: the simulation's null, and the lowest measured sample.
+        const dip = (y) => TI[y.indexOf(Math.min(...y))];
+        const [dipSim, dipWM, dipSphere] = [sim.at, wm, sphere].map(dip);
         const shapes = ctx.step >= 1
-          ? [400, 1100].map((x, i) => ({ type: 'line', xref: 'x', yref: 'paper', x0: x, x1: x, y0: 0, y1: 1, line: { color: i ? CAUTION : 'black', dash: 'dash', width: 1.5 } }))
+          ? [dipSim, dipSphere, dipWM].map((x, i) => ({ type: 'line', xref: 'x', yref: 'paper', x0: x, x1: x, y0: 0, y1: 1, line: { color: i ? CAUTION : 'black', dash: 'dash', width: 1.5 } }))
           : [];
         ctx.plot({
           data: [
-            points(normalize(wmMean(human.delivered)), 'Human WM, measured', COLORS[0]),
-            points(normalize(regionMean(nist, SPHERE)), `Phantom sphere ${SPHERE}, measured`, COLORS[2], 'square'),
+            points(wm, 'Human WM, measured', COLORS[0]),
+            points(sphere, `Phantom sphere ${SPHERE}, measured`, COLORS[2], 'square'),
             ...simTraces(sim),
           ],
           layout: signalLayout({ shapes }),
         });
         ctx.say(ctx.step >= 1
-          ? 'The simulation dips (its null) at <b>400 ms</b>; both data sets dip at <b>1100 ms</b>, and are highest at 50 ms, where an inversion recovery is still strongly inverted.'
+          ? `The simulation dips (its null) early, at <b>${fmt(dipSim)} ms</b>, then recovers. Both data sets <i>fall</i> from the shortest TI and dip late (phantom <b>${fmt(dipSphere)} ms</b>, WM <b>${fmt(dipWM)} ms</b>), then rise: the simulation's shape, read from right to left.`
           : 'Human WM, the phantom sphere and the simulation, each normalized to its maximum.');
       });
     },
@@ -260,7 +269,7 @@
         ctx.plot({ data, layout: signalLayout() });
         if (ctx.step < 2) {
           ctx.say(ctx.step >= 1
-            ? 'Taken in reverse TI order, the simulated values follow the measured pattern, with the dip at 1100 ms. The remaining gaps come from the scanner’s imperfect inversion, which the fit’s free <i>a</i> and <i>b</i> absorb.'
+            ? 'Taken in reverse TI order, the simulated values follow the measured pattern. The remaining gaps come from the scanner’s imperfect inversion, which the fit’s free <i>a</i> and <i>b</i> absorb.'
             : 'The phantom sphere and its expected signal, as in part b.');
           return;
         }
@@ -281,7 +290,7 @@
         const order = ctx.step >= 1 ? 'reordered' : 'delivered';
         if (!maps[`human-${order}`]) { ctx.say('Fitting with qmrust…'); await paint(); }
         const t1 = t1Map(human, order);
-        ctx.plot({ data: [t1Heatmap(human, t1, 3000), roiMarkers()], layout: imageLayout(human) });
+        ctx.plot({ data: [t1Heatmap(human, t1, 5000), roiMarkers()], layout: imageLayout(human) });
         ctx.say(roiTable(t1, ctx.step >= 1 ? 'images reordered' : 'as delivered'));
       });
     },

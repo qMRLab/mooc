@@ -57,7 +57,7 @@ Find an open-source tool besides qMRLab that also has a VFA (also known as DESPO
 ```
 
 ```{exercise}
-You receive an email from a collaborator in your city asking for help with a _T_{sub}`1` dataset they acquired on their new 3T scanner. They tried fitting the data with qMRLab already, but are getting _T_{sub}`1` values in the brain that are beyond the expected values (eg, WM: 2000ms, GM, 5000 ms). They send you their acquired data.
+You receive an email from a collaborator in your city asking for help with a _T_{sub}`1` dataset they acquired on their new 3T scanner. They tried fitting the data with qMRLab already, but are getting _T_{sub}`1` values in the brain that are beyond the expected values (eg, WM: 5000 ms, GM: 5000 ms). They send you their acquired data.
 
 **a.** Fit a _T_{sub}`1` map using their data and plot a few voxel signal curves.
 

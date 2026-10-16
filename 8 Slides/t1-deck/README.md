@@ -32,7 +32,7 @@ Each exercise is its own short deck. They are **unlisted**: neither the book nor
 | 2 · Ernst angle, optimal VFA angles, SPGR contrast | 7 | Figure 2.8 + Eqs. 2.5–2.6 |
 | 3 · IR at 1.5 T with TR = 3 s | 5 | qmrust (a, b); Figure 2.6 (c) |
 | 4 · From human to mouse: IR protocol design | 5 | qmrust |
-| 6 · A collaborator's strange T1 values (images in reverse TI order) | 8 | qmrust on real data: ISMRM 2020 T1 challenge, human + NIST phantom |
+| 6 · A collaborator's strange T1 values (images in reverse TI order) | 8 | qmrust on ISMRM 2020 T1 challenge data (human + NIST phantom), resampled to 10 TIs |
 
 ## What's here
 
@@ -45,7 +45,7 @@ Each exercise is its own short deck. They are **unlisted**: neither the book nor
 | `js/exercise.js` | Exercise runtime: Solve/Reset buttons, inputs, click-to-solve steps |
 | `js/solve.js` | The maths of the solutions (Node-tested) |
 | `js/qmrust.js` | Loads qmrust and wraps its inversion recovery model (times in ms) |
-| `js/data/ex6.js` | Exercise 6 data, one slice each of the human brain and NIST phantom (rebuild with `python3 -I tools/build_ex6_data.py`) |
+| `js/data/ex6.js` | Exercise 6 data, one slice each of the human brain and NIST phantom: each voxel of the acquired 4-TI data fitted, then resampled to 10 TIs (50–2500 ms) with matching noise (rebuild with `python3 -I tools/build_ex6_data.py`) |
 | `vendor/qmrust/` | qmrust WebAssembly engine and glue; provenance in `SOURCE.md` (refresh with `python3 -I tools/extract_qmrust.py`) |
 | `js/figures/*.js` | The book's published figures, copied unchanged. Do not edit |
 | `img/` | Pulse-sequence diagrams from the chapter |
