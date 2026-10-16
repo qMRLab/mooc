@@ -57,11 +57,11 @@ Find an open-source tool besides qMRLab that also has a VFA (also known as DESPO
 ```
 
 ```{exercise}
-You receive an email from a collaborator in your city asking for help with a _T_{sub}`1` dataset they acquired on their new 3T scanner. They tried fitting the data with qMRLab already, but are getting _T_{sub}`1` values in the brain that are beyond the expected values (eg, WM: 2000ms, GM, 5000 ms). They send you their acquired data.
+You receive an email from a collaborator in your city asking for help with a _T_{sub}`1` dataset they acquired on their new 3T scanner. They tried fitting the data with qMRLab already, but are getting _T_{sub}`1` values in the brain that are beyond the expected values (eg, WM: 5000 ms, GM: 5000 ms). They send you their acquired data.
 
 **a.** Fit a _T_{sub}`1` map using their data and plot a few voxel signal curves.
 
-**b.** Luckily, you own a standardized quantitative MRI NIST phantom with known _T_{sub}`1` values, and are able to go to your collaborators scanner to acquire a dataset using their protocol. Here is data you acquired for a region of the phantom with a known _T_{sub}`1` value (900 ms +- 5ms) close to the expected WM values. Plot that data, and simulate the expected signal curve for this _T_{sub}`1` value
+**b.** Luckily, you own a standardized quantitative MRI NIST phantom with known _T_{sub}`1` values, and are able to go to your collaborators scanner to acquire a dataset using their protocol. Here is data you acquired for a region of the phantom with a known _T_{sub}`1` value (987 ms) close to the expected WM values. Plot that data, and simulate the expected signal curve for this _T_{sub}`1` value
 
 **c.** Comparing the human and phantom data and the simulated curves, what do you notice? What do you think may be the problem?
 

@@ -85,3 +85,61 @@ test('figures stay mounted only near the current slide', () => {
   assert.ok(deck.shouldMount(5, 5) && deck.shouldMount(5, 4) && deck.shouldMount(5, 6));
   assert.ok(!deck.shouldMount(5, 7) && !deck.shouldMount(5, 3));
 });
+
+// ---------------------------------------------------------------- exercise pages
+
+const EXERCISES = [1, 2, 3, 4, 6].map((n) => `exercise-${n}.html`);
+
+function page(file) {
+  const text = fs.readFileSync(path.join(DECK, file), 'utf8');
+  const grab = (re) => [...text.matchAll(re)].map((m) => m[1]);
+  return {
+    text,
+    sections: (text.match(/<section\b/g) || []).length,
+    books: grab(/data-book="([^"]+)"/g),
+    figs: grab(/data-fig="([^"]+)"/g),
+    scripts: grab(/<script src="([^"]+)"/g),
+    // Every action id the markup refers to, from fragments, auto-run slides and buttons.
+    used: [
+      ...grab(/data-action="([^"]+)"/g),
+      ...grab(/data-auto="([^"]+)"/g).flatMap((s) => s.split(/\s+/)),
+      ...grab(/data-run="([^"]+)"/g),
+      ...grab(/data-reset="([^"]+)"/g),
+    ],
+  };
+}
+
+// The solutions are unlisted: exercises.html links them, the T1 deck (embedded in the book) does not.
+test('exercises.html links every exercise page; the T1 deck links none', () => {
+  const hub = fs.readFileSync(path.join(DECK, 'exercises.html'), 'utf8');
+  for (const file of EXERCISES) {
+    assert.ok(hub.includes(`href="${file}"`), `exercises.html has no link to ${file}`);
+    assert.ok(!html.includes(file), `index.html mentions ${file}`);
+  }
+  assert.ok(!html.includes('exercises.html'), 'index.html mentions exercises.html');
+});
+
+for (const file of EXERCISES) {
+  test(`${file}: slides, scripts and actions are wired`, () => {
+    const p = page(file);
+    assert.equal(p.books.length, p.sections, 'each <section> needs data-book');
+    for (const label of p.books) assert.ok(deck.LABELS[label], `no LABELS entry for "${label}"`);
+    for (const src of p.scripts) assert.ok(fs.existsSync(path.join(DECK, src)), `missing ${src}`);
+    for (const label of p.figs) assert.ok(p.scripts.includes(`js/figures/${label}.js`), `no script tag for ${label}`);
+
+    const n = file.match(/\d/)[0];
+    const order = ['js/deck.js', 'js/solve.js', 'js/exercise.js', `js/ex${n}.js`];
+    const at = order.map((s) => p.scripts.indexOf(s));
+    assert.ok(at.every((i) => i >= 0), `${file} must load ${order.join(', ')}`);
+    assert.deepEqual([...at].sort((a, b) => a - b), at, `${file} loads ${order.join(', ')} out of order`);
+
+    const registered = new Set([...fs.readFileSync(path.join(DECK, 'js', `ex${n}.js`), 'utf8').matchAll(/action\('([^']+)'/g)].map((m) => m[1]));
+    for (const id of p.used) assert.ok(registered.has(id), `${file} uses action "${id}" but js/ex${n}.js does not register it`);
+
+    if (p.scripts.includes('js/qmrust.js')) {
+      const q = p.scripts.indexOf('js/qmrust.js');
+      assert.ok(p.scripts.indexOf('vendor/qmrust/qmrust_wasm.js') < q && p.scripts.indexOf('vendor/qmrust/qmrust_wasm_b64.js') < q,
+        'the qmrust engine files must load before js/qmrust.js');
+    }
+  });
+}

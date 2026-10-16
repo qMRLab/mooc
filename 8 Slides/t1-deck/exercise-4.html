@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4 · T1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem long" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>1</sub> Mapping · Exercise 4</p>
+  <h2>From human to mouse: is the IR protocol still good?</h2>
+  <p>Imagine you’re a graduate student in a lab that recently transitioned from human imaging to animal imaging (specifically, mouse models of multiple sclerosis). Because there has never been MRI data acquired in your lab in mouse, your advisor asks you to acquire <i>T</i><sub>1</sub> maps of some healthy mice to get the an estimate of <i>T</i><sub>1</sub> values in white matter so that you can use this value to optimize other pulse sequence protocols (eg protocol parameters for <i>T</i><sub>1</sub>-weighted images, optimal flip angle for spoiled gradient angle SNR, etc). You do some literature search and find a paper that measured <i>T</i><sub>1</sub> in mice (Kuo et al. 2005), but using a different pulse sequence.</p>
+  <ol>
+    <li><b>a.</b> Using qMRLab, determine if the IR imaging protocol (TR = 1000 ms , TI = [100, 300, 600, 900] ms) you used for your previous human study at 1.5 T (where WM has a <i>T</i><sub>1</sub> of ~600ms) would yield good results if applied to mice (at 9.4 T, (Kuo et al. 2005) reports a WM <i>T</i><sub>1</sub> of ~1700 ms). Assume an SNR of 100. Explain how you’ve reached your conclusion.</li>
+    <li><b>b.</b> If the human <i>T</i><sub>1</sub> mapping 1.5T protocol is not appropriate to image mice at 9.4T, explain via written arguments why this might be the case. Use simulation figures to support your arguments.</li>
+    <li><b>c.</b> Propose a new protocol that might yield more precise and/or accurate <i>T</i><sub>1</sub> maps. Why did you make those changes? How did you determine the improvement?</li>
+  </ol>
+  <aside class="notes">Exercise 4 from the end of the T1 chapter, quoted as written. "Using qMRLab": here the simulations and fits run in the browser with qmrust, the Rust/WebAssembly port of qMRLab, using the same model (inversion_recovery, general-equation RD-NLS fit) and Rician noise at SNR 100, as in Figure 2.6.</aside>
+</section>
+
+<section class="ex" data-book="irplot5" data-auto="ex4-mc">
+  <div class="ex-layout">
+    <h2>a. The human protocol on human and mouse WM</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <table class="measure">
+          <tr><td>Human WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1human" value="600" aria-label="Human WM T1"> at 1.5 T</td></tr>
+          <tr><td>Mouse WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1mouse" value="1700" aria-label="Mouse WM T1"> at 9.4 T</td></tr>
+          <tr><td>TR (ms)</td><td><input data-key="tr" value="1000" aria-label="TR"></td></tr>
+          <tr><td>TIs (ms)</td><td><input class="list" data-key="tis" value="100, 300, 600, 900" aria-label="Inversion times"></td></tr>
+          <tr><td>SNR</td><td><input data-key="snr" value="100" aria-label="SNR"></td></tr>
+          <tr><td>Noise trials</td><td><input data-key="trials" value="500" aria-label="Number of noise trials"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex4-mc" data-step="1">1 · Monte Carlo</button>
+          <button data-run="ex4-mc" data-step="2">2 · Conclusion</button>
+          <button class="secondary" data-run="ex4-mc">Run</button>
+          <button class="secondary" data-reset="ex4-mc">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex4-mc"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex4-mc">
+          <p class="answer">The mean is still close to the truth, but the spread is <b><span class="ans-ratio">2.3</span>× larger</b> for mouse WM (CV <span class="ans-mouse">11</span>% vs <span class="ans-human">5</span>%): the protocol is <b>not good enough</b> for mice.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">As in Figure 2.6. The slide opens on the noiseless signal of each tissue with the protocol's four TIs. Click 1: for each T1, qmrust simulates the four TIs with Rician noise at SNR 100, 500 times, and fits each repetition with the general-equation model (RD-NLS, qMRLab's default). Markers are the mean noisy signal ± 1 SD; the table gives the mean and SD of the fitted T1. Click 2: the conclusion. Human WM (600 ms): CV about 5%. Mouse WM (1700 ms): CV about 11%, so about 5 times more averaging would be needed to match the human precision. Change SNR or the trials live if asked.</aside>
+</section>
+
+<section class="ex" data-book="irplot2" data-auto="ex4-why">
+  <div class="ex-layout">
+    <h2>b. Why the human protocol fails in mice</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Explain why the human 1.5 T protocol is not appropriate to image mice at 9.4 T. Use simulation figures to support your arguments.</p>
+        <div class="btn-row">
+          <button data-run="ex4-why" data-step="1">1 · Full recovery</button>
+          <button data-run="ex4-why" data-step="2">2 · Long-TR fit</button>
+          <button data-run="ex4-why" data-step="3">3 · Why</button>
+        </div>
+        <div class="fragment step" data-action="ex4-why"></div>
+        <div class="fragment step" data-action="ex4-why"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex4-why">
+          <ul class="answer">
+            <li><b>TR ≪ <i>T</i><sub>1</sub></b>: TR = 1000 ms is 0.6 <i>T</i><sub>1</sub>, far from the 2–5 <i>T</i><sub>1</sub> of conventional IR, so the magnetization barely recovers between inversions.</li>
+            <li><b>Small signal range</b> across the four TIs, so noise matters more.</li>
+            <li><b>Long-TR fitting</b> would be badly wrong (see the table).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the signal actually measured at TR = 1000 ms (general equation), with the four TIs. Click 1: dashed, what full recovery (long TR) would give, and the signal ranges. Click 2: what a long-TR fit would report. Click 3: the arguments. The mouse curve is compressed: the inversion starts from a magnetization that has not recovered (e^(−TR/T1) = 0.56, against 0.19 for human WM), so the signal varies over a much smaller range across the four TIs. A general-equation fit can still be accurate on average, but it is noisy. A pipeline using the long-TR model would be badly wrong for both: about 410 ms for human WM and 550 ms for mouse WM at this TR.</aside>
+</section>
+
+<section class="ex" data-book="irplot5" data-auto="ex4-proposed">
+  <div class="ex-layout">
+    <h2>c. A protocol for mouse WM</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <table class="measure">
+          <tr><td>Mouse WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1mouse" value="1700" aria-label="Mouse WM T1"></td></tr>
+          <tr><td>TR (ms)</td><td><input data-key="tr" value="5000" aria-label="TR"></td></tr>
+          <tr><td>TIs (ms)</td><td><input class="list" data-key="tis" value="100, 1000, 2000, 4000" aria-label="Inversion times"></td></tr>
+          <tr><td>SNR</td><td><input data-key="snr" value="100" aria-label="SNR"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex4-proposed" data-step="1">1 · New protocol</button>
+          <button data-run="ex4-proposed" data-step="2">2 · Why it works</button>
+          <button class="secondary" data-run="ex4-proposed">Run</button>
+          <button class="secondary" data-run="ex4-proposed" data-preset='{"tr": "5000", "tis": "100, 1000, 2000, 4000"}'>Proposed</button>
+        </div>
+        <div class="fragment step" data-action="ex4-proposed"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex4-proposed">
+          <p class="answer">TR ≈ 3 <i>T</i><sub>1</sub> lets the magnetization recover, and TIs out to ≈ 2.4 <i>T</i><sub>1</sub> sample the whole curve: more precise, even per unit of scan time.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the human protocol applied to mouse WM (the baseline from part a). Click 1: the protocol in the boxes, compared with it. Click 2: why it works. The proposed protocol (TR = 5000 ms, TI = 100, 1000, 2000, 4000 ms) was chosen by Monte Carlo simulation among a range of TRs and TI sets, keeping four TIs. It brings the CV of mouse WM T1 from about 11% to about 2.3%. It takes 5 times longer per slice, but the CV × √(scan time) column, which compares precision for equal scan time, still improves about twofold. Edit the TR and TIs to test the class's own proposals.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 4: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>At SNR 100, the human protocol gives WM <i>T</i><sub>1</sub> with CV ≈ 5% in humans but ≈ 11% in mice: not good enough</td></tr>
+    <tr><td>b</td><td>TR = 1000 ms ≈ 0.6 <i>T</i><sub>1</sub>: little recovery, a compressed signal range and a broken long-TR assumption</td></tr>
+    <tr><td>c</td><td>TR 5000 ms, TI 100 / 1000 / 2000 / 4000 ms: CV ≈ 2.3%, about twice as precise for the same scan time</td></tr>
+  </table>
+  <p class="muted small">All simulations and fits on these slides: qmrust (Rust/WebAssembly port of qMRLab), running in the browser.</p>
+  <p class="muted small"><a href="exercises.html">← All exercises</a></p>
+  <aside class="notes">Summary. Numbers are from Monte Carlo simulations with a fixed random seed, so they are the same at every run.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="vendor/qmrust/qmrust_wasm.js"></script>
+<script src="vendor/qmrust/qmrust_wasm_b64.js"></script>
+<script src="js/figures/irPlot1.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/qmrust.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex4.js"></script>
+</body>
+</html>

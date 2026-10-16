@@ -166,3 +166,5 @@ cython_debug/
 
 data/
 jupyter-matlab-proxy/
+# The T1 deck's exercise data are small, generated and needed by the published slides.
+!8 Slides/t1-deck/js/data/

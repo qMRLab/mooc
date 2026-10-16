@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 3 · T1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>1</sub> Mapping · Exercise 3</p>
+  <h2>Inversion recovery at 1.5 T with a fixed TR of 3 s</h2>
+  <ol>
+    <li><b>a.</b> The IR signal curves for WM/GM/CSF in Figure 2.2<sup>*</sup> were simulated for 3T <i>T</i><sub>1</sub> tissue values. Using Binder and the notebook that was used to generate that figure<sup>*</sup>, regenerate that figure for <i>T</i><sub>1</sub> values at 1.5 T (WM ~ 650 ms and GM ~ 1200 ms as reported by (Wright et al. 2008)). Assume the CSF value does not change.</li>
+    <li><b>b.</b> An IR <i>T</i><sub>1</sub> mapping pulse sequence that a previous student developed and is available at the MRI scanner has a fixed TR of 3 seconds. Could you use a data analysis pipeline that only has the long-TR IR <i>T</i><sub>1</sub> fitting option available to map <i>T</i><sub>1</sub> in WM, at 1.5T and/or 3T? Show this visually via simulations.</li>
+    <li><b>c.</b> Are there any inversion times you should avoid using when designing an IR <i>T</i><sub>1</sub> mapping protocol at 1.5T when using this TR? If so, demonstrate why and which one(s) using modified code from one of these notebook figures.</li>
+  </ol>
+  <p class="footnote"><sup>*</sup> The book cites Figure 2.3 and “that blog post”; the WM/GM/CSF curves are Figure 2.2. The simulations on the next slides run live in this page with qmrust, the Rust/WebAssembly port of qMRLab.</p>
+  <aside class="notes">Exercise 3 from the end of the T1 chapter. Part a points to the wrong figure in the book (irPlot2, Figure 2.3, is the single-T1 slider figure); the WM/GM/CSF curves are Figure 2.2. Every figure in this exercise is computed in the browser by qmrust, so the values can be changed during class.</aside>
+</section>
+
+<section class="ex" data-book="irplot1" data-auto="ex3-curves">
+  <div class="ex-layout">
+    <h2>a. Regenerate Figure 2.2 at 1.5 T (WM ~650 ms, GM ~1200 ms)</h2>
+    <div class="ex-cols even">
+      <div class="ex-text">
+        <p class="code-caption">From the IR blog notebook (Octave + qMRLab) that generated Figure 2.2’s data. Edit it, then ▶ Run (Ctrl/⌘+Enter): qmrust recomputes it here.</p>
+        <textarea class="code" data-key="code" rows="22" spellcheck="false" aria-label="Notebook code">% All times are in seconds
+params.TR = 5.0;
+params.TI = linspace(0.001, params.TR, 1000);
+params.TE = 0.004;
+params.T2 = 0.040;
+params.EXC_FA = 90;  % Excitation flip angle
+params.INV_FA = 180; % Inversion flip angle
+params.signalConstant = 1;
+
+% Option 4: long TR approximation (Eq. 2.3)
+
+% White matter
+params.T1 = 0.900; % in seconds
+signal_WM = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);
+
+% Grey matter
+params.T1 = 1.500;  % in seconds
+signal_GM = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);
+
+% CSF
+params.T1 = 4.000;  % in seconds
+signal_CSF = inversion_recovery.analytical_solution(params, 'GRE-IR', 4);</textarea>
+        <div class="btn-row">
+          <button data-run="ex3-curves">▶ Run</button>
+          <button class="secondary" data-reset="ex3-curves">Reset</button>
+          <button class="secondary" data-run="ex3-curves" data-step="1">1 · Book (3 T)</button>
+          <button class="secondary" data-run="ex3-curves" data-step="2">2 · Nulls</button>
+        </div>
+        <div class="fragment step" data-action="ex3-curves"></div>
+        <div class="fragment step" data-action="ex3-curves"></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The code is cell 11 of the original IR blog notebook (Octave with qMRLab), which generated the data for Figure 2.2; only some comment lines are trimmed. As loaded, Run reproduces the book's Figure 2.2. In class: change params.T1 to 0.650 (WM) and 1.200 (GM), leave CSF, and Run. On this slide the code is not run by Octave: the page reads the params assignments, linspace and analytical_solution calls (options 4 and 1) and computes the same equations with qmrust. Click 1: the book's 3 T curves, dashed, for comparison. Click 2: the null times of the curves in the code (T1 ln 2 with option 4): WM and GM move from 624 and 1040 ms to about 451 and 832 ms; CSF does not change. The x-axis is in seconds, as the notebook's TI.</aside>
+</section>
+
+<section class="ex" data-book="irplot3" data-auto="ex3-longtr">
+  <div class="ex-layout">
+    <h2>b. Long-TR fitting with TR = 3 s</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Could you use a data analysis pipeline that only has the long-TR IR <i>T</i><sub>1</sub> fitting option available to map <i>T</i><sub>1</sub> in WM, at 1.5T and/or 3T?</p>
+        <table class="measure">
+          <tr><td>WM <i>T</i><sub>1</sub> (ms)</td><td><input data-key="t1" value="650" aria-label="WM T1"></td></tr>
+          <tr><td>TR (ms)</td><td><input data-key="tr" value="3000" aria-label="TR"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button class="secondary" data-run="ex3-longtr" data-preset='{"t1": "650"}'>WM at 1.5 T</button>
+          <button class="secondary" data-run="ex3-longtr" data-preset='{"t1": "900"}'>WM at 3 T</button>
+        </div>
+        <div class="btn-row">
+          <button data-run="ex3-longtr" data-step="1">1 · Long-TR fit</button>
+          <button data-run="ex3-longtr" data-step="2">2 · General fit</button>
+          <button data-run="ex3-longtr" data-step="3">3 · Both fields</button>
+        </div>
+        <div class="fragment step" data-action="ex3-longtr"></div>
+        <div class="fragment step" data-action="ex3-longtr"></div>
+        <div class="fragment step" data-action="ex3-longtr"></div>
+        <div class="result"></div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">As in Figure 2.4. The slide opens on the data: simulated with the general equation (Eq. 2.2) at TIs from 50 to 1500 ms, by qmrust. Click 1: the long-TR fit (Eq. 2.3). Click 2: the general fit for reference, which recovers T1 exactly. Click 3: the same long-TR fit at both field strengths, and the conclusion. At TR = 3 s the long-TR fit underestimates WM T1 by about 1.7% at 1.5 T (TR/T1 = 4.6) and about 5.8% at 3 T (TR/T1 = 3.3). The neglected term is e^(−TR/T1): 0.010 at 1.5 T and 0.036 at 3 T. So: usable at 1.5 T, biased by about 6% at 3 T.</aside>
+</section>
+
+<section class="ex" data-book="irplot5">
+  <div class="ex-layout">
+    <h2>c. TIs to avoid: Figure 2.6</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> Are there any inversion times you should avoid using when designing an IR <i>T</i><sub>1</sub> mapping protocol at 1.5T when using this TR?</p>
+        <div class="btn-row">
+          <button data-run="ex3-null" data-step="1">1 · TI on the null</button>
+          <button data-run="ex3-null" data-step="2">2 · Answer</button>
+        </div>
+        <div class="fragment step" data-action="ex3-null"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex3-null">
+          <p class="answer">Avoid TIs at the <b>null</b> of the tissue you want to measure: magnitude images there are dominated by Rician noise, which can negatively impact the fit under low SNR. For WM at 1.5 T with TR = 3 s, that is TI ≈ <span class="ans-null">444</span> ms.</p>
+        </div>
+      </div>
+      <div class="fig-host" data-fig="irPlot5"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on Figure 2.6 as the book publishes it: Monte Carlo simulations for T1 = 900 ms with six TIs linearly spaced up to TR; the insets give the mean and STD of the fitted T1 against TR. Click 1: the slider moves to TR = 2900 ms, where the second TI (TR/5 = 580 ms) lands on the null (589 ms). Both are circled: that TI on the signal curve, and the STD of the fitted T1 in the inset, which blips up there (about 90 ms, against about 70–75 ms for nearby TRs). The simulations are noisy, so other TRs wobble too; drag the slider around 2600–3000 ms to show it. Click 2: the answer, from the book's text: avoid TIs where the signal of the tissue of interest is nulled. For WM at 1.5 T (650 ms) with TR = 3 s, the null is at 444 ms (Eq. 2.2; 451 ms with the long-TR approximation, as in part a).</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 3: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>At 1.5 T the WM and GM nulls move earlier: ≈ 451 ms (WM) and 832 ms (GM); CSF is unchanged (2773 ms)</td></tr>
+    <tr><td>b</td><td>With TR = 3 s the long-TR fit underestimates WM <i>T</i><sub>1</sub> by ≈ 1.7% at 1.5 T and ≈ 5.8% at 3 T: fine at 1.5 T, biased at 3 T</td></tr>
+    <tr><td>c</td><td>Avoid TIs at the WM null, ≈ 444 ms at TR = 3 s: Figure 2.6 shows the STD of the fitted <i>T</i><sub>1</sub> blips up when a TI lands on the null</td></tr>
+  </table>
+  <p class="muted small">Simulations and fits in parts a and b: qmrust (Rust/WebAssembly port of qMRLab), running in the browser.</p>
+  <p class="muted small"><a href="exercises.html">← All exercises</a></p>
+  <aside class="notes">Summary. Parts a and b assume ideal pulses and noise-free data, as in Figures 2.2–2.4; part c uses the Monte Carlo simulations of Figure 2.6.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="vendor/qmrust/qmrust_wasm.js"></script>
+<script src="vendor/qmrust/qmrust_wasm_b64.js"></script>
+<script src="js/figures/irPlot1.js"></script>
+<script src="js/figures/irPlot5.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/qmrust.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex3.js"></script>
+</body>
+</html>
