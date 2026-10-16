@@ -8,6 +8,8 @@ const path = require('node:path');
 
 const DECK = path.resolve(__dirname, '..');
 const EXERCISES = [1, 2, 3, 4, 6].map((n) => `exercise-${n}.html`);
+// The central page that links the exercise decks (not linked from the book or the T1 deck).
+const HUB = 'exercises.html';
 const SHOTS = path.join(__dirname, 'screenshots');
 const SIZES = [[1280, 720], [1920, 1080]];
 
@@ -272,7 +274,16 @@ async function checkQmRustFallback(browser) {
       problems.push(...(await checkSliderDrag(page, label)));
       problems.push(...(await checkRapidNavigation(page, label)));
       problems.push(...errors.map((e) => `${label}: ${e}`));
+      // The solutions stay unlisted: the T1 deck (embedded in the book) must not link to them.
+      const leaks = await page.evaluate(() => [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => /exercise/.test(h) && !/qmrlab\.org/.test(h)));
+      if (leaks.length) problems.push(`${label}: the T1 deck links to the solutions: ${leaks.join(', ')}`);
       await page.close();
+      const hub = await openDeck(browser, HUB, w, h);
+      problems.push(...(await checkSlides(hub.page, `exercises-${label}`)));
+      const listed = await hub.page.evaluate(() => [...document.querySelectorAll('.exercise-list a')].map((a) => a.getAttribute('href')));
+      if (listed.join() !== EXERCISES.join()) problems.push(`${label}: exercises.html lists ${listed.join(', ')}`);
+      problems.push(...hub.errors.map((e) => `exercises-${label}: ${e}`));
+      await hub.page.close();
       for (const file of EXERCISES) {
         const tag = `${file.replace('.html', '')}-${label}`;
         const ex = await openDeck(browser, file, w, h);

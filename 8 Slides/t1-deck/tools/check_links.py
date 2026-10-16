@@ -13,7 +13,7 @@ BOOK = "https://qmrlab.org/mooc/t1-mapping"
 
 
 def main():
-    pages = [DECK / "index.html", *sorted(DECK.glob("exercise-*.html"))]
+    pages = [DECK / "index.html", DECK / "exercises.html", *sorted(DECK.glob("exercise-*.html"))]
     labels = sorted({label for page in pages for label in re.findall(r'data-book="([^"]+)"', page.read_text())} - {"top"})
     with urllib.request.urlopen(BOOK) as response:
         ids = set(re.findall(r'\bid="([^"]+)"', response.read().decode("utf-8", "replace")))

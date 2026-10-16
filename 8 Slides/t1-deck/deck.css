@@ -181,3 +181,8 @@
 .reveal textarea.code:focus { outline: 3px solid #f2b705; outline-offset: 1px; }
 .reveal .code-caption { font-size: 0.78em; color: var(--muted); margin: 0 0 0.3em; }
 .reveal .ex-cols.even { grid-template-columns: 1fr 1fr; }
+
+/* exercises.html: the list of worked solutions. */
+.reveal .exercise-list li { font-size: 0.9em; }
+.reveal .exercise-list a { text-decoration: none; }
+.reveal .exercise-list + p { margin-top: 1.6em; }

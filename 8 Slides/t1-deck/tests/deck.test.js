@@ -109,8 +109,14 @@ function page(file) {
   };
 }
 
-test('the T1 deck links to every exercise page', () => {
-  for (const file of EXERCISES) assert.ok(html.includes(`href="${file}"`), `index.html has no link to ${file}`);
+// The solutions are unlisted: exercises.html links them, the T1 deck (embedded in the book) does not.
+test('exercises.html links every exercise page; the T1 deck links none', () => {
+  const hub = fs.readFileSync(path.join(DECK, 'exercises.html'), 'utf8');
+  for (const file of EXERCISES) {
+    assert.ok(hub.includes(`href="${file}"`), `exercises.html has no link to ${file}`);
+    assert.ok(!html.includes(file), `index.html mentions ${file}`);
+  }
+  assert.ok(!html.includes('exercises.html'), 'index.html mentions exercises.html');
 });
 
 for (const file of EXERCISES) {

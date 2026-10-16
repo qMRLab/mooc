@@ -64,7 +64,7 @@ jobs:
         run: |
           mkdir -p _build/html/slides/t1
           cd "8 Slides/t1-deck"
-          cp -R index.html exercise-*.html deck.css js img vendor ../../_build/html/slides/t1/
+          cp -R index.html exercises.html exercise-*.html deck.css js img vendor ../../_build/html/slides/t1/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

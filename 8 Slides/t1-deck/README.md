@@ -19,10 +19,10 @@ The interactive figures are the book's own Plotly figures. Use their sliders, bu
 
 ## Exercise solutions
 
-Each exercise is its own short deck, linked from the T1 deck's *Exercises* slide. It opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
+Each exercise is its own short deck. They are **unlisted**: neither the book nor the T1 deck links to them. One central page, `exercises.html`, links them all; share its address (https://qmrlab.org/mooc/slides/t1/exercises.html once deployed) when the solutions should be available. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
 
 - **Step by step.** Each answer builds up one click at a time: the data first, then what a fit or calculation gives, then the proof or explanation. → (or a clicker) takes the next step and ← undoes it; the numbered buttons (1 · Plot, 2 · Fit, 3 · Prove…) jump to a step.
-- **Editable values.** "Measured" values sit in input boxes, pre-filled with our readings. Every step computes from whatever is in the boxes (Enter redraws); **Reset** restores them.
+- **Editable values.** Readings taken from a book figure (Exercises 1a and 2a) are typed on that slide and carry over to the later slides and the answers. Other "measured" values sit in input boxes, pre-filled with our readings. Every step computes from whatever is in the boxes (Enter redraws); **Reset** restores them.
 - **Exercises 1–2** work on the book's own Figures 2.2 and 2.8, with overlays (magnitude, WM − GM) added on click.
 - **Exercises 3–4** run live in the page with [qmrust](https://github.com/qMRLab/qmrust), the Rust/WebAssembly port of qMRLab: IR signals, long-TR and general-equation fits, and Monte Carlo noise simulations. Results appear in well under a second. If WebAssembly can't load, the plots show a fallback card.
 
@@ -30,7 +30,7 @@ Each exercise is its own short deck, linked from the T1 deck's *Exercises* slide
 |---|---|---|
 | 1 · IR null times and WM/GM contrast | 6 | Figure 2.2 + fit |
 | 2 · Ernst angle, optimal VFA angles, SPGR contrast | 7 | Figure 2.8 + Eqs. 2.5–2.6 |
-| 3 · IR at 1.5 T with TR = 3 s | 6 | qmrust |
+| 3 · IR at 1.5 T with TR = 3 s | 5 | qmrust (a, b); Figure 2.6 (c) |
 | 4 · From human to mouse: IR protocol design | 5 | qmrust |
 | 6 · A collaborator's strange T1 values (images in reverse TI order) | 8 | qmrust on real data: ISMRM 2020 T1 challenge, human + NIST phantom |
 
@@ -75,7 +75,7 @@ python3 -I tools/check_links.py  # every book anchor exists on the live chapter 
 
 ## Deploying
 
-Copy `index.html`, `exercise-*.html`, `deck.css`, `js/`, `img/` and `vendor/` to the host. The book's deploy workflow does this into `/mooc/slides/t1/`, which `8 Slides/2 - T1 Mapping.md` embeds.
+Copy `index.html`, `exercises.html`, `exercise-*.html`, `deck.css`, `js/`, `img/` and `vendor/` to the host. The book's deploy workflow does this into `/mooc/slides/t1/`, which `8 Slides/2 - T1 Mapping.md` embeds.
 
 ## Chapter issues found while building the deck
 
