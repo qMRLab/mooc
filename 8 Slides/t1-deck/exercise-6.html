@@ -21,12 +21,12 @@
   <p>You receive an email from a collaborator in your city asking for help with a <i>T</i><sub>1</sub> dataset they acquired on their new 3T scanner. They tried fitting the data with qMRLab already, but are getting <i>T</i><sub>1</sub> values in the brain that are beyond the expected values (eg, WM: 5000 ms, GM: 5000 ms). They send you their acquired data.</p>
   <ol>
     <li><b>a.</b> Fit a <i>T</i><sub>1</sub> map using their data and plot a few voxel signal curves.</li>
-    <li><b>b.</b> Luckily, you own a standardized quantitative MRI NIST phantom with known <i>T</i><sub>1</sub> values, and are able to go to your collaborators scanner to acquire a dataset using their protocol. Here is data you acquired for a region of the phantom with a known <i>T</i><sub>1</sub> value (900 ms +- 5ms)<sup>*</sup> close to the expected WM values. Plot that data, and simulate the expected signal curve for this <i>T</i><sub>1</sub> value</li>
+    <li><b>b.</b> Luckily, you own a standardized quantitative MRI NIST phantom with known <i>T</i><sub>1</sub> values, and are able to go to your collaborators scanner to acquire a dataset using their protocol. Here is data you acquired for a region of the phantom with a known <i>T</i><sub>1</sub> value (987 ms)<sup>*</sup> close to the expected WM values. Plot that data, and simulate the expected signal curve for this <i>T</i><sub>1</sub> value</li>
     <li><b>c.</b> Comparing the human and phantom data and the simulated curves, what do you notice? What do you think may be the problem?</li>
     <li><b>d.</b> Test your proposed problem with some of your simulation code.</li>
     <li><b>e.</b> What would you propose to your collaborator? Is a new data acquisition protocol required, or can you provide some post-processing corrections prior to fitting the data?</li>
   </ol>
-  <p class="footnote"><sup>*</sup> Data: ISMRM 2020 <i>T</i><sub>1</sub> mapping challenge, one brain and one NIST phantom scanned on the same GE 3T (TR 2550 ms), resampled to 10 TIs from 50 to 2500 ms. The phantom sphere used here has a reference <i>T</i><sub>1</sub> of 987 ms. Fits run live in this page with qmrust.</p>
+  <p class="footnote"><sup>*</sup> Data: ISMRM 2020 <i>T</i><sub>1</sub> mapping challenge, one brain and one NIST phantom scanned on the same GE 3T (TR 2550 ms), resampled to 10 TIs from 50 to 2500 ms. Fits run live in this page with qmrust.</p>
   <aside class="notes">Exercise 6 from the end of the T1 chapter, quoted as written. The data come from subject 01 and the NIST phantom (serial 46) of the USC site of the ISMRM 2020 T1 mapping challenge (osf.io/ywc9g), 2D spin-echo IR, TR 2550 ms, acquired at TI 50, 400, 1100 and 2500 ms. Each voxel was fitted and its signal resampled to 10 TIs equispaced from 50 to 2500 ms, with noise matching the real images (tools/build_ex6_data.py). The fault, kept for the reveal: the images were saved in the reverse order of the TIs listed in the header.</aside>
 </section>
 
