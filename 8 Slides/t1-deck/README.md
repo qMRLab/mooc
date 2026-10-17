@@ -19,7 +19,7 @@ The interactive figures are the book's own Plotly figures. Use their sliders, bu
 
 ## Exercise solutions
 
-Each exercise is its own short deck. They are **unlisted**: neither the book nor the T1 deck links to them. One central page, `exercises.html`, links them all; share its address (https://qmrlab.org/mooc/slides/t1/exercises.html once deployed) when the solutions should be available. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
+Each exercise is its own short deck. One central page, `exercises.html` (https://qmrlab.org/mooc/slides/t1/exercises.html), links them all; the book embeds it in its own page, `8 Slides/2 - T1 Mapping Exercises.md`, listed under Slides below the T1 deck. The T1 deck itself does not link to the solutions. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
 
 - **Step by step.** Each answer builds up one click at a time: the data first, then what a fit or calculation gives, then the proof or explanation. → (or a clicker) takes the next step and ← undoes it; the numbered buttons (1 · Plot, 2 · Fit, 3 · Prove…) jump to a step.
 - **Editable values.** Readings taken from a book figure (Exercises 1a and 2a) are typed on that slide and carry over to the later slides and the answers. Other "measured" values sit in input boxes, pre-filled with our readings. Every step computes from whatever is in the boxes (Enter redraws); **Reset** restores them.
@@ -75,7 +75,7 @@ python3 -I tools/check_links.py  # every book anchor exists on the live chapter 
 
 ## Deploying
 
-Copy `index.html`, `exercises.html`, `exercise-*.html`, `deck.css`, `js/`, `img/` and `vendor/` to the host. The book's deploy workflow does this into `/mooc/slides/t1/`, which `8 Slides/2 - T1 Mapping.md` embeds.
+Copy `index.html`, `exercises.html`, `exercise-*.html`, `deck.css`, `js/`, `img/` and `vendor/` to the host. The book's deploy workflow does this into `/mooc/slides/t1/`, which `8 Slides/2 - T1 Mapping.md` and `8 Slides/2 - T1 Mapping Exercises.md` embed.
 
 ## Chapter issues found while building the deck
 
