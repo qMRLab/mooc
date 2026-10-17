@@ -157,6 +157,7 @@ project:
     - title: Slides
       children:
         - file: 8 Slides/2 - T1 Mapping.md
+        - file: 8 Slides/2 - T1 Mapping Exercises.md
         - file: 8 Slides/6 - Magnetization Transfer Imaging.md
     - title: Notebooks
       children:

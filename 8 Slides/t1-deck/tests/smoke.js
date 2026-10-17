@@ -274,7 +274,7 @@ async function checkQmRustFallback(browser) {
       problems.push(...(await checkSliderDrag(page, label)));
       problems.push(...(await checkRapidNavigation(page, label)));
       problems.push(...errors.map((e) => `${label}: ${e}`));
-      // The solutions stay unlisted: the T1 deck (embedded in the book) must not link to them.
+      // The solutions have their own book page: the T1 deck itself must not link to them.
       const leaks = await page.evaluate(() => [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => /exercise/.test(h) && !/qmrlab\.org/.test(h)));
       if (leaks.length) problems.push(`${label}: the T1 deck links to the solutions: ${leaks.join(', ')}`);
       await page.close();

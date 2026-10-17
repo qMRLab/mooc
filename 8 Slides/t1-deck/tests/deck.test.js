@@ -109,7 +109,7 @@ function page(file) {
   };
 }
 
-// The solutions are unlisted: exercises.html links them, the T1 deck (embedded in the book) does not.
+// The solutions have their own book page (below the T1 deck in the TOC): exercises.html links them, the T1 deck does not.
 test('exercises.html links every exercise page; the T1 deck links none', () => {
   const hub = fs.readFileSync(path.join(DECK, 'exercises.html'), 'utf8');
   for (const file of EXERCISES) {
@@ -117,6 +117,16 @@ test('exercises.html links every exercise page; the T1 deck links none', () => {
     assert.ok(!html.includes(file), `index.html mentions ${file}`);
   }
   assert.ok(!html.includes('exercises.html'), 'index.html mentions exercises.html');
+});
+
+test('the book embeds exercises.html on its own page, listed just below the T1 deck', () => {
+  const book = path.resolve(DECK, '..', '..');
+  const md = fs.readFileSync(path.join(book, '8 Slides', '2 - T1 Mapping Exercises.md'), 'utf8');
+  assert.match(md, /<iframe class="reveal-frame" src="\/mooc\/slides\/t1\/exercises\.html"/);
+  const toc = fs.readFileSync(path.join(book, 'myst.yml'), 'utf8').split('\n').map((l) => l.trim());
+  const at = toc.indexOf('- file: 8 Slides/2 - T1 Mapping.md');
+  assert.ok(at >= 0, 'myst.yml does not list the T1 deck');
+  assert.equal(toc[at + 1], '- file: 8 Slides/2 - T1 Mapping Exercises.md');
 });
 
 for (const file of EXERCISES) {
