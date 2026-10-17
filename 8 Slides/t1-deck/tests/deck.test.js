@@ -109,14 +109,14 @@ function page(file) {
   };
 }
 
-// The solutions have their own book page (below the T1 deck in the TOC): exercises.html links them, the T1 deck does not.
-test('exercises.html links every exercise page; the T1 deck links none', () => {
+// The T1 deck's closing slide links the central page, exercises.html, which links each exercise deck.
+test('exercises.html links every exercise page; the T1 deck links exercises.html only', () => {
   const hub = fs.readFileSync(path.join(DECK, 'exercises.html'), 'utf8');
   for (const file of EXERCISES) {
     assert.ok(hub.includes(`href="${file}"`), `exercises.html has no link to ${file}`);
     assert.ok(!html.includes(file), `index.html mentions ${file}`);
   }
-  assert.ok(!html.includes('exercises.html'), 'index.html mentions exercises.html');
+  assert.ok(html.includes('href="exercises.html"'), 'index.html does not link exercises.html');
 });
 
 test('the book embeds exercises.html on its own page, listed just below the T1 deck', () => {

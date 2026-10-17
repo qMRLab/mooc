@@ -274,9 +274,9 @@ async function checkQmRustFallback(browser) {
       problems.push(...(await checkSliderDrag(page, label)));
       problems.push(...(await checkRapidNavigation(page, label)));
       problems.push(...errors.map((e) => `${label}: ${e}`));
-      // The solutions have their own book page: the T1 deck itself must not link to them.
-      const leaks = await page.evaluate(() => [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => /exercise/.test(h) && !/qmrlab\.org/.test(h)));
-      if (leaks.length) problems.push(`${label}: the T1 deck links to the solutions: ${leaks.join(', ')}`);
+      // The T1 deck links to the solutions through the central page only, never to one exercise deck.
+      const solutionLinks = await page.evaluate(() => [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => /exercise/.test(h) && !/qmrlab\.org/.test(h)));
+      if (solutionLinks.join() !== 'exercises.html') problems.push(`${label}: the T1 deck should link exercises.html only, found: ${solutionLinks.join(', ') || 'none'}`);
       await page.close();
       const hub = await openDeck(browser, HUB, w, h);
       problems.push(...(await checkSlides(hub.page, `exercises-${label}`)));
