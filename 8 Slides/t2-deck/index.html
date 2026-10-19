@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>T2 Mapping · qMRI mOOC slides</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ================================================================ Opening -->
+
+<section data-book="top">
+  <div class="center-col">
+    <p class="kicker">qMRI mOOC · Chapter 3</p>
+    <h1>T<sub>2</sub> Mapping</h1>
+    <p class="subtitle">Mono-exponential · Multi-exponential · T<sub>2</sub><sup>*</sup></p>
+    <p class="byline">Slides from the qMRLab mOOC chapter by Samuelle St-Onge<br>NeuroPoly Lab, Polytechnique Montréal</p>
+  </div>
+  <aside class="notes">Every slide links back to the matching place in the book (bottom left). Keys: arrows to move, S for speaker notes, Esc for the overview, F for full screen. Interactive figures are the book's own: use their buttons and sliders with the mouse.</aside>
+</section>
+
+<section data-book="introduction">
+  <h2>What is T<sub>2</sub>?</h2>
+  <ul>
+    <li><b>T<sub>2</sub></b>, the transverse or spin–spin relaxation time: spins <b>dephase</b>, so the magnetization in the x–y plane decays</li>
+    <li>The <span class="hl">upper limit</span> of the signal decay time under ideal imaging conditions</li>
+    <li>In practice, <b>magnetic field inhomogeneities</b> make the transverse magnetization decay faster <span class="cite">(Chavhan 2009; Cohen-Adad 2014)</span>
+      <ul>
+        <li><b>Macroscopic:</b> metallic implants, air–tissue interfaces</li>
+        <li><b>Microscopic:</b> differences in magnetic susceptibility between tissues</li>
+      </ul>
+    </li>
+    <li>Transverse relaxation including these effects is <span class="hl">T<sub>2</sub><sup>*</sup></span></li>
+  </ul>
+  <aside class="notes">T2 relaxation, also known as the transverse or spin-spin relaxation, is characterized by the dephasing of spins, leading to a reduction of the total magnetization in the x-y plane. The T2 value represents the upper limit of the signal decay time under ideal imaging conditions. In practice, magnetic field inhomogeneities, macroscopic (metallic implants, air-tissue interfaces) or microscopic (susceptibility differences between tissues), cause the transverse magnetization to decay faster. When considering this phenomenon, we refer to the transverse relaxation as T2*.</aside>
+</section>
+
+<section data-book="introduction">
+  <h2>Why map T<sub>2</sub>?</h2>
+  <ul>
+    <li>A T<sub>2</sub> <b>map</b> is an image of T<sub>2</sub> relaxation times, with insights into <b>tissue composition</b></li>
+    <li>Sensitive to microstructural changes associated with disease: <b>iron accumulation, myelination, inflammation</b> <span class="cite">(Dortch 2020)</span></li>
+    <li>A <span class="hl">promising modality</span> for clinical and research applications</li>
+    <li>Newer techniques go beyond the conventional ones developed for NMR, e.g. <b>MR fingerprinting</b>: several parameters from a single acquisition <span class="cite">(Ma 2013; Hamilton 2017)</span></li>
+  </ul>
+  <aside class="notes">T2 mapping offers images of T2 relaxation times (T2 maps) providing valuable insights into tissue composition. Given that T2 relaxation is sensitive to specific microstructural changes associated with diseases, such as iron accumulation, myelination and inflammation (Dortch 2020), it is considered a promising modality for clinical and research applications. Novel techniques have emerged beyond the conventional ones developed for NMR, such as MR fingerprinting (Ma 2013), a fast relaxation mapping technique that uses a single image acquisition to quantify multiple parameters (Hamilton 2017).</aside>
+</section>
+
+<section data-book="introduction">
+  <h2>What this chapter covers</h2>
+  <div class="cards">
+    <div class="card mono">
+      <h3>Mono-exponential</h3>
+      <p>The voxel's signal arises from a <b>single tissue compartment</b>.</p>
+      <p>One T<sub>2</sub> per voxel, fitted from a multi-echo spin echo acquisition.</p>
+    </div>
+    <div class="card multi">
+      <h3>Multi-exponential</h3>
+      <p>Several tissues <b>contribute to one voxel's signal</b>.</p>
+      <p>Applications such as <b>myelin water fraction</b> (MWF) imaging.</p>
+    </div>
+    <div class="card t2star">
+      <h3>T<sub>2</sub><sup>*</sup></h3>
+      <p>Fundamentals of T<sub>2</sub><sup>*</sup> mapping, and how its decay curve <b>differs from T<sub>2</sub></b>.</p>
+      <p>Related application: <b>quantitative susceptibility mapping</b> (QSM).</p>
+    </div>
+  </div>
+  <aside class="notes">Commonly used T2-mapping techniques are split into two categories: mono-exponential methods, which consider that the voxel's signal arises from a single tissue compartment, and multi-exponential methods, where various tissues that contribute to a single voxel's signal are considered. The chapter covers signal modeling and data fitting for both, their benefits and pitfalls, an overview of applications (e.g. MWF imaging), and the fundamentals of T2* mapping and how its signal decay curve can differ from that of T2 relaxation.</aside>
+</section>
+
+<section data-book="t2-mapping-vs-t2-weighted-imaging">
+  <h2>T<sub>2</sub> mapping vs T<sub>2</sub>-weighted imaging</h2>
+  <div class="cols">
+    <div>
+      <h3 class="muted">T<sub>2</sub>-weighted (T2w)</h3>
+      <ul>
+        <li>The standard practice in clinical MRI</li>
+        <li>Tissues give signal according to their T<sub>2</sub>: differences in T<sub>2</sub> provide <b>contrast</b></li>
+        <li><b>Qualitative</b>: interpretation depends on the observer</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="hl">T<sub>2</sub> mapping</h3>
+      <ul>
+        <li><b>Quantitative</b>: fits multiple data points to a decay curve to calculate T<sub>2</sub></li>
+        <li>Objective: disease progression monitoring, novel biomarkers</li>
+        <li>Consistent comparisons across imaging protocols: suited to <b>longitudinal and multi-institutional</b> studies <span class="cite">(Cheng 2012)</span></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">T2w images are considered qualitative, as they rely on differences in T2 relaxation of various tissues to provide contrast rather than actual quantitative tissue measurements, making their interpretation dependent on the observer. T2 mapping directly measures the T2 relaxation time of tissues by fitting multiple data points to a decay curve. Its objective nature makes it promising for disease progression monitoring and the identification of novel biomarkers, and it allows consistent comparisons across imaging protocols, enhancing reproducibility for longitudinal and multi-institutional studies (Cheng 2012).</aside>
+</section>
+
+<section class="figure" data-book="t2plot1">
+  <div class="fig-layout">
+    <h2>T<sub>2</sub>-weighted images vs the T<sub>2</sub> map</h2>
+    <div class="fig-host" data-fig="t2Plot1"></div>
+    <p class="fig-hint">Use the menu to switch echo time.</p>
+  </div>
+  <aside class="notes">Figure 3.1: T2-weighted images at different TE (12.8, 128, 256 and 384 ms), compared to the T2 map obtained by fitting the T2 decay curve. Each T2w image's contrast depends on the TE chosen; the map gives T2 in ms. Exercise 1c uses this figure.</aside>
+</section>
+
+<!-- ================================================================ Mono-exponential -->
+
+<section class="divider" data-book="monoexponential-t2-mapping">
+  <div class="center-col">
+    <p class="kicker">Method 1 · Mono-exponential</p>
+    <h1>Mono-exponential T<sub>2</sub> Mapping</h1>
+    <p class="subtitle">A single fitted T<sub>2</sub> value for each voxel</p>
+  </div>
+  <aside class="notes">Mono-exponential T2 mapping fits one decay curve, and one T2 value, per voxel.</aside>
+</section>
+
+<section data-book="monoexponential-t2-mapping">
+  <h2>Acquiring a decay curve</h2>
+  <ul>
+    <li>The <b>simplest</b> technique: several images with a <b>single-echo</b> sequence at different echo times (TE), then fit T<sub>2</sub> to the decaying signal <span class="cite">(Milford 2015)</span>
+      <ul><li><span class="caution">Not typically used in vivo</span>: prohibitively long acquisition times</li></ul>
+    </li>
+    <li><b>Multi-spin echo (MSE)</b> sequences, based on the <b>Carr–Purcell–Meiboom–Gill (CPMG)</b> pulse train <span class="cite">(Carr 1954; Meiboom 1958)</span>
+      <ul><li>Multiple 180° refocusing pulses generate <b>multiple echoes in a single acquisition</b> <span class="cite">(Fatemi 2020; Milford 2015)</span></li></ul>
+    </li>
+    <li>Substantially shorter scan time than separate single-echo acquisitions: MSE is the <span class="hl">sequence of choice in clinical settings</span></li>
+  </ul>
+  <aside class="notes">The simplest technique for T2 mapping is the acquisition of multiple images using a single-echo sequence with different TEs, then fitting T2 from the decaying signal (Milford 2015). It is typically not employed in vivo due to prohibitively long acquisition times. Multi-spin echo sequences, based on the CPMG pulse train, employ multiple 180° refocusing pulses to generate multiple echoes within a single acquisition, substantially reducing scan time and making MSE the sequence of choice in clinical settings.</aside>
+</section>
+
+<section data-book="monoexponential-t2-mapping">
+  <h2>Carr–Purcell, and the Meiboom–Gill improvement</h2>
+  <div class="cols">
+    <div>
+      <h3 class="muted">Carr–Purcell</h3>
+      <ul>
+        <li>A 90° pulse, then a series of 180° pulses <b>along the same axis</b> (e.g. x)</li>
+        <li>Mitigates <b>diffusion effects</b> by preventing phase accumulation</li>
+        <li><span class="caution">But imperfections in the 180° pulses accumulate</span>: M<sub>xy</sub> is lost faster than expected, and T<sub>2</sub> is inaccurate <span class="cite">(Brown 2014)</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="hl">Meiboom–Gill</h3>
+      <ul>
+        <li>The 90° pulse along one axis (e.g. x), the 180° pulses along a <b>perpendicular axis</b> (e.g. y)</li>
+        <li>This phase cycling distributes the errors so they <b>average out</b> over time</li>
+        <li>A more stable and accurate echo train <span class="cite">(Brown 2014)</span></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">The original Carr-Purcell method applies a 90-degree pulse followed by a series of 180-degree pulses along the same axis, designed to mitigate diffusion effects by preventing phase accumulation. However, imperfections in the 180-degree pulses accumulate, resulting in a faster than expected loss of transverse magnetization and inaccurate T2 measurements (Brown 2014). The Meiboom-Gill improvement applies the initial 90-degree pulse along one axis and the subsequent 180-degree pulses along a perpendicular axis; this phase cycling distributes errors such that they average out over time.</aside>
+</section>
+
+<section class="pulse" data-book="t2seq">
+  <h2>Pulse sequence</h2>
+  <img src="img/t2_sequence.png" style="width:740px" alt="Multi-spin echo sequence: a 90 degree excitation followed by a train of 180 degree refocusing pulses, each followed by an echo, with the echo amplitudes decaying with T2.">
+  <p class="caption">Figure 3.2. Simplified illustration of a multi-spin echo sequence for T<sub>2</sub> mapping based on the Carr–Purcell–Meiboom–Gill method.</p>
+  <aside class="notes">Figure 3.2: simplified illustration of a multi-spin echo sequence for T2 mapping based on the CPMG method. One acquisition gives an echo after each refocusing pulse, i.e. one point of the decay curve per echo time.</aside>
+</section>
+
+<section data-book="monoexponential-t2-mapping">
+  <h2>The mono-exponential assumption</h2>
+  <ul>
+    <li>Homogeneity within each voxel is <b>assumed implicitly</b>: one T<sub>2</sub> decay time across the tissue</li>
+    <li>So a <b>single fitted T<sub>2</sub> value</b> for each voxel in the image</li>
+    <li>Widely used, but shown to be <span class="caution">insufficient</span> for proper estimation of tissue T<sub>2</sub>: a voxel's signal often arises from <b>multiple components</b> with different T<sub>2</sub> values <span class="cite">(Graham 1996)</span></li>
+  </ul>
+  <p class="small muted">Multi-exponential methods, and their use for myelin water fraction imaging, come later in the chapter.</p>
+  <aside class="notes">To fit the data using the mono-exponential model, homogeneity within each voxel is assumed implicitly, implying a consistent T2 decay time across the tissue. This results in a single fitted T2 value for each voxel. Although widely used, the mono-exponential model has been shown to be insufficient for proper estimation of tissue T2, given that the signal in a voxel often arises from multiple tissue components with different T2 values (Graham 1996).</aside>
+</section>
+
+<section data-book="t2eq1">
+  <h2>Signal modelling</h2>
+  <p>The decay of the transverse magnetization is <b>exponential</b>, from the transverse component of the Bloch equations:</p>
+  <div class="eq eq-box">$$M_{xy}(TE) = M_z(0^{-})\,e^{-TE/T_{2}}\qquad\text{(3.1)}$$</div>
+  <ul class="small">
+    <li>M<sub>z</sub>(0<sup>−</sup>) is the longitudinal magnetization immediately before the 90° excitation pulse</li>
+    <li>Assumes the measured signal is <b>proportional to M<sub>xy</sub></b>, and that M<sub>z</sub>(0<sup>−</sup>) is <b>constant regardless of TE</b> <span class="cite">(Dortch 2020)</span></li>
+  </ul>
+  <aside class="notes">The decay of the transverse magnetization is exponential and can be derived from the transverse component of the Bloch equations. Mz(0-) is the longitudinal magnetization immediately preceding the 90 degree excitation pulse. Using this equation assumes that the measured signal is proportional to Mxy, and that Mz(0-) remains constant regardless of echo time (Dortch 2020). Next figure: T2 and T2* decay curves for white and gray matter, with relaxation times from Siemonsen 2008.</aside>
+</section>
+
+<section class="figure" data-book="t2plot2">
+  <div class="fig-layout">
+    <h2>T<sub>2</sub> and T<sub>2</sub><sup>*</sup> decay in white and gray matter</h2>
+    <div class="fig-host" data-fig="t2Plot2"></div>
+    <p class="fig-hint">Use the menu to show T<sub>2</sub>, T<sub>2</sub><sup>*</sup> or both.</p>
+  </div>
+  <aside class="notes">Figure 3.3: transverse relaxation decay curves for T2 and T2* in white matter and gray matter, with constants from Siemonsen 2008 (T2: WM 109.77 ms, GM 96.07 ms; T2*: WM 67.63 ms, GM 48.48 ms). Exercise 1 uses this figure to find the TE with the best WM/GM contrast.</aside>
+</section>
+
+<section data-book="t2plot2">
+  <h2>T<sub>2</sub> and T<sub>1</sub></h2>
+  <ul>
+    <li>In NMR physics, T<sub>2</sub> must be <b>equal to or shorter than 2 T<sub>1</sub></b> <span class="cite">(Levitt 2008)</span></li>
+    <li>T<sub>2</sub> can exceed T<sub>1</sub> in <b>very rare cases</b> <span class="cite">(Traficante 1991)</span></li>
+    <li>In living organisms, <span class="hl">T<sub>2</sub> is always shorter than T<sub>1</sub></span></li>
+  </ul>
+  <aside class="notes">In NMR physics, it has been shown that T2 relaxation times must be equal to or shorter than 2 T1 (Levitt 2008); however, T2 can exceed T1 in very rare cases (Traficante 1991). In living organisms, T2 is always shorter than T1.</aside>
+</section>
+
+<section data-book="t2eq2">
+  <h2>Data fitting</h2>
+  <p>The mono-exponential T<sub>2</sub> signal decay:</p>
+  <div class="eq eq-box">$$S(TE) = S_{0}\,e^{-TE/T_{2}}\qquad\text{(3.2)}$$</div>
+  <p class="small">S<sub>0</sub> is the signal intensity immediately following the excitation pulse <span class="cite">(Dortch 2020; Milford 2015)</span>.</p>
+  <aside class="notes">The T2 signal decay for the mono-exponential model is S(TE) = S0 exp(−TE/T2), where S0 is the signal intensity immediately following the excitation pulse (Dortch 2020; Milford 2015).</aside>
+</section>
+
+<section data-book="data-fitting">
+  <h2>Stimulated echoes</h2>
+  <ul>
+    <li><b>B<sub>1</sub> inhomogeneities</b> and RF pulse imperfections make refocusing pulses deviate from the ideal 180°</li>
+    <li>This generates additional echoes, known as <b>stimulated or spurious echoes</b></li>
+    <li>They contaminate the signal decay: <span class="caution">erroneous T<sub>2</sub> estimates</span> <span class="cite">(McPhee 2018)</span></li>
+  </ul>
+  <h3 class="muted" style="margin-top:0.9em">Fitting with improved accuracy</h3>
+  <ul>
+    <li>Use only the <b>even-numbered echoes</b> <span class="cite">(Focke 2011; Kim 2009)</span></li>
+    <li>Or <b>discard the first echo</b> <span class="cite">(Biasiolli 2013; Milford 2015)</span></li>
+  </ul>
+  <aside class="notes">In practice, B1 inhomogeneities and RF pulse imperfections can influence the T2 decay curve. Refocusing pulses deviating from 180 degrees generate stimulated or spurious echoes that contaminate the signal decay and result in erroneous T2 estimations (McPhee 2018). Some studies have shown that fitting accuracy can be improved either by using only even-numbered echoes (Focke 2011; Kim 2009), or by discarding the first echo (Biasiolli 2013; Milford 2015).</aside>
+</section>
+
+<section data-book="t2eq3">
+  <h2>T<sub>2</sub><sup>*</sup>: faster than T<sub>2</sub></h2>
+  <ul>
+    <li>So far, M<sub>xy</sub> decays exponentially with TE / T<sub>2</sub> (Eq. 3.1)</li>
+    <li>In practice, <b>B<sub>0</sub> inhomogeneities</b> cause a faster loss of the transverse signal: <span class="hl">T<sub>2</sub><sup>*</sup> relaxation</span> (Figure 3.3)</li>
+  </ul>
+  <div class="eq eq-box">$$\frac{1}{T_{2}^{*}} = \frac{1}{T_{2}} + \frac{1}{T_{2}'}\qquad\text{(3.3)}$$</div>
+  <ul>
+    <li><b>T<sub>2</sub>′</b> quantifies the part of the relaxation that is due to magnetic field inhomogeneities <span class="cite">(Brown 2014)</span></li>
+  </ul>
+  <aside class="notes">Until now, we have assumed that Mxy decays exponentially with TE divided by T2. In practice, other factors such as B0 inhomogeneities cause a more rapid loss of the transverse signal, a faster decay referred to as T2* relaxation. T2' quantifies the portion of relaxation which is due to magnetic field inhomogeneities. (The chapter's text here points to Eq. 3.3 and Figure 3.1; the T2 model is Eq. 3.1 and the T2* curves are Figure 3.3.)</aside>
+</section>
+
+<section data-book="t2eq4">
+  <h2>T<sub>2</sub>′ and measuring T<sub>2</sub><sup>*</sup></h2>
+  <ul>
+    <li><b>T<sub>2</sub>′ mapping</b>, by removing the T<sub>2</sub> effect from T<sub>2</sub><sup>*</sup>, could help brain disease diagnosis:
+      <ul>
+        <li>quantifying <b>blood oxygenation</b> <span class="cite">(Lee 2014)</span></li>
+        <li>predicting <b>infarct growth</b> in acute stroke <span class="cite">(Siemonsen 2008)</span></li>
+      </ul>
+    </li>
+    <li>T<sub>2</sub><sup>*</sup> is fitted with the <b>same methods</b> as T<sub>2</sub>:</li>
+  </ul>
+  <div class="eq eq-box">$$S(TE) = S_{0}\,e^{-TE/T_{2}^{*}}\qquad\text{(3.4)}$$</div>
+  <ul>
+    <li>Acquired with <b>gradient echo</b> (GRE) sequences, which are sensitive to field inhomogeneities, unlike the spin echo sequences used for T<sub>2</sub> <span class="cite">(Cohen-Adad 2014; Markl 2012)</span></li>
+    <li><b>SAGE</b> (spin and gradient echo) acquires T<sub>2</sub> and T<sub>2</sub><sup>*</sup> simultaneously <span class="cite">(Stokes 2014)</span></li>
+  </ul>
+  <aside class="notes">Some studies suggest that T2' mapping could offer valuable insights for brain disease diagnosis, notably by quantifying blood oxygenation levels (Lee 2014) and predicting infarct growth in acute stroke patients (Siemonsen 2008). The T2* decay can be fitted using the same methods as T2. Unlike T2 mapping, which uses spin echo type sequences, T2* mapping is performed with gradient echo sequences, as they are sensitive to magnetic field inhomogeneities. Specialized sequences such as SAGE enable simultaneous acquisition of both T2 and T2*. Note: the book's Eq. 3.4 shows T2 in the exponent; the slide uses T2*, as the text describes.</aside>
+</section>
+
+<section data-book="noise">
+  <h2>Noise</h2>
+  <ul>
+    <li>Noise makes the T<sub>2</sub> decay <b>harder to fit accurately</b>, a problem when clinical contexts need highly precise T<sub>2</sub> values</li>
+    <li>Particularly for <b>pixel-wise</b> T<sub>2</sub> mapping: SNR is much lower than with region-of-interest (ROI) approaches <span class="cite">(Sandino 2015)</span></li>
+  </ul>
+  <p class="small muted">Next: a single-voxel fit, true T<sub>2</sub> = 109 ms, at four SNR levels.</p>
+  <aside class="notes">In MRI, noise in the data can make it harder to accurately fit the T2 decay curve, which is problematic given the necessity for highly precise T2 values in clinical contexts. This is particularly pronounced with pixel-wise T2 mapping, as the SNR is much lower than in ROI T2 mapping approaches (Sandino 2015).</aside>
+</section>
+
+<section class="figure side" data-book="t2plot3">
+  <div class="fig-layout">
+    <h2>Impact of noise on the T<sub>2</sub> fit</h2>
+    <div class="fig-host" data-fig="t2Plot3"></div>
+    <p class="fig-hint">Use the menu to change the SNR. The fitted T<sub>2</sub> is in the legend.</p>
+  </div>
+  <aside class="notes">Figure 3.4: impact of noise on T2 relaxometry fitting, for a single voxel with a true T2 of 109 ms. As the noise level increases, the fitting accuracy decreases and the estimated T2 deviates from the true value (about 101 ms at SNR 10, 109 ms at SNR 130). A low SNR can have a considerable impact on the fit. Exercise 4 uses this simulation.</aside>
+</section>
+
+<section data-book="noise">
+  <h2>How many echoes, and when?</h2>
+  <ul>
+    <li>The number of echoes depends on <b>echo spacing</b>, the risk of <b>heating</b> the sample, and processing <b>low-SNR</b> data <span class="cite">(Shrager 1998)</span></li>
+    <li>The <b>Cramér–Rao lower bound</b> (CRLB): the smallest possible variance of an unbiased estimator, given the noise in the data <span class="cite">(Cavassila 2001)</span>
+      <ul><li>Gives the <b>optimal number of echoes</b> to fit the decay accurately <span class="cite">(Jones 1996)</span></li></ul>
+    </li>
+    <li><b>Optimized echo times</b> for a predetermined range of expected T<sub>2</sub> values beat <span class="caution">uniformly spaced</span> echo times in accuracy <span class="cite">(Shrager 1998)</span></li>
+  </ul>
+  <aside class="notes">The number of echoes is influenced by the need for adequate spacing between echoes, the potential risk of heating the sample, and the challenges of processing low-SNR data (Shrager 1998). The CRLB estimates the smallest possible variance of an unbiased estimator given the noise in the data (Cavassila 2001); from it, the optimal number of echoes can be determined (Jones 1996). Shrager 1998 introduced a method that optimizes the selection of echo times based on a predetermined range of expected T2 values, with superior accuracy to uniformly spaced echo times.</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls">
+  <h2>Benefits and pitfalls</h2>
+  <div class="cols">
+    <div>
+      <h3 class="hl">Benefits</h3>
+      <ul>
+        <li><b>Simple</b>, straightforward implementation: a convenient and efficient T<sub>2</sub> fit</li>
+        <li>Multi-echo spin echo (MESE) sequences <b>significantly reduce acquisition time</b> <span class="cite">(Fatemi 2020; Milford 2015)</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="caution">Pitfalls</h3>
+      <ul>
+        <li>One T<sub>2</sub> per voxel <b>over-simplifies</b> the microstructure: a problem for complex tissues with several T<sub>2</sub> components in one voxel</li>
+        <li>MESE is sensitive to <b>RF pulse imperfections</b>: B<sub>1</sub> inhomogeneities and reduced flip angles <span class="caution">overestimate T<sub>2</sub></span> <span class="cite">(Fatemi 2020)</span></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">The main benefit of mono-exponential T2 mapping is its simplicity and straightforward implementation; MESE sequences significantly reduce acquisition time. Drawbacks: assuming a single T2 per voxel tends to over-simplify the tissue microstructure, which is particularly problematic for tissues with complex microstructure. MESE sequences are also sensitive to RF pulse imperfections: B1 inhomogeneities and reduced flip angles have been shown to overestimate T2 with mono-exponential methods (Fatemi 2020).</aside>
+</section>
+
+<!-- ================================================================ Multi-exponential -->
+
+<section class="divider" data-book="t2multiexpo">
+  <div class="center-col">
+    <p class="kicker">Method 2 · Multi-exponential</p>
+    <h1>Multi-exponential T<sub>2</sub> Mapping</h1>
+    <p class="subtitle">The T<sub>2</sub> contribution of each tissue compartment within a voxel</p>
+  </div>
+  <aside class="notes">Multi-exponential T2 mapping considers the T2 relaxation contribution of each tissue compartment within a voxel.</aside>
+</section>
+
+<section data-book="t2multiexpo">
+  <h2>One voxel, several compartments</h2>
+  <ul>
+    <li>The mono-exponential curve is a <b>single-compartment</b> tissue model: every component in a voxel has the same T<sub>2</sub></li>
+    <li>But a voxel may contain <b>different tissue compartments</b> with different T<sub>2</sub> times, so this assumption can give <span class="caution">inaccurate fits</span></li>
+    <li>Example: a voxel at a tissue boundary in the brain holding both CSF and gray matter, the <b>partial volume effect</b></li>
+    <li>Multi-exponential T<sub>2</sub> mapping <span class="hl">compartmentalizes</span> the tissues inside a voxel, with applications such as myelin water fraction imaging</li>
+  </ul>
+  <aside class="notes">The mono-exponential curve uses a single compartment tissue model: all tissue components in a voxel are assumed to have the same T2. In practice this can result in inaccurate fittings, as a voxel may contain different tissue compartments with different T2 times, e.g. a voxel at a tissue boundary containing both CSF and gray matter (partial volume effect). Multi-exponential T2 mapping considers the T2 contribution of each compartment within a voxel, which is useful in applications such as myelin water fraction imaging.</aside>
+</section>
+
+<section data-book="t2eq5">
+  <h2>Signal modelling: a sum of exponentials</h2>
+  <p>The transverse magnetization acquired at different TEs, as a sum of exponential decays:</p>
+  <div class="eq eq-box">$$M_{xy}(TE) = \sum_{i=1}^{N} M_{z,i}(0^{-})\,e^{-TE/T_{2,i}}\qquad\text{(3.5)}$$</div>
+  <ul>
+    <li>Each term is the contribution of the <b>i<sup>th</sup> tissue component</b> to the overall decay <span class="cite">(Collewet 2022; Dortch 2020)</span></li>
+  </ul>
+  <p class="small muted">Next: a single voxel of myelin water (MW) and intra/extracellular water (IEW), with mono-exponential curves for each and the multi-exponential curve for both.</p>
+  <aside class="notes">For multi-exponential T2 mapping, the transverse magnetization acquired at different TEs is modelled as a sum of exponential decays, where each term represents the contribution of the ith tissue component (Collewet 2022; Dortch 2020). Using a multi-exponential model rather than mono-exponential for complex tissues like myelin enables more precise quantification of T2 within each voxel.</aside>
+</section>
+
+<section class="figure side" data-book="t2plot4">
+  <div class="fig-layout">
+    <h2>Mono- vs multi-exponential: myelin water and IEW</h2>
+    <div class="fig-host" data-fig="t2Plot4"></div>
+    <p class="fig-hint">Drag the slider to change the MW and IEW fractions.</p>
+  </div>
+  <aside class="notes">Figure 3.5: mono-exponential and multi-exponential T2 fitting for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves are mono-exponential curves for MW and IEW; the dotted purple curve is the multi-exponential curve combining both components. Exercises 2 and 3 use this figure.</aside>
+</section>
+
+<section data-book="t2eq6">
+  <h2>Data fitting</h2>
+  <p>Eq. 3.5 in terms of the initial amplitude S<sub>i</sub> of each tissue component:</p>
+  <div class="eq eq-box">$$S(TE) = \sum_{i=1}^{N} S_{i}\,e^{-TE/T_{2,i}}\qquad\text{(3.6)}$$</div>
+  <p class="small">S<sub>i</sub>: initial signal amplitude of the i<sup>th</sup> component; T<sub>2,i</sub>: its T<sub>2</sub>.</p>
+  <p style="margin-top:0.8em">For myelin water (MW) and intra/extracellular water (IEW), as in Figure 3.5:</p>
+  <div class="eq eq-box">$$S(TE)_{MWI} = S_{MW}\,e^{-TE/T_{2,MW}} + S_{IEW}\,e^{-TE/T_{2,IEW}}\qquad\text{(3.7)}$$</div>
+  <aside class="notes">To fit the data, Eq. 3.5 is rewritten in terms of the initial amplitude Si of each tissue component, with T2,i the T2 of that component. The multi-exponential signal of Figure 3.5 is the combination of the myelin water and intra/extracellular water signals (Eq. 3.7).</aside>
+</section>
+
+<section class="figure" data-book="t2plot5">
+  <div class="fig-layout">
+    <h2>Example: multi-exponential T<sub>2</sub> mapping of the spinal cord</h2>
+    <div class="fig-host" data-fig="t2Plot5"></div>
+    <p class="fig-hint">Use the menus to switch echo time (left) and map (right).</p>
+  </div>
+  <aside class="notes">Figure 3.7: the left image shows multi-exponential T2w data of the spinal cord acquired at different TEs and used for fitting. The right image shows the resulting myelin water fraction (MWF) map and the T2 maps of intra/extracellular water and myelin water. Separating these components enhances tissue characterization in complex structures compared to mono-exponential models.</aside>
+</section>
+
+<section data-book="myelin-water-fraction-mwf-imaging">
+  <h2>Application: myelin water fraction (MWF) imaging</h2>
+  <ul>
+    <li>Demonstrates the <b>clinical relevance</b> of multi-exponential T<sub>2</sub> mapping <span class="cite">(Kumar 2012; MacKay 1994)</span></li>
+    <li>Myelin quantification could help identify <b>biomarkers</b> for diseases such as multiple sclerosis (MS)</li>
+    <li>MWF does not directly measure myelin: it quantifies the <b>water trapped between the myelin sheaths</b>, the primary component of myelin <span class="cite">(Alonso-Ortiz 2015)</span></li>
+  </ul>
+  <h3 class="muted" style="margin-top:0.9em">Why not T<sub>2</sub>-weighted images?</h3>
+  <ul>
+    <li>Hyperintense lesions in MS <span class="caution">lack specificity</span>: indistinguishable from inflammation, edema, axonal loss <span class="cite">(Alonso-Ortiz 2015; Lee 2021)</span></li>
+    <li>MWF could show <b>early microstructural changes</b> in myelin, for early diagnosis and monitoring</li>
+  </ul>
+  <aside class="notes">MWF imaging demonstrates the clinical relevance of multi-exponential T2 mapping, given that myelin quantification could help identify biomarkers for diseases such as MS. MWF technically quantifies the total water trapped between myelin sheaths; it is argued that myelin can be conceptualized as water, its primary composition (Alonso-Ortiz 2015). Conventional T2w images often show hyperintense lesions in MS patients, but these lack specificity and can be indistinguishable from inflammation, edema and axonal loss. MWF holds promise as a biomarker for early microstructural changes in myelin, facilitating early diagnosis and monitoring of disease progression.</aside>
+</section>
+
+<section data-book="t2eq8">
+  <h2>The myelin water fraction</h2>
+  <p>The proportion of the MRI signal from myelin water, relative to the total water content:</p>
+  <div class="eq eq-box">$$MWF = \frac{S_{MW}\,e^{-TE/T_{2,MW}}}{S_{MW}\,e^{-TE/T_{2,MW}} + S_{IEW}\,e^{-TE/T_{2,IEW}}}\qquad\text{(3.8)}$$</div>
+  <ul>
+    <li>Total water: myelin water (MW) + intra/extracellular water (IEW), also called <b>axonal water</b> <span class="cite">(Lee 2021)</span></li>
+    <li>Myelin itself is hard to image directly: its T<sub>2</sub> is <span class="caution">very short</span></li>
+    <li>Myelin-associated water has a slightly longer T<sub>2</sub>, <b>around 20 ms</b> <span class="cite">(Lee 2021)</span>: still short, but measurable with <span class="hl">standard spin echo sequences</span></li>
+  </ul>
+  <aside class="notes">MWF represents the proportion of the MRI signal attributed to myelin water relative to the total water content, which includes myelin water and intra/extracellular (axonal) water (Lee 2021). Direct imaging of myelin is challenging due to its very short T2. Myelin-associated water has slightly longer T2, typically around 20 ms, which is measurable with standard spin-echo sequences: a more feasible approach to studying myelin. Exercise 3 computes MWF at several TEs with this equation.</aside>
+</section>
+
+<section data-book="t2-and-quantitative-susceptibility-mapping-qsm">
+  <h2>Application: quantitative susceptibility mapping (QSM)</h2>
+  <ul>
+    <li>QSM measures variations in tissue <b>magnetic susceptibility</b> <span class="cite">(Ruetten 2019; Wang 2015)</span></li>
+    <li>Quantifies paramagnetic and diamagnetic substances such as <b>iron, calcium, oxygen and myelin</b> <span class="cite">(Ruetten 2019)</span>: insights into tissue physiology and integrity</li>
+    <li>Altered iron levels are linked to <b>multiple sclerosis</b> <span class="cite">(Stephenson 2014)</span> and <b>Parkinson’s disease</b> <span class="cite">(Chen 2019)</span>: candidate <span class="hl">biomarkers</span> for neurodegenerative disorders</li>
+  </ul>
+  <aside class="notes">QSM measures variations in tissue magnetic susceptibility (Ruetten 2019; Wang 2015). By assessing differences in susceptibility between tissues, it can quantify paramagnetic substances like iron, as well as diamagnetic substances such as myelin. This has considerable clinical potential: alterations in iron levels have been linked to neurodegenerative diseases like MS (Stephenson 2014) and Parkinson's disease (Chen 2019), making QSM a promising technique for identifying biomarkers.</aside>
+</section>
+
+<section data-book="t2-and-quantitative-susceptibility-mapping-qsm">
+  <h2>QSM: the phase holds the susceptibility</h2>
+  <ul>
+    <li>The MRI signal is complex: <b>magnitude and phase</b></li>
+    <li>T<sub>1</sub>, T<sub>2</sub> and T<sub>2</sub><sup>*</sup> contrasts use <b>only the magnitude</b>; the <span class="hl">phase</span> carries information about tissue magnetic susceptibility</li>
+    <li>T<sub>2</sub><sup>*</sup> includes T<sub>2</sub>′, the dephasing from field inhomogeneities, caused mainly by <b>susceptibility differences</b> between tissues <span class="cite">(Ruetten 2019)</span></li>
+    <li>QSM combines the magnitude and phase of <b>T<sub>2</sub><sup>*</sup> acquisitions</b> to map susceptibility within tissues <span class="cite">(Shmueli 2020)</span></li>
+  </ul>
+  <p class="small muted">Next: susceptibility and B<sub>0</sub> in a brain, simulated at 7 T.</p>
+  <aside class="notes">In MRI, the acquired signal is complex, with a magnitude and a phase. Traditional T1, T2 and T2* contrasts only exploit the magnitude; the phase holds valuable information about tissue magnetic susceptibility, which is fundamental for QSM. T2* accounts for both T2 and the relaxation due to field inhomogeneities (T2'), which induce signal dephasing; since susceptibility differences between tissues are a primary cause of these inhomogeneities, phase information is crucial. In QSM, magnitude and phase data from T2* acquisitions together enable the quantification and spatial mapping of susceptibility (Shmueli 2020).</aside>
+</section>
+
+<section class="figure" data-book="t2plot8">
+  <div class="fig-layout">
+    <h2>A B<sub>0</sub> field map and its susceptibility distribution</h2>
+    <div class="fig-host" data-fig="t2Plot8"></div>
+    <p class="fig-hint">Hover to read values.</p>
+  </div>
+  <aside class="notes">Figure 3.8: a brain B0 field map simulated at 7 T (left) and the susceptibility distribution χ (middle). As published, the two colorbar units are swapped: the B0 map is in Hz (about 1100–2300) and χ in ppm (−0.5 to 0.5).</aside>
+</section>
+
+<section data-book="benefits-and-pitfalls-of-multi-exponential-t2-mapping">
+  <h2>Benefits and pitfalls</h2>
+  <div class="cols">
+    <div>
+      <h3 class="hl">Benefits</h3>
+      <ul>
+        <li><b>More accurate</b> T<sub>2</sub> for complex, heterogeneous tissue: each voxel is multi-compartmental, each tissue with its own T<sub>2</sub></li>
+        <li>Particularly suited to <b>MWF imaging</b>, to understand demyelinating diseases such as MS <span class="cite">(Alonso-Ortiz 2015)</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="caution">Pitfalls</h3>
+      <ul>
+        <li>More complex than mono-exponential: <b>longer acquisition times</b> <span class="cite">(Kumar 2012)</span></li>
+        <li><b>Sensitive to noise</b> <span class="cite">(Dula 2009)</span>, which can make accurate fits challenging</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">The primary advantage of multi-exponential T2 mapping is improved accuracy in depicting T2 relaxation of complex tissue microstructure, which makes it particularly advantageous for MWF imaging. Challenges: longer acquisition times than mono-exponential models (Kumar 2012), and sensitivity to noise (Dula 2009), which can make accurate fittings challenging.</aside>
+</section>
+
+<!-- ================================================================ Closing -->
+
+<section data-book="benefits-and-pitfalls-of-multi-exponential-t2-mapping">
+  <h2>Summary</h2>
+  <div class="cards">
+    <div class="card mono">
+      <h3>Mono-exponential</h3>
+      <p><b>Simple and efficient</b>; fast with multi-echo spin echo.</p>
+      <p>One T<sub>2</sub> per voxel over-simplifies tissue; B<sub>1</sub> errors overestimate T<sub>2</sub>.</p>
+    </div>
+    <div class="card multi">
+      <h3>Multi-exponential</h3>
+      <p><b>Comprehensive and accurate</b> for heterogeneous or pathological tissue, e.g. MWF.</p>
+      <p>Longer acquisitions; sensitive to noise.</p>
+    </div>
+    <div class="card t2star">
+      <h3>T<sub>2</sub><sup>*</sup></h3>
+      <p>T<sub>2</sub> plus field inhomogeneities (T<sub>2</sub>′); measured with <b>gradient echo</b>.</p>
+      <p>With the phase, the basis of QSM.</p>
+    </div>
+  </div>
+  <p style="margin-top:1em">The choice of mono- or multi-exponential depends on the <b>clinical or research application</b> and the <b>complexity of the tissues</b> studied.</p>
+  <aside class="notes">In conclusion, the choice of mono-exponential versus multi-exponential will depend on the specific clinical or research application as well as the complexity of the tissues being studied. Mono-exponential T2 mapping offers simplicity and efficiency, while multi-exponential T2 mapping provides a comprehensive and accurate characterization of tissue properties, particularly in heterogeneous or pathological tissues.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercises and discussion</h2>
+  <ul>
+    <li>The chapter ends with <b>four exercises</b> that use the interactive figures and the notebooks (on Binder or in MATLAB)</li>
+    <li>Questions and answers: <a href="https://github.com/qMRLab/mooc/discussions" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions</a></li>
+  </ul>
+  <p style="margin-top:0.9em"><a href="https://qmrlab.org/mooc/t2-mapping#exercises" target="_blank" rel="noopener">Open the exercises in the book →</a></p>
+  <aside class="notes">Exercise 1: optimal TE for WM/GM contrast from Figure 3.3, and Figure 3.1's echo times. Exercise 2: decay times and T2 estimates from Figure 3.5. Exercise 3: MWF at several TEs with Eq. 3.8. Exercise 4: SNR at different TEs with the Figure 3.4 notebook.</aside>
+</section>
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/t2Plot1.js"></script>
+<script src="js/figures/t2Plot2.js"></script>
+<script src="js/figures/t2Plot3.js"></script>
+<script src="js/figures/t2Plot4.js"></script>
+<script src="js/figures/t2Plot5.js"></script>
+<script src="js/figures/t2Plot8.js"></script>
+<script src="js/deck.js"></script>
+</body>
+</html>
