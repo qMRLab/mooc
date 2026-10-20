@@ -69,6 +69,7 @@ project:
     - venv/*
     - docs/**
     - 8 Slides/t1-deck/**
+    - 8 Slides/t2-deck/**
   bibliography:
     - bibliography/book.bib
     - bibliography/ir.bib
@@ -158,6 +159,8 @@ project:
       children:
         - file: 8 Slides/2 - T1 Mapping.md
         - file: 8 Slides/2 - T1 Mapping Exercises.md
+        - file: 8 Slides/3 - T2 Mapping.md
+        - file: 8 Slides/3 - T2 Mapping Exercises.md
         - file: 8 Slides/6 - Magnetization Transfer Imaging.md
     - title: Notebooks
       children:

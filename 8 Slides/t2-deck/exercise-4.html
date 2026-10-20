@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4 · T2 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>2</sub> Mapping · Exercise 4</p>
+  <h2>How much SNR is left at each echo?</h2>
+  <ol>
+    <li><b>a.</b> The signal curves in Figure 3.4 were simulated for different SNR values, however these are relative to the maximum signal (i.e. TE=0). Using Binder or MATLAB and the notebook that was used to generate that figure, estimate the SNR of images acquired TE = 12.8, 128, 256, and 384 ms for a maximum signal SNR of 100.</li>
+    <li><b>b.</b> Repeat the same calculations for a <i>T</i><sub>2</sub><sup>*</sup> of 30 ms.</li>
+    <li><b>c.</b> Comment on these results and on how they would impact your imaging protocol planning. What’s the maximum TE you think is useful for each case?</li>
+  </ol>
+  <aside class="notes">Exercise 4 from the end of the T2 chapter, quoted as written. Figure 3.4's simulation: a true T2 of 109 ms, Gaussian noise whose SD is set by the SNR at TE = 0, so the noise is the same at every echo while the signal decays. The simulation runs live in this page, as the notebook does. Next slide: part a.</aside>
+</section>
+
+<section class="ex" data-book="t2plot3" data-auto="ex4-a">
+  <div class="ex-layout">
+    <h2>a. SNR at four echo times, <i>T</i><sub>2</sub> = 109 ms</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <table class="measure">
+          <tr><td><i>T</i><sub>2</sub> (ms)</td><td><input data-key="t2" value="109" aria-label="T2"></td></tr>
+          <tr><td>SNR at TE = 0</td><td><input data-key="snr0" value="100" aria-label="SNR at TE = 0"></td></tr>
+          <tr><td>TEs (ms)</td><td><input class="list" data-key="tes" value="12.8, 128, 256, 384" aria-label="Echo times"></td></tr>
+          <tr><td>Noise trials</td><td><input data-key="trials" value="2000" aria-label="Number of noise trials"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex4-a" data-step="1">1 · Simulate</button>
+          <button data-run="ex4-a" data-step="2">2 · SNR</button>
+          <button data-run="ex4-a" data-step="3">3 · Why</button>
+          <button class="secondary" data-reset="ex4-a">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex4-a"></div>
+        <div class="fragment step" data-action="ex4-a"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex4-a">
+          <p class="answer">SNR ≈ <b><span class="ans-snr">89, 31, 9.6, 3.0</span></b>. The noise does not change with TE; the signal does: SNR(TE) = SNR<sub>0</sub> e<sup>−TE/<i>T</i><sub>2</sub></sup>.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">As in Figure 3.4. The slide opens on the noiseless decay for T2 = 109 ms, one noisy acquisition at the figure's 30 echoes (12.8 to 384 ms) with SNR 100 at TE = 0, and the noise level (1 SD = 0.01, grey band). Click 1: at each of the four TEs, 2000 noisy repetitions: mean ± SD. Click 2: the SNR of each image, the mean over the SD, against the formula: about 89, 31, 9.6 and 3.0. Click 3: why: the noise SD is the same at every echo, so the SNR simply follows the decay.</aside>
+</section>
+
+<section class="ex" data-book="t2t2star" data-auto="ex4-b">
+  <div class="ex-layout">
+    <h2>b. The same for <i>T</i><sub>2</sub><sup>*</sup> = 30 ms</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <table class="measure">
+          <tr><td><i>T</i><sub>2</sub><sup>*</sup> (ms)</td><td><input data-key="t2" value="30" aria-label="T2 star"></td></tr>
+          <tr><td>SNR at TE = 0</td><td><input data-key="snr0" value="100" aria-label="SNR at TE = 0"></td></tr>
+          <tr><td>TEs (ms)</td><td><input class="list" data-key="tes" value="12.8, 128, 256, 384" aria-label="Echo times"></td></tr>
+          <tr><td>Noise trials</td><td><input data-key="trials" value="2000" aria-label="Number of noise trials"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex4-b" data-step="1">1 · Simulate</button>
+          <button data-run="ex4-b" data-step="2">2 · SNR</button>
+          <button data-run="ex4-b" data-step="3">3 · Compare</button>
+          <button class="secondary" data-reset="ex4-b">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex4-b"></div>
+        <div class="fragment step" data-action="ex4-b"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex4-b">
+          <p class="answer">SNR ≈ <b><span class="ans-snr">65, 1.4, 0.02, 0.0003</span></b>. Only the first echo is usable: at 128 ms the signal is barely above the noise.</p>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The same simulation with T2* = 30 ms (a gradient echo). Click 1: the Monte Carlo at the four TEs. Click 2: SNR about 65 at 12.8 ms, 1.4 at 128 ms, and practically 0 at 256 and 384 ms (0.02 and 0.0003 in theory): the simulated means there are noise. Click 3: compared with part a. Note that these TEs are far too long for T2* anyway: a T2* protocol would put its echoes within the first 100 ms or so.</aside>
+</section>
+
+<section class="ex" data-book="noise" data-auto="ex4-c">
+  <div class="ex-layout">
+    <h2>c. The longest useful TE</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> How would these results impact your protocol planning? What’s the maximum TE you think is useful for each case?</p>
+        <table class="measure">
+          <tr><td><i>T</i><sub>2</sub> / <i>T</i><sub>2</sub><sup>*</sup> (ms)</td><td><input data-key="t2" value="109" aria-label="T2"> / <input data-key="t2star" value="30" aria-label="T2 star"></td></tr>
+          <tr><td>SNR at TE = 0</td><td><input data-key="snr0" value="100" aria-label="SNR at TE = 0"></td></tr>
+          <tr><td>Lowest useful SNR</td><td><input data-key="snrmin" value="5" aria-label="Lowest useful SNR"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex4-c" data-step="1">1 · Limit</button>
+          <button data-run="ex4-c" data-step="2">2 · Protocol</button>
+          <button class="secondary" data-reset="ex4-c">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex4-c"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex4-c">
+          <ul class="answer">
+            <li>Later echoes add time (and SAR in a spin-echo train), not information.</li>
+            <li>On magnitude images they sit on a noise floor, which a fit reads as slow decay: <i>T</i><sub>2</sub> is <b>overestimated</b>.</li>
+            <li>4× the averages adds only <i>T</i><sub>2</sub> ln 2: <span class="ans-gain">76</span> and <span class="ans-gain-star">21</span> ms.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the SNR against TE, on a log scale, for T2 = 109 ms and T2* = 30 ms, with SNR 100 at TE = 0: straight lines, the slope set by T2. Click 1: with SNR 5 as the lowest useful value (the Rose criterion for seeing a feature; change it if the class prefers another), the limit is TE = T2 ln(SNR0/SNRmin): about 330 ms for T2 (about 3 T2) and 90 ms for T2*. Click 2: what it means for the protocol. Plan the echoes for the T2 you expect, up to about 3 T2. Noise-only echoes cost time (and SAR for a spin-echo train), and with magnitude data the Rician noise floor biases the fit towards slower decay. More averages raise SNR0 only by the square root of their number, so the limit moves only logarithmically.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 4: answers</h2>
+  <table class="measure summary">
+    <tr><th>TE (ms)</th><th>12.8</th><th>128</th><th>256</th><th>384</th></tr>
+    <tr><td>a · <i>T</i><sub>2</sub> = 109 ms</td><td>89</td><td>31</td><td>9.6</td><td>3.0</td></tr>
+    <tr><td>b · <i>T</i><sub>2</sub><sup>*</sup> = 30 ms</td><td>65</td><td>1.4</td><td>0.02</td><td>0.0003</td></tr>
+  </table>
+  <p>c · With SNR ≥ 5 as the limit, echoes are useful up to TE ≈ 330 ms (≈ 3 <i>T</i><sub>2</sub>) for <i>T</i><sub>2</sub> = 109 ms, and ≈ 90 ms for <i>T</i><sub>2</sub><sup>*</sup> = 30 ms.</p>
+  <p class="muted small">Questions: <a href="https://github.com/qMRLab/mooc/discussions" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions</a></p>
+  <p class="muted small"><a href="exercises.html">← All exercises</a></p>
+  <aside class="notes">Summary. SNR at each TE is SNR0 e^(−TE/T2) with SNR0 = 100. The limits in c depend on the lowest useful SNR chosen: with SNR 3 they become about 380 ms and 105 ms.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/t2Plot3.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex4.js"></script>
+</body>
+</html>

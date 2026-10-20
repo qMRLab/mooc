@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 2 · T2 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>2</sub> Mapping · Exercise 2</p>
+  <h2>Myelin water and intra/extracellular water</h2>
+  <ol>
+    <li><b>a.</b> Using Figure 3.5, determine the echo time at which the signal myelin water (MW) signal has reduced by: 50%, 63%, and 90%.</li>
+    <li><b>b.</b> Using the signal curve for intra/extra-cellular (IEW) water presented in the same figure, determine the echo time at which the signal has reduced by: 50%, 63%, and 90%.</li>
+    <li><b>c.</b> Without fitting, estimate the <i>T</i><sub>2</sub> value for MW and IEW in this figure.</li>
+    <li><b>d.</b> Determine the (erroneous) mono-exponential <i>T</i><sub>2</sub> value for voxels that would contain 50% MW and 50% IEW - is it closer to the <i>T</i><sub>2</sub> value of MW or IEW?</li>
+  </ol>
+  <aside class="notes">Exercise 2 from the end of the T2 chapter, quoted as written. Everything needed is in Figure 3.5: the mono-exponential decay of myelin water (green) and of intra/extracellular water (orange), and their mix (dotted), set by the slider. Next slide: the figure, for part a.</aside>
+</section>
+
+<section class="ex" data-book="t2plot4" data-auto="ex2-mw">
+  <div class="ex-layout">
+    <h2>a. When has the MW signal dropped?</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>a.</b> Determine the echo time at which the myelin water (MW) signal has reduced by 50%, 63%, and 90%.</p>
+        <p class="muted">Hover over the green curve; your readings carry over to the next slides.</p>
+        <table class="measure">
+          <tr><th>Drop</th><th>Signal left</th><th>TE (ms)</th></tr>
+          <tr><td>50%</td><td>0.50</td><td><input data-key="mw50" data-share="ex2-mw50" value="" placeholder="?" aria-label="MW TE at 50% drop"></td></tr>
+          <tr><td>63%</td><td>0.37</td><td><input data-key="mw63" data-share="ex2-mw63" value="" placeholder="?" aria-label="MW TE at 63% drop"></td></tr>
+          <tr><td>90%</td><td>0.10</td><td><input data-key="mw90" data-share="ex2-mw90" value="" placeholder="?" aria-label="MW TE at 90% drop"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex2-mw" data-step="1">1 · Levels</button>
+          <button data-run="ex2-mw" data-step="2">2 · Read</button>
+          <button data-run="ex2-mw" data-step="3">3 · Why</button>
+        </div>
+        <div class="fragment step" data-action="ex2-mw"></div>
+        <div class="fragment step" data-action="ex2-mw"></div>
+        <p class="result"></p>
+        <div class="fragment" data-action="ex2-mw">
+          <p class="answer">Each drop is at a fixed multiple of <i>T</i><sub>2</sub>: TE = −<i>T</i><sub>2</sub> ln(1 − drop) = <b>0.69, 0.99 and 2.3 <i>T</i><sub>2</sub></b>.</p>
+        </div>
+      </div>
+      <div class="fig-host" data-fig="t2Plot4"></div>
+    </div>
+  </div>
+  <aside class="notes">Ask the class to hover over the green MW curve and type the readings. Three clicks. 1: the three levels: 50% drop leaves 0.50 of the signal, 63% leaves 0.37, 90% leaves 0.10. 2: where the MW curve crosses each level, read from the book's own curve: about 13, 19 and 44 ms. 3: why: on a mono-exponential, each drop happens at a fixed multiple of T2: ln 2 ≈ 0.69 T2 for 50%, about 1 T2 for 63% (1 − 1/e = 63.2%), ln 10 ≈ 2.3 T2 for 90%. The readings fill part c and the answers slide; boxes left empty keep the figure's values there.</aside>
+</section>
+
+<section class="ex" data-book="t2plot4" data-auto="ex2-iew">
+  <div class="ex-layout">
+    <h2>b. When has the IEW signal dropped?</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Using the signal curve for intra/extra-cellular water (IEW) in the same figure, determine the echo time at which the signal has reduced by 50%, 63%, and 90%.</p>
+        <table class="measure">
+          <tr><th>Drop</th><th>Signal left</th><th>TE (ms)</th></tr>
+          <tr><td>50%</td><td>0.50</td><td><input data-key="iew50" data-share="ex2-iew50" value="" placeholder="?" aria-label="IEW TE at 50% drop"></td></tr>
+          <tr><td>63%</td><td>0.37</td><td><input data-key="iew63" data-share="ex2-iew63" value="" placeholder="?" aria-label="IEW TE at 63% drop"></td></tr>
+          <tr><td>90%</td><td>0.10</td><td><input data-key="iew90" data-share="ex2-iew90" value="" placeholder="?" aria-label="IEW TE at 90% drop"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex2-iew" data-step="1">1 · Levels</button>
+          <button data-run="ex2-iew" data-step="2">2 · Read</button>
+          <button data-run="ex2-iew" data-step="3">3 · Compare</button>
+        </div>
+        <div class="fragment step" data-action="ex2-iew"></div>
+        <div class="fragment step" data-action="ex2-iew"></div>
+        <p class="result"></p>
+        <div class="fragment" data-action="ex2-iew">
+          <p class="answer">Each drop takes about <b><span class="ans-factor">6</span>× longer</b> than for MW: IEW decays that much more slowly.</p>
+        </div>
+      </div>
+      <div class="fig-host" data-fig="t2Plot4"></div>
+    </div>
+  </div>
+  <aside class="notes">As part a, on the orange IEW curve. Three clicks. 1: the levels. 2: the crossings, about 84, 121 and 280 ms (the 90% drop is near the end of the figure's 300 ms). 3: every drop takes the same factor longer than for MW, the ratio of the two T2 values, because the drops are fixed multiples of T2.</aside>
+</section>
+
+<section class="ex" data-book="t2plot4" data-auto="ex2-t2">
+  <div class="ex-layout">
+    <h2>c. <i>T</i><sub>2</sub> without fitting</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> Without fitting, estimate the <i>T</i><sub>2</sub> value for MW and IEW in this figure.</p>
+        <table class="measure compact">
+          <tr><th>TE (ms) at</th><th>50%</th><th>63%</th><th>90%</th></tr>
+          <tr><td>MW</td><td><input data-key="mw50" data-share="ex2-mw50" value="13" aria-label="MW TE at 50% drop"></td><td><input data-key="mw63" data-share="ex2-mw63" value="19" aria-label="MW TE at 63% drop"></td><td><input data-key="mw90" data-share="ex2-mw90" value="44" aria-label="MW TE at 90% drop"></td></tr>
+          <tr><td>IEW</td><td><input data-key="iew50" data-share="ex2-iew50" value="84" aria-label="IEW TE at 50% drop"></td><td><input data-key="iew63" data-share="ex2-iew63" value="121" aria-label="IEW TE at 63% drop"></td><td><input data-key="iew90" data-share="ex2-iew90" value="280" aria-label="IEW TE at 90% drop"></td></tr>
+        </table>
+        <div class="btn-row">
+          <button data-run="ex2-t2" data-step="1">1 · 1/<i>e</i></button>
+          <button data-run="ex2-t2" data-step="2">2 · Check</button>
+          <button class="secondary" data-reset="ex2-t2">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex2-t2"></div>
+        <p class="result"></p>
+        <div class="fragment" data-action="ex2-t2">
+          <p class="answer"><i>T</i><sub>2,MW</sub> ≈ <b><span class="ans-mw">19</span> ms</b> and <i>T</i><sub>2,IEW</sub> ≈ <b><span class="ans-iew">121</span> ms</b>: the TE at which each signal has dropped to 1/<i>e</i> ≈ 0.37.</p>
+        </div>
+      </div>
+      <div class="fig-host" data-fig="t2Plot4"></div>
+    </div>
+  </div>
+  <aside class="notes">The readings from parts a and b are in the table (or the figure's own values if the boxes were left empty). Two clicks. 1: T2 is the TE at which a mono-exponential has dropped to 1/e = 0.368, the 63% drop of part a: about 19 ms for MW and 121 ms for IEW. 2: the check: each reading divided by its multiple (ln 2, 1, ln 10) gives the same T2. The chapter's simulation set 20 and 120 ms; the figure's curves use the values qMRLab fitted from it, 19.0 and 121.4 ms.</aside>
+</section>
+
+<section class="ex" data-book="t2plot4" data-auto="ex2-mono">
+  <div class="ex-layout">
+    <h2>d. A mono-exponential fit of a 50/50 voxel</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>d.</b> Determine the (erroneous) mono-exponential <i>T</i><sub>2</sub> value for voxels that would contain 50% MW and 50% IEW. Is it closer to the <i>T</i><sub>2</sub> value of MW or IEW?</p>
+        <div class="btn-row">
+          <button data-run="ex2-mono" data-step="1">1 · 50/50</button>
+          <button data-run="ex2-mono" data-step="2">2 · Fit</button>
+          <button data-run="ex2-mono" data-step="3">3 · Why</button>
+        </div>
+        <div class="fragment step" data-action="ex2-mono"></div>
+        <div class="fragment step" data-action="ex2-mono"></div>
+        <p class="result"></p>
+        <div class="fragment" data-action="ex2-mono">
+          <ul class="answer">
+            <li><b><i>T</i><sub>2</sub> ≈ <span class="ans-t2">78</span> ms</b>, closer to IEW (<span class="ans-iew">121</span> ms) than to MW (<span class="ans-mw">19</span> ms).</li>
+            <li>MW is mostly gone after about 40 ms: most echoes see only IEW.</li>
+            <li>It depends on the echoes: TE ≥ 50 ms only gives <span class="ans-late">115</span> ms. Not a tissue property.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fig-host" data-fig="t2Plot4"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the book figure. Three clicks. 1: sets the dotted curve to exactly 50% MW and 50% IEW, from the book's own MW and IEW curves (the figure first shows the simulation's fitted mix, 52% MW, although its slider says 50%). 2: a least-squares fit of Eq. 3.2, S0 e^(−TE/T2), with S0 and T2 free, on the figure's 100 echoes from 0 to 300 ms: T2 ≈ 78 ms and S0 ≈ 0.81. The fit misses the fast drop at the start, which is why S0 is below 1. 3: the answer: closer to IEW. And it is not a property of the tissue: with echoes only from 50 ms on, the same voxel gives about 115 ms, almost the IEW value. This is why multi-exponential fitting is needed for MWF.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 2: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>MW: TE ≈ <span data-share="ex2-mw50">13</span>, <span data-share="ex2-mw63">19</span> and <span data-share="ex2-mw90">44</span> ms for 50%, 63% and 90% drops</td></tr>
+    <tr><td>b</td><td>IEW: TE ≈ <span data-share="ex2-iew50">84</span>, <span data-share="ex2-iew63">121</span> and <span data-share="ex2-iew90">280</span> ms</td></tr>
+    <tr><td>c</td><td><i>T</i><sub>2,MW</sub> ≈ 19 ms, <i>T</i><sub>2,IEW</sub> ≈ 121 ms: the TE of the 63% (1/<i>e</i>) drop</td></tr>
+    <tr><td>d</td><td>Mono-exponential <i>T</i><sub>2</sub> ≈ 78 ms, closer to IEW</td></tr>
+  </table>
+  <p class="muted small">Questions: <a href="https://github.com/qMRLab/mooc/discussions" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions</a></p>
+  <p class="muted small"><a href="exercises.html">← All exercises</a></p>
+  <aside class="notes">Summary of the four parts, with the readings typed in parts a and b. The T2 values of part c feed Exercise 3.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/t2Plot4.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex2.js"></script>
+</body>
+</html>
