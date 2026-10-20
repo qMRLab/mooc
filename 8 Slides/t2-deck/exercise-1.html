@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 1 · T2 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>2</sub> Mapping · Exercise 1</p>
+  <h2>The best echo time for WM/GM contrast</h2>
+  <ol>
+    <li><b>a.</b> Using Figure 3.3, determine the approximate optimal echo time for <i>T</i><sub>2</sub> contrast between white matter and gray matter.</li>
+    <li><b>b.</b> Repeat for the <i>T</i><sub>2</sub><sup>*</sup> signal curves.</li>
+    <li><b>c.</b> Observe Figure 3.1, which shows the signal at different TE values and the corresponding <i>T</i><sub>2</sub> map. In practice, which TE out of these four images would you choose for a <i>T</i><sub>2</sub>-weighted image and explain why that value coincides or doesn’t with the optimal TE you found above.</li>
+  </ol>
+  <aside class="notes">Exercise 1 from the end of the T2 chapter, quoted as written. Everything needed is in Figure 3.3 (T2: WM 109.77 ms, GM 96.07 ms; T2*: WM 67.63 ms, GM 48.48 ms) and Eq. 3.1. Next slide: the figure, for part a.</aside>
+</section>
+
+<section class="ex" data-book="t2plot2" data-auto="ex1-t2">
+  <div class="ex-layout">
+    <h2>a. Optimal TE for <i>T</i><sub>2</sub> contrast</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>a.</b> Using Figure 3.3, determine the approximate optimal echo time for <i>T</i><sub>2</sub> contrast between white matter and gray matter.</p>
+        <p class="muted">The best contrast is where the two curves are furthest apart.</p>
+        <div class="btn-row">
+          <button data-run="ex1-t2" data-step="1">1 · Contrast</button>
+          <button data-run="ex1-t2" data-step="2">2 · Maximum</button>
+          <button data-run="ex1-t2" data-step="3">3 · Prove</button>
+        </div>
+        <div class="fragment step" data-action="ex1-t2"></div>
+        <div class="fragment" data-action="ex1-t2">
+          <p class="answer">The WM/GM contrast peaks at <b>TE ≈ <span class="ans-best">103</span> ms</b>.</p>
+        </div>
+        <div class="fragment" data-action="ex1-t2">
+          <p>Setting the derivative of the difference of the two curves (Eq. 3.1) to zero:</p>
+          <div class="eq-small">$$\begin{aligned} &\frac{d}{dTE}\left(e^{-\frac{TE}{T_{2,WM}}} - e^{-\frac{TE}{T_{2,GM}}}\right) = 0 \\ &\Rightarrow\; TE_{best} = \frac{T_{2,WM}\,T_{2,GM}}{T_{2,WM}-T_{2,GM}}\ln\frac{T_{2,WM}}{T_{2,GM}} \end{aligned}$$</div>
+        </div>
+        <p class="result"></p>
+      </div>
+      <div class="fig-host" data-fig="t2Plot2"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the book figure with the T2 curves. Three clicks. 1: adds the WM/GM contrast, the difference between the two curves, on its own axis (right): it is small, at most about 0.05 of the signal at TE = 0. 2: marks its maximum, TE ≈ 103 ms for T2 of 109.77 and 96.07 ms. The curve is flat around the peak: anything from about 60 to 160 ms gives at least 90% of the best contrast. 3: the proof, as for the inversion time in the T1 exercises: setting the derivative to zero gives a closed form that sits between the two T2 values.</aside>
+</section>
+
+<section class="ex" data-book="t2plot2" data-auto="ex1-t2star">
+  <div class="ex-layout">
+    <h2>b. Optimal TE for <i>T</i><sub>2</sub><sup>*</sup> contrast</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>b.</b> Repeat for the <i>T</i><sub>2</sub><sup>*</sup> signal curves.</p>
+        <div class="btn-row">
+          <button data-run="ex1-t2star" data-step="1">1 · Contrast</button>
+          <button data-run="ex1-t2star" data-step="2">2 · Maximum</button>
+          <button data-run="ex1-t2star" data-step="3">3 · Compare</button>
+        </div>
+        <div class="fragment step" data-action="ex1-t2star"></div>
+        <div class="fragment" data-action="ex1-t2star">
+          <p class="answer">The WM/GM contrast peaks at <b>TE ≈ <span class="ans-best">57</span> ms</b>.</p>
+        </div>
+        <div class="fragment" data-action="ex1-t2star">
+          <p>The same formula, with the <i>T</i><sub>2</sub><sup>*</sup> values. <i>T</i><sub>2</sub><sup>*</sup> decay is faster, so the best TE is shorter, and the two tissues’ values differ more (by <span class="ans-ratio">40</span>% of GM’s, against <span class="ans-ratio-t2">14</span>% for <i>T</i><sub>2</sub>), so the contrast is larger.</p>
+        </div>
+        <p class="result"></p>
+      </div>
+      <div class="fig-host" data-fig="t2Plot2"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on the same figure with its menu set to T2*. Three clicks. 1: the contrast, as in part a. 2: its maximum, TE ≈ 57 ms for T2* of 67.63 and 48.48 ms. 3: compared with part a: the best TE is about half as long, and the contrast is more than twice as large (0.12 against 0.05), because the T2* values differ by 40% of the GM value against 14% for T2.</aside>
+</section>
+
+<section class="ex" data-book="t2plot1">
+  <div class="ex-layout">
+    <h2>c. Which TE in practice?</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> Which TE out of these four images would you choose for a <i>T</i><sub>2</sub>-weighted image? Does it coincide with the optimal TE?</p>
+        <div class="btn-row">
+          <button data-run="ex1-pick" data-step="1">1 · Contrast</button>
+          <button data-run="ex1-pick" data-step="2">2 · Choice</button>
+        </div>
+        <div class="fragment step" data-action="ex1-pick"></div>
+        <p class="result"></p>
+        <div class="fragment" data-action="ex1-pick">
+          <p class="answer"><b>TE = 128 ms</b>: the closest of the four to the optimum (≈ <span class="ans-best">103</span> ms), with <span class="ans-pct">97</span>% of the best WM/GM contrast.</p>
+        </div>
+      </div>
+      <div class="fig-host" data-fig="t2Plot1"></div>
+    </div>
+  </div>
+  <aside class="notes">Use the TE menu of Figure 3.1 to compare the four images. Two clicks. 1: the WM/GM contrast predicted at each of the four TEs by Figure 3.3's T2 values (Eq. 3.1), and its share of the best contrast. 2: 128 ms, which the figure switches to: 97% of the best contrast. Next slide: why it coincides only roughly, and why that is fine.</aside>
+</section>
+
+<section class="ex" data-book="t2plot2" data-auto="ex1-why">
+  <div class="ex-layout">
+    <h2>c. Close to the optimum, not on it</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="question"><b>c.</b> Explain why that value coincides or doesn’t with the optimal TE you found above.</p>
+        <div class="btn-row">
+          <button data-run="ex1-why" data-step="1">1 · Four TEs</button>
+          <button data-run="ex1-why" data-step="2">2 · Why</button>
+        </div>
+        <div class="fragment step" data-action="ex1-why"></div>
+        <p class="result"></p>
+        <div class="fragment" data-action="ex1-why">
+          <ul class="answer">
+            <li><b>Flat peak</b>: 128 ms keeps <span class="ans-pct">97</span>% of the best contrast. Only 4 of the echoes are shown; 128 ms is the nearest.</li>
+            <li><b>12.8 ms</b>: little decay, mostly proton-density weighted. <b>256 and 384 ms</b>: less contrast, and only <span class="ans-s256">10</span>% and <span class="ans-s384">3</span>% of the signal left.</li>
+            <li>The optimum depends on the tissues’ <i>T</i><sub>2</sub> (and the field strength): 103 ms is for Figure 3.3’s values.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fig-host" data-fig="t2Plot2"></div>
+    </div>
+  </div>
+  <aside class="notes">The slide opens on Figure 3.3 with the WM/GM contrast of part a. Two clicks. 1: Figure 3.1's four TEs on the contrast curve: 128 ms is just past the peak, where the curve is flat. 2: why. The contrast-to-noise ratio peaks at the same TE when the noise is the same in every echo, so the best contrast is also the best CNR. 12.8 ms barely weights T2; 256 and 384 ms are past the peak and have little signal left, so they are noisy, with only fluid still bright. Clinical T2-weighted scans typically use TEs around 80–120 ms for these reasons.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 1: answers</h2>
+  <table class="measure summary">
+    <tr><th>Part</th><th>Answer</th></tr>
+    <tr><td>a</td><td>Best <i>T</i><sub>2</sub> contrast at TE ≈ 103 ms</td></tr>
+    <tr><td>b</td><td>Best <i>T</i><sub>2</sub><sup>*</sup> contrast at TE ≈ 57 ms (shorter, and a larger contrast)</td></tr>
+    <tr><td>c</td><td>TE = 128 ms, the closest of the four to the optimum: 97% of the best contrast, as the peak is flat</td></tr>
+  </table>
+  <p class="muted small">Questions: <a href="https://github.com/qMRLab/mooc/discussions" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions</a></p>
+  <p class="muted small"><a href="exercises.html">← All exercises</a></p>
+  <aside class="notes">Summary of the three parts. The numbers assume Figure 3.3's values: T2 of 109.77 (WM) and 96.07 ms (GM), T2* of 67.63 (WM) and 48.48 ms (GM).</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/t2Plot1.js"></script>
+<script src="js/figures/t2Plot2.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex1.js"></script>
+</body>
+</html>

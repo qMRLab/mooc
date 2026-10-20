@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 3 · T2 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>2</sub> Mapping · Exercise 3</p>
+  <h2>Myelin water fraction and echo time</h2>
+  <p>Using Eq. 3.8 and the MW/IEW <i>T</i><sub>2</sub> values estimated in Exercise 2, calculate the myelin water fraction (MWF) values at the following TEs: 25, 50, 75, 100, 200, 300. Assume that there is 50% MW and 50% IEW.</p>
+  <div class="eq">$$\textit{MWF} = \frac{S_{MW}e^{-TE/T_{2,MW}}}{S_{MW}e^{-TE/T_{2,MW}} + S_{IEW}e^{-TE/T_{2,IEW}}}$$</div>
+  <aside class="notes">Exercise 3 from the end of the T2 chapter, quoted as written, with Eq. 3.8. The T2 values come from Exercise 2c: about 19 ms for MW and 121 ms for IEW. S_MW = S_IEW = 0.5. Next slide: the calculation.</aside>
+</section>
+
+<section class="ex" data-book="t2eq8">
+  <div class="ex-layout">
+    <h2>MWF at six echo times</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <table class="measure">
+          <tr><td><i>T</i><sub>2,MW</sub> (ms)</td><td><input data-key="t2mw" value="19" aria-label="T2 of myelin water"></td></tr>
+          <tr><td><i>T</i><sub>2,IEW</sub> (ms)</td><td><input data-key="t2iew" value="121" aria-label="T2 of intra/extracellular water"></td></tr>
+          <tr><td>MW fraction (%)</td><td><input data-key="fmw" value="50" aria-label="Myelin water percentage"></td></tr>
+          <tr><td>TEs (ms)</td><td><input class="list short" data-key="tes" value="25, 50, 75, 100, 200, 300" aria-label="Echo times"></td></tr>
+        </table>
+        <p class="footnote">The <i>T</i><sub>2</sub> values of Exercise 2c.</p>
+        <div class="btn-row">
+          <button data-run="ex3-mwf" data-step="1">1 · Calculate</button>
+          <button data-run="ex3-mwf" data-step="2">2 · Curve</button>
+          <button data-run="ex3-mwf" data-step="3">3 · Meaning</button>
+          <button class="secondary" data-reset="ex3-mwf">Reset</button>
+        </div>
+        <div class="fragment step" data-action="ex3-mwf"></div>
+        <div class="fragment step" data-action="ex3-mwf"></div>
+        <div class="result"></div>
+        <div class="fragment" data-action="ex3-mwf">
+          <ul class="answer">
+            <li>The voxel is 50% MW at every TE, yet Eq. 3.8 <b>drops</b>: it is MW’s share of the signal <i>at that TE</i>, and MW decays <span class="ans-factor">6</span>× faster.</li>
+            <li>Only <b>TE → 0</b> gives the true 50%: MWF fits extrapolate to TE = 0, so they need short echoes.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="result-host"></div>
+    </div>
+  </div>
+  <aside class="notes">Type the class's T2 values from Exercise 2c if they differ. Three clicks. 1: Eq. 3.8 at the six TEs, in the table and as points: about 25% at 25 ms, 10% at 50 ms, 3.5% at 75 ms, 1.2% at 100 ms, and practically zero at 200 and 300 ms. 2: the whole curve: it starts at the true 50% at TE = 0 and falls fast. 3: what it means: Eq. 3.8 with a TE is the fraction of the measured signal that comes from MW at that echo, not the fraction of water in the voxel. That is only the same at TE = 0. This is why MWF imaging fits all echoes with a multi-exponential model and reads the fractions at TE = 0, and why its protocols start with a short first echo, around 10 ms, and space the echoes closely.</aside>
+</section>
+
+<section data-book="exercises">
+  <h2>Exercise 3: answers</h2>
+  <table class="measure summary">
+    <tr><th>TE (ms)</th><th>25</th><th>50</th><th>75</th><th>100</th><th>200</th><th>300</th></tr>
+    <tr><td>MWF (Eq. 3.8)</td><td>25%</td><td>9.8%</td><td>3.5%</td><td>1.2%</td><td>0.014%</td><td>0.00017%</td></tr>
+  </table>
+  <p>With <i>T</i><sub>2,MW</sub> = 19 ms and <i>T</i><sub>2,IEW</sub> = 121 ms. The true 50% only comes out at TE = 0.</p>
+  <p class="muted small">Questions: <a href="https://github.com/qMRLab/mooc/discussions" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions</a></p>
+  <p class="muted small"><a href="exercises.html">← All exercises</a></p>
+  <aside class="notes">Summary, for the T2 values of Exercise 2c (19 and 121 ms) and 50% MW. With the simulation's own values (20 and 120 ms) the numbers are close: 26%, 11%, 4.2%, 1.5%, 0.02%, 0.0004%.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/figures/t2Plot4.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/solve.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/ex3.js"></script>
+</body>
+</html>

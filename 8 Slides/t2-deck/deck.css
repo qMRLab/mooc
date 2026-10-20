@@ -54,6 +54,9 @@
 /* Title and section-divider slides: content sits in a vertically centred column. */
 .reveal .center-col { height: 100%; display: flex; flex-direction: column; justify-content: center; }
 .reveal .kicker { font-size: 0.62em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4em; }
+/* Exercise problem slides: the qMRLab logo and the course name above the kicker. */
+.reveal .brand { display: flex; align-items: center; gap: 0.45em; margin-bottom: 0.7em; font-size: 0.78em; font-weight: 700; }
+.reveal .brand img { height: 1.5em; width: auto; margin: 0; }
 .reveal .subtitle { font-size: 1.05em; color: var(--muted); }
 .reveal .byline { font-size: 0.66em; color: var(--muted); margin-top: 2.2em; }
 .reveal section.divider h1 { font-size: 2.2em; }
@@ -128,3 +131,56 @@
 .reveal .slide-number { font-family: var(--font); background: transparent; color: var(--muted); font-size: 15px; right: 18px; bottom: 14px; }
 .reveal .controls { color: var(--accent); }
 .reveal .progress { color: var(--accent); }
+
+/* ---------------------------------------------------------------- Exercise slides */
+/* Question and controls on the left, a book or computed figure on the right. */
+.reveal section.ex { padding-top: 22px; padding-bottom: 50px; }
+.reveal .ex-layout { height: 100%; display: flex; flex-direction: column; }
+.reveal .ex-layout > h2 { flex: none; font-size: 1.15em; margin-bottom: 0.4em; }
+.reveal .ex-cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 0.85fr 1.15fr; column-gap: 36px; }
+.reveal .ex-cols > * { min-width: 0; min-height: 0; }
+/* Book figures are wide (e.g. 600 × 350): give them more of the slide. */
+.reveal .ex-cols:has(> .fig-host) { grid-template-columns: 0.7fr 1.3fr; }
+.reveal .ex-text { font-size: 0.7em; }
+.reveal .ex-text p { margin-bottom: 0.5em; }
+.reveal .ex-cols .fig-host, .reveal .result-host { height: 100%; display: flex; justify-content: center; align-items: flex-start; }
+.reveal .question { background: var(--panel); border-left: 6px solid var(--accent); border-radius: 6px; padding: 0.45em 0.8em; margin: 0 0 0.7em; }
+.reveal .question b:first-child { color: var(--accent); }
+.reveal .answer { background: #eef6ef; border-left: 6px solid #2e7d32; border-radius: 6px; padding: 0.45em 0.8em; margin: 0.6em 0 0; }
+.reveal .footnote { font-size: 0.78em; color: var(--muted); margin-top: 0.6em; }
+.reveal .problem ol { list-style: none; margin: 0; padding: 0; }
+.reveal .problem li { font-size: 0.8em; }
+.reveal .problem li + li { margin-top: 0.55em; }
+.reveal .problem.long p, .reveal .problem.long li { font-size: 0.66em; }
+.reveal table.measure { border-collapse: collapse; margin: 0.2em 0 0.6em; }
+.reveal table.measure th, .reveal table.measure td { padding: 0.18em 0.6em; border-bottom: 1px solid var(--rule); text-align: right; }
+.reveal table.measure th:first-child, .reveal table.measure td:first-child { text-align: left; white-space: nowrap; }
+.reveal table.measure th { font-size: 0.85em; color: var(--muted); font-weight: 600; }
+.reveal input[data-key] { font: inherit; width: 4.6em; padding: 1px 6px; border: 1px solid #9aa7b5; border-radius: 4px; text-align: right; background: #fffdf3; }
+.reveal input[data-key].list { width: 13em; text-align: left; }
+.reveal input[data-key].list.short { width: 10.5em; }
+.reveal .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0.3em 0 0.5em; }
+.reveal .btn-row button { font: inherit; font-size: 0.85em; padding: 0.2em 0.75em; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+.reveal .btn-row button.secondary { background: #fff; color: var(--accent); }
+.reveal .btn-row button:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
+.reveal .result { min-height: 1.3em; line-height: 1.4; }
+.reveal .result.error { color: var(--caution); font-weight: 600; }
+.reveal .result table.measure { font-size: 0.92em; }
+.reveal .result table.measure td + td { white-space: nowrap; }
+.reveal ul.answer { margin-left: 0; padding-left: 1.7em; }
+.reveal ul.answer li + li { margin-top: 0.3em; }
+/* Invisible step: lets → (or a clicker) trigger a Solve. */
+.reveal .fragment.step { display: block; height: 0; overflow: hidden; }
+
+.reveal .ex-cols.even { grid-template-columns: 1fr 1fr; }
+
+/* exercises.html: the list of worked solutions. */
+.reveal .exercise-list li { font-size: 0.9em; }
+.reveal .exercise-list a { text-decoration: none; }
+.reveal .exercise-list + p { margin-top: 1.6em; }
+/* A table laid out across (Exercise 3): tighter columns. */
+.reveal table.measure.wide { font-size: 0.82em; }
+/* A table of inputs in several columns (Exercise 2c): narrower boxes. */
+.reveal table.measure.compact input[data-key] { width: 2.9em; }
+.reveal table.measure.compact th, .reveal table.measure.compact td { padding: 0.18em 0.3em; }
+.reveal table.measure.wide th, .reveal table.measure.wide td { padding: 0.18em 0.35em; }

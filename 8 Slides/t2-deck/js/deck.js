@@ -103,7 +103,7 @@
 
   // A Plotly figure is drawn at its own width and height, unchanged, then scaled as a whole
   // to fill the host. Fonts, margins and annotations keep the book's proportions.
-  // Returns the plot element.
+  // Also used by the exercise slides for their computed figures. Returns the plot element.
   function drawFigure(host, fig) {
     const w = fig.layout.width;
     const h = fig.layout.height;
@@ -141,6 +141,8 @@
       if (!stored) throw new Error(`figure "${label}" is not loaded`);
       drawFigure(host, JSON.parse(JSON.stringify(stored)));
       host.dataset.state = 'mounted';
+      // Lets the exercise slides re-apply their overlays whenever a book figure is (re)drawn.
+      host.dispatchEvent(new CustomEvent('figuremounted', { bubbles: true }));
     } catch (err) {
       console.error(`[t2-deck] ${label}:`, err);
       host.replaceChildren(fallbackCard(host));

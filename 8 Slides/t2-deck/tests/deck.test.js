@@ -95,3 +95,72 @@ test('the book embeds the deck on its own page, listed just below the T1 slides'
   const deploy = fs.readFileSync(path.join(book, '.github', 'workflows', 'deploy.yml'), 'utf8');
   assert.match(deploy, /_build\/html\/slides\/t2/, 'the deploy workflow must copy the deck to /slides/t2/');
 });
+
+// ---------------------------------------------------------------- exercise pages
+
+const EXERCISES = [1, 2, 3, 4].map((n) => `exercise-${n}.html`);
+
+function page(file) {
+  const text = fs.readFileSync(path.join(DECK, file), 'utf8');
+  const grab = (re) => [...text.matchAll(re)].map((m) => m[1]);
+  return {
+    text,
+    sections: (text.match(/<section\b/g) || []).length,
+    books: grab(/data-book="([^"]+)"/g),
+    figs: grab(/data-fig="([^"]+)"/g),
+    scripts: grab(/<script src="([^"]+)"/g),
+    // Every action id the markup refers to, from fragments, auto-run slides and buttons.
+    used: [
+      ...grab(/data-action="([^"]+)"/g),
+      ...grab(/data-auto="([^"]+)"/g).flatMap((s) => s.split(/\s+/)),
+      ...grab(/data-run="([^"]+)"/g),
+      ...grab(/data-reset="([^"]+)"/g),
+    ],
+  };
+}
+
+// The solutions have their own book page (below the T2 deck in the TOC): exercises.html links them, the T2 deck does not.
+test('exercises.html links every exercise page; the T2 deck links none', () => {
+  const hub = fs.readFileSync(path.join(DECK, 'exercises.html'), 'utf8');
+  for (const file of EXERCISES) {
+    assert.ok(hub.includes(`href="${file}"`), `exercises.html has no link to ${file}`);
+    assert.ok(!html.includes(file), `index.html mentions ${file}`);
+  }
+  assert.ok(!html.includes('exercises.html'), 'index.html mentions exercises.html');
+});
+
+test('the book embeds exercises.html on its own page, listed just below the T2 deck, and deploys it', () => {
+  const book = path.resolve(DECK, '..', '..');
+  const md = fs.readFileSync(path.join(book, '8 Slides', '3 - T2 Mapping Exercises.md'), 'utf8');
+  assert.match(md, /<iframe class="reveal-frame" src="\/mooc\/slides\/t2\/exercises\.html"/);
+  const toc = fs.readFileSync(path.join(book, 'myst.yml'), 'utf8').split('\n').map((l) => l.trim());
+  const at = toc.indexOf('- file: 8 Slides/3 - T2 Mapping.md');
+  assert.equal(toc[at + 1], '- file: 8 Slides/3 - T2 Mapping Exercises.md');
+  const deploy = fs.readFileSync(path.join(book, '.github', 'workflows', 'deploy.yml'), 'utf8');
+  const copy = deploy.split('\n').find((l) => /slides\/t2\/$/.test(l.trim()) && /cp -R/.test(l));
+  assert.ok(copy && /exercises\.html/.test(copy) && /exercise-\*\.html/.test(copy), 'the deploy workflow must copy the exercise pages to /slides/t2/');
+});
+
+for (const file of EXERCISES) {
+  test(`${file}: slides, scripts and actions are wired`, () => {
+    const p = page(file);
+    assert.equal(p.books.length, p.sections, 'each <section> needs data-book');
+    for (const label of p.books) assert.ok(deck.LABELS[label], `no LABELS entry for "${label}"`);
+    for (const src of p.scripts) assert.ok(fs.existsSync(path.join(DECK, src)), `missing ${src}`);
+    for (const label of p.figs) assert.ok(p.scripts.includes(`js/figures/${label}.js`), `no script tag for ${label}`);
+
+    const n = file.match(/\d/)[0];
+    const order = ['js/deck.js', 'js/solve.js', 'js/exercise.js', `js/ex${n}.js`];
+    const at = order.map((s) => p.scripts.indexOf(s));
+    assert.ok(at.every((i) => i >= 0), `${file} must load ${order.join(', ')}`);
+    assert.deepEqual([...at].sort((a, b) => a - b), at, `${file} loads ${order.join(', ')} out of order`);
+
+    const source = fs.readFileSync(path.join(DECK, 'js', `ex${n}.js`), 'utf8');
+    const registered = new Set([...source.matchAll(/action\('([^']+)'/g), ...source.matchAll(/Action\('([^']+)'/g)].map((m) => m[1]));
+    for (const id of p.used) assert.ok(registered.has(id), `${file} uses action "${id}" but js/ex${n}.js does not register it`);
+    // Figures used only for their style (bookLayout) must be loaded too.
+    for (const [, label] of source.matchAll(/bookLayout\('([^']+)'/g)) {
+      assert.ok(p.scripts.includes(`js/figures/${label}.js`), `${file} styles a plot after ${label} but does not load it`);
+    }
+  });
+}
