@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 2-3 · T2 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body class="nav-zones" data-home="exercises-2.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>2</sub> Mapping · Exercise 2-3</p>
+  <h2>Measuring <i>T</i><sub>2</sub> with an echo train</h2>
+  <p class="subtitle">How an echo train measures <i>T</i><sub>2</sub> in ideal conditions, what imperfect pulses do to it, and how to overcome them with the CPMG condition.</p>
+  <ol class="intro-plan alpha">
+    <li>With perfect pulses, which phase directions give the best <i>T</i><sub>2</sub>?</li>
+    <li>With B<sub>1</sub> = 0.89 (80° and 160° pulses), which give the best <i>T</i><sub>2</sub> now?</li>
+    <li>With B<sub>1</sub> = 0.67 (60° and 120°), which echoes would you fit?</li>
+    <li>Without any refocusing pulses, what do you measure?</li>
+  </ol>
+  <p class="muted small"><a href="exercises-2.html">← Exercises 2-1 to 2-3</a></p>
+</section>
+
+<section class="ex echo-game" data-book="exercises">
+  <div class="ex-layout">
+    <h2>“Phase”Hero game: Echo trains</h2>
+    <div class="game-cols">
+      <div class="game-time">
+        <div class="game-top"><p class="game-prompt">(a) Select the phase directions that will provide the best <i>T</i><sub>2</sub> measurement. Time your pulses to hit the boxes.</p><span class="game-status" aria-live="polite"></span></div>
+        <div class="panel-label">Pulse sequence</div>
+        <canvas class="game-seq" width="1520" height="380" aria-label="Pulse sequence"></canvas>
+        <div class="panel-label">Signal</div>
+        <canvas class="game-sig" width="1520" height="540" aria-label="Signal"></canvas>
+      </div>
+      <div class="game-spins">
+        <div class="btn-row play-row"><button data-game-play>▶ Play (Enter)</button></div>
+        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
+        </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
+        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
+        <p class="muted game-hint">Click and drag to reorient · V switches the view.</p>
+        <div class="settings-box">
+          <p><b>Settings</b> · <i>T</i><sub>2</sub> = 80 ms, <i>T</i><sub>1</sub> = ∞, echoes every 20 ms. The spins’ frequency offsets (the fan):</p>
+          <p><b>Equally spaced:</b> evenly over ±16.7 Hz; the signal decays as a sinc.</p>
+          <p><b>Gaussian:</b> σ = 11.8 Hz; the signal decays as e<sup>−(2πσ<i>t</i>)²/2</sup>.</p>
+          <p><b>Lorentzian:</b> half-width γ = 8.3 Hz; the signal decays as e<sup>−<i>t</i>/<i>T</i><sub>2</sub>′</sup>, with <i>T</i><sub>2</sub>′ = 1/(2πγ) = 19.1 ms.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">The game. The question at the top: which phase directions give the best T2 measurement? (With perfect pulses, any: the next slide’s hint leads there.) Press Play (or Enter), top right. The settings box under the spins defines the three fans: equally spaced over ±16.7 Hz, Gaussian with σ = 11.8 Hz, Lorentzian with half-width γ = 8.3 Hz (T2′ = 1/(2πγ) = 19.1 ms); with T2 = 80 ms, a Lorentzian fan without refocusing decays with T2* = 1/(1/T2 + 1/T2′) = 15.4 ms. The 90° fires on its own; then hit an arrow key each time a red box reaches the line: ten 180° pulses, ten echoes (τ = 10 ms, TE = 20, 40, … 200 ms). A press inside a box fires exactly on the beat. Fixed settings: perfect 180° pulses, T2 = 80 ms, T1 infinite, 6 ms of scan per second, a Lorentzian fan of spins to start (the Fan menu switches it), as wide as an equally spaced fan drifting ±60° by each 180°. The signal at each echo time is saved for the next slide, which fits T2 to it. Space moves on; the arrow keys are captured on this slide.</aside>
+</section>
+
+<section class="ex echo-fit" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Measurements and the <i>T</i><sub>2</sub> fit</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <div class="fit-result"></div>
+        <div class="btn-row"><button data-fit-run>Fit</button><button class="secondary" data-fit-hint hidden>💡 Hint</button><button class="secondary" data-fit-again>↺ Try again</button></div>
+        <div class="fit-hint" hidden><p>Try any combination of directions: arbitrary, always the same, alternating. Do the results change?</p><p>(d) Then, with the Lorentzian fan, play without any 180° pulses at all, and fit. What value did you get?</p></div>
+      </div>
+      <div class="result-host fit-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The ten echo amplitudes from the game, shown first on their own; Fit then adds a mono-exponential fit S0·e^(−TE/T2) (least squares on the amplitudes, so missed echoes count as low points rather than breaking the fit), the fitted T2, and how far it is from the true 80 ms. Once the fit is shown, Hint suggests trying other combinations of pulse directions (arbitrary, always the same, alternating): with perfect pulses the results do not change, only the timing matters. Its second suggestion, the Lorentzian fan with no 180° pulses at all: the fit then gives T2*, not T2. A Lorentzian spread of frequencies makes the signal decay as e^(−t/T2′), here with T2′ ≈ 19 ms, so 1/T2* = 1/T2 + 1/T2′ gives T2* ≈ 15.4 ms (the fit gives about 15.6 ms). The other fans do not give a clean T2*: the equally spaced fan decays as a sinc, with ripples, and the Gaussian fan as a Gaussian, so an exponential fit to them means little. Try again goes back to the game and resets it.</aside>
+</section>
+
+<section class="lesson" data-book="exercises">
+  <p class="kicker">What we saw · 1</p>
+  <h2>Perfect pulses give <i>T</i><sub>2</sub> exactly</h2>
+  <ul>
+    <li>Pure spin echoes: the fit gives 80.0 ms.</li>
+    <li>Only the timing matters, not the pulse axis.</li>
+    <li>Without any refocusing pulses, the fit with the Lorentzian fan gives <i>T</i><sub>2</sub>* (about 15 ms), not <i>T</i><sub>2</sub>.</li>
+  </ul>
+  <aside class="notes">Lesson of the first game and its fit. In full: With a 90° and 180°s, every echo is a pure spin echo: the train follows e−TE/T2, and the fit gives 80.0 ms. The axis of the 180°s does not matter yet: CP (→) and CPMG (↑) give the same echoes. Timing does: a pulse off the beat moves its echo away from the acquisition, and the measurement drops.</aside>
+</section>
+
+
+<section class="ex b1-map" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Intermezzo: B<sub>1</sub> in a real brain</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p>B<sub>1</sub> is the transmit field relative to its nominal value, and it is rarely 1 everywhere. Where B<sub>1</sub> = 0.89, a 90° pulse is only 80° and a 180° is 160°.</p>
+        <p>This is a measured B<sub>1</sub> map of a brain at 3 T, from the book’s B<sub>1</sub> mapping chapter (Figure 4.13, filtered). Grey has no value.</p>
+        <p>Contour lines every 0.1 (the highest value here is 1.18, so there is no 1.2 line):</p>
+        <table class="measure b1-levels">
+          <tr><th>B<sub>1</sub></th><th>a 90° is</th><th>a 180° is</th></tr>
+          <tr><td>0.8</td><td>72°</td><td>144°</td></tr>
+          <tr><td>0.9</td><td>81°</td><td>162°</td></tr>
+          <tr><td>1</td><td>90°</td><td>180°</td></tr>
+          <tr><td>1.1</td><td>99°</td><td>198°</td></tr>
+        </table>
+      </div>
+      <div class="b1map-host"></div>
+    </div>
+  </div>
+  <aside class="notes">An intermezzo before the B1 games: what B1 looks like in practice. The map is the filtered actual-flip-angle (AFI) B1 map from the book’s B1 mapping chapter (Figure 4.13, right; a 7×7×7 median filter attenuates Gibbs ringing). Drawn with the book’s colours (0.7 red to 1.3 blue, white at 1); the few pixels inside the head that have no value (stored as 0) are grey. Hovering over the map shows B1 at that pixel. Contour lines every 0.1 from 0.8 to 1.1 (B1 = 1 thicker, white on the map), drawn across the grey pixels from their neighbours; there is no 1.2 line because the map peaks at 1.18. In this slice B1 runs from 0.73 to 1.18: 4% of the brain is below 0.8, 11% between 0.8 and 0.9, 30% between 0.9 and 1, 33% between 1 and 1.1, and 23% above 1.1. The next game’s B1 = 0.89 sits just inside the 0.9 line. B1 = 0.67, the 60°/120° of the game after next, does not occur in this brain at 3 T; it does at 7 T (where B1 falls off strongly away from the centre of the head) and in the body at 3 T.</aside>
+</section>
+
+<section class="ex echo-game-b1" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Echo trains with B<sub>1</sub> = 0.89</h2>
+    <p class="b1-note">Here B<sub>1</sub> = 0.89 of its nominal value, so every flip angle comes out short: the 90° is now <b>80°</b>, and each 180° is now <b>160°</b>. Crushers flank each 160°, as in a real sequence.</p>
+    <div class="game-cols">
+      <div class="game-time">
+        <div class="game-top"><p class="game-prompt">(b) Which phase directions give the best <i>T</i><sub>2</sub> now? Time your pulses to hit the boxes.</p><span class="game-status" aria-live="polite"></span></div>
+        <div class="panel-label">Pulse sequence</div>
+        <canvas class="game-seq" width="1520" height="380" aria-label="Pulse sequence"></canvas>
+        <div class="panel-label">Signal</div>
+        <canvas class="game-sig" width="1520" height="460" aria-label="Signal"></canvas>
+      </div>
+      <div class="game-spins">
+        <div class="btn-row play-row"><button data-game-play>▶ Play (Enter)</button></div>
+        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
+        </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
+        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
+        <p class="muted game-hint">Click and drag to reorient · V switches the view.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">The same game as before, with B1 inhomogeneity: B1 = 0.89 (the transmit field is 0.89 of its nominal value), so the excitation is 80° instead of 90° and every refocusing pulse is 160° instead of 180°. Same timing (τ = 10 ms, ten echoes), T2 = 80 ms, T1 infinite, ±60° fan. Crushers around each refocusing pulse: the leftover longitudinal magnetization from the 80° excitation (cos 80° ≈ 17%) is tipped partly into the transverse plane by every 160°; that part only sees the second crusher lobe and is spoiled, while the rest stays along z. Echo magnetization that a 160° parks along z keeps its crusher phase and still comes back as stimulated echoes. With 160° pulses the choice of axis now matters: CPMG (all ↑ or all ↓, along the magnetization after a 90° about +x) keeps the echoes up; CP (all → or all ←) lets the errors pile up. Space moves on; the arrow keys are captured on this slide.</aside>
+</section>
+
+<section class="ex echo-fit-b1" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Measurements and the <i>T</i><sub>2</sub> fit, with B<sub>1</sub> inhomogeneity</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <div class="fit-result"></div>
+        <div class="btn-row"><button data-fit-run>Fit</button><button data-fit-extra="skip1" hidden>Fit without echo 1</button><button class="secondary" data-fit-hint hidden>💡 Hint</button><button class="secondary" data-fit-again>↺ Try again</button><button class="secondary" data-fit-export>⤓ Export</button></div>
+        <div class="fit-hint" hidden><p>Try CP (→ every time) as well as CPMG (↑ every time). Which train stays clean?</p><p>A single-echo spin echo, one acquisition per TE, has one 160° per echo. What would that do to each echo? Would <i>T</i><sub>2</sub> come out biased?</p></div>
+      </div>
+      <div class="result-host fit-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The ten measurements from the B1-inhomogeneity game (80° excitation, 160° refocusing), shown first on their own; Fit then adds the mono-exponential fit S0·e^(−TE/T2), the fitted T2 and its difference from the true 80 ms. With CPMG phases the train stays clean but the fit comes out a little long (about 81 ms when every pulse is on the beat): part of the signal spends time along z, where nothing decays here (T1 infinite). With CP phases the train breaks up and the fit means little. After the first fit, "Fit without echo 1" refits echoes 2–10 (about 81.4 → 80.1 ms with CPMG on the beat), with echo 1 greyed out; "Fit all echoes" goes back. The hint asks two things. CP versus CPMG: CPMG’s train stays clean, CP’s falls apart (the CPMG condition, next slide). And single-echo spin echoes: each echo then gets one 160°, which scales it by the same sin²(80°) = 0.97 whatever the TE, with no stimulated echoes, so the fitted T2 is unbiased: the bias comes from the echo train, not from the imperfect pulse alone. Try again goes back to the B1 game and resets it. Export saves the run as JSON: the settings, each pulse as pressed (key, axis, timing, in the box or not), the ten measurements at full precision, and both fits.</aside>
+</section>
+
+<section class="lesson" data-book="exercises">
+  <p class="kicker">What we saw · 2</p>
+  <h2>The CPMG condition</h2>
+  <ul>
+    <li>Refocus about the axis M lies on after the 90° (+y after a 90° about +x): each pulse’s error is undone by the next, and the train stays clean.</li>
+    <li>CPMG (↑): about 81 ms, slightly long from stimulated echoes. CP (→): the train falls apart.</li>
+  </ul>
+  <aside class="notes">Lesson of the B1 game with crushers. In full: Crushers spoil what a refocusing pulse tips into the plane from magnetization that was never transverse: the 80° pulse’s leftover. Stimulated echoes survive: their magnetization carries the crusher’s phase and is untwisted by the next lobe. The bias drops from about +3 ms to about +1 ms (81.4 ms), and dropping echo 1 brings it to about +0.1 ms (80.1 ms).</aside>
+</section>
+
+<section class="ex echo-game-b1s" data-book="exercises">
+  <div class="ex-layout">
+    <h2>A larger B<sub>1</sub> error</h2>
+    <p class="b1-note">Now B<sub>1</sub> = 0.67 of its nominal value: the 90° is now <b>60°</b>, and each 180° is now <b>120°</b>. Crushers flank each 120°.</p>
+    <div class="game-cols">
+      <div class="game-time">
+        <div class="game-top"><p class="game-prompt">(c) Play CPMG (↑) on the beat. On the next slide: which echoes would you fit?</p><span class="game-status" aria-live="polite"></span></div>
+        <div class="panel-label">Pulse sequence</div>
+        <canvas class="game-seq" width="1520" height="380" aria-label="Pulse sequence"></canvas>
+        <div class="panel-label">Signal</div>
+        <canvas class="game-sig" width="1520" height="460" aria-label="Signal"></canvas>
+      </div>
+      <div class="game-spins">
+        <div class="btn-row play-row"><button data-game-play>▶ Play (Enter)</button></div>
+        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
+        </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
+        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
+        <p class="muted game-hint">Click and drag to reorient · V switches the view.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">The B1 game with a stronger error: B1 = 0.67 (the transmit field is 0.67 of its nominal value), so the excitation is 60° instead of 90° and every refocusing pulse is 120° instead of 180°. Crushers around each 120° spoil what it tips into the transverse plane from the leftover longitudinal magnetization of the 60° excitation (cos 60° = 50%); echo magnetization parked along z still comes back as stimulated echoes. Same timing (τ = 10 ms, ten echoes), T2 = 80 ms, T1 infinite, ±60° fan. Space moves on; the arrow keys are captured on this slide.</aside>
+</section>
+
+<section class="ex echo-fit-b1s" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Measurements and the <i>T</i><sub>2</sub> fit, larger B<sub>1</sub> error</h2>
+    <div class="ex-cols">
+      <div class="ex-text">
+        <p class="game-prompt">(c) Which echoes would you fit? After the first fit, try each option.</p>
+        <div class="fit-result"></div>
+        <div class="btn-row"><button data-fit-run>Fit</button><button data-fit-extra="skip1" hidden>Fit without echo 1</button><button data-fit-extra="even" hidden>Fit even echoes</button><button data-fit-extra="odd" hidden>Fit odd echoes</button><button class="secondary" data-fit-hint hidden>💡 Hint</button><button class="secondary" data-fit-again>↺ Try again</button><button class="secondary" data-fit-export>⤓ Export</button></div>
+        <div class="fit-hint" hidden><p>Go back to the game and turn the 3D view to the z–x plane (or pick <b>Side: z–x plane</b> in the view menu). Can you see why fitting every even echo gives a closer <i>T</i><sub>2</sub> than every odd echo?</p></div>
+      </div>
+      <div class="result-host fit-host"></div>
+    </div>
+  </div>
+  <aside class="notes">The ten measurements from the 60°/120° game with crushers, shown first on their own; Fit adds S0·e^(−TE/T2), the fitted T2 and its difference from the true 80 ms. Then the fit can be redone without echo 1, on the even echoes only, or on the odd echoes only, one at a time, with the echoes left out greyed; "Fit all echoes" goes back. Without echo 1: echo 1 is the spin echo alone (sin²(60°) = 75% of what a 180° would give), while from echo 2 on, stimulated echoes add in, so dropping echo 1 removes most of the bias (about 93 → 84 ms with CPMG on the beat). Even or odd echoes only: the CPMG train zig-zags between odd and even echoes, and each subset is biased its own way. None of these simple fixes removes the bias at 120°; Milford et al. 2015 (PLOS ONE) and McPhee & Wilman 2018 (JMRI) report the same, and recommend fitting a model of the sequence (EPG, Bloch simulation). Hint: in the z–x side view (the pulses are about +y, so they tip the fanned-out spins between x and z), at echo 1 about a third of the magnetization is still tipped out along z (mean |Mz| ≈ 0.3), so echo 1 is low (about 84% of ideal); the second pulse tips it back and echo 2 is on the curve (about 101%). The odd echoes include echo 1, the lowest point, which pulls the odd fit to about 95 ms; without echo 1 the odd echoes give about 87 ms, close to the even ones (about 84 ms). In this game the later echoes do not alternate much: echo 1 makes most of the odd–even difference. Try again goes back to that game and resets it. Export saves the run as JSON.</aside>
+</section>
+
+<section class="lesson" data-book="exercises">
+  <p class="kicker">What we saw · 3</p>
+  <h2>Big B<sub>1</sub> errors: no simple fit fixes it</h2>
+  <ul>
+    <li>All echoes about 93 ms; without echo 1 about 84; even echoes about 84.</li>
+    <li>The fix: fit a model that includes stimulated echoes (EPG).</li>
+  </ul>
+  <aside class="notes">Lesson of the stronger B1 game. Milford et al. 2015 (PLOS ONE) and McPhee & Wilman 2018 (JMRI) report the same with simulations and phantoms. In full: At 60° and 120°, the CPMG train zig-zags between odd and even echoes, and the fit gives about 93 ms. Dropping echo 1 (about 84 ms) or fitting only the even echoes (about 84 ms) helps; fitting only the odd echoes makes it worse (about 95 ms). Echo 1 is the biggest outlier (a spin echo alone), but every later echo carries stimulated echoes too. The robust fix is to fit a model of the sequence that includes stimulated echoes (extended phase graphs; Milford et al. 2015, McPhee &amp; Wilman 2018).</aside>
+</section>
+
+<section class="lesson summary-lessons" data-book="exercises">
+  <p class="kicker">Lessons</p>
+  <h2>Measuring <i>T</i><sub>2</sub> with an echo train</h2>
+  <ol>
+    <li><b>Perfect pulses:</b> <i>T</i><sub>2</sub> exactly, whatever the phase directions.</li>
+    <li><b>The CPMG condition:</b> refocus about the axis M lies on after the 90°; CP falls apart with imperfect pulses.</li>
+    <li><b>Large B<sub>1</sub> errors:</b> dropping echo 1 or fitting even echoes helps, but not enough.</li>
+    <li><b>The fix:</b> model the stimulated echoes in the fit (EPG).</li>
+    <li><b>No refocusing:</b> the signal decays with <i>T</i><sub>2</sub>*, not <i>T</i><sub>2</sub>.</li>
+  </ol>
+  <p class="small muted">Next: a sandbox with every setting open.</p>
+  <aside class="notes">The lessons of Exercise 2-3, in order. The next slide is a sandbox with every setting open.</aside>
+</section>
+
+<section class="ex echo-sandbox" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Sandbox: every setting</h2>
+    <div class="sandbox-controls">
+      <label>Excitation <input data-set="exc" type="number" min="1" max="180" step="5" value="90">°</label>
+      <label>Refocusing <input data-set="flip" type="number" min="1" max="360" step="5" value="180">°</label>
+      <label><input data-set="crush" type="checkbox"> Crushers</label>
+      <label>T₂ <input data-set="t2" type="number" min="1" max="5000" step="5" value="80"> ms</label>
+      <label>T₁ <input data-set="t1" type="number" min="1" max="20000" step="50" value="1000"> ms</label>
+      <label><input data-set="t1inf" type="checkbox" checked> T₁ = ∞</label>
+      <label>τ <input data-set="tau" type="number" min="2" max="50" step="1" value="10"> ms</label>
+      <label>Echoes <input data-set="n" type="number" min="2" max="20" step="1" value="10"></label>
+      <label>Dephasing ± <input data-set="spread" type="range" min="0" max="720" step="10" value="60"> <span data-show="spread"></span>°</label>
+      <label>Fan <select data-set="fan"><option value="even">even</option><option value="gauss">Gaussian</option><option value="lorentz" selected>Lorentzian</option></select></label>
+      <label>Speed <input data-set="rate" type="range" min="1" max="30" step="1" value="6"> <span data-show="rate"></span> ms/s</label>
+    </div>
+    <div class="game-cols">
+      <div class="game-time">
+        <div class="btn-row"><button data-game-play>▶ Play (Enter)</button><button class="secondary" data-fit-export disabled>⤓ Export</button><span class="game-status" aria-live="polite"></span></div>
+        <div class="sandbox-results" aria-live="polite"></div>
+        <div class="panel-label">Pulse sequence</div>
+        <canvas class="game-seq" width="1520" height="340" aria-label="Pulse sequence"></canvas>
+        <div class="panel-label">Signal, with the <i>T</i><sub>2</sub> envelope e<sup>−t/<i>T</i><sub>2</sub></sup> (dashed)</div>
+        <canvas class="game-sig" width="1520" height="400" aria-label="Signal"></canvas>
+      </div>
+      <div class="game-spins">
+        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
+        </select></div>
+        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
+        <p class="muted game-hint">Click and drag to reorient · V switches the view.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">The sandbox: the same game with every setting open. Excitation and refocusing angles (the excitation is about +x), crushers around each refocusing pulse (they spoil what a refocusing pulse tips into the plane from magnetization that was never transverse), T2, T1 (or infinite), τ, the number of echoes, the dephasing of the fan by each refocusing pulse, an even or Gaussian fan, and the speed. The signal panel shows the true T2 envelope, e^(−t/T2), dashed. Changes apply when Play is pressed (and show at once while no run is going). Before a run, the line under Play suggests experiments (CP against CPMG at several angles, crushers on and off, the Lorentzian fan without refocusing to check 1/T2* = 1/T2 + 1/T2′). When a run ends, it gives the T2 fitted to all echoes, without echo 1, to the even and to the odd echoes; Export saves the run as JSON. Space moves on; the arrow keys and Enter are captured on this slide.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/figures/afiPlot8.js"></script>
+<script src="js/exn.js"></script>
+</body>
+</html>

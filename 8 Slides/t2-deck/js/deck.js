@@ -74,7 +74,19 @@
 
   const PRINT = typeof location !== 'undefined' && /print-pdf/i.test(location.search);
 
+  // A page whose <body> has data-home (the interactive exercises) links each slide to that page instead of the
+  // book; an empty data-home (the starting page itself) gets no link.
   function addBookLink(section) {
+    const home = document.body.dataset.home;
+    if (home !== undefined) {
+      if (!home) return;
+      const a = document.createElement('a');
+      a.className = 'home-link';
+      a.href = home;
+      a.textContent = '⌂ All exercises';
+      section.appendChild(a);
+      return;
+    }
     const { href, text } = bookLink(section.dataset.book);
     const a = document.createElement('a');
     a.className = 'book-link';

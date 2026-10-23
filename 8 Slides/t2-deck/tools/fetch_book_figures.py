@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copy the T2 chapter's published Plotly figures from the live book into js/figures/.
+"""Copy the T2 chapter's published Plotly figures (and one B1 map, for Exercise 2-3) from the live book into js/figures/.
 
 The book (https://qmrlab.org/mooc/t2-mapping) stores each notebook output either inline in
 the page JSON or as /mooc/build/<hash>.json. This script finds every Plotly output by the
@@ -18,10 +18,11 @@ from pathlib import Path
 DECK = Path(__file__).resolve().parents[1]
 OUT = DECK / "js" / "figures"
 SITE = "https://qmrlab.org"
-PAGE = f"{SITE}/mooc/t2-mapping.json"
 PLOTLY = "application/vnd.plotly.v1+json"
 # The book has no t2Plot6, and Figure 3.6 (t2Plot7) has no published output: its notebook is not built.
 LABELS = ["t2Plot1", "t2Plot2", "t2Plot3", "t2Plot4", "t2Plot5", "t2Plot8"]
+# Each chapter page and the figures taken from it. Exercise 2-3's intermezzo uses the B1 chapter's Figure 4.13.
+PAGES = {"t2-mapping": LABELS, "b1-mapping": ["afiPlot8"]}
 
 
 def get(url):
@@ -53,10 +54,10 @@ def figure_json(entry):
     return content if isinstance(content, str) else json.dumps(content)
 
 
-def as_script(label, text):
+def as_script(label, text, page):
     json.loads(text)  # refuse anything that is not valid JSON
     return (
-        "// Published figure from https://qmrlab.org/mooc/t2-mapping, copied unchanged by\n"
+        f"// Published figure from https://qmrlab.org/mooc/{page}, copied unchanged by\n"
         "// tools/fetch_book_figures.py. Do not edit.\n"
         f"window.T2Figures = window.T2Figures || {{}};\nwindow.T2Figures[{json.dumps(label)}] = {text.strip()};\n"
     )
@@ -64,11 +65,14 @@ def as_script(label, text):
 
 def main():
     check = "--check" in sys.argv[1:]
-    outputs = plotly_outputs(json.loads(get(PAGE))["mdast"])
-    missing = [label for label in LABELS if label not in outputs]
-    if missing:
-        sys.exit(f"Not found on {PAGE}: {', '.join(missing)}. Nothing was written.")
-    scripts = {label: as_script(label, figure_json(outputs[label])) for label in LABELS}
+    scripts = {}
+    for page, labels in PAGES.items():
+        url = f"{SITE}/mooc/{page}.json"
+        outputs = plotly_outputs(json.loads(get(url))["mdast"])
+        missing = [label for label in labels if label not in outputs]
+        if missing:
+            sys.exit(f"Not found on {url}: {', '.join(missing)}. Nothing was written.")
+        scripts.update({label: as_script(label, figure_json(outputs[label]), page) for label in labels})
     if check:
         changed = [l for l, s in scripts.items() if not (OUT / f"{l}.js").exists() or (OUT / f"{l}.js").read_text() != s]
         print("identical to the book" if not changed else "differs from the book: " + ", ".join(changed))

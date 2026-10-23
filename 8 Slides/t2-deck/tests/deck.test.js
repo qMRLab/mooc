@@ -25,6 +25,8 @@ const PUBLISHED = {
   t2Plot5: { traces: 7, sliders: 0, menus: 2 },
   t2Plot8: { traces: 2, sliders: 0, menus: 0 },
 };
+// From other chapters, for the exercises: the B1 chapter's Figure 4.13 (Exercise 2-3's B1 map).
+const BORROWED = { afiPlot8: { traces: 2, sliders: 0, menus: 0 } };
 
 function loadFigure(label) {
   const ctx = { window: {} };
@@ -62,7 +64,7 @@ test('each published figure is on exactly one slide and loaded', () => {
 });
 
 test('stored figures match what the book publishes', () => {
-  for (const [label, want] of Object.entries(PUBLISHED)) {
+  for (const [label, want] of Object.entries({ ...PUBLISHED, ...BORROWED })) {
     const fig = loadFigure(label);
     assert.ok(fig && Array.isArray(fig.data) && fig.layout, `${label} is not a Plotly figure`);
     assert.equal(fig.data.length, want.traces, `${label} traces`);
@@ -139,9 +141,9 @@ test('the book keeps the page for exercises.html, and deploys it', () => {
   assert.ok(copy && /exercises\.html/.test(copy) && /exercise-\*\.html/.test(copy), 'the deploy workflow must copy the exercise pages to /slides/t2/');
 });
 
-// ---------------------------------------------------------------- Exercises 2-1 and 2-2 (interactive)
+// ---------------------------------------------------------------- Exercises 2-1 to 2-3 (interactive)
 
-const EX2 = ['exercises-2.html', 'exercise-2-1.html', 'exercise-2-2.html'];
+const EX2 = ['exercises-2.html', 'exercise-2-1.html', 'exercise-2-2.html', 'exercise-2-3.html'];
 
 test('the book embeds exercises-2.html on its own page, listed just below the T2 deck, and deploys it', () => {
   const book = path.resolve(DECK, '..', '..');
@@ -156,9 +158,9 @@ test('the book embeds exercises-2.html on its own page, listed just below the T2
   assert.ok(copy && /exercises-2\.html/.test(copy) && /exercise-\*\.html/.test(copy), 'the deploy workflow must copy exercises-2.html and the exercise pages');
 });
 
-test('Exercises 2-1 and 2-2: pages link each other, load their scripts, and label every slide', () => {
+test('Exercises 2-1 to 2-3: pages link each other, load their scripts, and label every slide', () => {
   const hub = fs.readFileSync(path.join(DECK, 'exercises-2.html'), 'utf8');
-  for (const f of ['exercise-2-1.html', 'exercise-2-2.html']) assert.ok(hub.includes(`href="${f}"`), `exercises-2.html has no link to ${f}`);
+  for (const f of EX2.slice(1)) assert.ok(hub.includes(`href="${f}"`), `exercises-2.html has no link to ${f}`);
   for (const f of EX2) {
     const p = page(f);
     assert.ok(p.sections > 0, `${f} has no slides`);
