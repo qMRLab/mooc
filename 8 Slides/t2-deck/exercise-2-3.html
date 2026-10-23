@@ -28,9 +28,34 @@
   <p class="muted small"><a href="exercises-2.html">← Exercises 2-1 to 2-3</a></p>
 </section>
 
+<section class="ex refresher" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Refresher: the controls and the symbols</h2>
+    <div class="ex-cols">
+      <div class="refresher-keys">
+        <div class="arrow-keys"></div>
+        <p>Each arrow key fires a pulse about its axis.</p>
+        <div class="btn-row"><span class="play-demo" aria-hidden="true">▶ Play (Enter)</span></div>
+        <p>starts the sequence.</p>
+      </div>
+      <table class="symbols">
+        <tr><td><span class="sym-box">?</span></td><td><b>Press now:</b> fire a pulse when it reaches the black line.</td></tr>
+        <tr><td><span class="sym-now"></span></td><td>The black line: now.</td></tr>
+        <tr><td><span class="sym-hit">↑</span></td><td>A pulse that fired on the beat (any press inside the square does).</td></tr>
+        <tr><td style="color:#bbb">missed</td><td>No press in time.</td></tr>
+        <tr><td><span class="sym-bar" style="background:#1f5f99"></span> excitation</td><td>Fires by itself at <i>t</i> = 0.</td></tr>
+        <tr><td><span class="sym-bar" style="background:#c0392b"></span> refocusing</td><td>One of your presses.</td></tr>
+        <tr><td><span class="sym-acq">ACQ</span></td><td>The signal is measured here.</td></tr>
+      </table>
+    </div>
+  </div>
+  <aside class="notes">A reminder of the game’s controls and symbols before the echo-train games (they are those of the single-echo slide at the end of Exercise 2-1). Each arrow key fires a pulse about its axis (→ +x, ← −x, ↑ +y, ↓ −y); Play (or Enter) starts the sequence, and the excitation fires on its own at t = 0. A red dashed square means press now: a press inside it fires exactly on the beat and the square turns into a green box with the key’s arrow; a square left alone says “missed”. Refocusing pulses are drawn in red, the excitation in blue (the slide gives no angles: they are 90° and 180° only when B1 = 1), and ACQ marks where each echo is measured.</aside>
+</section>
+
 <section class="ex echo-game" data-book="exercises">
   <div class="ex-layout">
     <h2>“Phase”Hero game: Echo trains</h2>
+    <p class="b1-note">Here B<sub>1</sub> = 1: the excitation is exactly <b>90°</b>, and every refocusing pulse exactly <b>180°</b>.</p>
     <div class="game-cols">
       <div class="game-time">
         <div class="game-top"><p class="game-prompt">(a) Select the phase directions that will provide the best <i>T</i><sub>2</sub> measurement. Time your pulses to hit the boxes.</p><span class="game-status" aria-live="polite"></span></div>
@@ -55,7 +80,7 @@
       </div>
     </div>
   </div>
-  <aside class="notes">The game. The question at the top: which phase directions give the best T2 measurement? (With perfect pulses, any: the next slide’s hint leads there.) Press Play (or Enter), top right. The settings box under the spins defines the three fans: equally spaced over ±16.7 Hz, Gaussian with σ = 11.8 Hz, Lorentzian with half-width γ = 8.3 Hz (T2′ = 1/(2πγ) = 19.1 ms); with T2 = 80 ms, a Lorentzian fan without refocusing decays with T2* = 1/(1/T2 + 1/T2′) = 15.4 ms. The 90° fires on its own; then hit an arrow key each time a red box reaches the line: ten 180° pulses, ten echoes (τ = 10 ms, TE = 20, 40, … 200 ms). A press inside a box fires exactly on the beat. Fixed settings: perfect 180° pulses, T2 = 80 ms, T1 infinite, 6 ms of scan per second, a Lorentzian fan of spins to start (the Fan menu switches it), as wide as an equally spaced fan drifting ±60° by each 180°. The signal at each echo time is saved for the next slide, which fits T2 to it. Space moves on; the arrow keys are captured on this slide.</aside>
+  <aside class="notes">The game, with B1 = 1: the excitation is exactly 90° and every refocusing pulse exactly 180° (the B1 games later in the deck change that). The question at the top: which phase directions give the best T2 measurement? (With perfect pulses, any: the next slide’s hint leads there.) Press Play (or Enter), top right. The settings box under the spins defines the three fans: equally spaced over ±16.7 Hz, Gaussian with σ = 11.8 Hz, Lorentzian with half-width γ = 8.3 Hz (T2′ = 1/(2πγ) = 19.1 ms); with T2 = 80 ms, a Lorentzian fan without refocusing decays with T2* = 1/(1/T2 + 1/T2′) = 15.4 ms. The 90° fires on its own; then hit an arrow key each time a red box reaches the line: ten 180° pulses, ten echoes (τ = 10 ms, TE = 20, 40, … 200 ms). A press inside a box fires exactly on the beat. Fixed settings: perfect 180° pulses, T2 = 80 ms, T1 infinite, 6 ms of scan per second, a Lorentzian fan of spins to start (the Fan menu switches it), as wide as an equally spaced fan drifting ±60° by each 180°. The signal at each echo time is saved for the next slide, which fits T2 to it. Space moves on; the arrow keys are captured on this slide.</aside>
 </section>
 
 <section class="ex echo-fit" data-book="exercises">

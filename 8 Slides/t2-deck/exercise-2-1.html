@@ -157,12 +157,43 @@
   <aside class="notes">Lesson of the spin echo slide. The spread of frequencies (the fan) is reversible and is undone by the 180°; T2 decay is not. In full: After the 90°, spins at slightly different frequencies fan out and the signal fades. The 180° flips the fan: spins that were ahead are now behind, so they come back together. The echo forms as long after the 180° as the 180° came after the 90°: TE = 2 × t180. The echo is smaller only because of T2, e−TE/T2: the 180° undoes the fanning out, not the T2 decay.</aside>
 </section>
 
+<section class="ex single-echo" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Measuring <i>T</i><sub>2</sub> (or <i>T</i><sub>2</sub>*) from one echo</h2>
+    <ol class="how-to">
+      <li>Press <b>▶ Play</b>. The 90° fires by itself at <i>t</i> = 0.</li>
+      <li>When the <span class="sym-box">?</span> reaches the black line (at <b class="c-ref">TE/2</b>), press any arrow key: that fires the 180°.</li>
+      <li>The signal is measured at <b class="c-se">ACQ</b> (at <b class="c-se">TE</b>), and that one value gives <i>T</i><sub>2</sub> = −TE / ln <i>S</i>.</li>
+    </ol>
+    <p class="how-tip">If you see a <span class="sym-box">?</span>, this is when you want to try and press. Don’t press at all, and you measure <i>T</i><sub>2</sub>* instead.</p>
+    <div class="game-cols">
+      <div class="game-time">
+        <div class="game-top"><span class="game-status" aria-live="polite"></span><span class="single-result" aria-live="polite"></span></div>
+        <div class="panel-label">Pulse sequence</div>
+        <canvas class="game-seq" width="1520" height="380" aria-label="Pulse sequence"></canvas>
+        <div class="panel-label">Signal</div>
+        <canvas class="game-sig" width="1520" height="260" aria-label="Signal"></canvas>
+      </div>
+      <div class="game-spins">
+        <div class="btn-row play-row"><button data-game-play>▶ Play (Enter)</button></div>
+        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
+        </select></div>
+        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
+        <p class="muted game-hint">Click and drag to reorient · V switches the view.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">A single-echo measurement, tutorial style: the symbols are those of the echo-train game in Exercise 2-3. The 90° fires on its own at t = 0; the red dashed square marks TE/2 = 10 ms, where a press of any arrow key fires the 180° (a press inside the square fires exactly on the beat); the spin echo is measured at ACQ, TE = 20 ms. With S0 = 1 (the signal just after the 90°), one value is enough: S = e^(−20/80) = 0.78 and T2 = −TE / ln S = 80 ms. Without a press, nothing refocuses the spins, and the signal at TE has decayed with T2* instead: the fan is Lorentzian, the same as in Exercise 2-3’s game (T2′ = 19.1 ms), so T2* = 1/(1/T2 + 1/T2′) = 15.4 ms: S(TE) = 0.27, and the slide reports about 15 ms. A press outside the square fires the 180° then and there: the echo then misses TE and the estimate is off. T2 = 80 ms, T1 = ∞, 3 ms of scan per second. Space moves on; the arrow keys and Enter are captured on this slide.</aside>
+</section>
+
 <section class="lesson summary-lessons" data-book="exercises">
   <p class="kicker">Lessons</p>
   <h2>Spin echoes</h2>
   <ol>
     <li><b>Phase = rotation axis:</b> a circle if M is perpendicular to it, a cone otherwise.</li>
     <li><b>Spin echo</b> at 2 × <i>t</i><sub>180</sub>: only <i>T</i><sub>2</sub> decay is lost.</li>
+    <li><b>One echo, one value:</b> <i>T</i><sub>2</sub> = −TE / ln <i>S</i>; without the 180°, the same gives <i>T</i><sub>2</sub>*.</li>
   </ol>
   <p class="small"><a href="exercise-2-2.html">Exercise 2-2: stimulated echoes →</a></p>
   <aside class="notes">The lessons of Exercise 2-1, in order. Exercise 2-2 adds a third pulse: the stimulated echo.</aside>
