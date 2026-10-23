@@ -530,6 +530,7 @@ function makeEchoGame(slide, fitSlide, opts) {
       hist: [],
     };
     say('');
+    if (opts.onReset) opts.onReset();
   }
   function sumMxy() {
     let x = 0, y = 0;
@@ -546,7 +547,7 @@ function makeEchoGame(slide, fitSlide, opts) {
     S.t += dt;
     S.hist.push([S.t, sumMxy()]);
     for (const e of S.echoes) if (e.m === null && t0 < e.t && S.t >= e.t) e.m = S.hist[S.hist.length - 1][1];
-    for (const sl of S.slots) if (!sl.hit && !sl.missed && S.t >= sl.t + BOX) { sl.missed = true; say('Missed!', C.muted); }
+    for (const sl of S.slots) if (!sl.hit && !sl.missed && S.t >= sl.t + BOX) { sl.missed = true; say(opts.missed || 'Missed!', C.muted); }
     if (S.t >= END) finish();
   }
   function finish() {
@@ -565,6 +566,7 @@ function makeEchoGame(slide, fitSlide, opts) {
     };
     say(opts.done, C.ink);
     if (opts.sandbox) showSandboxFits();
+    if (opts.onFinish) opts.onFinish(results);
   }
   // Rotate every spin (and the reference) by `ang` about the pulse axis.
   function rotateAll(p, ang) {
@@ -688,6 +690,7 @@ function makeEchoGame(slide, fitSlide, opts) {
         g.setLineDash([5, 4]); g.strokeStyle = C.ref; g.lineWidth = 2; g.strokeRect(x - bw, yb + 12, 2 * bw, 36); g.setLineDash([]); g.lineWidth = 1;
         text(g, '?', x, yb + 37, '#999', 20);
       } else if (sl.missed) text(g, 'missed', x, yb + 36, '#bbb', 13);
+      if (opts.labels) text(g, 'TE/2', x, yb + 72, C.ref, 17, 'center', true);  // the tutorial slide names the times
     }
     for (const e of S.marks) {  // free timing: SE (green), STE (purple), both (amber); height and label give the size
       const x = tx(e.t, W), h = 16 + 56 * Math.min(1, e.amp), col = e.se && e.ste ? '#b9770e' : e.ste ? '#8e44ad' : C.echo;
@@ -708,6 +711,7 @@ function makeEchoGame(slide, fitSlide, opts) {
       const x = tx(e.t, W);
       g.strokeStyle = C.echo; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x, yb - 24); g.lineTo(x, yb); g.stroke(); g.setLineDash([]);
       text(g, 'ACQ', x, yb - 29, C.echo, 12);
+      if (opts.labels) text(g, 'TE', x, yb + 72, C.echo, 17, 'center', true);
     }
     if (CRUSH) {  // crusher gradient lobes on either side of each refocusing pulse, on their own row
       const gb = H - 10, gh = 14, lobe = (t0, t1) => {
@@ -1034,6 +1038,27 @@ window.ProblemNImperfect = (() => {
 })();
 window.ProblemNEvenSpacing = echoGame('lab-even', null,
   { name: 'even-spacing', free: true, exc: 90, flip: 120, maxPulses: 3, end: 110, auto: [10, 30, 50], settings: () => ({ ...PART1, FLIP: 120 }), done: 'Done. Press Play to try again.' });
+
+// Exercise 2-1, one echo and one measurement: a press inside the red box at TE/2 fires the 180°, the spin echo is
+// measured at TE, and T2 = −TE / ln S (S0 = 1). With no press, the signal at TE has decayed with T2* instead.
+window.ProblemNSingleEcho = (() => {
+  const slide = document.querySelector('section.single-echo');
+  if (!slide) return null;
+  const out = slide.querySelector('.single-result');
+  const show = (r) => {
+    const te = r.te[0], sig = r.m[0], est = -te / Math.log(sig), p = r.pulses[0];
+    const meas = `<i>S</i>(TE) = <b>${sig.toFixed(2)}</b>`, f = (x) => `<b>${Math.round(x)} ms</b>`;
+    out.innerHTML = p.missed
+      ? `No 180°, so the spins never came back together: ${meas}, and <i>T</i><sub>2</sub>* = −TE / ln <i>S</i> = ${f(est)}. That is <i>T</i><sub>2</sub>*, not <i>T</i><sub>2</sub>.`
+      : p.in_box
+        ? `${meas}, so <i>T</i><sub>2</sub> = −TE / ln <i>S</i> = ${f(est)} (true <i>T</i><sub>2</sub>: 80 ms). Now try once without pressing.`
+        : `The 180° fired at ${p.fired_ms.toFixed(1)} ms, not at TE/2 = ${te / 2} ms, so the echo missed TE: ${meas}, “<i>T</i><sub>2</sub>” = ${f(est)}. Try again, pressing inside the red square.`;
+  };
+  return echoGame('single-echo', null, {
+    name: 'single-echo', exc: 90, flip: 180, labels: true, missed: 'No 180° this time.', onFinish: show, onReset: () => { out.innerHTML = ''; },
+    settings: () => ({ NSLOT: 1, FAN: 'lorentz', RATE: 3 }), done: '',  // the fan and τ of Exercise 2-3's game; the result says it all
+  });
+})();
 
 // Part 2: on the beat, with a Lorentzian fan to start (the fan menu changes it)
 const LORENTZ = () => ({ FAN: 'lorentz' });

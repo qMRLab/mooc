@@ -292,6 +292,25 @@
 .reveal .fan-flip { display: flex; align-items: center; gap: 0.5em; margin: 0.2em 0 0.4em; }
 .reveal .fan-flip input { width: 12em; }
 .reveal .b1map-host { display: flex; justify-content: center; align-items: flex-start; }
+/* The game's symbols, in the text (Exercise 2-1's single echo, Exercise 2-3's refresher). */
+.reveal .sym-box { display: inline-block; min-width: 1.5em; padding: 0 0.2em; text-align: center; line-height: 1.25; color: #999; font-weight: 400;
+  border: 2px dashed #c0392b; background: rgba(192, 57, 43, 0.07); border-radius: 2px; }
+.reveal .sym-hit { display: inline-block; min-width: 1.5em; padding: 0 0.2em; text-align: center; line-height: 1.25; border: 2px solid #2e8b3a; background: #e8f3e8; }
+.reveal .sym-bar { display: inline-block; width: 0.3em; height: 1.1em; vertical-align: -0.15em; }
+.reveal .c-ref { color: #c0392b; }
+.reveal ol.how-to { font-size: 0.6em; margin: -0.2em 0 0.2em 1.2em; }
+.reveal ol.how-to li { margin-bottom: 0.15em; }
+.reveal .how-tip { font-size: 0.6em; background: #fdf1ef; border-left: 4px solid #c0392b; padding: 0.2em 0.6em; margin: 0 0 0.3em; }
+.reveal .single-result { font-size: 0.6em; }
+.reveal table.symbols { font-size: 0.62em; border-collapse: collapse; }
+.reveal table.symbols td { padding: 0.35em 0.6em; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.reveal table.symbols td:first-child { text-align: center; white-space: nowrap; font-weight: 700; }
+.reveal .sym-acq { color: #2e8b3a; font-size: 0.8em; border-bottom: 2px dashed #2e8b3a; }
+.reveal .sym-now { display: inline-block; width: 3px; height: 1.3em; background: #1d2733; vertical-align: -0.25em; }
+.reveal .refresher-keys { display: flex; flex-direction: column; align-items: center; gap: 0.5em; font-size: 0.62em; }
+.reveal .refresher-keys .arrow-keys { font-size: 1.6em; }
+.reveal .play-demo { display: inline-block; padding: 0.2em 0.75em; border-radius: 6px; background: var(--accent); color: #fff; font-size: 1.1em; }
+.reveal section.single-echo .game-top .game-status:empty { display: none; }
 .reveal table.b1-levels { width: 100%; font-size: 1.5em; margin-top: 0.5em; }
 .reveal table.b1-levels td, .reveal table.b1-levels th { text-align: center; padding: 0.3em 0.8em; }
 
