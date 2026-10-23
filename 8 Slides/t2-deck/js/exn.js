@@ -463,8 +463,9 @@ function makeEchoGame(slide, fitSlide, opts) {
   // 3D view: orthographic, drag to rotate. "3dxy" flattens the spins onto the transverse plane; "2d" looks down z.
   let az = -0.6, el = 0.45, drag = null;
   function proj(v, cx, cy, R) {
-    const view = viewSel.value, a = view === '2d' ? 0 : az, e = view === '2d' ? Math.PI / 2 : el;
-    if (view !== '3d') v = [v[0], v[1], 0];
+    // 2d: looking down z; zx: looking along y, so x across and z up (where pulses about ±y tip the spins)
+    const view = viewSel.value, a = view === '2d' || view === 'zx' ? 0 : az, e = view === '2d' ? Math.PI / 2 : view === 'zx' ? 0 : el;
+    if (view === '3dxy' || view === '2d') v = [v[0], v[1], 0];
     const x1 = v[0] * Math.cos(a) - v[1] * Math.sin(a), y1 = v[0] * Math.sin(a) + v[1] * Math.cos(a);
     return [cx + R * x1, cy - R * (v[2] * Math.cos(e) + y1 * Math.sin(e)), y1 * Math.cos(e) - v[2] * Math.sin(e)];
   }
@@ -481,7 +482,7 @@ function makeEchoGame(slide, fitSlide, opts) {
     for (let i = 0; i <= 72; i++) { const a = i / 72 * 2 * Math.PI, p = proj([Math.cos(a), Math.sin(a), 0], cx, cy, R); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
     g.stroke();
     const axes = [[[1, 0, 0], '+x →'], [[-1, 0, 0], '−x ←'], [[0, 1, 0], '+y ↑'], [[0, -1, 0], '−y ↓']];
-    if (viewSel.value === '3d') axes.push([[0, 0, 1], 'z']);
+    if (viewSel.value === '3d' || viewSel.value === 'zx') axes.push([[0, 0, 1], 'z'], [[0, 0, -1], '−z']);
     const o = proj([0, 0, 0], cx, cy, R);
     for (const [v, lab] of axes) {
       const p = proj(v.map((c) => c * 1.15), cx, cy, R);

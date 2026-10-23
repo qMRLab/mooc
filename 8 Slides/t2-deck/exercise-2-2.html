@@ -42,7 +42,7 @@
       <div class="game-spins">
         <div class="btn-row play-row"><button data-game-play>▶ Play (Enter)</button></div>
         <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
-          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option>
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
         </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
         <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
         <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
@@ -100,7 +100,7 @@
       <div class="game-spins">
         <div class="btn-row play-row"><button data-game-play>▶ Play (Enter)</button></div>
         <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
-          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option>
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
         </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
         <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
         <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
@@ -150,7 +150,7 @@
       <div class="game-spins">
         <div class="btn-row play-row"><button data-game-play>▶ Play (Enter)</button></div>
         <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
-          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option>
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
         </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
         <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
         <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
@@ -167,12 +167,13 @@
       <div class="ex-text">
         <p class="game-prompt">(c) Which echoes would you fit? After the first fit, try each option.</p>
         <div class="fit-result"></div>
-        <div class="btn-row"><button data-fit-run>Fit</button><button data-fit-extra="skip1" hidden>Fit without echo 1</button><button data-fit-extra="even" hidden>Fit even echoes</button><button data-fit-extra="odd" hidden>Fit odd echoes</button><button class="secondary" data-fit-again>↺ Try again</button><button class="secondary" data-fit-export>⤓ Export</button></div>
+        <div class="btn-row"><button data-fit-run>Fit</button><button data-fit-extra="skip1" hidden>Fit without echo 1</button><button data-fit-extra="even" hidden>Fit even echoes</button><button data-fit-extra="odd" hidden>Fit odd echoes</button><button class="secondary" data-fit-hint hidden>💡 Hint</button><button class="secondary" data-fit-again>↺ Try again</button><button class="secondary" data-fit-export>⤓ Export</button></div>
+        <div class="fit-hint" hidden><p>Go back to the game and turn the 3D view to the z–x plane (or pick <b>Side: z–x plane</b> in the view menu). Can you see why fitting every even echo gives a closer <i>T</i><sub>2</sub> than every odd echo?</p></div>
       </div>
       <div class="result-host fit-host"></div>
     </div>
   </div>
-  <aside class="notes">The ten measurements from the 60°/120° game with crushers, shown first on their own; Fit adds S0·e^(−TE/T2), the fitted T2 and its difference from the true 80 ms. Then the fit can be redone without echo 1, on the even echoes only, or on the odd echoes only, one at a time, with the echoes left out greyed; "Fit all echoes" goes back. Without echo 1: echo 1 is the spin echo alone (sin²(60°) = 75% of what a 180° would give), while from echo 2 on, stimulated echoes add in, so dropping echo 1 removes most of the bias (about 92 → 85 ms with CPMG on the beat). Even or odd echoes only: the CPMG train zig-zags between odd and even echoes, and each subset is biased its own way. None of these simple fixes removes the bias at 120°; Milford et al. 2015 (PLOS ONE) and McPhee & Wilman 2018 (JMRI) report the same, and recommend fitting a model of the sequence (EPG, Bloch simulation). Try again goes back to that game and resets it. Export saves the run as JSON.</aside>
+  <aside class="notes">The ten measurements from the 60°/120° game with crushers, shown first on their own; Fit adds S0·e^(−TE/T2), the fitted T2 and its difference from the true 80 ms. Then the fit can be redone without echo 1, on the even echoes only, or on the odd echoes only, one at a time, with the echoes left out greyed; "Fit all echoes" goes back. Without echo 1: echo 1 is the spin echo alone (sin²(60°) = 75% of what a 180° would give), while from echo 2 on, stimulated echoes add in, so dropping echo 1 removes most of the bias (about 92 → 85 ms with CPMG on the beat). Even or odd echoes only: the CPMG train zig-zags between odd and even echoes, and each subset is biased its own way. None of these simple fixes removes the bias at 120°; Milford et al. 2015 (PLOS ONE) and McPhee & Wilman 2018 (JMRI) report the same, and recommend fitting a model of the sequence (EPG, Bloch simulation). Hint: in the z–x side view (the pulses are about +y, so they tip the fanned-out spins between x and z), at echo 1 about a third of the magnetization is still tipped out along z (mean |Mz| ≈ 0.3), so echo 1 is low (about 85% of ideal); the second pulse tips it back and echo 2 is on the curve (about 99%). The odd echoes include echo 1, the lowest point, which pulls the odd fit to about 98 ms; without echo 1 the odd echoes give about 85 ms, close to the even ones (about 82 ms). In this game the later echoes do not alternate much: echo 1 makes most of the odd–even difference. Try again goes back to that game and resets it. Export saves the run as JSON.</aside>
 </section>
 
 <section class="lesson" data-book="exercises">
@@ -226,7 +227,7 @@
       </div>
       <div class="game-spins">
         <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
-          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option>
+          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
         </select></div>
         <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
         <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
