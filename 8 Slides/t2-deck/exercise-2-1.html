@@ -10,16 +10,20 @@
   <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <link rel="stylesheet" href="deck.css">
 </head>
-<body class="nav-zones">
+<body class="nav-zones" data-home="exercises-2.html">
 <div class="reveal">
 <div class="slides">
 
 <section class="problem" data-book="exercises">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">T<sub>2</sub> Mapping · Exercise 2-1</p>
-  <h2>On echoes: a refresher</h2>
-  <p class="subtitle">Spin echoes, stimulated echoes, and how to tell them apart</p>
-  <p class="muted small"><a href="exercises-2.html">← Exercises 2-1 and 2-2</a></p>
+  <h2>RF phase and spin echoes</h2>
+  <ol class="intro-plan">
+    <li>How the RF phase (+x, −x, +y, −y) manipulates the magnetization during an RF pulse</li>
+    <li>Spin echoes with perfect pulses, and with B<sub>1</sub> inhomogeneity (imperfect pulses)</li>
+    <li>Single-point measurements of <i>T</i><sub>2</sub> and <i>T</i><sub>2</sub><sup>*</sup></li>
+  </ol>
+  <p class="muted small"><a href="exercises-2.html">← Exercises 2-1 to 2-3</a></p>
 </section>
 
 <section class="ex" data-book="exercises">
@@ -28,25 +32,84 @@
     <div class="ex-cols even">
       <div class="ex-text">
         <p>One spin, on resonance, with no relaxation. Each arrow key turns on B<sub>1</sub> along one axis:</p>
-        <table class="measure keys">
-          <tr><th>Key</th><th>B<sub>1</sub> along</th></tr>
-          <tr><td>→</td><td>+x</td></tr>
-          <tr><td>←</td><td>−x</td></tr>
-          <tr><td>↑</td><td>+y</td></tr>
-          <tr><td>↓</td><td>−y</td></tr>
-        </table>
+        <div class="keys-row">
+          <table class="measure keys">
+            <tr><th>Key</th><th>B<sub>1</sub> along</th></tr>
+            <tr><td>→</td><td>+x</td></tr>
+            <tr><td>←</td><td>−x</td></tr>
+            <tr><td>↑</td><td>+y</td></tr>
+            <tr><td>↓</td><td>−y</td></tr>
+          </table>
+          <div class="arrow-keys"></div>
+        </div>
         <p><b>Hold</b> a key: the magnetization rotates around B<sub>1</sub>. <b>Let go</b>: B<sub>1</sub> turns off and the magnetization stays where it is.</p>
         <div class="btn-row">
           <button class="secondary" data-tutorial-reset>Reset to +z</button>
         </div>
         <p class="tut-readout"></p>
         <p>Try: hold → for half a second (45° about +x), then hold ↑. The tip traces the rim of a <b>cone</b> around +y: M isn’t perpendicular to the new axis.</p>
-        <p class="muted small">Drag the view to turn it. The blue trail is the tip’s path. On this slide the arrow keys drive B<sub>1</sub>: use Space or Page Down for the next slide.</p>
+        <p class="muted small">The blue trail is the tip’s path. On this slide the arrow keys drive B<sub>1</sub>: use Space or Page Down for the next slide.</p>
       </div>
-      <div class="bloch-host"><canvas class="bloch" width="1040" height="1000" aria-label="Magnetization vector and B1 axis"></canvas></div>
+      <div class="bloch-host"><canvas class="bloch" width="1040" height="1000" aria-label="Magnetization vector and B1 axis"></canvas><p class="muted game-hint">Click and drag to reorient</p></div>
     </div>
   </div>
-  <aside class="notes">Tutorial for the game's keys. A single on-resonance spin with T1 and T2 infinite, starting along +z. Holding an arrow key turns on B1 along that axis (shown in orange, labelled B1) and the magnetization rotates around it by the right-hand rule, at 90° per second; releasing stops it. Try: hold → for one second to tip M from +z onto −y (a 90° about +x). Then hold ↑ or ↓: M lies on the B1 axis (−y), so it does not move. Hold → again and M carries on around the yz plane to −z. Space or Page Down moves on; the arrow keys are captured on this slide.</aside>
+  <aside class="notes">Tutorial for the keys. A single on-resonance spin with T1 and T2 infinite, starting along +z. Holding an arrow key turns on B1 along that axis (shown in orange, labelled B1) and the magnetization rotates around it by the right-hand rule, at 90° per second; releasing stops it. Try: hold → for one second to tip M from +z onto −y (a 90° about +x). Then hold ↑ or ↓: M lies on the B1 axis (−y), so it does not move. Hold → again and M carries on around the yz plane to −z. Space or Page Down moves on; the arrow keys are captured on this slide.</aside>
+</section>
+
+<section class="ex bloch-game" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Game: hit the targets</h2>
+    <div class="ex-cols even">
+      <div class="ex-text">
+        <p class="game-prompt">Steer M into each target, using as little RF as you can.</p>
+        <p>Reaching a target ends the pulse, and the next target appears. There is no clock. Two scores, both lower is better:</p>
+        <ul class="small">
+          <li><b>RF pulses:</b> each key press is one pulse. It lasts until you let go, or until M reaches the target.</li>
+          <li><b>Total angle:</b> every degree of every pulse. The RF energy deposited (SAR) grows with it.</li>
+        </ul>
+        <div class="keys-row">
+          <div class="arrow-keys"></div>
+          <p class="target-score" aria-live="polite"></p>
+        </div>
+        <p class="tut-readout"></p>
+        <div class="btn-row">
+          <span class="level-pick"></span>
+          <button class="secondary" data-tutorial-reset>Restart</button>
+          <button data-solution hidden>View solution</button>
+          <button data-next-level hidden>Level 2 →</button>
+        </div>
+        <p class="muted small">On this slide the arrow keys drive B<sub>1</sub>: use Space or Page Down for the next slide.</p>
+      </div>
+      <div class="bloch-host"><canvas class="bloch" width="1040" height="1000" aria-label="Magnetization vector, B1 axis and target"></canvas><p class="muted game-hint">Click and drag to reorient</p></div>
+    </div>
+  </div>
+  <aside class="notes">A game on the same controls: steer M into each target in turn (level 1: +y, −y, +y, +x, then +z; level 2: +y, (1,1,1)/√3, (1,1,−1)/√3, +x, (1,−1,1)/√3, then (−1,−1,1)/√3). A target counts as soon as the tip of M enters it; that ends the pulse (B1 turns off, even if the key is still held), and the next target appears. Two scores, both lower is better: the number of RF pulses (key presses), and the total angle turned, which stands for the RF energy deposited (SAR), since B1 is always the same strength here. When the level is done, the slide shows the expert score (6 pulses, 604°), and View solution replays it. 6 pulses: one per target plus one, because +x is on no circle through +y (pulses about x keep M in the yz plane, and a pulse about y leaves M near +y). 604°: ← to +y, → back past +z to −y, ← back to +y, → 73° to near +z, ↑ to +x, ↓ back to +z. Reversing rather than going on, and turning near +z, saves degrees, because the targets only need to be touched. Level 2 is about cones: when M is not perpendicular to B1, its tip sweeps a cone. (1,1,1)/√3 to (1,1,−1)/√3 is a single 90° pulse about +y (y stays at 0.58), and so is the last move, (1,−1,1)/√3 to (−1,−1,1)/√3. Its targets are red and half the size. Expert score: 9 pulses, 530°. Space or Page Down moves on; the arrow keys are captured on this slide.</aside>
+</section>
+
+<section class="ex bloch-fan" data-book="exercises">
+  <div class="ex-layout">
+    <h2>A fan of spins, TE/2 after the 90°</h2>
+    <div class="ex-cols even">
+      <div class="ex-text">
+        <p class="game-prompt">Question: which pulse brings the spins back together at TE?</p>
+        <p>The 90° about +x tipped M onto −y. A time <b>TE/2</b> has passed since: the spins have fanned out by about 60°, the <b class="c-fast">red</b> ones precessing faster and the <b class="c-slow">blue</b> ones slower. The black arrow, M, is their sum.</p>
+        <label class="fan-flip">Flip angle <input data-fan-flip type="range" min="0" max="180" step="5" value="180"> <b><span data-show="fan-flip">180</span>°</b></label>
+        <div class="keys-row">
+          <div class="arrow-keys"></div>
+          <p class="small">An arrow key turns every spin by the flip angle about its axis. The pulse is instantaneous: the spins don’t precess while it turns them.</p>
+        </div>
+        <div class="btn-row">
+          <button data-fan-wait="1">Wait TE/2 ▶</button>
+          <button data-fan-wait="2">Wait TE ▶</button>
+          <button class="secondary" data-tutorial-reset>Reset</button>
+        </div>
+        <p class="tut-readout" aria-live="polite"></p>
+        <p class="muted small">No relaxation on this slide. The arrow keys apply pulses here: use Space or Page Down for the next slide.</p>
+      </div>
+      <div class="bloch-host"><canvas class="bloch" width="1040" height="1000" aria-label="A fan of spins, coloured by precession speed, and their sum"></canvas><p class="muted game-hint">Click and drag to reorient</p></div>
+    </div>
+  </div>
+  <aside class="notes">A fan of 25 spins, TE/2 after a 90° about +x: their phases are Gaussian with σ = 15° (about 60° from edge to edge), red for the spins that precess faster than the centre frequency, blue for the slower ones. The flip angle is set on the slider (180° to start), and each arrow key applies it about ±x or ±y, animated, with the scan clock stopped (the pulse is instantaneous: no precession during it); Wait TE/2 lets the spins precess for TE/2 (each gains the same phase as in the first TE/2), and Wait TE for twice that, and |Mxy| is the size of their sum in the transverse plane. With 180° about ±x, the fan is mirrored onto +y and comes back together there at TE (|Mxy| back to 100%); with 180° about ±y, it is mirrored about the y axis and refocuses on −y. Below 180°, part of each spin is left behind or tipped out of the plane, and the echo at TE is smaller. Waiting longer after the echo, the fan spreads out again. No relaxation, so the only loss is from the pulse.</aside>
 </section>
 
 <section class="lesson" data-book="exercises">
@@ -56,7 +119,7 @@
     <li>Perpendicular to the axis, M sweeps a circle; otherwise, a cone.</li>
     <li>Along the axis, M doesn’t move.</li>
   </ul>
-  <aside class="notes">Lesson of the controls slide: the pulse phase (+x, −x, +y, −y) is the rotation axis. The cone is the key picture for what follows: a pulse acts differently on magnetization depending on where M sits relative to the pulse axis, which is why the axis of the refocusing pulses matters once they are not exactly 180° (CP versus CPMG in Exercise 2-2). In full: The phase sets where B1 points in the transverse plane: +x, −x, +y or −y. M turns around that axis (right-hand rule); −x turns it the opposite way to +x. Same angle, different axis, different result: from +z, 90° about +x puts M on −y; 90° about +y puts it on +x. M sweeps a great circle only when it is perpendicular to the axis. Otherwise it sweeps a cone around the axis: after 45° about +x, M is halfway between +z and −y, and a pulse about +y swings its tip around a cone. M along the axis doesn’t move at all: after 90° about +x, M is on −y, and a pulse about ±y leaves it there. (Exercise 2-2 comes back to this.)</aside>
+  <aside class="notes">Lesson of the controls slide: the pulse phase (+x, −x, +y, −y) is the rotation axis. The cone is the key picture for what follows: a pulse acts differently on magnetization depending on where M sits relative to the pulse axis, which is why the axis of the refocusing pulses matters once they are not exactly 180° (CP versus CPMG in Exercise 2-3). In full: The phase sets where B1 points in the transverse plane: +x, −x, +y or −y. M turns around that axis (right-hand rule); −x turns it the opposite way to +x. Same angle, different axis, different result: from +z, 90° about +x puts M on −y; 90° about +y puts it on +x. M sweeps a great circle only when it is perpendicular to the axis. Otherwise it sweeps a cone around the axis: after 45° about +x, M is halfway between +z and −y, and a pulse about +y swings its tip around a cone. M along the axis doesn’t move at all: after 90° about +x, M is on −y, and a pulse about ±y leaves it there. (Exercise 2-3 comes back to this.)</aside>
 </section>
 
 <section class="ex lab-se" data-book="exercises">
@@ -77,7 +140,7 @@
           <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
         </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
         <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
-        <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
+        <p class="muted game-hint">Click and drag to reorient · V switches the view.</p>
       </div>
     </div>
   </div>
@@ -94,135 +157,16 @@
   <aside class="notes">Lesson of the spin echo slide. The spread of frequencies (the fan) is reversible and is undone by the 180°; T2 decay is not. In full: After the 90°, spins at slightly different frequencies fan out and the signal fades. The 180° flips the fan: spins that were ahead are now behind, so they come back together. The echo forms as long after the 180° as the 180° came after the 90°: TE = 2 × t180. The echo is smaller only because of T2, e−TE/T2: the 180° undoes the fanning out, not the T2 decay.</aside>
 </section>
 
-<section class="ex lab-ste" data-book="exercises">
-  <div class="ex-layout">
-    <h2>A stimulated echo</h2>
-    <p class="game-prompt">Question: delay the third pulse. Which marker moves with it, and by how much?</p>
-    <p class="lab-intro">Three 90° pulses: the first on its own at <i>t</i> = 0, then one per arrow press, <b>whenever you like</b> (spaced out, say near 20 and 50 ms, the echoes stand apart). Markers show every echo they will make: spin echoes <b class="c-se">SE</b>, and the stimulated echo <b class="c-ste">STE</b>.</p>
-    <div class="game-cols">
-      <div class="game-time">
-        <div class="btn-row"><button data-game-play>▶ Play (Enter)</button><span class="game-status" aria-live="polite"></span></div>
-        <div class="panel-label">Pulse sequence</div>
-        <canvas class="game-seq" width="1520" height="380" aria-label="Pulse sequence"></canvas>
-        <div class="panel-label">Signal</div>
-        <canvas class="game-sig" width="1520" height="460" aria-label="Signal"></canvas>
-      </div>
-      <div class="game-spins">
-        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
-          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
-        </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
-        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
-        <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">Three 90° pulses, the last two fired by the arrow keys whenever the class likes; pulses near 20 and 50 ms keep the echoes apart (the fan is a bit slower on this slide, ±200° by 10 ms, and the clock runs at 4 ms per second). After the second 90°, part of the fanned-out signal is tipped onto z, where it keeps a record of each spin’s phase (as a pattern of Mz) and only relaxes with T1. The third 90° brings it back, mirrored, and it refocuses τ after that pulse, where τ is the gap between the first two: the stimulated echo (STE). It is at most half of the signal. The spin echoes (SE) come at twice the spacings: 2·t2 (pulses 1 and 2), 2·t3 − 2·t2 (refocused again by the third pulse), 2·t3 (pulses 1 and 3). Try waiting longer before the third pulse: the STE moves with it, always τ later, and barely shrinks (T1 = 1000 ms), while the spin echoes fade with T2 = 80 ms.</aside>
-</section>
-
-<section class="lesson" data-book="exercises">
-  <p class="kicker">What we saw · 3</p>
-  <h2>Three pulses also make a stimulated echo</h2>
-  <ul>
-    <li>It comes τ after the third pulse: delay that pulse and the STE follows it, while the spin echoes move twice as far.</li>
-    <li>It waits along <i>z</i>, relaxing with <i>T</i><sub>1</sub>; with 90° pulses it carries up to half the signal.</li>
-  </ul>
-  <aside class="notes">Lesson of the stimulated echo slide. The next slide compares the two echoes side by side. In full: The second 90° parks part of the fanned-out signal along z, keeping each spin’s phase as a pattern of Mz. The third 90° brings it back, and it refocuses τ after that pulse (τ = the gap between the first two): the stimulated echo. While parked along z it relaxes with T1, not T2, so it can outlast the spin echoes. With 90° pulses it carries up to half of the signal; the spin echoes come at the mirror times as before.</aside>
-</section>
-
-
-<section class="ex lab-imp" data-book="exercises">
-  <div class="ex-layout">
-    <h2>An imperfect 180° is part 180°, part 90°</h2>
-    <p class="game-prompt">Question: lower the angle from 180°. What appears, and from which pulse on?</p>
-    <p class="lab-intro">Set the angle, press Play, then fire <b>two refocusing pulses</b> at that angle, whenever you like. At 180° only spin echoes come back; lower the angle and stimulated echoes appear.</p>
-    <div class="imp-controls">
-      <label>Refocusing angle α <input data-set="flip" type="range" min="90" max="180" step="5" value="160"> <b><span data-show="flip"></span>°</b></label>
-      <div class="imp-bars">
-        <div class="imp-bar"><span class="imp-name">like a 180° (refocused) · sin²(α/2)</span><span class="imp-track"><span data-bar="refocus" class="imp-fill c-se-bg"></span></span><b data-pct="refocus"></b></div>
-        <div class="imp-bar"><span class="imp-name">like a 0° (left alone) · cos²(α/2)</span><span class="imp-track"><span data-bar="none" class="imp-fill c-none-bg"></span></span><b data-pct="none"></b></div>
-        <div class="imp-bar"><span class="imp-name">like a 90° (tipped to z) · ½ sin α</span><span class="imp-track"><span data-bar="toz" class="imp-fill c-ste-bg"></span></span><b data-pct="toz"></b></div>
-      </div>
-    </div>
-    <div class="game-cols">
-      <div class="game-time">
-        <div class="btn-row"><button data-game-play>▶ Play (Enter)</button><span class="game-status" aria-live="polite"></span></div>
-        <div class="panel-label">Pulse sequence</div>
-        <canvas class="game-seq" width="1520" height="380" aria-label="Pulse sequence"></canvas>
-        <div class="panel-label">Signal</div>
-        <canvas class="game-sig" width="1520" height="380" aria-label="Signal"></canvas>
-      </div>
-      <div class="game-spins">
-        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
-          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
-        </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
-        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
-        <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">A refocusing pulse of angle α acts on the fanned-out transverse signal in three ways at once: it refocuses a share sin²(α/2) (like a 180°: spin echo), leaves cos²(α/2) alone (like a 0°), and tips part onto z (like a 90°: ½ sin α of it). What it tips onto z, the next pulse’s 90° part brings back as a stimulated echo. At 180° the bars read 100%, 0%, 0%: only spin echoes. At 160°: 97%, 3%, 17%. At 120°: 75%, 25%, 43%. At 90°: 50%, 50%, 50%, the stimulated-echo slide. The marker sizes follow the same rules, with T2 = 80 ms while transverse and T1 = 1000 ms along z. This is why a train of imperfect 180°s (Exercise 2-2) has stimulated echoes in every echo after the first.</aside>
-</section>
-
-<section class="lesson" data-book="exercises">
-  <p class="kicker">What we saw · 4</p>
-  <h2>An imperfect 180° is part 180°, part 90°</h2>
-  <ul>
-    <li>Its 90° part parks signal along <i>z</i>; the next pulse brings it back as a stimulated echo.</li>
-    <li>Only a perfect 180° gives pure spin echoes.</li>
-  </ul>
-  <aside class="notes">Lesson of the imperfect-180° slide. B1 inhomogeneity and slice profiles make refocusing angles below 180° the norm in practice. In full: A refocusing pulse of angle α acts like a 180° on sin²(α/2) of the signal, like a 0° on cos²(α/2), and like a 90° on ½ sin α. Its 90° part parks signal along z, and the next pulse brings it back: from the second refocusing pulse on, stimulated echoes appear. At 160°: 97% refocused, 3% left alone, 17% to z. At 120°: 75%, 25%, 43%. Only a perfect 180° gives pure spin echoes.</aside>
-</section>
-
-
-<section class="ex lab-even" data-book="exercises">
-  <div class="ex-layout">
-    <h2>Evenly spaced: the echoes line up</h2>
-    <p class="game-prompt">Question: what happens to the spin and stimulated echoes when the pulses are evenly spaced?</p>
-    <p class="lab-intro">Three 120° pulses. Press <b>Pulses at 10, 30, 50 ms</b> to space them evenly: the stimulated echoes land on the spin echoes (<b class="c-both">SE+STE</b>). Or press Play and time them yourself. <a href="exercise-2-2.html">Exercise 2-2: measuring <i>T</i><sub>2</sub> with an echo train →</a></p>
-    <div class="game-cols">
-      <div class="game-time">
-        <div class="btn-row"><button data-game-play>▶ Play (Enter)</button><button class="secondary" data-game-auto>Pulses at 10, 30, 50 ms</button><span class="game-status" aria-live="polite"></span></div>
-        <div class="panel-label">Pulse sequence</div>
-        <canvas class="game-seq" width="1520" height="380" aria-label="Pulse sequence"></canvas>
-        <div class="panel-label">Signal</div>
-        <canvas class="game-sig" width="1520" height="460" aria-label="Signal"></canvas>
-      </div>
-      <div class="game-spins">
-        <div class="panel-label">Spins <select class="game-view" aria-label="Spin view">
-          <option value="3d">3D</option><option value="3dxy">3D, transverse only</option><option value="2d">2D (top-down)</option><option value="zx">Side: z–x plane</option>
-        </select> <label class="fan-pick">Fan <select class="game-fan" aria-label="Spread of frequencies"><option value="even">equally spaced</option><option value="gauss">Gaussian</option><option value="lorentz">Lorentzian</option></select></label></div>
-        <canvas class="game-3d" width="760" height="760" aria-label="Spins"></canvas>
-        <p class="muted game-hint">Drag to turn the 3D view · V switches the view.</p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">The bridge to Exercise 2-2. With the 90° at 0 and refocusing pulses at τ, 3τ, 5τ (τ = 10 ms), every spin echo and every stimulated echo forms at 2τ, 4τ, 6τ: they add up in the same echo, and the signal measured at each echo time is a mix of both (amber markers, SE+STE). That is a multi-echo spin echo (CPMG) train with imperfect refocusing pulses, the setting of Exercise 2-2. Timed by hand, the pulses are never quite even and the echoes split apart again.</aside>
-</section>
-
-<section class="lesson" data-book="exercises">
-  <p class="kicker">What we saw · 5</p>
-  <h2>Evenly spaced, the echoes coincide</h2>
-  <ul>
-    <li>In an echo train, each echo mixes spin and stimulated echoes.</li>
-    <li>Their parts can add or partly cancel.</li>
-  </ul>
-  <aside class="notes">Lesson of the evenly spaced slide, and the bridge to Exercise 2-2. In full: With refocusing pulses at τ, 3τ, 5τ, …, every spin echo and every stimulated echo forms at 2τ, 4τ, 6τ, … So each echo of a multi-echo spin echo train is a mix of spin and stimulated echoes, unless the refocusing angle is exactly 180°. The parts meeting in one echo can add or partly cancel, depending on their phases: with 120° pulses at 10, 30 and 50 ms, the echo at 60 ms is 42%, not the 70% their sizes add up to. This mix is what Exercise 2-2 measures, and why it biases T2.</aside>
-</section>
-
 <section class="lesson summary-lessons" data-book="exercises">
   <p class="kicker">Lessons</p>
-  <h2>On echoes</h2>
+  <h2>Spin echoes</h2>
   <ol>
     <li><b>Phase = rotation axis:</b> a circle if M is perpendicular to it, a cone otherwise.</li>
     <li><b>Spin echo</b> at 2 × <i>t</i><sub>180</sub>: only <i>T</i><sub>2</sub> decay is lost.</li>
-    <li><b>Stimulated echo:</b> waits along <i>z</i> (<i>T</i><sub>1</sub>), comes τ after the third pulse.</li>
-    <li><b>Imperfect 180°</b> = part 180°, part 90°: stimulated echoes.</li>
-    <li><b>Evenly spaced pulses:</b> every echo mixes spin and stimulated echoes.</li>
   </ol>
-  <p class="small"><a href="exercise-2-2.html">Exercise 2-2: measuring <i>T</i><sub>2</sub> with an echo train →</a></p>
-  <aside class="notes">The lessons of Exercise 2-1, in order. Exercise 2-2 uses them to measure T2 with an echo train.</aside>
+  <p class="small"><a href="exercise-2-2.html">Exercise 2-2: stimulated echoes →</a></p>
+  <aside class="notes">The lessons of Exercise 2-1, in order. Exercise 2-2 adds a third pulse: the stimulated echo.</aside>
 </section>
-
 </div>
 </div>
 

@@ -19,7 +19,7 @@ The interactive figures are the book's own Plotly figures. Use their menus, slid
 
 ## Exercise solutions
 
-As for the T1 deck: each exercise is its own short deck, and one central page, `exercises.html` (https://qmrlab.org/mooc/slides/t2/exercises.html), links them all. The book embeds it in its own page, `8 Slides/3 - T2 Mapping Exercises.md`; that page is no longer in the TOC (Exercises 2-1 and 2-2 below took its place under Slides), so the book no longer builds it, but the slides themselves are still deployed and reachable at that address. The T2 deck itself does not link to the solutions. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
+As for the T1 deck: each exercise is its own short deck, and one central page, `exercises.html` (https://qmrlab.org/mooc/slides/t2/exercises.html), links them all. The book embeds it in its own page, `8 Slides/3 - T2 Mapping Exercises.md`; that page is no longer in the TOC (Exercises 2-1 to 2-3 below took its place under Slides), so the book no longer builds it, but the slides themselves are still deployed and reachable at that address. The T2 deck itself does not link to the solutions. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
 
 - **Step by step.** Each answer builds up one click at a time: the data first, then the result, then the proof or explanation. → (or a clicker) takes the next step and ← undoes it; the numbered buttons (1 · Contrast, 2 · Maximum, 3 · Prove…) jump to a step.
 - **Editable values.** Readings taken from a book figure (Exercise 2a–b) are typed on that slide and carry over to the later slides and the answers. Other values sit in input boxes, pre-filled; every step computes from whatever is in the boxes (Enter redraws), and **Reset** restores them.
@@ -33,13 +33,15 @@ As for the T1 deck: each exercise is its own short deck, and one central page, `
 | 3 · MWF (Eq. 3.8) at six TEs | 3 | Eq. 3.8 |
 | 4 · SNR at four TEs for T2 = 109 ms and T2* = 30 ms; longest useful TE | 5 | Monte Carlo as in Figure 3.4's notebook |
 
-## Exercises 2-1 and 2-2 (interactive)
+## Exercises 2-1 to 2-3 (interactive)
 
-Two interactive exercises on echoes and the CPMG echo train, with a starting page, `exercises-2.html` (https://qmrlab.org/mooc/slides/t2/exercises-2.html), that the book embeds in `8 Slides/3 - T2 Mapping Exercises 2.md`, listed under Slides below the T2 deck. Both decks run on `js/exn.js`: a Bloch simulation of 385 spins (1537 for the Lorentzian fan) with relaxation, drawn in 3D, and the arrow keys as RF pulses about ±x and ±y.
+Three interactive exercises on echoes and the CPMG echo train, with a starting page, `exercises-2.html` (https://qmrlab.org/mooc/slides/t2/exercises-2.html), that the book embeds in `8 Slides/3 - T2 Mapping Exercises 2.md`, listed under Slides below the T2 deck. All three decks run on `js/exn.js`: a Bloch simulation of 385 spins (1537 for the Lorentzian fan) with relaxation, drawn in 3D, and the arrow keys as RF pulses about ±x and ±y.
 
-- **Exercise 2-1, On echoes: a refresher** (`exercise-2-1.html`, 12 slides). The controls (B₁ along ±x or ±y, with the tip's trail: a circle or a cone), then labs with free timing: a spin echo, a stimulated echo (three 90°s), an imperfect refocusing pulse (part 180°, part 0°, part 90°, with live bars), and evenly spaced pulses. After each pulse, markers show every spin echo (SE) and stimulated echo (STE) it will make, with its size, from the extended phase graph of the actual pulse times, angles and axes. Each lab asks a question; the "What we saw" slide after it answers.
-- **Exercise 2-2, Measuring T₂ with an echo train** (`exercise-2-2.html`, 12 slides). Questions (a)–(d) on the title slide, then the "Phase"Hero game: hit each 180° box on the beat (a press inside the box fires exactly on it) and pick each pulse's axis; the next slide fits S0·e^(−TE/T2) to the ten echoes. With perfect pulses, then with B₁ 11% low (80°/160°, crushers on), then 33% low (60°/120°) with fits to all echoes, without echo 1, to even or odd echoes. Then the lessons and a sandbox with every setting open (angles, crushers, T₂, T₁, τ, echoes, fan, speed), whose runs can be exported as JSON.
-- On each game and lab, the fan of spins can be equally spaced (the signal decays as a sinc), Gaussian, or Lorentzian (it decays as e^(−t/T₂′), so with no refocusing pulses the fit gives T₂*).
+- **Exercise 2-1, RF phase and spin echoes** (`exercise-2-1.html`, 6 slides). The controls (B₁ along ±x or ±y, with the tip's trail: a circle or a cone), then a lab with free timing: a spin echo.
+- **Exercise 2-2, Stimulated echoes** (`exercise-2-2.html`, 8 slides). Labs with free timing: a stimulated echo (three 90°s), an imperfect refocusing pulse (part 180°, part 0°, part 90°, with live bars), and evenly spaced pulses.
+- In the labs of Exercises 2-1 and 2-2, after each pulse, markers show every spin echo (SE) and stimulated echo (STE) it will make, with its size, from the extended phase graph of the actual pulse times, angles and axes. Each lab asks a question; the "What we saw" slide after it answers.
+- **Exercise 2-3, Measuring T₂ with an echo train** (`exercise-2-3.html`, 13 slides). Questions (a)–(d) on the title slide, then the "Phase"Hero game: hit each 180° box on the beat (a press inside the box fires exactly on it) and pick each pulse's axis; the next slide fits S0·e^(−TE/T2) to the ten echoes. With perfect pulses, then an intermezzo with a measured B₁ map (the B₁ chapter's Figure 4.13, `js/figures/afiPlot8.js`, with contours every 0.1 from B₁ = 0.8 to 1.1), then with B₁ = 0.89 (80°/160°, crushers on), then B₁ = 0.67 (60°/120°) with fits to all echoes, without echo 1, to even or odd echoes. Then the lessons and a sandbox with every setting open (angles, crushers, T₂, T₁, τ, echoes, fan, speed), whose runs can be exported as JSON.
+- On each game and lab, the fan of spins can be equally spaced (the signal decays as a sinc), Gaussian, or Lorentzian (it decays as e^(−t/T₂′), so with no refocusing pulses the fit gives T₂*). Exercise 2-3's games and sandbox start on the Lorentzian fan.
 - On these slides the arrow keys play the game, so the slides move with the grey bars at the left and right edges (or Space and Page Down).
 
 ## What's here
@@ -50,10 +52,10 @@ Two interactive exercises on echoes and the CPMG echo train, with a starting pag
 | `deck.css` | Theme (the T1 deck's, without its notebook-code box) |
 | `js/deck.js` | Reveal setup, math rendering, book links (`LABELS`), figure rendering |
 | `exercises.html`, `exercise-*.html`, `js/ex*.js` | The exercise decks and their actions |
-| `exercises-2.html`, `exercise-2-1.html`, `exercise-2-2.html`, `js/exn.js` | Exercises 2-1 and 2-2: the starting page, the two decks, and their simulation, games and fits |
+| `exercises-2.html`, `exercise-2-1.html`, `exercise-2-2.html`, `exercise-2-3.html`, `js/exn.js` | Exercises 2-1 to 2-3: the starting page, the three decks, and their simulation, games and fits |
 | `js/exercise.js` | Exercise runtime (the T1 deck's, without qmrust): step buttons, Reset, inputs, click-to-solve steps |
 | `js/solve.js` | The maths of the solutions (Node-tested) |
-| `js/figures/*.js` | The book's published figures, copied unchanged. Do not edit |
+| `js/figures/*.js` | The book's published figures, copied unchanged (the T2 chapter's, and the B1 chapter's Figure 4.13 for Exercise 2-3). Do not edit |
 | `img/` | Pulse-sequence diagram from the chapter, qMRLab logo |
 | `vendor/` | reveal.js 5.2.1, KaTeX 0.16.11, plotly.js 2.35.2 (the version the book uses) |
 

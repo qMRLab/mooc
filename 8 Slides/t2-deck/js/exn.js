@@ -12,10 +12,13 @@ function normInv(p) {
 }
 
 /* Problem N: navigation. Full-height zones at the left and right edges (a grey bar and an arrow on hover)
- * replace Reveal's corner arrows, which sat on the slide number. */
+ * replace Reveal's corner arrows, which sat on the slide number. A page whose <body> has data-next-deck
+ * goes on to that page from its last slide (the right zone, Space, Page Down or →). */
 (function () {
   'use strict';
   if (!window.Reveal) return;
+  const nextDeck = document.body.dataset.nextDeck;
+  const atEnd = () => window.Reveal.getIndices().h === window.Reveal.getTotalSlides() - 1;
   const zone = (cls, label, arrow, go) => {
     const b = document.createElement('button');
     b.className = `nav-zone ${cls}`; b.setAttribute('aria-label', label); b.textContent = arrow;
@@ -24,158 +27,436 @@ function normInv(p) {
     return b;
   };
   const prev = zone('prev', 'Previous slide', '‹', () => window.Reveal.prev());
-  const next = zone('next', 'Next slide', '›', () => window.Reveal.next());
+  const next = zone('next', 'Next slide', '›', () => (nextDeck && atEnd() ? window.location.assign(nextDeck) : window.Reveal.next()));
   const update = () => {
-    const { h } = window.Reveal.getIndices();
-    prev.hidden = h === 0;
-    next.hidden = h === window.Reveal.getTotalSlides() - 1;
+    prev.hidden = window.Reveal.getIndices().h === 0;
+    next.hidden = atEnd() && !nextDeck;
   };
+  if (nextDeck) {
+    document.addEventListener('keydown', (e) => {
+      if (!atEnd() || e.altKey || e.ctrlKey || e.metaKey || e.target.closest('input, select, textarea')) return;
+      if (e.key !== ' ' && e.key !== 'PageDown' && e.key !== 'ArrowRight') return;
+      if (e.key === 'ArrowRight' && window.Reveal.getCurrentSlide().querySelector('canvas')) return;  // the arrows play the game
+      e.preventDefault();
+      window.location.assign(nextDeck);
+    });
+  }
   window.Reveal.on('ready', update);
   window.Reveal.on('slidechanged', update);
   if (window.Reveal.isReady()) update();
 })();
 
+/* Problem N: the arrow keys on screen. Each <div class="arrow-keys"></div> gets ↑ over ← ↓ →, with the axis each
+ * key turns B1 along; a key lights up while it is held. Sized by the container's font-size; .no-axes hides the axes. */
+(function () {
+  'use strict';
+  const boxes = document.querySelectorAll('.arrow-keys');
+  if (!boxes.length) return;
+  const CAPS = [['ArrowUp', '↑', '+y'], ['ArrowLeft', '←', '−x'], ['ArrowDown', '↓', '−y'], ['ArrowRight', '→', '+x']];
+  for (const box of boxes) {
+    box.setAttribute('aria-hidden', 'true');
+    box.innerHTML = CAPS.map(([key, arrow, axis]) => `<span class="ak" data-key="${key}"><b>${arrow}</b><small>${axis}</small></span>`).join('');
+  }
+  const caps = (key) => document.querySelectorAll(`.arrow-keys .ak[data-key="${key}"]`);
+  const release = () => document.querySelectorAll('.arrow-keys .ak.down').forEach((k) => k.classList.remove('down'));
+  // Capture phase on window: the games stop these events from going further.
+  window.addEventListener('keydown', (e) => caps(e.key).forEach((k) => k.classList.add('down')), true);
+  window.addEventListener('keyup', (e) => caps(e.key).forEach((k) => k.classList.remove('down')), true);
+  window.addEventListener('blur', release);
+  if (window.Reveal) window.Reveal.on('slidechanged', release);
+})();
+
 /* Problem N, part 1: the controls. One on-resonance spin, no relaxation.
- * Holding an arrow key turns on B1 along ±x or ±y (drawn in orange) and the magnetization rotates around it. */
+ * Holding an arrow key turns on B1 along ±x or ±y (drawn in orange) and the magnetization rotates around it.
+ * On a section.bloch-game slide, the same controls steer M into targets, one after the other; each key press is
+ * one RF pulse, and fewer is better. Reaching a target ends the pulse: B1 turns off until the next key press.
+ * Once a level is done, "View solution" replays it with the fewest pulses.
+ * On a section.bloch-fan slide, a fan of spins TE/2 after the excitation: each key turns them all at once by the
+ * slider's flip angle, and "Wait TE/2" lets them precess, so a spin echo can be built up step by step. */
 (function () {
   'use strict';
 
   const RATE = Math.PI / 2;  // rad per second while a key is held: a 90° rotation takes 1 s
   const KEYS = { ArrowRight: [1, 0, '+x'], ArrowLeft: [-1, 0, '−x'], ArrowUp: [0, 1, '+y'], ArrowDown: [0, -1, '−y'] };
   const B1_COLOUR = '#e8770e', B1_COLOR_TEXT = '#c25f00', M_COLOUR = '#1f5f99', AXIS = '#9aa5b1', INK = '#1d2733';
+  // Each level's targets: radius (with |M| = 1; 0.22 is about 13° seen from the centre) and colours (edge, highlight).
+  const GREEN = { hit: 0.22, edge: '#2e8b3a', fill: ['rgba(150, 220, 155, 0.8)', 'rgba(46, 139, 58, 0.55)'] };
+  const RED = { hit: 0.11, edge: '#c0392b', fill: ['rgba(240, 150, 140, 0.85)', 'rgba(192, 57, 43, 0.6)'] };
+  // solution: the expert's run, as [key, at most this many degrees]; each pulse also ends on reaching its target.
+  // expert: its score, which "View solution" replays. Level 1 (6 pulses: one per target, plus one because +x is on
+  // no circle through +y): ← to +y, → back past +z to −y, ← back to +y, → 73° to near +z, ↑ to +x, ↓ back to +z.
+  // Reversing rather than going on, and turning near +z, saves degrees: the targets only need to be touched.
+  // Level 2, cones, with targets half the size: M is not perpendicular to B1, so its tip sweeps a cone. (1,1,1)/√3 → (1,1,−1)/√3 is one 90° pulse
+  // about +y (y stays at 0.58), and so is (1,−1,1)/√3 → (−1,−1,1)/√3 at the end. Expert runs from a beam search over
+  // pulses with these same rules.
+  const R3 = 1 / Math.sqrt(3);
+  const LEVELS = [
+    { ...GREEN, targets: [[0, 1, 0], [0, -1, 0], [0, 1, 0], [1, 0, 0], [0, 0, 1]], expert: { pulses: 6, angle: 604 },
+      solution: [['ArrowLeft', 360], ['ArrowRight', 360], ['ArrowLeft', 360], ['ArrowRight', 73.4], ['ArrowUp', 360], ['ArrowDown', 360]] },
+    { ...RED, targets: [[0, 1, 0], [R3, R3, R3], [R3, R3, -R3], [1, 0, 0], [R3, -R3, R3], [-R3, -R3, R3]], expert: { pulses: 9, angle: 530 },
+      solution: [['ArrowLeft', 360], ['ArrowRight', 51], ['ArrowUp', 360], ['ArrowUp', 360], ['ArrowLeft', 38], ['ArrowDown', 360],
+        ['ArrowDown', 59], ['ArrowRight', 360], ['ArrowDown', 360]] },
+  ];
 
-  if (!document.querySelector('canvas.bloch')) return;  // not on this page
-  const slide = document.querySelector('canvas.bloch').closest('section');
-  const canvas = slide.querySelector('canvas.bloch'), g = canvas.getContext('2d');
-  let m = [0, 0, 1], held = null, last = null;
-  let trail = [], turned = 0;  // the tip's path (cleared by Reset), and the angle turned during the current hold
-  const readout = slide.querySelector('.tut-readout');
-  let az = -0.6, el = 0.45;
-
-  // Right-hand rotation of v by angle a about the unit axis n = (nx, ny, 0).
-  function rotate(v, nx, ny, a) {
-    const c = Math.cos(a), s = Math.sin(a), d = nx * v[0] + ny * v[1];
-    return [
-      v[0] * c + ny * v[2] * s + nx * d * (1 - c),
-      v[1] * c - nx * v[2] * s + ny * d * (1 - c),
-      v[2] * c + (nx * v[1] - ny * v[0]) * s,
-    ];
+  // A fan of spins (section.bloch-fan): TE/2 after a 90° about +x, Gaussian in phase with σ = 15° (about 60° wide).
+  const FAN_N = 25, FAN_SIGMA = 15 * Math.PI / 180, FAN_WAIT = 1500;  // FAN_WAIT: ms to animate TE/2
+  const FAN_RATE = Math.PI;  // rad per second for the pulse animation (the scan clock stands still during a pulse)
+  const rotZ = (v, a) => [v[0] * Math.cos(a) - v[1] * Math.sin(a), v[0] * Math.sin(a) + v[1] * Math.cos(a), v[2]];
+  // Spin colours by precession speed, c in [−1, 1]: blue (slower) through grey (on resonance) to red (faster).
+  function speedColour(c) {
+    const mix = (a, b, f) => a.map((x, i) => Math.round(x + (b[i] - x) * f));
+    return `rgb(${(c < 0 ? mix([150, 158, 168], [33, 102, 172], -c) : mix([150, 158, 168], [178, 24, 43], c)).join(',')})`;
   }
 
-  // Orthographic view: turn about z by az, tilt by el. Screen y points up.
-  function proj(v) {
-    const W = canvas.width, H = canvas.height, R = 0.36 * Math.min(W, H);
-    const x1 = v[0] * Math.cos(az) - v[1] * Math.sin(az), y1 = v[0] * Math.sin(az) + v[1] * Math.cos(az);
-    const sy = v[2] * Math.cos(el) + y1 * Math.sin(el);
-    return [W / 2 + R * x1, H / 2 + 0.04 * H - R * sy];
-  }
+  document.querySelectorAll('canvas.bloch').forEach((canvas) => blochSlide(canvas.closest('section'), canvas));
 
-  function line(a, b, colour, width, dash) {
-    const p = proj(a), q = proj(b);
-    g.strokeStyle = colour; g.lineWidth = width; g.setLineDash(dash || []);
-    g.beginPath(); g.moveTo(p[0], p[1]); g.lineTo(q[0], q[1]); g.stroke(); g.setLineDash([]);
-  }
-  function arrow(v, colour, width) {
-    line([0, 0, 0], v, colour, width);
-    const p = proj(v), o = proj([0, 0, 0]), ang = Math.atan2(p[1] - o[1], p[0] - o[0]), h = 26;
-    g.fillStyle = colour; g.beginPath(); g.moveTo(p[0], p[1]);
-    g.lineTo(p[0] - h * Math.cos(ang - 0.4), p[1] - h * Math.sin(ang - 0.4));
-    g.lineTo(p[0] - h * Math.cos(ang + 0.4), p[1] - h * Math.sin(ang + 0.4)); g.closePath(); g.fill();
-  }
-  function label(v, text, colour, bold) {
-    const p = proj(v);
-    g.fillStyle = colour; g.font = `${bold ? '700 ' : ''}34px "Helvetica Neue", Helvetica, Arial, sans-serif`;
-    g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, p[0], p[1]);
-  }
+  function blochSlide(slide, canvas) {
+    const g = canvas.getContext('2d');
+    let m = [0, 0, 1], held = null, last = null;
+    let trail = [], turned = 0;  // the tip's path (cleared by Reset), and the angle turned during the current hold
+    const readout = slide.querySelector('.tut-readout');
+    let az = -0.6, el = 0.45;
+    const game = slide.classList.contains('bloch-game') ? { level: 0, next: 0, pulses: 0, angle: 0, done: false } : null;
+    // fan: the spins, the time in units of TE/2 (k), the running animation (a pulse or TE/2), and the pulsing axis (flash)
+    const fan = slide.classList.contains('bloch-fan') ? { spins: [], k: 1, anim: null, flash: null } : null;
+    const flipIn = slide.querySelector('[data-fan-flip]'), waitBtns = slide.querySelectorAll('[data-fan-wait]');  // data-fan-wait: in TE/2s
+    const score = slide.querySelector('.target-score'), solve = slide.querySelector('[data-solution]');
+    const nextLevel = slide.querySelector('[data-next-level]'), picker = slide.querySelector('.level-pick');
+    let demo = null;  // the solution being played: { steps, i, left (rad still to turn in this pulse), timer }
 
-  function draw() {
-    g.clearRect(0, 0, canvas.width, canvas.height);
-    // transverse circle
-    g.strokeStyle = '#d8dee6'; g.lineWidth = 2; g.beginPath();
-    for (let i = 0; i <= 96; i++) { const a = i / 96 * 2 * Math.PI, p = proj([Math.cos(a), Math.sin(a), 0]); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
-    g.stroke();
-    // axes; the one carrying B1 turns orange
-    const b1 = held && KEYS[held];
-    for (const [nx, ny, name] of Object.values(KEYS)) {
-      const on = b1 && b1[0] === nx && b1[1] === ny;
-      line([0, 0, 0], [1.2 * nx, 1.2 * ny, 0], on ? B1_COLOUR : AXIS, on ? 8 : 2);
-      label([1.36 * nx, 1.36 * ny, 0], name, on ? B1_COLOUR : '#5b6776', on);
+    // Right-hand rotation of v by angle a about the unit axis n = (nx, ny, 0).
+    function rotate(v, nx, ny, a) {
+      const c = Math.cos(a), s = Math.sin(a), d = nx * v[0] + ny * v[1];
+      return [
+        v[0] * c + ny * v[2] * s + nx * d * (1 - c),
+        v[1] * c - nx * v[2] * s + ny * d * (1 - c),
+        v[2] * c + (nx * v[1] - ny * v[0]) * s,
+      ];
     }
-    line([0, 0, -1.2], [0, 0, 1.2], AXIS, 2);
-    label([0, 0, 1.34], 'z', '#5b6776');
-    if (b1) label([0.95 * b1[0], 0.95 * b1[1], 0.22], 'B₁', B1_COLOUR, true);
-    // the tip's path: a circle when M is perpendicular to B1, a cone's rim otherwise
-    if (trail.length > 1) {
-      g.strokeStyle = 'rgba(31, 95, 153, 0.45)'; g.lineWidth = 3; g.beginPath();
-      trail.forEach((v, k) => { const q = proj(v); k ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); });
+
+    // Orthographic view: turn about z by az, tilt by el. Screen y points up.
+    function proj(v) {
+      const W = canvas.width, H = canvas.height, R = 0.36 * Math.min(W, H);
+      const x1 = v[0] * Math.cos(az) - v[1] * Math.sin(az), y1 = v[0] * Math.sin(az) + v[1] * Math.cos(az);
+      const sy = v[2] * Math.cos(el) + y1 * Math.sin(el);
+      return [W / 2 + R * x1, H / 2 + 0.04 * H - R * sy];
+    }
+
+    function line(a, b, colour, width, dash) {
+      const p = proj(a), q = proj(b);
+      g.strokeStyle = colour; g.lineWidth = width; g.setLineDash(dash || []);
+      g.beginPath(); g.moveTo(p[0], p[1]); g.lineTo(q[0], q[1]); g.stroke(); g.setLineDash([]);
+    }
+    function arrow(v, colour, width) {
+      line([0, 0, 0], v, colour, width);
+      const p = proj(v), o = proj([0, 0, 0]), ang = Math.atan2(p[1] - o[1], p[0] - o[0]), h = 26;
+      g.fillStyle = colour; g.beginPath(); g.moveTo(p[0], p[1]);
+      g.lineTo(p[0] - h * Math.cos(ang - 0.4), p[1] - h * Math.sin(ang - 0.4));
+      g.lineTo(p[0] - h * Math.cos(ang + 0.4), p[1] - h * Math.sin(ang + 0.4)); g.closePath(); g.fill();
+    }
+    function label(v, text, colour, bold) {
+      const p = proj(v);
+      g.fillStyle = colour; g.font = `${bold ? '700 ' : ''}34px "Helvetica Neue", Helvetica, Arial, sans-serif`;
+      g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, p[0], p[1]);
+    }
+
+    function draw() {
+      g.clearRect(0, 0, canvas.width, canvas.height);
+      // transverse circle
+      g.strokeStyle = '#d8dee6'; g.lineWidth = 2; g.beginPath();
+      for (let i = 0; i <= 96; i++) { const a = i / 96 * 2 * Math.PI, p = proj([Math.cos(a), Math.sin(a), 0]); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
       g.stroke();
+      // axes; the one carrying B1 turns orange
+      const b1 = KEYS[held || (fan && fan.flash)];
+      for (const [nx, ny, name] of Object.values(KEYS)) {
+        const on = b1 && b1[0] === nx && b1[1] === ny;
+        line([0, 0, 0], [1.2 * nx, 1.2 * ny, 0], on ? B1_COLOUR : AXIS, on ? 8 : 2);
+        label([1.36 * nx, 1.36 * ny, 0], name, on ? B1_COLOUR : '#5b6776', on);
+      }
+      line([0, 0, -1.2], [0, 0, 1.2], AXIS, 2);
+      label([0, 0, 1.34], 'z', '#5b6776');
+      if (b1) label([0.95 * b1[0], 0.95 * b1[1], 0.22], 'B₁', B1_COLOUR, true);
+      if (game && !game.done) drawTarget(LEVELS[game.level], LEVELS[game.level].targets[game.next]);
+      if (fan) { drawFan(); return; }
+      // the tip's path: a circle when M is perpendicular to B1, a cone's rim otherwise
+      if (trail.length > 1) {
+        g.strokeStyle = 'rgba(31, 95, 153, 0.45)'; g.lineWidth = 3; g.beginPath();
+        trail.forEach((v, k) => { const q = proj(v); k ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); });
+        g.stroke();
+      }
+      // magnetization, with its shadow on the transverse plane
+      line([0, 0, 0], [m[0], m[1], 0], '#b8c2cc', 3, [10, 8]);
+      line([m[0], m[1], 0], m, '#b8c2cc', 2, [4, 6]);
+      arrow(m, M_COLOUR, 9);
+      label([1.12 * m[0], 1.12 * m[1], 1.12 * m[2] + 0.06], 'M', INK, true);
     }
-    // magnetization, with its shadow on the transverse plane
-    line([0, 0, 0], [m[0], m[1], 0], '#b8c2cc', 3, [10, 8]);
-    line([m[0], m[1], 0], m, '#b8c2cc', 2, [4, 6]);
-    arrow(m, M_COLOUR, 9);
-    label([1.12 * m[0], 1.12 * m[1], 1.12 * m[2] + 0.06], 'M', INK, true);
-  }
 
-  function tick(now) {
-    if (!held) { last = null; return; }
-    if (last !== null) {
-      const [nx, ny] = KEYS[held];
-      const da = RATE * Math.min((now - last) / 1000, 0.1);
-      m = rotate(m, nx, ny, da);
-      const n = Math.hypot(m[0], m[1], m[2]); m = m.map((c) => c / n);  // keep |M| = 1 against round-off
-      turned += da; trail.push(m.slice()); if (trail.length > 2000) trail.shift();
-      showTurn();
+    // The fan: each spin in its colour, and their sum, M (scaled so that all spins together make 1).
+    function drawFan() {
+      for (const sp of fan.spins) {
+        line([0, 0, 0], sp.v, sp.colour, 4);
+        const p = proj(sp.v);
+        g.fillStyle = sp.colour; g.beginPath(); g.arc(p[0], p[1], 8, 0, 2 * Math.PI); g.fill();
+      }
+      const net = fanNet();
+      if (Math.hypot(net[0], net[1], net[2]) > 0.03) {
+        arrow(net, INK, 9);
+        label([1.12 * net[0], 1.12 * net[1], 1.12 * net[2] + 0.06], 'M', INK, true);
+      }
     }
-    last = now;
-    draw();
-    requestAnimationFrame(tick);
+    const fanNet = () => [0, 1, 2].map((c) => fan.spins.reduce((acc, sp) => acc + sp.v[c], 0) / fan.spins.length);
+    function fanReset() {
+      if (fan.anim) cancelAnimationFrame(fan.anim);
+      const edge = normInv(1 - 0.5 / FAN_N);
+      fan.k = 1; fan.anim = null; fan.flash = null;
+      fan.spins = Array.from({ length: FAN_N }, (_, i) => {
+        const q = normInv((i + 0.5) / FAN_N), phi = FAN_SIGMA * q;  // the phase each spin gains in TE/2
+        return { phi, colour: speedColour(q / edge), v: rotZ([0, -1, 0], phi) };
+      });
+      waitBtns.forEach((b) => { b.disabled = false; });
+    }
+    // Animate a step over `ms` (note shown meanwhile): apply(df) gets each frame's share of it, then finish() runs.
+    function fanAnimate(ms, note, apply, finish) {
+      waitBtns.forEach((b) => { b.disabled = true; });
+      const t0 = performance.now();
+      let done = 0;
+      const frame = (now) => {
+        const f = ms > 0 ? Math.min(1, (now - t0) / ms) : 1;
+        apply(f - done); done = f;
+        if (f < 1) { fan.anim = requestAnimationFrame(frame); showFan(note); }
+        else { fan.anim = null; waitBtns.forEach((b) => { b.disabled = false; }); finish(); }
+        draw();
+      };
+      fan.anim = requestAnimationFrame(frame);
+    }
+    function fanPulse(key) {  // every spin turns by the flip angle about the key's axis; no precession meanwhile
+      const [nx, ny, name] = KEYS[key], deg = +flipIn.value, a = deg * Math.PI / 180;
+      fan.flash = key;
+      fanAnimate(1000 * a / FAN_RATE, `pulsing ${deg}° about ${name}…`, (df) => { for (const sp of fan.spins) sp.v = rotate(sp.v, nx, ny, a * df); },
+        () => { fan.flash = null; showFan(`just pulsed ${deg}° about ${name}`); });
+    }
+    function fanWait(halves) {  // free precession for `halves` × TE/2
+      if (fan.anim) return;
+      fanAnimate(halves * FAN_WAIT, 'waiting…', (df) => { for (const sp of fan.spins) sp.v = rotZ(sp.v, halves * sp.phi * df); },
+        () => { fan.k += halves; showFan(); });
+    }
+    function showFan(note) {
+      if (!readout) return;
+      const k = fan.k, t = k === 1 ? 'TE/2' : k === 2 ? 'TE' : k % 2 ? `${k}TE/2` : `${k / 2}TE`;
+      const net = fanNet(), mxy = Math.round(100 * Math.hypot(net[0], net[1]));
+      readout.innerHTML = `<i>t</i> = <b>${t}</b> · |M<sub>xy</sub>| = <b>${mxy}%</b>${note ? ` · ${note}` : ''}`;
+    }
+
+    function drawTarget(lv, t) {
+      line([0, 0, 0], t, lv.fill[1], 2, [6, 8]);
+      const p = proj(t), r = lv.hit * 0.36 * Math.min(canvas.width, canvas.height);
+      const fill = g.createRadialGradient(p[0] - 0.35 * r, p[1] - 0.35 * r, 0.1 * r, p[0], p[1], r);
+      fill.addColorStop(0, lv.fill[0]); fill.addColorStop(1, lv.fill[1]);
+      g.fillStyle = fill; g.beginPath(); g.arc(p[0], p[1], r, 0, 2 * Math.PI); g.fill();
+      g.strokeStyle = lv.edge; g.lineWidth = 2; g.stroke();
+    }
+
+    // The game: both scores (RF pulses, and the total angle turned, which stands for SAR), and the hits.
+    function showScore() {
+      if (!game || !score) return;
+      const lv = LEVELS[game.level], deg = Math.round(game.angle * 180 / Math.PI);
+      const tally = `<b>${game.pulses}</b> RF pulse${game.pulses === 1 ? '' : 's'} · <b>${deg}°</b> in total`;
+      score.innerHTML = game.done
+        ? `<b>${game.shown ? 'Solution' : `Level ${game.level + 1} done`}:</b> ${tally}.<br>Expert score: ${lv.expert.pulses} RF pulses · ${lv.expert.angle}° in total.`
+        : `Level ${game.level + 1} · target <b>${game.next + 1}</b> of ${lv.targets.length} · ${tally}`;
+      if (solve) solve.hidden = !game.done;
+      if (nextLevel) {
+        nextLevel.hidden = !game.done || game.level + 1 >= LEVELS.length;
+        nextLevel.textContent = `Level ${game.level + 2} →`;
+      }
+      if (picker) picker.querySelectorAll('button').forEach((b, i) => b.classList.toggle('on', i === game.level));
+    }
+    function checkHit() {
+      if (!game || game.done) return;
+      const lv = LEVELS[game.level], t = lv.targets[game.next];
+      if (Math.hypot(m[0] - t[0], m[1] - t[1], m[2] - t[2]) >= lv.hit) return;
+      game.next++;
+      game.done = game.next === lv.targets.length;
+      release();  // the pulse ends on the target
+      showScore();
+    }
+    function restart() {
+      stopDemo();
+      m = [0, 0, 1]; trail = []; turned = 0;
+      if (game) Object.assign(game, { next: 0, pulses: 0, angle: 0, done: false, shown: false });
+      if (fan) { fanReset(); showFan(); } else showTurn();
+      showScore(); draw();
+    }
+
+    // "View solution": restart and play the level's solution, one pulse at a time, lighting up each key.
+    const lightKey = (key, on) => slide.querySelectorAll(`.arrow-keys .ak[data-key="${key}"]`).forEach((k) => k.classList.toggle('down', on));
+    function playSolution() {
+      restart();
+      game.shown = true;
+      demo = { steps: LEVELS[game.level].solution, i: 0, left: 0, timer: null };
+      demo.timer = setTimeout(demoStep, 400);
+    }
+    function demoStep() {
+      if (!demo) return;
+      if (demo.i >= demo.steps.length) { demo = null; return; }
+      const [key, deg] = demo.steps[demo.i++];
+      demo.left = deg * Math.PI / 180;
+      lightKey(key, true);
+      press(key);
+    }
+    function stopDemo() {
+      if (!demo) return;
+      clearTimeout(demo.timer);
+      if (held) lightKey(held, false);
+      demo = null; held = null;
+    }
+
+    function tick(now) {
+      if (!held) { last = null; return; }
+      if (last !== null) {
+        const [nx, ny] = KEYS[held];
+        let da = Math.min(RATE * Math.min((now - last) / 1000, 0.1), demo ? demo.left : Infinity);
+        // A pulse that reaches the target stops on its edge, not a frame later, so scores don't depend on the frame rate.
+        const lv = game && LEVELS[game.level], t = game && !game.done && lv.targets[game.next];
+        const inside = (a) => { const v = rotate(m, nx, ny, a); return Math.hypot(v[0] - t[0], v[1] - t[1], v[2] - t[2]) < lv.hit; };
+        if (t && inside(da)) {
+          let lo = 0;
+          for (let k = 0; k < 20; k++) { const mid = (lo + da) / 2; if (inside(mid)) da = mid; else lo = mid; }
+        }
+        m = rotate(m, nx, ny, da);
+        const n = Math.hypot(m[0], m[1], m[2]); m = m.map((c) => c / n);  // keep |M| = 1 against round-off
+        turned += da; trail.push(m.slice()); if (trail.length > 2000) trail.shift();
+        if (game && !game.done) { game.angle += da; showScore(); }
+        checkHit();
+        if (demo && held) { demo.left -= da; if (demo.left <= 1e-9) release(); }
+        showTurn();
+      }
+      last = now;
+      draw();
+      requestAnimationFrame(tick);
+    }
+
+    const onThisSlide = () => window.Reveal && window.Reveal.getCurrentSlide() === slide;
+    function showTurn() {
+      if (!readout) return;
+      const tilt = Math.acos(Math.max(-1, Math.min(1, m[2]))) * 180 / Math.PI;
+      readout.innerHTML = held ? `Rotating about <b style="color:${B1_COLOR_TEXT}">${KEYS[held][2]}</b>: ${Math.round(turned * 180 / Math.PI)}°`
+        : `M is ${Math.round(tilt)}° from +z.`;
+    }
+    function press(key) {
+      if (fan) { if (!fan.anim) fanPulse(key); return; }
+      if (held === key) return;
+      held = key; last = null; turned = 0; if (!trail.length) trail.push(m.slice());
+      if (game && !game.done) { game.pulses++; showScore(); }
+      showTurn(); draw(); requestAnimationFrame(tick);
+    }
+    function release(key) {
+      if (key && held !== key) return;
+      if (held && readout) readout.innerHTML = `Turned <b>${Math.round(turned * 180 / Math.PI)}°</b> about ${KEYS[held][2]}. M is now ${Math.round(Math.acos(Math.max(-1, Math.min(1, m[2]))) * 180 / Math.PI)}° from +z.`;
+      if (demo && held) { lightKey(held, false); demo.timer = setTimeout(demoStep, 500); }
+      held = null; draw();
+    }
+
+    // Capture phase, so Reveal never sees the arrow keys on this slide.
+    window.addEventListener('keydown', (e) => {
+      if (!(e.key in KEYS) || !onThisSlide()) return;
+      e.preventDefault(); e.stopPropagation();
+      if (!e.repeat && !demo) press(e.key);
+    }, true);
+    window.addEventListener('keyup', (e) => {
+      if (!(e.key in KEYS) || !onThisSlide()) return;
+      e.preventDefault(); e.stopPropagation();
+      if (!demo) release(e.key);
+    }, true);
+    window.addEventListener('blur', () => { if (!demo) release(); });
+    if (window.Reveal) window.Reveal.on('slidechanged', () => { stopDemo(); release(); });
+
+    slide.querySelector('[data-tutorial-reset]').addEventListener('click', (e) => { e.currentTarget.blur(); restart(); });
+    if (solve) solve.addEventListener('click', (e) => { e.currentTarget.blur(); playSolution(); });
+    waitBtns.forEach((b) => b.addEventListener('click', (e) => { e.currentTarget.blur(); fanWait(+b.dataset.fanWait); }));
+    if (flipIn) {
+      const shown = slide.querySelector('[data-show="fan-flip"]');
+      flipIn.addEventListener('input', () => { shown.textContent = flipIn.value; });
+      flipIn.addEventListener('change', () => flipIn.blur());
+    }
+    const toLevel = (i) => { game.level = i; restart(); };
+    if (nextLevel) nextLevel.addEventListener('click', (e) => { e.currentTarget.blur(); toLevel(game.level + 1); });
+    if (picker) {
+      picker.innerHTML = 'Level ' + LEVELS.map((_, i) => `<button class="secondary" data-level="${i}">${i + 1}</button>`).join(' ');
+      picker.querySelectorAll('button').forEach((b) => b.addEventListener('click', (e) => { e.currentTarget.blur(); toLevel(+b.dataset.level); }));
+    }
+
+    // Drag to turn the view; keep the gesture away from Reveal's swipe navigation.
+    let drag = null;
+    canvas.style.touchAction = 'none';
+    canvas.addEventListener('pointerdown', (e) => { drag = [e.clientX, e.clientY, az, el]; canvas.setPointerCapture(e.pointerId); e.stopPropagation(); });
+    canvas.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      az = drag[2] + (e.clientX - drag[0]) * 0.01;
+      el = Math.max(-1.5, Math.min(1.5, drag[3] + (e.clientY - drag[1]) * 0.01));
+      draw();
+    });
+    canvas.addEventListener('pointerup', () => { drag = null; });
+    for (const type of ['touchstart', 'touchmove']) canvas.addEventListener(type, (e) => e.stopPropagation());
+
+    restart();
   }
+})();
 
-  const onThisSlide = () => window.Reveal && window.Reveal.getCurrentSlide() === slide;
-  function showTurn() {
-    if (!readout) return;
-    const tilt = Math.acos(Math.max(-1, Math.min(1, m[2]))) * 180 / Math.PI;
-    readout.innerHTML = held ? `Rotating about <b style="color:${B1_COLOR_TEXT}">${KEYS[held][2]}</b>: ${Math.round(turned * 180 / Math.PI)}°`
-      : `M is ${Math.round(tilt)}° from +z.`;
+/* Exercise 2-3's intermezzo: a measured B1 map (the book's Figure 4.13, the filtered map on its right) with contours
+ * every 0.1 from 0.8 to 1.1 (it never reaches 1.2); hovering shows B1. Drawn the first time its slide is shown. */
+(function () {
+  'use strict';
+  const slide = document.querySelector('section.b1-map'), fig = window.T2Figures && window.T2Figures.afiPlot8;
+  if (!slide || !fig || !window.Plotly || !window.Reveal) return;
+  const host = slide.querySelector('.b1map-host'), INK = '#1d2733';
+  const src = fig.data[1];
+  const z = src.z.map((row) => row.map((v) => (v > 0.05 ? v : null)));  // no value (stored as 0): leave it blank
+  // Blank pixels inside the head (not connected to the edge of the image) are drawn grey: white would read as B1 = 1.
+  const outside = z.map((row) => row.map(() => false)), todo = [];
+  const visit = (i, j) => { if (z[i] && j >= 0 && j < z[i].length && z[i][j] === null && !outside[i][j]) { outside[i][j] = true; todo.push([i, j]); } };
+  z.forEach((row, i) => row.forEach((_, j) => { if (!i || !j || i === z.length - 1 || j === row.length - 1) visit(i, j); }));
+  while (todo.length) { const [i, j] = todo.pop(); visit(i - 1, j); visit(i + 1, j); visit(i, j - 1); visit(i, j + 1); }
+  const holes = z.map((row, i) => row.map((v, j) => (v === null && !outside[i][j] ? 1 : null)));
+  // The contours run across the holes (filled from their neighbours), so no line or label breaks off at one.
+  const zc = z.map((row) => row.slice());
+  for (let left = true; left;) {
+    left = false;
+    zc.forEach((row, i) => row.forEach((v, j) => {
+      if (v !== null || !holes[i][j]) return;
+      const near = [zc[i - 1] && zc[i - 1][j], zc[i + 1] && zc[i + 1][j], row[j - 1], row[j + 1]].filter((x) => x != null);
+      if (near.length) row[j] = near.reduce((a, x) => a + x, 0) / near.length; else left = true;
+    }));
   }
-  function press(key) { if (held === key) return; held = key; last = null; turned = 0; if (!trail.length) trail.push(m.slice()); showTurn(); draw(); requestAnimationFrame(tick); }
-  function release(key) {
-    if (key && held !== key) return;
-    if (held && readout) readout.innerHTML = `Turned <b>${Math.round(turned * 180 / Math.PI)}°</b> about ${KEYS[held][2]}. M is now ${Math.round(Math.acos(Math.max(-1, Math.min(1, m[2]))) * 180 / Math.PI)}° from +z.`;
-    held = null; draw();
-  }
-
-  // Capture phase, so Reveal never sees the arrow keys on this slide.
-  window.addEventListener('keydown', (e) => {
-    if (!(e.key in KEYS) || !onThisSlide()) return;
-    e.preventDefault(); e.stopPropagation();
-    if (!e.repeat) press(e.key);
-  }, true);
-  window.addEventListener('keyup', (e) => {
-    if (!(e.key in KEYS) || !onThisSlide()) return;
-    e.preventDefault(); e.stopPropagation();
-    release(e.key);
-  }, true);
-  window.addEventListener('blur', () => release());
-  if (window.Reveal) window.Reveal.on('slidechanged', () => release());
-
-  slide.querySelector('[data-tutorial-reset]').addEventListener('click', (e) => { e.currentTarget.blur(); m = [0, 0, 1]; trail = []; turned = 0; showTurn(); draw(); });
-
-  // Drag to turn the view; keep the gesture away from Reveal's swipe navigation.
-  let drag = null;
-  canvas.style.touchAction = 'none';
-  canvas.addEventListener('pointerdown', (e) => { drag = [e.clientX, e.clientY, az, el]; canvas.setPointerCapture(e.pointerId); e.stopPropagation(); });
-  canvas.addEventListener('pointermove', (e) => {
-    if (!drag) return;
-    az = drag[2] + (e.clientX - drag[0]) * 0.01;
-    el = Math.max(-1.5, Math.min(1.5, drag[3] + (e.clientY - drag[1]) * 0.01));
-    draw();
+  const iso = (level) => ({
+    type: 'contour', z: zc, showscale: false, hoverinfo: 'skip', colorscale: [[0, INK], [1, INK]],
+    contours: { start: level, end: level, size: 1, coloring: 'lines' },
+    line: { width: level === 1 ? 3 : 2, smoothing: 1 },
   });
-  canvas.addEventListener('pointerup', () => { drag = null; });
-  for (const type of ['touchstart', 'touchmove']) canvas.addEventListener(type, (e) => e.stopPropagation());
-
-  showTurn(); draw();
+  const draw = () => {
+    if (host.dataset.drawn) return;
+    host.dataset.drawn = '1';
+    window.Plotly.newPlot(host, [
+      { type: 'heatmap', z, colorscale: src.colorscale, zmin: src.zmin, zmax: src.zmax, hoverongaps: false, hovertemplate: 'B<sub>1</sub> = %{z:.2f}<extra></extra>',
+        colorbar: { title: { text: 'B<sub>1</sub>' }, thickness: 16, len: 0.8 } },
+      { type: 'heatmap', z: holes, colorscale: [[0, '#b8c0c8'], [1, '#b8c0c8']], showscale: false, hoverinfo: 'skip' },
+      ...[0.8, 0.9, 1, 1.1].map(iso),
+    ], {
+      width: 560, height: 640, margin: { l: 10, r: 10, t: 10, b: 10 }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+      xaxis: { visible: false, range: [-0.5, z[0].length - 0.5], fixedrange: true },
+      yaxis: { visible: false, range: [-0.5, z.length - 0.5], scaleanchor: 'x', fixedrange: true },
+      dragmode: false,
+      font: { family: '"Helvetica Neue", Helvetica, Arial, sans-serif', size: 14, color: INK },
+      // labels placed by hand on each line, where it is farthest from the grey pixels and the edge of the head
+      annotations: [[40, 94, '0.8'], [27, 84, '0.9'], [53, 32, '1'], [21, 56, '1.1']].map(([x, y, text]) => ({
+        x, y, text, showarrow: false, font: { size: 16, color: INK }, bgcolor: 'rgba(255, 255, 255, 0.85)', borderpad: 2,
+      })),
+      hoverlabel: { bgcolor: '#fff', bordercolor: INK, font: { size: 16, color: INK } },
+    }, { displayModeBar: false, scrollZoom: false });
+  };
+  window.Reveal.on('slidechanged', (e) => { if (e.currentSlide === slide) draw(); });
+  window.Reveal.on('ready', (e) => { if (e.currentSlide === slide) draw(); });
+  if (window.Reveal.isReady() && window.Reveal.getCurrentSlide() === slide) draw();
 })();
 
 /* Problem N, the echo game. Part 1 uses it with free timing (opts.free: pulses fire when pressed, and markers show
@@ -577,7 +858,7 @@ function makeEchoGame(slide, fitSlide, opts) {
     if (!results) return;
     const { te, m } = results, all = fitT2(te, m);
     const run = {
-      deck: 'Exercise 2-2 · T2 Mapping', slide: opts.name, exported: new Date().toISOString(), finished: results.finished,
+      deck: 'Exercise 2-3 · T2 Mapping', slide: opts.name, exported: new Date().toISOString(), finished: results.finished,
       settings: {
         tau_ms: TAU, echo_spacing_ms: 2 * TAU, n_echoes: NSLOT, T2_ms: T2, T1_ms: T1 === Infinity ? 'Infinity' : T1,
         excitation_deg: EXC, excitation_axis: '+x', refocusing_deg: FLIP, crushers: CRUSH,
@@ -596,7 +877,7 @@ function makeEchoGame(slide, fitSlide, opts) {
     };
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(run, null, 2)], { type: 'application/json' }));
-    a.download = `exercise-2-2-${opts.name}-${results.finished.replace(/[:.]/g, '-')}.json`;
+    a.download = `exercise-2-3-${opts.name}-${results.finished.replace(/[:.]/g, '-')}.json`;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   }
@@ -716,7 +997,7 @@ function makeEchoGame(slide, fitSlide, opts) {
   };
 }
 
-// One game per slide that has one (Problem N is split over two pages).
+// One game per slide that has one (Problem N is split over three pages).
 const echoGame = (cls, fitCls, opts) => {
   const slide = document.querySelector(`section.${cls}`);
   return slide ? makeEchoGame(slide, fitCls ? document.querySelector(`section.${fitCls}`) : null, opts) : null;
@@ -754,18 +1035,19 @@ window.ProblemNImperfect = (() => {
 window.ProblemNEvenSpacing = echoGame('lab-even', null,
   { name: 'even-spacing', free: true, exc: 90, flip: 120, maxPulses: 3, end: 110, auto: [10, 30, 50], settings: () => ({ ...PART1, FLIP: 120 }), done: 'Done. Press Play to try again.' });
 
-// Part 2: on the beat
+// Part 2: on the beat, with a Lorentzian fan to start (the fan menu changes it)
+const LORENTZ = () => ({ FAN: 'lorentz' });
 window.ProblemNGame = echoGame('echo-game', 'echo-fit',
-  { name: 'perfect', exc: 90, flip: 180, done: 'Done: next slide for the T<sub>2</sub> fit.' });
+  { name: 'perfect', exc: 90, flip: 180, settings: LORENTZ, done: 'Done: next slide for the T<sub>2</sub> fit.' });
 // B1 inhomogeneity: every flip angle is 89% of what was asked for
 window.ProblemNGameB1NoCrush = echoGame('echo-game-b1nc', 'echo-fit-b1nc',
-  { name: 'b1-no-crushers', exc: 80, flip: 160, done: 'Done: next slide for the T<sub>2</sub> fit.' });
+  { name: 'b1-no-crushers', exc: 80, flip: 160, settings: LORENTZ, done: 'Done: next slide for the T<sub>2</sub> fit.' });
 // ... and with crushers around each refocusing pulse
 window.ProblemNGameB1 = echoGame('echo-game-b1', 'echo-fit-b1',
-  { name: 'b1', exc: 80, flip: 160, crush: true, done: 'Done: next slide for the T<sub>2</sub> fit.' });
+  { name: 'b1', exc: 80, flip: 160, crush: true, settings: LORENTZ, done: 'Done: next slide for the T<sub>2</sub> fit.' });
 // A stronger B1 error: every flip angle is two thirds of what was asked for, with crushers
 window.ProblemNGameB1Strong = echoGame('echo-game-b1s', 'echo-fit-b1s',
-  { name: 'b1-60-120', exc: 60, flip: 120, crush: true, done: 'Done: next slide for the T<sub>2</sub> fit.' });
+  { name: 'b1-60-120', exc: 60, flip: 120, crush: true, settings: LORENTZ, done: 'Done: next slide for the T<sub>2</sub> fit.' });
 
 // The sandbox: every setting from the controls on its slide, applied at each Play
 (function () {
