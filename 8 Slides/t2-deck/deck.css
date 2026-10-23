@@ -162,6 +162,7 @@
 .reveal .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0.3em 0 0.5em; }
 .reveal .btn-row button { font: inherit; font-size: 0.85em; padding: 0.2em 0.75em; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
 .reveal .btn-row button.secondary { background: #fff; color: var(--accent); }
+.reveal .btn-row button:disabled { opacity: 0.4; cursor: default; }
 .reveal .btn-row button:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
 .reveal .result { min-height: 1.3em; line-height: 1.4; }
 .reveal .result.error { color: var(--caution); font-weight: 600; }
@@ -173,6 +174,39 @@
 .reveal .fragment.step { display: block; height: 0; overflow: hidden; }
 
 .reveal .ex-cols.even { grid-template-columns: 1fr 1fr; }
+/* Problem N: the 3D view of the magnetization (js/exn.js). */
+.reveal .bloch-host { height: 100%; display: flex; justify-content: center; align-items: flex-start; }
+.reveal canvas.bloch { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; aspect-ratio: 1040 / 1000; cursor: grab; }
+.reveal .game-cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 380px; column-gap: 24px; }
+.reveal .game-cols > * { min-width: 0; }
+.reveal .game-cols canvas { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 8px; }
+.reveal .game-cols .btn-row { align-items: center; margin-top: 0; }
+.reveal .game-status { font-size: 0.6em; font-weight: 700; margin-left: 0.6em; }
+.reveal .game-spins .panel-label select { font: inherit; text-transform: none; letter-spacing: 0; margin-left: 0.4em; }
+.reveal .game-spins > .panel-label { display: flex; align-items: center; gap: 0.4em; white-space: nowrap; }
+.reveal .game-spins .fan-pick { display: inline-flex; align-items: center; gap: 0.3em; margin-left: auto; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.reveal .game-spins select.game-view { width: 7.5em; margin-left: 0.2em; }
+.reveal .game-spins select.game-fan { width: 8.5em; margin-left: 0; }
+.reveal .game-spins canvas { cursor: grab; touch-action: none; }
+.reveal .game-hint { font-size: 0.5em; margin-top: 0.3em; }
+/* slide 2 of part 2 makes room for its settings box under the spins */
+.reveal section.echo-game .game-3d { width: 86%; margin: 0 auto; }
+.reveal .settings-box { font-size: 0.42em; background: var(--panel); border-radius: 8px; padding: 0.5em 0.7em; margin-top: 0.4em; }
+.reveal .settings-box p { margin: 0 0 0.3em; line-height: 1.35; }
+.reveal .settings-box table { border-collapse: collapse; width: 100%; }
+.reveal .settings-box td { padding: 0.1em 0.4em 0.1em 0; vertical-align: top; }
+.reveal .settings-box td:first-child { font-weight: 700; white-space: nowrap; }
+.reveal .game-top { display: flex; align-items: baseline; gap: 0.6em; min-height: 1.6em; margin-bottom: 0.2em; }
+.reveal .game-top .game-status { margin-left: 0; }
+.reveal .game-prompt { font-size: 0.62em; font-weight: 700; color: var(--accent); margin: 0; }
+.reveal .play-row { margin: 0 0 0.3em; }
+.reveal .fit-hint { font-size: 0.85em; background: #fff7e0; border-left: 4px solid #e8b100; padding: 0.4em 0.7em; border-radius: 4px; }
+.reveal .fit-hint p { margin: 0; }
+.reveal .fit-hint p + p { margin-top: 0.4em; }
+.reveal .b1-note { font-size: 0.62em; margin: -0.3em 0 0.4em; }
+.reveal .game-cols .panel-label { font-size: 0.5em; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0.25em 0 0.15em; }
+.reveal .fit-result { font-size: 1em; }
+.reveal .fit-result .big { font-size: 1.6em; font-weight: 700; }
 
 /* exercises.html: the list of worked solutions. */
 .reveal .exercise-list li { font-size: 0.9em; }
@@ -184,3 +218,55 @@
 .reveal table.measure.compact input[data-key] { width: 2.9em; }
 .reveal table.measure.compact th, .reveal table.measure.compact td { padding: 0.18em 0.3em; }
 .reveal table.measure.wide th, .reveal table.measure.wide td { padding: 0.18em 0.35em; }
+
+/* Problem N, part 1: the echo labs, the imperfect-180° bars, and the starting page's two cards. */
+.reveal .lab-intro { font-size: 0.6em; margin: -0.3em 0 0.3em; }
+.reveal .c-se { color: #2e8b3a; }
+.reveal .c-ste { color: #8e44ad; }
+.reveal .c-both { color: #b9770e; }
+.reveal .c-se-bg { background: #2e8b3a; }
+.reveal .c-ste-bg { background: #8e44ad; }
+.reveal .c-none-bg { background: #aab4bf; }
+.reveal .imp-controls { display: flex; gap: 24px; align-items: center; font-size: 0.5em; margin: -0.1em 0 0.3em; }
+.reveal .imp-controls label { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.reveal .imp-bars { flex: 1; display: grid; gap: 3px; }
+.reveal .imp-bar { display: grid; grid-template-columns: 17em 1fr 3em; align-items: center; gap: 8px; }
+.reveal .imp-track { height: 0.9em; background: var(--panel); border-radius: 4px; overflow: hidden; }
+.reveal .imp-fill { display: block; height: 100%; width: 0; transition: width 0.15s; }
+.reveal table.apart { font-size: 0.62em; }
+.reveal table.apart td:first-child { font-weight: 700; white-space: nowrap; }
+.reveal .cards.two { grid-template-columns: 1fr 1fr; margin-top: 1.2em; }
+.reveal a.card { display: block; color: inherit; text-decoration: none; transition: transform 0.1s, box-shadow 0.1s; }
+.reveal a.card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12); }
+
+/* Problem N: "What we saw" slides after each example, and the lessons at the end of each part. */
+.reveal section.lesson h2 { color: var(--accent); max-width: 30em; }
+.reveal section.lesson ul, .reveal section.lesson ol { font-size: 1em; max-width: 34em; margin-top: 0.6em; }
+.reveal section.lesson li + li { margin-top: 0.55em; }
+.reveal section.summary-lessons ol { font-size: 0.9em; list-style: none; margin-left: 0; padding-left: 0; counter-reset: lesson; }
+/* the numbers line up with the kicker and heading above; the text hangs to their right */
+.reveal section.summary-lessons ol > li { position: relative; padding-left: 1.6em; counter-increment: lesson; }
+.reveal section.summary-lessons ol > li::before { content: counter(lesson) "."; position: absolute; left: 0; }
+.reveal ol.intro-plan { display: block; list-style: decimal outside; font-size: 0.95em; color: var(--muted); margin: 0 0 0.9em 1.4em; }
+.reveal ol.intro-plan li + li { margin-top: 0.3em; }
+.reveal ol.intro-plan.alpha { list-style: lower-alpha outside; color: var(--ink); font-size: 0.85em; }
+.reveal .ex-text .game-prompt { font-size: 0.95em; margin-bottom: 0.4em; }
+.reveal .lab-intro + .imp-controls, .reveal .game-prompt + .lab-intro { margin-top: 0.1em; }
+
+/* Problem N: the sandbox's controls and results line. */
+.reveal .sandbox-controls { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.5em; margin: -0.3em 0 0.4em; align-items: center; }
+.reveal .sandbox-controls label { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.reveal .sandbox-controls input[type="number"] { width: 4.2em; font: inherit; }
+.reveal .sandbox-controls input[type="range"] { width: 7em; }
+.reveal .sandbox-controls select { font: inherit; }
+.reveal .sandbox-results { font-size: 0.5em; min-height: 1.4em; margin: -0.2em 0 0.1em; }
+
+/* Problem N: full-height zones at the left and right edges replace Reveal's corner arrows (js/exn.js). */
+.nav-zones .reveal .controls { display: none !important; }  /* Reveal sets display inline */
+.nav-zone { position: fixed; top: 0; bottom: 0; width: 72px; z-index: 40; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; background: transparent; border: 0; padding: 0; color: transparent; font-size: 72px; font-weight: 300; line-height: 1; transition: background 0.15s, color 0.15s; }
+.nav-zone.prev { left: 0; }
+.nav-zone.next { right: 0; }
+.nav-zone:hover, .nav-zone:focus-visible { background: rgba(91, 103, 118, 0.14); color: rgba(29, 39, 51, 0.75); outline: none; }
+.nav-zone[hidden] { display: none; }
+@media print { .nav-zone { display: none; } }

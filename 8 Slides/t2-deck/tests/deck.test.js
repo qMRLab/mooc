@@ -129,16 +129,46 @@ test('exercises.html links every exercise page; the T2 deck links none', () => {
   assert.ok(!html.includes('exercises.html'), 'index.html mentions exercises.html');
 });
 
-test('the book embeds exercises.html on its own page, listed just below the T2 deck, and deploys it', () => {
+// The worked solutions to Exercises 1–4 keep their book page (out of the TOC) and their deployment.
+test('the book keeps the page for exercises.html, and deploys it', () => {
   const book = path.resolve(DECK, '..', '..');
   const md = fs.readFileSync(path.join(book, '8 Slides', '3 - T2 Mapping Exercises.md'), 'utf8');
   assert.match(md, /<iframe class="reveal-frame" src="\/mooc\/slides\/t2\/exercises\.html"/);
-  const toc = fs.readFileSync(path.join(book, 'myst.yml'), 'utf8').split('\n').map((l) => l.trim());
-  const at = toc.indexOf('- file: 8 Slides/3 - T2 Mapping.md');
-  assert.equal(toc[at + 1], '- file: 8 Slides/3 - T2 Mapping Exercises.md');
   const deploy = fs.readFileSync(path.join(book, '.github', 'workflows', 'deploy.yml'), 'utf8');
   const copy = deploy.split('\n').find((l) => /slides\/t2\/$/.test(l.trim()) && /cp -R/.test(l));
   assert.ok(copy && /exercises\.html/.test(copy) && /exercise-\*\.html/.test(copy), 'the deploy workflow must copy the exercise pages to /slides/t2/');
+});
+
+// ---------------------------------------------------------------- Exercises 2-1 and 2-2 (interactive)
+
+const EX2 = ['exercises-2.html', 'exercise-2-1.html', 'exercise-2-2.html'];
+
+test('the book embeds exercises-2.html on its own page, listed just below the T2 deck, and deploys it', () => {
+  const book = path.resolve(DECK, '..', '..');
+  const md = fs.readFileSync(path.join(book, '8 Slides', '3 - T2 Mapping Exercises 2.md'), 'utf8');
+  assert.match(md, /<iframe class="reveal-frame" src="\/mooc\/slides\/t2\/exercises-2\.html"/);
+  const toc = fs.readFileSync(path.join(book, 'myst.yml'), 'utf8').split('\n').map((l) => l.trim());
+  const at = toc.indexOf('- file: 8 Slides/3 - T2 Mapping.md');
+  assert.equal(toc[at + 1], '- file: 8 Slides/3 - T2 Mapping Exercises 2.md');
+  assert.ok(!toc.includes('- file: 8 Slides/3 - T2 Mapping Exercises.md'), 'the Exercises 1–4 page is out of the TOC');
+  const deploy = fs.readFileSync(path.join(book, '.github', 'workflows', 'deploy.yml'), 'utf8');
+  const copy = deploy.split('\n').find((l) => /slides\/t2\/$/.test(l.trim()) && /cp -R/.test(l));
+  assert.ok(copy && /exercises-2\.html/.test(copy) && /exercise-\*\.html/.test(copy), 'the deploy workflow must copy exercises-2.html and the exercise pages');
+});
+
+test('Exercises 2-1 and 2-2: pages link each other, load their scripts, and label every slide', () => {
+  const hub = fs.readFileSync(path.join(DECK, 'exercises-2.html'), 'utf8');
+  for (const f of ['exercise-2-1.html', 'exercise-2-2.html']) assert.ok(hub.includes(`href="${f}"`), `exercises-2.html has no link to ${f}`);
+  for (const f of EX2) {
+    const p = page(f);
+    assert.ok(p.sections > 0, `${f} has no slides`);
+    assert.equal(p.books.length, p.sections, `${f}: each <section> needs data-book`);
+    for (const label of p.books) assert.ok(deck.LABELS[label], `${f}: no LABELS entry for "${label}"`);
+    for (const src of p.scripts) assert.ok(fs.existsSync(path.join(DECK, src)), `${f}: missing ${src}`);
+    assert.ok(p.scripts.includes('js/exn.js'), `${f} must load js/exn.js`);
+    assert.ok(/name="robots" content="noindex"/.test(p.text), `${f} must carry noindex`);
+  }
+  for (const f of EX2) assert.ok(!html.includes(f), `index.html mentions ${f}`);
 });
 
 for (const file of EXERCISES) {
