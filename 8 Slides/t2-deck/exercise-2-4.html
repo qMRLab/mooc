@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 2-4 · T2 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body class="nav-zones" data-home="exercises-2.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem" data-book="exercises">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">T<sub>2</sub> Mapping · Exercise 2-4</p>
+  <h2>Myelin water</h2>
+  <p class="subtitle">A T<sub>2</sub> distribution in every pixel</p>
+  <p class="muted small"><a href="exercises-2.html">← Exercises 2-1 to 2-4</a></p>
+  <p class="data-credit">Data: sheep brain at 7 T, Murguia <i>et al.</i>, <a href="https://doi.org/10.7302/dp7t-c323" target="_blank" rel="noopener">University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323</a>, <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>. Changed: one slice, magnitude, cropped, 8-bit; T<sub>2</sub> fits added.</p>
+</section>
+
+<section class="ex t2-pixel" data-book="exercises">
+  <div class="ex-layout">
+    <h2>The T<sub>2</sub> distribution of a pixel</h2>
+    <p class="game-prompt">Find a pixel in white matter: the next slide uses it.</p>
+    <div class="ex-cols even">
+      <div class="echo-col">
+        <canvas class="echo-image" width="900" height="900" aria-label="Multi-echo image; click a pixel"></canvas>
+        <label class="echo-pick">Echo <input data-echo type="range" min="1" max="104" step="1" value="1"> <b data-show="echo"></b></label>
+        <p class="muted game-hint">Click a pixel to see its T<sub>2</sub> distribution.</p>
+      </div>
+      <div class="t2-plots"></div>
+    </div>
+    <p class="data-credit">Data: sheep brain at 7 T, Murguia <i>et al.</i>, <a href="https://doi.org/10.7302/dp7t-c323" target="_blank" rel="noopener">University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323</a>, <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>. Changed: one slice, magnitude, cropped, 8-bit; T<sub>2</sub> fits added.</p>
+  </div>
+  <aside class="notes">One slice of a fresh sheep brain block, multi-echo spin echo at 7 T: 104 echoes 5 ms apart (TE = 5 to 520 ms), 0.27 mm pixels, 2 mm thick. The slider picks the echo shown (each echo with its own grey scale, as the late ones are much darker); a click picks a pixel. Top right: that pixel’s T2 distribution, the amount of signal at each T2 (60 values, 5 ms to 1 s, log scale). Bottom right: its 104 echoes, with the decay the distribution predicts in red, and the echo on screen marked. The distributions were fitted offline (tools/prep_mwf_sheep.py): non-negative least squares on an extended phase graph basis, with the refocusing angle fitted per pixel (about 145° to 165° here, as B1 is below nominal at 7 T, so echo 2 is brighter than echo 1 in places) and a constant for the noise floor, lightly smoothed. In white matter there are two peaks: a short one at the bottom of the range (myelin water; at 7 T its T2 is about as short as the first echo, so the fit cannot place it more precisely) and a main one near 60 ms; grey matter has one peak near 55 ms. Data: Murguia et al., University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323, CC BY-NC 4.0 (one slice of sample S1, fresh; magnitude, cropped, 8-bit; T2 fits added).</aside>
+</section>
+
+<section class="ex mwf-map" data-book="exercises">
+  <div class="ex-layout">
+    <h2>From T<sub>2</sub> distributions to an MWF map</h2>
+    <ol class="how-to">
+      <li>Drag a rectangle to move it; drag its left or right edge to stretch or shrink it.</li>
+      <li>Put <b style="color:#a8538a">MW</b> (myelin water) and <b style="color:#b9770e">IEW</b> (intra/extracellular water) on the two components.</li>
+      <li>Click <b>Generate MWF map</b>: at every pixel, $$\mathrm{MWF} = \frac{S_{MW}}{S_{MW} + S_{IEW}}$$ with <i>S</i> the area of that pixel’s distribution inside each rectangle.</li>
+    </ol>
+    <div class="ex-cols even">
+      <div class="mwf-left">
+        <p class="small mwf-pixel-note">Your white-matter pixel from the previous slide · <span data-show="ranges"></span></p>
+        <div class="mwf-dist"></div>
+      </div>
+      <div class="mwf-right">
+        <div class="btn-row"><button data-generate>Generate MWF map</button></div>
+        <div class="mwf-map-host"><p>The MWF map appears here.</p></div>
+      </div>
+    </div>
+    <p class="data-credit">Data: sheep brain at 7 T, Murguia <i>et al.</i>, <a href="https://doi.org/10.7302/dp7t-c323" target="_blank" rel="noopener">University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323</a>, <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>. Changed: one slice, magnitude, cropped, 8-bit; T<sub>2</sub> fits added.</p>
+  </div>
+  <aside class="notes">The pixel picked on the previous slide, with two rectangles on its T2 distribution: MW (myelin water) and IEW (intra/extracellular water), the book’s names. Each spans the full height; drag to move, drag an edge to stretch or shrink (they start off target, MW at 12–25 ms and IEW at 150–400 ms). Generate MWF map then computes, at every pixel of the slice, MWF = S_MW / (S_MW + S_IEW), the book’s Eq. 3.8 at TE = 0, with S the area of the pixel’s distribution inside each rectangle (the T2 values whose centres fall inside it), and draws the map (hover for values; the saved pixel is boxed in red). On this 7 T data the short peak sits at the bottom of the range (about 5 ms), and the main peak near 50–60 ms: MW about 5–20 ms and IEW about 25–150 ms give a map in which white matter stands out. Moving a rectangle and generating again shows how much MWF depends on these choices. Data: Murguia et al., University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323, CC BY-NC 4.0 (one slice of sample S1, fresh; magnitude, cropped, 8-bit; T2 fits added).</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/exercise.js"></script>
+<script src="js/exn.js"></script>
+<script src="js/data/mwfSheep.js"></script>
+<script src="js/mwf.js"></script>
+</body>
+</html>

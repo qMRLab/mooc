@@ -59,6 +59,12 @@ jobs:
         run: |
           source venv/bin/activate
           myst build --html
+      # Exercise 2-4's data (CC BY-NC) is not committed: fetch it from qMRLab/mooc-data and write the deck's data file.
+      - name: Fetch slide data
+        run: |
+          source venv/bin/activate
+          cd "8 Slides/t2-deck"
+          python tools/fetch_mwf_data.py
       # Slide decks are static sites of their own; MyST excludes their sources, so copy them in.
       - name: Add slide decks
         run: |

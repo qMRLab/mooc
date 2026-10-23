@@ -141,9 +141,15 @@ test('the book keeps the page for exercises.html, and deploys it', () => {
   assert.ok(copy && /exercises\.html/.test(copy) && /exercise-\*\.html/.test(copy), 'the deploy workflow must copy the exercise pages to /slides/t2/');
 });
 
-// ---------------------------------------------------------------- Exercises 2-1 to 2-3 (interactive)
+// ---------------------------------------------------------------- Exercises 2-1 to 2-4 (interactive)
 
-const EX2 = ['exercises-2.html', 'exercise-2-1.html', 'exercise-2-2.html', 'exercise-2-3.html'];
+const EX2 = ['exercises-2.html', 'exercise-2-1.html', 'exercise-2-2.html', 'exercise-2-3.html', 'exercise-2-4.html'];
+
+test('the deploy workflow fetches Exercise 2-4\'s data before copying the deck', () => {
+  const deploy = fs.readFileSync(path.join(DECK, '..', '..', '.github', 'workflows', 'deploy.yml'), 'utf8');
+  const fetchAt = deploy.indexOf('python tools/fetch_mwf_data.py'), copyAt = deploy.indexOf('slides/t2/');
+  assert.ok(fetchAt > 0 && copyAt > fetchAt, 'deploy.yml must run tools/fetch_mwf_data.py before copying the T2 deck');
+});
 
 test('the book embeds exercises-2.html on its own page, listed just below the T2 deck, and deploys it', () => {
   const book = path.resolve(DECK, '..', '..');
@@ -158,7 +164,7 @@ test('the book embeds exercises-2.html on its own page, listed just below the T2
   assert.ok(copy && /exercises-2\.html/.test(copy) && /exercise-\*\.html/.test(copy), 'the deploy workflow must copy exercises-2.html and the exercise pages');
 });
 
-test('Exercises 2-1 to 2-3: pages link each other, load their scripts, and label every slide', () => {
+test('Exercises 2-1 to 2-4: pages link each other, load their scripts, and label every slide', () => {
   const hub = fs.readFileSync(path.join(DECK, 'exercises-2.html'), 'utf8');
   for (const f of EX2.slice(1)) assert.ok(hub.includes(`href="${f}"`), `exercises-2.html has no link to ${f}`);
   for (const f of EX2) {
@@ -166,7 +172,11 @@ test('Exercises 2-1 to 2-3: pages link each other, load their scripts, and label
     assert.ok(p.sections > 0, `${f} has no slides`);
     assert.equal(p.books.length, p.sections, `${f}: each <section> needs data-book`);
     for (const label of p.books) assert.ok(deck.LABELS[label], `${f}: no LABELS entry for "${label}"`);
-    for (const src of p.scripts) assert.ok(fs.existsSync(path.join(DECK, src)), `${f}: missing ${src}`);
+    for (const src of p.scripts) {
+      // js/data/ is written at build time by tools/fetch_mwf_data.py (the data is CC BY-NC, so it is not committed)
+      if (src.startsWith('js/data/')) assert.ok(fs.existsSync(path.join(DECK, 'tools', 'fetch_mwf_data.py')), `${f}: ${src} has no fetch script`);
+      else assert.ok(fs.existsSync(path.join(DECK, src)), `${f}: missing ${src}`);
+    }
     assert.ok(p.scripts.includes('js/exn.js'), `${f} must load js/exn.js`);
     assert.ok(/name="robots" content="noindex"/.test(p.text), `${f} must carry noindex`);
   }

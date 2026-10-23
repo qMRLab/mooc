@@ -19,7 +19,7 @@ The interactive figures are the book's own Plotly figures. Use their menus, slid
 
 ## Exercise solutions
 
-As for the T1 deck: each exercise is its own short deck, and one central page, `exercises.html` (https://qmrlab.org/mooc/slides/t2/exercises.html), links them all. The book embeds it in its own page, `8 Slides/3 - T2 Mapping Exercises.md`; that page is no longer in the TOC (Exercises 2-1 to 2-3 below took its place under Slides), so the book no longer builds it, but the slides themselves are still deployed and reachable at that address. The T2 deck itself does not link to the solutions. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
+As for the T1 deck: each exercise is its own short deck, and one central page, `exercises.html` (https://qmrlab.org/mooc/slides/t2/exercises.html), links them all. The book embeds it in its own page, `8 Slides/3 - T2 Mapping Exercises.md`; that page is no longer in the TOC (Exercises 2-1 to 2-4 below took its place under Slides), so the book no longer builds it, but the slides themselves are still deployed and reachable at that address. The T2 deck itself does not link to the solutions. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
 
 - **Step by step.** Each answer builds up one click at a time: the data first, then the result, then the proof or explanation. → (or a clicker) takes the next step and ← undoes it; the numbered buttons (1 · Contrast, 2 · Maximum, 3 · Prove…) jump to a step.
 - **Editable values.** Readings taken from a book figure (Exercise 2a–b) are typed on that slide and carry over to the later slides and the answers. Other values sit in input boxes, pre-filled; every step computes from whatever is in the boxes (Enter redraws), and **Reset** restores them.
@@ -33,14 +33,16 @@ As for the T1 deck: each exercise is its own short deck, and one central page, `
 | 3 · MWF (Eq. 3.8) at six TEs | 3 | Eq. 3.8 |
 | 4 · SNR at four TEs for T2 = 109 ms and T2* = 30 ms; longest useful TE | 5 | Monte Carlo as in Figure 3.4's notebook |
 
-## Exercises 2-1 to 2-3 (interactive)
+## Exercises 2-1 to 2-4 (interactive)
 
-Three interactive exercises on echoes and the CPMG echo train, with a starting page, `exercises-2.html` (https://qmrlab.org/mooc/slides/t2/exercises-2.html), that the book embeds in `8 Slides/3 - T2 Mapping Exercises 2.md`, listed under Slides below the T2 deck. All three decks run on `js/exn.js`: a Bloch simulation of 385 spins (1537 for the Lorentzian fan) with relaxation, drawn in 3D, and the arrow keys as RF pulses about ±x and ±y.
+Four interactive exercises on echoes, the CPMG echo train and myelin water, with a starting page, `exercises-2.html` (https://qmrlab.org/mooc/slides/t2/exercises-2.html), that the book embeds in `8 Slides/3 - T2 Mapping Exercises 2.md`, listed under Slides below the T2 deck. Exercises 2-1 to 2-3 run on `js/exn.js`: a Bloch simulation of 385 spins (1537 for the Lorentzian fan) with relaxation, drawn in 3D, and the arrow keys as RF pulses about ±x and ±y.
 
 - **Exercise 2-1, RF phase and spin echoes** (`exercise-2-1.html`, 9 slides). The controls (B₁ along ±x or ±y, with the tip's trail: a circle or a cone, and the arrow keys on screen); a target game on the same sphere (two levels, scored in RF pulses and total angle, with an expert score and an animated solution); a fan of spins TE/2 after the 90° (flip-angle slider, animated pulses, Wait TE/2 and Wait TE); a lab with free timing: a spin echo; and a tutorial-style single echo (a red square at TE/2 to press, ACQ at TE), which gives T₂ = −TE / ln S, or T₂* without the 180°.
 - **Exercise 2-2, Stimulated echoes** (`exercise-2-2.html`, 8 slides). Labs with free timing: a stimulated echo (three 90°s), an imperfect refocusing pulse (part 180°, part 0°, part 90°, with live bars), and evenly spaced pulses.
 - In the labs of Exercises 2-1 and 2-2, after each pulse, markers show every spin echo (SE) and stimulated echo (STE) it will make, with its size, from the extended phase graph of the actual pulse times, angles and axes. Each lab asks a question; the "What we saw" slide after it answers.
 - **Exercise 2-3, Measuring T₂ with an echo train** (`exercise-2-3.html`, 14 slides). Questions (a)–(d) on the title slide, a refresher on the controls and symbols, then the "Phase"Hero game: hit each 180° box on the beat (a press inside the box fires exactly on it) and pick each pulse's axis; the next slide fits S0·e^(−TE/T2) to the ten echoes. With perfect pulses, then an intermezzo with a measured B₁ map (the B₁ chapter's Figure 4.13, `js/figures/afiPlot8.js`, with contours every 0.1 from B₁ = 0.8 to 1.1), then with B₁ = 0.89 (80°/160°, crushers on), then B₁ = 0.67 (60°/120°) with fits to all echoes, without echo 1, to even or odd echoes. Then the lessons and a sandbox with every setting open (angles, crushers, T₂, T₁, τ, echoes, fan, speed), whose runs can be exported as JSON.
+- **Exercise 2-4, Myelin water** (`exercise-2-4.html`, 3 slides, `js/mwf.js`). One slice of fresh sheep brain at 7 T (104 echoes, 5 ms apart). Slide 2: an echo slider over the raw images; a click on a pixel shows its T₂ distribution, and its echoes with the decay the distribution predicts; students pick a white-matter pixel. Slide 3: that pixel's distribution with two rectangles, MW and IEW, to drag and stretch; Generate MWF map computes MWF = S_MW / (S_MW + S_IEW) at every pixel from the areas inside them, and maps it (hover for values). The distributions were fitted once, offline (`tools/prep_mwf_sheep.py`: NNLS on an EPG basis with the refocusing angle fitted per pixel, a noise-floor term and light smoothing).
+- **Exercise 2-4's data is CC BY-NC 4.0** (Murguia et al., University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323), so it is not committed here. It is published, modified (one slice, cropped, fitted), with its README and license notice, in the [qMRLab/mooc-data v1.3 release](https://github.com/qMRLab/mooc-data/releases/tag/v1.3) as `03-T2-04-MWF-sheep.zip`. `python3 -I tools/fetch_mwf_data.py` downloads it (checking its SHA-256) into `data/` and writes `js/data/mwfSheep.js` (8-bit, about 2.8 MB), which the deck loads; both folders are git-ignored. The deploy workflow runs it before copying the deck. The slides credit the data and its license.
 - On each game and lab, the fan of spins can be equally spaced (the signal decays as a sinc), Gaussian, or Lorentzian (it decays as e^(−t/T₂′), so with no refocusing pulses the fit gives T₂*). Exercise 2-3's games and sandbox start on the Lorentzian fan.
 - On these slides the arrow keys play the game, so the slides move with the grey bars at the left and right edges (or Space and Page Down).
 
@@ -53,6 +55,8 @@ Three interactive exercises on echoes and the CPMG echo train, with a starting p
 | `js/deck.js` | Reveal setup, math rendering, book links (`LABELS`), figure rendering |
 | `exercises.html`, `exercise-*.html`, `js/ex*.js` | The exercise decks and their actions |
 | `exercises-2.html`, `exercise-2-1.html`, `exercise-2-2.html`, `exercise-2-3.html`, `js/exn.js` | Exercises 2-1 to 2-3: the starting page, the three decks, and their simulation, games and fits |
+| `exercise-2-4.html`, `js/mwf.js` | Exercise 2-4: the myelin water deck and its image, plots and MWF map |
+| `tools/prep_mwf_sheep.py`, `tools/fetch_mwf_data.py` | Exercise 2-4's data: the one-off fit that made the mooc-data release, and the build step that fetches it and writes `js/data/mwfSheep.js` |
 | `js/exercise.js` | Exercise runtime (the T1 deck's, without qmrust): step buttons, Reset, inputs, click-to-solve steps |
 | `js/solve.js` | The maths of the solutions (Node-tested) |
 | `js/figures/*.js` | The book's published figures, copied unchanged (the T2 chapter's, and the B1 chapter's Figure 4.13 for Exercise 2-3). Do not edit |
@@ -85,7 +89,7 @@ python3 -I tools/check_links.py  # every book anchor exists on the live chapter 
 
 ## Deploying
 
-Copy `index.html`, `exercises.html`, `exercise-*.html`, `deck.css`, `js/`, `img/` and `vendor/` to the host. The book's deploy workflow does this into `/mooc/slides/t2/`, which `8 Slides/3 - T2 Mapping.md` and `8 Slides/3 - T2 Mapping Exercises.md` embed.
+Run `python3 -I tools/fetch_mwf_data.py` (Exercise 2-4's data), then copy `index.html`, `exercises.html`, `exercises-2.html`, `exercise-*.html`, `deck.css`, `js/`, `img/` and `vendor/` to the host. The book's deploy workflow does this into `/mooc/slides/t2/`, which `8 Slides/3 - T2 Mapping.md` and `8 Slides/3 - T2 Mapping Exercises.md` embed.
 
 ## Chapter issues found while building the deck
 

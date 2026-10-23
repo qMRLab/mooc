@@ -81,6 +81,7 @@
 .reveal .card.mono { --card: #0072b2; }
 .reveal .card.multi { --card: #e69f00; }
 .reveal .card.t2star { --card: #009e73; }
+.reveal .card.mwf { --card: #cc79a7; }
 
 /* Images (pulse sequences) */
 .reveal .pulse img { display: block; margin: 0.8em auto 0; max-width: 100%; max-height: 470px; }
@@ -323,3 +324,19 @@
 .nav-zone:hover, .nav-zone:focus-visible { background: rgba(91, 103, 118, 0.14); color: rgba(29, 39, 51, 0.75); outline: none; }
 .nav-zone[hidden] { display: none; }
 @media print { .nav-zone { display: none; } }
+
+/* Exercise 2-4: the echo image to click, its echo slider, and the data credit (CC BY-NC). */
+.reveal .echo-col { display: flex; flex-direction: column; align-items: center; min-height: 0; }
+.reveal canvas.echo-image { width: auto; height: auto; max-width: 100%; max-height: 72%; aspect-ratio: 1; cursor: crosshair; border-radius: 4px; }
+.reveal .echo-pick { display: flex; align-items: center; gap: 0.5em; font-size: 0.55em; margin-top: 0.4em; }
+.reveal .echo-pick input { width: 16em; }
+.reveal .t2-plots { display: flex; justify-content: center; align-items: flex-start; }
+.reveal .data-credit { font-size: 0.4em; color: var(--muted); margin-top: 0.5em; }
+.reveal .data-credit a { color: inherit; }
+.reveal section.mwf-map .how-to { font-size: 0.55em; }
+.reveal section.mwf-map .how-to .katex-display { display: inline-block; margin: 0 0.3em; }
+.reveal .mwf-left, .reveal .mwf-right { display: flex; flex-direction: column; align-items: center; min-height: 0; }
+.reveal .mwf-left p { font-size: 0.5em; margin: 0; }
+.reveal .mwf-map-host { width: 440px; height: 400px; display: flex; align-items: center; justify-content: center; margin-top: 0.3em; }
+.reveal .mwf-map-host:not(.drawn) { border: 2px dashed var(--rule); border-radius: 8px; color: var(--muted); font-size: 0.55em; }
+.reveal .mwf-map-host.drawn { border: 0; }
