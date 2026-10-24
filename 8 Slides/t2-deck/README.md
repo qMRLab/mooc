@@ -1,6 +1,6 @@
 # T2 Mapping slides
 
-Slides for the [T2 Mapping chapter](https://qmrlab.org/mooc/t2-mapping) of the qMRLab mOOC: mono-exponential and multi-exponential T2 mapping, with T2* and QSM (31 slides: 6 opening, 13 mono-exponential, 10 multi-exponential, 2 closing), plus worked solutions to the chapter's Exercises 1–4 (`exercise-1.html` … `exercise-4.html`). Same format as the [T1 deck](../t1-deck/README.md).
+Slides for the [T2 Mapping chapter](https://qmrlab.org/mooc/t2-mapping) of the qMRLab mOOC: mono-exponential and multi-exponential T2 mapping, with T2* and QSM (30 slides: 5 opening, 13 mono-exponential, 10 multi-exponential, 2 closing), plus worked solutions to the chapter's Exercises 1–4 (`exercise-1.html` … `exercise-4.html`). Same format as the [T1 deck](../t1-deck/README.md).
 
 The deck is a static folder. Open `index.html` directly (it works offline, even from `file://`) or put the folder on any static host.
 
@@ -53,6 +53,7 @@ Four interactive exercises on echoes, the CPMG echo train and myelin water, with
 | `index.html` | The slides. Each `<section>` has `data-book="<anchor>"` for its link back to the book |
 | `deck.css` | Theme (the T1 deck's, without its notebook-code box) |
 | `js/deck.js` | Reveal setup, math rendering, book links (`LABELS`), figure rendering |
+| Pause pills (`.pause-badges`) | In the lecture deck, a small ⏸ link in the top-right corner of the slide where class stops for an interactive exercise (slide 7: Exercise 2-1; 13: 2-2, optional; 18: 2-3; 25: 2-4), opening it in a new tab |
 | `js/nav.js` | The grey bars at the left and right edges that move between slides (the lecture deck and Exercises 2-1 to 2-4) |
 | `js/relax.js` | The lecture deck's T<sub>2</sub> / T<sub>2</sub>* animation (slide 2) |
 | `js/t2wmap.js` | Slide 3: the T<sub>2</sub>-weighted image beside the T<sub>2</sub> map (log-processed Navia, Fuderer et al. 2025) |
@@ -85,7 +86,8 @@ python3 -I tools/fetch_book_figures.py --check   # report whether js/figures/ ma
 ```sh
 npm install && npx playwright install chromium   # once
 npm test                         # structure (book links, scripts, figures, book pages, deploy wiring) and the solutions' maths
-npm run smoke                    # every slide and exercise step in headless Chromium, offline, two screen sizes
+npm run smoke                    # every slide and exercise step in headless Chromium, offline, two screen sizes,
+                                 # including Exercises 2-1 to 2-4 (2-4 needs tools/fetch_mwf_data.py run first)
 python3 -I tools/check_links.py  # every book anchor exists on the live chapter page
 ```
 

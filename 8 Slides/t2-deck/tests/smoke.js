@@ -1,4 +1,5 @@
-// Headless walk-through of every slide of the T2 deck and the exercise pages, offline, at two viewport sizes.
+// Headless walk-through of every slide of the T2 deck, the exercise solutions and the interactive exercises, offline,
+// at two viewport sizes.
 // Exercise slides are stepped through every fragment, so every step of every action executes.
 // Usage: npm run smoke   (screenshots are written to tests/screenshots/)
 'use strict';
@@ -12,6 +13,51 @@ const SIZES = [[1280, 720], [1920, 1080]];
 const EXERCISES = [1, 2, 3, 4].map((n) => `exercise-${n}.html`);
 // The central page that links the exercise decks (not linked from the T2 deck).
 const HUB = 'exercises.html';
+// The interactive exercises and their starting page (the T2 deck may link these, in a new tab).
+const INTERACTIVE = ['exercises-2.html', 'exercise-2-1.html', 'exercise-2-2.html', 'exercise-2-3.html', 'exercise-2-4.html'];
+
+// Every slide of an interactive exercise page, with no script errors, and its core working: the single echo's T2
+// (2-1), the echo-train game's fit (2-3), the MWF map (2-4; its data comes from tools/fetch_mwf_data.py).
+async function checkInteractive(browser, file, label) {
+  const problems = [];
+  const { page, errors } = await openDeck(browser, file, ...label.split('x').map(Number));
+  const tag = `${file.replace('.html', '')}-${label}`;
+  const total = await page.evaluate(() => Reveal.getTotalSlides());
+  for (let i = 0; i < total; i++) {
+    await page.evaluate((n) => Reveal.slide(n), i);
+    await page.waitForTimeout(700);
+    await page.screenshot({ path: path.join(SHOTS, `${tag}-${String(i + 1).padStart(2, '0')}.png`) });
+  }
+  const check = await page.evaluate((f) => {
+    const out = [];
+    const onBeat = (G, key) => { G.play(); const S = G.state; for (const sl of S.slots) { G.run(sl.t - 1 - S.t); G.press(key); } G.run(1000); return G.results; };
+    if (f === 'exercises-2.html' && document.querySelectorAll('a.card').length !== 4) out.push('the starting page should have four cards');
+    if (f === 'exercise-2-1.html') {
+      const G = window.ProblemNSingleEcho;
+      if (!G) out.push('no single-echo game');
+      else { const r = onBeat(G, 'ArrowUp'); const t2 = -r.te[0] / Math.log(r.m[0]); if (Math.abs(t2 - 80) > 1) out.push(`single echo gives T2 = ${t2.toFixed(1)} ms, not 80`); }
+    }
+    if (f === 'exercise-2-3.html') {
+      const G = window.ProblemNGame;
+      if (!G) out.push('no echo-train game');
+      else { const r = onBeat(G, 'ArrowUp'); const t2 = G.fitT2(r.te, r.m).t2; if (Math.abs(t2 - 80) > 1) out.push(`perfect pulses fit T2 = ${t2.toFixed(1)} ms, not 80`); }
+    }
+    if (f === 'exercise-2-4.html') {
+      if (!window.MWFSheep) out.push('no data: run python3 -I tools/fetch_mwf_data.py first');
+      else if (!window.MWFPixel) out.push('the T2 distribution slide did not start');
+    }
+    return out;
+  }, file);
+  problems.push(...check.map((c) => `${tag}: ${c}`));
+  if (file === 'exercise-2-4.html' && !check.length) {
+    await page.evaluate(() => Reveal.slide(2)); await page.waitForTimeout(800);
+    await page.click('[data-generate]'); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => !!document.querySelector('.mwf-map-host .main-svg')))) problems.push(`${tag}: Generate MWF map drew nothing`);
+  }
+  problems.push(...errors.map((e) => `${tag}: ${e}`));
+  await page.close();
+  return problems;
+}
 
 async function openDeck(browser, file, width, height) {
   const page = await browser.newPage({ viewport: { width, height } });
@@ -247,8 +293,12 @@ async function checkInputs(browser) {
       problems.push(...(await checkControls(page, label)));
       problems.push(...(await checkRapidNavigation(page, label)));
       problems.push(...errors.map((e) => `${label}: ${e}`));
-      // The solutions have their own book page: the T2 deck itself must not link to them.
-      const leaks = await page.evaluate(() => [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => /exercise/.test(h) && !/qmrlab\.org/.test(h)));
+      // The solutions have their own book page: the T2 deck must not link to them. It may point to the interactive
+      // exercises, in a new tab.
+      const leaks = await page.evaluate((ok) => [...document.querySelectorAll('a[href]')]
+        .filter((a) => /exercise/.test(a.getAttribute('href')) && !/qmrlab\.org/.test(a.getAttribute('href')))
+        .filter((a) => !(ok.includes(a.getAttribute('href')) && a.target === '_blank'))
+        .map((a) => a.getAttribute('href')), INTERACTIVE);
       if (leaks.length) problems.push(`${label}: the T2 deck links to the solutions: ${leaks.join(', ')}`);
       await page.close();
       const hub = await openDeck(browser, HUB, w, h);
@@ -265,6 +315,7 @@ async function checkInputs(browser) {
         await ex.page.close();
       }
     }
+    for (const [w, h] of SIZES) for (const file of INTERACTIVE) problems.push(...(await checkInteractive(browser, file, `${w}x${h}`)));
     problems.push(...(await checkInputs(browser)));
   } finally {
     await browser.close();
