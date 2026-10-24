@@ -180,7 +180,12 @@ test('Exercises 2-1 to 2-4: pages link each other, load their scripts, and label
     assert.ok(p.scripts.includes('js/exn.js'), `${f} must load js/exn.js`);
     assert.ok(/name="robots" content="noindex"/.test(p.text), `${f} must carry noindex`);
   }
-  for (const f of EX2) assert.ok(!html.includes(f), `index.html mentions ${f}`);
+  // The lecture deck may point to the interactive exercises (to try something out), always in a new tab.
+  for (const f of EX2) {
+    for (const [, attrs] of html.matchAll(new RegExp(`<a ([^>]*href="${f.replace('.', '\\.')}"[^>]*)>`, 'g'))) {
+      assert.ok(/target="_blank"/.test(attrs), `index.html links ${f} without target="_blank"`);
+    }
+  }
 });
 
 for (const file of EXERCISES) {
