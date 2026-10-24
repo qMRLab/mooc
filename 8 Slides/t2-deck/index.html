@@ -53,37 +53,44 @@
   <aside class="notes">T2 relaxation, also known as the transverse or spin-spin relaxation, is characterized by the dephasing of spins, leading to a reduction of the total magnetization in the x-y plane. The T2 value represents the upper limit of the signal decay time under ideal imaging conditions. In practice, magnetic field inhomogeneities, macroscopic (metallic implants, air-tissue interfaces) or microscopic (susceptibility differences between tissues), cause the transverse magnetization to decay faster. When considering this phenomenon, we refer to the transverse relaxation as T2*. The animation: after a 90° pulse, M (in the rotating frame, so without the precession) shrinks with T2 = 100 ms; the signal |Mxy| decays as e^(−t/T2). Tick “Field inhomogeneities” and play again: M is now a fan of spins at slightly different frequencies (red faster, blue slower; a Lorentzian spread with T2′ = 30 ms), which spread out while each still shrinks with T2, so their sum decays faster, with T2* = 23 ms (1/T2* = 1/T2 + 1/T2′, Eq. 3.3); the T2 curve stays dashed for comparison. Exercise 2-1 takes this fan further (what a 180° does to it).</aside>
 </section>
 
-<section data-book="introduction">
+<section class="t2w-vs-map" data-book="introduction">
   <h2>Why map T<sub>2</sub>?</h2>
-  <ul>
-    <li>A T<sub>2</sub> <b>map</b> is an image of T<sub>2</sub> relaxation times, with insights into <b>tissue composition</b></li>
-    <li>Sensitive to microstructural changes associated with disease: <b>iron accumulation, myelination, inflammation</b> <span class="cite">(Dortch 2020)</span></li>
-    <li>A <span class="hl">promising modality</span> for clinical and research applications</li>
-    <li>Newer techniques go beyond the conventional ones developed for NMR, e.g. <b>MR fingerprinting</b>: several parameters from a single acquisition <span class="cite">(Ma 2013; Hamilton 2017)</span></li>
+  <ul class="tight">
+    <li>A T<sub>2</sub> map gives T<sub>2</sub> in every voxel: a window on <b>tissue composition</b></li>
+    <li>Sensitive to <b>iron, myelination, inflammation</b> <span class="cite">(Dortch 2020)</span></li>
+    <li>Newer methods, e.g. <b>MR fingerprinting</b>, map several parameters at once <span class="cite">(Ma 2013; Hamilton 2017)</span></li>
   </ul>
-  <aside class="notes">T2 mapping offers images of T2 relaxation times (T2 maps) providing valuable insights into tissue composition. Given that T2 relaxation is sensitive to specific microstructural changes associated with diseases, such as iron accumulation, myelination and inflammation (Dortch 2020), it is considered a promising modality for clinical and research applications. Novel techniques have emerged beyond the conventional ones developed for NMR, such as MR fingerprinting (Ma 2013), a fast relaxation mapping technique that uses a single image acquisition to quantify multiple parameters (Hamilton 2017).</aside>
+  <div class="t2w-pair">
+    <figure>
+      <div class="t2w-plot"></div>
+      <figcaption><b>T<sub>2</sub>-weighted</b> (TE = 12.8 ms): <b class="caution">qualitative</b>. Contrast between tissues, in arbitrary units; useful for diagnosis.</figcaption>
+    </figure>
+    <figure>
+      <div class="t2map-plot"></div>
+      <figcaption><b>T<sub>2</sub> map</b>: <b class="hl">quantitative</b>. A measurement of one quantity, T<sub>2</sub>, with units (ms).</figcaption>
+    </figure>
+  </div>
+  <p class="relax-hint">Hover over the images to read their values. Data: the book’s Figure 3.1. T<sub>2</sub> colour map: log-processed Navia, as recommended for relaxometry maps <span class="cite">(Fuderer 2025)</span>.</p>
+  <aside class="notes">T2 mapping offers images of T2 relaxation times (T2 maps) providing valuable insights into tissue composition. Given that T2 relaxation is sensitive to specific microstructural changes associated with diseases, such as iron accumulation, myelination and inflammation (Dortch 2020), it is considered a promising modality for clinical and research applications. Novel techniques have emerged beyond the conventional ones developed for NMR, such as MR fingerprinting (Ma 2013), a fast relaxation mapping technique that uses a single image acquisition to quantify multiple parameters (Hamilton 2017). The images: the book’s Figure 3.1 data, its T2-weighted image at TE = 12.8 ms beside its T2 map (hover for values). The T2w image is qualitative: its grey levels are a contrast, in arbitrary units that depend on the scanner, the coil and the settings, read by eye; that is what makes it useful for diagnosis. The T2 map is quantitative: each voxel holds a measurement of one physical quantity, T2, in ms, which can be compared between scans, sites and patients. The T2 map uses the colour map recommended for T2 maps by the ISMRM Quantitative MR Study Group (Fuderer et al., Magn Reson Med 2025, doi:10.1002/mrm.30290): Crameri’s Navia, log-processed (equal ratios of T2 look equally different), from 80 to 140 ms, with black for invalid values. The paper makes no recommendation on the range; this one brackets brain tissue (about 89 to 118 ms in this map), so white matter shows dark teal and grey matter green, and fluid saturates to cream. A wide range such as 50 to 200 ms leaves the two tissues in nearly the same shade, since they differ by only about 17%.</aside>
 </section>
 
 <section data-book="introduction">
-  <h2>What this chapter covers</h2>
+  <h2>What this talk covers</h2>
   <div class="cards">
     <div class="card mono">
-      <h3>Mono-exponential</h3>
-      <p>The voxel's signal arises from a <b>single tissue compartment</b>.</p>
-      <p>One T<sub>2</sub> per voxel, fitted from a multi-echo spin echo acquisition.</p>
+      <h3>Mono-exponential model</h3>
+      <p>One T<sub>2</sub> per voxel: a <b>single compartment</b>.</p>
     </div>
     <div class="card multi">
-      <h3>Multi-exponential</h3>
-      <p>Several tissues <b>contribute to one voxel's signal</b>.</p>
-      <p>Applications such as <b>myelin water fraction</b> (MWF) imaging.</p>
+      <h3>Multi-exponential model</h3>
+      <p><b>Several compartments</b> per voxel, each with its own T<sub>2</sub>; e.g. myelin water fraction.</p>
     </div>
     <div class="card t2star">
       <h3>T<sub>2</sub><sup>*</sup></h3>
-      <p>Fundamentals of T<sub>2</sub><sup>*</sup> mapping, and how its decay curve <b>differs from T<sub>2</sub></b>.</p>
-      <p>Related application: <b>quantitative susceptibility mapping</b> (QSM).</p>
+      <p>How its decay <b>differs from T<sub>2</sub></b>; related: QSM.</p>
     </div>
   </div>
-  <aside class="notes">Commonly used T2-mapping techniques are split into two categories: mono-exponential methods, which consider that the voxel's signal arises from a single tissue compartment, and multi-exponential methods, where various tissues that contribute to a single voxel's signal are considered. The chapter covers signal modeling and data fitting for both, their benefits and pitfalls, an overview of applications (e.g. MWF imaging), and the fundamentals of T2* mapping and how its signal decay curve can differ from that of T2 relaxation.</aside>
+  <aside class="notes">Commonly used T2-mapping techniques are split into two categories: mono-exponential methods, which consider that the voxel's signal arises from a single tissue compartment, and multi-exponential methods, where various tissues that contribute to a single voxel's signal are considered. The talk (and the chapter) covers signal modeling and data fitting for both, their benefits and pitfalls, an overview of applications (e.g. MWF imaging), and the fundamentals of T2* mapping and how its signal decay curve can differ from that of T2 relaxation.</aside>
 </section>
 
 <section data-book="t2-mapping-vs-t2-weighted-imaging">
@@ -511,6 +518,7 @@
 <script src="js/figures/t2Plot8.js"></script>
 <script src="js/deck.js"></script>
 <script src="js/relax.js"></script>
+<script src="js/t2wmap.js"></script>
 <script src="js/nav.js"></script>
 </body>
 </html>
