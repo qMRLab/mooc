@@ -53,6 +53,8 @@ Four interactive exercises on echoes, the CPMG echo train and myelin water, with
 | `index.html` | The slides. Each `<section>` has `data-book="<anchor>"` for its link back to the book |
 | `deck.css` | Theme (the T1 deck's, without its notebook-code box) |
 | `js/deck.js` | Reveal setup, math rendering, book links (`LABELS`), figure rendering |
+| `js/nav.js` | The grey bars at the left and right edges that move between slides (the lecture deck and Exercises 2-1 to 2-4) |
+| `js/relax.js` | The lecture deck's T<sub>2</sub> / T<sub>2</sub>* animation (slide 2) |
 | `exercises.html`, `exercise-*.html`, `js/ex*.js` | The exercise decks and their actions |
 | `exercises-2.html`, `exercise-2-1.html`, `exercise-2-2.html`, `exercise-2-3.html`, `js/exn.js` | Exercises 2-1 to 2-3: the starting page, the three decks, and their simulation, games and fits |
 | `exercise-2-4.html`, `js/mwf.js` | Exercise 2-4: the myelin water deck and its image, plots and MWF map |

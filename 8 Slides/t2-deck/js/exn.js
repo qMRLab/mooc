@@ -11,41 +11,6 @@ function normInv(p) {
   return (((((a[0] * t + a[1]) * t + a[2]) * t + a[3]) * t + a[4]) * t + a[5]) * r / (((((b[0] * t + b[1]) * t + b[2]) * t + b[3]) * t + b[4]) * t + 1);
 }
 
-/* Problem N: navigation. Full-height zones at the left and right edges (a grey bar and an arrow on hover)
- * replace Reveal's corner arrows, which sat on the slide number. A page whose <body> has data-next-deck
- * goes on to that page from its last slide (the right zone, Space, Page Down or →). */
-(function () {
-  'use strict';
-  if (!window.Reveal) return;
-  const nextDeck = document.body.dataset.nextDeck;
-  const atEnd = () => window.Reveal.getIndices().h === window.Reveal.getTotalSlides() - 1;
-  const zone = (cls, label, arrow, go) => {
-    const b = document.createElement('button');
-    b.className = `nav-zone ${cls}`; b.setAttribute('aria-label', label); b.textContent = arrow;
-    b.addEventListener('click', (e) => { e.currentTarget.blur(); go(); });
-    document.body.appendChild(b);
-    return b;
-  };
-  const prev = zone('prev', 'Previous slide', '‹', () => window.Reveal.prev());
-  const next = zone('next', 'Next slide', '›', () => (nextDeck && atEnd() ? window.location.assign(nextDeck) : window.Reveal.next()));
-  const update = () => {
-    prev.hidden = window.Reveal.getIndices().h === 0;
-    next.hidden = atEnd() && !nextDeck;
-  };
-  if (nextDeck) {
-    document.addEventListener('keydown', (e) => {
-      if (!atEnd() || e.altKey || e.ctrlKey || e.metaKey || e.target.closest('input, select, textarea')) return;
-      if (e.key !== ' ' && e.key !== 'PageDown' && e.key !== 'ArrowRight') return;
-      if (e.key === 'ArrowRight' && window.Reveal.getCurrentSlide().querySelector('canvas')) return;  // the arrows play the game
-      e.preventDefault();
-      window.location.assign(nextDeck);
-    });
-  }
-  window.Reveal.on('ready', update);
-  window.Reveal.on('slidechanged', update);
-  if (window.Reveal.isReady()) update();
-})();
-
 /* Problem N: the arrow keys on screen. Each <div class="arrow-keys"></div> gets ↑ over ← ↓ →, with the axis each
  * key turns B1 along; a key lights up while it is held. Sized by the container's font-size; .no-axes hides the axes. */
 (function () {

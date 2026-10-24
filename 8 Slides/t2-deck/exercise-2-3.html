@@ -228,7 +228,7 @@
   <h2>Big B<sub>1</sub> errors: no simple fit fixes it</h2>
   <ul>
     <li>All echoes about 93 ms; without echo 1 about 84; even echoes about 84.</li>
-    <li>The fix: fit a model that includes stimulated echoes (EPG).</li>
+    <li>The fix: fit a model that includes stimulated echoes, such as an extended phase graph (EPG) simulation of the echo train.</li>
   </ul>
   <aside class="notes">Lesson of the stronger B1 game. Milford et al. 2015 (PLOS ONE) and McPhee & Wilman 2018 (JMRI) report the same with simulations and phantoms. In full: At 60° and 120°, the CPMG train zig-zags between odd and even echoes, and the fit gives about 93 ms. Dropping echo 1 (about 84 ms) or fitting only the even echoes (about 84 ms) helps; fitting only the odd echoes makes it worse (about 95 ms). Echo 1 is the biggest outlier (a spin echo alone), but every later echo carries stimulated echoes too. The robust fix is to fit a model of the sequence that includes stimulated echoes (extended phase graphs; Milford et al. 2015, McPhee &amp; Wilman 2018).</aside>
 </section>
@@ -240,7 +240,7 @@
     <li><b>Perfect pulses:</b> <i>T</i><sub>2</sub> exactly, whatever the phase directions.</li>
     <li><b>The CPMG condition:</b> refocus about the axis M lies on after the 90°; CP falls apart with imperfect pulses.</li>
     <li><b>Large B<sub>1</sub> errors:</b> dropping echo 1 or fitting even echoes helps, but not enough.</li>
-    <li><b>The fix:</b> model the stimulated echoes in the fit (EPG).</li>
+    <li><b>The fix:</b> model the stimulated echoes in the fit (extended phase graph, EPG).</li>
     <li><b>No refocusing:</b> the signal decays with <i>T</i><sub>2</sub>*, not <i>T</i><sub>2</sub>.</li>
   </ol>
   <p class="small muted">Next: a sandbox with every setting open.</p>
@@ -295,6 +295,7 @@
 <script src="js/deck.js"></script>
 <script src="js/exercise.js"></script>
 <script src="js/figures/afiPlot8.js"></script>
+<script src="js/nav.js"></script>
 <script src="js/exn.js"></script>
 </body>
 </html>
