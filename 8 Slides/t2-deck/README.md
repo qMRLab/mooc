@@ -1,6 +1,6 @@
 # T2 Mapping slides
 
-Slides for the [T2 Mapping chapter](https://qmrlab.org/mooc/t2-mapping) of the qMRLab mOOC: mono-exponential and multi-exponential T2 mapping, with T2* and QSM (36 slides: 6 opening, 16 mono-exponential, 12 multi-exponential, 2 closing), plus worked solutions to the chapter's Exercises 1–4 (`exercise-1.html` … `exercise-4.html`). Same format as the [T1 deck](../t1-deck/README.md).
+Slides for the [T2 Mapping chapter](https://qmrlab.org/mooc/t2-mapping) of the qMRLab mOOC: mono-exponential and multi-exponential T2 mapping, with T2* and QSM (33 slides: 6 opening, 13 mono-exponential, 12 multi-exponential, 2 closing), plus worked solutions to the chapter's Exercises 1–4 (`exercise-1.html` … `exercise-4.html`). Same format as the [T1 deck](../t1-deck/README.md).
 
 The deck is a static folder. Open `index.html` directly (it works offline, even from `file://`) or put the folder on any static host.
 
@@ -19,7 +19,7 @@ The interactive figures are the book's own Plotly figures. Use their menus, slid
 
 ## Exercise solutions
 
-As for the T1 deck: each exercise is its own short deck, and one central page, `exercises.html` (https://qmrlab.org/mooc/slides/t2/exercises.html), links them all. The book embeds it in its own page, `8 Slides/3 - T2 Mapping Exercises.md`; that page is no longer in the TOC (Exercises 2-1 to 2-4 below took its place under Slides), so the book no longer builds it, but the slides themselves are still deployed and reachable at that address. The T2 deck itself does not link to the solutions. The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
+As for the T1 deck: each exercise is its own short deck, and one central page, `exercises.html` (https://qmrlab.org/mooc/slides/t2/exercises.html), links them all. The book embeds it in its own page, `8 Slides/3 - T2 Mapping Exercises.md`; that page is no longer in the TOC (Exercises 2-1 to 2-4 below took its place under Slides), so the book no longer builds it, but the slides themselves are still deployed and reachable at that address. The T2 deck itself does not link to the solutions; it may point to the interactive Exercises 2-1 to 2-4, in a new tab (slide 10 does, for Exercise 2-3). The exercise pages and `exercises.html` carry `noindex` so search engines skip them. Each deck opens on the problem (quoted from the book), then each part as a question beside its figure, then the answer.
 
 - **Step by step.** Each answer builds up one click at a time: the data first, then the result, then the proof or explanation. → (or a clicker) takes the next step and ← undoes it; the numbered buttons (1 · Contrast, 2 · Maximum, 3 · Prove…) jump to a step.
 - **Editable values.** Readings taken from a book figure (Exercise 2a–b) are typed on that slide and carry over to the later slides and the answers. Other values sit in input boxes, pre-filled; every step computes from whatever is in the boxes (Enter redraws), and **Reset** restores them.
@@ -55,6 +55,8 @@ Four interactive exercises on echoes, the CPMG echo train and myelin water, with
 | `js/deck.js` | Reveal setup, math rendering, book links (`LABELS`), figure rendering |
 | `js/nav.js` | The grey bars at the left and right edges that move between slides (the lecture deck and Exercises 2-1 to 2-4) |
 | `js/relax.js` | The lecture deck's T<sub>2</sub> / T<sub>2</sub>* animation (slide 2) |
+| `js/t2wmap.js` | Slide 3: the T<sub>2</sub>-weighted image beside the T<sub>2</sub> map (log-processed Navia, Fuderer et al. 2025) |
+| `js/t2wsim.js`, `js/phantom/brainT2w.js`, `tools/prep_t2w_phantom.py` | Slide 6: a T<sub>2</sub>-weighted spin echo simulated from T<sub>1</sub>, T<sub>2</sub> and PD maps of one brain slice, with TR and TE sliders. The anatomy is KomaMRI's brain phantom (MIT license), from the BrainWeb digital brain; the 3 T tissue values and their sources are in the script |
 | `exercises.html`, `exercise-*.html`, `js/ex*.js` | The exercise decks and their actions |
 | `exercises-2.html`, `exercise-2-1.html`, `exercise-2-2.html`, `exercise-2-3.html`, `js/exn.js` | Exercises 2-1 to 2-3: the starting page, the three decks, and their simulation, games and fits |
 | `exercise-2-4.html`, `js/mwf.js` | Exercise 2-4: the myelin water deck and its image, plots and MWF map |
@@ -62,7 +64,7 @@ Four interactive exercises on echoes, the CPMG echo train and myelin water, with
 | `js/exercise.js` | Exercise runtime (the T1 deck's, without qmrust): step buttons, Reset, inputs, click-to-solve steps |
 | `js/solve.js` | The maths of the solutions (Node-tested) |
 | `js/figures/*.js` | The book's published figures, copied unchanged (the T2 chapter's, and the B1 chapter's Figure 4.13 for Exercise 2-3). Do not edit |
-| `img/` | Pulse-sequence diagram from the chapter, qMRLab logo |
+| `img/` | Pulse-sequence diagram from the chapter (`t2_sequence.png`, and `t2_sequence.svg`, a vector redraw of it made by `tools/draw_t2_sequence.py`, which the slide shows), qMRLab logo |
 | `vendor/` | reveal.js 5.2.1, KaTeX 0.16.11, plotly.js 2.35.2 (the version the book uses) |
 
 ## Figures

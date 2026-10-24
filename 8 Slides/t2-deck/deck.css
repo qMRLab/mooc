@@ -97,6 +97,9 @@
 .reveal section.figure.side .fig-layout { display: grid; grid-template-columns: 300px 1fr; grid-template-rows: auto 1fr; column-gap: 32px; }
 .reveal section.figure.side h2 { grid-column: 1; grid-row: 1; margin-top: 0.6em; }
 .reveal section.figure.side .fig-hint { grid-column: 1; grid-row: 2; text-align: left; font-size: 0.6em; }
+.reveal section.figure.side .side-text { grid-column: 1; grid-row: 2; font-size: 0.62em; }
+.reveal section.figure.side .side-text .fig-hint { font-size: 0.9em; margin-top: 0.8em; }
+.reveal section.figure.side .side-text li + li { margin-top: 0.6em; }
 .reveal section.figure.side .fig-host { grid-column: 2; grid-row: 1 / span 2; }
 .reveal .fig-host { flex: 1; min-height: 0; display: flex; justify-content: center; align-items: flex-start; }
 .reveal .fig-frame { position: relative; flex: none; }
@@ -362,3 +365,40 @@
 .reveal .t2w-pair figure { margin: 0; width: 380px; }
 .reveal .t2w-pair figcaption { font-size: 0.5em; line-height: 1.35; margin-top: 0.3em; }
 .reveal section.t2w-vs-map .relax-hint { margin-top: 0.6em; text-align: center; }
+
+/* Lecture slide "T2-weighted imaging vs T2 mapping": the simulated spin echo (js/t2wsim.js) beside the book's Figure 3.1. */
+.reveal .t2w-cols { grid-template-columns: 0.85fr 1.15fr; gap: 30px; }
+.reveal .t2w-cols h3 { font-size: 0.9em; margin: 0 0 0.25em; }
+.reveal .t2w-cols ul.small { font-size: 0.62em; margin-bottom: 0.3em; }
+.reveal .t2w-controls { font-size: 0.5em; display: grid; gap: 0.2em; }
+.reveal .t2w-controls label { display: flex; align-items: center; gap: 0.5em; }
+.reveal .t2w-controls input { width: 14em; }
+.reveal .t2w-controls p { margin: 0; display: flex; align-items: center; gap: 0.8em; }
+.reveal .t2w-reset { font: inherit; font-size: 0.9em; padding: 0.1em 0.6em; border-radius: 6px; border: 1px solid var(--accent); background: #fff; color: var(--accent); cursor: pointer; }
+.reveal .t2w-view { display: flex; justify-content: center; align-items: stretch; gap: 14px; margin: 0.2em 0 0.5em; }
+.reveal .t2w-sim { display: flex; justify-content: center; }
+.reveal .t2w-win { display: flex; flex-direction: column; align-items: center; gap: 0.3em; font-size: 0.45em; color: var(--muted); }
+.reveal .t2w-win input { writing-mode: vertical-lr; direction: rtl; flex: 1; width: 1.6em; }  /* top = 1, bottom = 0.02 */
+.reveal .t2w-win b { color: var(--ink); }
+.reveal .t2map-fig { height: 400px; }
+.reveal section.t2w-proto .relax-hint { margin: 0.4em 0 0; }
+
+/* Lecture slide "Acquiring a decay curve": a decay curve sampled at one TE, or at many. */
+.reveal .decay-row { display: grid; grid-template-columns: repeat(3, 290px); gap: 40px; justify-content: center; margin: 0.15em 0 0 -1.1em; }
+.reveal .decay-row figure { margin: 0; }
+.reveal .decay-row figcaption { font-size: 0.5em; color: var(--muted); text-align: center; margin-top: 0.25em; }
+.reveal svg.decay-svg { display: block; width: 290px; height: auto; }
+.reveal .decay-row.one { grid-template-columns: 370px; margin-top: 0.1em; }
+.reveal .decay-row.one svg.decay-svg { width: 370px; }
+.reveal svg.decay-svg .axis { stroke: #9aa5b1; stroke-width: 2; }
+.reveal svg.decay-svg .axis-label { fill: var(--muted); font-size: 24px; font-style: italic; }
+.reveal svg.decay-svg .decay { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+.reveal svg.decay-svg .te-arrow { stroke: var(--accent); stroke-width: 3; }
+.reveal svg.decay-svg .te-head { fill: var(--accent); }
+.reveal svg.decay-svg .dim { stroke: var(--ink); stroke-width: 2; }
+.reveal svg.decay-svg .dim-head { fill: var(--ink); }
+.reveal svg.decay-svg .dim-label { fill: var(--ink); font-size: 24px; font-weight: 700; }
+.reveal svg.decay-svg .te-guide { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 3 4; opacity: 0.6; }
+.reveal svg.decay-svg .te-dot { fill: var(--accent); }
+.reveal p.footnote { font-size: 0.55em; color: var(--muted); margin-top: 1.4em; }
+.reveal .eq-box.tight { padding: 0.15em 0.8em; margin: 0.25em 0 0.45em; font-size: 0.9em; }

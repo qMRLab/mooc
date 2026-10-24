@@ -138,7 +138,7 @@ Multi-spin echo (MSE) sequences, based on the Carr-Purcell-Meiboom-Gill (CPMG) p
 The original Carr-Purcell method, which involves applying a 90-degree pulse followed by a series of 180-degree pulses along the same axis (e.g., x-axis), was designed to mitigate diffusion effects by preventing phase accumulation. However, this approach can lead to the accumulation of imperfections in the 180-degree pulses, resulting in a faster than expected loss of transverse magnetization (Mxy) and inaccurate _T_{sub}`2` measurements [@Brown2014-bj]. The Meiboom-Gill improvement addresses this issue by applying the initial 90-degree pulse along one axis (e.g., x-axis) and the subsequent 180-degree pulses along a perpendicular axis (e.g., y-axis). This phase cycling distributes errors such that they average out over time, producing a more stable and accurate echo train [@Brown2014-bj].
 
 
-```{figure} 3 T2 Mapping/02-Monoexponential T2 Mapping/img/t2_sequence.png
+```{figure} 3 T2 Mapping/02-Monoexponential T2 Mapping/img/t2_sequence.svg
 :label: t2seq
 :enumerator: 3.2
 Simplified illustration of a multi-spin echo sequence for _T_{sub}`2` mapping based on the Carr-Purcell-Meiboom-Gill method
