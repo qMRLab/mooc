@@ -354,3 +354,11 @@
 .reveal .relax-controls label { display: inline-flex; align-items: center; gap: 0.3em; cursor: pointer; }
 .reveal .relax-readout { color: var(--muted); min-width: 11em; }
 .reveal .relax-hint { font-size: 0.45em; color: var(--muted); margin: -0.4em 0 0.2em; }
+
+/* Lecture slide "Why map T2?": a T2-weighted image beside the T2 map (js/t2wmap.js). */
+.reveal ul.tight { font-size: 0.85em; }
+.reveal ul.tight li + li { margin-top: 0.25em; }
+.reveal .t2w-pair { display: flex; justify-content: center; gap: 40px; margin-top: 0.5em; }
+.reveal .t2w-pair figure { margin: 0; width: 380px; }
+.reveal .t2w-pair figcaption { font-size: 0.5em; line-height: 1.35; margin-top: 0.3em; }
+.reveal section.t2w-vs-map .relax-hint { margin-top: 0.6em; text-align: center; }
