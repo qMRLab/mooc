@@ -342,42 +342,52 @@
 <section data-book="t2multiexpo">
   <h2>One voxel, several compartments</h2>
   <ul>
-    <li>The mono-exponential curve is a <b>single-compartment</b> tissue model: every component in a voxel has the same T<sub>2</sub></li>
-    <li>But a voxel may contain <b>different tissue compartments</b> with different T<sub>2</sub> times, so this assumption can give <span class="caution">inaccurate fits</span></li>
-    <li>Example: a voxel at a tissue boundary in the brain holding both CSF and gray matter, the <b>partial volume effect</b></li>
-    <li>Multi-exponential T<sub>2</sub> mapping <span class="hl">compartmentalizes</span> the tissues inside a voxel, with applications such as myelin water fraction imaging</li>
+    <li>Multi-exponential models relax <b>both</b> mono-exponential assumptions:
+      <ul>
+        <li><b>several T<sub>2</sub> components</b> in one tissue (e.g. white matter: myelin water and intra/extracellular water)</li>
+        <li><b>several tissues</b> in one voxel (e.g. a white matter voxel with CSF in it too: partial volume)</li>
+      </ul>
+    </li>
+    <li>Each compartment gets its <b>own T<sub>2</sub> and amplitude</b></li>
+    <li>Key application: <span class="hl">myelin water fraction</span> (MWF) imaging</li>
   </ul>
   <aside class="notes">The mono-exponential curve uses a single compartment tissue model: all tissue components in a voxel are assumed to have the same T2. In practice this can result in inaccurate fittings, as a voxel may contain different tissue compartments with different T2 times, e.g. a voxel at a tissue boundary containing both CSF and gray matter (partial volume effect). Multi-exponential T2 mapping considers the T2 contribution of each compartment within a voxel, which is useful in applications such as myelin water fraction imaging.</aside>
 </section>
 
 <section data-book="t2eq5">
-  <h2>Signal modelling: a sum of exponentials</h2>
-  <p>The transverse magnetization acquired at different TEs, as a sum of exponential decays:</p>
-  <div class="eq eq-box">$$M_{xy}(TE) = \sum_{i=1}^{N} M_{z,i}(0^{-})\,e^{-TE/T_{2,i}}\qquad\text{(3.5)}$$</div>
-  <ul>
-    <li>Each term is the contribution of the <b>i<sup>th</sup> tissue component</b> to the overall decay <span class="cite">(Collewet 2022; Dortch 2020)</span></li>
-  </ul>
-  <p class="small muted">Next: a single voxel of myelin water (MW) and intra/extracellular water (IEW), with mono-exponential curves for each and the multi-exponential curve for both.</p>
-  <aside class="notes">For multi-exponential T2 mapping, the transverse magnetization acquired at different TEs is modelled as a sum of exponential decays, where each term represents the contribution of the ith tissue component (Collewet 2022; Dortch 2020). Using a multi-exponential model rather than mono-exponential for complex tissues like myelin enables more precise quantification of T2 within each voxel.</aside>
+  <h2>Signal model: a sum of exponentials</h2>
+  <p>Each compartment <i>i</i> decays with its own T<sub>2,i</sub>, from its own amplitude S<sub>i</sub> <span class="cite">(Collewet 2022; Dortch 2020)</span>:</p>
+  <div class="eq eq-box tight">$$S(TE) = \sum_{i=1}^{N} S_{i}\,e^{-TE/T_{2,i}}\qquad\text{(3.6)}$$</div>
+  <p>Two compartments, myelin water (MW) and intra/extracellular water (IEW):</p>
+  <div class="eq eq-box tight">$$S(TE) = S_{MW}\,e^{-TE/T_{2,MW}} + S_{IEW}\,e^{-TE/T_{2,IEW}}\qquad\text{(3.7)}$$</div>
+  <aside class="notes">For multi-exponential T2 mapping, the transverse magnetization acquired at different TEs is modelled as a sum of exponential decays, where each term represents the contribution of the ith tissue component (Collewet 2022; Dortch 2020). Using a multi-exponential model rather than mono-exponential for complex tissues like myelin enables more precise quantification of T2 within each voxel. To fit the data, Eq. 3.5 is rewritten in terms of the initial amplitude Si of each tissue component, with T2,i the T2 of that component. The multi-exponential signal of Figure 3.5 is the combination of the myelin water and intra/extracellular water signals (Eq. 3.7). (Eq. 3.5, the same model in terms of M_xy, is in the book.)</aside>
 </section>
 
 <section class="figure side" data-book="t2plot4">
   <div class="fig-layout">
-    <h2>Mono- vs multi-exponential: myelin water and IEW</h2>
+    <h2>Mono- vs multi-exponential</h2>
+    <div class="side-text">
+      <ul>
+        <li>One voxel: <b>MW</b> (short T<sub>2</sub>) + <b>IEW</b> (long T<sub>2</sub>)</li>
+        <li>Their sum (dotted) is <b>not one exponential</b>: a mono-exponential fit lands <span class="caution">in between</span>, describing neither</li>
+      </ul>
+      <p class="fig-hint">Drag the slider to change the MW and IEW fractions.</p>
+    </div>
     <div class="fig-host" data-fig="t2Plot4"></div>
-    <p class="fig-hint">Drag the slider to change the MW and IEW fractions.</p>
   </div>
   <aside class="notes">Figure 3.5: mono-exponential and multi-exponential T2 fitting for a single voxel containing myelin water (MW) and intra/extracellular water (IEW). The green and orange curves are mono-exponential curves for MW and IEW; the dotted purple curve is the multi-exponential curve combining both components. Exercises 2 and 3 use this figure.</aside>
 </section>
 
-<section data-book="t2eq6">
-  <h2>Data fitting</h2>
-  <p>Eq. 3.5 in terms of the initial amplitude S<sub>i</sub> of each tissue component:</p>
-  <div class="eq eq-box">$$S(TE) = \sum_{i=1}^{N} S_{i}\,e^{-TE/T_{2,i}}\qquad\text{(3.6)}$$</div>
-  <p class="small">S<sub>i</sub>: initial signal amplitude of the i<sup>th</sup> component; T<sub>2,i</sub>: its T<sub>2</sub>.</p>
-  <p style="margin-top:0.8em">For myelin water (MW) and intra/extracellular water (IEW), as in Figure 3.5:</p>
-  <div class="eq eq-box">$$S(TE)_{MWI} = S_{MW}\,e^{-TE/T_{2,MW}} + S_{IEW}\,e^{-TE/T_{2,IEW}}\qquad\text{(3.7)}$$</div>
-  <aside class="notes">To fit the data, Eq. 3.5 is rewritten in terms of the initial amplitude Si of each tissue component, with T2,i the T2 of that component. The multi-exponential signal of Figure 3.5 is the combination of the myelin water and intra/extracellular water signals (Eq. 3.7).</aside>
+<section class="t2dist" data-book="myelin-water-fraction-mwf-imaging">
+  <h2>From a decay to a T<sub>2</sub> distribution</h2>
+  <ul class="tight">
+    <li>In practice: fit <b>many T<sub>2</sub> values at once</b> (non-negative least squares), not just two</li>
+    <li>The result is a <b>T<sub>2</sub> distribution</b>: in white matter, a short MW peak and a long IEW peak</li>
+    <li>MWF = the <b>area of the MW peak</b> / the area of both<sup class="caution">*</sup></li>
+  </ul>
+  <svg class="t2dist-svg" viewBox="0 0 900 320" role="img" aria-label="The decay of one voxel, the sum of a myelin water and an intra/extracellular water exponential, and its T2 distribution with two peaks"><line x1="40" y1="20" x2="40" y2="250" class="ax"/><line x1="40" y1="250" x2="410" y2="250" class="ax"/><text x="414" y="256" class="lab">TE</text><text x="30" y="30" class="lab" text-anchor="end">S</text><polyline points="40.0,195.0 43.6,202.7 47.2,209.3 50.8,214.9 54.4,219.8 58.0,224.0 61.6,227.6 65.2,230.8 68.8,233.4 72.4,235.7 76.0,237.7 79.6,239.4 83.2,240.9 86.8,242.2 90.4,243.3 94.0,244.2 97.6,245.0 101.2,245.7 104.8,246.3 108.4,246.8 112.0,247.3 115.6,247.6 119.2,248.0 122.8,248.3 126.4,248.5 130.0,248.7 133.6,248.9 137.2,249.0 140.8,249.2 144.4,249.3 148.0,249.4 151.6,249.5 155.2,249.5 158.8,249.6 162.4,249.7 166.0,249.7 169.6,249.8 173.2,249.8 176.8,249.8 180.4,249.8 184.0,249.9 187.6,249.9 191.2,249.9 194.8,249.9 198.4,249.9 202.0,249.9 205.6,249.9 209.2,250.0 212.8,250.0 216.4,250.0 220.0,250.0 223.6,250.0 227.2,250.0 230.8,250.0 234.4,250.0 238.0,250.0 241.6,250.0 245.2,250.0 248.8,250.0 252.4,250.0 256.0,250.0 259.6,250.0 263.2,250.0 266.8,250.0 270.4,250.0 274.0,250.0 277.6,250.0 281.2,250.0 284.8,250.0 288.4,250.0 292.0,250.0 295.6,250.0 299.2,250.0 302.8,250.0 306.4,250.0 310.0,250.0 313.6,250.0 317.2,250.0 320.8,250.0 324.4,250.0 328.0,250.0 331.6,250.0 335.2,250.0 338.8,250.0 342.4,250.0 346.0,250.0 349.6,250.0 353.2,250.0 356.8,250.0 360.4,250.0 364.0,250.0 367.6,250.0 371.2,250.0 374.8,250.0 378.4,250.0 382.0,250.0 385.6,250.0 389.2,250.0 392.8,250.0 396.4,250.0 400.0,250.0" class="mw-line"/><polyline points="40.0,85.0 43.6,91.1 47.2,96.9 50.8,102.6 54.4,108.0 58.0,113.2 61.6,118.2 65.2,123.1 68.8,127.8 72.4,132.3 76.0,136.6 79.6,140.8 83.2,144.8 86.8,148.7 90.4,152.4 94.0,156.0 97.6,159.4 101.2,162.8 104.8,166.0 108.4,169.1 112.0,172.1 115.6,174.9 119.2,177.7 122.8,180.4 126.4,182.9 130.0,185.4 133.6,187.8 137.2,190.1 140.8,192.3 144.4,194.4 148.0,196.4 151.6,198.4 155.2,200.3 158.8,202.1 162.4,203.9 166.0,205.6 169.6,207.2 173.2,208.8 176.8,210.3 180.4,211.8 184.0,213.2 187.6,214.5 191.2,215.8 194.8,217.1 198.4,218.3 202.0,219.5 205.6,220.6 209.2,221.7 212.8,222.7 216.4,223.7 220.0,224.7 223.6,225.6 227.2,226.5 230.8,227.4 234.4,228.2 238.0,229.0 241.6,229.8 245.2,230.5 248.8,231.3 252.4,231.9 256.0,232.6 259.6,233.2 263.2,233.9 266.8,234.5 270.4,235.0 274.0,235.6 277.6,236.1 281.2,236.6 284.8,237.1 288.4,237.6 292.0,238.0 295.6,238.5 299.2,238.9 302.8,239.3 306.4,239.7 310.0,240.1 313.6,240.5 317.2,240.8 320.8,241.1 324.4,241.5 328.0,241.8 331.6,242.1 335.2,242.4 338.8,242.7 342.4,242.9 346.0,243.2 349.6,243.4 353.2,243.7 356.8,243.9 360.4,244.1 364.0,244.4 367.6,244.6 371.2,244.8 374.8,245.0 378.4,245.1 382.0,245.3 385.6,245.5 389.2,245.7 392.8,245.8 396.4,246.0 400.0,246.1" class="iew-line"/><polyline points="40.0,30.0 43.6,43.7 47.2,56.2 50.8,67.5 54.4,77.8 58.0,87.2 61.6,95.9 65.2,103.8 68.8,111.2 72.4,118.0 76.0,124.3 79.6,130.2 83.2,135.7 86.8,140.8 90.4,145.7 94.0,150.2 97.6,154.5 101.2,158.5 104.8,162.3 108.4,165.9 112.0,169.3 115.6,172.6 119.2,175.7 122.8,178.6 126.4,181.4 130.0,184.1 133.6,186.6 137.2,189.1 140.8,191.4 144.4,193.7 148.0,195.8 151.6,197.9 155.2,199.9 158.8,201.7 162.4,203.6 166.0,205.3 169.6,207.0 173.2,208.6 176.8,210.1 180.4,211.6 184.0,213.0 187.6,214.4 191.2,215.7 194.8,217.0 198.4,218.2 202.0,219.4 205.6,220.5 209.2,221.6 212.8,222.7 216.4,223.7 220.0,224.7 223.6,225.6 227.2,226.5 230.8,227.4 234.4,228.2 238.0,229.0 241.6,229.8 245.2,230.5 248.8,231.2 252.4,231.9 256.0,232.6 259.6,233.2 263.2,233.9 266.8,234.5 270.4,235.0 274.0,235.6 277.6,236.1 281.2,236.6 284.8,237.1 288.4,237.6 292.0,238.0 295.6,238.5 299.2,238.9 302.8,239.3 306.4,239.7 310.0,240.1 313.6,240.5 317.2,240.8 320.8,241.1 324.4,241.5 328.0,241.8 331.6,242.1 335.2,242.4 338.8,242.7 342.4,242.9 346.0,243.2 349.6,243.4 353.2,243.7 356.8,243.9 360.4,244.1 364.0,244.4 367.6,244.6 371.2,244.8 374.8,245.0 378.4,245.1 382.0,245.3 385.6,245.5 389.2,245.7 392.8,245.8 396.4,246.0 400.0,246.1" class="sum"/><circle cx="52.0" cy="71.0" r="4" class="pt"/><circle cx="76.0" cy="124.3" r="4" class="pt"/><circle cx="100.0" cy="157.2" r="4" class="pt"/><circle cx="124.0" cy="179.6" r="4" class="pt"/><circle cx="148.0" cy="195.8" r="4" class="pt"/><circle cx="172.0" cy="208.1" r="4" class="pt"/><circle cx="196.0" cy="217.4" r="4" class="pt"/><circle cx="220.0" cy="224.7" r="4" class="pt"/><circle cx="244.0" cy="230.3" r="4" class="pt"/><circle cx="268.0" cy="234.6" r="4" class="pt"/><circle cx="292.0" cy="238.0" r="4" class="pt"/><circle cx="316.0" cy="240.7" r="4" class="pt"/><circle cx="340.0" cy="242.8" r="4" class="pt"/><circle cx="364.0" cy="244.4" r="4" class="pt"/><circle cx="388.0" cy="245.6" r="4" class="pt"/><text x="56.8" y="212.6" class="tag mw">MW</text><text x="220.0" y="186.2" class="tag iew">IEW</text><text x="225.0" y="290" class="cap" text-anchor="middle">the echoes of one voxel</text><text x="450" y="150" class="arrow-lab" text-anchor="middle">→</text><rect x="558.4" y="20" width="96.8" height="230" class="mw-box"/><rect x="663.4" y="20" width="88.6" height="230" class="iew-box"/><line x1="510" y1="20" x2="510" y2="250" class="ax"/><line x1="510" y1="250" x2="890" y2="250" class="ax"/><line x1="558.4" y1="250" x2="558.4" y2="256" class="ax"/><text x="558.4" y="274" class="tick" text-anchor="middle">10</text><line x1="606.8" y1="250" x2="606.8" y2="256" class="ax"/><text x="606.8" y="274" class="tick" text-anchor="middle">20</text><line x1="670.8" y1="250" x2="670.8" y2="256" class="ax"/><text x="670.8" y="274" class="tick" text-anchor="middle">50</text><line x1="719.2" y1="250" x2="719.2" y2="256" class="ax"/><text x="719.2" y="274" class="tick" text-anchor="middle">100</text><line x1="767.6" y1="250" x2="767.6" y2="256" class="ax"/><text x="767.6" y="274" class="tick" text-anchor="middle">200</text><line x1="831.6" y1="250" x2="831.6" y2="256" class="ax"/><text x="831.6" y="274" class="tick" text-anchor="middle">500</text><polygon points="510.0,250.0 510.0,250.0 511.8,250.0 513.7,250.0 515.5,250.0 517.4,250.0 519.2,250.0 521.1,250.0 523.0,250.0 524.8,250.0 526.6,250.0 528.5,250.0 530.4,250.0 532.2,250.0 534.0,250.0 535.9,250.0 537.8,250.0 539.6,250.0 541.4,250.0 543.3,250.0 545.1,250.0 547.0,250.0 548.9,250.0 550.7,250.0 552.5,250.0 554.4,250.0 556.2,250.0 558.1,250.0 560.0,250.0 561.8,250.0 563.6,250.0 565.5,250.0 567.4,249.9 569.2,249.9 571.0,249.8 572.9,249.6 574.8,249.3 576.6,248.8 578.5,247.9 580.3,246.6 582.1,244.7 584.0,241.9 585.8,238.1 587.7,233.0 589.5,226.6 591.4,218.9 593.2,209.8 595.1,199.7 596.9,189.1 598.8,178.7 600.6,169.3 602.5,161.4 604.4,155.9 606.2,153.4 608.0,153.9 609.9,157.5 611.8,163.8 613.6,172.3 615.4,182.2 617.3,192.8 619.1,203.2 621.0,213.0 622.8,221.7 624.7,229.0 626.5,235.0 628.4,239.5 630.2,243.0 632.1,245.4 634.0,247.1 635.8,248.2 637.6,249.0 639.5,249.4 641.3,249.7 643.2,249.8 645.0,249.9 646.9,249.9 648.8,250.0 650.6,250.0 652.5,250.0 654.3,250.0 656.1,250.0 658.0,250.0 659.9,250.0 661.7,249.9 663.5,249.9 665.4,249.8 667.2,249.7 669.1,249.4 671.0,249.0 672.8,248.1 674.6,246.8 676.5,244.7 678.3,241.7 680.2,237.2 682.0,230.9 683.9,222.5 685.8,211.7 687.6,198.3 689.5,182.6 691.3,164.7 693.1,145.7 695.0,126.6 696.8,108.6 698.7,93.2 700.5,81.8 702.4,75.3 704.2,74.3 706.1,79.1 708.0,89.0 709.8,103.4 711.6,120.6 713.5,139.6 715.4,158.8 717.2,177.0 719.0,193.5 720.9,207.7 722.8,219.4 724.6,228.5 726.5,235.4 728.3,240.4 730.1,243.9 732.0,246.2 733.9,247.8 735.7,248.7 737.5,249.3 739.4,249.6 741.2,249.8 743.1,249.9 745.0,249.9 746.8,250.0 748.7,250.0 750.5,250.0 752.4,250.0 754.2,250.0 756.0,250.0 757.9,250.0 759.8,250.0 761.6,250.0 763.5,250.0 765.3,250.0 767.1,250.0 769.0,250.0 770.8,250.0 772.7,250.0 774.5,250.0 776.4,250.0 778.2,250.0 780.1,250.0 782.0,250.0 783.8,250.0 785.6,250.0 787.5,250.0 789.4,250.0 791.2,250.0 793.0,250.0 794.9,250.0 796.8,250.0 798.6,250.0 800.5,250.0 802.3,250.0 804.2,250.0 806.0,250.0 807.9,250.0 809.7,250.0 811.5,250.0 813.4,250.0 815.2,250.0 817.1,250.0 819.0,250.0 820.8,250.0 822.6,250.0 824.5,250.0 826.3,250.0 828.2,250.0 830.0,250.0 831.9,250.0 833.8,250.0 835.6,250.0 837.5,250.0 839.3,250.0 841.2,250.0 843.0,250.0 844.9,250.0 846.7,250.0 848.5,250.0 850.4,250.0 852.2,250.0 854.1,250.0 856.0,250.0 857.8,250.0 859.6,250.0 861.5,250.0 863.4,250.0 865.2,250.0 867.0,250.0 868.9,250.0 870.8,250.0 872.6,250.0 874.5,250.0 876.3,250.0 878.1,250.0 880.0,250.0 880.0,250.0" class="area"/><polyline points="510.0,250.0 511.8,250.0 513.7,250.0 515.5,250.0 517.4,250.0 519.2,250.0 521.1,250.0 523.0,250.0 524.8,250.0 526.6,250.0 528.5,250.0 530.4,250.0 532.2,250.0 534.0,250.0 535.9,250.0 537.8,250.0 539.6,250.0 541.4,250.0 543.3,250.0 545.1,250.0 547.0,250.0 548.9,250.0 550.7,250.0 552.5,250.0 554.4,250.0 556.2,250.0 558.1,250.0 560.0,250.0 561.8,250.0 563.6,250.0 565.5,250.0 567.4,249.9 569.2,249.9 571.0,249.8 572.9,249.6 574.8,249.3 576.6,248.8 578.5,247.9 580.3,246.6 582.1,244.7 584.0,241.9 585.8,238.1 587.7,233.0 589.5,226.6 591.4,218.9 593.2,209.8 595.1,199.7 596.9,189.1 598.8,178.7 600.6,169.3 602.5,161.4 604.4,155.9 606.2,153.4 608.0,153.9 609.9,157.5 611.8,163.8 613.6,172.3 615.4,182.2 617.3,192.8 619.1,203.2 621.0,213.0 622.8,221.7 624.7,229.0 626.5,235.0 628.4,239.5 630.2,243.0 632.1,245.4 634.0,247.1 635.8,248.2 637.6,249.0 639.5,249.4 641.3,249.7 643.2,249.8 645.0,249.9 646.9,249.9 648.8,250.0 650.6,250.0 652.5,250.0 654.3,250.0 656.1,250.0 658.0,250.0 659.9,250.0 661.7,249.9 663.5,249.9 665.4,249.8 667.2,249.7 669.1,249.4 671.0,249.0 672.8,248.1 674.6,246.8 676.5,244.7 678.3,241.7 680.2,237.2 682.0,230.9 683.9,222.5 685.8,211.7 687.6,198.3 689.5,182.6 691.3,164.7 693.1,145.7 695.0,126.6 696.8,108.6 698.7,93.2 700.5,81.8 702.4,75.3 704.2,74.3 706.1,79.1 708.0,89.0 709.8,103.4 711.6,120.6 713.5,139.6 715.4,158.8 717.2,177.0 719.0,193.5 720.9,207.7 722.8,219.4 724.6,228.5 726.5,235.4 728.3,240.4 730.1,243.9 732.0,246.2 733.9,247.8 735.7,248.7 737.5,249.3 739.4,249.6 741.2,249.8 743.1,249.9 745.0,249.9 746.8,250.0 748.7,250.0 750.5,250.0 752.4,250.0 754.2,250.0 756.0,250.0 757.9,250.0 759.8,250.0 761.6,250.0 763.5,250.0 765.3,250.0 767.1,250.0 769.0,250.0 770.8,250.0 772.7,250.0 774.5,250.0 776.4,250.0 778.2,250.0 780.1,250.0 782.0,250.0 783.8,250.0 785.6,250.0 787.5,250.0 789.4,250.0 791.2,250.0 793.0,250.0 794.9,250.0 796.8,250.0 798.6,250.0 800.5,250.0 802.3,250.0 804.2,250.0 806.0,250.0 807.9,250.0 809.7,250.0 811.5,250.0 813.4,250.0 815.2,250.0 817.1,250.0 819.0,250.0 820.8,250.0 822.6,250.0 824.5,250.0 826.3,250.0 828.2,250.0 830.0,250.0 831.9,250.0 833.8,250.0 835.6,250.0 837.5,250.0 839.3,250.0 841.2,250.0 843.0,250.0 844.9,250.0 846.7,250.0 848.5,250.0 850.4,250.0 852.2,250.0 854.1,250.0 856.0,250.0 857.8,250.0 859.6,250.0 861.5,250.0 863.4,250.0 865.2,250.0 867.0,250.0 868.9,250.0 870.8,250.0 872.6,250.0 874.5,250.0 876.3,250.0 878.1,250.0 880.0,250.0" class="dist"/><text x="606.8" y="38" class="tag mw" text-anchor="middle">MW</text><text x="707.7" y="38" class="tag iew" text-anchor="middle">IEW</text><text x="700.0" y="302" class="cap" text-anchor="middle">its T₂ distribution (T₂ in ms)</text></svg>
+  <p class="footnote"><span class="caution">*</span> Try it in <a href="exercise-2-4.html" target="_blank" rel="noopener">Exercise 2-4</a>.</p>
+  <aside class="notes">How MWF is measured in practice: rather than fitting exactly two exponentials (Eq. 3.7), the decay is fitted with many T2 values at once, usually by non-negative least squares (MacKay 1994), which gives a T2 distribution, the amount of signal at each T2. In white matter it has two peaks, myelin water (short T2, about 10 to 40 ms at 3 T) and intra/extracellular water (about 45 to 160 ms); MWF is the area of the MW peak over the area of both, i.e. Eq. 3.8 at TE = 0. The diagram is schematic (MW peak at 20 ms, IEW at 80 ms). Exercise 2-4 does this on a real sheep brain slice at 7 T: pick a pixel, see its distribution, place the MW and IEW windows, and generate the MWF map.</aside>
 </section>
 
 <section class="figure" data-book="t2plot5">
@@ -389,53 +399,28 @@
   <aside class="notes">Figure 3.7: the left image shows multi-exponential T2w data of the spinal cord acquired at different TEs and used for fitting. The right image shows the resulting myelin water fraction (MWF) map and the T2 maps of intra/extracellular water and myelin water. Separating these components enhances tissue characterization in complex structures compared to mono-exponential models.</aside>
 </section>
 
-<section data-book="myelin-water-fraction-mwf-imaging">
-  <h2>Application: myelin water fraction (MWF) imaging</h2>
-  <ul>
-    <li>Demonstrates the <b>clinical relevance</b> of multi-exponential T<sub>2</sub> mapping <span class="cite">(Kumar 2012; MacKay 1994)</span></li>
-    <li>Myelin quantification could help identify <b>biomarkers</b> for diseases such as multiple sclerosis (MS)</li>
-    <li>MWF does not directly measure myelin: it quantifies the <b>water trapped between the myelin sheaths</b>, the primary component of myelin <span class="cite">(Alonso-Ortiz 2015)</span></li>
-  </ul>
-  <h3 class="muted" style="margin-top:0.9em">Why not T<sub>2</sub>-weighted images?</h3>
-  <ul>
-    <li>Hyperintense lesions in MS <span class="caution">lack specificity</span>: indistinguishable from inflammation, edema, axonal loss <span class="cite">(Alonso-Ortiz 2015; Lee 2021)</span></li>
-    <li>MWF could show <b>early microstructural changes</b> in myelin, for early diagnosis and monitoring</li>
-  </ul>
-  <aside class="notes">MWF imaging demonstrates the clinical relevance of multi-exponential T2 mapping, given that myelin quantification could help identify biomarkers for diseases such as MS. MWF technically quantifies the total water trapped between myelin sheaths; it is argued that myelin can be conceptualized as water, its primary composition (Alonso-Ortiz 2015). Conventional T2w images often show hyperintense lesions in MS patients, but these lack specificity and can be indistinguishable from inflammation, edema and axonal loss. MWF holds promise as a biomarker for early microstructural changes in myelin, facilitating early diagnosis and monitoring of disease progression.</aside>
-</section>
-
 <section data-book="t2eq8">
-  <h2>The myelin water fraction</h2>
-  <p>The proportion of the MRI signal from myelin water, relative to the total water content:</p>
-  <div class="eq eq-box">$$MWF = \frac{S_{MW}\,e^{-TE/T_{2,MW}}}{S_{MW}\,e^{-TE/T_{2,MW}} + S_{IEW}\,e^{-TE/T_{2,IEW}}}\qquad\text{(3.8)}$$</div>
-  <ul>
-    <li>Total water: myelin water (MW) + intra/extracellular water (IEW), also called <b>axonal water</b> <span class="cite">(Lee 2021)</span></li>
-    <li>Myelin itself is hard to image directly: its T<sub>2</sub> is <span class="caution">very short</span></li>
-    <li>Myelin-associated water has a slightly longer T<sub>2</sub>, <b>around 20 ms</b> <span class="cite">(Lee 2021)</span>: still short, but measurable with <span class="hl">standard spin echo sequences</span></li>
+  <h2>Application: myelin water fraction (MWF)</h2>
+  <ul class="tight">
+    <li>MWF measures the <b>water trapped between the myelin sheaths</b>, not myelin itself <span class="cite">(Alonso-Ortiz 2015)</span></li>
+    <li>Myelin water has a short T<sub>2</sub>, <b>about 20 ms</b> at 3 T: measurable with spin echoes <span class="cite">(Lee 2021)</span></li>
   </ul>
-  <aside class="notes">MWF represents the proportion of the MRI signal attributed to myelin water relative to the total water content, which includes myelin water and intra/extracellular (axonal) water (Lee 2021). Direct imaging of myelin is challenging due to its very short T2. Myelin-associated water has slightly longer T2, typically around 20 ms, which is measurable with standard spin-echo sequences: a more feasible approach to studying myelin. Exercise 3 computes MWF at several TEs with this equation.</aside>
+  <div class="eq eq-box tight">$$MWF = \frac{S_{MW}\,e^{-TE/T_{2,MW}}}{S_{MW}\,e^{-TE/T_{2,MW}} + S_{IEW}\,e^{-TE/T_{2,IEW}}}\qquad\text{(3.8)}$$</div>
+  <ul class="tight">
+    <li>A candidate <b>biomarker</b> in MS: T<sub>2</sub>-weighted lesions <span class="caution">lack specificity</span> (inflammation, edema, axonal loss look alike) <span class="cite">(Kumar 2012; Lee 2021)</span></li>
+  </ul>
+  <aside class="notes">MWF imaging demonstrates the clinical relevance of multi-exponential T2 mapping, given that myelin quantification could help identify biomarkers for diseases such as MS. MWF technically quantifies the total water trapped between myelin sheaths; it is argued that myelin can be conceptualized as water, its primary composition (Alonso-Ortiz 2015). Conventional T2w images often show hyperintense lesions in MS patients, but these lack specificity and can be indistinguishable from inflammation, edema and axonal loss. MWF holds promise as a biomarker for early microstructural changes in myelin, facilitating early diagnosis and monitoring of disease progression. MWF represents the proportion of the MRI signal attributed to myelin water relative to the total water content, which includes myelin water and intra/extracellular (axonal) water (Lee 2021). Direct imaging of myelin is challenging due to its very short T2. Myelin-associated water has slightly longer T2, typically around 20 ms, which is measurable with standard spin-echo sequences: a more feasible approach to studying myelin. Exercise 3 computes MWF at several TEs with this equation.</aside>
 </section>
 
 <section data-book="t2-and-quantitative-susceptibility-mapping-qsm">
   <h2>Application: quantitative susceptibility mapping (QSM)</h2>
   <ul>
-    <li>QSM measures variations in tissue <b>magnetic susceptibility</b> <span class="cite">(Ruetten 2019; Wang 2015)</span></li>
-    <li>Quantifies paramagnetic and diamagnetic substances such as <b>iron, calcium, oxygen and myelin</b> <span class="cite">(Ruetten 2019)</span>: insights into tissue physiology and integrity</li>
-    <li>Altered iron levels are linked to <b>multiple sclerosis</b> <span class="cite">(Stephenson 2014)</span> and <b>Parkinson’s disease</b> <span class="cite">(Chen 2019)</span>: candidate <span class="hl">biomarkers</span> for neurodegenerative disorders</li>
+    <li>Maps tissue <b>magnetic susceptibility</b>: iron, calcium, oxygen, myelin <span class="cite">(Ruetten 2019; Wang 2015)</span></li>
+    <li>Uses the <b>phase</b> of T<sub>2</sub><sup>*</sup> (gradient echo) data, not only the magnitude <span class="cite">(Shmueli 2020)</span></li>
+    <li>Susceptibility differences cause the field inhomogeneities behind T<sub>2</sub>′</li>
+    <li>Iron changes in <b>MS</b> and <b>Parkinson’s disease</b>: candidate <span class="hl">biomarkers</span> <span class="cite">(Stephenson 2014; Chen 2019)</span></li>
   </ul>
-  <aside class="notes">QSM measures variations in tissue magnetic susceptibility (Ruetten 2019; Wang 2015). By assessing differences in susceptibility between tissues, it can quantify paramagnetic substances like iron, as well as diamagnetic substances such as myelin. This has considerable clinical potential: alterations in iron levels have been linked to neurodegenerative diseases like MS (Stephenson 2014) and Parkinson's disease (Chen 2019), making QSM a promising technique for identifying biomarkers.</aside>
-</section>
-
-<section data-book="t2-and-quantitative-susceptibility-mapping-qsm">
-  <h2>QSM: the phase holds the susceptibility</h2>
-  <ul>
-    <li>The MRI signal is complex: <b>magnitude and phase</b></li>
-    <li>T<sub>1</sub>, T<sub>2</sub> and T<sub>2</sub><sup>*</sup> contrasts use <b>only the magnitude</b>; the <span class="hl">phase</span> carries information about tissue magnetic susceptibility</li>
-    <li>T<sub>2</sub><sup>*</sup> includes T<sub>2</sub>′, the dephasing from field inhomogeneities, caused mainly by <b>susceptibility differences</b> between tissues <span class="cite">(Ruetten 2019)</span></li>
-    <li>QSM combines the magnitude and phase of <b>T<sub>2</sub><sup>*</sup> acquisitions</b> to map susceptibility within tissues <span class="cite">(Shmueli 2020)</span></li>
-  </ul>
-  <p class="small muted">Next: susceptibility and B<sub>0</sub> in a brain, simulated at 7 T.</p>
-  <aside class="notes">In MRI, the acquired signal is complex, with a magnitude and a phase. Traditional T1, T2 and T2* contrasts only exploit the magnitude; the phase holds valuable information about tissue magnetic susceptibility, which is fundamental for QSM. T2* accounts for both T2 and the relaxation due to field inhomogeneities (T2'), which induce signal dephasing; since susceptibility differences between tissues are a primary cause of these inhomogeneities, phase information is crucial. In QSM, magnitude and phase data from T2* acquisitions together enable the quantification and spatial mapping of susceptibility (Shmueli 2020).</aside>
+  <aside class="notes">QSM measures variations in tissue magnetic susceptibility (Ruetten 2019; Wang 2015). By assessing differences in susceptibility between tissues, it can quantify paramagnetic substances like iron, as well as diamagnetic substances such as myelin. This has considerable clinical potential: alterations in iron levels have been linked to neurodegenerative diseases like MS (Stephenson 2014) and Parkinson's disease (Chen 2019), making QSM a promising technique for identifying biomarkers. In MRI, the acquired signal is complex, with a magnitude and a phase. Traditional T1, T2 and T2* contrasts only exploit the magnitude; the phase holds valuable information about tissue magnetic susceptibility, which is fundamental for QSM. T2* accounts for both T2 and the relaxation due to field inhomogeneities (T2'), which induce signal dephasing; since susceptibility differences between tissues are a primary cause of these inhomogeneities, phase information is crucial. In QSM, magnitude and phase data from T2* acquisitions together enable the quantification and spatial mapping of susceptibility (Shmueli 2020).</aside>
 </section>
 
 <section class="figure" data-book="t2plot8">
@@ -453,15 +438,15 @@
     <div>
       <h3 class="hl">Benefits</h3>
       <ul>
-        <li><b>More accurate</b> T<sub>2</sub> for complex, heterogeneous tissue: each voxel is multi-compartmental, each tissue with its own T<sub>2</sub></li>
-        <li>Particularly suited to <b>MWF imaging</b>, to understand demyelinating diseases such as MS <span class="cite">(Alonso-Ortiz 2015)</span></li>
+        <li><b>Separates compartments</b> in heterogeneous tissue</li>
+        <li>Gives <b>MWF</b>, for demyelinating diseases such as MS <span class="cite">(Alonso-Ortiz 2015)</span></li>
       </ul>
     </div>
     <div>
       <h3 class="caution">Pitfalls</h3>
       <ul>
-        <li>More complex than mono-exponential: <b>longer acquisition times</b> <span class="cite">(Kumar 2012)</span></li>
-        <li><b>Sensitive to noise</b> <span class="cite">(Dula 2009)</span>, which can make accurate fits challenging</li>
+        <li><b>Longer acquisitions</b> <span class="cite">(Kumar 2012)</span></li>
+        <li><b>Sensitive to noise</b>: the fit needs high SNR <span class="cite">(Dula 2009)</span></li>
       </ul>
     </div>
   </div>
@@ -474,34 +459,36 @@
   <h2>Summary</h2>
   <div class="cards">
     <div class="card mono">
-      <h3>Mono-exponential</h3>
-      <p><b>Simple and efficient</b>; fast with multi-echo spin echo.</p>
-      <p>One T<sub>2</sub> per voxel over-simplifies tissue; B<sub>1</sub> errors overestimate T<sub>2</sub>.</p>
+      <h3>Mono-exponential model</h3>
+      <p><b>Simple and fast</b>, but one T<sub>2</sub> per voxel over-simplifies; B<sub>1</sub> errors bias it.</p>
     </div>
     <div class="card multi">
-      <h3>Multi-exponential</h3>
-      <p><b>Comprehensive and accurate</b> for heterogeneous or pathological tissue, e.g. MWF.</p>
-      <p>Longer acquisitions; sensitive to noise.</p>
+      <h3>Multi-exponential model</h3>
+      <p><b>Separates compartments</b>, e.g. MWF; needs more time and SNR.</p>
     </div>
     <div class="card t2star">
       <h3>T<sub>2</sub><sup>*</sup></h3>
-      <p>T<sub>2</sub> plus field inhomogeneities (T<sub>2</sub>′); measured with <b>gradient echo</b>.</p>
-      <p>With the phase, the basis of QSM.</p>
+      <p>T<sub>2</sub> + field inhomogeneities; <b>gradient echo</b>; its phase gives QSM.</p>
     </div>
   </div>
-  <p style="margin-top:1em">The choice of mono- or multi-exponential depends on the <b>clinical or research application</b> and the <b>complexity of the tissues</b> studied.</p>
+  <p style="margin-top:1em">Which model: depends on the <b>application</b> and the <b>tissue</b>.</p>
   <aside class="notes">In conclusion, the choice of mono-exponential versus multi-exponential will depend on the specific clinical or research application as well as the complexity of the tissues being studied. Mono-exponential T2 mapping offers simplicity and efficiency, while multi-exponential T2 mapping provides a comprehensive and accurate characterization of tissue properties, particularly in heterogeneous or pathological tissues.</aside>
 </section>
 
 <section data-book="exercises">
   <h2>Exercises and discussion</h2>
   <ul>
-    <li>The chapter ends with <b>four exercises</b> that use the interactive figures and the notebooks (on Binder or in MATLAB)</li>
+    <li><b>Interactive exercises</b> (open in a new tab):
+      <a href="exercise-2-1.html" target="_blank" rel="noopener">2-1 RF phase and spin echoes</a> ·
+      <a href="exercise-2-2.html" target="_blank" rel="noopener">2-2 Stimulated echoes</a> ·
+      <a href="exercise-2-3.html" target="_blank" rel="noopener">2-3 Echo trains</a> ·
+      <a href="exercise-2-4.html" target="_blank" rel="noopener">2-4 Myelin water</a></li>
+    <li>The book’s <a href="https://qmrlab.org/mooc/t2-mapping#exercises" target="_blank" rel="noopener">four exercises</a>, with the interactive figures and notebooks</li>
     <li>Questions and answers: <a href="https://github.com/qMRLab/mooc/discussions" target="_blank" rel="noopener">github.com/qMRLab/mooc/discussions</a></li>
   </ul>
-  <p style="margin-top:0.9em"><a href="https://qmrlab.org/mooc/t2-mapping#exercises" target="_blank" rel="noopener">Open the exercises in the book →</a></p>
-  <aside class="notes">Exercise 1: optimal TE for WM/GM contrast from Figure 3.3, and Figure 3.1's echo times. Exercise 2: decay times and T2 estimates from Figure 3.5. Exercise 3: MWF at several TEs with Eq. 3.8. Exercise 4: SNR at different TEs with the Figure 3.4 notebook.</aside>
+  <aside class="notes">Exercise 1: optimal TE for WM/GM contrast from Figure 3.3, and Figure 3.1's echo times. Exercise 2: decay times and T2 estimates from Figure 3.5. Exercise 3: MWF at several TEs with Eq. 3.8. Exercise 4: SNR at different TEs with the Figure 3.4 notebook. The interactive exercises: 2-1 (RF phase, spin echoes, single-echo T2 and T2*), 2-2 (stimulated echoes, optional), 2-3 (the CPMG echo train game, B1 errors), 2-4 (T2 distributions and MWF in a sheep brain slice).</aside>
 </section>
+
 </div>
 </div>
 
