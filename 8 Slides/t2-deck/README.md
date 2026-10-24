@@ -1,6 +1,6 @@
 # T2 Mapping slides
 
-Slides for the [T2 Mapping chapter](https://qmrlab.org/mooc/t2-mapping) of the qMRLab mOOC: mono-exponential and multi-exponential T2 mapping, with T2* and QSM (33 slides: 6 opening, 13 mono-exponential, 12 multi-exponential, 2 closing), plus worked solutions to the chapter's Exercises 1–4 (`exercise-1.html` … `exercise-4.html`). Same format as the [T1 deck](../t1-deck/README.md).
+Slides for the [T2 Mapping chapter](https://qmrlab.org/mooc/t2-mapping) of the qMRLab mOOC: mono-exponential and multi-exponential T2 mapping, with T2* and QSM (31 slides: 6 opening, 13 mono-exponential, 10 multi-exponential, 2 closing), plus worked solutions to the chapter's Exercises 1–4 (`exercise-1.html` … `exercise-4.html`). Same format as the [T1 deck](../t1-deck/README.md).
 
 The deck is a static folder. Open `index.html` directly (it works offline, even from `file://`) or put the folder on any static host.
 

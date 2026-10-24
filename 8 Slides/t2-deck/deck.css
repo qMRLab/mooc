@@ -402,3 +402,20 @@
 .reveal svg.decay-svg .te-dot { fill: var(--accent); }
 .reveal p.footnote { font-size: 0.55em; color: var(--muted); margin-top: 1.4em; }
 .reveal .eq-box.tight { padding: 0.15em 0.8em; margin: 0.25em 0 0.45em; font-size: 0.9em; }
+
+/* Lecture slide "From a decay to a T2 distribution": a schematic two-component decay and its distribution. */
+.reveal svg.t2dist-svg { display: block; width: 820px; height: auto; margin: 0.3em auto 0; }
+.reveal svg.t2dist-svg .ax { stroke: #9aa5b1; stroke-width: 2; }
+.reveal svg.t2dist-svg .lab, .reveal svg.t2dist-svg .tick { fill: var(--muted); font-size: 18px; }
+.reveal svg.t2dist-svg .cap { fill: var(--muted); font-size: 20px; }
+.reveal svg.t2dist-svg .sum, .reveal svg.t2dist-svg .dist { fill: none; stroke: var(--ink); stroke-width: 3; }
+.reveal svg.t2dist-svg .pt { fill: var(--ink); }
+.reveal svg.t2dist-svg .area { fill: rgba(31, 95, 153, 0.15); }
+.reveal svg.t2dist-svg .mw-line { fill: none; stroke: #a8538a; stroke-width: 2; stroke-dasharray: 6 5; }
+.reveal svg.t2dist-svg .iew-line { fill: none; stroke: #b9770e; stroke-width: 2; stroke-dasharray: 6 5; }
+.reveal svg.t2dist-svg .mw-box { fill: rgba(204, 121, 167, 0.22); stroke: #a8538a; stroke-width: 1.5; }
+.reveal svg.t2dist-svg .iew-box { fill: rgba(230, 159, 0, 0.2); stroke: #b9770e; stroke-width: 1.5; }
+.reveal svg.t2dist-svg .tag { font-size: 20px; font-weight: 700; }
+.reveal svg.t2dist-svg .tag.mw { fill: #a8538a; }
+.reveal svg.t2dist-svg .tag.iew { fill: #b9770e; }
+.reveal svg.t2dist-svg .arrow-lab { fill: var(--muted); font-size: 44px; }
