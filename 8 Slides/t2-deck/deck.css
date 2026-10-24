@@ -315,7 +315,7 @@
 .reveal table.b1-levels { width: 100%; font-size: 1.5em; margin-top: 0.5em; }
 .reveal table.b1-levels td, .reveal table.b1-levels th { text-align: center; padding: 0.3em 0.8em; }
 
-/* Problem N: full-height zones at the left and right edges replace Reveal's corner arrows (js/exn.js). */
+/* Full-height zones at the left and right edges replace Reveal's corner arrows (js/nav.js). */
 .nav-zones .reveal .controls { display: none !important; }  /* Reveal sets display inline */
 .nav-zone { position: fixed; top: 0; bottom: 0; width: 72px; z-index: 40; display: flex; align-items: center; justify-content: center;
   cursor: pointer; background: transparent; border: 0; padding: 0; color: transparent; font-size: 72px; font-weight: 300; line-height: 1; transition: background 0.15s, color 0.15s; }
@@ -340,3 +340,17 @@
 .reveal .mwf-map-host { width: 440px; height: 400px; display: flex; align-items: center; justify-content: center; margin-top: 0.3em; }
 .reveal .mwf-map-host:not(.drawn) { border: 2px dashed var(--rule); border-radius: 8px; color: var(--muted); font-size: 0.55em; }
 .reveal .mwf-map-host.drawn { border: 0; }
+
+/* Lecture slide "T2 and T2*": the text, and the precession animation (js/relax.js). */
+.reveal .relax-cols { grid-template-columns: 0.8fr 1.2fr; gap: 30px; }
+.reveal .relax-text h3 { font-size: 0.95em; margin: 0.2em 0 0.3em; }
+.reveal .relax-text p { font-size: 0.85em; }
+.reveal .relax-text ul.small { font-size: 0.7em; margin-bottom: 0.4em; }
+.reveal .relax-anim { display: flex; flex-direction: column; align-items: center; }
+.reveal .relax-anim canvas { display: block; width: 100%; height: auto; }
+.reveal canvas.relax-3d { cursor: grab; }
+.reveal .relax-controls { display: flex; align-items: center; gap: 0.8em; font-size: 0.55em; margin: 0.1em 0 0.2em; }
+.reveal .relax-controls button { font: inherit; padding: 0.2em 0.8em; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+.reveal .relax-controls label { display: inline-flex; align-items: center; gap: 0.3em; cursor: pointer; }
+.reveal .relax-readout { color: var(--muted); min-width: 11em; }
+.reveal .relax-hint { font-size: 0.45em; color: var(--muted); margin: -0.4em 0 0.2em; }

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <link rel="stylesheet" href="deck.css">
 </head>
-<body>
+<body class="nav-zones">
 <div class="reveal">
 <div class="slides">
 
@@ -25,20 +25,32 @@
   <aside class="notes">Every slide links back to the matching place in the book (bottom left). Keys: arrows to move, S for speaker notes, Esc for the overview, F for full screen. Interactive figures are the book's own: use their buttons and sliders with the mouse.</aside>
 </section>
 
-<section data-book="introduction">
-  <h2>What is T<sub>2</sub>?</h2>
-  <ul>
-    <li><b>T<sub>2</sub></b>, the transverse or spin–spin relaxation time: spins <b>dephase</b>, so the magnetization in the x–y plane decays</li>
-    <li>The <span class="hl">upper limit</span> of the signal decay time under ideal imaging conditions</li>
-    <li>In practice, <b>magnetic field inhomogeneities</b> make the transverse magnetization decay faster <span class="cite">(Chavhan 2009; Cohen-Adad 2014)</span>
-      <ul>
+<section class="relax-demo" data-book="introduction">
+  <h2>T<sub>2</sub> and T<sub>2</sub><sup>*</sup></h2>
+  <div class="cols relax-cols">
+    <div class="relax-text">
+      <h3 class="hl">T<sub>2</sub>: spin–spin relaxation</h3>
+      <p>Spins <b>dephase</b> through interactions with their neighbours, so the transverse magnetization decays.</p>
+      <h3 class="caution">T<sub>2</sub><sup>*</sup>: <span class="hl">T<sub>2</sub></span> + field inhomogeneities</h3>
+      <p>Spins also precess at slightly <b>different speeds</b>, fan out, and the signal decays <b>faster</b>.</p>
+      <ul class="small">
         <li><b>Macroscopic:</b> metallic implants, air–tissue interfaces</li>
-        <li><b>Microscopic:</b> differences in magnetic susceptibility between tissues</li>
+        <li><b>Microscopic:</b> susceptibility differences between tissues</li>
       </ul>
-    </li>
-    <li>Transverse relaxation including these effects is <span class="hl">T<sub>2</sub><sup>*</sup></span></li>
-  </ul>
-  <aside class="notes">T2 relaxation, also known as the transverse or spin-spin relaxation, is characterized by the dephasing of spins, leading to a reduction of the total magnetization in the x-y plane. The T2 value represents the upper limit of the signal decay time under ideal imaging conditions. In practice, magnetic field inhomogeneities, macroscopic (metallic implants, air-tissue interfaces) or microscopic (susceptibility differences between tissues), cause the transverse magnetization to decay faster. When considering this phenomenon, we refer to the transverse relaxation as T2*.</aside>
+      <p class="small"><span class="cite">(Chavhan 2009; Cohen-Adad 2014)</span></p>
+    </div>
+    <div class="relax-anim">
+      <canvas class="relax-3d" width="900" height="430" aria-label="Transverse magnetization"></canvas>
+      <p class="relax-hint">Click and drag to reorient</p>
+      <div class="relax-controls">
+        <button data-relax-play>▶ Play</button>
+        <label><input type="checkbox" data-inhom> Field inhomogeneities</label>
+        <span class="relax-readout"></span>
+      </div>
+      <canvas class="relax-sig" width="900" height="270" aria-label="Signal against time"></canvas>
+    </div>
+  </div>
+  <aside class="notes">T2 relaxation, also known as the transverse or spin-spin relaxation, is characterized by the dephasing of spins, leading to a reduction of the total magnetization in the x-y plane. The T2 value represents the upper limit of the signal decay time under ideal imaging conditions. In practice, magnetic field inhomogeneities, macroscopic (metallic implants, air-tissue interfaces) or microscopic (susceptibility differences between tissues), cause the transverse magnetization to decay faster. When considering this phenomenon, we refer to the transverse relaxation as T2*. The animation: after a 90° pulse, M (in the rotating frame, so without the precession) shrinks with T2 = 100 ms; the signal |Mxy| decays as e^(−t/T2). Tick “Field inhomogeneities” and play again: M is now a fan of spins at slightly different frequencies (red faster, blue slower; a Lorentzian spread with T2′ = 30 ms), which spread out while each still shrinks with T2, so their sum decays faster, with T2* = 23 ms (1/T2* = 1/T2 + 1/T2′, Eq. 3.3); the T2 curve stays dashed for comparison. Exercise 2-1 takes this fan further (what a 180° does to it).</aside>
 </section>
 
 <section data-book="introduction">
@@ -498,5 +510,7 @@
 <script src="js/figures/t2Plot5.js"></script>
 <script src="js/figures/t2Plot8.js"></script>
 <script src="js/deck.js"></script>
+<script src="js/relax.js"></script>
+<script src="js/nav.js"></script>
 </body>
 </html>
