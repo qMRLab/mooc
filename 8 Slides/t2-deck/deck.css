@@ -419,3 +419,8 @@
 .reveal svg.t2dist-svg .tag.mw { fill: #a8538a; }
 .reveal svg.t2dist-svg .tag.iew { fill: #b9770e; }
 .reveal svg.t2dist-svg .arrow-lab { fill: var(--muted); font-size: 44px; }
+
+/* Lecture deck: where class stops for an interactive exercise (a link in the top-right corner, new tab). */
+.reveal .pause-badges { position: absolute; top: 6px; right: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.reveal a.pause-badge { font-size: 15px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 999px; padding: 3px 12px; text-decoration: none; }
+.reveal a.pause-badge:hover { filter: brightness(1.1); }
