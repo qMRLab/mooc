@@ -19,8 +19,33 @@
   <p class="kicker">T<sub>2</sub> Mapping · Exercise 2-4</p>
   <h2>Myelin water</h2>
   <p class="subtitle">A T<sub>2</sub> distribution in every pixel</p>
-  <p class="muted small"><a href="exercises-2.html">← Exercises 2-1 to 2-4</a></p>
-  <p class="data-credit">Data: sheep brain at 7 T, Murguia <i>et al.</i>, <a href="https://doi.org/10.7302/dp7t-c323" target="_blank" rel="noopener">University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323</a>, <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>. Changed: one slice, magnitude, cropped, 8-bit; T<sub>2</sub> fits added.</p>
+  <p class="data-credit">Data: human brain at 3 T, Dvorak <i>et al.</i>, <a href="https://doi.org/10.5281/zenodo.8049179" target="_blank" rel="noopener">CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Changed: one slice, cropped, 8-bit; T<sub>2</sub> fits added.</p>
+</section>
+
+<section class="ex biexp" data-book="exercises">
+  <div class="ex-layout">
+    <h2>Two components in one voxel</h2>
+    <p class="game-prompt">These echoes come from one voxel with <b>two components</b>. What is the T<sub>2</sub> of each, and what share of the signal does each have?</p>
+    <div class="ex-cols">
+      <div class="biexp-controls">
+        <svg class="biexp-t2" viewBox="0 0 520 268" role="img" aria-label="T2 plot: two arrows, one per component; drag left or right to set its T2, up or down to set its share"></svg>
+        <p class="muted small bx-hint">Drag each arrow: left or right sets its T<sub>2</sub>, up or down its share of the signal (the other takes the rest).</p>
+        <p class="biexp-err"></p>
+        <div class="btn-row">
+          <button class="secondary" data-bx-mono>Fit one exponential</button>
+          <label class="bx-log"><input type="checkbox" data-bx-log> Log scale</label>
+        </div>
+        <p class="biexp-mono small" hidden></p>
+        <div class="btn-row">
+          <button class="secondary" data-bx-reset>Reset</button>
+          <button data-bx-answer>Show answer</button>
+        </div>
+        <p class="biexp-answer small" hidden></p>
+      </div>
+      <div class="biexp-plot"></div>
+    </div>
+  </div>
+  <aside class="notes">A voxel with two water compartments: 32 echoes, 10 ms apart, made with S(TE) = 0.25 e^(−TE/18 ms) + 0.75 e^(−TE/78 ms) (S0 = 1) plus a little Gaussian noise (SD 0.002, seeded, so it is the same every time). Each component is an arrow on the T2 plot: drag it left or right to set its T2, up or down to set its share of the signal; the other arrow takes the rest, as the shares add up to 100% (S0 = 1). The red curve is the model, the dashed curves its two parts, and the fit error is the RMS difference from the echoes (the noise alone gives about 0.2%). Fit one exponential overlays the best single exponential: about T2 = 69 ms here (S0 = 0.89), it cannot follow the data: it starts too low and cuts through the echoes. With Log scale, a single exponential is a straight line, and the two-component data bend: a fast drop (component 1) then a slower slope (component 2). The answer: component 1 is myelin water (18 ms, 25%), component 2 intra/extracellular water (78 ms, 75%), so MWF = 25%. Show answer draws them as dashed arrows. Fairly different pairs can still draw a similar curve: look at the residuals strip under the decay. The true values leave random scatter around zero; a wrong pair leaves a systematic wave. This is why real MWF fits need many echoes and a high SNR, and fit a whole T2 distribution, as on the next slides.</aside>
 </section>
 
 <section class="ex t2-pixel" data-book="exercises">
@@ -30,14 +55,14 @@
     <div class="ex-cols even">
       <div class="echo-col">
         <canvas class="echo-image" width="900" height="900" aria-label="Multi-echo image; click a pixel"></canvas>
-        <label class="echo-pick">Echo <input data-echo type="range" min="1" max="104" step="1" value="1"> <b data-show="echo"></b></label>
+        <label class="echo-pick">Echo <input data-echo type="range" min="1" max="56" step="1" value="1"> <b data-show="echo"></b></label>
         <p class="muted game-hint">Click a pixel to see its T<sub>2</sub> distribution.</p>
       </div>
       <div class="t2-plots"></div>
     </div>
-    <p class="data-credit">Data: sheep brain at 7 T, Murguia <i>et al.</i>, <a href="https://doi.org/10.7302/dp7t-c323" target="_blank" rel="noopener">University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323</a>, <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>. Changed: one slice, magnitude, cropped, 8-bit; T<sub>2</sub> fits added.</p>
+    <p class="data-credit">Data: human brain at 3 T, Dvorak <i>et al.</i>, <a href="https://doi.org/10.5281/zenodo.8049179" target="_blank" rel="noopener">CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Changed: one slice, cropped, 8-bit; T<sub>2</sub> fits added.</p>
   </div>
-  <aside class="notes">One slice of a fresh sheep brain block, multi-echo spin echo at 7 T: 104 echoes 5 ms apart (TE = 5 to 520 ms), 0.27 mm pixels, 2 mm thick. The slider picks the echo shown (each echo with its own grey scale, as the late ones are much darker); a click picks a pixel. Top right: that pixel’s T2 distribution, the amount of signal at each T2 (60 values, 5 ms to 1 s, log scale). Bottom right: its 104 echoes, with the decay the distribution predicts in red, and the echo on screen marked. The distributions were fitted offline (tools/prep_mwf_sheep.py): non-negative least squares on an extended phase graph basis, with the refocusing angle fitted per pixel (about 145° to 165° here, as B1 is below nominal at 7 T, so echo 2 is brighter than echo 1 in places) and a constant for the noise floor, lightly smoothed. In white matter there are two peaks: a short one at the bottom of the range (myelin water; at 7 T its T2 is about as short as the first echo, so the fit cannot place it more precisely) and a main one near 60 ms; grey matter has one peak near 55 ms. Data: Murguia et al., University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323, CC BY-NC 4.0 (one slice of sample S1, fresh; magnitude, cropped, 8-bit; T2 fits added).</aside>
+  <aside class="notes">One axial slice of a healthy volunteer’s brain, through the genu and splenium of the corpus callosum: a 3D multi-echo spin echo at 3 T (the CALIPR protocol of Dvorak et al. 2023), 56 echoes 6 ms apart (TE = 6 to 336 ms), TR = 1252 ms, acquired at 1.7 mm and reconstructed at 1 mm. The slider picks the echo shown (each echo with its own grey scale, as the late ones are much darker); a click picks a pixel. Top right: that pixel’s T2 distribution, the amount of signal at each T2 (60 values, 4 ms to 2 s, log scale). Bottom right: its 56 echoes, with the decay the distribution predicts in red, and the echo on screen marked. The distributions were fitted offline (tools/prep_mwf_calipr.py): non-negative least squares on an extended phase graph basis, with the refocusing angle fitted per pixel and then smoothed over the brain (about 140° to 175°, as B1 varies), and a constant for the noise floor, lightly smoothed. The slide starts in the splenium: two peaks, myelin water near 14 ms and intra/extracellular water near 90 ms. In grey matter the short peak is small or absent. In some white-matter pixels the short peak sits at the very bottom of the range (4 ms): with this much noise the fit cannot place it more precisely. Data: Dvorak et al., CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179, CC BY 4.0 (volunteer 2, first brain scan, slice 22; cropped, 8-bit; T2 fits added).</aside>
 </section>
 
 <section class="ex mwf-map" data-book="exercises">
@@ -48,19 +73,24 @@
       <li>Put <b style="color:#a8538a">MW</b> (myelin water) and <b style="color:#b9770e">IEW</b> (intra/extracellular water) on the two components.</li>
       <li>Click <b>Generate MWF map</b>: at every pixel, $$\mathrm{MWF} = \frac{S_{MW}}{S_{MW} + S_{IEW}}$$ with <i>S</i> the area of that pixel’s distribution inside each rectangle.</li>
     </ol>
+    <p class="game-prompt mwf-q">How low can you get the mean difference from the published map? Which ranges did you choose, and why?</p>
     <div class="ex-cols even">
       <div class="mwf-left">
-        <p class="small mwf-pixel-note">Your white-matter pixel from the previous slide · <span data-show="ranges"></span></p>
+        <p class="small mwf-pixel-note">Your pixel (click the map for another) · <span data-show="ranges"></span></p>
         <div class="mwf-dist"></div>
+        <p class="mwf-diff-note" hidden>Why can’t it reach zero? Their fit pulls each pixel towards its neighbours and uses other settings, and their map was resampled from another image space.</p>
       </div>
       <div class="mwf-right">
         <div class="btn-row"><button data-generate>Generate MWF map</button></div>
+        <div class="mwf-tabs" role="tablist" aria-label="Map shown"><button role="tab" data-view="mine" aria-selected="true" disabled>My map</button><button role="tab" data-view="theirs" aria-selected="false" disabled>Published</button><button role="tab" data-view="diff" aria-selected="false" disabled>Difference</button></div>
+        <p class="mwf-readout"></p>
+        <p class="mwf-score"></p>
         <div class="mwf-map-host"><p>The MWF map appears here.</p></div>
       </div>
     </div>
-    <p class="data-credit">Data: sheep brain at 7 T, Murguia <i>et al.</i>, <a href="https://doi.org/10.7302/dp7t-c323" target="_blank" rel="noopener">University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323</a>, <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>. Changed: one slice, magnitude, cropped, 8-bit; T<sub>2</sub> fits added.</p>
+    <p class="data-credit">Data: human brain at 3 T, Dvorak <i>et al.</i>, <a href="https://doi.org/10.5281/zenodo.8049179" target="_blank" rel="noopener">CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Changed: one slice, cropped, 8-bit; T<sub>2</sub> fits added.</p>
   </div>
-  <aside class="notes">The pixel picked on the previous slide, with two rectangles on its T2 distribution: MW (myelin water) and IEW (intra/extracellular water), the book’s names. Each spans the full height; drag to move, drag an edge to stretch or shrink (they start off target, MW at 12–25 ms and IEW at 150–400 ms). Generate MWF map then computes, at every pixel of the slice, MWF = S_MW / (S_MW + S_IEW), the book’s Eq. 3.8 at TE = 0, with S the area of the pixel’s distribution inside each rectangle (the T2 values whose centres fall inside it), and draws the map (hover for values; the saved pixel is boxed in red). On this 7 T data the short peak sits at the bottom of the range (about 5 ms), and the main peak near 50–60 ms: MW about 5–20 ms and IEW about 25–150 ms give a map in which white matter stands out. Moving a rectangle and generating again shows how much MWF depends on these choices. Data: Murguia et al., University of Michigan Deep Blue Data, doi:10.7302/dp7t-c323, CC BY-NC 4.0 (one slice of sample S1, fresh; magnitude, cropped, 8-bit; T2 fits added).</aside>
+  <aside class="notes">The pixel picked on the previous slide, with two rectangles on its T2 distribution: MW (myelin water) and IEW (intra/extracellular water), the book’s names. Each spans the full height; drag to move, drag an edge to stretch or shrink (they start off target, MW at 30–50 ms and IEW at 150–400 ms). Each rectangle’s ends are written above it, and in the line above the plot, which follows the drag live. Generate MWF map then computes, at every pixel of the slice, MWF = S_MW / (S_MW + S_IEW), the book’s Eq. 3.8 at TE = 0, with S the area of the pixel’s distribution inside each rectangle, and draws the map on a fixed colour scale, 0 to 30% (pixels with most of their signal outside both rectangles, the fluid in the ventricles and sulci, are grey: a tiny MW over an even tinier IEW would mean nothing). Hover for values; the saved pixel is outlined in red, with ticks pointing at it (dark on the Difference tab), and its hover says “your pixel”. Above the map: the pixel’s MWF, the previous map’s value, and the published value; then the mean difference from the published map over the brain, in MWF points (a grey fluid pixel counts as 0), with the previous map’s. Once a map is drawn, a click on it picks another pixel, on any tab: its distribution replaces the one on the left, and the readout follows. The tabs switch between your map, the authors’ own map of the same slice (Published: their regularized NNLS, myelin water below 40 ms; resampled from the volunteer’s T1-weighted space), and the Difference, yours minus theirs (blue: yours lower, red: yours higher, ±15 points). The question, with answers: the lowest mean difference is about 3.0%, with MW from the bottom of the range up to about 35–40 ms (the gap between the two peaks) and IEW from there to the end of the range (2 s). Why: MW must take the whole short peak and nothing of the long one, and the cut sits in the gap between them, where the authors also put it (40 ms). The IEW rectangle does best when it takes all the rest of the signal, because their MWF divides the myelin water by the pixel’s whole signal; IEW 40–200 ms, their window for the IEW T2, gives 3.2%. Starting MW above the bottom (8 ms: 4.4%) or ending it at 50 ms (5.5%) does worse. Why it cannot reach zero (the note under the distribution, on the Difference tab): (1) their fit is regularized in space, each pixel’s T2 distribution and refocusing angle pulled towards its neighbours’, while ours fits each pixel on its own (the salt-and-pepper differences); (2) other fit settings (40 T2 values from 4 ms to 10 s, against our 60 from 4 ms to 2 s, and their own regularization); (3) their map was computed on the echo images, registered to the volunteer’s T1-weighted image, and resampled back here, which blurs it slightly, so even an identical fit would not match pixel for pixel. Region averages agree well: white matter about 12% here against 11% in theirs, and 18% against 17% at the starting pixel in the splenium. Data: Dvorak et al., CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179, CC BY 4.0.</aside>
 </section>
 
 </div>
@@ -75,7 +105,8 @@
 <script src="js/exercise.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/exn.js"></script>
-<script src="js/data/mwfSheep.js"></script>
+<script src="js/data/mwfData.js"></script>
 <script src="js/mwf.js"></script>
+<script src="js/biexp.js"></script>
 </body>
 </html>
