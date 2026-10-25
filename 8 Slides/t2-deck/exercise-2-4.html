@@ -53,6 +53,17 @@
   <aside class="notes">A voxel with two water compartments: 32 echoes, 10 ms apart, made with S(TE) = 0.25 e^(−TE/18 ms) + 0.75 e^(−TE/78 ms) (S0 = 1) plus a little Gaussian noise (SD 0.002, seeded, so it is the same every time). Each component is an arrow on the T2 plot: drag it left or right to set its T2, up or down to set its share of the signal; the other arrow takes the rest, as the shares add up to 100% (S0 = 1). The red curve is the model, the dashed curves its two parts, and the fit error is the RMS difference from the echoes (the noise alone gives about 0.2%). Fit one exponential overlays the best single exponential: about T2 = 69 ms here (S0 = 0.89), it cannot follow the data: it starts too low and cuts through the echoes. With Log scale, a single exponential is a straight line, and the two-component data bend: a fast drop (component 1) then a slower slope (component 2). The answer: component 1 is myelin water (18 ms, 25%), component 2 intra/extracellular water (78 ms, 75%), so MWF = 25%. Show answer draws them as dashed arrows. Fairly different pairs can still draw a similar curve: look at the residuals strip under the decay. The true values leave random scatter around zero; a wrong pair leaves a systematic wave. This is why real MWF fits need many echoes and a high SNR, and fit a whole T2 distribution, as on the next slides.</aside>
 </section>
 
+<section class="lesson" data-book="exercises">
+  <p class="kicker">What we saw · 1</p>
+  <h2>Two components shape different parts of the decay</h2>
+  <ul>
+    <li>The short component (myelin water) makes the fast drop of the first ~50 ms; the long one sets the slope of the tail.</li>
+    <li>One exponential cannot follow both: its best fit (about 69 ms) misses the early echoes.</li>
+    <li>Different pairs can draw almost the same curve: only the residuals tell them apart, so separating components needs many echoes and a high SNR.</li>
+  </ul>
+  <aside class="notes">Lesson of part (a). The voxel was 25% at <i>T</i><sub>2</sub> = 18 ms and 75% at 78 ms: by TE = 50 ms the short component has dropped to about 6% of its start (e^(−50/18)), so the early echoes carry it and the late ones only the long component. On a log scale, a single exponential is a straight line and the two-component data bend. The best single exponential (about 69 ms, S0 = 0.89) starts too low and cuts through the echoes. Fairly different pairs fit within the noise, which is why real MWF methods fit a whole <i>T</i><sub>2</sub> distribution with regularization rather than two free exponentials.</aside>
+</section>
+
 <section class="ex t2-pixel" data-book="exercises">
   <div class="ex-layout">
     <h2>The T<sub>2</sub> distribution of a pixel</h2>
@@ -68,6 +79,17 @@
     <p class="data-credit">Data: human brain at 3 T, Dvorak <i>et al.</i>, <a href="https://doi.org/10.5281/zenodo.8049179" target="_blank" rel="noopener">CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Changed: one slice, cropped, 8-bit; T<sub>2</sub> fits added.</p>
   </div>
   <aside class="notes">One axial slice of a healthy volunteer’s brain, through the genu and splenium of the corpus callosum: a 3D multi-echo spin echo at 3 T (the CALIPR protocol of Dvorak et al. 2023), 56 echoes 6 ms apart (TE = 6 to 336 ms), TR = 1252 ms, acquired at 1.7 mm and reconstructed at 1 mm. The slider picks the echo shown (each echo with its own grey scale, as the late ones are much darker); a click picks a pixel. Top right: that pixel’s T2 distribution, the amount of signal at each T2 (60 values, 4 ms to 2 s, log scale). Bottom right: its 56 echoes, with the decay the distribution predicts in red, and the echo on screen marked. The distributions were fitted offline (tools/prep_mwf_calipr.py): non-negative least squares on an extended phase graph basis, with the refocusing angle fitted per pixel and then smoothed over the brain (about 140° to 175°, as B1 varies), and a constant for the noise floor, lightly smoothed. The slide starts in the splenium: two peaks, myelin water near 14 ms and intra/extracellular water near 90 ms. In grey matter the short peak is small or absent. In some white-matter pixels the short peak sits at the very bottom of the range (4 ms): with this much noise the fit cannot place it more precisely. Data: Dvorak et al., CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179, CC BY 4.0 (volunteer 2, first brain scan, slice 22; cropped, 8-bit; T2 fits added).</aside>
+</section>
+
+<section class="lesson" data-book="exercises">
+  <p class="kicker">What we saw · 2</p>
+  <h2>A <i>T</i><sub>2</sub> distribution in every pixel</h2>
+  <ul>
+    <li>White matter: two peaks, myelin water below 40 ms and intra/extracellular water near 70 ms.</li>
+    <li>Grey matter: one main peak (near 75 ms), with little or no myelin water. Fluid (CSF): its signal sits at the long end, above 1 s.</li>
+    <li>The distribution is a fit to noisy echoes: in some pixels the short peak lands at the bottom of the range.</li>
+  </ul>
+  <aside class="notes">Lesson of part (b). On this slice, white matter (published MWF above 10%) has its main peak near 69 ms and a myelin water fraction of about 14% of the signal below 40 ms; grey-matter-like pixels have their main peak near 76 ms and, in most of them, less than 5% below 40 ms; CSF has over 90% of its signal above 200 ms. The distributions are NNLS fits on an EPG basis with mild smoothing: with this much noise, the short peak is not placed precisely, and in about 40% of white-matter pixels part of it sits at 4 ms, the bottom of the range.</aside>
 </section>
 
 <section class="ex mwf-map" data-book="exercises">
@@ -96,6 +118,30 @@
     <p class="data-credit">Data: human brain at 3 T, Dvorak <i>et al.</i>, <a href="https://doi.org/10.5281/zenodo.8049179" target="_blank" rel="noopener">CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Changed: one slice, cropped, 8-bit; T<sub>2</sub> fits added.</p>
   </div>
   <aside class="notes">The pixel picked on the previous slide, with two rectangles on its T2 distribution: MW (myelin water) and IEW (intra/extracellular water), the book’s names. Each spans the full height; drag to move, drag an edge to stretch or shrink (they start off target, MW at 30–50 ms and IEW at 150–400 ms). Each rectangle’s ends are written above it, and in the line above the plot, which follows the drag live. Generate MWF map then computes, at every pixel of the slice, MWF = S_MW / (S_MW + S_IEW), the book’s Eq. 3.8 at TE = 0, with S the area of the pixel’s distribution inside each rectangle, and draws the map on a fixed colour scale, 0 to 30% (pixels with most of their signal outside both rectangles, the fluid in the ventricles and sulci, are grey: a tiny MW over an even tinier IEW would mean nothing). Hover for values; the saved pixel is outlined in red, with ticks pointing at it (dark on the Difference tab), and its hover says “your pixel”. Above the map: the pixel’s MWF, the previous map’s value, and the published value; then the mean difference from the published map over the brain, in MWF points (a grey fluid pixel counts as 0), with the previous map’s. Once a map is drawn, a click on it picks another pixel, on any tab: its distribution replaces the one on the left, and the readout follows. The tabs switch between your map, the authors’ own map of the same slice (Published: their regularized NNLS, myelin water below 40 ms; resampled from the volunteer’s T1-weighted space), and the Difference, yours minus theirs (blue: yours lower, red: yours higher, ±15 points). The question, with answers: the lowest mean difference is about 3.0%, with MW from the bottom of the range up to about 35–40 ms (the gap between the two peaks) and IEW from there to the end of the range (2 s). Why: MW must take the whole short peak and nothing of the long one, and the cut sits in the gap between them, where the authors also put it (40 ms). The IEW rectangle does best when it takes all the rest of the signal, because their MWF divides the myelin water by the pixel’s whole signal; IEW 40–200 ms, their window for the IEW T2, gives 3.2%. Starting MW above the bottom (8 ms: 4.4%) or ending it at 50 ms (5.5%) does worse. Why it cannot reach zero (the note under the distribution, on the Difference tab): (1) their fit is regularized in space, each pixel’s T2 distribution and refocusing angle pulled towards its neighbours’, while ours fits each pixel on its own (the salt-and-pepper differences); (2) other fit settings (40 T2 values from 4 ms to 10 s, against our 60 from 4 ms to 2 s, and their own regularization); (3) their map was computed on the echo images, registered to the volunteer’s T1-weighted image, and resampled back here, which blurs it slightly, so even an identical fit would not match pixel for pixel. Region averages agree well: white matter about 12% here against 11% in theirs, and 18% against 17% at the starting pixel in the splenium. Data: Dvorak et al., CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179, CC BY 4.0.</aside>
+</section>
+
+<section class="lesson" data-book="exercises">
+  <p class="kicker">What we saw · 3</p>
+  <h2>An MWF map depends on how it is made</h2>
+  <ul>
+    <li>MWF is highest in white matter: the corpus callosum and the internal capsules, about 12% here.</li>
+    <li>Closest to the published map (mean difference about 3%): MW ending in the gap between the peaks (35–40 ms), IEW taking everything after it.</li>
+    <li>It cannot reach zero: their fit pulls each pixel towards its neighbours. Compare MWF values only between maps made the same way, and over regions rather than single pixels.</li>
+  </ul>
+  <aside class="notes">Lesson of part (c). White-matter MWF on this slice: about 12% with the authors’ windows, against 11% in their map; 18% against 17% at the starting pixel in the splenium. The lowest mean difference, about 3.0%, comes with MW from the bottom of the range to about 35–40 ms and IEW from there to 2 s, because their MWF divides the myelin water by the whole signal; their IEW window of 40–200 ms gives 3.2%. What is left is the fit: their spatial regularization (smoother, less noisy pixels), other fit settings, and the resampling of their map from the volunteer’s T1-weighted space. MWF values from different methods, sequences or field strengths are not directly comparable.</aside>
+</section>
+
+<section class="lesson summary-lessons" data-book="exercises">
+  <p class="kicker">Lessons</p>
+  <h2>Myelin water</h2>
+  <ol>
+    <li><b>Two components:</b> the short one shapes the early echoes, the long one the tail; one exponential cannot follow both.</li>
+    <li><b>Separating them</b> takes many echoes and a high SNR: different pairs can fit almost equally well.</li>
+    <li><b>A <i>T</i><sub>2</sub> distribution per pixel:</b> two peaks in white matter, one in grey matter, a long tail in fluid.</li>
+    <li><b>MWF:</b> the share of signal in the short peak, highest in white matter (about 12% here).</li>
+    <li><b>Method matters:</b> windows and regularization change MWF; compare maps made the same way, over regions.</li>
+  </ol>
+  <aside class="notes">The lessons of Exercise 2-4, in order.</aside>
 </section>
 
 </div>
