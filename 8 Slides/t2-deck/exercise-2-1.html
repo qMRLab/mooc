@@ -18,10 +18,11 @@
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">T<sub>2</sub> Mapping · Exercise 2-1</p>
   <h2>RF phase and spin echoes</h2>
-  <ol class="intro-plan">
-    <li>How the RF phase (+x, −x, +y, −y) manipulates the magnetization during an RF pulse</li>
-    <li>Spin echoes with perfect pulses, and with B<sub>1</sub> inhomogeneity (imperfect pulses)</li>
-    <li>Single-point measurements of <i>T</i><sub>2</sub> and <i>T</i><sub>2</sub><sup>*</sup></li>
+  <ol class="intro-plan alpha">
+    <li><b>Pulse phase:</b> which way does each RF phase (±x, ±y) turn the magnetization?</li>
+    <li><b>Refocusing:</b> after the 90°, which pulse brings the spins back together?</li>
+    <li><b>Spin echo:</b> when and where does the echo form?</li>
+    <li><b>One echo:</b> does a single echo measure <i>T</i><sub>2</sub> or <i>T</i><sub>2</sub><sup>*</sup>?</li>
   </ol>
 </section>
 
@@ -60,7 +61,7 @@
     <h2>Game: hit the targets</h2>
     <div class="ex-cols even">
       <div class="ex-text">
-        <p class="game-prompt">Steer M into each target, using as little RF as you can.</p>
+        <p class="game-prompt">(a) Steer M into each target, using as little RF as you can.</p>
         <p>Reaching a target ends the pulse, and the next target appears. There is no clock. Two scores, both lower is better:</p>
         <ul class="small">
           <li><b>RF pulses:</b> each key press is one pulse. It lasts until you let go, or until M reaches the target.</li>
@@ -90,7 +91,7 @@
     <h2>A fan of spins, TE/2 after the 90°</h2>
     <div class="ex-cols even">
       <div class="ex-text">
-        <p class="game-prompt">Question: which pulse brings the spins back together at TE?</p>
+        <p class="game-prompt">(b) Which pulse brings the spins back together at TE?</p>
         <p>The 90° about +x tipped M onto −y. A time <b>TE/2</b> has passed since: the spins have fanned out by about 60°, the <b class="c-fast">red</b> ones precessing faster and the <b class="c-slow">blue</b> ones slower. The black arrow, M, is their sum.</p>
         <label class="fan-flip">Flip angle <input data-fan-flip type="range" min="0" max="180" step="5" value="180"> <b><span data-show="fan-flip">180</span>°</b></label>
         <div class="keys-row">
@@ -124,7 +125,7 @@
 <section class="ex lab-se" data-book="exercises">
   <div class="ex-layout">
     <h2>A spin echo</h2>
-    <p class="game-prompt">Question: before you press, predict where the echo will form.</p>
+    <p class="game-prompt">(c) Before you press, predict where the echo will form.</p>
     <p class="lab-intro">Press Play: the 90° fires on its own at <i>t</i> = 0 and the spins fan out. Then press an arrow <b>whenever you like</b>: a 180° fires at once, and an <b class="c-se">SE</b> marker shows where the echo will form.</p>
     <div class="game-cols">
       <div class="game-time">
@@ -159,6 +160,7 @@
 <section class="ex single-echo" data-book="exercises">
   <div class="ex-layout">
     <h2>Measuring <i>T</i><sub>2</sub> (or <i>T</i><sub>2</sub>*) from one echo</h2>
+    <p class="game-prompt">(d) Measure once with the 180° and once without: which gives <i>T</i><sub>2</sub>, and which <i>T</i><sub>2</sub>*?</p>
     <ol class="how-to">
       <li>Press <b>▶ Play</b>. The 90° fires by itself at <i>t</i> = 0.</li>
       <li>When the <span class="sym-box">?</span> reaches the black line (at <b class="c-ref">TE/2</b>), press any arrow key: that fires the 180°.</li>

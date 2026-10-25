@@ -19,13 +19,18 @@
   <p class="kicker">T<sub>2</sub> Mapping · Exercise 2-4</p>
   <h2>Myelin water</h2>
   <p class="subtitle">A T<sub>2</sub> distribution in every pixel</p>
+  <ol class="intro-plan alpha">
+    <li><b>Two components:</b> which part of the decay does each <i>T</i><sub>2</sub> component contribute to?</li>
+    <li><b>A pixel’s <i>T</i><sub>2</sub> distribution:</b> how does white matter differ from grey matter?</li>
+    <li><b>MWF map:</b> which <i>T</i><sub>2</sub> ranges best match the published map, and why?</li>
+  </ol>
   <p class="data-credit">Data: human brain at 3 T, Dvorak <i>et al.</i>, <a href="https://doi.org/10.5281/zenodo.8049179" target="_blank" rel="noopener">CALIPR Framework Myelin Water Imaging Supporting Data, Zenodo, doi:10.5281/zenodo.8049179</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Changed: one slice, cropped, 8-bit; T<sub>2</sub> fits added.</p>
 </section>
 
 <section class="ex biexp" data-book="exercises">
   <div class="ex-layout">
     <h2>Two components in one voxel</h2>
-    <p class="game-prompt">These echoes come from one voxel with <b>two components</b>. What is the T<sub>2</sub> of each, and what share of the signal does each have?</p>
+    <p class="game-prompt">(a) These echoes come from one voxel with <b>two components</b>. What is the T<sub>2</sub> of each, and what share of the signal does each have?</p>
     <div class="ex-cols">
       <div class="biexp-controls">
         <svg class="biexp-t2" viewBox="0 0 520 268" role="img" aria-label="T2 plot: two arrows, one per component; drag left or right to set its T2, up or down to set its share"></svg>
@@ -51,7 +56,7 @@
 <section class="ex t2-pixel" data-book="exercises">
   <div class="ex-layout">
     <h2>The T<sub>2</sub> distribution of a pixel</h2>
-    <p class="game-prompt">Find a pixel in white matter: the next slide uses it.</p>
+    <p class="game-prompt">(b) Compare a white-matter and a grey-matter pixel, then leave a white-matter one picked: the next slide uses it.</p>
     <div class="ex-cols even">
       <div class="echo-col">
         <canvas class="echo-image" width="900" height="900" aria-label="Multi-echo image; click a pixel"></canvas>
@@ -73,7 +78,7 @@
       <li>Put <b style="color:#a8538a">MW</b> (myelin water) and <b style="color:#b9770e">IEW</b> (intra/extracellular water) on the two components.</li>
       <li>Click <b>Generate MWF map</b>: at every pixel, $$\mathrm{MWF} = \frac{S_{MW}}{S_{MW} + S_{IEW}}$$ with <i>S</i> the area of that pixel’s distribution inside each rectangle.</li>
     </ol>
-    <p class="game-prompt mwf-q">How low can you get the mean difference from the published map? Which ranges did you choose, and why?</p>
+    <p class="game-prompt mwf-q">(c) How low can you get the mean difference from the published map? Which ranges did you choose, and why?</p>
     <div class="ex-cols even">
       <div class="mwf-left">
         <p class="small mwf-pixel-note">Your pixel (click the map for another) · <span data-show="ranges"></span></p>

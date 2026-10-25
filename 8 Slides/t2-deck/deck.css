@@ -262,6 +262,7 @@
 .reveal ol.intro-plan { display: block; list-style: decimal outside; font-size: 0.95em; color: var(--muted); margin: 0 0 0.9em 1.4em; }
 .reveal ol.intro-plan li + li { margin-top: 0.3em; }
 .reveal ol.intro-plan.alpha { list-style: lower-alpha outside; color: var(--ink); font-size: 0.85em; }
+.reveal ol.intro-plan.alpha li::marker { content: counter(list-item, lower-alpha) ")  "; }
 .reveal .ex-text .game-prompt { font-size: 0.95em; margin-bottom: 0.4em; }
 .reveal .lab-intro + .imp-controls, .reveal .game-prompt + .lab-intro { margin-top: 0.1em; }
 
