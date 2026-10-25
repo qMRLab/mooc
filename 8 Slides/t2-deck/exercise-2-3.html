@@ -20,10 +20,10 @@
   <h2>Measuring <i>T</i><sub>2</sub> with an echo train</h2>
   <p class="subtitle">How an echo train measures <i>T</i><sub>2</sub> in ideal conditions, what imperfect pulses do to it, and how to overcome them with the CPMG condition.</p>
   <ol class="intro-plan alpha">
-    <li>With perfect pulses, which phase directions give the best <i>T</i><sub>2</sub>?</li>
-    <li>With B<sub>1</sub> = 0.89 (80° and 160° pulses), which give the best <i>T</i><sub>2</sub> now?</li>
-    <li>With B<sub>1</sub> = 0.67 (60° and 120°), which echoes would you fit?</li>
-    <li>Without any refocusing pulses, what do you measure?</li>
+    <li><b>Perfect pulses:</b> which phase patterns give the best (and worst) <i>T</i><sub>2</sub>?</li>
+    <li><b>Slight flip-angle errors (B<sub>1</sub> = 0.89):</b> which pulse patterns are best and worst now?</li>
+    <li><b>Large flip-angle errors (B<sub>1</sub> = 0.67):</b> even with the best pattern, which echoes would you fit?</li>
+    <li><b>Sandbox:</b> what do you measure without any refocusing pulses?</li>
   </ol>
 </section>
 
@@ -249,6 +249,7 @@
 <section class="ex echo-sandbox" data-book="exercises">
   <div class="ex-layout">
     <h2>Sandbox: every setting</h2>
+    <p class="game-prompt">(d) Play the Lorentzian fan with no refocusing pulses at all: what does the fit give?</p>
     <div class="sandbox-controls">
       <label>Excitation <input data-set="exc" type="number" min="1" max="180" step="5" value="90">°</label>
       <label>Refocusing <input data-set="flip" type="number" min="1" max="360" step="5" value="180">°</label>
