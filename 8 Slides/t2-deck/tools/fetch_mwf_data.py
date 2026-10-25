@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Fetch Exercise 2-4's data from qMRLab/mooc-data and write js/data/mwfSheep.js, which the slides load.
+"""Fetch Exercise 2-4's data from qMRLab/mooc-data and write js/data/mwfData.js, which the slides load.
 
-The data (one slice of sheep brain at 7 T, with a T2 distribution per pixel, made by tools/prep_mwf_sheep.py) is
-CC BY-NC 4.0, so it is not committed here: the book's deploy workflow runs this script before copying the deck.
-The zip is checked against its SHA-256 before use. js/data/ and data/ are git-ignored.
+The data (one slice of human brain at 3 T, with a T2 distribution per pixel and the authors' MWF map, made by
+tools/prep_mwf_calipr.py) is CC BY 4.0. At a few MB it is kept out of the repository: the book's deploy workflow runs
+this script before copying the deck. The zip is checked against its SHA-256 before use. js/data/ and data/ are
+git-ignored.
 
 Usage (from the t2-deck folder):
-    python3 -I tools/fetch_mwf_data.py            # download if needed, then write js/data/mwfSheep.js
+    python3 -I tools/fetch_mwf_data.py            # download if needed, then write js/data/mwfData.js
     python3 -I tools/fetch_mwf_data.py --force    # download again
 """
 import base64
@@ -23,12 +24,12 @@ import nibabel as nib
 import numpy as np
 
 DECK = Path(__file__).resolve().parents[1]
-URL = "https://github.com/qMRLab/mooc-data/releases/download/v1.3/03-T2-04-MWF-sheep.zip"
-SHA256 = "be85e631213a7f057c85482f21bf21410cfb5d1c2332e13bf29d3eb1474879c7"
-NAME = "mwf-sheep-2-4"               # the folder inside the zip
+URL = "https://github.com/qMRLab/mooc-data/releases/download/v1.4/03-T2-04-MWF-human.zip"
+SHA256 = "772279314d488c2486bd9790e2cccb12d7b0df4615cc1d929d74ddaa556dbd34"
+NAME = "mwf-human-2-4"               # the folder inside the zip
 RELEASE = DECK / "data" / NAME
-OUT = DECK / "js" / "data" / "mwfSheep.js"
-START = (72, 67)                     # the pixel the slide starts on: white matter where a branch meets the stem
+OUT = DECK / "js" / "data" / "mwfData.js"
+START = (118, 70)                    # the pixel the slide starts on: white matter in the splenium of the corpus callosum
 
 
 def fetch(force=False):
@@ -58,6 +59,7 @@ def build():
     spec = load("t2_distributions.nii.gz")[:, :, 0, :]
     alpha = load("refocusing_angle_deg.nii.gz")[:, :, 0]
     floor = load("noise_floor.nii.gz")[:, :, 0]
+    published = load("published_mwf.nii.gz")[:, :, 0]
     t2 = np.loadtxt(RELEASE / "t2_ms.txt")
     fit = json.loads((RELEASE / "fit.json").read_text())
     h, w, ne = img.shape
@@ -70,7 +72,7 @@ def build():
     spec_q = np.where(peak[..., None] > 0, np.round(255 * spec / np.maximum(peak[..., None], 1e-12)), 0).astype(np.uint8)
 
     data = {
-        "source": "Murguia et al. 2025, Deep Blue Data, doi:10.7302/dp7t-c323 (CC BY-NC 4.0); sample S1 fresh, slice 3; magnitude, cropped, 8-bit",
+        "source": "Dvorak et al. 2023, Zenodo, doi:10.5281/zenodo.8049179 (CC BY 4.0); volunteer 2, brain scan 1, slice 22; cropped, 8-bit",
         "w": int(w), "h": int(h), "ne": int(ne), "esp": float(fit["esp_ms"]), "t1": float(fit["t1_ms"]),
         "t2": [round(float(t), 3) for t in t2],
         "echoes": b64(q),                                  # uint8 [row][col][echo]; signal = (q/255)^2 * smax
@@ -80,14 +82,15 @@ def build():
         "peak": b64(peak.astype(np.float32)),              # float32 [row][col]
         "alpha": b64(np.round(alpha).astype(np.uint8)),    # refocusing angle, degrees
         "floor": b64(floor.astype(np.float32)),            # float32 [row][col]: the fitted noise floor
+        "published": b64(np.round(250 * np.clip(published, 0, 1)).astype(np.uint8)),  # the authors' MWF x 250
         "start": list(START),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(
         "// Exercise 2-4's data, written by tools/fetch_mwf_data.py from qMRLab/mooc-data. Do not edit.\n"
-        "// Sheep brain, multi-echo spin echo at 7 T: Murguia et al., University of Michigan Deep Blue Data,\n"
-        "// https://doi.org/10.7302/dp7t-c323, CC BY-NC 4.0. Changed: one slice, magnitude, cropped, 8-bit, T2 fits added.\n"
-        f"window.MWFSheep = {json.dumps(data)};\n"
+        "// Human brain, multi-echo spin echo at 3 T: Dvorak et al., CALIPR Framework Myelin Water Imaging Supporting Data,\n"
+        "// Zenodo, https://doi.org/10.5281/zenodo.8049179, CC BY 4.0. Changed: one slice, cropped, 8-bit, T2 fits added.\n"
+        f"window.MWFData = {json.dumps(data)};\n"
     )
     print(f"{OUT.relative_to(DECK)}  {OUT.stat().st_size / 1024:.0f} KB  ({h} x {w} pixels, {int(mask.sum())} in the tissue)")
 

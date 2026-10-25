@@ -173,7 +173,7 @@ test('Exercises 2-1 to 2-4: pages link each other, load their scripts, and label
     assert.equal(p.books.length, p.sections, `${f}: each <section> needs data-book`);
     for (const label of p.books) assert.ok(deck.LABELS[label], `${f}: no LABELS entry for "${label}"`);
     for (const src of p.scripts) {
-      // js/data/ is written at build time by tools/fetch_mwf_data.py (the data is CC BY-NC, so it is not committed)
+      // js/data/ is written at build time by tools/fetch_mwf_data.py (the data lives in qMRLab/mooc-data, not here)
       if (src.startsWith('js/data/')) assert.ok(fs.existsSync(path.join(DECK, 'tools', 'fetch_mwf_data.py')), `${f}: ${src} has no fetch script`);
       else assert.ok(fs.existsSync(path.join(DECK, src)), `${f}: missing ${src}`);
     }

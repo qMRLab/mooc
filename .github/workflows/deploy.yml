@@ -59,7 +59,7 @@ jobs:
         run: |
           source venv/bin/activate
           myst build --html
-      # Exercise 2-4's data (CC BY-NC) is not committed: fetch it from qMRLab/mooc-data and write the deck's data file.
+      # Exercise 2-4's data is not committed: fetch it from qMRLab/mooc-data and write the deck's data file.
       - name: Fetch slide data
         run: |
           source venv/bin/activate

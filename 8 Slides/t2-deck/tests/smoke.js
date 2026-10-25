@@ -43,16 +43,20 @@ async function checkInteractive(browser, file, label) {
       else { const r = onBeat(G, 'ArrowUp'); const t2 = G.fitT2(r.te, r.m).t2; if (Math.abs(t2 - 80) > 1) out.push(`perfect pulses fit T2 = ${t2.toFixed(1)} ms, not 80`); }
     }
     if (f === 'exercise-2-4.html') {
-      if (!window.MWFSheep) out.push('no data: run python3 -I tools/fetch_mwf_data.py first');
+      if (!window.MWFData) out.push('no data: run python3 -I tools/fetch_mwf_data.py first');
       else if (!window.MWFPixel) out.push('the T2 distribution slide did not start');
+      if (!window.BiExp) out.push('the two-component slide did not start');
     }
     return out;
   }, file);
   problems.push(...check.map((c) => `${tag}: ${c}`));
   if (file === 'exercise-2-4.html' && !check.length) {
-    await page.evaluate(() => Reveal.slide(2)); await page.waitForTimeout(800);
+    await page.evaluate(() => Reveal.slide(Reveal.getSlides().findIndex((s) => s.classList.contains('mwf-map')))); await page.waitForTimeout(800);
     await page.click('[data-generate]'); await page.waitForTimeout(800);
     if (!(await page.evaluate(() => !!document.querySelector('.mwf-map-host .main-svg')))) problems.push(`${tag}: Generate MWF map drew nothing`);
+    if (!/Mean difference/.test(await page.locator('.mwf-score').innerText())) problems.push(`${tag}: no mean difference from the published map`);
+    await page.click('[data-view="diff"]'); await page.waitForTimeout(400);
+    if (!(await page.evaluate(() => /difference/.test(document.querySelector('.mwf-map-host').textContent)))) problems.push(`${tag}: the Difference tab drew nothing`);
   }
   problems.push(...errors.map((e) => `${tag}: ${e}`));
   await page.close();
