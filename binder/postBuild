@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+"""Binder: download the book's data (data_requirement.json) into data/qmrlab-mooc/, where the notebooks look for it.
+
+repo2data resolves each "dst" ("../data") from the working directory, so each download starts from binder/ (a failed
+download can leave the working directory elsewhere). Each dataset is downloaded on its own, so that one failed
+download (e.g. Google Drive's quota) does not stop the others.
+"""
+import json
+import os
+import tempfile
+
+from repo2data.repo2data import Repo2Data
+
+BINDER = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(BINDER, "data_requirement.json")) as f:
+    requirements = json.load(f)
+for name, requirement in requirements.items():
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+        json.dump(requirement, f)
+    try:
+        os.chdir(BINDER)
+        Repo2Data(f.name).install()
+    except Exception as e:
+        print(f"postBuild: {name} not downloaded: {e}")
+    finally:
+        os.remove(f.name)
