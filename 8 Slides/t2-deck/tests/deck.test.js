@@ -16,7 +16,7 @@ const figLabels = all(/data-fig="([^"]+)"/g);
 const scripts = all(/<script src="([^"]+)"/g);
 
 // Trace and control counts of the figures as published by the book (checked 2026-10-19).
-// Figure 3.6 (t2Plot7) has no published output, and there is no t2Plot6.
+// There is no t2Plot6 or t2Plot7 (Figure 3.6 is t2Plot5, Figure 3.7 is t2Plot8).
 const PUBLISHED = {
   t2Plot1: { traces: 5, sliders: 0, menus: 1 },
   t2Plot2: { traces: 4, sliders: 0, menus: 1 },
@@ -41,7 +41,7 @@ test('book links point at the chapter with the book’s numbering', () => {
   });
   assert.deepEqual(deck.bookLink('top'), { href: 'https://qmrlab.org/mooc/t2-mapping', text: 'T2 Mapping' });
   assert.equal(deck.bookLink('t2multiexpo').text, 'Multiexponential T2 Mapping');
-  assert.equal(deck.bookLink('t2plot5').text, 'Figure 3.7 · Multiexponential T2 Mapping');
+  assert.equal(deck.bookLink('t2plot5').text, 'Figure 3.6 · Multiexponential T2 Mapping');
   assert.throws(() => deck.bookLink('nope'), /Unknown book label/);
 });
 

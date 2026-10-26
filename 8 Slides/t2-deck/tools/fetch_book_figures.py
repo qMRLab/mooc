@@ -19,7 +19,7 @@ DECK = Path(__file__).resolve().parents[1]
 OUT = DECK / "js" / "figures"
 SITE = "https://qmrlab.org"
 PLOTLY = "application/vnd.plotly.v1+json"
-# The book has no t2Plot6, and Figure 3.6 (t2Plot7) has no published output: its notebook is not built.
+# The book has no t2Plot6 or t2Plot7 (Figure 3.6 is t2Plot5, Figure 3.7 is t2Plot8).
 LABELS = ["t2Plot1", "t2Plot2", "t2Plot3", "t2Plot4", "t2Plot5", "t2Plot8"]
 # Each chapter page and the figures taken from it. Exercise 2-3's intermezzo uses the B1 chapter's Figure 4.13.
 PAGES = {"t2-mapping": LABELS, "b1-mapping": ["afiPlot8"]}
