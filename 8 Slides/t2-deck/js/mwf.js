@@ -3,7 +3,7 @@
  * distribution, and its echoes with the decay that distribution predicts (an EPG train at the pixel's fitted
  * refocusing angle, plus its fitted noise floor, as in the fit). The next slide takes that pixel: two rectangles on its
  * T2 distribution, MW and IEW, set the T2 ranges, and "Generate MWF map" computes MWF = S_MW / (S_MW + S_IEW) at every
- * pixel from the areas of each pixel's distribution inside them (the book's Eq. 3.8 at TE = 0), beside the authors'
+ * pixel from the areas of each pixel's distribution inside them (the book's Eq. 3.8), beside the authors'
  * own MWF map of the same slice. */
 (function () {
   'use strict';
