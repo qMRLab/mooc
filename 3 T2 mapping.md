@@ -534,7 +534,7 @@ As described by [](#t2Eq8), MWF represents the proportion of the MRI signal attr
 :label: t2Eq8
 :enumerator:3.8
 \begin{equation}
-\textit{MWF} = \frac{S_{MW}e^{-TE/T_{2,MW}}}{S_{MW}e^{-TE/T_{2,MW}} + S_{IEW}e^{-TE/T_{2,IEW}}}
+\textit{MWF} = \frac{S_{MW}}{S_{MW} + S_{IEW}}
 \end{equation}
 ```
 
