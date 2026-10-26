@@ -40,11 +40,11 @@
     'data-fitting-1': ['Data Fitting', 'multi'],
     t2eq6: ['Eq. 3.6', 'multi'],
     t2eq7: ['Eq. 3.7', 'multi'],
-    t2plot5: ['Figure 3.7', 'multi'],
+    t2plot5: ['Figure 3.6', 'multi'],
     'myelin-water-fraction-mwf-imaging': ['Myelin Water Fraction Imaging', 'multi'],
     t2eq8: ['Eq. 3.8', 'multi'],
     't2-and-quantitative-susceptibility-mapping-qsm': ['T2* and QSM', 'multi'],
-    t2plot8: ['Figure 3.8', 'multi'],
+    t2plot8: ['Figure 3.7', 'multi'],
     'benefits-and-pitfalls-of-multi-exponential-t2-mapping': ['Benefits and Pitfalls', 'multi'],
   };
 

@@ -329,7 +329,7 @@
 .nav-zone[hidden] { display: none; }
 @media print { .nav-zone { display: none; } }
 
-/* Exercise 2-4: the echo image to click, its echo slider, and the data credit (CC BY-NC). */
+/* Exercise 2-4: the echo image to click, its echo slider, and the data credit (CC BY 4.0). */
 .reveal .echo-col { display: flex; flex-direction: column; align-items: center; min-height: 0; }
 .reveal canvas.echo-image { width: auto; height: auto; max-width: 100%; max-height: 72%; aspect-ratio: 1; cursor: crosshair; border-radius: 4px; }
 .reveal .echo-pick { display: flex; align-items: center; gap: 0.5em; font-size: 0.55em; margin-top: 0.4em; }
