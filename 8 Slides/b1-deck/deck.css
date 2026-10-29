@@ -218,7 +218,7 @@
 .reveal .fit-result { font-size: 1em; }
 .reveal .fit-result .big { font-size: 1.6em; font-weight: 700; }
 
-/* exercises.html: the list of worked solutions. */
+/* The list of worked solutions (exercises decks). */
 .reveal .exercise-list li { font-size: 0.9em; }
 .reveal .exercise-list a { text-decoration: none; }
 .reveal .exercise-list + p { margin-top: 1.6em; }

@@ -1,8 +1,8 @@
 # B1 Mapping slides (work in progress)
 
-Slides for the [B1 Mapping chapter](https://qmrlab.org/mooc/b1-mapping) of the qMRLab mOOC: a lecture deck (`index.html`, draft) and a deck of interactive exercises (`exercises.html`). Same static-folder format as the T1 and T2 decks, but the exercises fetch a WebAssembly module, so serve the folder over HTTP (`python3 -m http.server`) rather than opening it from `file://`.
+Slides for the [B1 Mapping chapter](https://qmrlab.org/mooc/b1-mapping) of the qMRLab mOOC: a lecture deck (`index.html`, draft) and a brainstorm deck of interactive slides (`brainstorm.html`), the working pool for a clean exercises deck. Same static-folder format as the T1 and T2 decks, but the interactive slides fetch a WebAssembly module, so serve the folder over HTTP (`python3 -m http.server`) rather than opening it from `file://`.
 
-## Exercises (`exercises.html`)
+## Brainstorm (`brainstorm.html`)
 
 - **Why is B1 not uniform?** B1+ in the Sled & Pike (1998) elliptic phantom at 1.5 or 3 T, with a resistivity slider: the paper's exact Mathieu-function solution, solved live in the browser (`js/sledpike.wasm`, source in `sledpike-rs/`).
 - **Orientation:** the same phantom turned inside a fixed circularly polarized coil (3 T).
