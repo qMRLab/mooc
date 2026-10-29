@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B1 Mapping · qMRI mOOC slides (mockup)</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+  <style>
+    .reveal .card.da { --card: #0072b2; }
+    .reveal .card.afi { --card: #e69f00; }
+    .reveal .card.bs { --card: #009e73; }
+    .reveal .what-cols { grid-template-columns: 1.35fr 1fr; gap: 30px; }
+    .reveal .what-cols ul { font-size: 0.8em; }
+    .reveal .what-cards { margin-top: 0.7em; gap: 18px; }
+    .reveal .fam-head { font-size: 0.72em; margin: 1.8em 0 0; }
+    .reveal .what-cards .card { padding: 12px 16px; font-size: 0.66em; }
+    .reveal .what-cards .card h3 { font-size: 1.12em; margin-bottom: 0.25em; white-space: nowrap; }
+    .reveal .what-cards .card p { margin: 0; }
+    .reveal .b1map-wrap { position: relative; width: 470px; height: 440px; margin: 10px auto 0; display: flex; align-items: center; gap: 14px; }
+    .reveal .b1map-host { width: 390px; height: 440px; flex: none; }
+    /* Colour maps: a round button in the map's corner, shown on hover; it opens a panel of colour bars. */
+    .reveal .cmap-btn { position: absolute; top: 6px; left: 6px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--rule); background: rgba(255, 255, 255, 0.92); color: var(--muted); font-size: 16px; line-height: 1; cursor: pointer; opacity: 0; transition: opacity 0.15s; padding: 0; }
+    .reveal .b1map-wrap:hover .cmap-btn, .reveal .cmap-btn:focus-visible, .reveal .cmap-btn[aria-expanded="true"] { opacity: 1; }
+    .reveal .cmap-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .reveal .cmap-pop { position: absolute; top: 42px; left: 6px; width: 190px; background: #fff; border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 6px 18px rgba(29, 39, 51, 0.14); padding: 8px 10px; z-index: 5; }
+    .reveal .cmap-pop[hidden] { display: none; }
+    .reveal .pop-label { font-size: 13px; color: var(--muted); margin: 2px 0 0; }
+    .reveal .pop-label + .pop-label, .reveal .cmap-pop .swatches + .pop-label { margin-top: 10px; }
+    .reveal .cmap-pop .swatches button { display: block; width: 100%; height: 14px; margin: 6px 0; border-radius: 4px; border: 2px solid transparent; padding: 0; cursor: pointer; }
+    .reveal .cmap-pop .swatches button[aria-pressed="true"] { border-color: var(--accent); }
+    .reveal .cmap-pop .swatches button:hover { border-color: var(--muted); }
+    /* Range: the colour bar's two ends are handles. The bar spans B1 0.5 to 1.5. */
+    .reveal .cbar-col { position: relative; height: 340px; width: 66px; flex: none; }
+    .reveal .cbar-title { position: absolute; top: -34px; left: 8px; transform: translateX(-50%); font-size: 18px; white-space: nowrap; }
+    .reveal .unit-toggle { display: flex; margin-top: 5px; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+    .reveal .unit-toggle button { flex: 1; font: inherit; font-size: 14px; line-height: 1; padding: 6px 0; border: none; background: #fff; color: var(--muted); cursor: pointer; }
+    .reveal .unit-toggle button + button { border-left: 1px solid var(--rule); }
+    .reveal .unit-toggle button[aria-pressed="true"] { background: var(--panel); color: var(--ink); font-weight: 700; }
+    .reveal .nominal { display: block; margin-top: 7px; font-size: 14px; color: var(--muted); white-space: nowrap; }
+    .reveal .nominal[hidden] { display: none; }
+    .reveal .nominal input::-webkit-inner-spin-button, .reveal .nominal input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .reveal .nominal input { -moz-appearance: textfield; appearance: textfield; font: inherit; font-size: 14px; width: 2.2em; color: var(--ink); border: none; border-bottom: 1px dotted var(--muted); background: transparent; text-align: right; padding: 0; }
+    .reveal .nominal input:focus { outline: none; border-bottom-color: var(--accent); }
+    .reveal .cbar { position: absolute; left: 0; top: 0; bottom: 0; width: 16px; border-radius: 3px; touch-action: none; }
+    .reveal .cbar-handle { position: absolute; left: -6px; width: 28px; height: 8px; margin-top: -4px; background: #fff; border: 1.5px solid var(--ink); border-radius: 4px; cursor: ns-resize; touch-action: none; }
+    .reveal .cbar-label { position: absolute; left: 30px; margin-top: -10px; font-size: 15px; color: var(--ink); white-space: nowrap; }
+    .reveal .cbar-tick { position: absolute; left: 18px; width: 5px; height: 1px; background: var(--muted); }
+    .reveal .cbar-hint { position: absolute; top: calc(100% + 10px); left: -40px; width: 120px; font-size: 13px; color: var(--muted); text-align: center; opacity: 0; transition: opacity 0.15s; }
+    .reveal .cbar-col:hover .cbar-hint { opacity: 1; }
+    .reveal a.card { display: block; color: inherit; text-decoration: none; transition: none; }
+    .reveal a.card:hover, .reveal a.card:focus-visible { background: #e4ebf2; transform: none; box-shadow: none; }
+    .reveal .method-cols { grid-template-columns: 1.3fr 1fr; gap: 36px; }
+    .reveal .method-cols .seq { display: block; width: 100%; margin: 0.1em 0 0.4em; }
+    .reveal .proto { width: 100%; font-size: 0.66em; border-collapse: collapse; }
+    .reveal .proto th, .reveal .proto td { text-align: left; padding: 0.28em 0.4em; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .reveal .proto th { color: var(--muted); font-weight: 400; width: 38%; }
+    .reveal .family { font-size: 0.62em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.3em; }
+    .reveal .family.da { color: #0072b2; } .reveal .family.afi { color: #b07800; } .reveal .family.bs { color: #00805d; }
+    .reveal .method h2 { margin-bottom: 0.4em; }
+    .reveal .method .lead { font-size: 0.72em; margin: 0 0 0.2em; }
+    .reveal .method .eq-box { font-size: 0.95em; }
+    .reveal .method .ex-head { margin-top: 0.8em; font-size: 0.85em; }
+    .reveal .method .side-head { font-size: 0.85em; margin: 0.75em 0 0; }
+    .reveal .method .side-head:first-child { margin-top: 0; }
+    .reveal .method .assume { font-size: 0.58em; margin: 0.15em 0 0 1.1em; padding: 0; }
+    .reveal .method .assume li { margin: 0.2em 0; }
+    .reveal .cite a { color: inherit; border-bottom: 1px dotted currentColor; text-decoration: none; }
+    .reveal .cite a:hover { color: var(--accent); }
+  </style>
+</head>
+<body class="nav-zones">
+<div class="reveal">
+<div class="slides">
+
+<section>
+  <div class="center-col">
+    <p class="kicker">qMRI mOOC · Chapter 4</p>
+    <h1>B<sub>1</sub> Mapping</h1>
+    <p class="subtitle">Double angle · Actual flip angle imaging · Bloch–Siegert</p>
+    <p class="byline">Slides from the qMRLab mOOC chapter by Mathieu Boudreau and Juan Velázquez-Reyes<br>NeuroPoly Lab, Polytechnique Montréal</p>
+  </div>
+  <a class="book-link" href="https://qmrlab.org/mooc/b1-mapping" target="_blank" rel="noopener">📖 B1 Mapping</a>
+</section>
+
+<section>
+  <h2>What is a B<sub>1</sub> map?</h2>
+  <div class="cols what-cols">
+    <div>
+      <ul>
+        <li>The <b>amplitude of the transmit RF field</b> (B<sub>1</sub><sup>+</sup>) in each voxel: the flip angle you get is <b>B<sub>1</sub> × the flip angle set at the scanner</b></li>
+        <li>Units vary: <b>normalized</b> (1 = as set), <b>flip angle</b> (°), <b>µT</b>, or transmitter <b>volts</b></li>
+        <li><span class="caution">Not a tissue property:</span> the coil’s field, shaped by the <b>body loaded in it</b> <span class="cite">(<a href="https://doi.org/10.1109/42.730409" target="_blank" rel="noopener">Sled &amp; Pike 1998</a>)</span>; up to ±30% across the head at 3 T</li>
+      </ul>
+      <h3 class="fam-head">Three families of B<sub>1</sub> mapping in the mOOC, one example each:</h3>
+      <div class="cards what-cards">
+        <a class="card da" href="https://qmrlab.org/mooc/b1-mapping#double-angle-techniques" target="_blank" rel="noopener"><h3>Recovery-based</h3><p>Double angle method (DAM)</p></a>
+        <a class="card afi" href="https://qmrlab.org/mooc/b1-mapping#actual-flip-angle-imaging" target="_blank" rel="noopener"><h3>Steady-state</h3><p>Actual flip angle imaging (AFI)</p></a>
+        <a class="card bs" href="https://qmrlab.org/mooc/b1-mapping#bloch-siegert" target="_blank" rel="noopener"><h3>Phase-based</h3><p>Bloch–Siegert (BS)</p></a>
+      </div>
+    </div>
+    <div>
+      <div class="b1map-wrap">
+        <div class="b1map-host" aria-label="B1 map of a brain at 3 T"></div>
+        <button class="cmap-btn" aria-label="Display settings" aria-expanded="false" title="Display settings">⚙</button>
+        <div class="cmap-pop" hidden>
+          <p class="pop-label">Colours</p>
+          <div class="swatches"></div>
+          <p class="pop-label">Show</p>
+          <div class="unit-toggle" role="group" aria-label="Units"><button data-unit="b1" aria-pressed="true">B<sub>1</sub></button><button data-unit="fa" aria-pressed="false">Flip angle</button></div>
+          <label class="nominal">set at the scanner: <input data-nominal type="number" min="1" max="180" step="5" value="90">°</label>
+        </div>
+        <div class="cbar-col">
+          <span class="cbar-title">B<sub>1</sub></span>
+          <div class="cbar"></div>
+          <div class="cbar-hint">Drag the ends · double-click to reset</div>
+        </div>
+      </div>
+      <p class="fig-hint">A B<sub>1</sub> map of a brain at 3 T (axial slice).</p>
+    </div>
+  </div>
+  <a class="book-link" href="https://qmrlab.org/mooc/b1-mapping#introduction" target="_blank" rel="noopener">📖 Introduction · B1 Mapping</a>
+</section>
+
+<section class="method">
+  <p class="family da">Recovery-based</p>
+  <h2>Double angle method (DAM)</h2>
+  <div class="cols method-cols">
+    <div>
+      <img class="seq" src="img/seq_da.png" alt="Double angle sequence: excitation alpha or 2 alpha, a 180 degree refocusing pulse, readout, long TR">
+      <p class="lead">Two images, at α and 2α; their ratio gives the actual flip angle:</p>
+      <div class="eq eq-box tight">$$B_1 = \frac{1}{\alpha}\arccos\left(\frac{S_{2\alpha}}{2\,S_{\alpha}}\right)$$</div>
+      <h3 class="muted ex-head">Example values</h3>
+      <table class="proto">
+        <tr><th>α / 2α</th><td>60° / 120°</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3 class="muted side-head">Assumptions</h3>
+      <ul class="assume">
+        <li><b>TR ≫ T<sub>1</sub></b> (≈ 5 T<sub>1</sub>): full M<sub>z</sub> recovery before each excitation</li>
+        <li>Same TE, receive coil and M<sub>0</sub> in both images (they cancel in the ratio)</li>
+        <li>Uniform flip angle through the slice (ideal slice profile)</li>
+        <li>Actual α &lt; 90° (magnitude images can’t tell cos α’s sign)</li>
+      </ul>
+      <h3 class="muted side-head">Benefits</h3>
+      <ul class="assume">
+        <li><b>Simple</b>: a ratio of two magnitude images from a standard sequence</li>
+        <li>Spin echo: insensitive to B<sub>0</sub> and T<sub>2</sub>*</li>
+      </ul>
+      <h3 class="muted side-head">Pitfalls</h3>
+      <ul class="assume">
+        <li><b>Slow</b>: the long TR means minutes per slice, so usually only a few slices</li>
+        <li>A shorter TR, or 2D slice profiles, bias B<sub>1</sub></li>
+        <li>Low precision where the actual α is small (cos α is flat near 0°)</li>
+      </ul>
+    </div>
+  </div>
+  <a class="book-link" href="https://qmrlab.org/mooc/b1-mapping#double-angle-techniques" target="_blank" rel="noopener">📖 Double Angle techniques · B1 Mapping</a>
+</section>
+
+<section class="method">
+  <p class="family afi">Steady-state</p>
+  <h2>Actual flip angle imaging (AFI)</h2>
+  <div class="cols method-cols">
+    <div>
+      <img class="seq" src="img/seq_afi.png" alt="AFI sequence: two alpha pulses with interleaved repetition times TR1 and TR2, each followed by spoiling">
+      <p class="lead">Spoiled gradient echo with two interleaved TRs; r = S<sub>2</sub>/S<sub>1</sub>, n = TR<sub>2</sub>/TR<sub>1</sub>:</p>
+      <div class="eq eq-box tight">$$B_1 = \frac{1}{\alpha}\arccos\left(\frac{r\,n-1}{n-r}\right)$$</div>
+      <h3 class="muted ex-head">Example values</h3>
+      <table class="proto">
+        <tr><th>α</th><td>60°</td></tr>
+        <tr><th>TR<sub>1</sub> / TR<sub>2</sub></th><td>20 / 100 ms (n = 5)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3 class="muted side-head">Assumptions</h3>
+      <ul class="assume">
+        <li>The pulsed <b>steady state</b> is reached</li>
+        <li><b>Perfect spoiling</b>: no transverse magnetization before each pulse</li>
+        <li><b>TR<sub>1</sub>, TR<sub>2</sub> ≪ T<sub>1</sub></b> (the first-order approximation behind the equation)</li>
+        <li>Same α and TE for both signals (M<sub>0</sub> and T<sub>2</sub>* cancel in r)</li>
+      </ul>
+      <h3 class="muted side-head">Benefits</h3>
+      <ul class="assume">
+        <li><b>Fast 3D</b>: a whole-brain B<sub>1</sub> map in a few minutes</li>
+        <li>Short TRs, yet nearly insensitive to T<sub>1</sub></li>
+      </ul>
+      <h3 class="muted side-head">Pitfalls</h3>
+      <ul class="assume">
+        <li>Incomplete spoiling biases B<sub>1</sub>: needs large spoilers plus tuned RF spoiling</li>
+        <li>Large spoilers lengthen TR<sub>2</sub> and push gradient limits</li>
+        <li>Often needs a custom sequence on the scanner</li>
+      </ul>
+    </div>
+  </div>
+  <a class="book-link" href="https://qmrlab.org/mooc/b1-mapping#actual-flip-angle-imaging" target="_blank" rel="noopener">📖 Actual Flip Angle Imaging · B1 Mapping</a>
+</section>
+
+<section class="method">
+  <p class="family bs">Phase-based</p>
+  <h2>Bloch–Siegert (BS)</h2>
+  <div class="cols method-cols">
+    <div>
+      <img class="seq" src="img/seq_bs.png" alt="Bloch-Siegert sequence: excitation, then an off-resonance pulse at plus or minus omega RF, readout and spoiling">
+      <p class="lead">An off-resonance pulse shifts the phase by K<sub>BS</sub>B<sub>1</sub><sup>2</sup>; scans at ±ω<sub>RF</sub> cancel everything else:</p>
+      <div class="eq eq-box tight">$$B_1 = \sqrt{\frac{\phi_{+}-\phi_{-}}{2\,K_{BS}}}$$</div>
+      <h3 class="muted ex-head">Example values</h3>
+      <table class="proto">
+        <tr><th>BS pulse</th><td>Fermi, 8 ms, ±4 kHz</td></tr>
+        <tr><th>K<sub>BS</sub></th><td>74 rad/G² (set by the pulse)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3 class="muted side-head">Assumptions</h3>
+      <ul class="assume">
+        <li>Pulse <b>far off resonance</b>: no excitation, and the phase shift scales as B<sub>1</sub><sup>2</sup></li>
+        <li>K<sub>BS</sub> known from the pulse shape</li>
+        <li>All other phase (B<sub>0</sub>, coil, chemical shift) identical at ±ω<sub>RF</sub></li>
+        <li>φ<sub>+</sub> − φ<sub>−</sub> doesn’t wrap; no motion between the two scans</li>
+      </ul>
+      <h3 class="muted side-head">Benefits</h3>
+      <ul class="assume">
+        <li><b>Phase-based</b>: insensitive to T<sub>1</sub>, TR and the excitation flip angle</li>
+        <li><b>Fast</b>: seconds per slice</li>
+      </ul>
+      <h3 class="muted side-head">Pitfalls</h3>
+      <ul class="assume">
+        <li><b>High SAR</b> from the long off-resonance pulse, which limits TR and pulse power</li>
+        <li>Low precision at low B<sub>1</sub>: the phase grows as B<sub>1</sub><sup>2</sup></li>
+        <li>The pulse lengthens TE (more T<sub>2</sub>* signal loss)</li>
+      </ul>
+    </div>
+  </div>
+  <a class="book-link" href="https://qmrlab.org/mooc/b1-mapping#bloch-siegert" target="_blank" rel="noopener">📖 Bloch–Siegert · B1 Mapping</a>
+</section>
+
+</div>
+</div>
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/b1map-data.js"></script>
+<script>
+  (function () {
+    const INK = '#1d2733';
+    const CMAPS = {
+      rdbu: [[0, 'rgb(5,48,97)'], [0.1, 'rgb(33,102,172)'], [0.2, 'rgb(67,147,195)'], [0.3, 'rgb(146,197,222)'], [0.4, 'rgb(209,229,240)'], [0.5, 'rgb(247,247,247)'], [0.6, 'rgb(253,219,199)'], [0.7, 'rgb(244,165,130)'], [0.8, 'rgb(214,96,77)'], [0.9, 'rgb(178,24,43)'], [1, 'rgb(103,0,31)']],  // blue = low, red = high
+      viridis: [[0, '#440154'], [0.25, '#3b528b'], [0.5, '#21918c'], [0.75, '#5ec962'], [1, '#fde725']],
+      gray: [[0, '#000000'], [1, '#ffffff']],
+      jet: [[0, '#00007f'], [0.125, '#0000ff'], [0.375, '#00ffff'], [0.625, '#ffff00'], [0.875, '#ff0000'], [1, '#7f0000']],
+    };
+    const NAMES = { rdbu: 'Blue–red', viridis: 'Viridis', gray: 'Grey', jet: 'Jet' };
+    const AX = [0.5, 1.5], DEF = [0.7, 1.3];  // the colour bar's axis, and the default range
+    const z = window.B1MAP.z;
+    const wrap = document.querySelector('.b1map-wrap');
+    const host = wrap.querySelector('.b1map-host'), bar = wrap.querySelector('.cbar'), col = wrap.querySelector('.cbar-col');
+    const btn = wrap.querySelector('.cmap-btn'), pop = wrap.querySelector('.cmap-pop');
+    const state = { cmap: 'rdbu', lo: DEF[0], hi: DEF[1], unit: 'b1', nominal: 90 };
+    let drawn = false, queued = false;
+
+    const pct = (v) => ((v - AX[0]) / (AX[1] - AX[0])) * 100;  // % from the bottom of the bar
+    const gradient = (cs, dir) => `linear-gradient(${dir}, ${cs.map(([t, c]) => `${c} ${t * 100}%`).join(', ')})`;
+
+    // The bar spans 0.5–1.5; the colours run between the two handles, saturated beyond them.
+    function paintBar() {
+      const cs = CMAPS[state.cmap], a = pct(state.lo), b = pct(state.hi);
+      const stops = cs.map(([t, c]) => `${c} ${a + t * (b - a)}%`);
+      bar.style.background = `linear-gradient(to top, ${cs[0][1]} 0%, ${stops.join(', ')}, ${cs[cs.length - 1][1]} 100%)`;
+      [['lo', state.lo], ['hi', state.hi]].forEach(([k, v]) => {
+        const top = `${100 - pct(v)}%`;
+        col.querySelector(`.cbar-handle.${k}`).style.top = top;
+        const label = col.querySelector(`.cbar-label.${k}`);
+        label.style.top = top;
+        label.textContent = state.unit === 'b1' ? v.toFixed(2) : `${Math.round(v * state.nominal)}°`;
+      });
+    }
+
+    function restyle() {
+      if (!drawn || queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        Plotly.restyle(host, { colorscale: [CMAPS[state.cmap]], zmin: [state.lo], zmax: [state.hi] });
+      });
+    }
+
+    function build() {
+      [1, 0.75, 1.25].forEach((v) => {
+        const t = document.createElement('div');
+        t.className = 'cbar-tick';
+        t.style.top = `${100 - pct(v)}%`;
+        col.appendChild(t);
+      });
+      ['lo', 'hi'].forEach((k) => {
+        const h = document.createElement('div');
+        h.className = `cbar-handle ${k}`;
+        h.setAttribute('role', 'slider');
+        h.setAttribute('aria-label', k === 'lo' ? 'Lowest B1 in colour' : 'Highest B1 in colour');
+        col.appendChild(h);
+        const l = document.createElement('div');
+        l.className = `cbar-label ${k}`;
+        col.appendChild(l);
+        h.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          h.setPointerCapture(e.pointerId);
+          const move = (ev) => {
+            const r = bar.getBoundingClientRect();  // screen pixels: right whatever Reveal's scale
+            const v = AX[1] - ((ev.clientY - r.top) / r.height) * (AX[1] - AX[0]);
+            const x = Math.round(Math.min(AX[1], Math.max(AX[0], v)) * 100) / 100;
+            if (k === 'lo') state.lo = Math.min(x, state.hi - 0.05);
+            else state.hi = Math.max(x, state.lo + 0.05);
+            paintBar();
+            restyle();
+          };
+          const up = () => { h.removeEventListener('pointermove', move); h.removeEventListener('pointerup', up); };
+          h.addEventListener('pointermove', move);
+          h.addEventListener('pointerup', up);
+        });
+      });
+      col.addEventListener('dblclick', () => { [state.lo, state.hi] = DEF; paintBar(); restyle(); });
+
+      Object.keys(CMAPS).forEach((k) => {
+        const b = document.createElement('button');
+        b.style.background = gradient(CMAPS[k], 'to right');
+        b.title = NAMES[k];
+        b.setAttribute('aria-label', NAMES[k]);
+        b.setAttribute('aria-pressed', String(k === state.cmap));
+        b.addEventListener('click', () => {
+          state.cmap = k;
+          pop.querySelectorAll('.swatches button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+          paintBar();
+          restyle();
+        });
+        pop.querySelector('.swatches').appendChild(b);
+      });
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        pop.hidden = !pop.hidden;
+        btn.setAttribute('aria-expanded', String(!pop.hidden));
+      });
+      document.addEventListener('click', (e) => {
+        if (!pop.hidden && !pop.contains(e.target) && e.target !== btn) { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+      });
+      // Units: B1 (relative) or the actual flip angle for a nominal one. The colours don't change, only the labels.
+      const nominalIn = pop.querySelector('[data-nominal]'), title = col.querySelector('.cbar-title');
+      pop.querySelectorAll('[data-unit]').forEach((u) => u.addEventListener('click', () => {
+        state.unit = u.dataset.unit;
+        title.innerHTML = state.unit === 'b1' ? 'B<sub>1</sub>' : 'α';
+        pop.querySelectorAll('[data-unit]').forEach((x) => x.setAttribute('aria-pressed', String(x === u)));
+        paintBar();
+        relabel();
+      }));
+      const setNominal = () => {
+        const v = Number(nominalIn.value);
+        if (!(v > 0 && v <= 360)) return;
+        state.nominal = v;
+        paintBar();
+        relabel();
+      };
+      nominalIn.addEventListener('input', setNominal);
+      nominalIn.addEventListener('keydown', (e) => e.stopPropagation());  // arrow keys step the angle, not the slides
+      paintBar();
+    }
+
+    function hover() {
+      const n = state.nominal;
+      return state.unit === 'b1'
+        ? { customdata: z.map((row) => row.map((v) => (v == null ? null : Math.round(n * v)))), hovertemplate: `B<sub>1</sub> = %{z:.2f}<br>a ${n}° pulse gives %{customdata}°<extra></extra>` }
+        : { customdata: z.map((row) => row.map((v) => (v == null ? null : Math.round(n * v)))), hovertemplate: `α = %{customdata}° (set: ${n}°)<br>B<sub>1</sub> = %{z:.2f}<extra></extra>` };
+    }
+
+    function relabel() {
+      if (!drawn) return;
+      const h = hover();
+      Plotly.restyle(host, { customdata: [h.customdata], hovertemplate: [h.hovertemplate] });
+    }
+
+    function draw() {
+      if (drawn) return;
+      drawn = true;
+      Plotly.newPlot(host, [{
+        type: 'heatmap', z, ...hover(), colorscale: CMAPS[state.cmap], zmin: state.lo, zmax: state.hi, showscale: false, hoverongaps: false,
+      }], {
+        width: 390, height: 440, margin: { l: 2, r: 2, t: 2, b: 2 }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+        xaxis: { visible: false, fixedrange: true }, yaxis: { visible: false, autorange: 'reversed', scaleanchor: 'x', fixedrange: true },
+        dragmode: false, font: { family: '"Helvetica Neue", Helvetica, Arial, sans-serif', size: 15, color: INK },
+        hoverlabel: { bgcolor: '#fff', bordercolor: INK, font: { size: 17, color: INK } },
+      }, { displayModeBar: false, scrollZoom: false, responsive: false });
+    }
+
+    build();
+    const slide = wrap.closest('section');
+    Reveal.on('ready', (e) => { if (e.currentSlide === slide) draw(); });
+    Reveal.on('slidechanged', (e) => { if (e.currentSlide === slide) draw(); });
+  })();
+</script>
+<script>
+  renderMathInElement(document.querySelector('.reveal .slides'), { delimiters: [{ left: '$$', right: '$$', display: true }], throwOnError: false });
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/nav.js"></script>
+</body>
+</html>

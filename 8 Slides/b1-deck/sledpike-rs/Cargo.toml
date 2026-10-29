@@ -1,0 +1,18 @@
+[package]
+name = "sledpike"
+version = "0.1.0"
+edition = "2021"
+description = "Sled & Pike (1998) analytic B1+ in a lossy elliptic cylinder, for the B1 exercise slides"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "check"
+path = "src/bin/check.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
