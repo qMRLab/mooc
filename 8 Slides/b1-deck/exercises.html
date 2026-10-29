@@ -125,6 +125,69 @@
     .reveal .bs-foot { margin-top: 2.2em; max-width: 60em; }
     .reveal section.bs-saw ul { font-size: 0.66em; line-height: 1.5; max-width: 34em; }
     .reveal section.bs-saw li { margin-bottom: 0.7em; }
+    /* FLASH brain and receive coils */
+    .reveal #fl h2, .reveal #fl-rx h2 { font-size: 1.15em; margin-bottom: 0.3em; }
+    .reveal .fl-grid { display: grid; grid-template-columns: 300px 396px 1fr; gap: 20px; align-items: start; }
+    .reveal .fl-params { display: grid; grid-template-columns: 190px 190px; gap: 6px 16px; }
+    .reveal .fl-cap, .reveal .rx-cap { font-size: 13.5px; color: var(--muted); text-align: center; margin-bottom: 3px; }
+    .reveal .fl-ctrl .bs-row, .reveal .rx-ctrl .bs-row { margin: 0 0 7px; font-size: 14px; gap: 8px; }
+    .reveal .fl-ctrl .bs-row > span:first-child { min-width: 6.5em; }
+    .reveal .fl-ctrl input[type="range"] { width: 210px; margin: 0; }
+    .reveal .fl-ctrl .seg button, .reveal .rx-ctrl .seg button { font-size: 13.5px; padding: 4px 10px; }
+    .reveal .fl-guess { font-size: 13.5px; border-collapse: collapse; margin: 4px 0 8px; }
+    .reveal .fl-guess th { font-weight: 700; color: var(--muted); padding: 2px 8px 2px 0; text-align: left; }
+    .reveal .fl-guess td { padding: 2px 8px 2px 0; }
+    .reveal .fl-guess input { width: 4.2em; font: inherit; font-size: 13.5px; padding: 1px 4px; border: 1px solid var(--rule); border-radius: 4px; }
+    .reveal .fl-eq { font-size: 14px; margin: 2px 0 8px; }
+    .reveal .fl-ctrl .stats, .reveal .rx-ctrl .stats { font-size: 14px; }
+    .reveal .fl-foot { font-size: 11.5px; line-height: 1.35; color: var(--muted); margin: 6px 0 0; }
+    .reveal .rx-grid { display: grid; grid-template-columns: 430px 1fr; gap: 22px; align-items: start; }
+    .reveal .rx-grid canvas.fr-lab { width: 430px; height: 430px; display: block; border: 1px solid var(--rule); border-radius: 8px; touch-action: none; cursor: grab; }
+    .reveal .rx-maps { display: flex; gap: 10px; }
+    .reveal .rx-strip { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0 8px; min-height: 66px; }
+    .reveal .rx-thumb { position: relative; cursor: pointer; border: 2px solid transparent; border-radius: 4px; line-height: 0; }
+    .reveal .rx-thumb.sel { border-color: #e8770e; }
+    .reveal .rx-thumb canvas { width: 50px; height: 64px; image-rendering: pixelated; }
+    .reveal .rx-thumb span { position: absolute; left: 3px; top: 7px; font-size: 11px; line-height: 1; color: var(--ink); font-weight: 700; }
+    .reveal .rx-ctrl .bs-btn { font-size: 13.5px; padding: 4px 10px; }
+    .reveal .rx-ctrl .bs-btn:disabled { opacity: 0.4; cursor: default; }
+    .reveal .dam-grid { display: grid; grid-template-columns: 190px 190px 190px 1fr; gap: 6px 18px; align-items: start; }
+    .reveal .dam-ctrl { grid-row: span 2; }
+    .reveal .dam-ctrl .bs-row { margin: 0 0 8px; font-size: 14px; gap: 8px; }
+    .reveal .dam-ctrl input[type="range"] { width: 200px; margin: 0; }
+    .reveal .dam-ctrl .stats { font-size: 14px; }
+    .reveal .dam-setup { font-size: 13.5px; color: var(--ink); margin: 0 0 8px; line-height: 1.4; }
+    .reveal .n4-grid { display: grid; grid-template-columns: repeat(4, 160px) 1fr; gap: 4px 12px; align-items: start; }
+    .reveal .n4-ctrl { grid-row: span 2; }
+    .reveal .n4-ctrl .bs-row { margin: 0 0 7px; font-size: 13.5px; gap: 6px; }
+    .reveal .n4-ctrl .seg button { font-size: 13px; padding: 4px 8px; }
+    .reveal .n4-ctrl input[type="range"] { width: 170px; margin: 0; }
+    .reveal .n4-ctrl .stats { font-size: 13.5px; }
+    .reveal .n4-ctrl .stats td { padding: 2px 6px 2px 0; vertical-align: top; }
+    .reveal .ph-grid { display: grid; grid-template-columns: 640px 1fr; gap: 0 22px; align-items: start; }
+    .reveal .ph-maps { display: grid; grid-template-columns: 200px 200px 210px; gap: 0 10px; }
+    .reveal .ph-side .seg button { font-size: 13.5px; padding: 4px 9px; }
+    .reveal .ph-side .bs-btn { font-size: 13.5px; padding: 4px 9px; }
+    .reveal .ph-note { font-size: 13.5px; color: var(--ink); line-height: 1.4; margin: 6px 0 6px; }
+    .reveal .ang-grid { display: grid; grid-template-columns: 820px 1fr; gap: 0 18px; align-items: start; }
+    .reveal .ang-side .seg button { font-size: 13px; padding: 4px 7px; }
+    .reveal .ang-side .bs-row { font-size: 14px; gap: 6px; margin-bottom: 8px; }
+    .reveal .ang-table { font-size: 12.5px; margin-bottom: 6px; }
+    .reveal .ang-table th { font-weight: 700; color: var(--muted); text-align: left; padding: 2px 6px 2px 0; font-size: 12px; }
+    .reveal .ang-table td { padding: 2px 6px 2px 0; color: var(--ink); }
+    .reveal .vfa-grid { display: grid; grid-template-columns: 760px 1fr; gap: 0 18px; align-items: start; }
+    .reveal .vfa-side .bs-row { font-size: 14px; gap: 8px; margin-bottom: 8px; }
+    .reveal .vfa-side input[type="range"] { width: 260px; margin: 0; }
+    .reveal .tx-grid { display: grid; grid-template-columns: 700px 1fr; gap: 0 20px; align-items: start; }
+    .reveal .tx-maps { display: grid; grid-template-columns: 160px repeat(3, 180px); gap: 0 6px; }
+    .reveal .tx-colcap { font-size: 13.5px; font-weight: 700; color: var(--ink); text-align: center; margin-bottom: 2px; }
+    .reveal .tx-rowcap { font-size: 12.5px; color: var(--muted); text-align: center; margin-bottom: 2px; white-space: nowrap; }
+    .reveal .tx-ctrl .bs-row { margin: 0 0 6px; font-size: 14px; gap: 8px; }
+    .reveal .tx-ctrl .bs-row > span:first-child { min-width: 4.5em; }
+    .reveal .tx-ctrl input[type="range"] { width: 250px; margin: 0; }
+    .reveal .tx-ctrl .stats { font-size: 14px; }
+    .reveal .tx-note { font-size: 13px; color: var(--muted); line-height: 1.35; margin: 2px 0 6px; }
+    .reveal .rx-q { font-size: 14.5px; line-height: 1.4; margin: 0 0 8px; }
     /* frames of reference 2: a pulse */
     .reveal #frames-pulse h2 { font-size: 1.15em; margin-bottom: 0.3em; }
     .reveal .fp-cols { display: grid; grid-template-columns: 412px 412px 1fr; gap: 16px; align-items: start; }
@@ -328,6 +391,216 @@
       <p class="fixed mp-note">2D finite differences (slice as if infinitely long), quasi-static outside, one global scale factor; stats inside the brain outline. Blue ticks: Gabriel values. B<sub>0</sub> direction isn’t recorded, so both are offered.</p>
     </div>
   </div>
+</section>
+
+<!-- ============ FLASH on Nikola's brain, then receive coils ============ -->
+<section id="fl">
+  <p class="kicker">Exercise · a brain image to receive</p>
+  <h2>FLASH at long TR, simulated on a measured brain slice</h2>
+  <div class="fl-grid">
+    <div><div class="fl-cap">Simulated FLASH image (uniform receive)</div><div class="map-host" data-key="img" style="width:300px;height:400px"></div></div>
+    <div class="fl-params">
+      <div><div class="fl-cap">T<sub>1</sub>, measured (IR)</div><div class="map-host" data-key="t1" style="width:190px;height:200px"></div></div>
+      <div><div class="fl-cap">T<sub>2</sub>, guessed per tissue</div><div class="map-host" data-key="t2" style="width:190px;height:200px"></div></div>
+      <div><div class="fl-cap">PD, guessed per tissue</div><div class="map-host" data-key="m0" style="width:190px;height:200px"></div></div>
+      <div><div class="fl-cap">Transmit B<sub>1</sub></div><div class="map-host" data-key="b1" style="width:190px;height:200px"></div></div>
+    </div>
+    <div class="fl-ctrl">
+      <p class="fl-eq">S = sin(αB<sub>1</sub>) · (1 − E<sub>1</sub>) / (1 − E<sub>1</sub>cos αB<sub>1</sub>) · PD · e<sup>−TE/T<sub>2</sub></sup>, E<sub>1</sub> = e<sup>−TR/T<sub>1</sub></sup>. At long TR, E<sub>1</sub> → 0: S → PD · sin(αB<sub>1</sub>) · e<sup>−TE/T<sub>2</sub></sup>.</p>
+      <div class="bs-row"><span>TR <b class="fl-tr-read"></b></span><input class="fl-tr" type="range" min="1" max="4" step="0.01" value="4" aria-label="TR (log)"></div>
+      <div class="bs-row"><span>TE <b class="fl-te-read"></b></span><input class="fl-te" type="range" min="1" max="40" step="1" value="5" aria-label="TE in ms"></div>
+      <div class="bs-row"><span>α <b class="fl-fa-read"></b></span><input class="fl-fa" type="range" min="0" max="180" step="1" value="60" aria-label="Flip angle"></div>
+      <div class="bs-row"><span>Transmit</span><div class="seg" role="group" aria-label="Transmit B1"><button data-fltx="meas" aria-pressed="true">measured B<sub>1</sub></button><button data-fltx="unif" aria-pressed="false">uniform</button></div></div>
+      <table class="fl-guess">
+        <tr><th></th><th>T<sub>1</sub> (median)</th><th>PD</th><th>T<sub>2</sub> (ms)</th></tr>
+        <tr><td>WM</td><td>0.85 s</td><td><input data-p="pd" data-t="wm" value="0.69"></td><td><input data-p="t2" data-t="wm" value="70"></td></tr>
+        <tr><td>GM</td><td>1.33 s</td><td><input data-p="pd" data-t="gm" value="0.8"></td><td><input data-p="t2" data-t="gm" value="90"></td></tr>
+        <tr><td>CSF</td><td>1.48 s</td><td><input data-p="pd" data-t="csf" value="1"></td><td><input data-p="t2" data-t="csf" value="1000"></td></tr>
+      </table>
+      <table class="stats">
+        <tr><td>mean S, WM / GM / CSF</td><td><b class="fl-wm">–</b> / <b class="fl-gm">–</b> / <b class="fl-csf">–</b></td></tr>
+        <tr><td>GM / WM</td><td><b class="fl-gmwm">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">One 2 mm slice of the 2013 Stikov 3 T session: T<sub>1</sub> from the inversion-recovery TSE fit, WM/GM/CSF fractions from its tissue classification (each voxel mixes them), transmit B<sub>1</sub> the measured double-angle map. PD and T<sub>2</sub> are guesses per tissue, editable (T<sub>2</sub> stands in for T<sub>2</sub>*). Ideal spoiling, brain only (no scalp or fat signal), no noise. The IR fit gives CSF a T<sub>1</sub> of only ~1.5 s (real: ~4 s); at long TR it doesn’t matter.</p>
+</section>
+
+<section id="fl-rx">
+  <p class="kicker">Exercise · receive coils on the brain</p>
+  <h2>Place receive coils around the head: what image do you get?</h2>
+  <div class="rx-grid">
+    <div><canvas class="fr-lab" width="720" height="720" aria-label="Head and receive coils: drag the coils"></canvas>
+      <p class="fl-cap" style="text-align:left;margin-top:4px">Lab view (32 × 32 cm). Drag a coil’s centre to move it, its dark end to turn it. Loops seen edge-on; outlines: head and brain.</p></div>
+    <div class="rx-ctrl">
+      <div class="rx-maps">
+        <div><div class="rx-cap">Signal (uniform receive)</div><div class="map-host" data-key="sig" style="width:168px;height:216px"></div></div>
+        <div><div class="rx-cap">Receive field (÷ brain mean, 0–3)</div><div class="map-host" data-key="rx" style="width:168px;height:216px"></div></div>
+        <div><div class="rx-cap">Image you get</div><div class="map-host" data-key="img" style="width:168px;height:216px"></div></div>
+      </div>
+      <div class="rx-cap" style="text-align:left;margin-top:6px">Each coil’s own image (common scale; click to select)</div>
+      <div class="rx-strip"></div>
+      <div class="bs-row"><span>Start from</span><button class="bs-btn" data-rxpre="ring8">8 around</button><button class="bs-btn" data-rxpre="side">4 on one side</button><button class="bs-btn" data-rxpre="back">3 at the back</button><button class="bs-btn" data-rxpre="one">1 on top</button></div>
+      <div class="bs-row"><button class="bs-btn rx-add">+ Add a coil</button><button class="bs-btn rx-del">Remove selected</button><button class="bs-btn rx-face">Face the head</button><span>Lab view</span><div class="seg" role="group" aria-label="Lab view background"><button data-rxbg="rx" aria-pressed="true">receive field</button><button data-rxbg="img" aria-pressed="false">image</button></div></div>
+      <table class="stats">
+        <tr><td>coils</td><td><b class="rx-n">–</b></td></tr>
+        <tr><td>receive field in the brain, min – max</td><td><b class="rx-range">–</b></td></tr>
+        <tr><td>receive field, SD</td><td><b class="rx-sd">–</b></td></tr>
+      </table>
+      <p class="rx-q"><b>Predict first.</b> Where is the image brightest with 4 coils on one side? Does adding more coils make it uniform? What does turning a coil edge-on to the head do?</p>
+    </div>
+  </div>
+  <p class="fixed fl-foot">The image of the previous slide (its TR, TE, α and transmit), times each coil’s receive sensitivity: 8 cm loops, quasi-static (Biot–Savart; wave effects ignored), |B<sub>1</sub><sup>−</sup>| = |B<sub>⊥</sub>|/2, combined as root-sum-of-squares, as on the motion slide. 2D: the loops are infinitely long along z. No noise, no coil coupling.</p>
+</section>
+
+<section id="fl-dam">
+  <p class="kicker">Exercise · a double angle on the brain</p>
+  <h2>FLASH double angle on this brain: is the B<sub>1</sub> map right?</h2>
+  <div class="dam-grid">
+    <div><div class="rx-cap">Image, α</div><div class="map-host" data-key="a1" style="width:190px;height:220px"></div></div>
+    <div><div class="rx-cap">Image, 2α (same scale)</div><div class="map-host" data-key="a2" style="width:190px;height:220px"></div></div>
+    <div></div>
+    <div class="dam-ctrl">
+      <p class="rx-q"><b>Predict first.</b> The coils of slide 8 make the images anything but uniform. Will the B<sub>1</sub> map inherit that? And what if you shorten TR on slide 7?</p>
+      <div class="bs-row"><span>α: <b class="dam-fa-read"></b></span><input class="dam-fa" type="range" min="20" max="90" step="1" value="60" aria-label="Flip angle alpha"></div>
+      <p class="dam-setup"></p>
+      <p class="fl-eq">B<sub>1</sub> = arccos(S<sub>2α</sub> / 2S<sub>α</sub>) / α</p>
+      <table class="stats">
+        <tr><td>calculated − applied, rms</td><td><b class="dam-rms">–</b></td></tr>
+        <tr><td>mean</td><td><b class="dam-bias">–</b></td></tr>
+        <tr><td>max |·|</td><td><b class="dam-max">–</b></td></tr>
+        <tr><td>2αB<sub>1</sub> &gt; 180°</td><td><b class="dam-wrap">–</b></td></tr>
+      </table>
+    </div>
+    <div><div class="rx-cap">B<sub>1</sub>, calculated</div><div class="map-host" data-key="est" style="width:190px;height:220px"></div></div>
+    <div><div class="rx-cap">B<sub>1</sub>, applied</div><div class="map-host" data-key="app" style="width:190px;height:220px"></div></div>
+    <div><div class="rx-cap">Calculated − applied (±10 %)</div><div class="map-host" data-key="diff" style="width:190px;height:220px"></div></div>
+  </div>
+  <p class="fixed fl-foot">Two FLASH magnitude images of slide 7’s brain, at α and 2α (spoiled steady state, slide 7’s TR and TE, no 180°), each through slide 8’s receive coils, then the double-angle formula. Applied B<sub>1</sub>: the measured map, or 1 if slide 7 is set to uniform. Same scan position for both images, no noise. Colour scales: calculated and applied 0.7–1.3, difference ±10 %.</p>
+</section>
+
+<section id="fl-afi">
+  <p class="kicker">Exercise · AFI on the brain</p>
+  <h2>AFI on this brain: is the B<sub>1</sub> map right?</h2>
+  <div class="dam-grid">
+    <div><div class="rx-cap">Image S<sub>1</sub>, after TR<sub>1</sub></div><div class="map-host" data-key="a1" style="width:190px;height:220px"></div></div>
+    <div><div class="rx-cap">Image S<sub>2</sub>, after TR<sub>2</sub></div><div class="map-host" data-key="a2" style="width:190px;height:220px"></div></div>
+    <div></div>
+    <div class="dam-ctrl">
+      <p class="rx-q"><b>Predict first.</b> Same brain, same coils, same transmit, but one interleaved scan with two TRs. Is the map as good as the double angle at TR 10 s? What happens as TR<sub>1</sub> gets longer?</p>
+      <div class="bs-row"><span>α: <b class="afi-fa-read"></b></span><input class="afi-fa" type="range" min="20" max="90" step="1" value="60" aria-label="Flip angle alpha"></div>
+      <div class="bs-row"><span>TR<sub>1</sub>: <b class="afi-tr1-read"></b></span><input class="afi-tr1" type="range" min="5" max="200" step="1" value="20" aria-label="TR1 in ms"></div>
+      <div class="bs-row"><span>n = TR<sub>2</sub>/TR<sub>1</sub>: <b class="afi-n-read"></b></span><input class="afi-n" type="range" min="1.5" max="10" step="0.5" value="5" aria-label="TR ratio n"></div>
+      <p class="dam-setup afi-setup"></p>
+      <p class="fl-eq">r = S<sub>2</sub>/S<sub>1</sub>, cos αB<sub>1</sub> = (r n − 1)/(n − r)</p>
+      <table class="stats">
+        <tr><td>calculated − applied, rms</td><td><b class="afi-rms">–</b></td></tr>
+        <tr><td>mean</td><td><b class="afi-bias">–</b></td></tr>
+        <tr><td>max |·|</td><td><b class="afi-max">–</b></td></tr>
+        <tr><td>|cos| &gt; 1 (clipped)</td><td><b class="afi-bad">–</b></td></tr>
+      </table>
+    </div>
+    <div><div class="rx-cap">B<sub>1</sub>, calculated</div><div class="map-host" data-key="est" style="width:190px;height:220px"></div></div>
+    <div><div class="rx-cap">B<sub>1</sub>, applied</div><div class="map-host" data-key="app" style="width:190px;height:220px"></div></div>
+    <div><div class="rx-cap">Calculated − applied (±10 %)</div><div class="map-host" data-key="diff" style="width:190px;height:220px"></div></div>
+  </div>
+  <p class="fixed fl-foot">AFI (Yarnykh 2007): the same α at the end of two interleaved TRs, TR<sub>2</sub> = n·TR<sub>1</sub>, steady state with <b>ideal spoiling</b> (real AFI needs strong gradient and RF spoiling to get close: Nehrke 2009). Slide 7’s brain, TE and transmit; slide 8’s receive coils. The formula assumes TR<sub>1</sub>, TR<sub>2</sub> ≪ T<sub>1</sub>. No noise, so n close to 1 costs nothing here (with noise, it costs precision). S<sub>1</sub> and S<sub>2</sub> on one grey scale.</p>
+</section>
+
+<section id="ph-txrx">
+  <p class="kicker">Receive vs transmit · a uniform phantom</p>
+  <h2>The same B<sub>1</sub> map, as receive or as transmit</h2>
+  <div class="ph-grid">
+    <div>
+      <div class="ph-maps">
+        <div><div class="rx-cap"><b>1.</b> The B<sub>1</sub> map</div><div class="map-host" data-key="b1" style="width:170px;height:215px"></div></div>
+        <div><div class="rx-cap"><b>2.</b> Image if it is the <b>receive</b> field</div><div class="map-host" data-key="rx" style="width:170px;height:215px"></div></div>
+        <div><div class="rx-cap" style="white-space:nowrap"><b>3.</b> Image if it is the <b>transmit</b> field<span class="ph-txcap"></span></div><div class="map-host" data-key="tx" style="width:170px;height:215px"></div></div>
+      </div>
+      <p class="ph-note">A water phantom with the same M<sub>0</sub> and T<sub>1</sub> everywhere: anything that isn’t flat comes from B<sub>1</sub>. Images 2 and 3: <span class="ph-long"></span>, on one grey scale. <b>Try</b> α = 90° and 120° at long TR, then TR = 15 ms, then “after ÷ B<sub>1</sub> map”.</p>
+      <table class="stats">
+        <tr><td>1. B<sub>1</sub> map, min – max</td><td><b class="ph-b1">–</b></td></tr>
+        <tr><td>2. receive image, <span class="ph-what"></span></td><td><b class="ph-rx">–</b></td></tr>
+        <tr><td>3. transmit image, <span class="ph-what"></span><span class="ph-txrow"></span></td><td><b class="ph-tx">–</b></td></tr>
+      </table>
+    </div>
+    <div class="ph-side">
+      <div class="map-host" data-key="plot" style="width:440px;height:300px"></div>
+      <div class="tx-ctrl">
+        <div class="bs-row"><span>Field</span><div class="seg" role="group" aria-label="Field strength"><button data-phb0="1.5" aria-pressed="false">1.5 T</button><button data-phb0="3" aria-pressed="true">3 T</button><button data-phb0="7" aria-pressed="false">7 T</button></div><span style="min-width:0">Show</span><div class="seg" role="group" aria-label="Profiles"><button data-phview="raw" aria-pressed="true">as acquired</button><button data-phview="div" aria-pressed="false">after ÷ B<sub>1</sub> map</button></div><button class="bs-btn ph-inv" aria-pressed="false">Invert transmit (1/·)</button></div>
+        <div class="bs-row"><span>α <b class="ph-fa-read"></b></span><input class="ph-fa" type="range" min="2" max="180" step="1" value="60" aria-label="Flip angle"></div>
+        <div class="bs-row"><span>TR <b class="ph-tr-read"></b></span><input class="ph-tr" type="range" min="0.7" max="4" step="0.01" value="4" aria-label="TR (log)"></div>
+        <div class="bs-row"><span>T<sub>1</sub> <b class="ph-t1-read"></b></span><input class="ph-t1" type="range" min="100" max="3000" step="50" value="1000" aria-label="Phantom T1"></div>
+      </div>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Sled &amp; Pike elliptic phantom (20 × 15 cm, ε<sub>r</sub> 80, ρ 2 Ωm), circularly polarized coil, exact solution, B<sub>1</sub> normalized to its mean. Spoiled gradient echo: receive image ∝ B<sub>1</sub> · f(α), transmit image ∝ f(αB<sub>1</sub>), f(a) = sin a (1 − E<sub>1</sub>)/(1 − E<sub>1</sub>cos a), E<sub>1</sub> = e<sup>−TR/T<sub>1</sub></sup>. Profiles along the long axis. No noise.</p>
+</section>
+
+<section id="ph-angles">
+  <p class="kicker">Receive vs transmit · which flip angle?</p>
+  <h2>When does the transmit B<sub>1</sub> act like × B<sub>1</sub>, or like × 1/B<sub>1</sub>?</h2>
+  <div class="ang-grid">
+    <div class="map-host" data-key="angles" style="width:820px;height:440px"></div>
+    <div class="ang-side">
+      <div class="bs-row"><span>T<sub>1</sub></span><div class="seg" role="group" aria-label="T1"><button data-angt1="850" aria-pressed="false">0.85 s (WM)</button><button data-angt1="1000" aria-pressed="true">1 s</button><button data-angt1="1330" aria-pressed="false">1.33 s (GM)</button><button data-angt1="4000" aria-pressed="false">4 s (CSF)</button></div></div>
+      <table class="stats ang-table">
+        <thead><tr><th>TR</th><th>Ernst</th><th>× B<sub>1</sub>, ≤ 1 % / 5 %</th><th>1/B<sub>1</sub> exact</th><th>1/B<sub>1</sub> ≤ 5 %</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="ph-note">Far below the Ernst angle the image scales like B<sub>1</sub> (as a receive field would). Well above it, the steady state and the trigonometry pull in opposite directions; they balance at one angle, where the image scales like 1/B<sub>1</sub>. That window closes as TR grows: at long TR, S = sin(αB<sub>1</sub>) is never like 1/B<sub>1</sub>.</p>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Spoiled gradient echo, S ∝ sin(αB<sub>1</sub>)(1 − E<sub>1</sub>)/(1 − E<sub>1</sub>cos αB<sub>1</sub>), E<sub>1</sub> = e<sup>−TR/T<sub>1</sub></sup>. Bands: the flip angles where S(B<sub>1</sub>)/S(1) stays within 1 % or 5 % of B<sub>1</sub> (orange) or of 1/B<sub>1</sub> (blue) over B<sub>1</sub> = 0.8–1.2. Blue line: the angle where the local exponent d ln S / d ln B<sub>1</sub> is exactly −1; dotted, its small-angle estimate (24 TR/T<sub>1</sub>)<sup>¼</sup> rad. Green: the Ernst angle, arccos E<sub>1</sub>.</p>
+</section>
+
+<section id="ph-vfa">
+  <p class="kicker">Receive vs transmit · on the T<sub>1</sub> chapter’s curves</p>
+  <h2>Where each regime sits on the SPGR curve (Figure 2.8)</h2>
+  <div class="vfa-grid">
+    <div class="map-host" data-key="vfa" style="width:760px;height:450px"></div>
+    <div class="vfa-side">
+      <div class="bs-row"><span>TR <b class="vfa-tr-read"></b></span><input class="vfa-tr" type="range" min="5" max="200" step="5" value="15" aria-label="TR in ms"></div>
+      <table class="stats ang-table vfa-table">
+        <thead><tr><th></th><th>× B<sub>1</sub> to 1 % / 5 %</th><th>Ernst</th><th>1/B<sub>1</sub> exact</th><th>1/B<sub>1</sub> to 5 %</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="ph-note">Left of the triangles, on the rising start of each curve, the image scales like B<sub>1</sub>: there, a transmit error behaves like a receive field. The circle is the Ernst angle, the top of the curve. Past it, on the falling side, the diamond is where the image scales like 1/B<sub>1</sub>, and the shaded stretch is where that holds to 5 %.</p>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Eq. 2.5 of the T<sub>1</sub> chapter, M<sub>z</sub> = M<sub>0</sub> sin θ (1 − e<sup>−TR/T<sub>1</sub></sup>)/(1 − cos θ e<sup>−TR/T<sub>1</sub></sup>), for the tissues and TR range of its Figure 2.8 (redrawn here; same equation, same values). The marked angles are those of the previous slide: within 1 % or 5 % of × B<sub>1</sub> or × 1/B<sub>1</sub> over B<sub>1</sub> = 0.8–1.2, the local exponent d ln S / d ln B<sub>1</sub> = −1, and arccos e<sup>−TR/T<sub>1</sub></sup>.</p>
+</section>
+
+<section id="fl-txrx">
+  <p class="kicker">Receive vs transmit</p>
+  <h2>Receive multiplies the image; transmit doesn’t</h2>
+  <div class="tx-grid">
+    <div class="tx-maps">
+      <div></div><div class="tx-colcap">Image</div><div class="tx-colcap">Raw ÷ ideal: the “bias”</div><div class="tx-colcap">After ÷ one field (±10 %)</div>
+      <div><div class="rx-cap">Ideal (uniform B<sub>1</sub>)</div><div class="map-host" data-key="ideal" style="width:150px;height:176px"></div></div>
+      <div><div class="tx-rowcap">B<sub>1</sub> map as <b>receive</b> (B<sub>1</sub><sup>−</sup>)</div><div class="map-host" data-key="rx" style="width:150px;height:176px"></div></div>
+      <div><div class="tx-rowcap">&nbsp;</div><div class="map-host" data-key="rxr" style="width:150px;height:176px"></div></div>
+      <div><div class="tx-rowcap">÷ the B<sub>1</sub> map</div><div class="map-host" data-key="rxl" style="width:150px;height:176px"></div></div>
+      <div><div class="rx-cap">The B<sub>1</sub> map (0.6–1.4)</div><div class="map-host" data-key="b1" style="width:150px;height:176px"></div></div>
+      <div><div class="tx-rowcap">B<sub>1</sub> map as <b>transmit</b> (B<sub>1</sub><sup>+</sup>)</div><div class="map-host" data-key="tx" style="width:150px;height:176px"></div></div>
+      <div><div class="tx-rowcap">&nbsp;</div><div class="map-host" data-key="txr" style="width:150px;height:176px"></div></div>
+      <div><div class="tx-rowcap">÷ the one field that fixes WM</div><div class="map-host" data-key="txl" style="width:150px;height:176px"></div></div>
+    </div>
+    <div class="tx-side">
+      <div class="map-host" data-key="plot" style="width:430px;height:300px"></div>
+      <div class="tx-ctrl">
+        <div class="bs-row"><span>α <b class="tx-fa-read"></b></span><input class="tx-fa" type="range" min="2" max="90" step="1" value="30" aria-label="Flip angle"></div>
+        <div class="bs-row"><span>TR <b class="tx-tr-read"></b></span><input class="tx-tr" type="range" min="0.7" max="4" step="0.01" value="1.176" aria-label="TR (log)"></div>
+        <p class="tx-note">Move α and TR: the receive row never changes (α scales the whole image, and all images share one grey scale set by the ideal), the transmit row does.</p>
+        <table class="stats">
+          <tr><td>left over, receive (median / 90th)</td><td><b class="tx-left-rx">–</b></td></tr>
+          <tr><td>left over, transmit</td><td><b class="tx-left-tx">–</b></td></tr>
+          <tr><td>Ernst angle, WM / GM / CSF</td><td><b class="tx-ernst">–</b></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <p class="fixed fl-foot">The same measured B<sub>1</sub> map, used as a receive field (top row, S = M<sub>0</sub> · B<sub>1</sub> · f(α)) and as a transmit field (bottom row, S = M<sub>0</sub> · f(αB<sub>1</sub>)), with spoiled gradient echo f(a) = sin a (1 − E<sub>1</sub>)/(1 − E<sub>1</sub>cos a), E<sub>1</sub> = e<sup>−TR/T<sub>1</sub></sup>. Slide 7’s brain (measured T<sub>1</sub>, guessed PD and T<sub>2</sub>, its TE). Curves: the median measured T<sub>1</sub> of each tissue, and dotted, 4 s (the real CSF T<sub>1</sub>; the IR fit gives CSF only ~1.5 s, so the maps understate how CSF differs). “One field”: one multiplicative map for the whole image, the receive map itself, or for transmit the WM curve applied everywhere (the best any bias-field correction such as N4 could hope for in WM). No noise.</p>
 </section>
 
 <!-- ============ Frames of reference ============ -->
@@ -1050,6 +1323,8 @@
 </script>
 <script src="js/bs-core.js"></script>
 <script src="js/bs.js"></script>
+<script src="js/fl-data.js"></script>
+<script src="js/fl.js"></script>
 <script src="js/frames2.js"></script>
 <script src="js/frames-pulse.js"></script>
 <script src="js/nav.js"></script>
