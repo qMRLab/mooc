@@ -439,6 +439,29 @@ pub fn motion_maps(rho: f64, freq: f64, eps_r: f64, rx: f64, ry: f64, theta: f64
     (out, nx, ny)
 }
 
+/// The x coil's and the y coil's fields separately, on the `map` grid (x up, y to the left; NaN outside):
+/// per pixel 8 numbers, re/im of (B_x, B_y) of the x coil then of the y coil (ellipse frame = lab, θ = 0),
+/// unnormalised. The quadrature drive of `bplus` is x coil − j·(y coil), B+ = ½ (B_x + jB_y).
+pub fn fields_map(rho: f64, freq: f64, eps_r: f64, rx: f64, ry: f64, step: f64, n: usize) -> (Vec<f64>, usize, usize) {
+    let md = model(rho, freq, eps_r, rx, ry, n);
+    let nx = (2.0 * rx / step).round() as usize;
+    let ny = (2.0 * ry / step).round() as usize;
+    let mut out = vec![f64::NAN; 8 * nx * ny];
+    for i in 0..nx {
+        let x = rx - (i as f64 + 0.5) * step;
+        for j in 0..ny {
+            let y = ry - (j as f64 + 0.5) * step;
+            if (x / rx).powi(2) + (y / ry).powi(2) >= 1.0 {
+                continue;
+            }
+            let [(xx, xy), (yx, yy)] = md.coil_fields(x, y);
+            let o = 8 * (i * ny + j);
+            out[o..o + 8].copy_from_slice(&[xx.re, xx.im, xy.re, xy.im, yx.re, yx.im, yy.re, yy.im]);
+        }
+    }
+    (out, nx, ny)
+}
+
 // ---- WebAssembly interface: plain exports, no bindings crate ----
 
 struct Buf {
@@ -475,6 +498,17 @@ pub extern "C" fn compute_rot(rho: f64, freq: f64, eps_r: f64, rx: f64, ry: f64,
 #[no_mangle]
 pub extern "C" fn compute_motion(rho: f64, freq: f64, eps_r: f64, rx: f64, ry: f64, theta: f64, tx: f64, ty: f64, step: f64, n_terms: u32, erode: f64) -> u32 {
     let (m, nx, ny) = motion_maps(rho, freq, eps_r, rx, ry, theta, tx, ty, step, n_terms as usize, erode);
+    let mut b = BUF.lock().unwrap();
+    b.map = m;
+    b.nx = nx;
+    b.ny = ny;
+    b.stats = [0.0; 4];
+    (nx * ny) as u32
+}
+
+#[no_mangle]
+pub extern "C" fn compute_fields(rho: f64, freq: f64, eps_r: f64, rx: f64, ry: f64, step: f64, n_terms: u32) -> u32 {
+    let (m, nx, ny) = fields_map(rho, freq, eps_r, rx, ry, step, n_terms as usize);
     let mut b = BUF.lock().unwrap();
     b.map = m;
     b.nx = nx;

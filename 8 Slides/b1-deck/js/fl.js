@@ -1,4 +1,4 @@
-/* FLASH on Nikola's brain (#fl) and receive coils on it (#fl-rx).
+/* FLASH on the brain (#fl) and receive coils on it (#fl-rx).
  * Data (fl-data.js): one 2 mm slice of the 2013 Stikov 3 T session: inversion-recovery T1, WM/GM/CSF fractions, the
  * measured B1 (DAM) and the head segmentation. Signal per voxel, spoiled gradient echo:
  *   S = sin(αB1)(1 − E1)/(1 − E1 cos(αB1)) · Σ_t f_t PD_t e^(−TE/T2_t),  E1 = e^(−TR/T1)

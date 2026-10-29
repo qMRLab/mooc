@@ -175,6 +175,117 @@
     .reveal .ang-table { font-size: 12.5px; margin-bottom: 6px; }
     .reveal .ang-table th { font-weight: 700; color: var(--muted); text-align: left; padding: 2px 6px 2px 0; font-size: 12px; }
     .reveal .ang-table td { padding: 2px 6px 2px 0; color: var(--ink); }
+    .reveal .ff-grid { display: grid; grid-template-columns: 760px 1fr; gap: 0 18px; align-items: start; }
+    .reveal .ff-side .bs-row { font-size: 14px; gap: 6px; margin-bottom: 7px; }
+    .reveal .ff-side .bs-row > span:first-child { min-width: 4.5em; }
+    .reveal .ff-side .bs-btn { font-size: 13px; padding: 3px 8px; }
+    .reveal .ff-side input[type="range"] { width: 200px; margin: 0; }
+    .reveal .ff-side input[type="number"] { width: 4.5em; font: inherit; font-size: 13.5px; padding: 2px 4px; border: 1px solid var(--rule); border-radius: 4px; }
+    .reveal .ff-side .seg button { font-size: 13px; padding: 3px 8px; }
+    .reveal .ff-chips { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+    .reveal .ff-chip span { color: var(--muted); margin-left: 2px; }
+    .reveal .ff-side .stats { font-size: 14px; }
+    .reveal .vf-tight .bs-row { margin-bottom: 4px; }
+    .reveal .vb-grid { display: grid; grid-template-columns: 290px 340px 1fr; gap: 0 18px; align-items: start; }
+    .reveal .vb-lab { width: 290px; height: 290px; border-radius: 6px; touch-action: none; }
+    .reveal .vb-cap { font-size: 12.5px; color: var(--muted); margin: 4px 0 6px; line-height: 1.3; }
+    .reveal .vb-labcol .bs-row { font-size: 13px; gap: 4px; margin-bottom: 5px; }
+    .reveal .vb-labcol .bs-btn { font-size: 12.5px; padding: 3px 7px; }
+    .reveal .vb-labcol .bs-btn:disabled { opacity: 0.4; }
+    .reveal .vb-maps { display: grid; grid-template-columns: 162px 162px; gap: 2px 14px; }
+    .reveal .vb-mcap { font-size: 13px; font-weight: 700; margin: 0 0 1px; }
+    .reveal .va-grid { display: grid; grid-template-columns: 690px 1fr; gap: 0 18px; align-items: start; }
+    .reveal .va-maps { display: grid; grid-template-columns: repeat(4, 162px); gap: 0 14px; }
+    .reveal .va-label { font-size: 12.5px; line-height: 1.35; color: var(--ink); padding-top: 18px; }
+    .reveal .va-side .bs-row > span:first-child { min-width: 6.5em; }
+    .reveal .va-table td { padding-right: 10px; }
+    .reveal .vb-msg { font-size: 14px; color: #c0392b; margin: 0; min-height: 1.2em; }
+    .reveal .gs-grid { display: grid; grid-template-columns: 620px 1fr; gap: 0 28px; align-items: start; }
+    .reveal .gs-imgs { display: grid; grid-template-columns: 300px 300px; gap: 0 20px; }
+    .reveal .gs-imgs .gs-pix { grid-column: 1 / -1; font-size: 14px; margin: 6px 0 0; min-height: 1.4em; }
+    .reveal .gs-cap { font-size: 15px; font-weight: 700; margin: 0 0 4px; }
+    .reveal .gs-side .stats { font-size: 14px; }
+    .reveal .gs-side .stats td { padding: 3px 10px 3px 0; vertical-align: middle; }
+    .reveal .gs-side .seg button { font-size: 13px; padding: 3px 10px; }
+    .reveal .gs-b1wrap { margin-top: 6px; }
+    .reveal .ce-grid { display: grid; grid-template-columns: 420px 1fr; gap: 0 26px; align-items: start; }
+    .reveal .ce-cvwrap { position: relative; } .reveal .ce-cv { width: 420px; height: 420px; cursor: crosshair; border-radius: 6px; }
+    .reveal .ce-side .bs-row { font-size: 14px; gap: 6px; margin-bottom: 6px; }
+    .reveal .ce-side .bs-row > span:first-child { min-width: 4em; }
+    .reveal .ce-side input[type="range"] { width: 150px; margin: 0; }
+    .reveal .ce-side .seg button { font-size: 12.5px; padding: 3px 7px; }
+    .reveal .ce-side .ph-note { margin: 4px 0 6px; } .reveal .ce-side .vb-cap { margin: 0; }
+    .reveal .pc-grid { display: grid; grid-template-columns: 270px 520px 1fr; gap: 0 22px; align-items: start; }
+    .reveal .pc-cv { width: 270px; height: 360px; cursor: crosshair; }
+    .reveal .pc-table { font-size: 14px; margin-top: 4px; }
+    .reveal .pc-side .bs-row { font-size: 15px; gap: 6px; margin-bottom: 8px; }
+    .reveal .pc-side input[type="range"] { width: 170px; margin: 0; }
+    .reveal .pc-side .seg button { font-size: 13px; padding: 3px 8px; }
+    .reveal .pt-grid { display: grid; grid-template-columns: 240px 560px 1fr; gap: 0 22px; align-items: start; }
+    .reveal .pt-map { width: 240px; height: 320px; cursor: crosshair; }
+    .reveal .pt-mapcol .bs-row { gap: 4px; margin-bottom: 5px; } .reveal .pt-mapcol .bs-btn { font-size: 12.5px; padding: 3px 7px; }
+    .reveal .pt-row2 { display: flex; gap: 14px; align-items: flex-start; margin-top: 4px; }
+    .reveal .pt-loop { width: 220px; height: 220px; display: block; }
+    .reveal .pt-views button { font-size: 12px; padding: 2px 6px; }
+    .reveal .pt-read .stats { font-size: 14px; } .reveal .pt-read .ph-note { margin-top: 0; }
+    .reveal .pt-side .bs-row { font-size: 15px; gap: 6px; margin-bottom: 8px; }
+    .reveal .pt-side input[type="range"] { width: 170px; margin: 0; }
+    .reveal .pt-side .seg button { font-size: 13px; padding: 3px 7px; }
+    .reveal .pl-grid { display: grid; grid-template-columns: 330px 1fr; gap: 0 36px; align-items: start; }
+    .reveal .pl-cv { width: 330px; height: 440px; }
+    .reveal .pl-side .bs-row { font-size: 15px; gap: 6px; margin-bottom: 8px; }
+    .reveal .pl-side .bs-row > span:first-child { min-width: 5.5em; }
+    .reveal .pl-side input[type="range"] { width: 220px; margin: 0; }
+    .reveal .pl-side .seg button, .reveal .ps-side .seg button { font-size: 13.5px; padding: 3px 9px; }
+    .reveal .pl-qcap { font-size: 13.5px; margin: 8px 0 2px; }
+    .reveal .pl-quad { border-collapse: collapse; font-size: 18px; margin: 0 0 8px; }
+    .reveal .pl-quad td { border: 1px solid var(--rule); padding: 4px 22px; text-align: center; }
+    .reveal .ps-grid { display: grid; grid-template-columns: 680px 1fr; gap: 0 26px; align-items: start; }
+    .reveal .ps-maps { display: grid; grid-template-columns: repeat(4, 150px); gap: 0 16px; }
+    .reveal .ps-d { font-size: 14px; margin: 2px 0 0; text-align: center; }
+    .reveal .ps-side .bs-row { font-size: 15px; gap: 6px; margin-bottom: 8px; }
+    .reveal .ps-side .bs-row > span:first-child { min-width: 4em; }
+    .reveal .ps-side input[type="range"] { width: 220px; margin: 0; }
+    .reveal .ps-side .bs-btn { font-size: 13px; padding: 3px 8px; }
+    .reveal .bd-grid { display: grid; grid-template-columns: 700px 1fr; gap: 0 24px; align-items: start; }
+    .reveal .bd-imgs { display: flex; gap: 14px; align-items: flex-start; }
+    .reveal .bd-arrows { display: flex; gap: 14px; align-items: flex-start; margin-top: 6px; }
+    .reveal .bd-arrows svg { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; overflow: visible; }
+    .reveal .bd-arrows .bs-row { font-size: 14px; gap: 6px; } .reveal .bd-arrows input[type="range"] { width: 200px; margin: 0; }
+    .reveal .bd-arrows .stats { font-size: 14px; }
+    .reveal .bd-hist { display: block; width: 390px; height: 96px; }
+    .reveal .bd-range { position: relative; width: 390px; height: 20px; margin: 0 0 2px; }
+    .reveal .bd-side .bd-range input[type="range"] { position: absolute; left: 0; top: 0; width: 390px; margin: 0; pointer-events: none; -webkit-appearance: none; appearance: none; background: transparent; height: 20px; }
+    .reveal .bd-side .bd-range input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: transparent; }
+    .reveal .bd-side .bd-range input[type="range"]::-webkit-slider-thumb { pointer-events: auto; -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%; background: #e8770e; border: 2px solid #fff; box-shadow: 0 0 0 1px #c2610a; cursor: ew-resize; }
+    .reveal .bd-side .bd-range input[type="range"]::-moz-range-thumb { pointer-events: auto; width: 14px; height: 14px; border-radius: 50%; background: #e8770e; border: 2px solid #fff; cursor: ew-resize; }
+    .reveal .bd-range::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 4px; border-radius: 2px; background: #d8dee6; }
+    .reveal .bd-sel { font-size: 14px; margin: 0 0 8px; }
+    .reveal .bd-side .bs-row { font-size: 14px; gap: 6px; margin-bottom: 6px; }
+    .reveal .bd-side .bs-row > span:first-child { min-width: 9.5em; }
+    .reveal .bd-side input[type="range"] { width: 150px; margin: 0; }
+    .reveal .bd-side .bs-btn { font-size: 13px; padding: 3px 8px; }
+    .reveal .bd-side .bs-btn:disabled { opacity: 0.4; cursor: default; }
+    .reveal .bd-pix { font-size: 14px; margin: 2px 0 4px; min-height: 1.4em; }
+    .reveal .bd-list { margin: 2px 0 6px; }
+    .reveal .bd-side .stats { font-size: 14px; }
+    .reveal #build .seg button { font-size: 13px; padding: 3px 8px; }
+    .reveal .gs-timer { height: 6px; background: #eef1f4; border-radius: 3px; margin: 2px 0 10px; overflow: hidden; }
+    .reveal .gs-timer > div { height: 100%; width: 0; background: #e8770e; }
+    .reveal .gs-answer .bs-btn { font-size: 17px; padding: 6px 18px; }
+    .reveal .gs-answer .bs-btn:disabled { opacity: 0.4; cursor: default; }
+    .reveal .gs-pt { font-size: 16px; margin: 0 0 6px; min-height: 1.4em; }
+    .reveal .gs-fb { font-size: 17px; font-weight: 700; margin: 4px 0 8px; min-height: 1.6em; }
+    .reveal .gs-fb.gs-right, .reveal .gs-fb.gs-wrong { color: #fff; display: inline-block; padding: 3px 12px; border-radius: 5px; }
+    .reveal .gs-fb.gs-right { background: #2e8b3a; }
+    .reveal .gs-fb.gs-wrong { background: #c0392b; }
+    .reveal .gs-tag { color: #fff; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 4px; }
+    .reveal .gw-grid { display: grid; grid-template-columns: 600px 1fr; gap: 0 32px; align-items: start; }
+    .reveal .gw-grid svg { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; overflow: visible; }
+    .reveal .gw-side .bs-row { font-size: 15px; }
+    .reveal .gw-side input[type="range"] { width: 260px; }
+    .reveal .gw-side .stats { font-size: 15px; }
+    .reveal .vf-tight .stats td { padding: 0.05em 0.9em 0.05em 0; }
     .reveal .vfa-grid { display: grid; grid-template-columns: 760px 1fr; gap: 0 18px; align-items: start; }
     .reveal .vfa-side .bs-row { font-size: 14px; gap: 8px; margin-bottom: 8px; }
     .reveal .vfa-side input[type="range"] { width: 260px; margin: 0; }
@@ -256,6 +367,138 @@
   </div>
 </section>
 
+<section id="cells">
+  <p class="kicker">Same phantom · why diagonal? · a grid of little wires</p>
+  <h2>The sample as columns of water and salt</h2>
+  <div class="ce-grid">
+    <div class="ce-cvwrap"><canvas class="ce-cv" width="840" height="840" aria-label="The sample cut into cells; arrows: the magnetic field inside and outside; click a cell"></canvas><div class="busy ce-busy" hidden>Solving…</div></div>
+    <div class="ce-side">
+      <p class="ph-note">Each little square is a column of water and salt along the cylinder (into the screen). The coil’s field comes with an electric field along the cylinder, which pushes charges up and down each column: a current. Every column’s current makes a field that <b>goes round it</b>, felt everywhere, inside and outside, and pushes on every other column. Solved all together.</p>
+      <div class="bs-row"><span>Shape</span><div class="seg" role="group" aria-label="Shape"><button data-ceshape="circle" aria-pressed="false">circle</button><button data-ceshape="square" aria-pressed="false">square</button><button data-ceshape="rect" aria-pressed="false">rectangle</button><button data-ceshape="ellipse" aria-pressed="true">ellipse</button></div></div>
+      <div class="bs-row"><span>Coil</span><div class="seg" role="group" aria-label="Coil"><button data-cecoil="x" aria-pressed="true">x coil (up–down)</button><button data-cecoil="y" aria-pressed="false">y coil</button><button data-cecoil="cp" aria-pressed="false">both (CP)</button></div></div>
+      <div class="bs-row"><span>Arrows</span><div class="seg" role="group" aria-label="Arrows"><button data-ceshow="total" aria-pressed="true">total field</button><button data-ceshow="coil" aria-pressed="false">coil only</button><button data-ceshow="sample" aria-pressed="false">sample only</button><button data-ceshow="one" aria-pressed="false">one column</button></div></div>
+      <div class="bs-row"><span>Colour</span><div class="seg" role="group" aria-label="Colour"><button data-cecol="current" aria-pressed="true">current in each column</button><button data-cecol="efield" aria-pressed="false">electric field</button><button data-cecol="elater" aria-pressed="false">electric field ¼ cycle later</button></div></div>
+      <div class="bs-row"><span>Field</span><div class="seg" role="group" aria-label="Field strength"><button data-ceb0="0.5" aria-pressed="false">0.5 T</button><button data-ceb0="1.5" aria-pressed="false">1.5 T</button><button data-ceb0="3" aria-pressed="true">3 T</button><button data-ceb0="7" aria-pressed="false">7 T</button></div></div>
+      <div class="bs-row"><span>ρ <b class="ce-rho-read"></b></span><input class="ce-rho" type="range" min="-0.602" max="1.301" step="0.01" value="0.301" aria-label="Resistivity (log)"><button class="bs-btn ce-lossless" aria-pressed="false">Lossless</button><button class="bs-btn ce-play">Pause</button></div>
+      <p class="ph-note ce-pick"></p>
+      <p class="ph-note"><b>Try:</b> x coil, “sample only”, then “one column” on a cell near a long side. Then 0.5 T (the columns barely do anything) and “Lossless”.</p>
+      <p class="vb-cap ce-n"></p><p class="vb-cap ce-mix"></p>
+    </div>
+  </div>
+  <p class="fixed fl-foot">A 30 × 30 cm window. Colour: red = current (or electric field) out of the screen, blue = into it, at this instant; arrows: B<sub>x</sub>, B<sub>y</sub> now, on a 1.25 cm grid (darker inside the sample, grey outside), scaled to a typical size and capped (“one column”: on a square-root scale, so its swirl shows further out); grey arrow top right: the coil’s own uniform field now. In this long-cylinder model the electric field only points along the cylinder (no E<sub>x</sub>, E<sub>y</sub>), so B is always perpendicular to it; more usefully, B runs along the lines of equal electric field and is largest where it changes fastest, (B<sub>x</sub>, B<sub>y</sub>) ∝ (∂E<sub>z</sub>/∂y, −∂E<sub>z</sub>/∂x), a quarter cycle later (“electric field ¼ cycle later” shows that pattern under the arrows). Same physics as the exact elliptic solution (water ε<sub>r</sub> 80, quasi-static outside), solved as 6 mm cells; checked against it for the ellipse: ~1 % rms inside. One RF cycle every 3.2 s.</p>
+</section>
+
+<section id="pol-time">
+  <p class="kicker">Same phantom, 3 T · why diagonal?</p>
+  <h2>The field at one point: two sine waves</h2>
+  <div class="pt-grid">
+    <div class="pt-mapcol">
+      <canvas class="pt-map" width="480" height="640" aria-label="B1+ map of this drive: click to choose a point"></canvas>
+      <p class="vb-cap">B<sub>1</sub><sup>+</sup> of this drive (÷ mean, 0.5 – 1.5). Click to choose a point.</p>
+      <div class="bs-row"><button class="bs-btn" data-ptpre="ul">upper-left</button><button class="bs-btn" data-ptpre="ur">upper-right</button></div>
+      <div class="bs-row"><button class="bs-btn" data-ptpre="ll">lower-left</button><button class="bs-btn" data-ptpre="lr">lower-right</button><button class="bs-btn" data-ptpre="axis">on an axis</button></div>
+    </div>
+    <div>
+      <div class="map-host" data-key="sines" style="width:560px;height:250px"></div>
+      <div class="pt-row2">
+        <div><canvas class="pt-loop" width="440" height="440" aria-label="The loop the field tip traces at this point"></canvas>
+          <div class="seg pt-views" role="group" aria-label="What to show"><button data-ptview="all" aria-pressed="true">full field</button><button data-ptview="plus" aria-pressed="false">with the spins</button><button data-ptview="minus" aria-pressed="false">against</button></div></div>
+        <div class="pt-read">
+          <p class="ph-note pt-what"></p>
+          <table class="stats">
+            <tr><td>point</td><td><b class="pt-where">–</b></td></tr>
+            <tr><td>size of B<sub>y</sub> ÷ size of B<sub>x</sub></td><td><b class="pt-ratio">–</b></td></tr>
+            <tr><td>B<sub>y</sub> peaks</td><td><b class="pt-lag">–</b></td></tr>
+            <tr><td><span style="color:#c2610a">orange</span> arrow, with the spins = B<sub>1</sub><sup>+</sup> here</td><td><b class="pt-plus">–</b></td></tr>
+            <tr><td><span style="color:#1f5f99">blue</span> arrow, against the spins</td><td><b class="pt-minus">–</b></td></tr>
+            <tr><td>vs the empty coil (no sample)</td><td><b class="pt-empty">–</b></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="pt-side">
+      <div class="bs-row"><div class="seg" role="group" aria-label="Drive"><button data-ptdrive="cp" aria-pressed="true">both (CP)</button><button data-ptdrive="x" aria-pressed="false">x coil alone</button><button data-ptdrive="y" aria-pressed="false">y coil alone</button></div></div>
+      <div class="bs-row"><span>ρ <b class="pt-rho-read"></b></span><input class="pt-rho" type="range" min="-0.602" max="1.301" step="0.01" value="0.301" aria-label="Resistivity (log)"></div>
+      <div class="bs-row"><button class="bs-btn pt-lossless" aria-pressed="false">Lossless</button><button class="bs-btn pt-play">Pause</button></div>
+      <p class="ph-note">The field’s tip (black) = an <b style="color:#c2610a">orange arrow turning with the spins</b> plus a <b style="color:#1f5f99">blue arrow turning against them</b>, riding on its tip. Only the orange one tips the spins: its length <b>is</b> B<sub>1</sub><sup>+</sup>. Dashed circle: B<sub>1</sub><sup>+</sup> = 1. One scale for every point.</p>
+      <p class="ph-note">“With the spins” shows that circle on its own: its radius is B<sub>1</sub><sup>+</sup> here, and its B<sub>x</sub> and B<sub>y</sub> are always equal, a quarter cycle apart.</p>
+      <p class="ph-note"><b>Try:</b> click red, white and blue places on the map. Then “x coil alone”: upper-left vs upper-right (the ellipse bends the field; with loss the bent part B<sub>y</sub> peaks later, and its sign flips across each axis, so the orange arrow is long in two opposite quadrants and short in the other two). Then “Lossless”.</p>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Exact Sled &amp; Pike solution (20 × 15 cm, ε<sub>r</sub> 80, 3 T), the field at the chosen point over one RF cycle (slowed down hugely), both components on one scale. B<sub>x</sub> points up–down on the maps, B<sub>y</sub> left–right. The spins turn counter-clockwise in this view (x up, y to the left): any loop is the sum of a circle turned with the spins (orange arrow) and one turned against them (blue arrow); only the first counts for B<sub>1</sub><sup>+</sup>. Sine curves and loop on one scale for the whole phantom; dashed grey: the same drive in the empty coil (no sample), on that scale.</p>
+</section>
+
+<section id="pol-curr">
+  <p class="kicker">Same phantom, 3 T · why diagonal?</p>
+  <h2>Where the sideways field comes from: the sample’s own currents</h2>
+  <div class="pc-grid">
+    <div>
+      <canvas class="pc-cv" width="600" height="800" aria-label="The current along the cylinder and the sample's own field: click to choose a point"></canvas>
+      <p class="vb-cap">Colour: current along the cylinder now (<span style="color:#b2182b">red</span> out of the screen, <span style="color:#2166ac">blue</span> into it). Arrows: the field the sample’s currents make now. Click a point (green ring).</p>
+    </div>
+    <div>
+      <div class="map-host" data-key="pc" style="width:520px;height:260px"></div>
+      <table class="stats pc-table">
+        <tr><td>point</td><td><b class="pc-where">–</b></td></tr>
+        <tr><td>the currents</td><td><b class="pc-jt">–</b></td></tr>
+        <tr><td>sideways field <span class="pc-bentname"></span> here (all from the sample)</td><td><b class="pc-bent">–</b></td></tr>
+        <tr><td>its timing</td><td><b class="pc-bentt">–</b></td></tr>
+        <tr><td>share of the total field turning with the spins</td><td><b class="pc-share">–</b></td></tr>
+      </table>
+    </div>
+    <div class="pc-side">
+      <div class="bs-row"><div class="seg" role="group" aria-label="Coil"><button data-pccoil="x" aria-pressed="true">x coil</button><button data-pccoil="y" aria-pressed="false">y coil</button></div><button class="bs-btn pc-play">Pause</button></div>
+      <div class="bs-row"><span>ρ <b class="pc-rho-read"></b></span><input class="pc-rho" type="range" min="-0.602" max="1.301" step="0.01" value="0.301" aria-label="Resistivity (log)"></div>
+      <div class="bs-row"><button class="bs-btn pc-lossless" aria-pressed="false">Lossless</button></div>
+      <p class="ph-note pc-what"></p>
+      <p class="ph-note">The coil’s field makes an electric field, which drives currents in the water and salt. Currents make their own field, which <b>curls around them</b>: between the two sheets it runs along the coil’s field, but near the ends it bends sideways, opposite ways in neighbouring quadrants.</p>
+      <p class="ph-note"><b>Lossless:</b> the currents rise and fall with the coil, so the sideways part swings in step and the tip just goes back and forth. <b>With loss</b> they run about 100° behind, so the sideways part peaks after the coil’s field: the tip goes round, one way or the other depending on which way it curls.</p>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Exact Sled &amp; Pike solution (20 × 15 cm, ε<sub>r</sub> 80, 3 T), one linear coil. Current along the cylinder from Ampère’s law, J ∝ ∂B<sub>y</sub>/∂x − ∂B<sub>x</sub>/∂y (water’s polarization current + the ions’ conduction current), ÷ its largest value. The sample’s own field = the total minus the coil’s uniform field (what the coil makes in an empty scanner). Slowed down hugely: one RF cycle every 3.2 s.</p>
+</section>
+
+<section id="pol">
+  <p class="kicker">Same phantom, 3 T · why diagonal?</p>
+  <h2>Which way does the field turn?</h2>
+  <div class="pl-grid">
+    <canvas class="pl-cv" width="600" height="800" aria-label="Field vectors over one RF cycle on a grid inside the phantom"></canvas>
+    <div class="pl-side">
+      <p class="ph-note">At each point the RF field vector (black) sweeps a loop once per RF cycle (slowed down hugely). Only the part of it turning <b style="color:#c2610a">the same way as the spins</b> tips them (B<sub>1</sub><sup>+</sup>); the part turning <b style="color:#1f5f99">the other way</b> does nothing. Background: B<sub>1</sub><sup>+</sup> of this drive, ÷ its mean (0.5 – 1.5).</p>
+      <div class="bs-row"><span>Drive</span><div class="seg" role="group" aria-label="Drive"><button data-pldrive="x" aria-pressed="true">x coil alone</button><button data-pldrive="y" aria-pressed="false">y coil alone</button><button data-pldrive="cp" aria-pressed="false">both (CP)</button></div></div>
+      <p class="pl-what ph-note"></p>
+      <div class="bs-row"><span>ρ <b class="pl-rho-read"></b></span><input class="pl-rho" type="range" min="-0.602" max="1.301" step="0.01" value="0.301" aria-label="Resistivity (log)"><button class="bs-btn pl-lossless" aria-pressed="false">Lossless</button></div>
+      <div class="bs-row"><span>Field</span><div class="seg" role="group" aria-label="Field strength"><button data-plb0="1.5" aria-pressed="false">1.5 T</button><button data-plb0="3" aria-pressed="true">3 T</button><button data-plb0="7" aria-pressed="false">7 T</button></div><button class="bs-btn pl-play">Pause</button></div>
+      <p class="pl-qcap">Share of the field turning with the spins, by quadrant (laid out as on the map):</p>
+      <table class="pl-quad"><tr><td><b class="pl-q-pp">–</b></td><td><b class="pl-q-pm">–</b></td></tr><tr><td><b class="pl-q-mp">–</b></td><td><b class="pl-q-mm">–</b></td></tr></table>
+      <p class="ph-note">Diagonal of this B<sub>1</sub><sup>+</sup> map (upper-left + lower-right quadrants minus the other two, ÷ mean): <b class="pl-diag">–</b>. <b>Try:</b> the x coil alone, then “Lossless”; then the y coil; then both.</p>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Exact Sled &amp; Pike solution (20 × 15 cm, ε<sub>r</sub> 80), each linear coil of the quadrature coil on its own, x up, y to the left. A linear coil’s field has the same size on both diagonals; with loss, the part bent around the ellipse lags the main part, so the field turns, one way in two opposite quadrants and the other way in the other two. Loops scaled to the largest one on the grid; 50 % = no turning (a back-and-forth line).</p>
+</section>
+
+<section id="pol-sum">
+  <p class="kicker">Same phantom · why diagonal?</p>
+  <h2>Two coils, a quarter cycle apart</h2>
+  <div class="ps-grid">
+    <div class="ps-maps">
+      <div><p class="vb-mcap">x coil alone</p><div class="map-host" data-key="x"></div><p class="ps-d">diagonal <b class="ps-dx">–</b></p></div>
+      <div><p class="vb-mcap">y coil alone</p><div class="map-host" data-key="y"></div><p class="ps-d">diagonal <b class="ps-dy">–</b></p></div>
+      <div><p class="vb-mcap">both</p><div class="map-host" data-key="both"></div><p class="ps-d">diagonal <b class="ps-db">–</b></p></div>
+      <div><p class="vb-mcap">receive B<sub>1</sub><sup>−</sup></p><div class="map-host" data-key="rx"></div><p class="ps-d">diagonal <b class="ps-dr">–</b></p></div>
+    </div>
+    <div class="ps-side">
+      <p class="ph-note">B<sub>1</sub><sup>+</sup> maps, each ÷ its own mean (0.5 – 1.5). Each linear coil already leans one way, and the two lean opposite ways; “both” is what is left when their fields add with the y coil a phase φ behind. CP is φ = 90°. The receive map uses the opposite phase, so it leans the other way.</p>
+      <div class="bs-row"><span>φ <b class="ps-phi-read"></b></span><input class="ps-phi" type="range" min="-180" max="180" step="5" value="90" aria-label="Phase of the y coil behind the x coil"></div>
+      <div class="bs-row"><button class="bs-btn" data-psphi="90">CP (90°)</button><button class="bs-btn" data-psphi="-90">wired backwards (−90°)</button><button class="bs-btn" data-psphi="0">in phase (0°)</button></div>
+      <div class="bs-row"><span>ρ <b class="ps-rho-read"></b></span><input class="ps-rho" type="range" min="-0.602" max="1.301" step="0.01" value="0.301" aria-label="Resistivity (log)"><button class="bs-btn ps-lossless" aria-pressed="false">Lossless</button></div>
+      <div class="bs-row"><span>Field</span><div class="seg" role="group" aria-label="Field strength"><button data-psb0="1.5" aria-pressed="false">1.5 T</button><button data-psb0="3" aria-pressed="true">3 T</button><button data-psb0="7" aria-pressed="false">7 T</button></div></div>
+      <table class="stats"><tr><td>mean B<sub>1</sub><sup>+</sup> of “both”</td><td><b class="ps-strength">–</b></td></tr></table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Same exact solution. “Both” = x coil + e<sup>−jφ</sup> × y coil; B<sub>1</sub><sup>+</sup> = ½|B<sub>x</sub> + jB<sub>y</sub>|. Receive B<sub>1</sub><sup>−</sup> = the counter-rotating part of the field of x coil + e<sup>+jφ</sup> × y coil (reciprocity); at CP it is exactly the mirror image of B<sub>1</sub><sup>+</sup>. Diagonal = (upper-left + lower-right − upper-right − lower-left) ÷ mean. Wired backwards, the spins only get the counter-rotating part: about half the field.</p>
+</section>
+
 <!-- ============ Slide 2: ellipse orientation at 3 T ============ -->
 <section id="rot">
   <p class="kicker">Same phantom, 3 T</p>
@@ -326,6 +569,97 @@
   </div>
 </section>
 
+<section id="guess">
+  <p class="kicker">Exercise · double angle, no B<sub>1</sub> map</p>
+  <h2>High or low B<sub>1</sub><sup>+</sup>? Only the two images to go on</h2>
+  <div class="gs-grid">
+    <div class="gs-imgs">
+      <div><p class="gs-cap">α = 60°</p><div class="map-host" data-key="i60" style="width:300px;height:420px"></div></div>
+      <div><p class="gs-cap">2α = 120°</p><div class="map-host" data-key="i120" style="width:300px;height:420px"></div></div>
+      <p class="gs-pix">Click a pixel to read its value in both images.</p>
+    </div>
+    <div class="gs-side">
+      <p class="ph-note">A brain, imaged at 60° and 120° (long TR) through a messy receive array, both on one grey scale. Press <b>Start</b>: a point appears for 5 seconds. Is the transmit B<sub>1</sub><sup>+</sup> there above or below 1?</p>
+      <div class="bs-row"><button class="bs-btn gs-start">Start</button><b class="gs-status"></b><button class="bs-btn gs-reveal" aria-pressed="false" style="margin-left:auto">Reveal the B<sub>1</sub> map</button></div>
+      <div class="gs-timer"><div></div></div>
+      <div class="bs-row gs-answer"><button class="bs-btn" data-gsa="hi" disabled>B<sub>1</sub><sup>+</sup> &gt; 1</button><button class="bs-btn" data-gsa="lo" disabled>B<sub>1</sub><sup>+</sup> &lt; 1</button></div>
+      <p class="gs-pt"></p>
+      <p class="gs-fb"></p>
+      <table class="stats gs-table"><tbody class="gs-results"></tbody></table>
+      <div class="gs-b1wrap" hidden><div class="map-host" data-key="b1" style="width:180px;height:150px"></div></div>
+    </div>
+  </div>
+  <p class="fixed fl-foot">One 2 mm slice of the 2013 Stikov 3 T session (as on the FLASH slides), anterior up, brain only: transmit B<sub>1</sub><sup>+</sup> = the measured double-angle map; PD and T<sub>2</sub> guessed per tissue from the WM/GM/CSF fractions, TE 5 ms. Receive: seven small loops (3–6 cm, gains 0.5–2.5) pressed against the head, quasi-static as on the motion slide, root-sum-of-squares, normalized to its brain mean: 0.5–4.5, more extreme than a real array on purpose. S = receive · PD · |sin(αB<sub>1</sub><sup>+</sup>)|, TR ≫ T<sub>1</sub>, no noise. Grey scale 0 to the 98th percentile of both images (= 1; the hottest 2 % saturate).</p>
+</section>
+
+<section id="guess-why">
+  <p class="kicker">Exercise · double angle, no B<sub>1</sub> map · why it works</p>
+  <h2>How to get every point of the quiz right</h2>
+  <div class="gw-grid">
+    <svg viewBox="0 0 600 500" width="600" height="500" role="img" aria-label="The 60° and 120° magnetization vectors and their transverse components"></svg>
+    <div class="gw-side">
+      <p class="ph-note">The magnetization starts along z and is tipped towards the right by the actual flip angle, 60° × B<sub>1</sub> or 120° × B<sub>1</sub>. The signal is its transverse part (the bar below each vector). Dashed: B<sub>1</sub> = 1. <b>Move B<sub>1</sub>:</b> which bar grows, which one shrinks?</p>
+      <div class="bs-row"><span>B<sub>1</sub> <b class="gw-b1-read"></b></span><input class="gw-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1"></div>
+      <table class="stats">
+        <tr><td>60° pulse</td><td><b class="gw-s60">–</b></td></tr>
+        <tr><td>120° pulse</td><td><b class="gw-s120">–</b></td></tr>
+        <tr><td>brighter</td><td><b class="gw-who">–</b></td></tr>
+      </table>
+      <div class="bs-row"><button class="bs-btn gw-show" aria-pressed="false">Show the rule</button></div>
+      <div class="gw-why" hidden>
+        <p class="ph-note">At B<sub>1</sub> = 1 the two vectors are mirror images about the horizontal: the same signal (0.87). B<sub>1</sub> turns both further in the same direction. Above 1, the 60° vector moves <b>towards</b> the horizontal (more signal) and the 120° vector <b>away</b> from it (less). Below 1, the opposite: the 120° vector comes up towards the horizontal (and, below 0.75, past it, but it stays closer to it than the 60° vector). So the image whose vector is closer to the horizontal is brighter, and the two swap exactly at B<sub>1</sub> = 1. This holds for any B<sub>1</sub> up to 1.5, where the 120° vector reaches 180°; above that, its signal comes back.</p>
+        <p class="ph-note"><b>Rule:</b> at each point, compare the same pixel in the two images. Brighter at 60° → B<sub>1</sub> &gt; 1. Brighter at 120° → B<sub>1</sub> &lt; 1 (for any B<sub>1</sub> below 1.5). The receive coil multiplies both images by the same number at that pixel, so it can make a point bright or dark, but it can never change which of the two images is brighter.</p>
+      </div>
+    </div>
+  </div>
+  <p class="fixed fl-foot">Long TR (full recovery before each pulse), ideal slice profile. Signal = |sin(θ)| × (M<sub>0</sub> × receive), with θ = 60°·B<sub>1</sub> or 120°·B<sub>1</sub>; the bars show |sin θ| on a scale where 1 is the whole magnetization, the same scale as the circle.</p>
+</section>
+
+<section id="build">
+  <p class="kicker">Exercise · double angle, real data</p>
+  <h2>Build the B<sub>1</sub><sup>+</sup> map from the ratio</h2>
+  <div class="bd-grid">
+    <div>
+      <div class="bd-imgs">
+        <div><p class="gs-cap">α = 60°</p><div class="map-host" data-key="i60"></div></div>
+        <div><p class="gs-cap">2α = 120°</p><div class="map-host" data-key="i120"></div></div>
+        <div><p class="gs-cap bd-maptitle">Your B<sub>1</sub> map</p><div class="map-host" data-key="map"></div>
+          <div class="seg" role="group" aria-label="Map shown" style="margin-top:4px"><button data-bdview="yours" aria-pressed="true">yours</button><button data-bdview="real" aria-pressed="false">real</button><button data-bdview="diff" aria-pressed="false">difference</button></div></div>
+      </div>
+      <div class="bd-arrows">
+        <svg viewBox="0 0 600 500" width="252" height="210" role="img" aria-label="The 60° and 120° magnetization vectors for a chosen B1"></svg>
+        <div>
+          <p class="gs-cap">Check: what ratio does a B<sub>1</sub> give?</p>
+          <div class="bs-row"><span>B<sub>1</sub> <b class="gw-b1-read"></b></span><input class="gw-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1 for the diagram"></div>
+          <table class="stats">
+            <tr><td>60° pulse</td><td><b class="gw-s60">–</b></td></tr>
+            <tr><td>120° pulse</td><td><b class="gw-s120">–</b></td></tr>
+            <tr><td>brighter</td><td><b class="gw-who">–</b></td></tr>
+            <tr><td>ratio S<sub>120</sub>/S<sub>60</sub></td><td><b class="gw-ratio">–</b></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="bd-side">
+      <p class="ph-note">Pick a range of the ratio S<sub>120</sub>/S<sub>60</sub>: those brain pixels light up in both images. Give them one B<sub>1</sub><sup>+</sup> and set the band. Repeat until the map is full.</p>
+      <canvas class="bd-hist" width="390" height="96" aria-label="Histogram of the ratio in the brain"></canvas>
+      <div class="bd-range"><input class="bd-lo" type="range" min="0" max="2" step="0.01" value="0.98" aria-label="Ratio, lower end"><input class="bd-hi" type="range" min="0" max="2" step="0.01" value="1.02" aria-label="Ratio, upper end"></div>
+      <p class="bd-sel"></p>
+      <div class="bs-row"><span>B<sub>1</sub><sup>+</sup> for this range <b class="bd-b1-read"></b></span><input class="bd-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1 for the selected range"></div>
+      <div class="bs-row"><button class="bs-btn bd-set">Set this band</button><button class="bs-btn bd-undo">Undo</button><button class="bs-btn bd-clear">Clear</button><button class="bs-btn bd-fill" aria-pressed="false">Fill between bands</button></div>
+      <div class="bs-row"><span>Smooth afterwards <b class="bd-smooth-read"></b></span><input class="bd-smooth" type="range" min="0" max="10" step="0.5" value="0" aria-label="Gaussian smoothing of your map, sigma in mm"></div>
+      <div class="bd-list ff-chips"></div>
+      <p class="bd-pix"></p>
+      <table class="stats">
+        <tr><td>brain covered</td><td><b class="bd-cov">0 %</b></td></tr>
+        <tr><td>your map vs the real one, rms</td><td><b class="bd-rms">–</b></td></tr>
+        <tr><td>mean bias</td><td><b class="bd-bias">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">2013 Stikov 3 T session, double-angle TSE (clt_tse_60 and clt_tse_120: TR 1.55 s, TE 12 ms, 2 mm, 5 mm slice), magnitude, one grey scale (98th percentile of the head = 1). Your map: each brain pixel gets the B<sub>1</sub> of the band its ratio falls in (the latest band wins where they overlap); “Fill between bands” interpolates linearly in the ratio between band centres. “Smooth afterwards”: a Gaussian of that σ over the brain pixels that have a value. Real map: arccos(S<sub>120</sub>/2S<sub>60</sub>)/60° from the same two images. Diagram: long-TR signals |sin(60°B<sub>1</sub>)| and |sin(120°B<sub>1</sub>)|, as on the previous slide.</p>
+</section>
+
 <!-- ============ Slide 4: brain-tuned exact model ============ -->
 <section id="bt">
   <p class="kicker">Same exact model, brain-like</p>
@@ -355,7 +689,7 @@
 <!-- ============ Slide 5: MPRAGE phantom vs measured AFI ============ -->
 <section id="mp">
   <p class="kicker">First-order estimate, no tuning</p>
-  <h2>Nikola’s head as a phantom</h2>
+  <h2>The head as a phantom</h2>
   <div class="mp-top">
     <div class="map-cell"><div class="cell-title">Tissue model (from MPRAGE)</div><div class="seg-host" style="width:215px;height:313px"></div>
       <div class="legend legend-det"><span><i style="background:#9ecae1"></i>brain (GM/WM/CSF mix)</span><span><i style="background:#f0e442"></i>bone</span><span><i style="background:#e69f00"></i>scalp</span><span><i style="background:#d55e00"></i>fat</span></div>
@@ -393,7 +727,7 @@
   </div>
 </section>
 
-<!-- ============ FLASH on Nikola's brain, then receive coils ============ -->
+<!-- ============ FLASH on the brain, then receive coils ============ -->
 <section id="fl">
   <p class="kicker">Exercise · a brain image to receive</p>
   <h2>FLASH at long TR, simulated on a measured brain slice</h2>
@@ -535,6 +869,188 @@
     </div>
   </div>
   <p class="fixed fl-foot">Sled &amp; Pike elliptic phantom (20 × 15 cm, ε<sub>r</sub> 80, ρ 2 Ωm), circularly polarized coil, exact solution, B<sub>1</sub> normalized to its mean. Spoiled gradient echo: receive image ∝ B<sub>1</sub> · f(α), transmit image ∝ f(αB<sub>1</sub>), f(a) = sin a (1 − E<sub>1</sub>)/(1 − E<sub>1</sub>cos a), E<sub>1</sub> = e<sup>−TR/T<sub>1</sub></sup>. Profiles along the long axis. No noise.</p>
+</section>
+
+<section id="fa-fit">
+  <p class="kicker">Question · why a double angle?</p>
+  <h2>One voxel: why not just fit a few flip angles?</h2>
+  <div class="ff-grid">
+    <div class="map-host" data-key="fafit" style="width:760px;height:430px"></div>
+    <div class="ff-side">
+      <p class="ph-note">TR ≫ 5 T<sub>1</sub> and the same TE for every angle, so S(α) = A · sin(αB<sub>1</sub>): two unknowns, A (M<sub>0</sub>, T<sub>2</sub>*, receive) and B<sub>1</sub>. Two angles should be enough… <b>which two?</b></p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-ffpre="5,10">5° &amp; 10°</button><button class="bs-btn" data-ffpre="20,40">20° &amp; 40°</button><button class="bs-btn" data-ffpre="45,90">45° &amp; 90°</button><button class="bs-btn" data-ffpre="60,120">60° &amp; 120° (DAM)</button><button class="bs-btn" data-ffpre="10,30,50,70,90">10–90° (5)</button></div>
+      <div class="bs-row"><span>True B<sub>1</sub> <b class="ff-b1-read"></b></span><input class="ff-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
+      <div class="bs-row"><span>SNR <b class="ff-snr-read"></b></span><input class="ff-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR (log)"></div>
+      <table class="stats">
+        <tr><td>true B<sub>1</sub></td><td><b class="ff-true">–</b></td></tr>
+        <tr><td>fitted B<sub>1</sub>, this acquisition</td><td><b class="ff-fit">–</b></td></tr>
+        
+        <tr><td>300 noise draws: median ± spread</td><td><b class="ff-mc">–</b></td></tr>
+        <tr><td>precision (spread ÷ true)</td><td><b class="ff-prec">–</b></td></tr>
+        <tr><td>bias (median)</td><td><b class="ff-bias">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">One voxel, spoiled gradient echo with TR ≫ 5 T<sub>1</sub> (full recovery), T<sub>2</sub>* = 50 ms and TE = 5 ms at every angle (A = 0.905 M<sub>0</sub>), ideal slice profile. Magnitude data, Gaussian noise σ = A / SNR. Fit: least squares on A and B<sub>1</sub>, with B<sub>1</sub> kept within the expected range 0.5–1.5 (A in closed form for each B<sub>1</sub>, B<sub>1</sub> on a grid then refined). Spread: 1.4826 × median absolute deviation. Grey: the true curve; orange: the measured points (bars: ± the noise SD); dashed blue: the curve fitted to them. “Show repeats” adds, in light blue, the fits you would get if the same scan were repeated with new noise (25 of the 300 used for the statistics). Click on the curve, type an angle, or pick a preset.</p>
+</section>
+
+<section id="fa-fit-rx">
+  <p class="kicker">Question · why a double angle? · with a receive field</p>
+  <h2>Same voxel, seen through a receive coil</h2>
+  <div class="ff-grid">
+    <div class="map-host" data-key="fafit" style="width:760px;height:430px"></div>
+    <div class="ff-side">
+      <p class="ph-note">Every measurement is now multiplied by the same receive factor R (0.01–2), the same for every angle. <b>Predict:</b> does the fitted B<sub>1</sub> change?</p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-ffpre="5,10">5° &amp; 10°</button><button class="bs-btn" data-ffpre="20,40">20° &amp; 40°</button><button class="bs-btn" data-ffpre="45,90">45° &amp; 90°</button><button class="bs-btn" data-ffpre="60,120">60° &amp; 120° (DAM)</button><button class="bs-btn" data-ffpre="10,30,50,70,90">10–90° (5)</button></div>
+      <div class="bs-row"><span>True B<sub>1</sub> <b class="ff-b1-read"></b></span><input class="ff-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
+      <div class="bs-row"><span>Receive R <b class="ff-rx-read"></b></span><input class="ff-rx" type="range" min="-2" max="0.301" step="0.01" value="-0.523" aria-label="Receive factor (log)"></div>
+      <div class="bs-row"><span>Noise</span><div class="seg" role="group" aria-label="Noise model"><button data-ffnoise="thermal" aria-pressed="true">thermal (fixed σ)</button><button data-ffnoise="scaled" aria-pressed="false">scales with R</button></div></div>
+      <div class="bs-row"><span>SNR at R = 1 <b class="ff-snr-read"></b></span><input class="ff-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR (log)"></div>
+      <table class="stats">
+        <tr><td>true B<sub>1</sub></td><td><b class="ff-true">–</b></td></tr>
+        <tr><td>fitted B<sub>1</sub>, this acquisition</td><td><b class="ff-fit">–</b></td></tr>
+        
+        <tr><td>300 noise draws: median ± spread</td><td><b class="ff-mc">–</b></td></tr>
+        <tr><td>precision (spread ÷ true)</td><td><b class="ff-prec">–</b></td></tr>
+        <tr><td>bias (median)</td><td><b class="ff-bias">–</b></td></tr>
+        <tr><td>fitted A ÷ M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup></td><td><b class="ff-a">–</b></td></tr>
+        <tr><td>SNR of the measurements</td><td><b class="ff-snrnow">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">One voxel, spoiled gradient echo with TR ≫ 5 T<sub>1</sub> (full recovery), T<sub>2</sub>* = 50 ms and TE = 5 ms at every angle (A = 0.905 M<sub>0</sub>), ideal slice profile. Every measurement × the same receive factor R. Noise: thermal (σ fixed at A/SNR, so the SNR of the measurements is SNR × R) or scaled with R (σ × R, the SNR unchanged). Magnitude data, Gaussian noise. Fit: least squares on A and B<sub>1</sub>, with B<sub>1</sub> kept within the expected range 0.5–1.5 (A in closed form for each B<sub>1</sub>, B<sub>1</sub> on a grid then refined). Spread: 1.4826 × median absolute deviation. Dotted grey: the curve without the receive field; grey: the true curve × R; orange: the measured points (bars: ± the noise SD); dashed blue: the curve fitted to them. “Show repeats” adds, in light blue, the fits you would get if the same scan were repeated with new noise (25 of the 300 used for the statistics). Click on the curve, type an angle, or pick a preset.</p>
+</section>
+
+<section id="vfa-fit">
+  <p class="kicker">Question · fit B<sub>1</sub> with the T<sub>1</sub> map?</p>
+  <h2>A VFA experiment: fit T<sub>1</sub> and B<sub>1</sub> together</h2>
+  <div class="ff-grid">
+    <div class="map-host" data-key="vfafit" style="width:760px;height:430px"></div>
+    <div class="ff-side">
+      <p class="ph-note">Spoiled gradient echo at short TR. Ideal receive field and a known M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup>, so A is known: two unknowns, T<sub>1</sub> and B<sub>1</sub>. <b>Which angles</b> pin down both?</p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>True B<sub>1</sub> <b class="vf-b1-read"></b></span><input class="vf-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
+      <div class="bs-row"><span>True T<sub>1</sub> <b class="vf-t1-read"></b></span><input class="vf-t1" type="range" min="300" max="3000" step="10" value="1000" aria-label="True T1 (ms)"></div>
+      <div class="bs-row"><span>TR <b class="vf-tr-read"></b></span><input class="vf-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
+      <div class="bs-row"><span>SNR <b class="vf-snr-read"></b></span><input class="vf-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR at the Ernst angle (log)"></div>
+      <table class="stats">
+        <tr><td></td><td>B<sub>1</sub></td><td>T<sub>1</sub></td></tr>
+        <tr><td>true</td><td><b class="vf-true-b1">–</b></td><td><b class="vf-true-t1">–</b></td></tr>
+        <tr><td>fitted, this acquisition</td><td><b class="vf-fit-b1">–</b></td><td><b class="vf-fit-t1">–</b></td></tr>
+        <tr><td>300 draws: median ± spread</td><td><b class="vf-mc-b1">–</b></td><td><b class="vf-mc-t1">–</b></td></tr>
+        <tr><td>precision (spread ÷ true)</td><td><b class="vf-prec-b1">–</b></td><td><b class="vf-prec-t1">–</b></td></tr>
+        <tr><td>bias (median)</td><td><b class="vf-bias-b1">–</b></td><td><b class="vf-bias-t1">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td colspan="2"><b class="vf-edge">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">One voxel, spoiled gradient echo (ideal spoiling and slice profile), S = A sin(αB<sub>1</sub>)(1 − E<sub>1</sub>)/(1 − E<sub>1</sub>cos αB<sub>1</sub>), E<sub>1</sub> = e<sup>−TR/T<sub>1</sub></sup>, A = M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup> = 0.905 M<sub>0</sub> (T<sub>2</sub>* 50 ms, TE 5 ms), known. Magnitude data, Gaussian noise; SNR = the signal at the Ernst angle (B<sub>1</sub> = 1) ÷ σ. Fit: least squares on B<sub>1</sub> and T<sub>1</sub> within the expected ranges 0.5–1.5 and 100–5000 ms (grid, then Nelder–Mead). Spread: 1.4826 × median absolute deviation. Left: grey, the true curve; orange, the measured points (bars: ± σ); dashed blue, the fitted curve; “Show repeats” adds 25 refits with new noise. Right: the fitted (B<sub>1</sub>, T<sub>1</sub>) of 300 repeated scans; ×, the truth; dotted, T<sub>1</sub>B<sub>1</sub>² = constant.</p>
+</section>
+
+<section id="vfa-fit-rx">
+  <p class="kicker">Question · fit B<sub>1</sub> with the T<sub>1</sub> map? · with a receive field</p>
+  <h2>Same VFA voxel, through an unknown receive factor</h2>
+  <div class="ff-grid">
+    <div class="map-host" data-key="vfafit" style="width:760px;height:430px"></div>
+    <div class="ff-side vf-tight">
+      <p class="ph-note">Every measurement × one unknown receive factor R. <b>Predict:</b> what if the fit assumes R = 1? Or fits A too?</p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>Receive R <b class="vf-rx-read"></b></span><input class="vf-rx" type="range" min="-0.602" max="0.602" step="0.005" value="-0.155" aria-label="Receive factor (log)"><button class="bs-btn vf-rand">Random R</button></div>
+      <div class="bs-row"><span>Fit</span><div class="seg" role="group" aria-label="Fit model"><button data-vffit="r1" aria-pressed="true">assume R = 1</button><button data-vffit="a" aria-pressed="false">fit A too (3 unknowns)</button></div></div>
+      <div class="bs-row"><span>True B<sub>1</sub> <b class="vf-b1-read"></b></span><input class="vf-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
+      <div class="bs-row"><span>True T<sub>1</sub> <b class="vf-t1-read"></b></span><input class="vf-t1" type="range" min="300" max="3000" step="10" value="1000" aria-label="True T1 (ms)"></div>
+      <div class="bs-row"><span>TR <b class="vf-tr-read"></b></span><input class="vf-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
+      <div class="bs-row"><span>SNR at R = 1 <b class="vf-snr-read"></b></span><input class="vf-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR at the Ernst angle (log)"></div>
+      <table class="stats">
+        <tr><td></td><td>B<sub>1</sub></td><td>T<sub>1</sub></td></tr>
+        <tr><td>true</td><td><b class="vf-true-b1">–</b></td><td><b class="vf-true-t1">–</b></td></tr>
+        <tr><td>fitted, this acquisition</td><td><b class="vf-fit-b1">–</b></td><td><b class="vf-fit-t1">–</b></td></tr>
+        <tr><td>300 draws: median ± spread</td><td><b class="vf-mc-b1">–</b></td><td><b class="vf-mc-t1">–</b></td></tr>
+        <tr><td>precision (spread ÷ true)</td><td><b class="vf-prec-b1">–</b></td><td><b class="vf-prec-t1">–</b></td></tr>
+        <tr><td>bias (median)</td><td><b class="vf-bias-b1">–</b></td><td><b class="vf-bias-t1">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td colspan="2"><b class="vf-edge">–</b></td></tr>
+        <tr><td>fitted A ÷ M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup></td><td colspan="2"><b class="vf-a">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">As the previous slide, with every measurement × the same receive factor R (log slider 0.25–4; “Random R”: log-uniform in 0.5–2). Thermal noise: σ fixed at its R = 1 value, so the SNR of the measurements is SNR × R (35 at the default R = 0.7). “Assume R = 1”: A = 0.905 M<sub>0</sub> as before, two unknowns. “Fit A too”: A is a third unknown (closed form for each B<sub>1</sub>, T<sub>1</sub>), which needs at least 3 angles. Dotted grey: the curve without the receive field; grey: the true curve × R. Right: dotted, T<sub>1</sub>B<sub>1</sub>² = constant.</p>
+</section>
+
+<section id="vfa-brain">
+  <p class="kicker">Question · fit B<sub>1</sub> with the T<sub>1</sub> map? · on a brain</p>
+  <h2>VFA on every brain voxel, through receive coils</h2>
+  <div class="vb-grid">
+    <div class="vb-labcol">
+      <canvas class="vb-lab" width="600" height="600" aria-label="Receive coils around the head: drag a coil"></canvas>
+      <p class="vb-cap">Receive field (× brain mean, 0–3) and coils (loops seen edge-on). Drag a coil’s centre.</p>
+      <div class="bs-row"><button class="bs-btn" data-vbpre="ring8">8 around</button><button class="bs-btn" data-vbpre="side">4 one side</button><button class="bs-btn" data-vbpre="back">3 back</button><button class="bs-btn" data-vbpre="one">1 top</button></div>
+      <div class="bs-row"><button class="bs-btn vb-add">+ Coil</button><button class="bs-btn vb-del" disabled>Remove selected</button></div>
+    </div>
+    <div class="vb-maps">
+      <div><p class="vb-mcap">true B<sub>1</sub></p><div class="map-host" data-key="b1"></div></div>
+      <div><p class="vb-mcap">true T<sub>1</sub></p><div class="map-host" data-key="t1"></div></div>
+      <div><p class="vb-mcap">fitted B<sub>1</sub></p><div class="map-host" data-key="fb1"></div></div>
+      <div><p class="vb-mcap">fitted T<sub>1</sub></p><div class="map-host" data-key="ft1"></div></div>
+      <div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="db1"></div></div>
+      <div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="dt1"></div></div>
+    </div>
+    <div class="vb-side ff-side">
+      <p class="ph-note">The voxel of the last slide, now everywhere in the brain: its measured T<sub>1</sub> and transmit B<sub>1</sub>, seen through the coils on the left, with noise. Each voxel is fitted for T<sub>1</sub> and B<sub>1</sub>.</p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>TR <b class="vb-tr-read"></b></span><input class="vb-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
+      <div class="bs-row"><span>SNR <b class="vb-snr-read"></b></span><input class="vb-snr" type="range" min="1.301" max="3.301" step="0.01" value="2.301" aria-label="SNR (log)" style="width:150px"><button class="bs-btn vb-new">New noise</button><button class="bs-btn vb-nonoise" aria-pressed="false">No noise</button></div>
+      <div class="bs-row"><span>Fit</span><div class="seg" role="group" aria-label="Fit model"><button data-vbfit="r1" aria-pressed="true">assume R = 1</button><button data-vbfit="a" aria-pressed="false">fit A too (3 unknowns)</button></div></div>
+      <p class="vb-msg"></p>
+      <table class="stats">
+        <tr><td>receive field in the brain</td><td><b class="vb-rx">–</b></td></tr>
+        <tr><td>|B<sub>1</sub> error|, median / 90th pct</td><td><b class="vb-eb">–</b></td></tr>
+        <tr><td>|T<sub>1</sub> error|, median / 90th pct</td><td><b class="vb-et">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td><b class="vb-edge">–</b></td></tr>
+        <tr><td>fit time (all voxels)</td><td><b class="vb-time">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">One 2 mm slice of the 2013 Stikov 3 T session: T<sub>1</sub> from the inversion-recovery fit, transmit B<sub>1</sub> the measured double-angle map, A = PD·e<sup>−TE/T<sub>2</sub></sup> from the WM/GM/CSF fractions (the FLASH slide’s guesses, TE 5 ms). Receive as on the coil slide (quasi-static loops, root-sum-of-squares, ÷ brain mean). S = R·A·sin(αB<sub>1</sub>)(1 − E<sub>1</sub>)/(1 − E<sub>1</sub>cos αB<sub>1</sub>), ideal spoiling, + Gaussian noise (one draw per voxel; thermal: σ the same everywhere, SNR = a typical voxel’s signal at its Ernst angle ÷ σ, brain-mean A, T<sub>1</sub> 1 s, B<sub>1</sub> 1, R 1). Fit per voxel, B<sub>1</sub> 0.5–1.5 and T<sub>1</sub> 100–6000 ms: “assume R = 1” uses the true A (ideal receive); “fit A too” fits it. % difference = 100 × (fitted − true) / true; the maps clip at ±30 %.</p>
+</section>
+
+<section id="vfa-afi">
+  <p class="kicker">Question · fit B<sub>1</sub> with the T<sub>1</sub> map? · or measure it separately?</p>
+  <h2>A separate AFI B<sub>1</sub> map, or B<sub>1</sub> as a third VFA unknown?</h2>
+  <div class="va-grid">
+    <div class="va-maps">
+      <div><p class="vb-mcap">true B<sub>1</sub></p><div class="map-host" data-key="b1"></div></div><div><p class="vb-mcap">true T<sub>1</sub></p><div class="map-host" data-key="t1"></div></div><div class="va-label" style="grid-column: span 2"><b>Top:</b> the truth. <b>Middle:</b> AFI B<sub>1</sub> map, then VFA for T<sub>1</sub> with B<sub>1</sub> fixed to it. <b>Bottom:</b> VFA alone, fitting A, B<sub>1</sub> and T<sub>1</sub>.</div>
+      <div><p class="vb-mcap">AFI B<sub>1</sub></p><div class="map-host" data-key="fb1"></div></div><div><p class="vb-mcap">T<sub>1</sub>, VFA with AFI B<sub>1</sub></p><div class="map-host" data-key="ft1"></div></div><div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="fdb1"></div></div><div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="fdt1"></div></div>
+      <div><p class="vb-mcap">B<sub>1</sub>, 3-unknown fit</p><div class="map-host" data-key="3b1"></div></div><div><p class="vb-mcap">T<sub>1</sub>, 3-unknown fit</p><div class="map-host" data-key="3t1"></div></div><div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="3db1"></div></div><div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="3dt1"></div></div>
+    </div>
+    <div class="va-side ff-side">
+      <p class="ph-note">Same brain, same noise level, receive coils from the previous slide (<span class="va-ncoil"></span>). Both methods fit the <b>same</b> VFA data; the AFI method adds one AFI scan, whose ratio S<sub>2</sub>/S<sub>1</sub> cancels the receive field.</p>
+      <div class="bs-row"><span>VFA angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>VFA TR <b class="va-tr-read"></b></span><input class="va-tr" type="range" min="5" max="50" step="1" value="15" aria-label="VFA TR (ms)"></div>
+      <div class="bs-row"><span>AFI α <b class="va-afa-read"></b></span><input class="va-afa" type="range" min="30" max="90" step="1" value="60" aria-label="AFI flip angle"></div>
+      <div class="bs-row"><span>AFI n <b class="va-n-read"></b></span><input class="va-n" type="range" min="2" max="10" step="0.5" value="5" aria-label="AFI TR ratio n"></div>
+      <div class="bs-row"><span>SNR <b class="va-snr-read"></b></span><input class="va-snr" type="range" min="1.301" max="3.301" step="0.01" value="2.301" aria-label="SNR (log)" style="width:130px"><button class="bs-btn va-new">New noise</button><button class="bs-btn va-nonoise" aria-pressed="false">No noise</button></div>
+      <table class="stats va-table">
+        <tr><td></td><td>AFI + VFA</td><td>3-unknown VFA</td></tr>
+        <tr><td>|B<sub>1</sub> error|, median / 90th</td><td><b class="va-eb-f">–</b></td><td><b class="va-eb-3">–</b></td></tr>
+        <tr><td>|T<sub>1</sub> error|, median / 90th</td><td><b class="va-et-f">–</b></td><td><b class="va-et-3">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td><b class="va-edge-f">–</b></td><td><b class="va-edge-3">–</b></td></tr>
+        <tr><td>compute time (both)</td><td colspan="2"><b class="va-time">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="fixed fl-foot">As the previous slide: measured T<sub>1</sub> and transmit B<sub>1</sub>, A = PD·e<sup>−TE/T<sub>2</sub></sup>, its receive coils, thermal Gaussian noise with one σ for every image (SNR = a typical voxel’s VFA signal at its Ernst angle ÷ σ). AFI: Yarnykh 2007 with ideal spoiling, TR<sub>1</sub> 20 ms, TR<sub>2</sub> = n·TR<sub>1</sub>; B<sub>1</sub> from cos θ = (r n − 1)/(n − r), r = S<sub>2</sub>/S<sub>1</sub>, the usual short-TR formula (so a small T<sub>1</sub> bias is included). VFA with AFI B<sub>1</sub>: A and T<sub>1</sub> fitted, B<sub>1</sub> fixed per voxel. 3-unknown: A, B<sub>1</sub> (0.5–1.5) and T<sub>1</sub> fitted. T<sub>1</sub> range 100–6000 ms. % difference = 100 × (fitted − true) / true; the maps clip at ±30 %. The receive field (not shown) is the previous slide’s.</p>
 </section>
 
 <section id="ph-angles">
@@ -933,7 +1449,7 @@
     for (let i = 0; i < nx; i++) rows.push(Array.from(flat.subarray(i * ny, (i + 1) * ny), (v) => (Number.isNaN(v) ? null : v)));
     return rows;
   };
-  const wasm = fetch('js/sledpike.wasm').then((r) => r.arrayBuffer()).then((b) => WebAssembly.instantiate(b, {})).then(({ instance }) => instance.exports);
+  const wasm = fetch('js/sledpike.wasm?v=2').then((r) => r.arrayBuffer()).then((b) => WebAssembly.instantiate(b, {})).then(({ instance }) => instance.exports);
   const GAMMA_BAR = 42.577e6, EPS0 = 8.8541878128e-12, C0 = 299792458;
   const keepSlider = (el) => el.addEventListener('keydown', (e) => e.stopPropagation());   // arrow keys move the slider, not the slides
 
@@ -1325,6 +1841,15 @@
 <script src="js/bs.js"></script>
 <script src="js/fl-data.js"></script>
 <script src="js/fl.js"></script>
+<script src="js/fafit.js"></script>
+<script src="js/vfafit.js"></script>
+<script src="js/vfabrain.js"></script>
+<script src="js/pol.js?v=14"></script>
+<script src="js/cells.js?v=4"></script>
+<script src="js/guess.js"></script>
+<script src="js/dam-data.js"></script>
+<script src="js/build.js"></script>
+<script src="js/arrows.js"></script>
 <script src="js/frames2.js"></script>
 <script src="js/frames-pulse.js"></script>
 <script src="js/nav.js"></script>
