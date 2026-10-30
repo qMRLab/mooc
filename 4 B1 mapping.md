@@ -319,6 +319,49 @@ _B_{sub}`1` mapping is of interest for diverse MRI applications, and several map
 
 The performance of the AFI method is based on the following assumptions. First, the two images acquired at different times should be registered to avoid motion effects. It is also assumed that the signal is insensitive to the main magnetic field non-uniformities and chemical shift effects that are canceled out when taking the signal ratio r [@Yarnykh2007-bv]. Despite some clear advantages over other _B_{sub}`1` mapping techniques, the application of spoiler gradients to mitigate the _T_{sub}`1` dependence can be a limitation due to significant levels of RF power depositions [@Sacolick2010-ga]. Furthermore, it is necessary to adapt the AFI pulse sequence to different scanner manufacturers, and programming experience is required to bring this technique into the clinic.
 
+
+# Bloch-Siegert
+
+:::{attention}
+This content of this section is still a work-in-progress and has not been proofread and/or reviewed.
+:::
+
+Bloch-Siegert (BS) _B_{sub}`1` mapping is a phase-based technique that uses the Bloch-Siegert shift phenomenon [@Sacolick2010-ga]. The Bloch-Siegert shift is a change in precession frequency of spins in the presence of an off-resonance RF field, sufficiently off-resonance so that approximately no longitudinal↔transverse magnetization rotation occurs. Conceptually, the spins in the rotating frame at the off-resonance frequency of the RF pulse experience a non-zero _B_{sub}`z` vector field, and far off-resonance this vector component will dominate over the _B_{sub}`1` field in the transverse plane, such that the spins will precess about _B_{sub}`z` at a rate that depends on the _B_{sub}`1` amplitude. This effect results in a relative phase accrual, which is also dependent on the _B_{sub}`1` amplitude of the off-resonance RF pulse. Typically, BS _B_{sub}`1` mapping is implemented by acquiring two images, each using symmetrically off-resonance RF pulses (Δ = ±ω{sub}`RF`), applied between the excitation pulse and the readout ([](#bsFigPS)).
+
+```{figure} 4 B1 Mapping/04-Bloch-Siegert/img/bs_pulsesequence.png
+:label: bsFigPS
+:enumerator: 4.14
+Simplified pulse sequence diagram of a Bloch-Siegert shift (BS) _B_{sub}`1` mapping pulse sequence. α: excitation flip angle, Δ: off-resonance frequency of the Bloch-Siegert pulse, IMG: image acquisition (k-space readout), SPOIL: spoiler gradient, TR: repetition time.
+```
+
+_B_{sub}`1` values can be calculated from this experiment using the following equations [@Sacolick2010-ga]:
+
+```{math}
+:label: bsEq1
+:enumerator:4.15
+\begin{equation}
+B_{1}^{BS}=\frac{\sqrt{\frac{\phi_{+}-\phi_{-}}{2K_{BS}}}\int_{0}^{T}\gamma B_{1,normalized}\left( t \right)dt}{\alpha}
+\end{equation}
+```
+
+```{math}
+:label: bsEq2
+:enumerator:4.16
+\begin{equation}
+K_{BS}=\int_{0}^{T}\frac{\left( \gamma B_{1,normalized}\left( t \right) \right)^{2}}{2\omega_{RF}}dt
+\end{equation}
+```
+
+where {math}`\phi_{+}` is the voxel phase value for the Δ = +ω{sub}`RF` acquisition, {math}`\phi_{-}` is the voxel phase value for the Δ = −ω{sub}`RF` acquisition, {math}`\gamma` is the gyromagnetic ratio of the spin population, T is the total duration of the off-resonance pulse, α is the off-resonance pulse flip angle, and {math}`B_{1,normalized}` is the pulse profile of the off-resonance _B_{sub}`1` pulse ({math}`B_{1,normalized}=B_{1}/B_{1,max}`). The off-resonance RF pulse is typically very long (~5–10 ms) relative to the excitation pulse, and has a wide Fermi or Gaussian profile so that the spins experience a very small frequency band in practice (as a consequence of Fourier theory). BS also exhibits very low sensitivity to _T_{sub}`1` effects [@Sacolick2010-ga]; however, it is dependent on reliable phase unwrapping, which can be challenging in the presence of phase artifacts like fringe lines and phase poles [@Chavez2002-cutline]. Conventional BS imaging has very high SAR, which is a potentially limiting factor for high field applications, although some modifications to the technique have been proposed to make BS feasible at high field strengths [@Pohmann:2012wl;@Clarke2016-bs].
+
+[](#bsPlot1) displays an example Bloch-Siegert dataset and its corresponding _B_{sub}`1` map in a healthy human brain at 3 T. The images were acquired with a single-slice in-house pulse sequence: TE/TR = 15/100 ms, excitation flip angle α = 25°, 2 × 2 mm{sup}`2` in-plane resolution, 5 mm slice thickness, and an 8 ms Fermi pulse of 500° at ±4 kHz off-resonance (K{sub}`BS` = 74.01 rad/G{sup}`2`) [@Boudreau2017-ik]. An open-ended fringe line (a phase pole) can appear in Bloch-Siegert phase images when the images of a multichannel receive coil are combined out of phase, and may cause some inhomogeneity in the _B_{sub}`1` map near it.
+
+:::{figure} #bsFig1jn
+:label: bsPlot1
+:enumerator: 4.15
+Example Bloch-Siegert dataset (left: the phase images acquired with the off-resonance pulse at Δ = +4 kHz and Δ = −4 kHz, chosen with the menu) and the resulting raw _B_{sub}`1` map of a healthy adult brain (right).
+:::
+
 # Filtering
 
 
@@ -332,7 +375,7 @@ In practice, measured _B_{sub}`1`{sup}`+` maps are rarely perfectly smooth over 
 
 :::{figure} #filtFig1jn
 :label: filtPlot1
-:enumerator: 4.14
+:enumerator: 4.16
 Example _B_{sub}`1` maps (right column) along with their raw acquired data (left and middle columns) for three different _B_{sub}`1` mapping techniques: double angle (top row), actual flip angle imaging (AFI; middle row), and Bloch-Siegert shift (bottom row).
 :::
 
@@ -355,7 +398,7 @@ Filtering is presented as a convolution process to produce an output that is smo
 
 :::{figure} #filtFig2jn
 :label: filtPlot2
-:enumerator: 4.15
+:enumerator: 4.17
 Convolution using the mean
 :::
 
@@ -364,7 +407,7 @@ In terms of equations, the convolution is shown using the symbol {math}`\otimes`
 
 ```{math}
 :label: filtEq1
-:enumerator:4.15
+:enumerator:4.17
 \begin{equation}
 \left( f \otimes g \right)\left( t \right) =\int_{-\infty }^{\infty }f\left( u \right)g\left( t-u \right)du
 \end{equation}
@@ -374,7 +417,7 @@ where {math}`f\left( t \right)` is the signal of interest and {math}`g\left( t \
 
 ```{math}
 :label: filtEq2
-:enumerator:4.16
+:enumerator:4.18
 \begin{equation}
 g\left( x \right)=\frac{1}{\sqrt{2\pi\sigma^{2}}}\text{e}^{-\frac{\left( x-x_{o} \right)^{2}}{2\sigma^{2}}}
 \end{equation}
@@ -385,7 +428,7 @@ where {math}`x_{0}` is the center position of the distribution, and {math}`\sigm
 
 :::{figure} #filtFig3jn
 :label: filtPlot3
-:enumerator: 4.16
+:enumerator: 4.18
 Convolution using a Gaussian kernel
 :::
 
@@ -394,7 +437,7 @@ One property of the convolution is that the convolution of two functions is the 
 
 ```{math}
 :label: filtEq3
-:enumerator:4.17
+:enumerator:4.19
 \begin{equation}
 \left( f\otimes g \right)\left( t \right)=\mathcal{F}^{-1}\left( \mathcal{F}\left( k \right) \cdot \mathcal{G}\left( k \right) \right)
 \end{equation}
@@ -417,7 +460,7 @@ Let’s explore how different filters and smoothing functions behave under diffe
 
 :::{figure} #filtFig4jn
 :label: filtPlot4
-:enumerator: 4.17
+:enumerator: 4.19
 Convolution on the ideal function
 :::
 
@@ -428,7 +471,7 @@ Let’s add some noise.
 
 :::{figure} #filtFig5jn
 :label: filtPlot5
-:enumerator: 4.18
+:enumerator: 4.20
 Ideal function + noise
 :::
 
@@ -439,7 +482,7 @@ What happens if there is a pixel or small region that has a very high signal rel
 
 :::{figure} #filtFig6jn
 :label: filtPlot6
-:enumerator: 4.19
+:enumerator: 4.21
 Ideal function + delta
 :::
 
@@ -449,7 +492,7 @@ What happens at the interface of the brain, where the _B_{sub}`1` signal abruptl
 
 :::{figure} #filtFig7jn
 :label: filtPlot7
-:enumerator: 4.20
+:enumerator: 4.22
 Ideal function + step/sharp edge
 :::
 
@@ -459,7 +502,7 @@ Here we see again that the median function works well if the filter strength is 
 
 :::{figure} #filtFig8jn
 :label: filtPlot8
-:enumerator: 4.21
+:enumerator: 4.23
 Ideal function + comb
 :::
 
@@ -474,7 +517,7 @@ Let’s revisit our initial _B_{sub}`1` maps in [](#filtPlot1) and see how they 
 
 :::{figure} #filtFig9jn
 :label: filtPlot9
-:enumerator: 4.22
+:enumerator: 4.24
 Filtered _B_{sub}`1` maps
 :::
 
