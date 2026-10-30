@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4-6 · B1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <style>
+    .reveal .flt-cols { display: flex; gap: 30px; align-items: flex-start; }
+    .reveal .flt-maps { display: grid; grid-template-columns: repeat(3, 200px); gap: 6px 16px; }
+    .reveal .flt-cap { font-size: 15px; color: var(--muted); text-align: center; margin: 0 0 4px; }
+    .reveal .flt-cap b { color: var(--ink); }
+    .reveal canvas.flt-map { display: block; image-rendering: pixelated; }
+    .reveal .flt-bars { grid-column: 1 / -1; display: flex; gap: 40px; margin-top: 6px; }
+    .reveal .flt-cbar { width: 200px; height: 10px; border-radius: 3px; }
+    .reveal .flt-cbar.bwr { background: linear-gradient(to right, rgb(5,48,97), rgb(67,147,195), rgb(247,247,247), rgb(214,96,77), rgb(103,0,31)); }
+    .reveal .flt-cbar.prgn { background: linear-gradient(to right, rgb(64,0,75), rgb(153,112,171), rgb(247,247,247), rgb(90,174,97), rgb(0,68,27)); }
+    .reveal .flt-cbar-lab { display: flex; justify-content: space-between; width: 200px; font-size: 13px; color: var(--muted); }
+    .reveal .flt-side { width: 400px; font-size: 16px; }
+    .reveal .flt-row { display: flex; align-items: center; gap: 10px; margin: 8px 0 4px; color: var(--muted); }
+    .reveal .flt-row > span:first-child { min-width: 6.5em; }
+    .reveal .flt-row b { color: var(--ink); }
+    .reveal .flt-side input[type="range"] { width: 100%; margin: 0 0 6px; }
+    .reveal .flt-side .seg button { font-size: 14px; padding: 5px 12px; }
+    .reveal .rg-scorebox { background: var(--panel); border-radius: 12px; padding: 12px 18px; margin-bottom: 12px; }
+    .reveal .rg-scorebox p { margin: 0; font-size: 15px; color: var(--muted); }
+    .reveal .rg-score { font-size: 54px; font-weight: 700; color: var(--accent); line-height: 1.1; }
+    .reveal .flt-q { font-size: 17px; font-weight: 700; line-height: 1.4; margin: 16px 0 0; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-6</p>
+  <h2>Filtering a B<sub>1</sub> map with bright vessels</h2>
+  <p class="subtitle">You are given B<sub>1</sub> mapping data that is very sensitive to the motion of blood in the vessels: you see bright spots in the B<sub>1</sub> maps. The researcher doesn’t need accurate B<sub>1</sub> inside these regions, but would like to filter the maps in the brain tissue.</p>
+</section>
+
+<section id="flt-a" class="flt" data-mask="no">
+  <p class="kicker">Exercise 4-6 · (a)</p>
+  <h2>Filter the map, without a mask</h2>
+  <div class="flt-cols">
+    <div class="flt-maps">
+      <div><p class="flt-cap">Measured B<sub>1</sub></p><canvas class="flt-map flt-raw" data-w="200"></canvas></div>
+      <div><p class="flt-cap"><b>Filtered</b></p><canvas class="flt-map flt-out" data-w="200"></canvas></div>
+      <div><p class="flt-cap">Error in tissue</p><canvas class="flt-map flt-err" data-w="200"></canvas></div>
+      <div class="flt-bars">
+        <div><div class="flt-cbar bwr"></div><div class="flt-cbar-lab"><span>0.7</span><span>B<sub>1</sub></span><span>1.3</span></div></div>
+        <div><div class="flt-cbar prgn"></div><div class="flt-cbar-lab"><span>−10 %</span><span>error</span><span>+10 %</span></div></div>
+      </div>
+    </div>
+    <div class="flt-side">
+      <div class="rg-scorebox"><p>rms error in the tissue (vessels not scored)</p><div class="rg-score flt-score">–</div></div>
+      <div class="flt-row"><span>Filter</span><div class="seg" role="group" aria-label="Filter"><button data-fltkind="none" aria-pressed="true">none</button><button data-fltkind="median" aria-pressed="false">median</button><button data-fltkind="gaussian" aria-pressed="false">Gaussian</button></div></div>
+      <div class="flt-row"><span>Width</span><b class="flt-w-read"></b></div>
+      <input class="flt-w" type="range" min="3" max="15" step="2" value="5" aria-label="Filter width">
+      <p class="flt-q">Without a mask, which filter should you use, and how wide? Why?</p>
+    </div>
+  </div>
+</section>
+
+<section id="flt-b" class="flt" data-mask="yes">
+  <p class="kicker">Exercise 4-6 · (b)</p>
+  <h2>Mask the vessels, then filter</h2>
+  <div class="flt-cols">
+    <div class="flt-maps">
+      <div><p class="flt-cap">Measured B<sub>1</sub> (orange: masked)</p><canvas class="flt-map flt-raw" data-w="200"></canvas></div>
+      <div><p class="flt-cap"><b>Filtered</b></p><canvas class="flt-map flt-out" data-w="200"></canvas></div>
+      <div><p class="flt-cap">Error in tissue</p><canvas class="flt-map flt-err" data-w="200"></canvas></div>
+      <div class="flt-bars">
+        <div><div class="flt-cbar bwr"></div><div class="flt-cbar-lab"><span>0.7</span><span>B<sub>1</sub></span><span>1.3</span></div></div>
+        <div><div class="flt-cbar prgn"></div><div class="flt-cbar-lab"><span>−10 %</span><span>error</span><span>+10 %</span></div></div>
+      </div>
+    </div>
+    <div class="flt-side">
+      <div class="rg-scorebox"><p>rms error in the tissue (vessels not scored)</p><div class="rg-score flt-score">–</div></div>
+      <div class="flt-row"><span>Filter</span><div class="seg" role="group" aria-label="Filter"><button data-fltkind="none" aria-pressed="true">none</button><button data-fltkind="median" aria-pressed="false">median</button><button data-fltkind="gaussian" aria-pressed="false">Gaussian</button></div></div>
+      <div class="flt-row"><span>Width</span><b class="flt-w-read"></b></div>
+      <input class="flt-w" type="range" min="3" max="15" step="2" value="5" aria-label="Filter width">
+      <div class="flt-row"><span>Vessel mask</span><button class="bs-btn flt-maskon" aria-pressed="true">Mask on</button></div>
+      <div class="flt-row"><span>Threshold</span><b class="flt-thr-read"></b></div>
+      <input class="flt-thr" type="range" min="1.0" max="2.0" step="0.01" value="1.4" aria-label="Mask threshold">
+      <p class="flt-q">How would you create a mask for the vessels? With a mask, which filter should you use? Why?</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/fl-data.js"></script>
+<script src="js/filter.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

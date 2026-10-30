@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="vendor/reveal/reset.css">
   <link rel="stylesheet" href="vendor/reveal/reveal.css">
   <link rel="stylesheet" href="deck.css">
+  <style>
+    .reveal .cards.three { grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 0.6em; }
+    .reveal .cards.three .card { padding: 14px 18px; font-size: 0.6em; }
+    .reveal .cards.three .card h3 { font-size: 1.35em; margin-bottom: 0.3em; }
+    .reveal .card.c5 { --card: #56b4e9; }
+    .reveal .card.c6 { --card: #d55e00; }
+  </style>
 </head>
 <body class="nav-zones" data-next-deck="exercise-4-1.html">
 <div class="reveal">
@@ -18,10 +25,13 @@
 <section class="problem hub" data-book="exercises">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">B<sub>1</sub> Mapping</p>
-  <div class="cards two">
+  <div class="cards three">
     <a class="card mono" href="exercise-4-1.html"><h3>Exercise 4-1</h3><p><b>Building intuition: can you guesstimate B<sub>1</sub> from the raw data?</b></p><p>Two images at 60° and 120°: a quiz on where B<sub>1</sub> is high or low, and why the double angle works.</p></a>
     <a class="card multi" href="exercise-4-2.html"><h3>Exercise 4-2</h3><p><b>Registering qMRI measurements between each other: DAM example</b></p><p>Register a double angle pair to match an AFI B<sub>1</sub> map: a refresher from Lab 4.</p></a>
     <a class="card t2star" href="exercise-4-3.html"><h3>Exercise 4-3</h3><p><b>Building intuition: why do the two AFI signals depend on B<sub>1</sub>?</b></p><p>One magnetization vector through an AFI cycle, its two readouts locked in.</p></a>
+    <a class="card mwf" href="exercise-4-4.html"><h3>Exercise 4-4</h3><p><b>How does an off-resonance pulse add phase?</b></p><p>Bloch–Siegert, parts (a)–(d): a strong pulse off resonance, the phase it adds, and why two offsets cancel B<sub>0</sub>.</p></a>
+    <a class="card c5" href="exercise-4-5.html"><h3>Exercise 4-5</h3><p><b>Variable flip angle T<sub>1</sub> mapping: do we need a separate B<sub>1</sub> map?</b></p><p>Fit T<sub>1</sub> and B<sub>1</sub> together, through receive coils, then with an AFI map.</p></a>
+    <a class="card c6" href="exercise-4-6.html"><h3>Exercise 4-6</h3><p><b>Filtering a B<sub>1</sub> map with bright vessels</b></p><p>Median or Gaussian, how wide, and with or without a mask: lowest error in the tissue.</p></a>
   </div>
   <p class="nav-tip"><b>Changing slides:</b> move the mouse to the far left or right edge of the window until a grey bar appears, then click it to go back or forward. Space and Page Down also move forward.</p>
 </section>
@@ -34,5 +44,6 @@
   Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
 </script>
 <script src="js/nav.js"></script>
+<script src="js/popout.js"></script>
 </body>
 </html>
