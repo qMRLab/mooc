@@ -76,7 +76,7 @@ jobs:
           cp -R index.html exercises.html exercises-2.html exercise-*.html deck.css js img vendor ../../_build/html/slides/t2/
           mkdir -p ../../_build/html/slides/b1
           cd "../b1-deck"
-          cp -R index.html exercises.html deck.css js img vendor ../../_build/html/slides/b1/
+          cp -R index.html exercises.html exercise-*.html deck.css js img vendor ../../_build/html/slides/b1/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

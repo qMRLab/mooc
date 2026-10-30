@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4-1 · B1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <style>
+    .reveal .gs-task { margin: 6px 0 8px; padding: 7px 12px; font-size: 15px; font-weight: 700; line-height: 1.4; color: #b42318; background: #fdecea; border: 2px solid #d92d20; border-radius: 8px; }
+    .reveal .gs-reveal { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+    .reveal .gs-reveal:hover { background: #174a78; border-color: #174a78; color: #fff; }
+    .reveal .gs-reveal[hidden] { display: none; }
+    .reveal .gs-status { font-size: 18px; color: var(--accent); }
+    .reveal #guess .gs-pt { display: none; }
+    .reveal .gs-vals { display: flex; gap: 12px; margin: 4px 0 10px; }
+    .reveal .gs-vals > div { flex: 1; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 6px 12px; }
+    .reveal .gs-vals span { display: block; font-size: 13px; color: var(--muted); }
+    .reveal .gs-vals b { font-size: 26px; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .reveal section.summary-lessons ol { font-size: 0.84em; }
+    .reveal .gs-hint { background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; padding: 4px 10px; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-1</p>
+  <h2>Building intuition: can you guesstimate B<sub>1</sub> from the raw data?</h2>
+</section>
+
+<section id="guess" data-reveal-at-end data-in-order>
+  <p class="kicker">Exercise 4-1 · (a)</p>
+  <h2>High or low B<sub>1</sub><sup>+</sup>? Only the two images to go on</h2>
+  <div class="gs-grid">
+    <div class="gs-imgs">
+      <div><p class="gs-cap">α = 60°</p><div class="map-host" data-key="i60" style="width:300px;height:420px"></div></div>
+      <div><p class="gs-cap">2α = 120°</p><div class="map-host" data-key="i120" style="width:300px;height:420px"></div></div>
+      <p class="gs-pix">Click a pixel to read its value in both images.</p>
+    </div>
+    <div class="gs-side">
+      <p class="ph-note">A brain, imaged at 60° and 120° (long TR) through a receive array with arbitrary coil positions, both on one grey scale.</p>
+      <p class="gs-task">Press <b>Start</b>: a point appears for 5 seconds. Is the transmit B<sub>1</sub><sup>+</sup> there above or below 1?<br>Be quick: a right answer scores up to 1000 points, fewer the longer you take.</p>
+      <p class="ph-note gs-hint"><b>Hint:</b> you can expect B<sub>1</sub> to range between 0.5 and 1.5.</p>
+      <div class="bs-row"><button class="bs-btn gs-start">Start</button><b class="gs-status"></b><button class="bs-btn gs-reveal" aria-pressed="false" style="margin-left:auto">Reveal the B<sub>1</sub> map</button></div>
+      <div class="gs-timer"><div></div></div>
+      <div class="bs-row gs-answer"><button class="bs-btn" data-gsa="hi" disabled>B<sub>1</sub><sup>+</sup> &gt; 1</button><button class="bs-btn" data-gsa="lo" disabled>B<sub>1</sub><sup>+</sup> &lt; 1</button></div>
+      <p class="gs-pt"></p>
+      <div class="gs-vals"><div><span>Point</span><b class="gs-vlab">–</b></div><div><span>S(60°)</span><b class="gs-v60">–</b></div><div><span>S(120°)</span><b class="gs-v120">–</b></div></div>
+      <p class="gs-fb"></p>
+      <table class="stats gs-table"><tbody class="gs-results"></tbody></table>
+      <div class="gs-b1wrap" hidden><div class="map-host" data-key="b1" style="width:180px;height:150px"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="guess-why">
+  <p class="kicker">Exercise 4-1 · (b)</p>
+  <h2>How to get every point of the quiz right</h2>
+  <div class="gw-grid">
+    <svg viewBox="0 0 600 500" width="600" height="500" role="img" aria-label="The 60° and 120° magnetization vectors and their transverse components"></svg>
+    <div class="gw-side">
+      <p class="ph-note">The magnetization starts along z and is tipped towards the right by the actual flip angle, 60° × B<sub>1</sub> or 120° × B<sub>1</sub>. The signal is its transverse part (the bar below each vector). Dashed: B<sub>1</sub> = 1. <b>Move B<sub>1</sub>:</b> which bar grows, which one shrinks?</p>
+      <div class="bs-row"><span>B<sub>1</sub> <b class="gw-b1-read"></b></span><input class="gw-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1"></div>
+      <table class="stats">
+        <tr><td>60° pulse</td><td><b class="gw-s60">–</b></td></tr>
+        <tr><td>120° pulse</td><td><b class="gw-s120">–</b></td></tr>
+        <tr><td>brighter</td><td><b class="gw-who">–</b></td></tr>
+      </table>
+      <div class="bs-row"><button class="bs-btn gw-show" aria-pressed="false">Show the rule</button></div>
+      <div class="gw-why" hidden>
+        <p class="ph-note">At B<sub>1</sub> = 1 the two vectors are mirror images about the horizontal: the same signal (0.87). B<sub>1</sub> turns both further in the same direction. Above 1, the 60° vector moves <b>towards</b> the horizontal (more signal) and the 120° vector <b>away</b> from it (less). Below 1, the opposite: the 120° vector comes up towards the horizontal (and, below 0.75, past it, but it stays closer to it than the 60° vector). So the image whose vector is closer to the horizontal is brighter, and the two swap exactly at B<sub>1</sub> = 1. This holds for any B<sub>1</sub> up to 1.5, where the 120° vector reaches 180°; above that, its signal comes back.</p>
+        <p class="ph-note"><b>Rule:</b> at each point, compare the same pixel in the two images. Brighter at 60° → B<sub>1</sub> &gt; 1. Brighter at 120° → B<sub>1</sub> &lt; 1 (for any B<sub>1</sub> below 1.5). The receive coil multiplies both images by the same number at that pixel, so it can make a point bright or dark, but it doesn’t change which of the two images is brighter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rule-other" data-angles="45,135">
+  <p class="kicker">Exercise 4-1 · (b) · another pair of angles</p>
+  <h2>Would the rule work for another pair of angles?</h2>
+  <div class="gw-grid">
+    <svg viewBox="0 0 600 500" width="600" height="500" role="img" aria-label="The 45° and 135° magnetization vectors and their transverse components"></svg>
+    <div class="gw-side">
+      <p class="ph-note">The rule for 60° and 120°: brighter at 60° → B<sub>1</sub> &gt; 1, brighter at 120° → B<sub>1</sub> &lt; 1. <b>Would it work with 45° and 135°?</b> Move B<sub>1</sub> from 0.5 to 1.5: which image is brighter?</p>
+      <div class="bs-row"><span>B<sub>1</sub> <b class="gw-b1-read"></b></span><input class="gw-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1"></div>
+      <table class="stats">
+        <tr><td>45° pulse</td><td><b class="gw-s60">–</b></td></tr>
+        <tr><td>135° pulse</td><td><b class="gw-s120">–</b></td></tr>
+        <tr><td>brighter</td><td><b class="gw-who">–</b></td></tr>
+        <tr><td>ratio S<sub>135</sub>/S<sub>45</sub></td><td><b class="gw-ratio">–</b></td></tr>
+      </table>
+      <div class="fragment">
+        <p class="ph-note"><b>Yes.</b> sin 45° = sin 135°, so the two images are equal exactly at B<sub>1</sub> = 1 and swap there, as for 60° and 120°: brighter at 45° → B<sub>1</sub> &gt; 1, brighter at 135° → B<sub>1</sub> &lt; 1.</p>
+        <p class="ph-note">For the rule, what matters is that the two angles add up to 180°, not that one is twice the other. But the DAM equation, B<sub>1</sub> = arccos(S<sub>2α</sub>/2S<sub>α</sub>)/α, needs the double angle: this pair needs its own, S<sub>135</sub>/S<sub>45</sub> = 1 + 2 cos(90°·B<sub>1</sub>), so B<sub>1</sub> = arccos((r − 1)/2)/90° (up to B<sub>1</sub> = 1.33, where 135°·B<sub>1</sub> passes 180°).</p>
+        <p class="ph-note"><b>Only 60° and 120° are both:</b> a double angle whose two angles add up to 180°. α + 2α = 180° → α = 60°.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 4-1 · Summary</p>
+  <h2>Guesstimating B<sub>1</sub> from the raw data</h2>
+  <ol>
+    <li><b>Long TR:</b> each image is S = R · M<sub>0</sub> · sin(α·B<sub>1</sub>), with R the receive field. At 60° and 120° the two images are equal exactly where B<sub>1</sub> = 1, because sin 60° = sin 120°.</li>
+    <li><b>The rule:</b> brighter at 60° → B<sub>1</sub> &gt; 1; brighter at 120° → B<sub>1</sub> &lt; 1 (for B<sub>1</sub> up to 1.5).</li>
+    <li><b>The receive field</b> multiplies both images by the same number at each pixel: it can make a point bright or dark, but doesn’t change which image is brighter relative to the other, and it cancels in the ratio: S<sub>2α</sub>/2S<sub>α</sub> = cos(α·B<sub>1</sub>), so B<sub>1</sub> = arccos(S<sub>2α</sub>/2S<sub>α</sub>)/α.</li>
+    <li><b>Why 60° and 120°:</b> the rule needs two angles that add up to 180°, the DAM equation needs the second to be twice the first. Only α = 60° does both. And near B<sub>1</sub> = 1 both images have the same signal (0.87 M<sub>0</sub>), so the same SNR.</li>
+  </ol>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/fl-data.js"></script>
+<script src="js/guess.js?v=6"></script>
+<script src="js/arrows.js?v=3"></script>
+<script src="js/nav.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

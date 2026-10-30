@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4-2 · B1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+  <style>
+    .reveal .rg-lead { font-size: 0.56em; color: var(--muted); max-width: 70em; margin: -0.4em 0 0.5em; }
+    .reveal .rg-cols { display: flex; gap: 26px; align-items: flex-start; }
+    /* A small qmrlab.org/viewer: layer list, the selected layer's controls, one view */
+    .reveal .vw { display: flex; border: 1px solid #e4e4e7; border-radius: 12px; overflow: hidden; background: #f6f6f7; font-size: 13px; line-height: 1.45; color: #18181b; }
+    .reveal .vw-side { width: 250px; padding: 2px 14px 12px; background: #fff; border-right: 1px solid #e4e4e7; }
+    .reveal .vw-sec { padding: 8px 0 8px; border-bottom: 1px solid #e4e4e7; }
+    .reveal .vw-sec:last-child { border-bottom: none; }
+    .reveal .vw-side h4 { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 8px; font: 500 11px ui-monospace, Menlo, monospace; text-transform: uppercase; letter-spacing: 0.08em; color: #8a8a93; }
+    .reveal .vw-side h4 small { text-transform: none; letter-spacing: 0; }
+    .reveal .vw-side h5 { margin: 0 0 4px; font-size: 14px; font-weight: 500; text-transform: none; letter-spacing: -0.01em; color: #18181b; }
+    .reveal .vw-side h6 { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 4px; font-size: 13px; font-weight: 600; text-transform: none; color: #4d7c0f; }
+    .reveal .vw-side h6 small { font-weight: 400; color: #8a8a93; }
+    .reveal .vw-side label { display: block; margin: 5px 0; color: #52525b; }
+    .reveal .vw-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .reveal .vw-side .vw-row select { display: inline-block; width: 140px; margin: 0; }
+    .reveal .vw-side select { display: block; width: 100%; margin-top: 4px; }
+    .reveal .vw-side button, .reveal .vw-side select, .reveal .vw-side input[type=number] { height: 26px; padding: 0 8px; font: inherit; color: #18181b; background: #f1f1f3; border: 1px solid #d4d4d8; border-radius: 7px; cursor: pointer; }
+    .reveal .vw-side button:hover, .reveal .vw-side select:hover { border-color: #a1a1aa; background: #e7e7ea; }
+    .reveal .vw-side input[type=number] { width: 72px; font: 12px ui-monospace, Menlo, monospace; cursor: text; }
+    .reveal .vw-side input[type=range] { width: 100%; margin: 2px 0 0; accent-color: #4d7c0f; }
+    .reveal .vw-side input[type=checkbox] { accent-color: #4d7c0f; width: 15px; height: 15px; margin: 0; cursor: pointer; }
+    .reveal .vw-range { display: flex; gap: 6px; align-items: end; }
+    .reveal .vw-range label { margin: 0; }
+    .reveal .vw-range input { display: block; margin-top: 4px; }
+    .reveal .vw-layer { display: flex; gap: 8px; align-items: center; height: 30px; padding: 0 8px; margin: 2px 0; border-radius: 7px; border: 1px solid transparent; cursor: pointer; }
+    .reveal .vw-layer:hover { background: #f1f1f3; }
+    .reveal .vw-layer.sel { background: #e7e7ea; border-color: #d4d4d8; box-shadow: inset 2px 0 0 #4d7c0f; }
+    .reveal .vw-name { font: 12px ui-monospace, Menlo, monospace; }
+    .reveal .vw-reg { margin-top: 8px; padding: 6px 10px; border: 1px dashed #4d7c0f; border-radius: 8px; background: #f7fbef; }
+    .reveal .vw-reg p { margin: 0 0 4px; font-size: 12px; color: #52525b; }
+    .reveal .vw-sl { display: block; }
+    .reveal .vw-sl b { float: right; font: 12px ui-monospace, Menlo, monospace; color: #18181b; }
+    .reveal .vw-view { padding: 8px; }
+    .reveal canvas.rg-over { display: block; background: #000; border-radius: 9px; touch-action: none; }
+    .reveal canvas.rg-over.can-drag { cursor: grab; }
+    .reveal canvas.rg-over.can-drag:active { cursor: grabbing; }
+    /* results */
+    .reveal .rg-side { width: 330px; }
+    .reveal .rg-scorebox { background: var(--panel); border-radius: 12px; padding: 12px 18px; margin-bottom: 16px; }
+    .reveal .rg-scorebox p { margin: 0; font-size: 15px; color: var(--muted); }
+    .reveal .rg-score { font-size: 54px; font-weight: 700; color: var(--accent); line-height: 1.1; }
+    .reveal .rg-maps { display: flex; gap: 16px; }
+    .reveal .rg-cap { font-size: 15px; color: var(--muted); text-align: center; margin: 0 0 4px; }
+    .reveal .rg-cap b { color: var(--ink); }
+    .reveal canvas.rg-thumb { display: block; border-radius: 4px; }
+    .reveal .rg-cbar { width: 316px; height: 10px; border-radius: 3px; margin-top: 10px;
+      background: linear-gradient(to right, rgb(5,48,97), rgb(33,102,172), rgb(67,147,195), rgb(146,197,222), rgb(247,247,247), rgb(244,165,130), rgb(214,96,77), rgb(178,24,43), rgb(103,0,31)); }
+    .reveal .rg-cbar-lab { display: flex; justify-content: space-between; width: 316px; font-size: 13px; color: var(--muted); margin-top: 2px; }
+    /* (b): the lab views */
+    .reveal .rx-views { display: flex; gap: 18px; }
+    .reveal canvas.rx-lab { display: block; width: 270px; height: 270px; background: #000; border-radius: 9px; touch-action: none; }
+    .reveal canvas.rx-s2 { cursor: grab; }
+    .reveal canvas.rx-s2:active { cursor: grabbing; }
+    .reveal .rx-ctl { width: 270px; font-size: 14px; color: var(--muted); margin-top: 8px; }
+    .reveal .rx-ctl label { display: flex; justify-content: space-between; }
+    .reveal .rx-ctl b { color: var(--ink); }
+    .reveal .rx-ctl input[type=range] { width: 100%; margin: 2px 0 6px; accent-color: #4d7c0f; }
+    .reveal .rx-btn { font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid var(--rule); border-radius: 7px; background: #fff; color: var(--ink); cursor: pointer; }
+    .reveal .rx-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .reveal .rx-maps .rg-cap { font-size: 13px; }
+    .reveal .rx-cbar { width: 140px; height: 8px; border-radius: 3px; margin-top: 5px; background: linear-gradient(to right, rgb(5,48,97), rgb(33,102,172), rgb(67,147,195), rgb(146,197,222), rgb(247,247,247), rgb(244,165,130), rgb(214,96,77), rgb(178,24,43), rgb(103,0,31)); }
+    .reveal .rx-cbar.ratio { background: linear-gradient(to right, rgb(59,76,192), rgb(98,130,234), rgb(141,176,254), rgb(185,208,249), rgb(221,220,220), rgb(245,196,172), rgb(244,152,122), rgb(221,95,75), rgb(180,4,38)); }
+    .reveal .rx-cbar-lab { display: flex; justify-content: space-between; width: 140px; font-size: 12px; color: var(--muted); }
+    .reveal .rx-why { margin-top: 12px; display: flex; gap: 26px; align-items: center; }
+    .reveal .rx-q { font-size: 0.62em; font-weight: 700; max-width: 21em; margin: 0; }
+    .reveal .rx-a { font-size: 0.56em; background: var(--panel); border-radius: 10px; padding: 6px 16px; }
+    .reveal .rx-a p { margin: 0.2em 0; }
+    .reveal .rx-a .katex-display { margin: 0.2em 0; }
+    /* (c): the open question */
+    .reveal .oq-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; margin-top: 0.6em; }
+    .reveal .oq-a { font-size: 0.68em; }
+    .reveal .oq-a ul { margin: 0.3em 0 0 1em; padding: 0; }
+    .reveal .oq-a li + li { margin-top: 0.45em; }
+    .reveal .oq-a .oq-head { font-size: 0.62em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #b07800; margin: 0 0 0.3em; }
+    .reveal .oq-seq { display: block; width: 100%; margin: 0.2em 0 0; }
+    .reveal .rg-leadrow { display: flex; align-items: center; gap: 18px; margin: -0.4em 0 0.5em; }
+    .reveal .rg-leadrow .rg-lead { margin: 0; }
+    .reveal .rg-note { flex: none; margin: 0; font-size: 15px; padding: 6px 12px; border-radius: 8px; background: #fff4d6; border-left: 4px solid #e0a800; color: var(--ink); }
+    .reveal .rg-note b { text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px; color: #9a6b00; margin-right: 6px; }
+    .reveal .rg-q { font-size: 18px; font-weight: 700; line-height: 1.35; margin: 22px 0 0; }
+    .reveal .rg-drag { margin: 10px 0 0; padding: 8px 12px; font-size: 16px; font-weight: 700; text-align: center; color: #b42318; background: #fdecea; border: 2px solid #d92d20; border-radius: 8px; }
+    .reveal #reg-rx h2 { font-size: 1.2em; }
+    .reveal .rx-note { width: 200px; font-size: 16px; line-height: 1.4; background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 8px; padding: 10px 14px; }
+    .reveal .rx-note p { margin: 0 0 6px; }
+    .reveal .rx-note .rx-note-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9a6b00; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-2</p>
+  <h2>Registering qMRI measurements between each other: DAM example</h2>
+  <p class="subtitle">A subject moved between their two DAM acquisitions: practice registering them together to get a good B<sub>1</sub> map.</p>
+</section>
+
+<section id="reg">
+  <p class="kicker">Exercise 4-2 · (a)</p>
+  <h2>Register the double angle scans</h2>
+  <div class="rg-leadrow"><p class="rg-lead">A subject moved between their two DAM acquisitions: practice registering them together to get a good B<sub>1</sub> map.</p>
+    <p class="rg-note"><b>Note</b> Recall the SCT lab from Lab 4</p></div>
+  <div class="rg-cols">
+    <div class="vw">
+      <div class="vw-side">
+        <div class="vw-sec"><h4>Layers <small>top is drawn on top</small></h4><div class="vw-layers"></div></div>
+        <div class="vw-sec vw-ctl"></div>
+      </div>
+      <div class="vw-view"><canvas class="rg-over" data-w="400" data-h="410" aria-label="The two scans; drag FA2 to move it"></canvas>
+        <p class="rg-drag">Click and drag to move the second acquisition<br>Use the sliders to rotate or scale the brain</p></div>
+    </div>
+    <div class="rg-side">
+      <div class="rg-scorebox"><p>Mean error vs AFI</p><div class="rg-score">–</div><p>FA2 moved by <span class="rg-shift"></span></p></div>
+      <div class="rg-maps">
+        <div><p class="rg-cap"><b>Your B<sub>1</sub> map</b></p><canvas class="rg-thumb rg-yours" data-w="150"></canvas></div>
+        <div><p class="rg-cap">Expected B<sub>1</sub> (AFI)</p><canvas class="rg-thumb rg-afi" data-w="150"></canvas></div>
+      </div>
+      <div class="rg-cbar"></div><div class="rg-cbar-lab"><span>0.7</span><span>1.0</span><span>1.3</span></div>
+      <p class="rg-q">How close to the expected B<sub>1</sub> can you get? What’s the lowest mean error you can reach, and how?</p>
+    </div>
+  </div>
+</section>
+
+<section id="reg-rx">
+  <p class="kicker">Exercise 4-2 · (b)</p>
+  <h2>The receive RF profile is multiplicative, and changes with position</h2>
+  <p class="rg-lead">The receive coils (orange) stay fixed in the scanner. Move and turn the head for scan 2: the two scans are then registered perfectly.</p>
+  <div class="rg-cols">
+    <div class="rx-views">
+      <div><p class="rg-cap"><b>Scan 1</b> · FA1 = 60°</p><canvas class="rx-lab rx-s1" width="540" height="540" aria-label="Scan 1 with the receive coils"></canvas></div>
+      <div><p class="rg-cap"><b>Scan 2</b> · FA2 = 120° · drag the head</p><canvas class="rx-lab rx-s2" width="540" height="540" aria-label="Scan 2 with the receive coils; drag to move the head"></canvas>
+        <div class="rx-ctl"><label>Rotation <b class="rx-rot-v"></b></label><input class="rx-rot" type="range" step="0.1">
+          <button class="rx-btn rx-none">No motion</button> <button class="rx-btn rx-start">Motion from (a)</button></div></div>
+    </div>
+    <div class="rg-side">
+      <div class="rg-scorebox"><p>Mean error vs AFI, perfectly registered</p><div class="rg-score rx-score">–</div><p>Head moved <span class="rx-shift"></span></p></div>
+      <div class="rg-maps rx-maps">
+        <div><p class="rg-cap">Receive R<sub>2</sub> / R<sub>1</sub></p><canvas class="rg-thumb rx-ratio" data-w="140"></canvas><div class="rx-cbar ratio"></div><div class="rx-cbar-lab"><span>0.8</span><span>1.0</span><span>1.2</span></div></div>
+        <div><p class="rg-cap"><b>B<sub>1</sub> map</b></p><canvas class="rg-thumb rx-b1" data-w="140"></canvas><div class="rx-cbar"></div><div class="rx-cbar-lab"><span>0.7</span><span>1.0</span><span>1.3</span></div></div>
+      </div>
+    </div>
+    <div class="rx-note fragment"><p class="rx-note-head">Notice</p>
+      <p>Every B<sub>1</sub> technique that uses <b>magnitude images</b> depends on a <b>ratio of measurements</b>:</p>
+      <p>DAM: S<sub>2α</sub> / S<sub>α</sub></p><p>AFI: S<sub>2</sub> / S<sub>1</sub></p></div>
+  </div>
+  <div class="rx-why">
+    <p class="rx-q">Why are the receive coils not a problem if the subject doesn’t move, but a problem if they do?</p>
+    <div class="rx-a fragment">
+      <p>The receive field R multiplies each image, at each piece of brain:</p>
+      $$S_{\alpha} = R_1\,M_0\sin(\alpha B_1),\quad S_{2\alpha} = R_2\,M_0\sin(2\alpha B_1)\;\;\Rightarrow\;\;\frac{S_{2\alpha}}{2\,S_{\alpha}} = \frac{R_2}{R_1}\cos(\alpha B_1)$$
+      <p>No movement: R<sub>2</sub> = R<sub>1</sub>, and it cancels. Movement: that piece of brain sat elsewhere in the coils’ field, R<sub>2</sub> ≠ R<sub>1</sub>, and R<sub>2</sub>/R<sub>1</sub> ends up in B<sub>1</sub>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reg-patients">
+  <p class="kicker">Exercise 4-2 · (c) · open question</p>
+  <h2>How can we mitigate this in subjects who have difficulty staying still (e.g. pediatric, Parkinson’s)?</h2>
+  <div class="oq-cols fragment">
+    <div class="oq-a">
+      <p class="oq-head">One solution: AFI</p>
+      <ul>
+        <li>A double angle takes <b>two separate scans</b>, minutes apart: the more the subject moves, the more R<sub>2</sub>/R<sub>1</sub> ends up in B<sub>1</sub>, and registration can’t remove it.</li>
+        <li>AFI acquires its two images <b>in the same scan</b>: each k-space line is read after TR<sub>1</sub>, then after TR<sub>2</sub>, a fraction of a second apart.</li>
+        <li>So for each line the head is in the same place in both images: R<sub>2</sub> = R<sub>1</sub>, and the ratio r = S<sub>2</sub>/S<sub>1</sub> cancels the receive field. No motion <i>between</i> the images.</li>
+      </ul>
+    </div>
+    <div><img class="oq-seq" src="img/seq_afi.png" alt="AFI sequence: two alpha pulses with interleaved repetition times TR1 and TR2, each followed by spoiling"></div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="js/fl-data.js"></script>
+<script src="js/dam-motion.js"></script>
+<script src="js/register.js"></script>
+<script src="js/receive.js"></script>
+<script>
+  renderMathInElement(document.querySelector('.reveal .slides'), { delimiters: [{ left: '$$', right: '$$', display: true }], throwOnError: false });
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/nav.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
