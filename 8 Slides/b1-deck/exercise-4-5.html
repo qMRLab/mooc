@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4-5 · B1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-5</p>
+  <h2>Variable flip angle T<sub>1</sub> mapping: do we need a separate B<sub>1</sub> map?</h2>
+</section>
+
+<section id="vfa-fit">
+  <p class="kicker">Exercise 4-5 · (a)</p>
+  <h2>A VFA experiment: fit T<sub>1</sub> and B<sub>1</sub> together</h2>
+  <div class="ff-grid">
+    <div class="map-host" data-key="vfafit" style="width:760px;height:430px"></div>
+    <div class="ff-side">
+      <p class="ph-note">Spoiled gradient echo at short TR. Ideal receive field and a known M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup>, so A is known: two unknowns, T<sub>1</sub> and B<sub>1</sub>. <b>Which angles</b> pin down both?</p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>True B<sub>1</sub> <b class="vf-b1-read"></b></span><input class="vf-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
+      <div class="bs-row"><span>True T<sub>1</sub> <b class="vf-t1-read"></b></span><input class="vf-t1" type="range" min="300" max="3000" step="10" value="1000" aria-label="True T1 (ms)"></div>
+      <div class="bs-row"><span>TR <b class="vf-tr-read"></b></span><input class="vf-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
+      <div class="bs-row"><span>SNR <b class="vf-snr-read"></b></span><input class="vf-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR at the Ernst angle (log)"></div>
+      <table class="stats">
+        <tr><td></td><td>B<sub>1</sub></td><td>T<sub>1</sub></td></tr>
+        <tr><td>true</td><td><b class="vf-true-b1">–</b></td><td><b class="vf-true-t1">–</b></td></tr>
+        <tr><td>fitted, this acquisition</td><td><b class="vf-fit-b1">–</b></td><td><b class="vf-fit-t1">–</b></td></tr>
+        <tr><td>300 draws: median ± spread</td><td><b class="vf-mc-b1">–</b></td><td><b class="vf-mc-t1">–</b></td></tr>
+        <tr><td>precision (spread ÷ true)</td><td><b class="vf-prec-b1">–</b></td><td><b class="vf-prec-t1">–</b></td></tr>
+        <tr><td>bias (median)</td><td><b class="vf-bias-b1">–</b></td><td><b class="vf-bias-t1">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td colspan="2"><b class="vf-edge">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="vfa-fit-rx">
+  <p class="kicker">Exercise 4-5 · (b)</p>
+  <h2>Same VFA voxel, through an unknown receive factor</h2>
+  <div class="ff-grid">
+    <div class="map-host" data-key="vfafit" style="width:760px;height:430px"></div>
+    <div class="ff-side vf-tight">
+      <p class="ph-note">Every measurement × one unknown receive factor R. <b>Predict:</b> what if the fit assumes R = 1? Or fits A too?</p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>Receive R <b class="vf-rx-read"></b></span><input class="vf-rx" type="range" min="-0.602" max="0.602" step="0.005" value="-0.155" aria-label="Receive factor (log)"><button class="bs-btn vf-rand">Random R</button></div>
+      <div class="bs-row"><span>Fit</span><div class="seg" role="group" aria-label="Fit model"><button data-vffit="r1" aria-pressed="true">assume R = 1</button><button data-vffit="a" aria-pressed="false">fit A too (3 unknowns)</button></div></div>
+      <div class="bs-row"><span>True B<sub>1</sub> <b class="vf-b1-read"></b></span><input class="vf-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
+      <div class="bs-row"><span>True T<sub>1</sub> <b class="vf-t1-read"></b></span><input class="vf-t1" type="range" min="300" max="3000" step="10" value="1000" aria-label="True T1 (ms)"></div>
+      <div class="bs-row"><span>TR <b class="vf-tr-read"></b></span><input class="vf-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
+      <div class="bs-row"><span>SNR at R = 1 <b class="vf-snr-read"></b></span><input class="vf-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR at the Ernst angle (log)"></div>
+      <table class="stats">
+        <tr><td></td><td>B<sub>1</sub></td><td>T<sub>1</sub></td></tr>
+        <tr><td>true</td><td><b class="vf-true-b1">–</b></td><td><b class="vf-true-t1">–</b></td></tr>
+        <tr><td>fitted, this acquisition</td><td><b class="vf-fit-b1">–</b></td><td><b class="vf-fit-t1">–</b></td></tr>
+        <tr><td>300 draws: median ± spread</td><td><b class="vf-mc-b1">–</b></td><td><b class="vf-mc-t1">–</b></td></tr>
+        <tr><td>precision (spread ÷ true)</td><td><b class="vf-prec-b1">–</b></td><td><b class="vf-prec-t1">–</b></td></tr>
+        <tr><td>bias (median)</td><td><b class="vf-bias-b1">–</b></td><td><b class="vf-bias-t1">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td colspan="2"><b class="vf-edge">–</b></td></tr>
+        <tr><td>fitted A ÷ M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup></td><td colspan="2"><b class="vf-a">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="vfa-brain">
+  <p class="kicker">Exercise 4-5 · (c)</p>
+  <h2>VFA on every brain voxel, through receive coils</h2>
+  <div class="vb-grid">
+    <div class="vb-labcol">
+      <canvas class="vb-lab" width="600" height="600" aria-label="Receive coils around the head: drag a coil"></canvas>
+      <p class="vb-cap">Receive field (× brain mean, 0–3) and coils (loops seen edge-on). Drag a coil’s centre.</p>
+      <div class="bs-row"><button class="bs-btn" data-vbpre="ring8">8 around</button><button class="bs-btn" data-vbpre="side">4 one side</button><button class="bs-btn" data-vbpre="back">3 back</button><button class="bs-btn" data-vbpre="one">1 top</button></div>
+      <div class="bs-row"><button class="bs-btn vb-add">+ Coil</button><button class="bs-btn vb-del" disabled>Remove selected</button></div>
+    </div>
+    <div class="vb-maps">
+      <div><p class="vb-mcap">true B<sub>1</sub></p><div class="map-host" data-key="b1"></div></div>
+      <div><p class="vb-mcap">true T<sub>1</sub></p><div class="map-host" data-key="t1"></div></div>
+      <div><p class="vb-mcap">fitted B<sub>1</sub></p><div class="map-host" data-key="fb1"></div></div>
+      <div><p class="vb-mcap">fitted T<sub>1</sub></p><div class="map-host" data-key="ft1"></div></div>
+      <div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="db1"></div></div>
+      <div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="dt1"></div></div>
+    </div>
+    <div class="vb-side ff-side">
+      <p class="ph-note">The voxel of the last slide, now everywhere in the brain: its measured T<sub>1</sub> and transmit B<sub>1</sub>, seen through the coils on the left, with noise. Each voxel is fitted for T<sub>1</sub> and B<sub>1</sub>.</p>
+      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>TR <b class="vb-tr-read"></b></span><input class="vb-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
+      <div class="bs-row"><span>SNR <b class="vb-snr-read"></b></span><input class="vb-snr" type="range" min="1.301" max="3.301" step="0.01" value="2.301" aria-label="SNR (log)" style="width:150px"><button class="bs-btn vb-new">New noise</button><button class="bs-btn vb-nonoise" aria-pressed="false">No noise</button></div>
+      <div class="bs-row"><span>Fit</span><div class="seg" role="group" aria-label="Fit model"><button data-vbfit="r1" aria-pressed="true">assume R = 1</button><button data-vbfit="a" aria-pressed="false">fit A too (3 unknowns)</button></div></div>
+      <p class="vb-msg"></p>
+      <table class="stats">
+        <tr><td>receive field in the brain</td><td><b class="vb-rx">–</b></td></tr>
+        <tr><td>|B<sub>1</sub> error|, median / 90th pct</td><td><b class="vb-eb">–</b></td></tr>
+        <tr><td>|T<sub>1</sub> error|, median / 90th pct</td><td><b class="vb-et">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td><b class="vb-edge">–</b></td></tr>
+        <tr><td>fit time (all voxels)</td><td><b class="vb-time">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="vfa-afi">
+  <p class="kicker">Exercise 4-5 · (d)</p>
+  <h2>A separate AFI B<sub>1</sub> map, or B<sub>1</sub> as a third VFA unknown?</h2>
+  <div class="va-grid">
+    <div class="va-maps">
+      <div><p class="vb-mcap">true B<sub>1</sub></p><div class="map-host" data-key="b1"></div></div><div><p class="vb-mcap">true T<sub>1</sub></p><div class="map-host" data-key="t1"></div></div><div class="va-label" style="grid-column: span 2"><b>Top:</b> the truth. <b>Middle:</b> AFI B<sub>1</sub> map, then VFA for T<sub>1</sub> with B<sub>1</sub> fixed to it. <b>Bottom:</b> VFA alone, fitting A, B<sub>1</sub> and T<sub>1</sub>.</div>
+      <div><p class="vb-mcap">AFI B<sub>1</sub></p><div class="map-host" data-key="fb1"></div></div><div><p class="vb-mcap">T<sub>1</sub>, VFA with AFI B<sub>1</sub></p><div class="map-host" data-key="ft1"></div></div><div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="fdb1"></div></div><div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="fdt1"></div></div>
+      <div><p class="vb-mcap">B<sub>1</sub>, 3-unknown fit</p><div class="map-host" data-key="3b1"></div></div><div><p class="vb-mcap">T<sub>1</sub>, 3-unknown fit</p><div class="map-host" data-key="3t1"></div></div><div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="3db1"></div></div><div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="3dt1"></div></div>
+    </div>
+    <div class="va-side ff-side">
+      <p class="ph-note">Same brain, same noise level, receive coils from the previous slide (<span class="va-ncoil"></span>). Both methods fit the <b>same</b> VFA data; the AFI method adds one AFI scan, whose ratio S<sub>2</sub>/S<sub>1</sub> cancels the receive field.</p>
+      <div class="bs-row"><span>VFA angles</span><span class="ff-chips"></span></div>
+      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button></div>
+      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>VFA TR <b class="va-tr-read"></b></span><input class="va-tr" type="range" min="5" max="50" step="1" value="15" aria-label="VFA TR (ms)"></div>
+      <div class="bs-row"><span>AFI α <b class="va-afa-read"></b></span><input class="va-afa" type="range" min="30" max="90" step="1" value="60" aria-label="AFI flip angle"></div>
+      <div class="bs-row"><span>AFI n <b class="va-n-read"></b></span><input class="va-n" type="range" min="2" max="10" step="0.5" value="5" aria-label="AFI TR ratio n"></div>
+      <div class="bs-row"><span>SNR <b class="va-snr-read"></b></span><input class="va-snr" type="range" min="1.301" max="3.301" step="0.01" value="2.301" aria-label="SNR (log)" style="width:130px"><button class="bs-btn va-new">New noise</button><button class="bs-btn va-nonoise" aria-pressed="false">No noise</button></div>
+      <table class="stats va-table">
+        <tr><td></td><td>AFI + VFA</td><td>3-unknown VFA</td></tr>
+        <tr><td>|B<sub>1</sub> error|, median / 90th</td><td><b class="va-eb-f">–</b></td><td><b class="va-eb-3">–</b></td></tr>
+        <tr><td>|T<sub>1</sub> error|, median / 90th</td><td><b class="va-et-f">–</b></td><td><b class="va-et-3">–</b></td></tr>
+        <tr><td>fits at a range limit</td><td><b class="va-edge-f">–</b></td><td><b class="va-edge-3">–</b></td></tr>
+        <tr><td>compute time (both)</td><td colspan="2"><b class="va-time">–</b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/fl-data.js"></script>
+<script src="js/vfafit.js"></script>
+<script src="js/vfabrain.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

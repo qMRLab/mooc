@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4-4 · B1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section id="bs-title" class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-4</p>
+  <h2>How does an off-resonance pulse add phase?</h2>
+  <div class="bs-intro">
+    <ol class="bs-questions">
+      <li><b>(a)</b> A strong pulse 4 kHz off resonance: what does it do to M along z?</li>
+      <li><b>(b)</b> And to M in the transverse plane? Where does the phase come from?</li>
+      <li><b>(c)</b> How does that phase depend on B<sub>1</sub>, and on the offset?</li>
+      <li><b>(d)</b> Why acquire twice, with the pulse at +4 kHz and at −4 kHz?</li>
+    </ol>
+    <div class="bs-howto">
+      <p><b>The spins</b> are drawn as in the T<sub>2</sub> lab: a sphere you can turn by dragging, M in blue, the RF field B<sub>1</sub> in orange.</p>
+      <p><b>The pulse</b> is a Fermi pulse, 8 ms long, as in Sacolick et al. 2010. Its 8 ms play back slowed down; a slider scrubs through it.</p>
+      <p><b>The frame</b> turns with the spins on resonance (the Larmor frame), unless a view says it turns with the RF.</p>
+    </div>
+  </div>
+</section>
+
+<section id="bs-a" class="bs">
+  <p class="kicker">Exercise 4-4 · (a)</p>
+  <h2>A strong pulse, off resonance, on M along z</h2>
+  <div class="bs-cols">
+    <div class="bs-view"><div class="bs-cap">Larmor frame</div><canvas class="bs-sphere" width="680" height="680" aria-label="Magnetization and B1"></canvas><p class="bs-hint">Drag to turn the view</p></div>
+    <div class="bs-ctrl">
+      <p class="bs-q">Peak B<sub>1</sub> = 0.1 G. On resonance, this pulse would turn M by <b class="a-nominal"></b>. What does it do 4 kHz off resonance? Predict, then play.</p>
+      <div class="bs-row"><span>RF offset</span><div class="seg" role="group" aria-label="RF offset"><button data-off="0" aria-pressed="false">0 (on resonance)</button><button data-off="250" aria-pressed="false">250 Hz</button><button data-off="1000" aria-pressed="false">1 kHz</button><button data-off="4000" aria-pressed="true">4 kHz</button></div></div>
+      <div class="bs-play"></div>
+      <div class="bs-plot a-plot"></div>
+      <p class="bs-readout a-readout"></p>
+    </div>
+  </div>
+</section>
+
+<section id="bs-a-saw" class="bs-saw">
+  <p class="kicker">Exercise 4-4 · (a) · What we saw</p>
+  <h2>Far off resonance, the pulse barely tips M</h2>
+  <ul>
+    <li>In the frame turning with the RF, the spins feel a <b>static</b> effective field: B<sub>1</sub> along x′, plus −Δω/γ along z, what is left of B<sub>0</sub> in that frame.</li>
+    <li>4 kHz off, Δω/γ = 0.94 G while B<sub>1</sub> peaks at 0.1 G: B<sub>eff</sub> leans only <b>6°</b> from −z. M along z circles it in a narrow cone, and since the pulse rises and falls slowly, M follows B<sub>eff</sub> back to z: it ends tipped by 0.03°.</li>
+    <li>On resonance the same pulse turns M by about 870°; at 250 Hz B<sub>eff</sub> leans 60° and M ends far from z. A Bloch–Siegert pulse must be far enough off resonance to excite nothing, including spins at their own B<sub>0</sub> offset.</li>
+  </ul>
+</section>
+
+<section id="bs-b" class="bs">
+  <p class="kicker">Exercise 4-4 · (b)</p>
+  <h2>M in the transverse plane: where the phase comes from</h2>
+  <div class="bs-cols2">
+    <div class="bs-view"><div class="bs-cap">Frame turning with the RF</div><canvas class="bs-sphere" data-frame="rf" width="680" height="680" aria-label="Magnetization and effective field, RF frame"></canvas></div>
+    <div class="bs-view"><div class="bs-cap">Larmor frame</div><canvas class="bs-sphere" data-frame="lar" width="680" height="680" aria-label="Magnetization and B1, Larmor frame"></canvas></div>
+    <div class="bs-ctrl">
+      <p class="bs-q">A 90° pulse has put M along +y. Then the same pulse, 0.1 G, 4 kHz off resonance. Predict: does M stay put, tip, or turn?</p>
+      <div class="bs-play"></div>
+      <table class="stats b-stats">
+        <tr><td>phase gained so far</td><td class="b-phi">–</td></tr>
+        <tr><td>first order, −∫ω<sub>1</sub>²/2Δω dt</td><td class="b-pred">–</td></tr>
+        <tr><td>|M<sub>xy</sub>|</td><td class="b-mxy">–</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="bs-plot b-plot"></div>
+</section>
+
+<section id="bs-b-saw" class="bs-saw">
+  <p class="kicker">Exercise 4-4 · (b) · What we saw</p>
+  <h2>A frequency shift while the pulse is on</h2>
+  <ul>
+    <li><b>Frame of the RF:</b> M circles B<sub>eff</sub> at ω<sub>eff</sub> = √(Δω² + ω<sub>1</sub>²), a little faster than Δω.</li>
+    <li><b>Larmor frame:</b> that frame itself turns at Δω, so all that is left is the difference, ω<sub>BS</sub> = √(Δω² + ω<sub>1</sub>²) − Δω ≈ ω<sub>1</sub>²/2Δω. M stays in the transverse plane (|M<sub>xy</sub>| = 1) and turns about z, away from the RF frequency.</li>
+    <li>Over the pulse it gains φ<sub>BS</sub> = ∫ω<sub>1</sub>(t)²/2Δω dt = K<sub>BS</sub>·B<sub>1</sub>²: about 42° here. The magnitude image is untouched; B<sub>1</sub> is written into the <b>phase</b>.</li>
+  </ul>
+</section>
+
+<section id="bs-c" class="bs">
+  <p class="kicker">Exercise 4-4 · (c)</p>
+  <h2>How the phase depends on B<sub>1</sub> and on the offset</h2>
+  <div class="bs-cols">
+    <div class="bs-view"><div class="bs-cap">Larmor frame</div><canvas class="bs-sphere" width="680" height="680" aria-label="Magnetization and B1"></canvas><p class="bs-hint">Drag to turn the view</p></div>
+    <div class="bs-ctrl">
+      <p class="bs-q">Run the pulse at a few B<sub>1</sub> values and offsets; each run adds a point. Predict the shape first: what happens to the phase when B<sub>1</sub> doubles?</p>
+      <div class="bs-row"><span>Peak B<sub>1</sub> <b class="c-b1-read"></b></span><input class="c-b1" type="range" min="0.01" max="0.25" step="0.005" value="0.1" aria-label="Peak B1 in gauss"></div>
+      <div class="bs-row"><span>RF offset</span><div class="seg" role="group" aria-label="RF offset"><button data-coff="2000" aria-pressed="false">2 kHz</button><button data-coff="4000" aria-pressed="true">4 kHz</button><button data-coff="8000" aria-pressed="false">8 kHz</button></div></div>
+      <div class="bs-row"><button class="bs-btn c-run">▶ Run</button><button class="bs-btn c-sweep">Sweep B<sub>1</sub></button><button class="bs-btn c-clear">Clear</button><button class="bs-btn c-law" aria-pressed="false">Show K<sub>BS</sub>·B<sub>1</sub>²</button></div>
+      <div class="bs-plot c-plot"></div>
+      <p class="bs-readout c-readout"></p>
+    </div>
+  </div>
+</section>
+
+<section id="bs-c-saw" class="bs-saw">
+  <p class="kicker">Exercise 4-4 · (c) · What we saw</p>
+  <h2>φ<sub>BS</sub> = K<sub>BS</sub>·B<sub>1</sub>², with K<sub>BS</sub> ∝ 1/offset</h2>
+  <ul>
+    <li><b>Quadratic in B<sub>1</sub>:</b> twice the B<sub>1</sub>, four times the phase. A 10 % error in B<sub>1</sub> gives 21 % more phase, so the phase is a sensitive measure of B<sub>1</sub>.</li>
+    <li><b>Inversely proportional to the offset:</b> 2 kHz gives twice the phase of 4 kHz. But closer to resonance the pulse starts to tip M (part a), and the B<sub>1</sub>² law bends: the exact shift is √(Δω² + ω<sub>1</sub>²) − Δω, which falls below ω<sub>1</sub>²/2Δω when ω<sub>1</sub> is not ≪ Δω (points under the dashed curve).</li>
+    <li>K<sub>BS</sub> = γ²∫b(t)²dt / 2Δω depends only on the pulse shape b(t) and the offset, so it is known in advance (74 rad/G² for this pulse at 4 kHz). The price is SAR: a long, strong pulse.</li>
+  </ul>
+</section>
+
+<section id="bs-d" class="bs">
+  <p class="kicker">Exercise 4-4 · (d)</p>
+  <h2>Two acquisitions, +4 kHz and −4 kHz</h2>
+  <div class="bs-cols">
+    <div class="bs-view"><div class="bs-cap">Larmor frame · <span class="d-which">no pulse yet</span></div><canvas class="bs-sphere" width="680" height="680" aria-label="A fan of spins with different B0"></canvas><p class="bs-hint">Spins coloured by B<sub>0</sub> offset: blue below, red above resonance</p></div>
+    <div class="bs-ctrl">
+      <p class="bs-q">In a real voxel spins also sit off resonance from B<sub>0</sub>, and the image phase has other sources. Run both acquisitions: which part of the phase is B<sub>1</sub>?</p>
+      <div class="bs-row"><span>B<sub>0</sub> offsets</span><div class="seg" role="group" aria-label="B0 offsets"><button data-spread="0" aria-pressed="false">none</button><button data-spread="50" aria-pressed="true">±50 Hz</button><button data-spread="100" aria-pressed="false">±100 Hz</button></div></div>
+      <div class="bs-row"><span>B<sub>1</sub> here <b class="d-b1-read"></b></span><input class="d-b1" type="range" min="0.05" max="0.15" step="0.005" value="0.1" aria-label="Peak B1 in this voxel, gauss"></div>
+      <div class="bs-row"><button class="bs-btn d-plus">90° + pulse at +4 kHz</button><button class="bs-btn d-minus">90° + pulse at −4 kHz</button></div>
+      <div class="bs-plot d-plot"></div>
+      <p class="bs-readout d-readout"></p>
+    </div>
+  </div>
+</section>
+
+<section id="bs-d-saw" class="bs-saw">
+  <p class="kicker">Exercise 4-4 · (d) · What we saw</p>
+  <h2>The difference keeps B<sub>1</sub> and drops everything else</h2>
+  <ul>
+    <li>Each spin's phase is φ<sub>0</sub> + 2π·δf·T ∓ K<sub>BS</sub>B<sub>1</sub>²: the starting phase (excitation, receive coil), its B<sub>0</sub> offset over the pulse, and the Bloch–Siegert shift, whose sign follows the side of the offset.</li>
+    <li>Subtracting the two acquisitions cancels φ<sub>0</sub> and the B<sub>0</sub> term: (φ<sub>−</sub> − φ<sub>+</sub>)/2 = K<sub>BS</sub>B<sub>1</sub>² for every spin, to 0.1 % even at ±100 Hz. Then B<sub>1</sub> = √((φ<sub>−</sub> − φ<sub>+</sub>)/2K<sub>BS</sub>).</li>
+    <li>The magnitude images are the same in both acquisitions, and neither T<sub>1</sub> nor the flip angle of the excitation enters: unlike the double angle method or AFI, the B<sub>1</sub> information is in a phase difference.</li>
+  </ul>
+</section>
+
+<section id="bs-lessons" class="bs-saw">
+  <p class="kicker">Exercise 4-4 · Lessons</p>
+  <h2>What the spins showed</h2>
+  <ul>
+    <li>Far off resonance, a strong pulse excites nothing: the spins see an effective field almost along z.</li>
+    <li>While it is on, transverse spins precess a little faster, ω<sub>BS</sub> ≈ ω<sub>1</sub>²/2Δω, so they gain a phase φ<sub>BS</sub> = K<sub>BS</sub>B<sub>1</sub>², quadratic in B<sub>1</sub>.</li>
+    <li>Repeating with the offset on the other side flips the sign of φ<sub>BS</sub> and nothing else: the phase difference gives B<sub>1</sub>, free of B<sub>0</sub>, of the receive phase and of T<sub>1</sub>.</li>
+    <li>The approximation ω<sub>1</sub>²/2Δω holds when ω<sub>1</sub> ≪ Δω: a large offset keeps it exact and avoids excitation, at the cost of less phase per unit SAR.</li>
+  </ul>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/bs-core.js"></script>
+<script src="js/bs.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
