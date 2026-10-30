@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 4-3 · B1 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <style>
+    .reveal .as-cols { display: flex; gap: 36px; align-items: flex-start; }
+    .reveal canvas.as-sphere { display: block; width: 440px; height: 440px; cursor: grab; }
+    .reveal .as-hint { font-size: 13px; color: var(--muted); text-align: center; margin: -6px 0 0; }
+    .reveal .as-side { width: 560px; font-size: 16px; }
+    .reveal .as-lead { margin: 0 0 12px; line-height: 1.4; }
+    .reveal .as-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; color: var(--muted); }
+    .reveal .as-row b { color: var(--ink); }
+    .reveal .as-b1 { width: 100%; margin: 2px 0 6px; accent-color: var(--accent); }
+    .reveal .as-btn { font: inherit; font-size: 14px; padding: 5px 14px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+    .reveal .as-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .reveal .as-tab { border-collapse: collapse; width: 100%; margin-top: 6px; }
+    .reveal .as-tab td { padding: 3px 0; color: var(--muted); }
+    .reveal .as-tab td b { color: var(--ink); font-variant-numeric: tabular-nums; }
+    .reveal .as-tab td:last-child { text-align: right; }
+    .reveal .as-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #e8770e; margin-right: 8px; }
+    .reveal .as-dot.two { background: #2e8b3a; }
+    .reveal .as-track { position: relative; height: 12px; background: #eef1f4; border-radius: 3px; margin: 0 0 4px; }
+    .reveal .as-track::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--muted); }
+    .reveal .as-bar { position: absolute; top: 0; bottom: 0; background: #e8770e; border-radius: 3px; }
+    .reveal .as-bar.two { background: #2e8b3a; }
+    .reveal .as-strip { position: relative; display: flex; height: 30px; margin-top: 10px; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; font-size: 13px; }
+    .reveal .as-seg { display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--rule); color: var(--muted); white-space: nowrap; overflow: hidden; }
+    .reveal .as-seg.as-pulse { background: #1f5f99; color: #fff; font-weight: 700; }
+    .reveal .as-seg.as-read { background: #fdebd8; color: #b35a00; font-weight: 700; }
+    .reveal .as-seg.as-read.two { background: #dff0e1; color: #1f6b2b; }
+    .reveal .as-seg.as-spoil { background: repeating-linear-gradient(45deg, #eef1f4, #eef1f4 4px, #dde3ea 4px, #dde3ea 8px); }
+    .reveal .as-cursor { position: absolute; top: 0; bottom: 0; width: 3px; background: #c0392b; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-3</p>
+  <h2>Building intuition: why do the two AFI signals depend on B<sub>1</sub>?</h2>
+</section>
+
+<section id="afi-same" class="afi-spin" data-tr="20,20">
+  <p class="kicker">Exercise 4-3 · (a)</p>
+  <h2>One vector through an AFI cycle, with TR<sub>1</sub> = TR<sub>2</sub></h2>
+  <div class="as-cols">
+    <div><canvas class="as-sphere" width="620" height="620" aria-label="The magnetization vector over one AFI cycle; drag to turn the view"></canvas><p class="as-hint">Drag to turn the view</p></div>
+    <div class="as-side">
+      <p class="as-lead">One magnetization vector in steady state: each pulse tips it by 60° × B<sub>1</sub>, the readout locks its transverse part (S), the spoiler removes it, and M<sub>z</sub> recovers until the next pulse, where it is locked too. <b>Move B<sub>1</sub>: do S<sub>1</sub> and S<sub>2</sub> ever differ?</b></p>
+      <div class="as-row"><span>B<sub>1</sub> <b class="as-b1-read"></b></span></div>
+      <input class="as-b1" type="range" min="0.5" max="2" step="0.01" value="1" aria-label="B1">
+      <div class="as-row"><button class="as-btn as-play">Pause</button></div>
+      <table class="as-tab">
+        <tr><td><span class="as-dot one"></span>M<sub>z</sub> just before pulse 1</td><td><b class="as-m1"></b></td></tr>
+        <tr><td><span class="as-dot two"></span>M<sub>z</sub> just before pulse 2</td><td><b class="as-m2"></b></td></tr>
+        <tr><td><span class="as-dot one"></span>S<sub>1</sub> (readout after pulse 1)</td><td><b class="as-s1"></b></td></tr>
+        <tr><td colspan="2"><div class="as-track"><div class="as-bar as-bar1"></div></div></td></tr>
+        <tr><td><span class="as-dot two"></span>S<sub>2</sub> (readout after pulse 2)</td><td><b class="as-s2"></b></td></tr>
+        <tr><td colspan="2"><div class="as-track"><div class="as-bar as-bar2 two"></div></div></td></tr>
+        <tr><td>r = S<sub>2</sub> / S<sub>1</sub></td><td><b class="as-r"></b></td></tr>
+        
+      </table>
+    </div>
+  </div>
+  <div class="as-strip"></div>
+</section>
+
+<section id="afi-diff" class="afi-spin" data-tr="20,100">
+  <p class="kicker">Exercise 4-3 · (b)</p>
+  <h2>Now with TR<sub>2</sub> = 5 × TR<sub>1</sub></h2>
+  <div class="as-cols">
+    <div><canvas class="as-sphere" width="620" height="620" aria-label="The magnetization vector over one AFI cycle; drag to turn the view"></canvas><p class="as-hint">Drag to turn the view</p></div>
+    <div class="as-side">
+      <p class="as-lead">Same vector, but TR<sub>1</sub> = 20 ms and TR<sub>2</sub> = 100 ms. <b>Move B<sub>1</sub> from 0.5 to 2: how do S<sub>1</sub>, S<sub>2</sub> and the B<sub>1</sub> from the AFI formula change?</b></p>
+      <div class="as-row"><span>B<sub>1</sub> <b class="as-b1-read"></b></span></div>
+      <input class="as-b1" type="range" min="0.5" max="2" step="0.01" value="1" aria-label="B1">
+      <div class="as-row"><button class="as-btn as-play">Pause</button></div>
+      <table class="as-tab">
+        <tr><td><span class="as-dot one"></span>M<sub>z</sub> just before pulse 1</td><td><b class="as-m1"></b></td></tr>
+        <tr><td><span class="as-dot two"></span>M<sub>z</sub> just before pulse 2</td><td><b class="as-m2"></b></td></tr>
+        <tr><td><span class="as-dot one"></span>S<sub>1</sub> (readout after pulse 1)</td><td><b class="as-s1"></b></td></tr>
+        <tr><td colspan="2"><div class="as-track"><div class="as-bar as-bar1"></div></div></td></tr>
+        <tr><td><span class="as-dot two"></span>S<sub>2</sub> (readout after pulse 2)</td><td><b class="as-s2"></b></td></tr>
+        <tr><td colspan="2"><div class="as-track"><div class="as-bar as-bar2 two"></div></div></td></tr>
+        <tr><td>r = S<sub>2</sub> / S<sub>1</sub></td><td><b class="as-r"></b></td></tr>
+        <tr><td>B<sub>1</sub> from the AFI formula</td><td><b class="as-est"></b></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="as-strip"></div>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/afi-spin.js?v=3"></script>
+<script src="js/nav.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

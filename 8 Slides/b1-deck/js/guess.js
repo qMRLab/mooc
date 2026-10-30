@@ -3,7 +3,7 @@
  * seven small loops of different sizes and gains, pressed against the head, so the receive field (0.5–4.5 × its brain
  * mean) is more extreme than a real array's. No B1 map. "Start": 5 points, one at a time in random order, 5 s each;
  * answer B1+ > 1 or < 1 (green / red label), score at the end. Click a pixel to read its value in both images;
- * "Reveal" adds the B1 map. Receive: quasi-static loops as on #mo / #fl-rx (two antiparallel wires, |B1−| = |B⊥|/2,
+ * "Reveal" adds the B1 map (with data-reveal-at-end on the slide, its button only shows once the quiz is over). Receive: quasi-static loops as on #mo / #fl-rx (two antiparallel wires, |B1−| = |B⊥|/2,
  * root-sum-of-squares, here with a gain per coil), normalized to its mean in the brain. S = s·PD·|sin(αB1)|. */
 (function () {
   'use strict';
@@ -16,7 +16,7 @@
   // [angle around the head centre (°, 0 = patient left / screen right, 90 = anterior), gap to the head (mm), loop width (cm), gain]
   const COILS = [[100, 0, 4, 2.0], [160, 0, 3, 1.2], [215, 0, 4, 2.5], [290, 2, 6, 0.5], [340, 0, 3, 1.6], [40, 4, 5, 0.7], [250, 0, 3, 1.0]];
   const POINTS = [['A', 30, 39], ['B', 65, 51], ['C', 104, 54], ['D', 85, 29], ['E', 46, 17]];   // label, row, column (picked where B1 is smooth, ≤ 0.86 or ≥ 1.12)
-  const TIME = 5000, PAUSE = 1600, GREEN = '#2e8b3a', RED = '#c0392b';
+  const TIME = 5000, PAUSE = 1600, GREEN = '#2e8b3a', RED = '#c0392b', ASK = '#a50021';   // ASK: the point being asked, dark red to stand out on grey
 
   // grid pixel (i, j) → lab (u right, v up = anterior), metres; coils on rays from the head centre, just outside the head
   const U = (j) => (j - (NC - 1) / 2) * PIX, V = (i) => ((NR - 1) / 2 - i) * PIX;
@@ -68,8 +68,8 @@
 
   // which points to mark: the one being asked (big), then coloured by the answer; after the game or with Reveal, all
   function shown() {
-    const col = (p) => { const r = st.res.find((x) => x.lab === p.lab); return r ? (r.ok ? GREEN : RED) : '#e8770e'; };
-    if (st.phase === 'ask' || st.phase === 'feedback') { const p = pts[st.order[st.k]]; return [{ p, c: st.phase === 'ask' ? '#e8770e' : col(p), size: 18 }]; }
+    const col = (p) => { const r = st.res.find((x) => x.lab === p.lab); return r ? (r.ok ? GREEN : RED) : ASK; };
+    if (st.phase === 'ask' || st.phase === 'feedback') { const p = pts[st.order[st.k]]; return [{ p, c: st.phase === 'ask' ? ASK : col(p), size: 18 }]; }
     if (st.phase === 'done' || st.revealed) return pts.map((p) => ({ p, c: col(p), size: 11 }));
     return [];
   }
@@ -80,7 +80,7 @@
       showscale: !!bar, colorbar: bar ? { thickness: 10, len: 0.8, tickfont: { size: 11 }, outlinewidth: 0 } : undefined }];
     const m = shown();
     if (m.length) tr.push({ x: m.map((o) => o.p.j), y: m.map((o) => o.p.i), mode: 'markers+text', text: m.map((o) => o.p.lab), textposition: 'middle right', hoverinfo: 'none',
-      textfont: { size: 15, color: m.map((o) => o.c), family: '"Helvetica Neue", Helvetica, Arial, sans-serif' }, marker: { size: m.map((o) => o.size), color: 'rgba(0,0,0,0)', line: { color: m.map((o) => o.c), width: 2.5 } } });
+      textfont: { size: 15, color: m.map((o) => o.c), family: '"Helvetica Neue", Helvetica, Arial, sans-serif' }, marker: { size: m.map((o) => o.size), color: 'rgba(0,0,0,0)', line: { color: m.map((o) => o.c), width: 3.5 } } });
     if (st.pick) tr.push({ x: [st.pick[1]], y: [st.pick[0]], mode: 'markers', hoverinfo: 'none', marker: { size: 13, symbol: 'cross-thin', line: { color: '#2fa8e0', width: 2.5 } } });
     Plotly.react(host, tr, {
       width: w, height: h, margin: { l: 2, r: bar ? 40 : 2, t: 2, b: 2 }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', showlegend: false,
@@ -101,14 +101,22 @@
     const read = (k, what) => `${what}: <b>60° image ${f(A60[k] / ZMAX)}</b> · <b>120° image ${f(A120[k] / ZMAX)}</b>` + (st.revealed ? ` · B<sub>1</sub><sup>+</sup> ${f(B1[k])} (receive ${f(S[k])})` : '');
     const cur = st.phase === 'ask' || st.phase === 'feedback' ? pts[st.order[st.k]] : null;   // the point being asked: its values, no click needed
     q('.gs-pt').innerHTML = cur ? read(cur.k, `Point ${cur.lab}`) : '';
+    if (q('.gs-vals')) {   // the exercise deck: the asked point's values in boxes, blank until Start
+      q('.gs-vlab').textContent = cur ? cur.lab : '–';
+      q('.gs-v60').textContent = cur ? f(A60[cur.k] / ZMAX) : '–';
+      q('.gs-v120').textContent = cur ? f(A120[cur.k] / ZMAX) : '–';
+    }
     if (st.pick) q('.gs-pix').innerHTML = read(st.pick[0] * NC + st.pick[1], 'Clicked pixel');
-    const rv = q('.gs-reveal'); rv.setAttribute('aria-pressed', String(st.revealed)); rv.innerHTML = st.revealed ? 'Hide the B<sub>1</sub> map' : 'Reveal the B<sub>1</sub> map';
+    const rv = q('.gs-reveal'); rv.setAttribute('aria-pressed', String(st.revealed));
+    if (slide.hasAttribute('data-reveal-at-end')) rv.hidden = st.phase !== 'done';   // the exercise deck: the map only after the quiz
+    rv.innerHTML = st.revealed ? 'Hide the B<sub>1</sub> map' : 'Reveal the B<sub>1</sub> map';
     q('.gs-start').textContent = st.phase === 'idle' ? 'Start' : 'Start again';
     slide.querySelectorAll('[data-gsa]').forEach((b) => { b.disabled = st.phase !== 'ask'; });
     q('.gs-results').innerHTML = st.res.map((r) => `<tr><td><b>${r.lab}</b></td><td>${r.guess ? `you: B<sub>1</sub><sup>+</sup> ${r.guess === 'hi' ? '&gt;' : '&lt;'} 1` : 'no answer'}</td>` +
-      `<td><span class="gs-tag" style="background:${r.ok ? GREEN : RED}">${r.ok ? 'right' : 'wrong'}</span></td><td>B<sub>1</sub><sup>+</sup> = ${f(r.b1)}</td></tr>`).join('');
+      `<td><span class="gs-tag" style="background:${r.ok ? GREEN : RED}">${r.ok ? 'right' : 'wrong'}</span></td><td>B<sub>1</sub><sup>+</sup> = ${f(r.b1)}</td><td>${r.guess ? `${(r.t / 1000).toFixed(1)} s` : ''}</td><td><b>${r.pts}</b></td></tr>`).join('');
     const right = st.res.filter((r) => r.ok).length;
-    q('.gs-status').textContent = st.phase === 'done' ? `Score: ${right} / ${pts.length}` : st.phase === 'idle' ? '' : `Point ${st.k + 1} of ${pts.length}`;
+    const total = st.res.reduce((a, r) => a + r.pts, 0), mean = st.res.length ? st.res.reduce((a, r) => a + r.t, 0) / st.res.length / 1000 : 0;
+    q('.gs-status').textContent = st.phase === 'done' ? `Score: ${total} points · ${Math.round((100 * right) / pts.length)} % right · ${mean.toFixed(1)} s per point` : st.phase === 'idle' ? '' : `Point ${st.k + 1} of ${pts.length}`;
   }
 
   // the game: each point for TIME ms, then the green / red label for PAUSE ms
@@ -126,7 +134,8 @@
     if (st.phase !== 'ask') return;
     clearInterval(tick);
     const p = pts[st.order[st.k]], b = B1[p.k], ok = guess !== null && (guess === 'hi') === (b > 1);
-    st.res.push({ lab: p.lab, guess, ok, b1: b }); st.phase = 'feedback';
+    const t = Math.min(TIME, performance.now() - st.t0);   // answer time; a right answer scores 1000 at once, down to 500 at the 5 s limit
+    st.res.push({ lab: p.lab, guess, ok, b1: b, t, pts: ok ? Math.round(1000 * (1 - t / (2 * TIME))) : 0 }); st.phase = 'feedback';
     fb.className = `gs-fb ${ok ? 'gs-right' : 'gs-wrong'}`;
     fb.innerHTML = `${ok ? '✓ Right' : guess === null ? '✗ Time’s up' : '✗ Wrong'}: B<sub>1</sub><sup>+</sup> = ${f(b)} at ${p.lab}`;
     draw();
@@ -135,8 +144,10 @@
   q('.gs-start').addEventListener('click', (e) => {
     e.currentTarget.blur(); clearInterval(tick); clearTimeout(next);
     st.order = pts.map((_, k) => k);
-    for (let k = st.order.length - 1; k > 0; k--) { const m = Math.floor(Math.random() * (k + 1)); [st.order[k], st.order[m]] = [st.order[m], st.order[k]]; }
-    st.k = 0; st.res = []; ask();
+    if (!slide.hasAttribute('data-in-order')) for (let k = st.order.length - 1; k > 0; k--) { const m = Math.floor(Math.random() * (k + 1)); [st.order[k], st.order[m]] = [st.order[m], st.order[k]]; }   // the exercise deck asks A to E in order
+    st.k = 0; st.res = [];
+    if (slide.hasAttribute('data-reveal-at-end')) st.revealed = false;
+    ask();
   });
   slide.querySelectorAll('[data-gsa]').forEach((b) => b.addEventListener('click', () => { b.blur(); answer(b.dataset.gsa); }));
   q('.gs-reveal').addEventListener('click', (e) => { e.currentTarget.blur(); st.revealed = !st.revealed; draw(); });
