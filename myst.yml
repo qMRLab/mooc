@@ -80,6 +80,7 @@ project:
     - bibliography/doubleangle.bib
     - bibliography/afi.bib
     - bibliography/filtering.bib
+    - bibliography/blochsiegert.bib
     - bibliography/qmtchapter.bib
     - bibliography/mtrchapter.bib
     - bibliography/mtsatchapter.bib
@@ -196,6 +197,7 @@ project:
         - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-6.ipynb
         - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-7.ipynb
         - file: 4 B1 Mapping/02-Actual Flip Angle Imaging/Notebooks/Figure-4-2-8.ipynb
+        - file: 4 B1 Mapping/04-Bloch-Siegert/Notebooks/Figure-4-4-1.ipynb
         - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-1.ipynb
         - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-2.ipynb
         - file: 4 B1 Mapping/03-Filtering/Notebooks/Figure-4-3-3.ipynb

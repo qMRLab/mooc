@@ -31,6 +31,10 @@
     "dst": "../data",
     "projectName": "qmrlab-mooc/04-B1-03-Filtering"
     },
+    "04-B1-04-BlochSiegert":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.5/04-B1-04-BlochSiegert.zip",
+    "dst": "../data",
+    "projectName": "qmrlab-mooc/04-B1-04-BlochSiegert"
+    },
     "05-B0":{ "src": "https://github.com/qMRLab/mooc-data/releases/download/v1.1/05-B0.zip",
     "dst": "../data",
     "projectName": "qmrlab-mooc/05-B0"
