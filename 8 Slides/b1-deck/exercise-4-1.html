@@ -20,9 +20,11 @@
     .reveal .gs-vals > div { flex: 1; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 6px 12px; }
     .reveal .gs-vals span { display: block; font-size: 13px; color: var(--muted); }
     .reveal .gs-vals b { font-size: 26px; color: var(--ink); font-variant-numeric: tabular-nums; }
-    .reveal section.summary-lessons ol { font-size: 0.84em; }
+    .reveal section.summary-lessons ol { font-size: 0.84em; } .reveal section.summary-lessons ol ol { font-size: 1em; margin-top: 4px; counter-reset: sub; } .reveal section.summary-lessons ol ol > li { counter-increment: sub; } .reveal section.summary-lessons ol ol > li::before { content: counter(sub, lower-alpha) "."; }
     .reveal #guess .gs-out { display: flex; gap: 14px; align-items: flex-start; }
     .reveal #guess .gs-out .gs-b1wrap { margin-top: 0; flex: none; }
+    .reveal .gw-pts { font-size: 19px; line-height: 1.4; margin: 10px 0 0; padding: 10px 14px 10px 34px; background: var(--panel); border: 2px solid var(--accent); border-radius: 10px; } .reveal .gw-pts li { margin: 6px 0; }
+    .reveal #rule-other .ro-lab { display: inline-block; min-width: 88px; }
     .reveal .gs-hint { background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; padding: 4px 10px; }
   </style>
 </head>
@@ -76,10 +78,12 @@
         <tr><td>120° pulse</td><td><b class="gw-s120">–</b></td></tr>
         <tr><td>brighter</td><td><b class="gw-who">–</b></td></tr>
       </table>
-      <div class="bs-row"><button class="bs-btn gw-show" aria-pressed="false">Show the rule</button></div>
+      <div class="bs-row"><button class="bs-btn gw-show" aria-pressed="false" data-show="Show the answer" data-hide="Hide the answer">Show the answer</button></div>
       <div class="gw-why" hidden>
-        <p class="ph-note">At B<sub>1</sub> = 1 the two vectors are mirror images about the horizontal: the same signal (0.87). B<sub>1</sub> turns both further in the same direction. Above 1, the 60° vector moves <b>towards</b> the horizontal (more signal) and the 120° vector <b>away</b> from it (less). Below 1, the opposite: the 120° vector comes up towards the horizontal (and, below 0.75, past it, but it stays closer to it than the 60° vector). So the image whose vector is closer to the horizontal is brighter, and the two swap exactly at B<sub>1</sub> = 1. This holds for any B<sub>1</sub> up to 1.5, where the 120° vector reaches 180°; above that, its signal comes back.</p>
-        <p class="ph-note"><b>Rule:</b> at each point, compare the same pixel in the two images. Brighter at 60° → B<sub>1</sub> &gt; 1. Brighter at 120° → B<sub>1</sub> &lt; 1 (for any B<sub>1</sub> below 1.5). The receive coil multiplies both images by the same number at that pixel, so it can make a point bright or dark, but it doesn’t change which of the two images is brighter.</p>
+        <ul class="gw-pts">
+          <li>Brighter at 60° → B<sub>1</sub> &gt; 1. Brighter at 120° → B<sub>1</sub> &lt; 1 (up to B<sub>1</sub> = 1.5).</li>
+          <li>The receive coil scales both images by the same amount, so it can’t swap which one is brighter.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -87,22 +91,27 @@
 
 <section id="rule-other" data-angles="45,135">
   <p class="kicker">Exercise 4-1 · (b) · another pair of angles</p>
-  <h2>Would the rule work for another pair of angles?</h2>
+  <h2>Does it work for another pair of angles?</h2>
   <div class="gw-grid">
-    <svg viewBox="0 0 600 500" width="600" height="500" role="img" aria-label="The 45° and 135° magnetization vectors and their transverse components"></svg>
+    <svg viewBox="0 0 600 500" width="600" height="500" role="img" aria-label="Two magnetization vectors, at the two chosen flip angles, and their transverse components"></svg>
     <div class="gw-side">
-      <p class="ph-note">The rule for 60° and 120°: brighter at 60° → B<sub>1</sub> &gt; 1, brighter at 120° → B<sub>1</sub> &lt; 1. <b>Would it work with 45° and 135°?</b> Move B<sub>1</sub> from 0.5 to 1.5: which image is brighter?</p>
-      <div class="bs-row"><span>B<sub>1</sub> <b class="gw-b1-read"></b></span><input class="gw-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1"></div>
+      <p class="ph-note">At 60° and 120°: brighter at 60° → B<sub>1</sub> &gt; 1, brighter at 120° → B<sub>1</sub> &lt; 1. <b>Does that work for other angles?</b> Pick two angles, then move B<sub>1</sub> from 0.5 to 1.5: which image is brighter?</p>
+      <div class="bs-row"><span class="ro-lab">angle 1 <b><span class="gw-a0">45</span>°</b></span><input class="gw-ang" data-k="0" type="range" min="5" max="175" step="5" value="45" aria-label="First flip angle"></div>
+      <div class="bs-row"><span class="ro-lab">angle 2 <b><span class="gw-a1">135</span>°</b></span><input class="gw-ang" data-k="1" type="range" min="5" max="175" step="5" value="135" aria-label="Second flip angle"></div>
+      <div class="bs-row"><span class="ro-lab">B<sub>1</sub> <b class="gw-b1-read"></b></span><input class="gw-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1"></div>
       <table class="stats">
-        <tr><td>45° pulse</td><td><b class="gw-s60">–</b></td></tr>
-        <tr><td>135° pulse</td><td><b class="gw-s120">–</b></td></tr>
+        <tr><td><span class="gw-a0">45</span>° pulse</td><td><b class="gw-s60">–</b></td></tr>
+        <tr><td><span class="gw-a1">135</span>° pulse</td><td><b class="gw-s120">–</b></td></tr>
         <tr><td>brighter</td><td><b class="gw-who">–</b></td></tr>
-        <tr><td>ratio S<sub>135</sub>/S<sub>45</sub></td><td><b class="gw-ratio">–</b></td></tr>
+        <tr><td>ratio S<sub class="gw-a1">135</sub>/S<sub class="gw-a0">45</sub></td><td><b class="gw-ratio">–</b></td></tr>
       </table>
-      <div class="fragment">
-        <p class="ph-note"><b>Yes.</b> sin 45° = sin 135°, so the two images are equal exactly at B<sub>1</sub> = 1 and swap there, as for 60° and 120°: brighter at 45° → B<sub>1</sub> &gt; 1, brighter at 135° → B<sub>1</sub> &lt; 1.</p>
-        <p class="ph-note">For the rule, what matters is that the two angles add up to 180°, not that one is twice the other. But the DAM equation, B<sub>1</sub> = arccos(S<sub>2α</sub>/2S<sub>α</sub>)/α, needs the double angle: this pair needs its own, S<sub>135</sub>/S<sub>45</sub> = 1 + 2 cos(90°·B<sub>1</sub>), so B<sub>1</sub> = arccos((r − 1)/2)/90° (up to B<sub>1</sub> = 1.33, where 135°·B<sub>1</sub> passes 180°).</p>
-        <p class="ph-note"><b>Only 60° and 120° are both:</b> a double angle whose two angles add up to 180°. α + 2α = 180° → α = 60°.</p>
+      <div class="bs-row"><button class="bs-btn gw-show" aria-pressed="false" data-show="Show the answer" data-hide="Hide the answer">Show the answer</button></div>
+      <div class="gw-why" hidden>
+        <ul class="gw-pts">
+          <li>It works for any two angles that add up to 180° (e.g. 45° and 135°).</li>
+          <li>But the DAM formula, B<sub>1</sub> = arccos(S<sub>2α</sub>/2S<sub>α</sub>)/α, needs one angle twice the other.</li>
+          <li>Only 60° and 120° do both: α + 2α = 180° → α = 60°.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -112,10 +121,14 @@
   <p class="kicker">Exercise 4-1 · Summary</p>
   <h2>Guesstimating B<sub>1</sub> from the raw data</h2>
   <ol>
-    <li><b>Long TR:</b> each image is S = R · M<sub>0</sub> · sin(α·B<sub>1</sub>), with R the receive field. At 60° and 120° the two images are equal exactly where B<sub>1</sub> = 1, because sin 60° = sin 120°.</li>
-    <li><b>The rule:</b> brighter at 60° → B<sub>1</sub> &gt; 1; brighter at 120° → B<sub>1</sub> &lt; 1 (for B<sub>1</sub> up to 1.5).</li>
-    <li><b>The receive field</b> multiplies both images by the same number at each pixel: it can make a point bright or dark, but doesn’t change which image is brighter relative to the other, and it cancels in the ratio: S<sub>2α</sub>/2S<sub>α</sub> = cos(α·B<sub>1</sub>), so B<sub>1</sub> = arccos(S<sub>2α</sub>/2S<sub>α</sub>)/α.</li>
-    <li><b>Why 60° and 120°:</b> the rule needs two angles that add up to 180°, the DAM equation needs the second to be twice the first. Only α = 60° does both. And near B<sub>1</sub> = 1 both images have the same signal (0.87 M<sub>0</sub>), so the same SNR.</li>
+    <li><b>Learn to guess B<sub>1</sub> from the raw images:</b> it can help you at the scanner, before you can process the data.</li>
+    <li><b>60° and 120° are a special case:</b> the only pair that does both
+      <ol type="a">
+        <li>gives the same signal at B<sub>1</sub> = 1, so the brighter image tells you if B<sub>1</sub> is above or below 1;</li>
+        <li>fits the double-angle equation, B<sub>1</sub> = arccos(S<sub>2α</sub>/2S<sub>α</sub>)/α.</li>
+      </ol>
+    </li>
+    <li><b>This holds for any receive coil:</b> the receive field multiplies both images by the same factor in each voxel, whatever the signal, so it can’t change which one is brighter, and it cancels in the ratio.</li>
   </ol>
 </section>
 
@@ -130,7 +143,7 @@
 </script>
 <script src="js/fl-data.js"></script>
 <script src="js/guess.js?v=6"></script>
-<script src="js/arrows.js?v=3"></script>
+<script src="js/arrows.js?v=4"></script>
 <script src="js/nav.js"></script>
 <script src="js/popout.js"></script>
 <script src="js/home.js"></script>
