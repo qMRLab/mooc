@@ -21,6 +21,8 @@
     .reveal .gs-vals span { display: block; font-size: 13px; color: var(--muted); }
     .reveal .gs-vals b { font-size: 26px; color: var(--ink); font-variant-numeric: tabular-nums; }
     .reveal section.summary-lessons ol { font-size: 0.84em; }
+    .reveal #guess .gs-out { display: flex; gap: 14px; align-items: flex-start; }
+    .reveal #guess .gs-out .gs-b1wrap { margin-top: 0; flex: none; }
     .reveal .gs-hint { background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; padding: 4px 10px; }
   </style>
 </head>
@@ -53,8 +55,10 @@
       <p class="gs-pt"></p>
       <div class="gs-vals"><div><span>Point</span><b class="gs-vlab">–</b></div><div><span>S(60°)</span><b class="gs-v60">–</b></div><div><span>S(120°)</span><b class="gs-v120">–</b></div></div>
       <p class="gs-fb"></p>
-      <table class="stats gs-table"><tbody class="gs-results"></tbody></table>
-      <div class="gs-b1wrap" hidden><div class="map-host" data-key="b1" style="width:180px;height:150px"></div></div>
+      <div class="gs-out">
+        <table class="stats gs-table"><tbody class="gs-results"></tbody></table>
+        <div class="gs-b1wrap" hidden><div class="map-host" data-key="b1" style="width:180px;height:150px"></div></div>
+      </div>
     </div>
   </div>
 </section>
