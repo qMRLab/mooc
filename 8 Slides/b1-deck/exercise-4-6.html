@@ -216,7 +216,7 @@
       <p class="f1-why" hidden></p>
       <div class="f1-tools" hidden>
         <div class="bs-row"><span>Compare</span><div class="seg" role="group" aria-label="Filter"><button data-f1kind="median" aria-pressed="true">median</button><button data-f1kind="gauss" aria-pressed="false">Gaussian</button></div></div>
-        <div class="bs-row"><span>Window <b class="f1-w-read"></b></span><input class="f1-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div>
+        <div class="bs-row"><span>Width <b class="f1-w-read"></b></span><input class="f1-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div>
         <div class="bs-row"><span>Position</span><input class="f1-pos" type="range" min="0" max="63" step="1" value="63" aria-label="Kernel position"><button class="bs-btn f1-play">▶ Play</button></div>
         <p class="f1-err"></p>
         <p class="f1-note">Red circles: voxels more than 2 % off the true B<sub>1</sub>. Play to watch the window slide along the profile.</p>
@@ -233,9 +233,9 @@
       <b>DA</b><b>AFI</b><b>BS</b>
       <canvas data-fm="da"></canvas><canvas data-fm="afi"></canvas><canvas data-fm="bs"></canvas>
       <div class="fm-ctl" data-m="da"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
-          <div class="fm-wrow"><span>size <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div><div class="fm-ctl" data-m="afi"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
-          <div class="fm-wrow"><span>size <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div><div class="fm-ctl" data-m="bs"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
-          <div class="fm-wrow"><span>size <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div>
+          <div class="fm-wrow"><span>width <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div><div class="fm-ctl" data-m="afi"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
+          <div class="fm-wrow"><span>width <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div><div class="fm-ctl" data-m="bs"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
+          <div class="fm-wrow"><span>width <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div>
       <span class="fm-lab">difference from the mean of the three</span>
       <canvas data-fd="da"></canvas><canvas data-fd="afi"></canvas><canvas data-fd="bs"></canvas>
     </div>
@@ -245,7 +245,7 @@
       <button class="bs-btn fm-reset">Back to unfiltered</button>
       <div class="fm-bars"><span>B<sub>1</sub> 0.7</span><span class="flt-cbar bwr"></span><span>1.3</span></div>
       <div class="fm-bars"><span>difference −10 %</span><span class="flt-cbar bwr"></span><span>+10 %</span></div>
-      <p class="fm-note">Filters work inside the brain only. Size = window width in pixels; Gaussian σ = size / 4. DA here is the chapter’s TSE double angle, on the same slice as AFI and BS.</p>
+      <p class="fm-note">Filters work inside the brain only. Width = window width in pixels; Gaussian σ = width / 4. DA here is the chapter’s TSE double angle, on the same slice as AFI and BS.</p>
     </div>
   </div>
 </section>
