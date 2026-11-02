@@ -321,3 +321,17 @@
 .reveal .fr-ctrl .bs-btn { font-size: 13.5px; padding: 4px 11px; }
 .reveal .fr-blur { color: var(--muted); }
 .reveal .fr-foot { font-size: 11.5px; line-height: 1.35; color: var(--muted); margin: 4px 0 0; }
+/* the guessing game (Exercises 4-1 #guess and 4-3 #guess-afi, js/guess.js): the asked point's values in boxes, the B1 map beside the results */
+.reveal .gs-task { margin: 6px 0 8px; padding: 7px 12px; font-size: 15px; font-weight: 700; line-height: 1.4; color: #b42318; background: #fdecea; border: 2px solid #d92d20; border-radius: 8px; }
+.reveal .gs-reveal { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+.reveal .gs-reveal:hover { background: #174a78; border-color: #174a78; color: #fff; }
+.reveal .gs-reveal[hidden] { display: none; }
+.reveal .gs-status { font-size: 18px; color: var(--accent); }
+.reveal .gs-pt { display: none; }
+.reveal .gs-vals { display: flex; gap: 12px; margin: 4px 0 10px; }
+.reveal .gs-vals > div { flex: 1; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 6px 12px; }
+.reveal .gs-vals span { display: block; font-size: 13px; color: var(--muted); }
+.reveal .gs-vals b { font-size: 26px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.reveal .gs-out { display: flex; gap: 14px; align-items: flex-start; }
+.reveal .gs-out .gs-b1wrap { margin-top: 0; flex: none; }
+.reveal .gs-hint { background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; padding: 4px 10px; }

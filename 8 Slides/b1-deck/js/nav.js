@@ -18,7 +18,7 @@
   const next = zone('next', 'Next slide', '›', () => (nextDeck && atEnd() ? window.location.assign(nextDeck) : window.Reveal.next()));
   const update = () => {
     prev.hidden = window.Reveal.getIndices().h === 0;
-    next.hidden = atEnd() && !nextDeck;
+    next.hidden = atEnd() && !nextDeck && !window.Reveal.availableFragments().next;   // on the last slide, still there while a fragment is left to show
   };
   if (nextDeck) {
     document.addEventListener('keydown', (e) => {
@@ -31,5 +31,7 @@
   }
   window.Reveal.on('ready', update);
   window.Reveal.on('slidechanged', update);
+  window.Reveal.on('fragmentshown', update);
+  window.Reveal.on('fragmenthidden', update);
   if (window.Reveal.isReady()) update();
 })();
