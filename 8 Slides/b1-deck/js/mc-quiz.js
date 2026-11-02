@@ -2,7 +2,7 @@
  * in an <ol class="mc-data">: each <li data-a="k"> has a <span class="q"> (the question), its options as <span class="o">
  * (k = the right one, from 0) and a <span class="w"> (why). Buttons are made for the options; after an answer, right / wrong,
  * the explanation and "Next"; at the end, the score (x / n), "Next slide →" and "Start again". An item's optional data-show is
- * copied to the slide's data-mc-show while it is asked. */
+ * copied to the slide's data-mc-show while it is asked; the slide's optional data-done replaces the closing line. */
 (function () {
   'use strict';
   document.querySelectorAll('section.mc-quiz').forEach((slide) => {
@@ -16,7 +16,7 @@
       slide.dataset.mcShow = it.show;   // an optional data-show on the item: lets the slide's CSS show what goes with this question
       q('.mc-count').textContent = done ? 'All done' : `Question ${st.k + 1} of ${items.length}`;
       q('.mc-score').textContent = `${st.right} / ${done ? items.length : st.k + (st.ans != null ? 1 : 0)} right`;
-      q('.mc-q').innerHTML = done ? `You got <b>${st.right} out of ${items.length}</b>. Now check the predictions on the next slide.` : it.q;
+      q('.mc-q').innerHTML = done ? `You got <b>${st.right} out of ${items.length}</b>. ${slide.dataset.done || 'Now check the predictions on the next slide.'}` : it.q;
       opts.innerHTML = done ? '' : it.o.map((o, i) => `<button class="bs-btn${st.ans == null ? '' : i === it.a ? ' mc-good' : i === st.ans ? ' mc-bad' : ''}" data-i="${i}"${st.ans == null ? '' : ' disabled'}>${o}</button>`).join('');
       const fb = q('.mc-fb'), ok = st.ans === it.a;
       fb.hidden = done || st.ans == null; fb.className = `mc-fb ${ok ? 'mc-right' : 'mc-wrong'}`; fb.textContent = ok ? '✓ Right' : '✗ Not quite';

@@ -7,6 +7,7 @@
   <title>Exercise 4-6 · B1 Mapping · qMRI mOOC</title>
   <link rel="stylesheet" href="vendor/reveal/reset.css">
   <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <link rel="stylesheet" href="deck.css">
   <link rel="stylesheet" href="exercise.css">
   <style>
@@ -30,6 +31,78 @@
     .reveal .rg-scorebox p { margin: 0; font-size: 15px; color: var(--muted); }
     .reveal .rg-score { font-size: 54px; font-weight: 700; color: var(--accent); line-height: 1.1; }
     .reveal .flt-q { font-size: 17px; font-weight: 700; line-height: 1.4; margin: 16px 0 0; }
+    /* #flaws, #flaws-why: unfiltered maps and their raw images (js/b1-flaws.js) */
+    .reveal .fl-cols { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+    .reveal .fl-grid { display: grid; grid-template-columns: 58px repeat(3, 96px); gap: 3px 10px; align-items: center; }
+    .reveal .fl-grid > b { font-size: 16px; text-align: center; line-height: 1.1; } .reveal .fl-grid > b small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); }
+    .reveal .fl-rl { font-size: 13px; color: var(--muted); text-align: right; }
+    .reveal canvas[data-img] { display: block; width: 96px; height: 140px; image-rendering: pixelated; background: #000; cursor: zoom-in; border: 2px solid transparent; border-radius: 3px; }
+    .reveal canvas[data-img$=".b1"] { background: transparent; }
+    .reveal canvas.fl-on { border-color: var(--accent); }
+    .reveal .fl-bars { display: flex; align-items: center; gap: 6px; margin: 8px 0 0 68px; font-size: 12px; color: var(--muted); }
+    .reveal .fl-bars .flt-cbar { width: 70px; } .reveal .fl-sep { width: 14px; }
+    .reveal .fl-side { font-size: 17px; }
+    .reveal .fl-state { margin: 0 0 6px; padding: 8px 12px; background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; line-height: 1.4; }
+    .reveal .fl-q { font-weight: 700; font-size: 20px; margin: 0 0 10px; line-height: 1.3; }
+    .reveal .fl-zoom { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; gap: 2px 14px; align-items: start; }
+    .reveal .fl-zoom-title { grid-column: 1 / -1; margin: 0; font-size: 14px; font-weight: 700; }
+    .reveal .fl-zoom canvas { width: 194px; height: 282px; image-rendering: pixelated; border-radius: 4px; cursor: crosshair; }
+    .reveal .fl-zoom-val { font-size: 14px; color: var(--muted); margin: 0; align-self: end; }
+    .reveal .fl-note { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+    .reveal .fw-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .reveal .fw-cols canvas[data-img] { width: 210px; height: 305px; cursor: default; margin: 0 auto 8px; }
+    .reveal .fw-cols h3 { font-size: 22px; margin: 0 0 4px; text-align: center; }
+    .reveal .fw-cols p { font-size: 17px; line-height: 1.4; margin: 0; }
+    .reveal .fw-bar { justify-content: center; margin: 14px 0 0; }
+    /* #filt-1d (js/filt-1d.js) */
+    .reveal .f1-cols { display: grid; grid-template-columns: 720px 1fr; gap: 24px; align-items: start; }
+    .reveal .f1-side { font-size: 16px; } .reveal .f1-side .bs-row { margin: 0 0 10px; gap: 10px; }
+    .reveal .f1-side .seg button { font-size: 13px; padding: 5px 10px; } .reveal .f1-score { margin-left: auto; color: var(--accent); }
+    .reveal .f1-q { font-size: 19px; font-weight: 700; line-height: 1.35; margin: 4px 0 10px; }
+    .reveal [data-f1ans] { font-size: 17px; background: #fff; } .reveal [data-f1ans]:disabled { opacity: 0.5; cursor: default; }
+    .reveal [data-f1ans].f1-good { opacity: 1; border: 2px solid #2e8b3a; background: #e6f4e8; font-weight: 700; } .reveal [data-f1ans].f1-bad { opacity: 1; border: 2px solid #c0392b; }
+    .reveal .f1-fb { display: inline-block; margin: 0 0 6px; padding: 3px 12px; border-radius: 5px; color: #fff; font-weight: 700; }
+    .reveal .f1-fb.f1-right { background: #2e8b3a; } .reveal .f1-fb.f1-wrong { background: #c0392b; }
+    .reveal .f1-fb[hidden], .reveal .f1-why[hidden], .reveal .f1-tools[hidden] { display: none; }
+    .reveal .f1-why { margin: 0 0 10px; line-height: 1.4; }
+    .reveal .f1-tools input[type="range"] { flex: 1; } .reveal .f1-err { margin: 4px 0; } .reveal .f1-note { font-size: 13px; color: var(--muted); margin: 0; }
+    /* #filt-match (js/filt-match.js) */
+    .reveal .fm-cols { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+    .reveal .fm-grid { display: grid; grid-template-columns: repeat(3, 172px); gap: 4px 14px; justify-items: center; }
+    .reveal .fm-grid > b { font-size: 17px; }
+    .reveal .fm-grid canvas[data-fm] { width: 150px; height: 218px; image-rendering: pixelated; }
+    .reveal .fm-grid canvas[data-fd] { width: 82px; height: 119px; image-rendering: pixelated; }
+    .reveal .fm-lab { grid-column: 1 / -1; font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .reveal .fm-ctl { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 13px; }
+    .reveal .fm-ctl .seg button { font-size: 12px; padding: 3px 7px; } .reveal .fm-wrow { display: flex; align-items: center; gap: 6px; color: var(--muted); } .reveal .fm-wrow input { width: 80px; }
+    .reveal .fm-side { font-size: 17px; } .reveal .fm-intro { margin: 0 0 12px; line-height: 1.4; }
+    .reveal .fm-scorebox { background: var(--panel); border-radius: 12px; padding: 10px 16px; margin-bottom: 10px; }
+    .reveal .fm-scorebox p { margin: 0; font-size: 15px; color: var(--muted); } .reveal .fm-score { font-size: 48px; color: var(--accent); line-height: 1.1; margin-right: 12px; } .reveal .fm-best { font-size: 14px; color: var(--muted); }
+    .reveal .fm-bars { display: flex; align-items: center; gap: 6px; margin: 10px 0 0; font-size: 12px; color: var(--muted); } .reveal .fm-bars .flt-cbar { width: 90px; }
+    .reveal .fm-note { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+    .reveal section.summary-lessons ol { font-size: 0.74em; }
+    /* #filt-quiz (js/mc-quiz.js, as on Exercises 4-4 and 4-5); the left panel follows the question */
+    .reveal .fq-grid { display: grid; grid-template-columns: 480px 1fr; gap: 30px; align-items: start; }
+    .reveal #filt-quiz .fq-panel { display: none; } .reveal #filt-quiz .katex-display { margin: 0 0 6px; font-size: 0.92em; }
+    .reveal #filt-quiz[data-mc-show="g"] .fq-panel[data-panel="g"], .reveal #filt-quiz[data-mc-show="m"] .fq-panel[data-panel="m"], .reveal #filt-quiz[data-mc-show="s"] .fq-panel[data-panel="s"] { display: block; }
+    .reveal .fq-svg { display: block; width: 440px; height: 250px; font: 13px "Helvetica Neue", Helvetica, Arial, sans-serif; fill: var(--muted); }
+    .reveal .fq-cap { font-size: 16px; color: var(--muted); margin: 0 0 8px; }
+    .reveal table.fq-win { border-collapse: collapse; margin: 0 auto; font-size: 22px; } .reveal table.fq-win td { width: 86px; height: 60px; text-align: center; vertical-align: middle; border: 1px solid var(--rule); background: #fff; }
+    .reveal table.fq-win td.fq-c { border: 3px solid var(--accent); font-weight: 700; }
+    .reveal .mc-card { padding: 14px 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 17px; }
+    .reveal .mc-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); } .reveal .mc-top b { color: var(--accent); }
+    .reveal .mc-q { font-size: 22px; font-weight: 700; line-height: 1.35; margin: 8px 0 12px; }
+    .reveal .mc-opts { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .reveal .mc-opts .bs-btn { font-size: 17px; padding: 8px 16px; text-align: left; background: #fff; }
+    .reveal .mc-opts .bs-btn:disabled { cursor: default; opacity: 0.5; }
+    .reveal .mc-opts .bs-btn.mc-good { opacity: 1; border: 2px solid #2e8b3a; background: #e6f4e8; font-weight: 700; }
+    .reveal .mc-opts .bs-btn.mc-bad { opacity: 1; border: 2px solid #c0392b; }
+    .reveal .mc-fb { display: inline-block; margin: 12px 0 0; padding: 3px 12px; border-radius: 5px; color: #fff; font-weight: 700; }
+    .reveal .mc-fb.mc-right { background: #2e8b3a; } .reveal .mc-fb.mc-wrong { background: #c0392b; }
+    .reveal .mc-fb[hidden], .reveal .mc-why[hidden], .reveal .mc-next[hidden], .reveal .mc-again[hidden] { display: none; }
+    .reveal .mc-why { margin: 8px 0 0; line-height: 1.45; }
+    .reveal .mc-btns { display: flex; gap: 10px; margin-top: 12px; } .reveal .mc-next, .reveal .mc-again { font-size: 15px; }
+    .reveal .mc-next.mc-go { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
   </style>
 </head>
 <body class="nav-zones" data-home="exercises.html">
@@ -41,6 +114,129 @@
   <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-6</p>
   <h2>Filtering a B<sub>1</sub> map with bright vessels</h2>
   <p class="subtitle">You are given B<sub>1</sub> mapping data that is very sensitive to the motion of blood in the vessels: you see bright spots in the B<sub>1</sub> maps. The researcher doesn’t need accurate B<sub>1</sub> inside these regions, but would like to filter the maps in the brain tissue.</p>
+</section>
+
+<section id="flaws">
+  <p class="kicker">Exercise 4-6</p>
+  <h2>Unfiltered B<sub>1</sub> maps, and the images they came from</h2>
+  <div class="fl-cols">
+    <div>
+      <div class="fl-grid">
+        <span></span><b>DA <small>EPI, 60° / 120°</small></b><b>AFI <small>S<sub>1</sub> / S<sub>2</sub></small></b><b>BS <small>phase at ±4 kHz</small></b>
+        <span class="fl-rl">Acq. 1</span><canvas data-img="da.a1" data-label="DA · acquisition 1 (60°)" title="Click to enlarge"></canvas><canvas data-img="afi.a1" data-label="AFI · acquisition 1 (S<sub>1</sub>, after TR<sub>1</sub>)" title="Click to enlarge"></canvas><canvas data-img="bs.a1" data-label="BS · acquisition 1 (phase, +4 kHz)" title="Click to enlarge"></canvas>
+        <span class="fl-rl">Acq. 2</span><canvas data-img="da.a2" data-label="DA · acquisition 2 (120°)" title="Click to enlarge"></canvas><canvas data-img="afi.a2" data-label="AFI · acquisition 2 (S<sub>2</sub>, after TR<sub>2</sub>)" title="Click to enlarge"></canvas><canvas data-img="bs.a2" data-label="BS · acquisition 2 (phase, −4 kHz)" title="Click to enlarge"></canvas>
+        <span class="fl-rl">B<sub>1</sub> map</span><canvas data-img="da.b1" data-label="DA · B<sub>1</sub> map" title="Click to enlarge"></canvas><canvas data-img="afi.b1" data-label="AFI · B<sub>1</sub> map" title="Click to enlarge"></canvas><canvas data-img="bs.b1" data-label="BS · B<sub>1</sub> map" title="Click to enlarge"></canvas>
+      </div>
+      <div class="fl-bars"><span>B<sub>1</sub> 0.7</span><span class="flt-cbar bwr"></span><span>1.3</span><span class="fl-sep"></span><span>phase −π</span><span class="flt-cbar bwr"></span><span>π</span></div>
+    </div>
+    <div class="fl-side">
+      <p class="fl-state">B<sub>1</sub> maps are expected to be <b>smooth, slowly varying</b> fields, but measurements have flaws.</p>
+      <p class="fl-q">Can you identify some in each map? What might their cause be?</p>
+      <div class="fl-zoom"><p class="fl-zoom-title"></p><canvas></canvas><p class="fl-zoom-val"></p></div>
+      <p class="fl-note">Click any image to enlarge it. DA is a slice through the ventricles; AFI and BS are one slice higher up.</p>
+    </div>
+  </div>
+</section>
+
+<section id="flaws-why">
+  <p class="kicker">Exercise 4-6</p>
+  <h2>Some flaws, and their causes</h2>
+  <div class="fw-cols">
+    <div><canvas data-img="da.b1"></canvas><h3>DA: long T<sub>1</sub></h3><p>Sensitive to long T<sub>1</sub>, e.g. CSF in the <b>ventricles</b>: it hasn’t recovered between shots (T<sub>1</sub> ≈ 4 s ≈ TR), so B<sub>1</sub> reads too low there.</p></div>
+    <div><canvas data-img="afi.b1"></canvas><h3>AFI: Gibbs ringing</h3><p>Sensitive to <b>Gibbs ringing / truncation</b>: ringing from sharp edges (scalp, skull) runs into the brain as streaks.</p></div>
+    <div><canvas data-img="bs.b1"></canvas><h3>BS: phase artefacts</h3><p>Sensitive to <b>phase artefacts</b>, e.g. fringe lines and phase poles, where the phase can’t be unwrapped cleanly. More on phase in the <a href="https://qmrlab.org/mooc/b0-mapping/" target="_blank" rel="noopener">B<sub>0</sub> chapter</a> (next week, or in the mOOC).</p></div>
+  </div>
+  <div class="fl-bars fw-bar"><span>B<sub>1</sub> 0.7</span><span class="flt-cbar bwr"></span><span>1.3</span></div>
+</section>
+
+<section id="filt-quiz" class="mc-quiz" data-done="Next: try filtering a B<sub>1</sub> map yourself.">
+  <p class="kicker">Exercise 4-6 · quiz</p>
+  <h2>In practice, B<sub>1</sub> maps are often filtered</h2>
+  <div class="fq-grid">
+    <div>
+      <div class="fq-panel" data-panel="g">
+        $$\hat B_1(\mathbf r)=\sum_{\mathbf r'} w(\mathbf r-\mathbf r')\,B_1(\mathbf r')$$
+        $$w(\mathbf d)\propto e^{-|\mathbf d|^2/2\sigma^2}$$
+        <svg class="fq-svg" viewBox="0 0 440 250" role="img" aria-label="Kernel weights against pixel offset"><line x1="46" y1="214.0" x2="428" y2="214.0" stroke="#9aa5b1"/><rect x="58.2" y="208.7" width="18" height="5.3" fill="#9cc3e4"/><rect x="100.7" y="188.9" width="18" height="25.1" fill="#9cc3e4"/><rect x="143.1" y="137.9" width="18" height="76.1" fill="#9cc3e4"/><rect x="185.6" y="65.7" width="18" height="148.3" fill="#9cc3e4"/><rect x="228.0" y="28.8" width="18" height="185.2" fill="#9cc3e4"/><rect x="270.4" y="65.7" width="18" height="148.3" fill="#9cc3e4"/><rect x="312.9" y="137.9" width="18" height="76.1" fill="#9cc3e4"/><rect x="355.3" y="188.9" width="18" height="25.1" fill="#9cc3e4"/><rect x="397.8" y="208.7" width="18" height="5.3" fill="#9cc3e4"/><path d="M46.0,211.9 L48.1,211.7 L50.2,211.5 L52.4,211.2 L54.5,211.0 L56.6,210.7 L58.7,210.3 L60.9,210.0 L63.0,209.6 L65.1,209.2 L67.2,208.7 L69.3,208.2 L71.5,207.7 L73.6,207.1 L75.7,206.5 L77.8,205.9 L80.0,205.2 L82.1,204.4 L84.2,203.6 L86.3,202.7 L88.4,201.8 L90.6,200.9 L92.7,199.8 L94.8,198.7 L96.9,197.5 L99.1,196.3 L101.2,195.0 L103.3,193.6 L105.4,192.1 L107.5,190.6 L109.7,188.9 L111.8,187.2 L113.9,185.4 L116.0,183.5 L118.2,181.6 L120.3,179.5 L122.4,177.4 L124.5,175.1 L126.6,172.8 L128.8,170.3 L130.9,167.8 L133.0,165.2 L135.1,162.5 L137.3,159.7 L139.4,156.8 L141.5,153.9 L143.6,150.8 L145.7,147.7 L147.9,144.5 L150.0,141.2 L152.1,137.9 L154.2,134.5 L156.4,131.0 L158.5,127.4 L160.6,123.9 L162.7,120.2 L164.8,116.6 L167.0,112.9 L169.1,109.2 L171.2,105.4 L173.3,101.7 L175.5,97.9 L177.6,94.2 L179.7,90.5 L181.8,86.8 L183.9,83.1 L186.1,79.5 L188.2,76.0 L190.3,72.5 L192.4,69.1 L194.6,65.7 L196.7,62.5 L198.8,59.3 L200.9,56.3 L203.0,53.4 L205.2,50.6 L207.3,47.9 L209.4,45.4 L211.5,43.1 L213.7,40.9 L215.8,38.8 L217.9,37.0 L220.0,35.3 L222.1,33.8 L224.3,32.5 L226.4,31.4 L228.5,30.5 L230.6,29.7 L232.8,29.2 L234.9,28.9 L237.0,28.8 L239.1,28.9 L241.2,29.2 L243.4,29.7 L245.5,30.5 L247.6,31.4 L249.7,32.5 L251.9,33.8 L254.0,35.3 L256.1,37.0 L258.2,38.8 L260.3,40.9 L262.5,43.1 L264.6,45.4 L266.7,47.9 L268.8,50.6 L271.0,53.4 L273.1,56.3 L275.2,59.3 L277.3,62.5 L279.4,65.7 L281.6,69.1 L283.7,72.5 L285.8,76.0 L287.9,79.5 L290.1,83.1 L292.2,86.8 L294.3,90.5 L296.4,94.2 L298.5,97.9 L300.7,101.7 L302.8,105.4 L304.9,109.2 L307.0,112.9 L309.2,116.6 L311.3,120.2 L313.4,123.9 L315.5,127.4 L317.6,131.0 L319.8,134.5 L321.9,137.9 L324.0,141.2 L326.1,144.5 L328.3,147.7 L330.4,150.8 L332.5,153.9 L334.6,156.8 L336.7,159.7 L338.9,162.5 L341.0,165.2 L343.1,167.8 L345.2,170.3 L347.4,172.8 L349.5,175.1 L351.6,177.4 L353.7,179.5 L355.8,181.6 L358.0,183.5 L360.1,185.4 L362.2,187.2 L364.3,188.9 L366.5,190.6 L368.6,192.1 L370.7,193.6 L372.8,195.0 L374.9,196.3 L377.1,197.5 L379.2,198.7 L381.3,199.8 L383.4,200.9 L385.6,201.8 L387.7,202.7 L389.8,203.6 L391.9,204.4 L394.0,205.2 L396.2,205.9 L398.3,206.5 L400.4,207.1 L402.5,207.7 L404.7,208.2 L406.8,208.7 L408.9,209.2 L411.0,209.6 L413.1,210.0 L415.3,210.3 L417.4,210.7 L419.5,211.0 L421.6,211.2 L423.8,211.5 L425.9,211.7 L428.0,211.9" fill="none" stroke="#1f5f99" stroke-width="3"/><text x="67.2" y="230" text-anchor="middle">-4</text><text x="109.7" y="230" text-anchor="middle">-3</text><text x="152.1" y="230" text-anchor="middle">-2</text><text x="194.6" y="230" text-anchor="middle">-1</text><text x="237.0" y="230" text-anchor="middle">0</text><text x="279.4" y="230" text-anchor="middle">1</text><text x="321.9" y="230" text-anchor="middle">2</text><text x="364.3" y="230" text-anchor="middle">3</text><text x="406.8" y="230" text-anchor="middle">4</text><text x="237.0" y="246" text-anchor="middle">offset from the centre pixel</text><text x="14" y="114.0" transform="rotate(-90 14 114.0)" text-anchor="middle">weight</text></svg>
+      </div>
+      <div class="fq-panel" data-panel="m">
+        $$\hat B_1(\mathbf r)=\operatorname{med}\{\,B_1(\mathbf r') : \mathbf r' \in N(\mathbf r)\,\}$$
+        <p class="fq-cap">A 3 × 3 window N(<b>r</b>) of a B<sub>1</sub> map. What does the centre pixel become?</p>
+        <table class="fq-win"><tr><td>1.01</td><td>0.98</td><td>1.03</td></tr><tr><td>0.99</td><td class="fq-c">1.62</td><td>1.00</td></tr><tr><td>1.02</td><td>0.97</td><td>1.01</td></tr></table>
+      </div>
+      <div class="fq-panel" data-panel="s">
+        $$\hat B_1=\arg\min_f\ \sum_i\big(B_1(\mathbf r_i)-f(\mathbf r_i)\big)^2$$
+        $$+\ \lambda\!\int\!\big|\nabla^2 f\big|^2$$
+        <svg class="fq-svg" viewBox="0 0 440 250" role="img" aria-label="Noisy B1 samples along a line and a smooth curve fitted through them"><text x="40" y="203.7" text-anchor="end">0.8</text><line x1="46" x2="428" y1="199.7" y2="199.7" stroke="#eef1f4"/><text x="40" y="146.6" text-anchor="end">1.0</text><line x1="46" x2="428" y1="142.6" y2="142.6" stroke="#eef1f4"/><text x="40" y="89.4" text-anchor="end">1.2</text><line x1="46" x2="428" y1="85.4" y2="85.4" stroke="#eef1f4"/><text x="40" y="32.3" text-anchor="end">1.4</text><line x1="46" x2="428" y1="28.3" y2="28.3" stroke="#eef1f4"/><circle cx="55.3" cy="166.7" r="3.6" fill="#e8770e"/><circle cx="64.6" cy="202.3" r="3.6" fill="#e8770e"/><circle cx="74.0" cy="172.5" r="3.6" fill="#e8770e"/><circle cx="83.3" cy="176.1" r="3.6" fill="#e8770e"/><circle cx="92.6" cy="169.8" r="3.6" fill="#e8770e"/><circle cx="101.9" cy="162.1" r="3.6" fill="#e8770e"/><circle cx="111.2" cy="171.7" r="3.6" fill="#e8770e"/><circle cx="120.5" cy="150.3" r="3.6" fill="#e8770e"/><circle cx="129.9" cy="149.6" r="3.6" fill="#e8770e"/><circle cx="139.2" cy="107.7" r="3.6" fill="#e8770e"/><circle cx="148.5" cy="128.3" r="3.6" fill="#e8770e"/><circle cx="157.8" cy="127.6" r="3.6" fill="#e8770e"/><circle cx="167.1" cy="121.7" r="3.6" fill="#e8770e"/><circle cx="176.4" cy="120.2" r="3.6" fill="#e8770e"/><circle cx="185.8" cy="119.1" r="3.6" fill="#e8770e"/><circle cx="195.1" cy="109.7" r="3.6" fill="#e8770e"/><circle cx="204.4" cy="99.1" r="3.6" fill="#e8770e"/><circle cx="213.7" cy="102.9" r="3.6" fill="#e8770e"/><circle cx="223.0" cy="91.0" r="3.6" fill="#e8770e"/><circle cx="232.3" cy="100.0" r="3.6" fill="#e8770e"/><circle cx="241.7" cy="98.1" r="3.6" fill="#e8770e"/><circle cx="251.0" cy="85.8" r="3.6" fill="#e8770e"/><circle cx="260.3" cy="95.9" r="3.6" fill="#e8770e"/><circle cx="269.6" cy="107.3" r="3.6" fill="#e8770e"/><circle cx="278.9" cy="107.6" r="3.6" fill="#e8770e"/><circle cx="288.2" cy="105.3" r="3.6" fill="#e8770e"/><circle cx="297.6" cy="97.8" r="3.6" fill="#e8770e"/><circle cx="306.9" cy="21.7" r="3.6" fill="#e8770e"/><circle cx="316.2" cy="127.1" r="3.6" fill="#e8770e"/><circle cx="325.5" cy="122.4" r="3.6" fill="#e8770e"/><circle cx="334.8" cy="145.0" r="3.6" fill="#e8770e"/><circle cx="344.1" cy="146.5" r="3.6" fill="#e8770e"/><circle cx="353.5" cy="143.2" r="3.6" fill="#e8770e"/><circle cx="362.8" cy="152.6" r="3.6" fill="#e8770e"/><circle cx="372.1" cy="163.6" r="3.6" fill="#e8770e"/><circle cx="381.4" cy="165.2" r="3.6" fill="#e8770e"/><circle cx="390.7" cy="201.6" r="3.6" fill="#e8770e"/><circle cx="400.0" cy="174.6" r="3.6" fill="#e8770e"/><circle cx="409.4" cy="197.2" r="3.6" fill="#e8770e"/><circle cx="418.7" cy="208.3" r="3.6" fill="#e8770e"/><path d="M55.3,191.8 L56.5,190.9 L57.7,190.0 L59.0,189.2 L60.2,188.3 L61.4,187.4 L62.6,186.6 L63.8,185.7 L65.0,184.9 L66.3,184.0 L67.5,183.1 L68.7,182.3 L69.9,181.4 L71.1,180.5 L72.3,179.7 L73.5,178.8 L74.8,178.0 L76.0,177.1 L77.2,176.3 L78.4,175.4 L79.6,174.5 L80.8,173.7 L82.1,172.8 L83.3,172.0 L84.5,171.1 L85.7,170.3 L86.9,169.4 L88.1,168.6 L89.3,167.8 L90.6,166.9 L91.8,166.1 L93.0,165.2 L94.2,164.4 L95.4,163.6 L96.6,162.7 L97.9,161.9 L99.1,161.1 L100.3,160.3 L101.5,159.4 L102.7,158.6 L103.9,157.8 L105.1,157.0 L106.4,156.2 L107.6,155.4 L108.8,154.5 L110.0,153.7 L111.2,152.9 L112.4,152.1 L113.7,151.3 L114.9,150.5 L116.1,149.7 L117.3,149.0 L118.5,148.2 L119.7,147.4 L120.9,146.6 L122.2,145.8 L123.4,145.1 L124.6,144.3 L125.8,143.5 L127.0,142.8 L128.2,142.0 L129.4,141.3 L130.7,140.5 L131.9,139.8 L133.1,139.0 L134.3,138.3 L135.5,137.6 L136.7,136.8 L138.0,136.1 L139.2,135.4 L140.4,134.7 L141.6,134.0 L142.8,133.2 L144.0,132.5 L145.2,131.8 L146.5,131.1 L147.7,130.5 L148.9,129.8 L150.1,129.1 L151.3,128.4 L152.5,127.8 L153.8,127.1 L155.0,126.4 L156.2,125.8 L157.4,125.1 L158.6,124.5 L159.8,123.8 L161.0,123.2 L162.3,122.6 L163.5,122.0 L164.7,121.4 L165.9,120.7 L167.1,120.1 L168.3,119.5 L169.6,119.0 L170.8,118.4 L172.0,117.8 L173.2,117.2 L174.4,116.6 L175.6,116.1 L176.8,115.5 L178.1,115.0 L179.3,114.4 L180.5,113.9 L181.7,113.4 L182.9,112.9 L184.1,112.3 L185.4,111.8 L186.6,111.3 L187.8,110.8 L189.0,110.3 L190.2,109.9 L191.4,109.4 L192.6,108.9 L193.9,108.5 L195.1,108.0 L196.3,107.6 L197.5,107.1 L198.7,106.7 L199.9,106.3 L201.1,105.9 L202.4,105.5 L203.6,105.1 L204.8,104.7 L206.0,104.3 L207.2,103.9 L208.4,103.6 L209.7,103.2 L210.9,102.8 L212.1,102.5 L213.3,102.2 L214.5,101.8 L215.7,101.5 L216.9,101.2 L218.2,100.9 L219.4,100.6 L220.6,100.3 L221.8,100.1 L223.0,99.8 L224.2,99.6 L225.5,99.3 L226.7,99.1 L227.9,98.8 L229.1,98.6 L230.3,98.4 L231.5,98.2 L232.7,98.0 L234.0,97.8 L235.2,97.7 L236.4,97.5 L237.6,97.4 L238.8,97.2 L240.0,97.1 L241.3,97.0 L242.5,96.8 L243.7,96.7 L244.9,96.6 L246.1,96.6 L247.3,96.5 L248.5,96.4 L249.8,96.4 L251.0,96.3 L252.2,96.3 L253.4,96.3 L254.6,96.3 L255.8,96.3 L257.1,96.3 L258.3,96.3 L259.5,96.3 L260.7,96.4 L261.9,96.4 L263.1,96.5 L264.3,96.6 L265.6,96.7 L266.8,96.8 L268.0,96.9 L269.2,97.0 L270.4,97.1 L271.6,97.3 L272.9,97.4 L274.1,97.6 L275.3,97.8 L276.5,98.0 L277.7,98.2 L278.9,98.4 L280.1,98.6 L281.4,98.8 L282.6,99.1 L283.8,99.4 L285.0,99.6 L286.2,99.9 L287.4,100.2 L288.6,100.5 L289.9,100.9 L291.1,101.2 L292.3,101.5 L293.5,101.9 L294.7,102.3 L295.9,102.7 L297.2,103.1 L298.4,103.5 L299.6,103.9 L300.8,104.4 L302.0,104.8 L303.2,105.3 L304.4,105.8 L305.7,106.2 L306.9,106.8 L308.1,107.3 L309.3,107.8 L310.5,108.4 L311.7,108.9 L313.0,109.5 L314.2,110.1 L315.4,110.7 L316.6,111.3 L317.8,111.9 L319.0,112.6 L320.2,113.2 L321.5,113.9 L322.7,114.6 L323.9,115.3 L325.1,116.0 L326.3,116.7 L327.5,117.5 L328.8,118.3 L330.0,119.0 L331.2,119.8 L332.4,120.6 L333.6,121.4 L334.8,122.3 L336.0,123.1 L337.3,124.0 L338.5,124.9 L339.7,125.8 L340.9,126.7 L342.1,127.6 L343.3,128.5 L344.6,129.5 L345.8,130.5 L347.0,131.4 L348.2,132.4 L349.4,133.5 L350.6,134.5 L351.8,135.6 L353.1,136.6 L354.3,137.7 L355.5,138.8 L356.7,139.9 L357.9,141.0 L359.1,142.2 L360.3,143.4 L361.6,144.5 L362.8,145.7 L364.0,146.9 L365.2,148.2 L366.4,149.4 L367.6,150.7 L368.9,152.0 L370.1,153.3 L371.3,154.6 L372.5,155.9 L373.7,157.2 L374.9,158.6 L376.1,160.0 L377.4,161.4 L378.6,162.8 L379.8,164.2 L381.0,165.7 L382.2,167.2 L383.4,168.6 L384.7,170.1 L385.9,171.7 L387.1,173.2 L388.3,174.8 L389.5,176.3 L390.7,177.9 L391.9,179.5 L393.2,181.2 L394.4,182.8 L395.6,184.5 L396.8,186.2 L398.0,187.9 L399.2,189.6 L400.5,191.3 L401.7,193.1 L402.9,194.9 L404.1,196.7 L405.3,198.5 L406.5,200.3 L407.7,202.2 L409.0,204.0 L410.2,205.9 L411.4,207.8 L412.6,209.7 L413.8,211.7 L415.0,213.7 L416.3,215.6 L417.5,217.7 L418.7,219.7" fill="none" stroke="#1f5f99" stroke-width="3"/><text x="237.0" y="246" text-anchor="middle">position along a line through the brain (pixels)</text><text x="12" y="114.0" transform="rotate(-90 12 114.0)" text-anchor="middle">B₁</text></svg>
+      </div>
+    </div>
+    <div class="mc-card">
+      <div class="mc-top"><span class="mc-count"></span><b class="mc-score"></b></div>
+      <p class="mc-q"></p>
+      <div class="mc-opts"></div>
+      <p class="mc-fb" hidden></p>
+      <p class="mc-why" hidden></p>
+      <div class="mc-btns"><button class="bs-btn mc-next" hidden>Next question</button><button class="bs-btn mc-again" hidden>Start again</button></div>
+    </div>
+  </div>
+  <ol class="mc-data" hidden>
+    <li data-a="1" data-show="g"><span class="q">Which kind of filter is this?</span>
+      <span class="o">Median</span><span class="o">Gaussian</span><span class="o">Spline (smoothing)</span>
+      <span class="w">Gaussian: a weighted average of the neighbours, with weights falling off as a Gaussian of the distance (σ sets the strength). It smooths noise, but spreads an outlier, such as a bright vessel, over its neighbours.</span></li>
+    <li data-a="0" data-show="m"><span class="q">And this one?</span>
+      <span class="o">Median</span><span class="o">Gaussian</span><span class="o">Spline (smoothing)</span>
+      <span class="w">Median: each pixel becomes the middle value of its window, here 1.01. An isolated outlier like the 1.62 is simply ignored, and edges are kept.</span></li>
+    <li data-a="2" data-show="s"><span class="q">And this one?</span>
+      <span class="o">Median</span><span class="o">Gaussian</span><span class="o">Spline (smoothing)</span>
+      <span class="w">Spline: a smooth curve (or surface) is fitted to the whole map, trading closeness to the data against curvature (λ). The result is smooth everywhere, and it can fill in masked regions.</span></li>
+  </ol>
+</section>
+
+<section id="filt-1d">
+  <p class="kicker">Exercise 4-6 · which filter?</p>
+  <h2>Which filter would you use?</h2>
+  <div class="f1-cols">
+    <div class="f1-plot" style="width:720px;height:470px"></div>
+    <div class="f1-side">
+      <div class="bs-row"><div class="seg" role="group" aria-label="Example"><button data-f1ex="0" aria-pressed="true">1 · noise</button><button data-f1ex="1" aria-pressed="false">2 · one bad voxel</button><button data-f1ex="2" aria-pressed="false">3 · a dip</button></div><b class="f1-score"></b></div>
+      <p class="f1-q">A 1D B<sub>1</sub> profile through the brain. Which filter would you use on it?</p>
+      <div class="bs-row"><button class="bs-btn" data-f1ans="median">Median</button><button class="bs-btn" data-f1ans="gauss">Gaussian</button></div>
+      <p class="f1-fb" hidden></p>
+      <p class="f1-why" hidden></p>
+      <div class="f1-tools" hidden>
+        <div class="bs-row"><span>Compare</span><div class="seg" role="group" aria-label="Filter"><button data-f1kind="median" aria-pressed="true">median</button><button data-f1kind="gauss" aria-pressed="false">Gaussian</button></div></div>
+        <div class="bs-row"><span>Window <b class="f1-w-read"></b></span><input class="f1-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div>
+        <div class="bs-row"><span>Position</span><input class="f1-pos" type="range" min="0" max="63" step="1" value="63" aria-label="Kernel position"><button class="bs-btn f1-play">▶ Play</button></div>
+        <p class="f1-err"></p>
+        <p class="f1-note">Red circles: voxels more than 2 % off the true B<sub>1</sub>. Play to watch the window slide along the profile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="filt-match">
+  <p class="kicker">Exercise 4-6 · your filters</p>
+  <h2>Which filter, and what size, for each map?</h2>
+  <div class="fm-cols">
+    <div class="fm-grid">
+      <b>DA</b><b>AFI</b><b>BS</b>
+      <canvas data-fm="da"></canvas><canvas data-fm="afi"></canvas><canvas data-fm="bs"></canvas>
+      <div class="fm-ctl" data-m="da"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
+          <div class="fm-wrow"><span>size <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div><div class="fm-ctl" data-m="afi"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
+          <div class="fm-wrow"><span>size <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div><div class="fm-ctl" data-m="bs"><div class="seg" role="group" aria-label="Filter"><button data-fk="none" aria-pressed="true">none</button><button data-fk="median" aria-pressed="false">median</button><button data-fk="gauss" aria-pressed="false">Gaussian</button></div>
+          <div class="fm-wrow"><span>size <b class="fm-w-read">–</b></span><input class="fm-w" type="range" min="1" max="7" step="1" value="3" aria-label="Window width"></div></div>
+      <span class="fm-lab">difference from the mean of the three</span>
+      <canvas data-fd="da"></canvas><canvas data-fd="afi"></canvas><canvas data-fd="bs"></canvas>
+    </div>
+    <div class="fm-side">
+      <p class="fm-intro">The same slice, three methods. Pick a filter and a size for each map, to make the three <b>agree as closely as possible</b>.</p>
+      <div class="fm-scorebox"><p>Spread between the three maps</p><b class="fm-score"></b><span class="fm-best"></span></div>
+      <button class="bs-btn fm-reset">Back to unfiltered</button>
+      <div class="fm-bars"><span>B<sub>1</sub> 0.7</span><span class="flt-cbar bwr"></span><span>1.3</span></div>
+      <div class="fm-bars"><span>difference −10 %</span><span class="flt-cbar bwr"></span><span>+10 %</span></div>
+      <p class="fm-note">Filters work inside the brain only. Size = window width in pixels; Gaussian σ = size / 4. DA here is the chapter’s TSE double angle, on the same slice as AFI and BS.</p>
+    </div>
+  </div>
 </section>
 
 <section id="flt-a" class="flt" data-mask="no">
@@ -92,16 +288,37 @@
   </div>
 </section>
 
+<section id="filt-summary" class="lesson summary-lessons">
+  <p class="kicker">Exercise 4-6 · Summary</p>
+  <h2>Filtering B<sub>1</sub> maps</h2>
+  <ol>
+    <li><b>B<sub>1</sub> maps can be inaccurate too, and have artefacts:</b> long T<sub>1</sub> (DA), Gibbs ringing (AFI), phase errors (BS).</li>
+    <li><b>Filtering is often done, but it can spread errors too:</b> a Gaussian smears one bad voxel over its neighbours, and every filter blurs edges and real variation.</li>
+    <li><b>Filtering can’t remove a bias:</b> here BS reads about 2 % higher than DA and AFI everywhere, and more smoothing makes the maps agree without making them right.</li>
+    <li><b>Share the raw maps as well as the filtered ones, and be detailed on how you filtered:</b> the filter, its size (or σ), the mask, how edges were handled, and the software.</li>
+  </ol>
+</section>
+
+
 </div>
 </div>
 
 <script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
 <script src="js/common.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
 <script>
+  renderMathInElement(document.querySelector('.reveal .slides'), { delimiters: [{ left: '$$', right: '$$', display: true }], throwOnError: false });
   Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
 </script>
 <script src="js/fl-data.js"></script>
 <script src="js/filter.js"></script>
+<script src="js/b1-flaws-data.js"></script>
+<script src="js/b1-flaws.js?v=2"></script>
+<script src="js/filt-1d.js?v=2"></script>
+<script src="js/filt-match.js"></script>
+<script src="js/mc-quiz.js?v=4"></script>
 <script src="js/nav.js?v=2"></script>
 <script src="js/popout.js"></script>
 <script src="js/home.js"></script>
