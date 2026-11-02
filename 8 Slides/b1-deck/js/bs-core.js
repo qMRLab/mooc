@@ -14,6 +14,15 @@
   const DT = 5e-6;
 
   const fermi = (t) => 1 / (1 + Math.exp((Math.abs(t - PULSE.T / 2) - PULSE.t0) / PULSE.a));
+  // Other envelopes on the same 8 ms window and peak (Exercise 4-4, slide 3): hard (rectangular), Gaussian (σ = T/6, cut at
+  // ±3σ) and Gauss–Hann (that Gaussian times a Hann window, so it starts and ends at 0). Fermi is the default everywhere.
+  const gauss = (t) => Math.exp(-0.5 * ((t - PULSE.T / 2) / (PULSE.T / 6)) ** 2);
+  const SHAPES = {
+    fermi,
+    hard: (t) => (t >= 0 && t <= PULSE.T ? 1 : 0),
+    gauss,
+    gausshann: (t) => gauss(t) * 0.5 * (1 - Math.cos((2 * Math.PI * t) / PULSE.T)),
+  };
 
   // Right-handed rotation of v by angle a about the unit axis n (Rodrigues).
   function rotate(v, n, a) {
@@ -28,34 +37,39 @@
 
   // ∫ b(t)² dt and ∫ b(t) dt of the normalised envelope (midpoint rule on the simulation grid).
   const N = Math.round(PULSE.T / DT);
-  let INT_B2 = 0, INT_B = 0;
-  for (let k = 0; k < N; k++) { const b = fermi((k + 0.5) * DT); INT_B2 += b * b * DT; INT_B += b * DT; }
+  function ints(shape = 'fermi') {   // { b: ∫b dt, b2: ∫b² dt } for an envelope
+    const env = SHAPES[shape]; let b2 = 0, b1 = 0;
+    for (let k = 0; k < N; k++) { const b = env((k + 0.5) * DT); b2 += b * b * DT; b1 += b * DT; }
+    return { b: b1, b2 };
+  }
+  const { b: INT_B, b2: INT_B2 } = ints();
   // K_BS in rad/G² for an offset in Hz: φ_BS = ∫ ω1² / (2 ω_off) dt = K_BS · B1².
-  const kbs = (offHz) => (W1_PER_G * W1_PER_G * INT_B2) / (2 * 2 * Math.PI * offHz);
+  const kbs = (offHz, shape = 'fermi') => (W1_PER_G * W1_PER_G * (shape === 'fermi' ? INT_B2 : ints(shape).b2)) / (2 * 2 * Math.PI * offHz);
 
   /* One pulse. b1 in gauss (peak), offHz = RF offset Δ/2π, dHz = the spin's own offset δ/2π, m0 its start.
    * Returns per step k (k = 0 … N, t = k·DT): Larmor-frame M, RF-frame M, the envelope, the unwrapped transverse
    * phase in the Larmor frame (relative to the start) and the first-order prediction ∫ ω1²/2Δ dt (sign included). */
-  function simulate({ b1, offHz, dHz = 0, m0 = [0, 1, 0] }) {
+  function simulate({ b1, offHz, dHz = 0, m0 = [0, 1, 0], shape = 'fermi' }) {
+    const envFn = SHAPES[shape];
     const D = 2 * Math.PI * offHz, d = 2 * Math.PI * dHz, w1max = W1_PER_G * b1;
     const t = new Float64Array(N + 1), env = new Float64Array(N + 1), phase = new Float64Array(N + 1), pred = new Float64Array(N + 1);
     const lar = [m0.slice()], rf = [m0.slice()];
     let m = m0.slice(), ang = Math.atan2(m0[1], m0[0]), unwrapped = 0, p = 0;
     for (let k = 0; k < N; k++) {
-      const tm = (k + 0.5) * DT, w1 = w1max * fermi(tm), oz = d - D, mag = Math.hypot(w1, oz);
+      const tm = (k + 0.5) * DT, w1 = w1max * envFn(tm), oz = d - D, mag = Math.hypot(w1, oz);
       if (mag > 0) m = rotate(m, [w1 / mag, 0, oz / mag], mag * DT);
       const L = rotZ(m, D * (k + 1) * DT);
       const a = Math.atan2(L[1], L[0]);
       let da = a - ang; da -= 2 * Math.PI * Math.round(da / (2 * Math.PI));
       if (Math.hypot(L[0], L[1]) > 1e-6) { unwrapped += da; ang = a; }
       p += (D !== 0 ? -(w1 * w1) / (2 * (D - d)) : 0) * DT;   // first order: the spin shifts away from the RF
-      t[k + 1] = (k + 1) * DT; env[k + 1] = fermi((k + 1) * DT); phase[k + 1] = unwrapped; pred[k + 1] = p;
+      t[k + 1] = (k + 1) * DT; env[k + 1] = envFn((k + 1) * DT); phase[k + 1] = unwrapped; pred[k + 1] = p;
       lar.push(L); rf.push(m.slice());
     }
-    env[0] = fermi(0);
+    env[0] = envFn(0);
     return { t, env, phase, pred, lar, rf, w1max, D, d, n: N + 1 };
   }
 
-  root.BS = { GAMMA_BAR, W1_PER_G, PULSE, DT, N, INT_B, INT_B2, fermi, rotate, rotZ, kbs, simulate };
+  root.BS = { GAMMA_BAR, W1_PER_G, PULSE, DT, N, INT_B, INT_B2, fermi, SHAPES, ints, rotate, rotZ, kbs, simulate };
   if (typeof module !== 'undefined') module.exports = root.BS;
 })(typeof window !== 'undefined' ? window : globalThis);

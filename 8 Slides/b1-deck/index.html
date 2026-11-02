@@ -206,18 +206,18 @@
     <div>
       <img class="seq" src="img/seq_bs.png" alt="Bloch-Siegert sequence: excitation, then an off-resonance pulse at plus or minus omega RF, readout and spoiling">
       <p class="lead">An off-resonance pulse shifts the phase by K<sub>BS</sub>B<sub>1</sub><sup>2</sup>; scans at ±ω<sub>RF</sub> cancel everything else:</p>
-      <div class="eq eq-box tight">$$B_1 = \sqrt{\frac{\phi_{+}-\phi_{-}}{2\,K_{BS}}}$$</div>
+      <div class="eq eq-box tight" style="font-size: 0.7em">$$B_1 = \sqrt{\frac{\phi_{+}-\phi_{-}}{2\,K_{BS}}}, \qquad K_{BS}=\int_{0}^{T}\frac{\left(\gamma B_{1,\mathrm{norm}}(t)\right)^{2}}{2\,\omega_{RF}}\,dt$$</div>
       <h3 class="muted ex-head">Example values</h3>
       <table class="proto">
         <tr><th>BS pulse</th><td>Fermi, 8 ms, ±4 kHz</td></tr>
-        <tr><th>K<sub>BS</sub></th><td>74 rad/G² (set by the pulse)</td></tr>
+        <tr><th>K<sub>BS</sub></th><td>74 rad/G²</td></tr>
       </table>
     </div>
     <div>
       <h3 class="muted side-head">Assumptions</h3>
       <ul class="assume">
         <li>Pulse <b>far off resonance</b>: no excitation, and the phase shift scales as B<sub>1</sub><sup>2</sup></li>
-        <li>K<sub>BS</sub> known from the pulse shape</li>
+        <li>K<sub>BS</sub> known: set by the pulse shape B<sub>1,norm</sub>(t) and offset ω<sub>RF</sub></li>
         <li>All other phase (B<sub>0</sub>, coil, chemical shift) identical at ±ω<sub>RF</sub></li>
         <li>φ<sub>+</sub> − φ<sub>−</sub> doesn’t wrap; no motion between the two scans</li>
       </ul>

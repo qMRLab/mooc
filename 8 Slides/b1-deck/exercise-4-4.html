@@ -8,7 +8,87 @@
   <link rel="stylesheet" href="vendor/reveal/reset.css">
   <link rel="stylesheet" href="vendor/reveal/reveal.css">
   <link rel="stylesheet" href="deck.css">
-  <link rel="stylesheet" href="exercise.css">
+  <link rel="stylesheet" href="exercise.css?v=2">
+  <style>
+    /* slide 3's frame tabs, on top of the sphere, in the frames' colours (as on the brainstorm frames slides) */
+    .reveal .fr-view { --fr: #7b3fa0; }
+    .reveal .fr-view[data-fr="lab"] { --fr: #7d8894; } .reveal .fr-view[data-fr="rf"] { --fr: #2e8b3a; }
+    .reveal .fr-tabs { display: flex; gap: 4px; width: 390px; margin: 0 auto; }
+    .reveal .fr-tabs button { flex: 1; font: inherit; line-height: 1.15; padding: 6px 4px 5px; border: 1px solid var(--rule); border-bottom: none; border-radius: 9px 9px 0 0; background: #f4f6f8; color: var(--muted); cursor: pointer; }
+    .reveal .fr-tabs button b { display: block; font-size: 15px; }
+    .reveal .fr-tabs button span { display: block; font-size: 11.5px; }
+    .reveal .fr-tabs button:hover { color: var(--ink); background: #eaeef2; }
+    .reveal .fr-tabs button[data-frame="lab"] { --c: #7d8894; } .reveal .fr-tabs button[data-frame="lar"] { --c: #7b3fa0; } .reveal .fr-tabs button[data-frame="rf"] { --c: #2e8b3a; }
+    .reveal .fr-tabs button b { color: var(--c); }
+    .reveal .fr-tabs button[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: #fff; }
+    .reveal .fr-tabs button[aria-pressed="true"] b { color: #fff; }
+    .reveal .fr-view .bs-sphere { border: 2px solid var(--fr); border-radius: 0 0 10px 10px; }
+    .reveal .fr-note { margin: 6px 0 0; font-weight: 400; font-size: 13.5px; color: var(--fr); }
+    .reveal .c-presets .seg button { padding: 3px 9px; min-width: 2.2em; }
+    .reveal section.summary-lessons ol { font-size: 0.72em; }
+    .reveal .sl-answer { margin: 0.4em 0 0; padding: 8px 14px; background: var(--panel); border-left: 4px solid var(--accent); border-radius: 6px; }
+    .reveal #bs-title .bs-intro { display: block; } .reveal #bs-title .bs-questions { font-size: 22px; line-height: 1.5; } .reveal #bs-title .bs-questions li { font-size: 1em; margin: 6px 0; }
+    .reveal .mc-card { max-width: 900px; padding: 14px 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 17px; }
+    .reveal .mc-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); } .reveal .mc-top b { color: var(--accent); }
+    .reveal .mc-q { font-size: 22px; font-weight: 700; line-height: 1.35; margin: 8px 0 12px; }
+    .reveal .mc-opts { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .reveal .mc-opts .bs-btn { font-size: 17px; padding: 8px 16px; text-align: left; background: #fff; }
+    .reveal .mc-opts .bs-btn:disabled { cursor: default; opacity: 0.5; }
+    .reveal .mc-opts .bs-btn.mc-good { opacity: 1; border: 2px solid #2e8b3a; background: #e6f4e8; font-weight: 700; }
+    .reveal .mc-opts .bs-btn.mc-bad { opacity: 1; border: 2px solid #c0392b; }
+    .reveal .mc-fb { display: inline-block; margin: 12px 0 0; padding: 3px 12px; border-radius: 5px; color: #fff; font-weight: 700; }
+    .reveal .mc-fb.mc-right { background: #2e8b3a; } .reveal .mc-fb.mc-wrong { background: #c0392b; }
+    .reveal .mc-fb[hidden], .reveal .mc-why[hidden], .reveal .mc-next[hidden] { display: none; }
+    .reveal .mc-why { margin: 8px 0 0; line-height: 1.45; }
+    .reveal .mc-btns { display: flex; gap: 10px; margin-top: 12px; }
+    .reveal .mc-next, .reveal .mc-again { font-size: 15px; }
+    .reveal .mc-again[hidden] { display: none; }
+    .reveal .mc-next.mc-go { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+    .reveal .mc-foot { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+    .reveal .bp-grid { display: grid; grid-template-columns: 610px 1fr; gap: 0 28px; align-items: start; }
+    .reveal .bp-imgs { display: grid; grid-template-columns: 274px 320px; gap: 0 14px; }
+    .reveal .bp-cap { font-size: 15px; margin: 0 0 4px; color: var(--ink); }
+    .reveal .bp-kind { text-transform: capitalize; }
+    .reveal .bp-note { grid-column: 1 / -1; font-size: 13px; color: var(--muted); margin: 8px 0 0; line-height: 1.4; }
+    .reveal .bp-card { padding: 14px 18px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 16px; }
+    .reveal .bp-q { font-size: 20px; font-weight: 700; line-height: 1.35; margin: 0 0 12px; }
+    .reveal .bp-btns { display: flex; flex-direction: column; gap: 8px; }
+    .reveal .bp-btns .bs-btn { font-size: 16px; padding: 8px 14px; text-align: left; background: #fff; }
+    .reveal .bp-btns .bs-btn:disabled { cursor: default; opacity: 0.5; }
+    .reveal .bp-btns .bs-btn.bp-good { opacity: 1; border: 2px solid #2e8b3a; background: #e6f4e8; }
+    .reveal .bp-btns .bs-btn.bp-bad { opacity: 1; border: 2px solid #c0392b; }
+    .reveal .bp-fb { display: inline-block; margin: 12px 0 0; padding: 3px 12px; border-radius: 5px; color: #fff; font-weight: 700; }
+    .reveal .bp-fb.bp-right { background: #2e8b3a; } .reveal .bp-fb.bp-wrong { background: #c0392b; }
+    .reveal .bp-fb[hidden], .reveal .bp-why[hidden] { display: none; }
+    .reveal .bp-why { font-size: 15px; line-height: 1.4; } .reveal .bp-why p { margin: 8px 0 0; } .reveal .bp-why ul { margin: 6px 0 0 1.1em; padding: 0; } .reveal .bp-why li { margin: 4px 0; }
+    .reveal .bp-next { margin-top: 10px; font-size: 14px; }
+    .reveal .bp-count { font-size: 14px; color: var(--muted); margin: 0 0 4px; }
+    .reveal .bp-step[hidden] { display: none; }
+    .reveal .fq-grid { display: grid; grid-template-columns: 862px 1fr; gap: 0 26px; align-items: start; }
+    .reveal .fq-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .reveal .fq-opt { display: flex; flex-direction: column; align-items: center; border: 2px solid var(--rule); border-radius: 10px; padding: 4px 4px 8px; }
+    .reveal .fq-opt canvas { width: 270px; height: 270px; display: block; cursor: pointer; }
+    .reveal .fq-opt .bs-btn { font-size: 17px; font-weight: 700; padding: 4px 26px; }
+    .reveal .fq-opt.fq-good { border-color: #2e8b3a; background: #e6f4e8; } .reveal .fq-opt.fq-bad { border-color: #c0392b; background: #fbe9e7; }
+    .reveal .fq-one { display: flex; gap: 18px; align-items: center; }
+    .reveal .fq-one[hidden], .reveal .fq-opts[hidden] { display: none; }
+    .reveal .fq-one canvas { width: 380px; height: 380px; border: 1px solid var(--rule); border-radius: 10px; }
+    .reveal .fq-names { display: flex; flex-direction: column; gap: 10px; }
+    .reveal .fq-names .bs-btn { font-size: 17px; padding: 8px 16px; text-align: left; background: #fff; }
+    .reveal .fq-names .bs-btn.fq-good, .reveal .fq-opt .bs-btn.fq-good { border: 2px solid #2e8b3a; background: #e6f4e8; font-weight: 700; opacity: 1; }
+    .reveal .fq-names .bs-btn.fq-bad, .reveal .fq-opt .bs-btn.fq-bad { border: 2px solid #c0392b; opacity: 1; }
+    .reveal .fq-names .bs-btn:disabled, .reveal .fq-opt .bs-btn:disabled { cursor: default; }
+    .reveal .fq-card { padding: 12px 16px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 16px; }
+    .reveal .fq-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); } .reveal .fq-top b { color: var(--accent); }
+    .reveal .fq-q { font-size: 20px; font-weight: 700; line-height: 1.3; margin: 6px 0 8px; color: var(--ink); }
+    .reveal .fq-vals { font-size: 15px; line-height: 1.4; margin: 0 0 8px; padding: 6px 10px; background: #fff; border-left: 4px solid var(--accent); border-radius: 6px; }
+    .reveal .fq-vals[hidden], .reveal .fq-fb[hidden], .reveal .fq-why[hidden], .reveal .fq-next[hidden] { display: none; }
+    .reveal .fq-fb { display: inline-block; margin: 4px 0 0; padding: 3px 12px; border-radius: 5px; color: #fff; font-weight: 700; }
+    .reveal .fq-fb.fq-right { background: #2e8b3a; } .reveal .fq-fb.fq-wrong { background: #c0392b; }
+    .reveal .fq-why { margin: 8px 0 0; font-size: 15px; line-height: 1.4; }
+    .reveal .fq-next { display: block; margin-top: 10px; font-size: 15px; }
+    .reveal .fq-foot { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
+  </style>
 </head>
 <body class="nav-zones" data-home="exercises.html">
 <div class="reveal">
@@ -20,27 +100,61 @@
   <h2>How does an off-resonance pulse add phase?</h2>
   <div class="bs-intro">
     <ol class="bs-questions">
-      <li><b>(a)</b> A strong pulse 4 kHz off resonance: what does it do to M along z?</li>
-      <li><b>(b)</b> And to M in the transverse plane? Where does the phase come from?</li>
-      <li><b>(c)</b> How does that phase depend on B<sub>1</sub>, and on the offset?</li>
-      <li><b>(d)</b> Why acquire twice, with the pulse at +4 kHz and at −4 kHz?</li>
+      <li><b>Warm-up</b> Lab, Larmor or RF frame?</li>
+      <li><b>(a)</b> What does a pulse far off resonance do to M along z?</li>
+      <li><b>The images</b> In which frame is the measured phase?</li>
+      <li><b>(b)</b> Where does the phase come from?</li>
+      <li><b>(c)</b> How does it depend on B<sub>1</sub>, the offset and the pulse shape?</li>
+      <li><b>Summary</b> Two offsets, ±4 kHz, give B<sub>1</sub>.</li>
     </ol>
-    <div class="bs-howto">
-      <p><b>The spins</b> are drawn as in the T<sub>2</sub> lab: a sphere you can turn by dragging, M in blue, the RF field B<sub>1</sub> in orange.</p>
-      <p><b>The pulse</b> is a Fermi pulse, 8 ms long, as in Sacolick et al. 2010. Its 8 ms play back slowed down; a slider scrubs through it.</p>
-      <p><b>The frame</b> turns with the spins on resonance (the Larmor frame), unless a view says it turns with the RF.</p>
+  </div>
+</section>
+
+<section id="bs-frames">
+  <p class="kicker">Exercise 4-4 · warm-up</p>
+  <h2>Which frame is it? A quiz on frames of reference</h2>
+  <div class="fq-grid">
+    <div class="fq-left">
+      <div class="fq-opts">
+        <div class="fq-opt"><canvas width="520" height="520" aria-label="Option A"></canvas><button class="bs-btn">A</button></div>
+        <div class="fq-opt"><canvas width="520" height="520" aria-label="Option B"></canvas><button class="bs-btn">B</button></div>
+        <div class="fq-opt"><canvas width="520" height="520" aria-label="Option C"></canvas><button class="bs-btn">C</button></div>
+      </div>
+      <div class="fq-one" hidden>
+        <canvas width="760" height="760" aria-label="The animation to name"></canvas>
+        <div class="fq-names"><button class="bs-btn"></button><button class="bs-btn"></button><button class="bs-btn"></button></div>
+      </div>
+    </div>
+    <div class="fq-card">
+      <div class="fq-top"><span class="fq-count"></span><b class="fq-score"></b></div>
+      <p class="fq-q"></p>
+      <p class="fq-vals"></p>
+      <p class="fq-fb" hidden></p>
+      <p class="fq-why" hidden></p>
+      <button class="bs-btn fq-next" hidden>Next question</button>
     </div>
   </div>
+  <p class="fq-foot">One spin, no relaxation, rectangular pulses. Counter-clockwise seen from +z, as in the T<sub>2</sub> lab. Anything at f<sub>0</sub> (127.7 MHz at 3 T) is drawn far slower than real. B<sub>1</sub> orange, B<sub>eff</sub> red, M blue with its path.</p>
 </section>
 
 <section id="bs-a" class="bs">
   <p class="kicker">Exercise 4-4 · (a)</p>
   <h2>A strong pulse, off resonance, on M along z</h2>
   <div class="bs-cols">
-    <div class="bs-view"><div class="bs-cap">Larmor frame</div><canvas class="bs-sphere" width="680" height="680" aria-label="Magnetization and B1"></canvas><p class="bs-hint">Drag to turn the view</p></div>
+    <div class="bs-view fr-view" data-fr="lar">
+      <div class="fr-tabs" role="group" aria-label="Frame of reference">
+        <button data-frame="lab" aria-pressed="false"><b>Laboratory</b><span>fixed</span></button>
+        <button data-frame="lar" aria-pressed="true"><b>Larmor</b><span>= receive</span></button>
+        <button data-frame="rf" aria-pressed="false"><b>RF</b><span>= transmit</span></button>
+      </div>
+      <canvas class="bs-sphere" width="680" height="680" aria-label="Magnetization and B1"></canvas>
+      <p class="bs-cap fr-note">Turns at f<sub>0</sub>, with the spins on resonance: what the receiver sees</p>
+      <p class="bs-hint">Drag to turn the view</p>
+    </div>
     <div class="bs-ctrl">
-      <p class="bs-q">Peak B<sub>1</sub> = 0.1 G. On resonance, this pulse would turn M by <b class="a-nominal"></b>. What does it do 4 kHz off resonance? Predict, then play.</p>
-      <div class="bs-row"><span>RF offset</span><div class="seg" role="group" aria-label="RF offset"><button data-off="0" aria-pressed="false">0 (on resonance)</button><button data-off="250" aria-pressed="false">250 Hz</button><button data-off="1000" aria-pressed="false">1 kHz</button><button data-off="4000" aria-pressed="true">4 kHz</button></div></div>
+      <p class="bs-q">Peak B<sub>1</sub> = 10 µT. On resonance, this pulse would turn M by <b class="a-nominal"></b>. What does it do 4 kHz off resonance? Predict, then play.</p>
+      <div class="bs-row"><span>Pulse shape</span><div class="seg" role="group" aria-label="Pulse shape"><button data-shape="hard" aria-pressed="false">hard</button><button data-shape="gauss" aria-pressed="false">Gaussian</button><button data-shape="fermi" aria-pressed="true">Fermi</button><button data-shape="gausshann" aria-pressed="false">Gauss–Hann</button></div></div>
+      <div class="bs-row"><span>RF offset</span><div class="seg" role="group" aria-label="RF offset"><button data-off="0" aria-pressed="true">0 (on resonance)</button><button data-off="250" aria-pressed="false">250 Hz</button><button data-off="1000" aria-pressed="false">1 kHz</button><button data-off="4000" aria-pressed="false">4 kHz</button></div></div>
       <div class="bs-play"></div>
       <div class="bs-plot a-plot"></div>
       <p class="bs-readout a-readout"></p>
@@ -53,49 +167,146 @@
   <h2>Far off resonance, the pulse barely tips M</h2>
   <ul>
     <li>In the frame turning with the RF, the spins feel a <b>static</b> effective field: B<sub>1</sub> along x′, plus −Δω/γ along z, what is left of B<sub>0</sub> in that frame.</li>
-    <li>4 kHz off, Δω/γ = 0.94 G while B<sub>1</sub> peaks at 0.1 G: B<sub>eff</sub> leans only <b>6°</b> from −z. M along z circles it in a narrow cone, and since the pulse rises and falls slowly, M follows B<sub>eff</sub> back to z: it ends tipped by 0.03°.</li>
+    <li>4 kHz off, Δω/γ = 94 µT while B<sub>1</sub> peaks at 10 µT: B<sub>eff</sub> leans only <b>6°</b> from −z. M along z circles it in a narrow cone, and since the pulse rises and falls slowly, M follows B<sub>eff</sub> back to z: it ends tipped by 0.03°.</li>
     <li>On resonance the same pulse turns M by about 870°; at 250 Hz B<sub>eff</sub> leans 60° and M ends far from z. A Bloch–Siegert pulse must be far enough off resonance to excite nothing, including spins at their own B<sub>0</sub> offset.</li>
   </ul>
+</section>
+
+<section id="bs-phase">
+  <p class="kicker">Exercise 4-4 · the images</p>
+  <h2>The Bloch–Siegert images: in which frame?</h2>
+  <div class="bp-grid">
+    <div class="bp-imgs">
+      <div><p class="bp-cap"><span class="bp-kind">magnitude</span>, pulse at <b>+4 kHz</b></p><div class="map-host" data-key="pos"></div></div>
+      <div><p class="bp-cap"><span class="bp-kind">magnitude</span>, pulse at <b>−4 kHz</b></p><div class="map-host" data-key="neg"></div></div>
+      <p class="bp-note">Measured at 3 T: one slice, an 8 ms Fermi pulse (500° if it were on resonance) at ±4 kHz before the readout, TE/TR 15/100 ms. <span class="bp-unit"></span> Masked to the brain.</p>
+    </div>
+    <div class="bp-card">
+      <p class="bp-count"></p>
+      <div class="bp-step" data-answer="same" data-images="mag">
+        <p class="bp-q">If this off-resonance pulse tips the longitudinal magnetization of the on-resonance spins, that tip is measured relative to the z axis of <b>which frame</b>?</p>
+        <div class="bp-btns">
+          <button class="bs-btn" data-bp="lab">z of the <b>laboratory</b> frame</button>
+          <button class="bs-btn" data-bp="rx">z of the <b>Larmor</b> frame = receive</button>
+          <button class="bs-btn" data-bp="tx">z of the <b>RF</b> frame = transmit</button>
+          <button class="bs-btn" data-bp="same">The <b>same z</b> in all three</button>
+        </div>
+        <p class="bp-fb" hidden></p>
+        <div class="bp-why" hidden>
+          <p>The Larmor and RF frames turn <b>about z</b>, at f<sub>0</sub> and at f<sub>RF</sub>: all three frames share one z axis (along B<sub>0</sub>). So the angle from z, and M<sub>z</sub>, are the same in every frame, as in the three frame tabs of part (a).</p>
+          <p>The frames differ only in where x and y point. That matters for the phase: next question.</p>
+          <button class="bs-btn bp-next">Next question</button>
+        </div>
+      </div>
+      <div class="bp-step" data-answer="rx" data-images="phase" hidden>
+        <p class="bp-q">Each pixel is the angle of M<sub>xy</sub>. Measured from the x axis of <b>which frame</b>?</p>
+        <div class="bp-btns">
+          <button class="bs-btn" data-bp="lab"><b>Laboratory</b> frame, fixed to the scanner</button>
+          <button class="bs-btn" data-bp="rx"><b>Larmor</b> frame = receive, turning at f<sub>0</sub></button>
+          <button class="bs-btn" data-bp="tx"><b>RF</b> frame = transmit, turning at f<sub>0</sub> ± 4 kHz</button>
+          <button class="bs-btn" data-bp="same">The <b>same x</b> in all three</button>
+        </div>
+        <p class="bp-fb" hidden></p>
+        <div class="bp-why" hidden>
+          <p>The receiver demodulates at f<sub>0</sub>: the phase is M<sub>xy</sub>’s angle from x′ of the frame turning at f<sub>0</sub>, the Larmor frame of the on-resonance spins.</p>
+          <ul>
+            <li><b>Not the lab:</b> M<sub>xy</sub> spins at 128 MHz there.</li>
+            <li><b>Not the transmit frame:</b> the scans transmit at f<sub>0</sub> + 4 kHz and f<sub>0</sub> − 4 kHz, two different frames, but share one receive frame: so their phases can be subtracted.</li>
+            <li><b>Not the same in all three:</b> z is shared, but each frame’s x turns at its own rate.</li>
+          </ul>
+          <button class="bs-btn bp-next">Start again</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="bs-b" class="bs">
   <p class="kicker">Exercise 4-4 · (b)</p>
   <h2>M in the transverse plane: where the phase comes from</h2>
-  <div class="bs-cols2">
-    <div class="bs-view"><div class="bs-cap">Frame turning with the RF</div><canvas class="bs-sphere" data-frame="rf" width="680" height="680" aria-label="Magnetization and effective field, RF frame"></canvas></div>
-    <div class="bs-view"><div class="bs-cap">Larmor frame</div><canvas class="bs-sphere" data-frame="lar" width="680" height="680" aria-label="Magnetization and B1, Larmor frame"></canvas></div>
+  <div class="bs-cols">
+    <div class="bs-view fr-view" data-fr="lar">
+      <div class="fr-tabs" role="group" aria-label="Frame of reference">
+        <button data-frame="lab" aria-pressed="false"><b>Laboratory</b><span>fixed</span></button>
+        <button data-frame="lar" aria-pressed="true"><b>Larmor</b><span>= receive</span></button>
+        <button data-frame="rf" aria-pressed="false"><b>RF</b><span>= transmit</span></button>
+      </div>
+      <canvas class="bs-sphere" width="680" height="680" aria-label="Magnetization, B1 and the effective field"></canvas>
+      <p class="bs-cap fr-note">Turns at f<sub>0</sub>, with the spins on resonance: what the receiver sees</p>
+      <p class="bs-hint">Drag to turn the view · dashed: where M started</p>
+    </div>
     <div class="bs-ctrl">
-      <p class="bs-q">A 90° pulse has put M along +y. Then the same pulse, 0.1 G, 4 kHz off resonance. Predict: does M stay put, tip, or turn?</p>
+      <p class="bs-q">A 90° pulse has put M along +y. Then the same pulse (peak B<sub>1</sub> = 10 µT). What does it do to M 4 kHz off resonance: stay put, tip, or turn? Predict, then play.</p>
+      <div class="bs-row"><span>Pulse shape</span><div class="seg" role="group" aria-label="Pulse shape"><button data-shape="hard" aria-pressed="false">hard</button><button data-shape="gauss" aria-pressed="false">Gaussian</button><button data-shape="fermi" aria-pressed="true">Fermi</button><button data-shape="gausshann" aria-pressed="false">Gauss–Hann</button></div></div>
+      <div class="bs-row"><span>RF offset</span><div class="seg" role="group" aria-label="RF offset"><button data-off="0" aria-pressed="true">0 (on resonance)</button><button data-off="250" aria-pressed="false">250 Hz</button><button data-off="1000" aria-pressed="false">1 kHz</button><button data-off="4000" aria-pressed="false">4 kHz</button></div></div>
       <div class="bs-play"></div>
-      <table class="stats b-stats">
-        <tr><td>phase gained so far</td><td class="b-phi">–</td></tr>
-        <tr><td>first order, −∫ω<sub>1</sub>²/2Δω dt</td><td class="b-pred">–</td></tr>
-        <tr><td>|M<sub>xy</sub>|</td><td class="b-mxy">–</td></tr>
-      </table>
+      <div class="bs-plot b-plot"></div>
+      <p class="bs-readout b-readout"></p>
     </div>
   </div>
-  <div class="bs-plot b-plot"></div>
 </section>
 
-<section id="bs-b-saw" class="bs-saw">
-  <p class="kicker">Exercise 4-4 · (b) · What we saw</p>
-  <h2>A frequency shift while the pulse is on</h2>
-  <ul>
-    <li><b>Frame of the RF:</b> M circles B<sub>eff</sub> at ω<sub>eff</sub> = √(Δω² + ω<sub>1</sub>²), a little faster than Δω.</li>
-    <li><b>Larmor frame:</b> that frame itself turns at Δω, so all that is left is the difference, ω<sub>BS</sub> = √(Δω² + ω<sub>1</sub>²) − Δω ≈ ω<sub>1</sub>²/2Δω. M stays in the transverse plane (|M<sub>xy</sub>| = 1) and turns about z, away from the RF frequency.</li>
-    <li>Over the pulse it gains φ<sub>BS</sub> = ∫ω<sub>1</sub>(t)²/2Δω dt = K<sub>BS</sub>·B<sub>1</sub>²: about 42° here. The magnitude image is untouched; B<sub>1</sub> is written into the <b>phase</b>.</li>
-  </ul>
+<section id="bs-b-quiz" class="mc-quiz">
+  <p class="kicker">Exercise 4-4 · (b) · What did you see?</p>
+  <h2>What did M do, and what will it do next?</h2>
+  <div class="mc-card">
+    <div class="mc-top"><span class="mc-count"></span><b class="mc-score"></b></div>
+    <p class="mc-q"></p>
+    <div class="mc-opts"></div>
+    <p class="mc-fb" hidden></p>
+    <p class="mc-why" hidden></p>
+    <div class="mc-btns"><button class="bs-btn mc-next" hidden>Next question</button><button class="bs-btn mc-again" hidden>Start again</button></div>
+  </div>
+  <p class="mc-foot">Questions 1–4: what the last slide showed (Fermi pulse, 10 µT, 4 kHz, M starting along +y). Questions 5–8: predictions for the next slide.</p>
+  <ol class="mc-data" hidden>
+    <li data-a="1"><span class="q">4 kHz off resonance, in the Larmor (receive) frame: what did M do during the pulse?</span>
+      <span class="o">It tipped up towards z</span><span class="o">It stayed in (or very near) the transverse plane and turned slowly about z</span><span class="o">It stayed exactly where it was</span>
+      <span class="w">Far off resonance the pulse can’t tip M: it wobbles at most 6° out of the plane and ends with |M<sub>xy</sub>| = 1. But it does turn it, by 0.74 rad (42°) over the 8 ms.</span></li>
+    <li data-a="0"><span class="q">Which way did it turn?</span>
+      <span class="o">Clockwise seen from +z: its phase went down</span><span class="o">Counter-clockwise: its phase went up</span><span class="o">Back and forth, with no net turn</span>
+      <span class="w">From π/2 down to 0.83 rad. With the RF 4 kHz above resonance, the spin is pushed away from the RF frequency: it precesses a little slower, and falls behind the Larmor frame.</span></li>
+    <li data-a="2"><span class="q">And in the RF (transmit) frame?</span>
+      <span class="o">M stood still</span><span class="o">M tipped down to −z</span><span class="o">M circled B<sub>eff</sub> about 4000 times a second, staying near the transverse plane</span>
+      <span class="w">In the RF frame the field is B<sub>1</sub> plus ΔB<sub>0</sub> = −94 µT along z: B<sub>eff</sub> is only 6° from −z. M, at 90° from z, circles it a little faster than 4 kHz. Subtract the frame’s own 4 kHz and what’s left is the slow turn of question 1.</span></li>
+    <li data-a="0"><span class="q">So what does the pulse change in the image?</span>
+      <span class="o">Its phase, not its magnitude</span><span class="o">Its magnitude, not its phase</span><span class="o">Both, by about the same amount</span>
+      <span class="w">|M<sub>xy</sub>| stays at 1: the magnitude images at ±4 kHz differ by under 2 % (slide 5). B<sub>1</sub> is written into the phase.</span></li>
+    <li data-a="2"><span class="q">Predict: if B<sub>1</sub> doubles (20 µT), the phase gained over the pulse…</span>
+      <span class="o">stays the same</span><span class="o">doubles</span><span class="o">is 4 × larger</span>
+      <span class="w">The extra precession grows as B<sub>1</sub>²/offset: quadratic in B<sub>1</sub>. Twice the B<sub>1</sub>, four times the phase. Check it on the next slide.</span></li>
+    <li data-a="1"><span class="q">Predict: if the offset doubles (8 kHz), the phase…</span>
+      <span class="o">doubles</span><span class="o">halves</span><span class="o">is 4 × smaller</span>
+      <span class="w">As B<sub>1</sub>²/offset: inversely proportional to the offset. Further off resonance, the pulse disturbs M even less.</span></li>
+    <li data-a="1"><span class="q">Predict: with the RF at −4 kHz instead of +4 kHz, the phase…</span>
+      <span class="o">is the same</span><span class="o">has the same size, but the opposite sign</span><span class="o">is zero</span>
+      <span class="w">The spin is always pushed away from the RF frequency: from below, it speeds up instead of slowing down. That sign flip is how the B<sub>1</sub> map is made: see the summary.</span></li>
+    <li data-a="1"><span class="q">Predict: much closer to resonance (1 kHz), does the phase still grow as B<sub>1</sub>²/offset?</span>
+      <span class="o">Yes, exactly: 4 × the 4 kHz phase</span><span class="o">Roughly, but M starts to tip and the law bends</span><span class="o">No phase at all</span>
+      <span class="w">That law needs B<sub>1</sub> ≪ the offset, both as fields. At 1 kHz the offset is only 23.5 µT against B<sub>1</sub>’s 10 µT: M swings up to 24° out of the plane, and the phase falls below the law (−164° instead of −170°).</span></li>
+  </ol>
 </section>
 
 <section id="bs-c" class="bs">
   <p class="kicker">Exercise 4-4 · (c)</p>
   <h2>How the phase depends on B<sub>1</sub> and on the offset</h2>
   <div class="bs-cols">
-    <div class="bs-view"><div class="bs-cap">Larmor frame</div><canvas class="bs-sphere" width="680" height="680" aria-label="Magnetization and B1"></canvas><p class="bs-hint">Drag to turn the view</p></div>
+    <div class="bs-view fr-view" data-fr="lar">
+      <div class="fr-tabs" role="group" aria-label="Frame of reference">
+        <button data-frame="lab" aria-pressed="false"><b>Laboratory</b><span>fixed</span></button>
+        <button data-frame="lar" aria-pressed="true"><b>Larmor</b><span>= receive</span></button>
+        <button data-frame="rf" aria-pressed="false"><b>RF</b><span>= transmit</span></button>
+      </div>
+      <canvas class="bs-sphere" width="680" height="680" aria-label="Magnetization, B1 and the effective field"></canvas>
+      <p class="bs-cap fr-note">Turns at f<sub>0</sub>, with the spins on resonance: what the receiver sees</p>
+      <p class="bs-hint">Drag to turn the view · dashed: where M started</p>
+    </div>
     <div class="bs-ctrl">
       <p class="bs-q">Run the pulse at a few B<sub>1</sub> values and offsets; each run adds a point. Predict the shape first: what happens to the phase when B<sub>1</sub> doubles?</p>
-      <div class="bs-row"><span>Peak B<sub>1</sub> <b class="c-b1-read"></b></span><input class="c-b1" type="range" min="0.01" max="0.25" step="0.005" value="0.1" aria-label="Peak B1 in gauss"></div>
-      <div class="bs-row"><span>RF offset</span><div class="seg" role="group" aria-label="RF offset"><button data-coff="2000" aria-pressed="false">2 kHz</button><button data-coff="4000" aria-pressed="true">4 kHz</button><button data-coff="8000" aria-pressed="false">8 kHz</button></div></div>
+      <div class="bs-row"><span>Peak B<sub>1</sub> <b class="c-b1-read"></b></span><input class="c-b1" type="range" min="0.01" max="0.25" step="0.005" value="0.1" aria-label="Peak B1"></div>
+      <div class="bs-row"><span>RF offset <b class="c-off-read"></b></span><input class="c-off" type="range" min="-8000" max="8000" step="250" value="4000" aria-label="RF offset in Hz"></div>
+      <div class="bs-row c-presets"><span>kHz</span><div class="seg" role="group" aria-label="RF offset presets"><button data-coff="-8000" aria-pressed="false">−8</button><button data-coff="-4000" aria-pressed="false">−4</button><button data-coff="-2000" aria-pressed="false">−2</button><button data-coff="-1000" aria-pressed="false">−1</button><button data-coff="0" aria-pressed="false">0</button><button data-coff="1000" aria-pressed="false">+1</button><button data-coff="2000" aria-pressed="false">+2</button><button data-coff="4000" aria-pressed="true">+4</button><button data-coff="8000" aria-pressed="false">+8</button></div></div>
+      <div class="bs-row"><span>Pulse shape</span><div class="seg" role="group" aria-label="Pulse shape"><button data-cshape="hard" aria-pressed="false">hard</button><button data-cshape="gauss" aria-pressed="false">Gaussian</button><button data-cshape="fermi" aria-pressed="true">Fermi</button><button data-cshape="gausshann" aria-pressed="false">Gauss–Hann</button></div></div>
+      <div class="bs-row"><span>Run speed</span><div class="seg" role="group" aria-label="Run speed"><button data-cspeed="8" aria-pressed="false">slow</button><button data-cspeed="2.5" aria-pressed="true">normal</button><button data-cspeed="1" aria-pressed="false">fast</button></div></div>
       <div class="bs-row"><button class="bs-btn c-run">▶ Run</button><button class="bs-btn c-sweep">Sweep B<sub>1</sub></button><button class="bs-btn c-clear">Clear</button><button class="bs-btn c-law" aria-pressed="false">Show K<sub>BS</sub>·B<sub>1</sub>²</button></div>
       <div class="bs-plot c-plot"></div>
       <p class="bs-readout c-readout"></p>
@@ -103,51 +314,17 @@
   </div>
 </section>
 
-<section id="bs-c-saw" class="bs-saw">
-  <p class="kicker">Exercise 4-4 · (c) · What we saw</p>
-  <h2>φ<sub>BS</sub> = K<sub>BS</sub>·B<sub>1</sub>², with K<sub>BS</sub> ∝ 1/offset</h2>
-  <ul>
-    <li><b>Quadratic in B<sub>1</sub>:</b> twice the B<sub>1</sub>, four times the phase. A 10 % error in B<sub>1</sub> gives 21 % more phase, so the phase is a sensitive measure of B<sub>1</sub>.</li>
-    <li><b>Inversely proportional to the offset:</b> 2 kHz gives twice the phase of 4 kHz. But closer to resonance the pulse starts to tip M (part a), and the B<sub>1</sub>² law bends: the exact shift is √(Δω² + ω<sub>1</sub>²) − Δω, which falls below ω<sub>1</sub>²/2Δω when ω<sub>1</sub> is not ≪ Δω (points under the dashed curve).</li>
-    <li>K<sub>BS</sub> = γ²∫b(t)²dt / 2Δω depends only on the pulse shape b(t) and the offset, so it is known in advance (74 rad/G² for this pulse at 4 kHz). The price is SAR: a long, strong pulse.</li>
-  </ul>
-</section>
-
-<section id="bs-d" class="bs">
-  <p class="kicker">Exercise 4-4 · (d)</p>
-  <h2>Two acquisitions, +4 kHz and −4 kHz</h2>
-  <div class="bs-cols">
-    <div class="bs-view"><div class="bs-cap">Larmor frame · <span class="d-which">no pulse yet</span></div><canvas class="bs-sphere" width="680" height="680" aria-label="A fan of spins with different B0"></canvas><p class="bs-hint">Spins coloured by B<sub>0</sub> offset: blue below, red above resonance</p></div>
-    <div class="bs-ctrl">
-      <p class="bs-q">In a real voxel spins also sit off resonance from B<sub>0</sub>, and the image phase has other sources. Run both acquisitions: which part of the phase is B<sub>1</sub>?</p>
-      <div class="bs-row"><span>B<sub>0</sub> offsets</span><div class="seg" role="group" aria-label="B0 offsets"><button data-spread="0" aria-pressed="false">none</button><button data-spread="50" aria-pressed="true">±50 Hz</button><button data-spread="100" aria-pressed="false">±100 Hz</button></div></div>
-      <div class="bs-row"><span>B<sub>1</sub> here <b class="d-b1-read"></b></span><input class="d-b1" type="range" min="0.05" max="0.15" step="0.005" value="0.1" aria-label="Peak B1 in this voxel, gauss"></div>
-      <div class="bs-row"><button class="bs-btn d-plus">90° + pulse at +4 kHz</button><button class="bs-btn d-minus">90° + pulse at −4 kHz</button></div>
-      <div class="bs-plot d-plot"></div>
-      <p class="bs-readout d-readout"></p>
-    </div>
-  </div>
-</section>
-
-<section id="bs-d-saw" class="bs-saw">
-  <p class="kicker">Exercise 4-4 · (d) · What we saw</p>
-  <h2>The difference keeps B<sub>1</sub> and drops everything else</h2>
-  <ul>
-    <li>Each spin's phase is φ<sub>0</sub> + 2π·δf·T ∓ K<sub>BS</sub>B<sub>1</sub>²: the starting phase (excitation, receive coil), its B<sub>0</sub> offset over the pulse, and the Bloch–Siegert shift, whose sign follows the side of the offset.</li>
-    <li>Subtracting the two acquisitions cancels φ<sub>0</sub> and the B<sub>0</sub> term: (φ<sub>−</sub> − φ<sub>+</sub>)/2 = K<sub>BS</sub>B<sub>1</sub>² for every spin, to 0.1 % even at ±100 Hz. Then B<sub>1</sub> = √((φ<sub>−</sub> − φ<sub>+</sub>)/2K<sub>BS</sub>).</li>
-    <li>The magnitude images are the same in both acquisitions, and neither T<sub>1</sub> nor the flip angle of the excitation enters: unlike the double angle method or AFI, the B<sub>1</sub> information is in a phase difference.</li>
-  </ul>
-</section>
-
-<section id="bs-lessons" class="bs-saw">
-  <p class="kicker">Exercise 4-4 · Lessons</p>
+<section id="bs-summary" class="lesson summary-lessons">
+  <p class="kicker">Exercise 4-4 · Summary</p>
   <h2>What the spins showed</h2>
-  <ul>
-    <li>Far off resonance, a strong pulse excites nothing: the spins see an effective field almost along z.</li>
-    <li>While it is on, transverse spins precess a little faster, ω<sub>BS</sub> ≈ ω<sub>1</sub>²/2Δω, so they gain a phase φ<sub>BS</sub> = K<sub>BS</sub>B<sub>1</sub>², quadratic in B<sub>1</sub>.</li>
-    <li>Repeating with the offset on the other side flips the sign of φ<sub>BS</sub> and nothing else: the phase difference gives B<sub>1</sub>, free of B<sub>0</sub>, of the receive phase and of T<sub>1</sub>.</li>
-    <li>The approximation ω<sub>1</sub>²/2Δω holds when ω<sub>1</sub> ≪ Δω: a large offset keeps it exact and avoids excitation, at the cost of less phase per unit SAR.</li>
-  </ul>
+  <ol>
+    <li><b>Far off resonance, a strong pulse barely tips M:</b> it sees an effective field almost along z (6° from it at 4 kHz, 10 µT).</li>
+    <li><b>But it adds a phase:</b> while the pulse is on, transverse M precesses a little away from the RF frequency, and gains φ<sub>BS</sub> = K<sub>BS</sub>·B<sub>1</sub>² in the receive frame. The magnitude is untouched.</li>
+    <li><b>φ<sub>BS</sub> grows as B<sub>1</sub>²/offset:</b> twice the B<sub>1</sub>, four times the phase; twice the offset, half (as long as B<sub>1</sub> ≪ the offset). K<sub>BS</sub> = ∫(γB<sub>1,norm</sub>(t))²/2ω<sub>RF</sub> dt is set by the pulse shape and offset: known in advance.</li>
+    <li><b>A real image phase also holds the excitation and receive-coil phase, and each spin’s B<sub>0</sub> offset. How do you get B<sub>1</sub> out?</b>
+      <p class="sl-answer fragment">Repeat with the pulse on the other side of resonance: the Bloch–Siegert phase flips sign, and nothing else changes. So |φ<sub>+</sub> − φ<sub>−</sub>| = 2K<sub>BS</sub>B<sub>1</sub>², and B<sub>1</sub> = √(|φ<sub>+</sub> − φ<sub>−</sub>| / 2K<sub>BS</sub>). Unlike DAM or AFI, T<sub>1</sub> and the excitation flip angle don’t enter.</p>
+    </li>
+  </ol>
 </section>
 
 </div>
@@ -159,8 +336,12 @@
 <script>
   Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
 </script>
-<script src="js/bs-core.js"></script>
-<script src="js/bs.js"></script>
+<script src="js/bs-core.js?v=2"></script>
+<script src="js/bs.js?v=24"></script>
+<script src="js/frame-quiz.js"></script>
+<script src="js/bs-phase-data.js?v=2"></script>
+<script src="js/bs-phase.js?v=8"></script>
+<script src="js/mc-quiz.js?v=2"></script>
 <script src="js/nav.js?v=2"></script>
 <script src="js/popout.js"></script>
 <script src="js/home.js"></script>
