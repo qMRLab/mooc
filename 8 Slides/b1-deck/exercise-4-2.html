@@ -85,6 +85,9 @@
     .reveal .oq-a li + li { margin-top: 0.45em; }
     .reveal .oq-a .oq-head { font-size: 0.62em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #b07800; margin: 0 0 0.3em; }
     .reveal .oq-seq { display: block; width: 100%; margin: 0.2em 0 0; }
+    /* before the answer: the question alone, in the middle of the slide (nothing hints at more below); with the answer, back at the top */
+    .reveal #reg-patients:has(.oq-cols:not(.visible)) h2 { margin: 170px auto 0; max-width: 980px; text-align: center; font-size: 1.5em; }
+    .reveal #reg-patients .oq-cols:not(.visible) { display: none; }
     .reveal .rg-leadrow { display: flex; align-items: center; gap: 18px; margin: -0.4em 0 0.5em; }
     .reveal .rg-leadrow .rg-lead { margin: 0; }
     .reveal .rg-note { flex: none; margin: 0; font-size: 15px; padding: 6px 12px; border-radius: 8px; background: #fff4d6; border-left: 4px solid #e0a800; color: var(--ink); }
@@ -196,7 +199,7 @@
   renderMathInElement(document.querySelector('.reveal .slides'), { delimiters: [{ left: '$$', right: '$$', display: true }], throwOnError: false });
   Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
 </script>
-<script src="js/nav.js"></script>
+<script src="js/nav.js?v=2"></script>
 <script src="js/popout.js"></script>
 <script src="js/home.js"></script>
 </body>

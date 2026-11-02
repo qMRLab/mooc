@@ -8,15 +8,46 @@
   <link rel="stylesheet" href="vendor/reveal/reset.css">
   <link rel="stylesheet" href="vendor/reveal/reveal.css">
   <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css?v=2">
   <style>
     .reveal .as-cols { display: flex; gap: 36px; align-items: flex-start; }
-    .reveal canvas.as-sphere { display: block; width: 440px; height: 440px; cursor: grab; }
+    .reveal canvas.as-sphere { display: block; width: 380px; height: 380px; cursor: grab; }
     .reveal .as-hint { font-size: 13px; color: var(--muted); text-align: center; margin: -6px 0 0; }
     .reveal .as-side { width: 560px; font-size: 16px; }
     .reveal .as-lead { margin: 0 0 12px; line-height: 1.4; }
     .reveal .as-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; color: var(--muted); }
     .reveal .as-row b { color: var(--ink); }
-    .reveal .as-b1 { width: 100%; margin: 2px 0 6px; accent-color: var(--accent); }
+    .reveal section.summary-lessons ol { font-size: 0.76em; }
+    .reveal .ar-grid { display: grid; grid-template-columns: 640px 1fr; gap: 0 32px; align-items: start; }
+    .reveal .ar-no { font-size: 40px; font-weight: 800; color: #c0392b; margin: 0 0 6px; }
+    .reveal .ar-pts { font-size: 18px; line-height: 1.4; margin: 0 0 12px; padding: 10px 14px 10px 32px; background: var(--panel); border: 2px solid var(--accent); border-radius: 10px; }
+    .reveal .ar-pts li { margin: 5px 0; } .reveal .ar-pts li[hidden] { display: none; }
+    .reveal .ar-row { font-size: 16px; }
+    .reveal .ar-row input[type="range"] { width: 220px; margin: 0; }
+    .reveal .ar-note { font-size: 13px; color: var(--muted); line-height: 1.4; margin: 10px 0 0; }
+    .reveal .hq-lead { font-size: 16px; color: var(--muted); margin: 0 0 4px; }
+    .reveal .hq-card { margin-top: 14px; padding: 14px 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 18px; }
+    .reveal .hq-top { display: flex; justify-content: space-between; font-size: 15px; color: var(--muted); }
+    .reveal .hq-top b { color: var(--accent); }
+    .reveal .hq-q { font-size: 22px; font-weight: 700; line-height: 1.35; margin: 8px 0 12px; color: var(--ink); }
+    .reveal .hq-btns { display: flex; gap: 12px; }
+    .reveal .hq-btns .bs-btn { font-size: 18px; padding: 8px 22px; background: #fff; }
+    .reveal .hq-btns .bs-btn:disabled { cursor: default; opacity: 0.45; }
+    .reveal .hq-btns .bs-btn.hq-pick { opacity: 1; border-width: 2px; border-color: #c0392b; }
+    .reveal .hq-btns .bs-btn.hq-good { opacity: 1; border-width: 2px; border-color: #2e8b3a; background: #e6f4e8; font-weight: 700; }
+    .reveal .hq-fb { display: inline-block; margin: 12px 0 0; padding: 3px 12px; border-radius: 5px; color: #fff; font-weight: 700; }
+    .reveal .hq-fb.hq-right { background: #2e8b3a; } .reveal .hq-fb.hq-wrong { background: #c0392b; }
+    .reveal .hq-fb[hidden], .reveal .hq-why[hidden], .reveal .hq-next[hidden], .reveal .hq-btns .bs-btn[hidden] { display: none; }
+    .reveal .hq-why { margin: 8px 0 0; line-height: 1.4; }
+    .reveal .hq-check { margin: 8px 0 0; padding: 6px 12px; font-size: 16px; background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; }
+    .reveal .hq-check[hidden] { display: none; }
+    .reveal .hq-check .hq-go { display: inline-block; margin: 6px 8px 0 0; font-size: 15px; font-weight: 700; background: #fff; border-color: #e0a800; }
+    .reveal .hq-check .hq-gos { display: block; }
+    .hq-back { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 30; font: 700 15px "Helvetica Neue", Helvetica, Arial, sans-serif; padding: 7px 16px; border: 2px solid #e0a800; border-radius: 8px; background: #fff4d6; color: #1d2733; cursor: pointer; }
+    .hq-back[hidden] { display: none; }
+    .reveal .hq-next { display: block; margin-top: 12px; font-size: 16px; }
+    .reveal .sl-answer { margin: 0.4em 0 0; padding: 8px 14px; background: var(--panel); border-left: 4px solid var(--accent); border-radius: 6px; }
+    .reveal input.as-b1, .reveal input.as-t1 { width: 100%; margin: 2px 0 6px; accent-color: var(--accent); }
     .reveal .as-btn { font: inherit; font-size: 14px; padding: 5px 14px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
     .reveal .as-btn:hover { color: var(--accent); border-color: var(--accent); }
     .reveal .as-tab { border-collapse: collapse; width: 100%; margin-top: 6px; }
@@ -35,6 +66,28 @@
     .reveal .as-seg.as-read { background: #fdebd8; color: #b35a00; font-weight: 700; }
     .reveal .as-seg.as-read.two { background: #dff0e1; color: #1f6b2b; }
     .reveal .as-seg.as-spoil { background: repeating-linear-gradient(45deg, #eef1f4, #eef1f4 4px, #dde3ea 4px, #dde3ea 8px); }
+    .reveal .as-time { position: relative; margin-top: 8px; }
+    .reveal .as-time .as-strip { margin-top: 2px; }
+    .reveal .as-time > .as-cursor { z-index: 2; }
+    .reveal .as-seq { display: flex; height: 60px; }
+    .reveal .as-sq { position: relative; min-width: 0; }
+    .reveal .as-sq svg { display: block; width: 100%; height: 100%; overflow: visible; }
+    .reveal .as-sq path { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+    .reveal .as-sq path.sq-rf { stroke: #1f5f99; stroke-width: 2.2; }
+    .reveal .as-sq path.sq-gr { fill: #e3e8ee; stroke: #5b6776; }
+    .reveal .as-sq rect.sq-adc { fill: #fdebd8; stroke: #e8770e; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+    .reveal .as-sq rect.sq-adc.two { fill: #dff0e1; stroke: #2e8b3a; }
+    .reveal .sq-lab { position: absolute; font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .reveal .sq-a { right: 12%; top: 2px; color: #1f5f99; font-size: 16px; }
+    .reveal .sq-r, .reveal .sq-s { left: 50%; top: 31px; transform: translateX(-50%); }
+    .reveal .sq-r { color: #b35a00; } .reveal .sq-r.two { color: #1f6b2b; }
+    .reveal .sq-s { color: #5b6776; font-weight: 400; }
+    .reveal .as-trs { display: flex; height: 26px; margin-top: 4px; }
+    .reveal .as-tr { position: relative; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--ink); }
+    .reveal .as-tr::before { content: ""; position: absolute; left: 1px; right: 1px; top: 50%; border-top: 1.5px solid var(--ink); }
+    .reveal .as-tr::after { content: ""; position: absolute; left: 0; right: 0; top: 4px; bottom: 4px; border-left: 1.5px solid var(--ink); border-right: 1.5px solid var(--ink); }
+    .reveal .as-tr span { position: relative; z-index: 1; background: var(--bg, #fff); padding: 0 8px; }
+    .reveal .as-time > .as-cursor { bottom: 30px; }
     .reveal .as-cursor { position: absolute; top: 0; bottom: 0; width: 3px; background: #c0392b; }
   </style>
 </head>
@@ -50,13 +103,15 @@
 
 <section id="afi-same" class="afi-spin" data-tr="20,20">
   <p class="kicker">Exercise 4-3 · (a)</p>
-  <h2>One vector through an AFI cycle, with TR<sub>1</sub> = TR<sub>2</sub></h2>
+  <h2>With TR<sub>1</sub> = TR<sub>2</sub>, AFI is just SPGR</h2>
   <div class="as-cols">
     <div><canvas class="as-sphere" width="620" height="620" aria-label="The magnetization vector over one AFI cycle; drag to turn the view"></canvas><p class="as-hint">Drag to turn the view</p></div>
     <div class="as-side">
-      <p class="as-lead">One magnetization vector in steady state: each pulse tips it by 60° × B<sub>1</sub>, the readout locks its transverse part (S), the spoiler removes it, and M<sub>z</sub> recovers until the next pulse, where it is locked too. <b>Move B<sub>1</sub>: do S<sub>1</sub> and S<sub>2</sub> ever differ?</b></p>
+      <p class="as-lead">One magnetization vector in steady state: each pulse tips it by 60° × B<sub>1</sub>, the readout locks its transverse part (S), the spoiler removes it, and M<sub>z</sub> recovers until the next pulse, where it is locked too. <b>Move B<sub>1</sub> and T<sub>1</sub>: do S<sub>1</sub> and S<sub>2</sub> ever differ?</b></p>
       <div class="as-row"><span>B<sub>1</sub> <b class="as-b1-read"></b></span></div>
-      <input class="as-b1" type="range" min="0.5" max="2" step="0.01" value="1" aria-label="B1">
+      <input class="as-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1">
+      <div class="as-row"><span>T<sub>1</sub> <b class="as-t1-read"></b></span></div>
+      <input class="as-t1" type="range" min="1" max="4000" step="1" value="900" aria-label="T1">
       <div class="as-row"><button class="as-btn as-play">Pause</button></div>
       <table class="as-tab">
         <tr><td><span class="as-dot one"></span>M<sub>z</sub> just before pulse 1</td><td><b class="as-m1"></b></td></tr>
@@ -73,15 +128,55 @@
   <div class="as-strip"></div>
 </section>
 
-<section id="afi-diff" class="afi-spin" data-tr="20,100">
+<section id="afi-hl" class="afi-seq hl-quiz" data-tr="20,100">
   <p class="kicker">Exercise 4-3 · (b)</p>
+  <h2>Higher or lower? Predict the AFI signals</h2>
+  <p class="hq-lead">TR<sub>2</sub> = 5 × TR<sub>1</sub>, each pulse tips by 60° × B<sub>1</sub>, T<sub>1</sub> = 900 ms unless the question says otherwise. S<sub>1</sub> is read during TR<sub>1</sub>, S<sub>2</sub> during TR<sub>2</sub>.</p>
+  <div class="as-strip"></div>
+  <div class="hq-card">
+    <div class="hq-top"><span class="hq-count"></span><b class="hq-score"></b></div>
+    <p class="hq-q"></p>
+    <div class="hq-btns"><button class="bs-btn" data-hq="hi">Higher</button><button class="bs-btn" data-hq="lo">Lower</button><button class="bs-btn" data-hq="same">About the same</button></div>
+    <p class="hq-fb" hidden></p>
+    <p class="hq-why" hidden></p>
+    <p class="hq-check" hidden></p>
+    <button class="bs-btn hq-next" hidden>Next question</button>
+  </div>
+  <ol class="hq-data" hidden>
+    <li data-a="lo"><span class="q">For any TR, T<sub>1</sub> or B<sub>1</sub>: is the signal read during TR<sub>2</sub> (S<sub>2</sub>) higher or lower than the one read during TR<sub>1</sub> (S<sub>1</sub>)?</span>
+      <span class="w">Pulse 2 tips magnetization that had only TR<sub>1</sub> to recover; pulse 1 tips magnetization that had the longer TR<sub>2</sub>. They’re equal only if TR<sub>1</sub> = TR<sub>2</sub> (the previous slide).</span>
+      <span class="c">Check it with the sliders on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="hi"><span class="q">Is S<sub>1</sub> higher or lower than the signal of an SPGR scan with TR = TR<sub>1</sub> (20 ms)?</span>
+      <span class="w">About 3 × higher here (0.127 vs 0.037 M<sub>0</sub>): in AFI, pulse 1 comes after the long TR<sub>2</sub>, not after 20 ms.</span>
+      <span class="c">Check it: the previous slide (TR<sub>1</sub> = TR<sub>2</sub> = 20 ms) is an SPGR scan with TR = 20 ms; compare its S with S<sub>1</sub> on the next slide. Your progress here is kept. <span class="hq-gos"><button class="bs-btn hq-go" data-go="-1">← Previous slide</button><button class="bs-btn hq-go" data-go="1">Next slide →</button></span></span></li>
+    <li data-a="lo"><span class="q">And S<sub>2</sub>, compared with an SPGR scan with TR = TR<sub>2</sub> (100 ms)?</span>
+      <span class="w">Lower (0.081 vs 0.165 M<sub>0</sub>): in AFI, pulse 2 comes after only TR<sub>1</sub> of recovery, not after 100 ms.</span></li>
+    <li data-a="lo"><span class="q">If B<sub>1</sub> &gt; 1, is S<sub>2</sub> higher or lower than at B<sub>1</sub> = 1?</span>
+      <span class="w">Lower (0.056 at B<sub>1</sub> = 1.2 vs 0.081): with TRs this short, 60° is already far above the Ernst angle (12° for 20 ms, 27° for 100 ms), so a larger flip saturates more.</span>
+      <span class="c">Check it with the sliders on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="hi"><span class="q">For a short T<sub>1</sub> (500 ms), is S<sub>1</sub> higher or lower than for brain T<sub>1</sub>s at 3 T (about 800–1400 ms)?</span>
+      <span class="w">Higher (0.21 vs 0.13 at 900 ms and 0.085 at 1400 ms): a shorter T<sub>1</sub> recovers more during each TR.</span>
+      <span class="c">Check it with the sliders on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="lo"><span class="q">If B<sub>1</sub> &gt; 1, is the ratio r = S<sub>2</sub>/S<sub>1</sub> higher or lower than at B<sub>1</sub> = 1?</span>
+      <span class="w">Lower: r falls as the flip angle grows (1 at 0°, 0.64 at 60°, 0.2 at 90° for TR<sub>2</sub> = 5 TR<sub>1</sub>). That’s what the AFI formula reads B<sub>1</sub> from.</span>
+      <span class="c">Check it with the sliders on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="same"><span class="q">If T<sub>1</sub> doubles (900 → 1800 ms), is r = S<sub>2</sub>/S<sub>1</sub> higher or lower?</span>
+      <span class="w">About the same (0.638 vs 0.637): S<sub>1</sub> and S<sub>2</sub> both drop, but their ratio doesn’t depend on T<sub>1</sub> as long as both TRs are much shorter than T<sub>1</sub>. That’s why AFI measures B<sub>1</sub> without knowing T<sub>1</sub>.</span>
+      <span class="c">Check it with the sliders on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+  </ol>
+</section>
+
+<section id="afi-diff" class="afi-spin" data-tr="20,100">
+  <p class="kicker">Exercise 4-3 · (c)</p>
   <h2>Now with TR<sub>2</sub> = 5 × TR<sub>1</sub></h2>
   <div class="as-cols">
     <div><canvas class="as-sphere" width="620" height="620" aria-label="The magnetization vector over one AFI cycle; drag to turn the view"></canvas><p class="as-hint">Drag to turn the view</p></div>
     <div class="as-side">
-      <p class="as-lead">Same vector, but TR<sub>1</sub> = 20 ms and TR<sub>2</sub> = 100 ms. <b>Move B<sub>1</sub> from 0.5 to 2: how do S<sub>1</sub>, S<sub>2</sub> and the B<sub>1</sub> from the AFI formula change?</b></p>
+      <p class="as-lead">Same vector, but TR<sub>1</sub> = 20 ms and TR<sub>2</sub> = 100 ms. <b>Move B<sub>1</sub> from 0.5 to 1.5, then T<sub>1</sub>: how do S<sub>1</sub>, S<sub>2</sub> and the B<sub>1</sub> from the AFI formula change?</b></p>
       <div class="as-row"><span>B<sub>1</sub> <b class="as-b1-read"></b></span></div>
-      <input class="as-b1" type="range" min="0.5" max="2" step="0.01" value="1" aria-label="B1">
+      <input class="as-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1">
+      <div class="as-row"><span>T<sub>1</sub> <b class="as-t1-read"></b></span></div>
+      <input class="as-t1" type="range" min="1" max="4000" step="1" value="900" aria-label="T1">
       <div class="as-row"><button class="as-btn as-play">Pause</button></div>
       <table class="as-tab">
         <tr><td><span class="as-dot one"></span>M<sub>z</sub> just before pulse 1</td><td><b class="as-m1"></b></td></tr>
@@ -98,6 +193,64 @@
   <div class="as-strip"></div>
 </section>
 
+<section id="guess-afi" data-reveal-at-end data-in-order>
+  <p class="kicker">Exercise 4-3 · (d)</p>
+  <h2>B<sub>1</sub> guessing game: is AFI as easy as DAM?</h2>
+  <div class="gs-grid">
+    <div class="gs-imgs">
+      <div><p class="gs-cap">TR<sub>1</sub> = 20 ms</p><div class="map-host" data-key="i60" style="width:300px;height:420px"></div></div>
+      <div><p class="gs-cap">TR<sub>2</sub> = 100 ms</p><div class="map-host" data-key="i120" style="width:300px;height:420px"></div></div>
+      <p class="gs-pix">Click a pixel to read its value in both images.</p>
+    </div>
+    <div class="gs-side">
+      <p class="ph-note">The brain of Exercise 4-1, through the same receive coils, now imaged with AFI: α = 60°, TR<sub>1</sub> = 20 ms, TR<sub>2</sub> = 100 ms (T<sub>1</sub> = 900 ms), both on one grey scale.</p>
+      <p class="gs-task">Press <b>Start</b>: a point appears for 5 seconds. Is the transmit B<sub>1</sub><sup>+</sup> there above or below 1?<br>Be quick: a right answer scores up to 1000 points, fewer the longer you take.</p>
+      <div class="bs-row"><button class="bs-btn gs-start">Start</button><b class="gs-status"></b><button class="bs-btn gs-reveal" aria-pressed="false" style="margin-left:auto">Reveal the B<sub>1</sub> map</button></div>
+      <div class="gs-timer"><div></div></div>
+      <div class="bs-row gs-answer"><button class="bs-btn" data-gsa="hi" disabled>B<sub>1</sub><sup>+</sup> &gt; 1</button><button class="bs-btn" data-gsa="lo" disabled>B<sub>1</sub><sup>+</sup> &lt; 1</button></div>
+      <p class="gs-pt"></p>
+      <div class="gs-vals"><div><span>Point</span><b class="gs-vlab">–</b></div><div><span>S<sub>1</sub> (TR<sub>1</sub>)</span><b class="gs-v60">–</b></div><div><span>S<sub>2</sub> (TR<sub>2</sub>)</span><b class="gs-v120">–</b></div></div>
+      <p class="gs-fb"></p>
+      <div class="gs-out">
+        <table class="stats gs-table"><tbody class="gs-results"></tbody></table>
+        <div class="gs-b1wrap" hidden><div class="map-host" data-key="b1" style="width:180px;height:150px"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="afi-ratio">
+  <p class="kicker">Exercise 4-3 · (d) · the answer</p>
+  <h2>B<sub>1</sub> guessing game: is AFI as easy as DAM?</h2>
+  <div class="ar-grid">
+    <div class="ar-plot" role="img" aria-label="The ratio of the two images against B1, for AFI and DAM"></div>
+    <div class="ar-side">
+      <p class="ar-no">No.</p>
+      <ul class="ar-pts">
+        <li><b>DAM:</b> at B<sub>1</sub> = 1 the two images are equal (ratio 1), so “which one is brighter?” tells you if B<sub>1</sub> is above or below 1.</li>
+        <li class="ar-afi"><b>AFI:</b> at B<sub>1</sub> = 1 the ratio is <b class="ar-r1">0.64</b>, not 1. You have to judge by eye whether S<sub>2</sub> is more or less than <b class="ar-pct">64 %</b> of S<sub>1</sub>.</li>
+        <li class="ar-afi1" hidden><b>AFI with TR<sub>2</sub> = TR<sub>1</sub>:</b> the ratio is 1, but for every B<sub>1</sub>: the two images are the same (AFI is just SPGR), so they tell you nothing about B<sub>1</sub>.</li>
+        <li class="ar-same">With TR<sub>2</sub> = TR<sub>1</sub> it is 1, but for every B<sub>1</sub>: AFI is then just SPGR.</li>
+      </ul>
+      <div class="bs-row ar-row"><span>TR<sub>2</sub> / TR<sub>1</sub> = <b class="ar-n-read">5.0</b></span><input class="ar-n" type="range" min="1" max="10" step="0.5" value="5" aria-label="TR2 / TR1"></div>
+      <p class="ar-note">AFI: S<sub>2</sub>/S<sub>1</sub> = (1 + n cos θ)/(n + cos θ), n = TR<sub>2</sub>/TR<sub>1</sub>, θ = 60° × B<sub>1</sub>, for TRs much shorter than T<sub>1</sub>. DAM (long TR): S(120°)/S(60°) = 2 cos θ.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 4-3 · Summary</p>
+  <h2>Reading B<sub>1</sub> from AFI images</h2>
+  <ol>
+    <li><b>With TR<sub>1</sub> = TR<sub>2</sub>, AFI is just SPGR:</b> the two images are identical, so they tell you nothing about B<sub>1</sub>.</li>
+    <li><b>With TR<sub>2</sub> &gt; TR<sub>1</sub>, the ratio S<sub>2</sub>/S<sub>1</sub> gives B<sub>1</sub>:</b> the receive field cancels in it, and so does T<sub>1</sub>, as long as both TRs are much shorter than T<sub>1</sub>.</li>
+    <li><b>Guessing B<sub>1</sub> by eye is much harder than with DAM:</b> at B<sub>1</sub> = 1 the two AFI images aren’t equal (S<sub>2</sub>/S<sub>1</sub> = 0.64 here, and it depends on TR<sub>2</sub>/TR<sub>1</sub>), so there’s no “which one is brighter?” shortcut like with 60° and 120°.</li>
+    <li><b>High B<sub>1</sub> → darker, low B<sub>1</sub> → brighter:</b> with TRs this short, a larger flip angle saturates the magnetization more and gives less signal. <b>So why do we need two images?</b>
+      <p class="sl-answer fragment">The receive coils also make whole regions bright or dark: in one image, a dark spot can be high B<sub>1</sub> or just far from the coils. Only the ratio S<sub>2</sub>/S<sub>1</sub> cancels the receive field.</p>
+    </li>
+  </ol>
+</section>
+
 </div>
 </div>
 
@@ -105,8 +258,14 @@
 <script>
   Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
 </script>
-<script src="js/afi-spin.js?v=3"></script>
-<script src="js/nav.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/afi-spin.js?v=8"></script>
+<script src="js/hl-quiz.js?v=3"></script>
+<script src="js/afi-ratio.js?v=2"></script>
+<script src="js/fl-data.js"></script>
+<script src="js/guess.js?v=8"></script>
+<script src="js/nav.js?v=2"></script>
 <script src="js/popout.js"></script>
 <script src="js/home.js"></script>
 </body>

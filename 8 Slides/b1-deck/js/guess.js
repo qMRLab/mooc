@@ -4,10 +4,12 @@
  * mean) is more extreme than a real array's. No B1 map. "Start": 5 points, one at a time in random order, 5 s each;
  * answer B1+ > 1 or < 1 (green / red label), score at the end. Click a pixel to read its value in both images;
  * "Reveal" adds the B1 map (with data-reveal-at-end on the slide, its button only shows once the quiz is over). Receive: quasi-static loops as on #mo / #fl-rx (two antiparallel wires, |B1−| = |B⊥|/2,
- * root-sum-of-squares, here with a gain per coil), normalized to its mean in the brain. S = s·PD·|sin(αB1)|. */
-(function () {
+ * root-sum-of-squares, here with a gain per coil), normalized to its mean in the brain. S = s·PD·|sin(αB1)|.
+ * The same game on #guess-afi (Exercise 4-3): the two AFI images (α = 60°, TR1 = 20 ms, TR2 = 100 ms, T1 = 900 ms as on
+ * #afi-diff, Eqs. 4.10–4.11, magnitude) instead, with points where B1 is high, very low or close to 1. */
+function guessGame(slide, cfg) {
   'use strict';
-  const slide = document.getElementById('guess'); const D = window.FLASH_BRAIN; if (!slide || !D) return;
+  const D = window.FLASH_BRAIN; if (!slide || !D) return;
   const NR = D.grid.rows, NC = D.grid.cols, N = NR * NC, PIX = D.grid.mm * 1e-3, DEG = Math.PI / 180;
   const bytes = (b64) => { const s = atob(b64), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; };
   const SEG = bytes(D.seg), WM = bytes(D.wm), GM = bytes(D.gm), CSF = bytes(D.csf);
@@ -15,7 +17,7 @@
   const PD = { wm: 0.69 * Math.exp(-5 / 70), gm: 0.8 * Math.exp(-5 / 90), csf: Math.exp(-5 / 1000) };   // PD·e^(−TE/T2), #fl's guesses
   // [angle around the head centre (°, 0 = patient left / screen right, 90 = anterior), gap to the head (mm), loop width (cm), gain]
   const COILS = [[100, 0, 4, 2.0], [160, 0, 3, 1.2], [215, 0, 4, 2.5], [290, 2, 6, 0.5], [340, 0, 3, 1.6], [40, 4, 5, 0.7], [250, 0, 3, 1.0]];
-  const POINTS = [['A', 30, 39], ['B', 65, 51], ['C', 104, 54], ['D', 85, 29], ['E', 46, 17]];   // label, row, column (picked where B1 is smooth, ≤ 0.86 or ≥ 1.12)
+  const POINTS = cfg.points, NAMES = cfg.names;
   const TIME = 5000, PAUSE = 1600, GREEN = '#2e8b3a', RED = '#c0392b', ASK = '#a50021';   // ASK: the point being asked, dark red to stand out on grey
 
   // grid pixel (i, j) → lab (u right, v up = anterior), metres; coils on rays from the head centre, just outside the head
@@ -54,7 +56,8 @@
   for (let k = 0; k < N; k++) if (brain(k)) {
     S[k] /= sum / n;
     const pd = (WM[k] * PD.wm + GM[k] * PD.gm + CSF[k] * PD.csf) / 100;
-    A60[k] = S[k] * pd * Math.abs(Math.sin(60 * DEG * B1[k])); A120[k] = S[k] * pd * Math.abs(Math.sin(120 * DEG * B1[k]));
+    const [a, b] = cfg.images(B1[k]);
+    A60[k] = S[k] * pd * a; A120[k] = S[k] * pd * b;
     all.push(A60[k], A120[k]);
   }
   all.sort((a, b) => a - b);
@@ -62,7 +65,8 @@
   r0 = Math.max(0, r0 - 2); r1 = Math.min(NR - 1, r1 + 2); c0 = Math.max(0, c0 - 2); c1 = Math.min(NC - 1, c1 + 2);
   const CR = r1 - r0 + 1, CC = c1 - c0 + 1, IW = 300, IH = Math.round((IW * CR) / CC);
   const grid = (a) => Array.from({ length: CR }, (_, i) => Array.from({ length: CC }, (_, j) => { const k = (i + r0) * NC + j + c0; return brain(k) ? a[k] : null; }));
-  const Z60 = grid(A60.map((v) => v / ZMAX)), Z120 = grid(A120.map((v) => v / ZMAX)), ZB1 = grid(B1);
+  const G = cfg.gamma || 1, disp = (v) => Math.min(1, v / ZMAX) ** G;   // display only (cfg.gamma < 1 lifts the dark greys); the values read out stay linear
+  const Z60 = grid(A60.map(disp)), Z120 = grid(A120.map(disp)), ZB1 = grid(B1);
   const pts = POINTS.map(([lab, i, j]) => ({ lab, i, j, k: i * NC + j }));
   const st = { revealed: false, pick: null, phase: 'idle', order: [], k: 0, t0: 0, res: [] };   // phase: idle, ask, feedback, done
 
@@ -98,7 +102,7 @@
     panel(hosts.i120, Z120, CMAPS.gray, 0, 1, IW, IH);
     q('.gs-b1wrap').hidden = !st.revealed;
     if (st.revealed) panel(hosts.b1, ZB1, CMAPS.rdbu, 0.7, 1.3, 180, Math.round((138 * CR) / CC) + 4, true);
-    const read = (k, what) => `${what}: <b>60° image ${f(A60[k] / ZMAX)}</b> · <b>120° image ${f(A120[k] / ZMAX)}</b>` + (st.revealed ? ` · B<sub>1</sub><sup>+</sup> ${f(B1[k])} (receive ${f(S[k])})` : '');
+    const read = (k, what) => `${what}: <b>${NAMES[0]} ${f(A60[k] / ZMAX)}</b> · <b>${NAMES[1]} ${f(A120[k] / ZMAX)}</b>` + (st.revealed ? ` · B<sub>1</sub><sup>+</sup> ${f(B1[k])} (receive ${f(S[k])})` : '');
     const cur = st.phase === 'ask' || st.phase === 'feedback' ? pts[st.order[st.k]] : null;   // the point being asked: its values, no click needed
     q('.gs-pt').innerHTML = cur ? read(cur.k, `Point ${cur.lab}`) : '';
     if (q('.gs-vals')) {   // the exercise deck: the asked point's values in boxes, blank until Start
@@ -152,4 +156,22 @@
   slide.querySelectorAll('[data-gsa]').forEach((b) => b.addEventListener('click', () => { b.blur(); answer(b.dataset.gsa); }));
   q('.gs-reveal').addEventListener('click', (e) => { e.currentTarget.blur(); st.revealed = !st.revealed; draw(); });
   onShow(slide, draw);
-})();
+}
+
+// Exercise 4-1: double angle, 60° and 120°, long TR
+guessGame(document.getElementById('guess'), {
+  names: ['60° image', '120° image'],
+  points: [['A', 30, 39], ['B', 65, 51], ['C', 104, 54], ['D', 85, 29], ['E', 46, 17]],   // label, row, column (picked where B1 is smooth, ≤ 0.86 or ≥ 1.12)
+  images: (b1) => [Math.abs(Math.sin((60 * b1 * Math.PI) / 180)), Math.abs(Math.sin((120 * b1 * Math.PI) / 180))],
+});
+
+// Exercise 4-3: AFI, α = 60°, TR1 = 20 ms, TR2 = 100 ms, T1 = 900 ms (steady state, magnitude)
+guessGame(document.getElementById('guess-afi'), {
+  names: ['TR₁ image', 'TR₂ image'], gamma: 0.6,   // display gamma: the AFI images are darker than the DAM ones
+  // where the B1 map is smooth: A high (1.19), B just above 1 (1.04), C very low (0.76), D just below 1 (0.94), E low (0.79)
+  points: [['A', 77, 38], ['B', 55, 54], ['C', 33, 36], ['D', 42, 50], ['E', 45, 19]],
+  images: (b1) => {
+    const E1 = Math.exp(-20 / 900), E2 = Math.exp(-100 / 900), th = (60 * b1 * Math.PI) / 180, c = Math.cos(th), sn = Math.sin(th), den = 1 - E1 * E2 * c * c;
+    return [Math.abs((sn * (1 - E2 + (1 - E1) * E2 * c)) / den), Math.abs((sn * (1 - E1 + (1 - E2) * E1 * c)) / den)];
+  },
+});
