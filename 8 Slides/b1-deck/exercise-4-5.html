@@ -7,8 +7,92 @@
   <title>Exercise 4-5 · B1 Mapping · qMRI mOOC</title>
   <link rel="stylesheet" href="vendor/reveal/reset.css">
   <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <link rel="stylesheet" href="deck.css">
-  <link rel="stylesheet" href="exercise.css">
+  <link rel="stylesheet" href="exercise.css?v=2">
+  <style>
+    /* the quizzes (js/mc-quiz.js), as on Exercise 4-4 */
+    .reveal .mc-card { max-width: 900px; padding: 14px 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 17px; }
+    .reveal .mc-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); } .reveal .mc-top b { color: var(--accent); }
+    .reveal .mc-q { font-size: 22px; font-weight: 700; line-height: 1.35; margin: 8px 0 12px; }
+    .reveal .mc-opts { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .reveal .mc-opts .bs-btn { font-size: 17px; padding: 8px 16px; text-align: left; background: #fff; }
+    .reveal .mc-opts .bs-btn:disabled { cursor: default; opacity: 0.5; }
+    .reveal .mc-opts .bs-btn.mc-good { opacity: 1; border: 2px solid #2e8b3a; background: #e6f4e8; font-weight: 700; }
+    .reveal .mc-opts .bs-btn.mc-bad { opacity: 1; border: 2px solid #c0392b; }
+    .reveal .mc-fb { display: inline-block; margin: 12px 0 0; padding: 3px 12px; border-radius: 5px; color: #fff; font-weight: 700; }
+    .reveal .mc-fb.mc-right { background: #2e8b3a; } .reveal .mc-fb.mc-wrong { background: #c0392b; }
+    .reveal .mc-fb[hidden], .reveal .mc-why[hidden], .reveal .mc-next[hidden], .reveal .mc-again[hidden] { display: none; }
+    .reveal .mc-why { margin: 8px 0 0; line-height: 1.45; }
+    .reveal .mc-btns { display: flex; gap: 10px; margin-top: 12px; } .reveal .mc-next, .reveal .mc-again { font-size: 15px; }
+    .reveal .mc-next.mc-go { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+    .reveal .mc-foot { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+    /* the simulator: the two rows that matter stand out, the others step back */
+    .reveal #vfa-fit .stats tr { color: var(--muted); }
+    .reveal #vfa-fit .stats tr:has(.vf-prec-b1), .reveal #vfa-fit .stats tr:has(.vf-bias-b1) { background: #fff4d6; font-size: 1.12em; }
+    .reveal .vf-key { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+    .reveal .vf-guess[hidden] { display: none; }
+    /* the VFA refresher */
+    .reveal .vr-ctl { margin: 0 0 4px; font-size: 15px; gap: 10px; }
+    .reveal .vr-ctl input { width: 150px; } .reveal .vr-note { margin-left: 12px; color: var(--muted); } .reveal .vr-note b { color: #d2691e; }
+    .reveal .vr-grid { display: grid; grid-template-columns: 560px 560px; gap: 40px; align-items: start; }
+    .reveal .vr-eq { margin: 6px 0 4px; padding: 4px 14px 6px; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; font-size: 14px; line-height: 1.35; }
+    .reveal .vr-eq .katex-display { margin: 0.2em 0; font-size: 1.08em; }
+    .reveal .vr-eq h4 { margin: 2px 0 0; font-size: 14px; text-transform: none; color: var(--muted); font-weight: 700; }
+    .reveal .vr-eq h4 a { font-weight: 400; color: var(--muted); text-decoration: none; border-bottom: 1px dotted currentColor; }
+    .reveal .vr-eq p { margin: 0; color: var(--muted); }
+    .reveal .vr-book { display: flex; justify-content: space-between; margin: 6px 0 0; font-size: 15px; } .reveal .vr-book span { color: var(--muted); font-size: 14px; }
+    .reveal .vr-book a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted currentColor; }
+    .reveal .vr-b1note { margin: -6px 0 0; font-size: 18px; }
+    .reveal #vfa-b1in .vr-eq .katex-display { font-size: 1.0em; }
+    .reveal .vr-foot { display: flex; justify-content: center; margin: 14px 0 0; }
+    .reveal .vr-b1row { font-size: 26px; margin: 0; gap: 18px; } .reveal .vr-b1row input { width: 400px; zoom: 1.5; } .reveal .vr-b1row b { display: inline-block; min-width: 2.6em; } .reveal .vr-b1row b { color: #d2691e; }
+    .reveal .wq { margin: 190px auto 0; max-width: 1000px; text-align: center; }
+    .reveal .wq h2 { font-size: 1.7em; line-height: 1.25; margin: 0; }
+    .reveal .wq .katex-display { font-size: 1.2em; margin: 0.4em 0; }
+    .reveal .wq p { font-size: 20px; color: var(--muted); margin: 0.6em 0 0; }
+    .reveal .wq p.wq-q { font-size: 1.15em; font-weight: 700; color: var(--ink); line-height: 1.3; margin: 0.7em auto 0; max-width: 900px; text-wrap: balance; }
+    /* the "can we fit for B1?" quiz: the left panel follows the question (data-show on each item) */
+    .reveal .fq-grid { display: grid; grid-template-columns: 560px 1fr; gap: 32px; align-items: start; }
+    .reveal #vfa-predict-a .fq-panel[data-panel="gen"] { display: none; }
+    .reveal #vfa-predict-a[data-mc-show="gen"] .fq-panel[data-panel="gen"] { display: block; }
+    .reveal #vfa-predict-a[data-mc-show="gen"] .fq-panel[data-panel="lin"] { display: none; }
+    .reveal #vfa-predict-a .vr-eq { margin: 0 0 6px; }
+    .reveal #vfa-predict-a .mc-card { margin-top: 0; }
+    .reveal #vfa-predict-a .mc-q { font-size: 20px; }
+    /* where would you put your three angles? */
+    .reveal #vfa-place h2 { font-size: 1.12em; text-wrap: nowrap; }
+    .reveal .vp-grid { display: grid; grid-template-columns: 640px 1fr; gap: 28px; align-items: start; }
+    .reveal .vp-plot { touch-action: none; user-select: none; }
+    .reveal .vp-side { font-size: 16px; }
+    .reveal .vp-intro { margin: 0 0 10px; line-height: 1.4; }
+    .reveal .vp-side .bs-row { margin: 0 0 10px; }
+    .reveal .vp-scan:not([disabled]) { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+    .reveal .vp-scan[disabled] { opacity: 0.45; cursor: default; }
+    .reveal .vp-scan[hidden], .reveal .vp-result[hidden] { display: none; }
+    .reveal .vp-table { font-size: 14px; width: 100%; } .reveal .vp-table thead td { font-size: 12px; color: var(--muted); }
+    .reveal .vp-note { font-size: 13px; color: var(--muted); margin: 4px 0 6px; }
+    .reveal .vp-scorebox { margin: 0; padding: 6px 10px; background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; }
+    .reveal .vp-scorebox b { font-size: 20px; color: var(--accent); } .reveal .vp-best { font-size: 13px; color: var(--muted); margin-left: 6px; }
+    /* real images have noise: the questions, then the check */
+    .reveal .nq-card { max-width: 980px; padding: 16px 22px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 18px; }
+    .reveal .nq-q { font-size: 22px; font-weight: 700; line-height: 1.35; margin: 0 0 10px; }
+    .reveal .nq-step2 { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); }
+    .reveal .nq-step2[hidden], .reveal .nq-fb[hidden], .reveal .nq-go[hidden], .reveal .nq-redo[hidden], .reveal .nc-busy[hidden] { display: none; }
+    .reveal .nq-n { width: 90px; font-size: 22px; padding: 4px 8px; border: 1px solid var(--rule); border-radius: 6px; }
+    .reveal .nq-go { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+    .reveal .nq-assume { font-size: 16px; color: var(--muted); margin: 0 0 10px; }
+    .reveal [data-nq] { font-size: 17px; background: #fff; } .reveal [data-nq]:disabled { opacity: 0.5; cursor: default; } .reveal [data-nq].nq-pick { opacity: 1; border: 2px solid var(--accent); font-weight: 700; }
+    .reveal .nq-fb { margin: 12px 0 0; padding: 8px 12px; border-radius: 6px; line-height: 1.4; }
+    .reveal .nq-fb.nq-right { background: #e6f4e8; border-left: 4px solid #2e8b3a; } .reveal .nq-fb.nq-wrong { background: #fde2dc; border-left: 4px solid #c0392b; } .reveal .nq-fb.nq-maybe { background: #fff4d6; border-left: 4px solid #e0a800; }
+    .reveal .nc-grid { display: grid; grid-template-columns: 680px 1fr; gap: 28px; align-items: start; }
+    .reveal .nc-side { font-size: 17px; } .reveal .nc-side p { margin: 0 0 10px; line-height: 1.4; }
+    .reveal .nc-mine, .reveal .nc-afi { font-size: 19px; } .reveal .nc-busy { color: var(--muted); font-style: italic; }
+    .reveal .nc-setup { font-size: 14px; color: var(--muted); }
+    .reveal .nc-take { padding: 8px 12px; background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; font-size: 18px; }
+    /* the summary */
+    .reveal section.summary-lessons ol { font-size: 0.74em; }
+  </style>
 </head>
 <body class="nav-zones" data-home="exercises.html">
 <div class="reveal">
@@ -17,131 +101,199 @@
 <section class="problem">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-5</p>
-  <h2>Variable flip angle T<sub>1</sub> mapping: do we need a separate B<sub>1</sub> map?</h2>
+  <h2>B<sub>1</sub> map application example: VFA T<sub>1</sub> mapping</h2>
+</section>
+
+<section id="vfa-refresher">
+  <p class="kicker">Exercise 4-5 · refresher</p>
+  <h2>Variable flip angle (VFA): SPGR at 2 or more flip angles</h2>
+  <div class="vr-grid">
+    <div>
+      <div class="vr-eq">
+        <h4>Steady-state signal <a href="https://qmrlab.org/mooc/t1-mapping#vfaeq1" target="_blank" rel="noopener">Eq. 2.5</a></h4>
+        $$S_n = A\,\frac{(1-E_1)\sin\theta_n}{1-E_1\cos\theta_n},\qquad E_1 = e^{-TR/T_1}$$
+        <p>A = M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup> × receive gain: whatever is the same at every angle.</p>
+      </div>
+      <div class="vr-plot-s" style="width:560px;height:330px"></div>
+    </div>
+    <div>
+      <div class="vr-eq">
+        <h4>Linearized <a href="https://qmrlab.org/mooc/t1-mapping#vfaeq3" target="_blank" rel="noopener">Eqs. 2.7–2.9</a></h4>
+        $$\frac{S_n}{\sin\theta_n} = E_1\,\frac{S_n}{\tan\theta_n} + A(1-E_1)\quad\Rightarrow\quad T_1 = -\frac{TR}{\ln(\text{slope})}$$
+        <p>Each angle is one point on a line: two angles are the minimum.</p>
+      </div>
+      <div class="vr-plot-l" style="width:560px;height:330px"></div>
+    </div>
+  </div>
+  <p class="vr-book"><span>Example: T<sub>1</sub> = 1000 ms, TR = 15 ms. ○ = Ernst angle; ● = the two angles at 0.71 × its signal.</span> <a href="https://qmrlab.org/mooc/t1-mapping#vfaintroduction" target="_blank" rel="noopener">📖 More in the T<sub>1</sub> Mapping chapter · Variable flip angle</a></p>
+</section>
+
+<section id="vfa-b1in">
+  <p class="kicker">Exercise 4-5 · refresher</p>
+  <h2>VFA: where B<sub>1</sub> comes in</h2>
+  <p class="vr-b1note">θ<sub>n</sub> is the <b>nominal</b> flip angle, the one you set. What the voxel actually experiences is <b>θ = <span style="color:#d2691e">B<sub>1</sub></span> θ<sub>n</sub></b>.</p>
+  <div class="vr-grid">
+    <div>
+      <div class="vr-eq">
+        <h4>Steady-state signal, with B<sub>1</sub> <a href="https://qmrlab.org/mooc/t1-mapping#vfaeq1" target="_blank" rel="noopener">Eq. 2.5</a></h4>
+        $$S_n = A\,\frac{(1-E_1)\sin(\textcolor{#d2691e}{B_1}\theta_n)}{1-E_1\cos(\textcolor{#d2691e}{B_1}\theta_n)},\qquad E_1 = e^{-TR/T_1}$$
+        <p>A = M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup> × receive gain: whatever is the same at every angle.</p>
+      </div>
+      <div class="vr-plot-s" style="width:560px;height:300px"></div>
+    </div>
+    <div>
+      <div class="vr-eq">
+        <h4>Linearized, with B<sub>1</sub> <a href="https://qmrlab.org/mooc/t1-mapping#vfaeq3" target="_blank" rel="noopener">Eqs. 2.7–2.9</a></h4>
+        $$\frac{S_n}{\sin(\textcolor{#d2691e}{B_1}\theta_n)} = E_1\,\frac{S_n}{\tan(\textcolor{#d2691e}{B_1}\theta_n)} + A(1-E_1)\quad\Rightarrow\quad T_1 = -\frac{TR}{\ln(\text{slope})}$$
+        <p>Each angle is one point on a line: two angles are the minimum.</p>
+      </div>
+      <div class="vr-plot-l" style="width:560px;height:300px"></div>
+    </div>
+  </div>
+  <div class="vr-foot"><div class="bs-row vr-b1row"><span>B<sub>1</sub> <b class="vr-b1-read"></b></span><input class="vr-b1" type="range" min="0.5" max="1.5" step="0.01" value="1" aria-label="B1"></div></div>
+</section>
+
+<section id="vfa-why">
+  <p class="kicker">Exercise 4-5</p>
+  <div class="wq">
+    <h2>Why measure B<sub>1</sub> at all?<br>Can we fit for B<sub>1</sub> instead?</h2>
+  </div>
+</section>
+
+<section id="vfa-predict-a" class="mc-quiz" data-vr-b1>
+  <p class="kicker">Exercise 4-5 · predict first</p>
+  <h2>Can we fit for B<sub>1</sub>?</h2>
+  <div class="fq-grid">
+    <div class="fq-left">
+      <div class="fq-panel" data-panel="lin">
+        <div class="vr-eq">
+          <h4>Linearized</h4>
+          $$\frac{S_n}{\sin(\textcolor{#d2691e}{B_1}\theta_n)} = E_1\,\frac{S_n}{\tan(\textcolor{#d2691e}{B_1}\theta_n)} + A(1-E_1)$$
+        </div>
+        <div class="vr-plot-l" style="width:560px;height:330px"></div>
+      </div>
+      <div class="fq-panel" data-panel="gen">
+        <div class="vr-eq">
+          <h4>General (non-linear)</h4>
+          $$S_n = A\,\frac{(1-E_1)\sin(\textcolor{#d2691e}{B_1}\theta_n)}{1-E_1\cos(\textcolor{#d2691e}{B_1}\theta_n)},\qquad E_1 = e^{-TR/T_1}$$
+        </div>
+        <div class="vr-plot-s" style="width:560px;height:330px"></div>
+      </div>
+    </div>
+    <div class="mc-card">
+      <div class="mc-top"><span class="mc-count"></span><b class="mc-score"></b></div>
+      <p class="mc-q"></p>
+      <div class="mc-opts"></div>
+      <p class="mc-fb" hidden></p>
+      <p class="mc-why" hidden></p>
+      <div class="mc-btns"><button class="bs-btn mc-next" hidden>Next question</button><button class="bs-btn mc-again" hidden>Start again</button></div>
+    </div>
+  </div>
+  <ol class="mc-data" hidden>
+    <li data-a="2" data-show="lin"><span class="q">Can we use this linearized equation to fit for B<sub>1</sub>?</span>
+      <span class="o">Yes: B<sub>1</sub> comes out of the slope</span><span class="o">Yes: B<sub>1</sub> comes out of the intercept</span><span class="o">No: you need B<sub>1</sub> to place the points in the first place</span>
+      <span class="w">Both axes, S<sub>n</sub>/sin(B<sub>1</sub>θ<sub>n</sub>) and S<sub>n</sub>/tan(B<sub>1</sub>θ<sub>n</sub>), need B<sub>1</sub> before a single point can be plotted. The line only gives E<sub>1</sub> (slope) and A (intercept), so B<sub>1</sub> has to come from somewhere else.</span></li>
+    <li data-a="0" data-show="gen"><span class="q">What about the general, non-linear equation: under ideal circumstances (no noise), is it mathematically possible to fit for B<sub>1</sub> with it?</span>
+      <span class="o">Yes: B<sub>1</sub> is one more unknown, alongside T<sub>1</sub> and A</span><span class="o">No: B<sub>1</sub> cancels out</span><span class="o">Only if T<sub>1</sub> is already known</span>
+      <span class="w">Mathematically, yes: B<sub>1</sub> sits inside the sin and cos and doesn’t cancel, so with enough noise-free angles a non-linear fit can solve for it together with T<sub>1</sub> and A. Whether that holds up with noise is what the next slides test.</span></li>
+    <li data-a="2" data-show="gen"><span class="q">Under ideal circumstances (no noise), what is the minimum number of flip angles needed to fit for B<sub>1</sub> with the general equation?</span>
+      <span class="o">1</span><span class="o">2</span><span class="o">3</span><span class="o">4 or more</span>
+      <span class="w">Three unknowns, A, T<sub>1</sub> and B<sub>1</sub>, so at least three measurements. If A were known, two would do: that is the setup on the next slide.</span></li>
+  </ol>
+</section>
+
+<section id="vfa-place">
+  <p class="kicker">Exercise 4-5 · your protocol</p>
+  <h2>You are scanning a brain at 3 T: where would you put your three flip angles?</h2>
+  <div class="vp-grid">
+    <div class="vp-plot" style="width:640px;height:430px"></div>
+    <div class="vp-side">
+      <p class="vp-intro">No B<sub>1</sub> map: the fit solves for A, T<sub>1</sub> and B<sub>1</sub> from your three measurements. You expect B<sub>1</sub> to be within the normal range in the brain, <b>0.7–1.3</b>. The signal curves are hidden until you scan, so choose your <b>TR</b> and <b>angles</b> yourself. Click on the plot to place an angle, drag to move it.</p>
+      <div class="bs-row"><span>Your TR <b class="vp-tr-read"></b></span><input class="vp-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
+      <div class="bs-row"><span>Your angles: <b class="vp-chips"></b></span></div>
+      <div class="bs-row"><button class="bs-btn vp-scan" disabled>Scan</button><button class="bs-btn vp-clear">Clear</button></div>
+      <div class="vp-result" hidden>
+        <table class="stats vp-table">
+          <thead><tr><td></td><td>true T<sub>1</sub></td><td>fitted T<sub>1</sub></td><td>T<sub>1</sub> error</td><td>fitted B<sub>1</sub></td></tr></thead>
+          <tbody class="vp-rows"></tbody>
+        </table>
+        <p class="vp-note">True B<sub>1</sub> = 1.10 in this voxel. No noise yet. Solid: true curves; dots: your measurements; dashed: the fit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vfa-noise-q">
+  <p class="kicker">Exercise 4-5 · predict first</p>
+  <h2>Real images have noise</h2>
+  <div class="nq-card">
+    <p class="nq-q">1. How many flip angles do you think are sufficient to fit for B<sub>1</sub> when the SNR is 100 for WM at the Ernst angle?</p>
+    <div class="bs-row"><input class="nq-n" type="number" min="3" max="100" step="1" placeholder="e.g. 4" aria-label="Number of flip angles"><span>flip angles</span>
+      <button class="bs-btn nq-go">Submit</button><button class="bs-btn nq-redo" hidden>Change my answer</button></div>
+    <div class="nq-step2" hidden>
+      <p class="nq-q">2. Is it still more efficient to acquire VFA with your <b class="nq-mine"></b> angles and no B<sub>1</sub> map, than to add an AFI B<sub>1</sub> map?</p>
+      <p class="nq-assume">Assume AFI with TR<sub>1</sub> = TR<sub>VFA</sub> and TR<sub>2</sub> = 5 TR<sub>1</sub>: one AFI scan takes as long as 6 VFA angles. With a B<sub>1</sub> map, VFA needs only 2 angles.</p>
+      <div class="bs-row"><button class="bs-btn" data-nq="yes">Yes, VFA alone is still more efficient</button><button class="bs-btn" data-nq="no">No, add the AFI map</button></div>
+      <p class="nq-fb" hidden></p>
+    </div>
+  </div>
+</section>
+
+<section id="vfa-noise-check">
+  <p class="kicker">Exercise 4-5 · the check</p>
+  <h2>With noise: VFA alone vs an AFI B<sub>1</sub> map</h2>
+  <div class="nc-grid">
+    <div class="nc-plot" style="width:680px;height:430px"></div>
+    <div class="nc-side">
+      <p class="nc-mine"></p>
+      <p class="nc-afi"></p>
+      <p class="nc-busy">Simulating…</p>
+      <p class="nc-take">The T<sub>1</sub> fit is much better conditioned when B<sub>1</sub> is <b>measured</b>, not fitted: only A and T<sub>1</sub> are left to find, so T<sub>1</sub> is far more precise for the same scan time.</p>
+      <p class="nc-setup">One WM voxel: T<sub>1</sub> = 900 ms, true B<sub>1</sub> = 1.1, TR = 15 ms, SNR 100 at the Ernst angle (the same noise in every image), 300 noisy repeats per point.</p>
+      <p class="nc-setup"><b style="color:#c0392b">VFA alone</b>: N angles evenly spaced from 3° to 90°, fitting A, T<sub>1</sub> and B<sub>1</sub> (B<sub>1</sub> within 0.7–1.3).</p>
+      <p class="nc-setup"><b style="color:#1f5f99">AFI + 2 angles</b>: AFI at 60°, TR<sub>2</sub> = 5 TR<sub>1</sub> → B<sub>1</sub>; then VFA at <span class="nc-pair"></span>, fitting A and T<sub>1</sub> with that B<sub>1</sub>.</p>
+    </div>
+  </div>
 </section>
 
 <section id="vfa-fit">
-  <p class="kicker">Exercise 4-5 · (a)</p>
-  <h2>A VFA experiment: fit T<sub>1</sub> and B<sub>1</sub> together</h2>
+  <p class="kicker">Exercise 4-5 · try it yourself</p>
+  <h2>VFA fit simulator</h2>
   <div class="ff-grid">
     <div class="map-host" data-key="vfafit" style="width:760px;height:430px"></div>
     <div class="ff-side">
-      <p class="ph-note">Spoiled gradient echo at short TR. Ideal receive field and a known M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup>, so A is known: two unknowns, T<sub>1</sub> and B<sub>1</sub>. <b>Which angles</b> pin down both?</p>
+      <p class="ph-note">Starts on the previous slide's setup: your guessed number of angles, evenly spaced 3°–90°, a WM voxel (T<sub>1</sub> 900 ms, B<sub>1</sub> 1.1), TR 15 ms, SNR 100. Change anything, or let A be known.</p>
+      <div class="bs-row"><span>Fit</span><div class="seg" role="group" aria-label="Fit model"><button data-vffit="a" aria-pressed="true">fit A, T<sub>1</sub>, B<sub>1</sub></button><button data-vffit="r1" aria-pressed="false">A known (fit T<sub>1</sub>, B<sub>1</sub>)</button></div></div>
       <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
       <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
-      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
-      <div class="bs-row"><span>True B<sub>1</sub> <b class="vf-b1-read"></b></span><input class="vf-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
-      <div class="bs-row"><span>True T<sub>1</sub> <b class="vf-t1-read"></b></span><input class="vf-t1" type="range" min="300" max="3000" step="10" value="1000" aria-label="True T1 (ms)"></div>
+      <div class="bs-row ff-pre"><button class="bs-btn vf-guess" hidden>your guess</button><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
+      <div class="bs-row"><span>True B<sub>1</sub> <b class="vf-b1-read"></b></span><input class="vf-b1" type="range" min="0.7" max="1.3" step="0.01" value="1.1" aria-label="True B1"></div>
+      <div class="bs-row"><span>True T<sub>1</sub> <b class="vf-t1-read"></b></span><input class="vf-t1" type="range" min="300" max="3000" step="10" value="900" aria-label="True T1 (ms)"></div>
       <div class="bs-row"><span>TR <b class="vf-tr-read"></b></span><input class="vf-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
-      <div class="bs-row"><span>SNR <b class="vf-snr-read"></b></span><input class="vf-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR at the Ernst angle (log)"></div>
+      <div class="bs-row"><span>SNR <b class="vf-snr-read"></b></span><input class="vf-snr" type="range" min="1" max="3" step="0.01" value="2" aria-label="SNR at the Ernst angle (log)"></div>
       <table class="stats">
         <tr><td></td><td>B<sub>1</sub></td><td>T<sub>1</sub></td></tr>
         <tr><td>true</td><td><b class="vf-true-b1">–</b></td><td><b class="vf-true-t1">–</b></td></tr>
         <tr><td>fitted, this acquisition</td><td><b class="vf-fit-b1">–</b></td><td><b class="vf-fit-t1">–</b></td></tr>
-        <tr><td>300 draws: median ± spread</td><td><b class="vf-mc-b1">–</b></td><td><b class="vf-mc-t1">–</b></td></tr>
-        <tr><td>precision (spread ÷ true)</td><td><b class="vf-prec-b1">–</b></td><td><b class="vf-prec-t1">–</b></td></tr>
+        <tr><td>300 draws: median ± std</td><td><b class="vf-mc-b1">–</b></td><td><b class="vf-mc-t1">–</b></td></tr>
+        <tr><td>precision (std ÷ true)</td><td><b class="vf-prec-b1">–</b></td><td><b class="vf-prec-t1">–</b></td></tr>
         <tr><td>bias (median)</td><td><b class="vf-bias-b1">–</b></td><td><b class="vf-bias-t1">–</b></td></tr>
         <tr><td>fits at a range limit</td><td colspan="2"><b class="vf-edge">–</b></td></tr>
       </table>
+      <p class="vf-key">Highlighted: <b>precision</b> (how much repeated scans disagree) and <b>bias</b> (how far their median is from the truth).</p>
     </div>
   </div>
 </section>
 
-<section id="vfa-fit-rx">
-  <p class="kicker">Exercise 4-5 · (b)</p>
-  <h2>Same VFA voxel, through an unknown receive factor</h2>
-  <div class="ff-grid">
-    <div class="map-host" data-key="vfafit" style="width:760px;height:430px"></div>
-    <div class="ff-side vf-tight">
-      <p class="ph-note">Every measurement × one unknown receive factor R. <b>Predict:</b> what if the fit assumes R = 1? Or fits A too?</p>
-      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
-      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button><button class="bs-btn ff-clear">Clear</button><button class="bs-btn ff-noise">New noise</button><button class="bs-btn ff-spread" aria-pressed="false">Show repeats</button></div>
-      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
-      <div class="bs-row"><span>Receive R <b class="vf-rx-read"></b></span><input class="vf-rx" type="range" min="-0.602" max="0.602" step="0.005" value="-0.155" aria-label="Receive factor (log)"><button class="bs-btn vf-rand">Random R</button></div>
-      <div class="bs-row"><span>Fit</span><div class="seg" role="group" aria-label="Fit model"><button data-vffit="r1" aria-pressed="true">assume R = 1</button><button data-vffit="a" aria-pressed="false">fit A too (3 unknowns)</button></div></div>
-      <div class="bs-row"><span>True B<sub>1</sub> <b class="vf-b1-read"></b></span><input class="vf-b1" type="range" min="0.5" max="1.5" step="0.01" value="1.2" aria-label="True B1"></div>
-      <div class="bs-row"><span>True T<sub>1</sub> <b class="vf-t1-read"></b></span><input class="vf-t1" type="range" min="300" max="3000" step="10" value="1000" aria-label="True T1 (ms)"></div>
-      <div class="bs-row"><span>TR <b class="vf-tr-read"></b></span><input class="vf-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
-      <div class="bs-row"><span>SNR at R = 1 <b class="vf-snr-read"></b></span><input class="vf-snr" type="range" min="1" max="3" step="0.01" value="1.699" aria-label="SNR at the Ernst angle (log)"></div>
-      <table class="stats">
-        <tr><td></td><td>B<sub>1</sub></td><td>T<sub>1</sub></td></tr>
-        <tr><td>true</td><td><b class="vf-true-b1">–</b></td><td><b class="vf-true-t1">–</b></td></tr>
-        <tr><td>fitted, this acquisition</td><td><b class="vf-fit-b1">–</b></td><td><b class="vf-fit-t1">–</b></td></tr>
-        <tr><td>300 draws: median ± spread</td><td><b class="vf-mc-b1">–</b></td><td><b class="vf-mc-t1">–</b></td></tr>
-        <tr><td>precision (spread ÷ true)</td><td><b class="vf-prec-b1">–</b></td><td><b class="vf-prec-t1">–</b></td></tr>
-        <tr><td>bias (median)</td><td><b class="vf-bias-b1">–</b></td><td><b class="vf-bias-t1">–</b></td></tr>
-        <tr><td>fits at a range limit</td><td colspan="2"><b class="vf-edge">–</b></td></tr>
-        <tr><td>fitted A ÷ M<sub>0</sub>e<sup>−TE/T<sub>2</sub>*</sup></td><td colspan="2"><b class="vf-a">–</b></td></tr>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section id="vfa-brain">
-  <p class="kicker">Exercise 4-5 · (c)</p>
-  <h2>VFA on every brain voxel, through receive coils</h2>
-  <div class="vb-grid">
-    <div class="vb-labcol">
-      <canvas class="vb-lab" width="600" height="600" aria-label="Receive coils around the head: drag a coil"></canvas>
-      <p class="vb-cap">Receive field (× brain mean, 0–3) and coils (loops seen edge-on). Drag a coil’s centre.</p>
-      <div class="bs-row"><button class="bs-btn" data-vbpre="ring8">8 around</button><button class="bs-btn" data-vbpre="side">4 one side</button><button class="bs-btn" data-vbpre="back">3 back</button><button class="bs-btn" data-vbpre="one">1 top</button></div>
-      <div class="bs-row"><button class="bs-btn vb-add">+ Coil</button><button class="bs-btn vb-del" disabled>Remove selected</button></div>
-    </div>
-    <div class="vb-maps">
-      <div><p class="vb-mcap">true B<sub>1</sub></p><div class="map-host" data-key="b1"></div></div>
-      <div><p class="vb-mcap">true T<sub>1</sub></p><div class="map-host" data-key="t1"></div></div>
-      <div><p class="vb-mcap">fitted B<sub>1</sub></p><div class="map-host" data-key="fb1"></div></div>
-      <div><p class="vb-mcap">fitted T<sub>1</sub></p><div class="map-host" data-key="ft1"></div></div>
-      <div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="db1"></div></div>
-      <div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="dt1"></div></div>
-    </div>
-    <div class="vb-side ff-side">
-      <p class="ph-note">The voxel of the last slide, now everywhere in the brain: its measured T<sub>1</sub> and transmit B<sub>1</sub>, seen through the coils on the left, with noise. Each voxel is fitted for T<sub>1</sub> and B<sub>1</sub>.</p>
-      <div class="bs-row"><span>Angles</span><span class="ff-chips"></span></div>
-      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button></div>
-      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
-      <div class="bs-row"><span>TR <b class="vb-tr-read"></b></span><input class="vb-tr" type="range" min="5" max="50" step="1" value="15" aria-label="TR (ms)"></div>
-      <div class="bs-row"><span>SNR <b class="vb-snr-read"></b></span><input class="vb-snr" type="range" min="1.301" max="3.301" step="0.01" value="2.301" aria-label="SNR (log)" style="width:150px"><button class="bs-btn vb-new">New noise</button><button class="bs-btn vb-nonoise" aria-pressed="false">No noise</button></div>
-      <div class="bs-row"><span>Fit</span><div class="seg" role="group" aria-label="Fit model"><button data-vbfit="r1" aria-pressed="true">assume R = 1</button><button data-vbfit="a" aria-pressed="false">fit A too (3 unknowns)</button></div></div>
-      <p class="vb-msg"></p>
-      <table class="stats">
-        <tr><td>receive field in the brain</td><td><b class="vb-rx">–</b></td></tr>
-        <tr><td>|B<sub>1</sub> error|, median / 90th pct</td><td><b class="vb-eb">–</b></td></tr>
-        <tr><td>|T<sub>1</sub> error|, median / 90th pct</td><td><b class="vb-et">–</b></td></tr>
-        <tr><td>fits at a range limit</td><td><b class="vb-edge">–</b></td></tr>
-        <tr><td>fit time (all voxels)</td><td><b class="vb-time">–</b></td></tr>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section id="vfa-afi">
-  <p class="kicker">Exercise 4-5 · (d)</p>
-  <h2>A separate AFI B<sub>1</sub> map, or B<sub>1</sub> as a third VFA unknown?</h2>
-  <div class="va-grid">
-    <div class="va-maps">
-      <div><p class="vb-mcap">true B<sub>1</sub></p><div class="map-host" data-key="b1"></div></div><div><p class="vb-mcap">true T<sub>1</sub></p><div class="map-host" data-key="t1"></div></div><div class="va-label" style="grid-column: span 2"><b>Top:</b> the truth. <b>Middle:</b> AFI B<sub>1</sub> map, then VFA for T<sub>1</sub> with B<sub>1</sub> fixed to it. <b>Bottom:</b> VFA alone, fitting A, B<sub>1</sub> and T<sub>1</sub>.</div>
-      <div><p class="vb-mcap">AFI B<sub>1</sub></p><div class="map-host" data-key="fb1"></div></div><div><p class="vb-mcap">T<sub>1</sub>, VFA with AFI B<sub>1</sub></p><div class="map-host" data-key="ft1"></div></div><div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="fdb1"></div></div><div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="fdt1"></div></div>
-      <div><p class="vb-mcap">B<sub>1</sub>, 3-unknown fit</p><div class="map-host" data-key="3b1"></div></div><div><p class="vb-mcap">T<sub>1</sub>, 3-unknown fit</p><div class="map-host" data-key="3t1"></div></div><div><p class="vb-mcap">B<sub>1</sub>: % difference</p><div class="map-host" data-key="3db1"></div></div><div><p class="vb-mcap">T<sub>1</sub>: % difference</p><div class="map-host" data-key="3dt1"></div></div>
-    </div>
-    <div class="va-side ff-side">
-      <p class="ph-note">Same brain, same noise level, receive coils from the previous slide (<span class="va-ncoil"></span>). Both methods fit the <b>same</b> VFA data; the AFI method adds one AFI scan, whose ratio S<sub>2</sub>/S<sub>1</sub> cancels the receive field.</p>
-      <div class="bs-row"><span>VFA angles</span><span class="ff-chips"></span></div>
-      <div class="bs-row"><input class="ff-in" type="number" min="1" max="180" step="1" value="30" aria-label="Flip angle to add"><button class="bs-btn ff-add">+ Add</button></div>
-      <div class="bs-row ff-pre"><button class="bs-btn" data-vfpre="3,17">3° &amp; 17°</button><button class="bs-btn" data-vfpre="3,17,60">3°, 17°, 60°</button><button class="bs-btn" data-vfpre="2,5,10,15,20">2–20° (5)</button><button class="bs-btn" data-vfpre="5,10,20,30,40,50,60,70,80,90">5–90° (10)</button></div>
-      <div class="bs-row"><span>VFA TR <b class="va-tr-read"></b></span><input class="va-tr" type="range" min="5" max="50" step="1" value="15" aria-label="VFA TR (ms)"></div>
-      <div class="bs-row"><span>AFI α <b class="va-afa-read"></b></span><input class="va-afa" type="range" min="30" max="90" step="1" value="60" aria-label="AFI flip angle"></div>
-      <div class="bs-row"><span>AFI n <b class="va-n-read"></b></span><input class="va-n" type="range" min="2" max="10" step="0.5" value="5" aria-label="AFI TR ratio n"></div>
-      <div class="bs-row"><span>SNR <b class="va-snr-read"></b></span><input class="va-snr" type="range" min="1.301" max="3.301" step="0.01" value="2.301" aria-label="SNR (log)" style="width:130px"><button class="bs-btn va-new">New noise</button><button class="bs-btn va-nonoise" aria-pressed="false">No noise</button></div>
-      <table class="stats va-table">
-        <tr><td></td><td>AFI + VFA</td><td>3-unknown VFA</td></tr>
-        <tr><td>|B<sub>1</sub> error|, median / 90th</td><td><b class="va-eb-f">–</b></td><td><b class="va-eb-3">–</b></td></tr>
-        <tr><td>|T<sub>1</sub> error|, median / 90th</td><td><b class="va-et-f">–</b></td><td><b class="va-et-3">–</b></td></tr>
-        <tr><td>fits at a range limit</td><td><b class="va-edge-f">–</b></td><td><b class="va-edge-3">–</b></td></tr>
-        <tr><td>compute time (both)</td><td colspan="2"><b class="va-time">–</b></td></tr>
-      </table>
-    </div>
-  </div>
+<section id="vfa-summary" class="lesson summary-lessons">
+  <p class="kicker">Exercise 4-5 · Summary</p>
+  <h2>VFA T<sub>1</sub> mapping and B<sub>1</sub></h2>
+  <ol>
+    <li><b>VFA T<sub>1</sub> fits need accurate B<sub>1</sub> values</b> for accurate T<sub>1</sub> estimates.</li>
+    <li><b>B<sub>1</sub> maps are used by scaling the nominal flip angle voxelwise:</b> <span style="white-space:nowrap">θ = B<sub>1</sub> θ<sub>n</sub></span>.</li>
+    <li><b>VFA can fit for B<sub>1</sub>, but the fit isn’t well conditioned.</b></li>
+    <li><b>A measured B<sub>1</sub> map is more time-efficient and more precise than fitting for B<sub>1</sub></b> (at SNR 100: AFI + 2 angles, 3.8 % T<sub>1</sub> std in 8 TR, vs 14 % with 10 angles fitting B<sub>1</sub>).</li>
+  </ol>
 </section>
 
 </div>
@@ -150,12 +302,18 @@
 <script src="vendor/reveal/reveal.js"></script>
 <script src="vendor/plotly/plotly-cartesian.min.js"></script>
 <script src="js/common.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
 <script>
+  renderMathInElement(document.querySelector('.reveal .slides'), { delimiters: [{ left: '$$', right: '$$', display: true }], throwOnError: false });
   Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
 </script>
-<script src="js/fl-data.js"></script>
-<script src="js/vfafit.js"></script>
-<script src="js/vfabrain.js"></script>
+<script src="js/vfa-sim.js?v=2"></script>
+<script src="js/vfafit.js?v=2"></script>
+<script src="js/mc-quiz.js?v=3"></script>
+<script src="js/vfa-refresher.js?v=8"></script>
+<script src="js/vfa-place.js?v=4"></script>
+<script src="js/vfa-noise.js?v=2"></script>
 <script src="js/nav.js?v=2"></script>
 <script src="js/popout.js"></script>
 <script src="js/home.js"></script>
