@@ -1,17 +1,19 @@
 /* A multiple-choice quiz, one question at a time (Exercise 4-4, #bs-b-quiz). A slide with class "mc-quiz" holds its questions
  * in an <ol class="mc-data">: each <li data-a="k"> has a <span class="q"> (the question), its options as <span class="o">
  * (k = the right one, from 0) and a <span class="w"> (why). Buttons are made for the options; after an answer, right / wrong,
- * the explanation and "Next"; at the end, the score (x / n), "Next slide →" and "Start again". */
+ * the explanation and "Next"; at the end, the score (x / n), "Next slide →" and "Start again". An item's optional data-show is
+ * copied to the slide's data-mc-show while it is asked. */
 (function () {
   'use strict';
   document.querySelectorAll('section.mc-quiz').forEach((slide) => {
     const q = (c) => slide.querySelector(c);
     const items = [...slide.querySelectorAll('.mc-data > li')].map((li) => ({
-      a: Number(li.dataset.a), q: li.querySelector('.q').innerHTML, o: [...li.querySelectorAll('.o')].map((e) => e.innerHTML), w: li.querySelector('.w').innerHTML,
+      a: Number(li.dataset.a), show: li.dataset.show || '', q: li.querySelector('.q').innerHTML, o: [...li.querySelectorAll('.o')].map((e) => e.innerHTML), w: li.querySelector('.w').innerHTML,
     }));
     const opts = q('.mc-opts'), next = q('.mc-next'), again = q('.mc-again'), st = { k: 0, ans: null, right: 0 };
     function draw() {
       const done = st.k >= items.length, it = items[Math.min(st.k, items.length - 1)];
+      slide.dataset.mcShow = it.show;   // an optional data-show on the item: lets the slide's CSS show what goes with this question
       q('.mc-count').textContent = done ? 'All done' : `Question ${st.k + 1} of ${items.length}`;
       q('.mc-score').textContent = `${st.right} / ${done ? items.length : st.k + (st.ans != null ? 1 : 0)} right`;
       q('.mc-q').innerHTML = done ? `You got <b>${st.right} out of ${items.length}</b>. Now check the predictions on the next slide.` : it.q;

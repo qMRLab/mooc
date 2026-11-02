@@ -4,13 +4,18 @@
  * Ernst angle (B1 = 1, R = 1). Least squares on (B1, T1) within the expected ranges: a grid (B1 linear, T1 log), then
  * Nelder–Mead in (B1, ln T1). Repeating the acquisition with fresh noise gives the fit's precision.
  * #vfa-fit-rx: every measurement × one receive factor R. The fit either assumes R = 1 (A known, as on #vfa-fit) or fits
- * A as a third unknown (closed form for each B1, T1). Noise is thermal: σ fixed, so the SNR scales with R. */
-function vfaFitSlide(id, withRx) {
+ * A as a third unknown (closed form for each B1, T1). Noise is thermal: σ fixed, so the SNR scales with R.
+ * opts (#vfa-fit, the "VFA fit simulator"): its own defaults and fit ranges, a "fit A too" toggle, the spread as a std, and,
+ * with shared: true, the fit of vfa-sim.js and the repeats' seed of #vfa-noise-check (5 + number of angles), so its default
+ * (the student's guess from #vfa-noise-q, N angles evenly spaced 3°–90°) reproduces that slide's point exactly. */
+function vfaFitSlide(id, withRx, opts) {
   'use strict';
+  opts = opts || {};
   const slide = document.getElementById(id); if (!slide) return;
   const DEG = Math.PI / 180, T2S = 50, TE = 5, A0 = Math.exp(-TE / T2S);   // T2* 50 ms, TE 5 ms: A = 0.905 M0
-  const NMC = 300, NSHOW = 25, B1LO = 0.5, B1HI = 1.5, T1LO = 100, T1HI = 5000;   // the fit's expected ranges
-  const st = { b1: 1.2, t1: 1000, tr: 15, snr: 50, angles: [3, 17], seed: 1, spread: false, rx: withRx ? 0.7 : 1, fitA: false };
+  const NMC = 300, NSHOW = 25, B1LO = opts.b1lo || 0.5, B1HI = opts.b1hi || 1.5, T1LO = 100, T1HI = opts.t1hi || 5000;   // the fit's expected ranges
+  const st = Object.assign({ b1: 1.2, t1: 1000, tr: 15, snr: 50, angles: [3, 17], seed: 1, spread: false, rx: withRx ? 0.7 : 1, fitA: false }, opts.st || {});
+  const V = window.VFASIM, shared = !!(opts.shared && V);
   const E1 = (t1) => Math.exp(-st.tr / t1);
   const sigma = () => { const e = E1(st.t1); return A0 * Math.sqrt((1 - e) / (1 + e)) / st.snr; };   // max SPGR signal ÷ SNR
   const nUnk = () => (st.fitA ? 3 : 2);
@@ -21,6 +26,7 @@ function vfaFitSlide(id, withRx) {
   const model = (al, b1, t1) => { const th = al * DEG * b1, e = E1(t1); return Math.abs(Math.sin(th)) * (1 - e) / (1 - e * Math.cos(th)); };
 
   function fit(al, y) {   // → { b1, t1, a }
+    if (shared) return V.fit(al, y, st.tr, { b1lo: B1LO, b1hi: B1HI, t1lo: T1LO, t1hi: T1HI, a: st.fitA ? null : A0 });
     const n = al.length, m = new Array(n);
     const cost = (b, t) => {
       let sy = 0, ss = 0; for (let i = 0; i < n; i++) { m[i] = model(al[i], b, t); sy += m[i] * y[i]; ss += m[i] * m[i]; }
@@ -62,7 +68,8 @@ function vfaFitSlide(id, withRx) {
     let res = null, draws = [];
     if (st.angles.length >= nUnk()) {
       const y = acquire(r); res = fit(st.angles, y);
-      for (let k = 0; k < NMC; k++) draws.push(fit(st.angles, acquire(r)));
+      const rm = shared ? V.rng(5 + st.angles.length + 1000 * (st.seed - 1)) : r;   // shared: #vfa-noise-check's repeats at the first seed
+      for (let k = 0; k < NMC; k++) draws.push(fit(st.angles, acquire(rm)));
       if (st.spread) draws.slice(0, NSHOW).forEach((d, k) => traces.push({ x: XS, y: XS.map((x) => d.a * model(x, d.b1, d.t1)), mode: 'lines', line: { color: 'rgba(31, 95, 153, 0.13)', width: 1.5 }, hoverinfo: 'skip', name: 'fits if the scan were repeated (new noise)', legendgroup: 'mc', showlegend: k === 0 }));
       traces.push({ x: XS, y: XS.map((x) => res.a * model(x, res.b1, res.t1)), name: 'curve fitted to the measured points', line: { color: '#1f5f99', width: 2.4, dash: 'dash' }, hovertemplate: '%{x}°: %{y:.4f}<extra>fit</extra>' });
       traces.push({ x: st.angles, y, mode: 'markers', name: 'measured (± noise)', marker: { color: '#e8770e', size: 11, line: { color: '#fff', width: 2 } }, error_y: { type: 'constant', value: sig, color: '#e8770e', thickness: 1.5, width: 5 }, hovertemplate: '%{x}°: %{y:.4f}<extra>measured</extra>' });
@@ -88,6 +95,7 @@ function vfaFitSlide(id, withRx) {
     if (res) {
       // median and 1.4826·MAD over the draws
       const stat = (key) => { const v = draws.map((d) => d[key]).sort((a, b) => a - b), med = v[Math.floor(NMC / 2)];
+        if (opts.std) { const m = v.reduce((a, b) => a + b, 0) / NMC; return [med, Math.sqrt(v.reduce((a, b) => a + (b - m) ** 2, 0) / (NMC - 1))]; }   // the std, as on #vfa-noise-check
         return [med, 1.4826 * draws.map((d) => Math.abs(d[key] - med)).sort((a, b) => a - b)[Math.floor(NMC / 2)]]; };
       const [mb, sb] = stat('b1'), [mt, stt] = stat('t1');
       const pc = (v) => `${(100 * v).toFixed(1).replace(/^-0\.0$/, '0.0').replace('-', '−')} %`;
@@ -131,9 +139,15 @@ function vfaFitSlide(id, withRx) {
       e.currentTarget.blur(); const lg = Math.log10(0.5) + Math.random() * Math.log10(4);
       st.rx = Number((10 ** lg).toPrecision(2)); rx.el.value = String(Math.log10(st.rx)); rx.show(); draw();
     });
-    segToggle(slide, 'vffit', (v) => { st.fitA = v === 'a'; draw(); });
+  }
+  if (slide.querySelector('[data-vffit]')) segToggle(slide, 'vffit', (v) => { st.fitA = v === 'a'; draw(); });
+  if (opts.guess && V) {   // the student's guess on #vfa-noise-q: N angles evenly spaced 3°–90°
+    const useGuess = () => { const n = window.vfaGuess; if (!n || n < 1) return false; st.angles = V.evenAngles(Math.min(n, 88)); const b = slide.querySelector('.vf-guess'); if (b) { b.hidden = false; b.dataset.vfpre = st.angles.join(','); b.textContent = `your ${n}`; } return true; };
+    document.addEventListener('vfa-guess', () => { if (useGuess() && Reveal.getCurrentSlide() === slide) draw(); });
+    Reveal.on('slidechanged', (e) => { if (e.currentSlide === slide && useGuess()) draw(); });
   }
   onShow(slide, () => { draw(); if (!host._vfClick) { host._vfClick = true; host.on('plotly_click', (e) => { const p = e.points && e.points[0]; if (p && p.data.xaxis !== 'x2') add(p.x); }); } });
 }
-vfaFitSlide('vfa-fit', false);
+vfaFitSlide('vfa-fit', false, { shared: true, std: true, guess: true, b1lo: 0.7, b1hi: 1.3, t1hi: 10000,
+  st: { b1: 1.1, t1: 900, tr: 15, snr: 100, fitA: true, angles: window.VFASIM ? window.VFASIM.evenAngles(10) : [3, 17] } });
 vfaFitSlide('vfa-fit-rx', true);
