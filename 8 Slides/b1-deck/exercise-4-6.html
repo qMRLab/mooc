@@ -31,6 +31,10 @@
     .reveal .rg-scorebox p { margin: 0; font-size: 15px; color: var(--muted); }
     .reveal .rg-score { font-size: 54px; font-weight: 700; color: var(--accent); line-height: 1.1; }
     .reveal .flt-q { font-size: 17px; font-weight: 700; line-height: 1.4; margin: 16px 0 0; }
+    .reveal #flt-title h2 { font-size: 1.15em; margin-bottom: 0.4em; }
+    .reveal #flt-title .ft-questions { font-size: 22px; line-height: 1.45; } .reveal #flt-title .ft-questions li { font-size: 1em; margin: 6px 0; }
+    .reveal #flt-title .ft-questions { list-style: decimal; padding-left: 1.4em; } .reveal #flt-title .ft-questions li::marker { color: var(--accent); font-weight: 700; }
+    .reveal .flt-scn { font-size: 15px; line-height: 1.4; color: var(--muted); margin: -0.3em 0 10px; max-width: 1100px; }
     /* #flaws, #flaws-why: unfiltered maps and their raw images (js/b1-flaws.js) */
     .reveal .fl-cols { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
     .reveal .fl-grid { display: grid; grid-template-columns: 58px repeat(3, 96px); gap: 3px 10px; align-items: center; }
@@ -109,11 +113,18 @@
 <div class="reveal">
 <div class="slides">
 
-<section class="problem">
+<section id="flt-title" class="problem">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">B<sub>1</sub> Mapping · Exercise 4-6</p>
-  <h2>Filtering a B<sub>1</sub> map with bright vessels</h2>
-  <p class="subtitle">You are given B<sub>1</sub> mapping data that is very sensitive to the motion of blood in the vessels: you see bright spots in the B<sub>1</sub> maps. The researcher doesn’t need accurate B<sub>1</sub> inside these regions, but would like to filter the maps in the brain tissue.</p>
+  <h2>Filtering B<sub>1</sub> maps: why, how, and what can go wrong?</h2>
+  <ol class="ft-questions">
+    <li>What’s wrong with unfiltered DA, AFI and BS maps, and why?</li>
+    <li>Which filters are used on B<sub>1</sub> maps?</li>
+    <li>Median or Gaussian: which one, and where do errors appear?</li>
+    <li>Can filtering make three B<sub>1</sub> mapping methods agree?</li>
+    <li>How would you filter a map with bright vessels?</li>
+    <li>What should you report when you filter?</li>
+  </ol>
 </section>
 
 <section id="flaws">
@@ -242,6 +253,7 @@
 <section id="flt-a" class="flt" data-mask="no">
   <p class="kicker">Exercise 4-6 · (a)</p>
   <h2>Filter the map, without a mask</h2>
+  <p class="flt-scn">You are given B<sub>1</sub> mapping data that is very sensitive to the motion of blood in the vessels: you see bright spots in the B<sub>1</sub> maps. The researcher doesn’t need accurate B<sub>1</sub> inside these regions, but would like to filter the maps in the brain tissue.</p>
   <div class="flt-cols">
     <div class="flt-maps">
       <div><p class="flt-cap">Measured B<sub>1</sub></p><canvas class="flt-map flt-raw" data-w="200"></canvas></div>
