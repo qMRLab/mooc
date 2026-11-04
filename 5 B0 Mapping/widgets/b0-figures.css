@@ -1,0 +1,168 @@
+/* Interactive B0 chapter figures (b0-figures.mjs). */
+.b0w-root {
+  width: 100%;
+}
+
+.b0w-stage {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+.b0w-stage-kspace {
+  height: 560px;
+}
+
+.b0w-stage-split {
+  height: 460px;
+}
+
+@media (max-width: 640px) {
+  .b0w-stage-kspace {
+    height: 420px;
+  }
+
+  .b0w-stage-split {
+    height: 360px;
+  }
+}
+
+.b0w-plot {
+  width: 100%;
+  height: 100%;
+}
+
+/* Before/after slider (Figure 5.12) */
+.b0w-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.b0w-before {
+  clip-path: inset(0 50% 0 0);
+}
+
+.b0w-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 28px;
+  margin-left: -14px;
+  cursor: ew-resize;
+  touch-action: none;
+  z-index: 2;
+  color: #2a3f5f;
+}
+
+.b0w-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 13px;
+  width: 2px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.b0w-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  font-size: 15px;
+  line-height: 28px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.b0w-handle.b0w-dragging .b0w-knob,
+.b0w-handle:hover .b0w-knob {
+  background: #1d4ed8;
+}
+
+/* Loading / error message */
+.b0w-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 16px;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.b0w-status.b0w-error {
+  opacity: 1;
+  color: #b91c1c;
+}
+
+/* Controls row */
+.b0w-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+}
+
+.b0w-controls[hidden] {
+  display: none;
+}
+
+.b0w-range {
+  flex: 1;
+  min-width: 0;
+}
+
+.b0w-play {
+  min-width: 4.5em;
+  padding: 4px 12px;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.b0w-play:hover {
+  background: #1d4ed8;
+}
+
+.b0w-play:focus-visible,
+.b0w-range:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.b0w-time {
+  min-width: 6.5em;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* "Python code" disclosure */
+.b0w-code {
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+
+.b0w-code summary {
+  cursor: pointer;
+}
+
+.b0w-code pre {
+  max-height: 320px;
+  overflow: auto;
+  font-size: 0.78rem;
+}
