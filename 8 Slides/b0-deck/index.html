@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B0 Mapping · qMRI mOOC slides</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+  <style>
+    /* Side text of figure slides: short bullets, room for the figure. */
+    .reveal section.figure.side .side-text { font-size: 0.66em; }
+    .reveal section.figure.side .side-text ul { margin-left: 1em; }
+    .reveal section.figure.side .side-text .eq-box { font-size: 0.95em; margin: 0.5em 0 0.6em; padding: 0.2em 0.5em; }
+    .reveal .side-text h3 { font-size: 0.95em; margin: 0.9em 0 0.2em; }
+    .reveal .side-text h3:first-child { margin-top: 0; }
+    .reveal .top-points { flex: none; display: flex; gap: 2.2em; margin: 0 0 0.5em 1em; font-size: 0.66em; }
+    .reveal .top-points li + li { margin-top: 0; }
+    .reveal .ppm-table { border-collapse: collapse; margin: 0.2em 0 0.4em; font-variant-numeric: tabular-nums; }
+    .reveal .ppm-table th, .reveal .ppm-table td { padding: 0.18em 0.9em 0.18em 0; text-align: left; border-bottom: 1px solid var(--rule); }
+    .reveal .ppm-table th { color: var(--muted); font-weight: 400; }
+    .reveal .ppm-table td:first-child { font-weight: 700; }
+    .reveal .ppm-table tr.hl td { color: var(--accent); }
+    .reveal .takeaway { margin-top: 0.9em; padding-left: 0.6em; border-left: 4px solid var(--accent); font-weight: 700; }
+
+    /* Two figures of one book figure: buttons swap what the host shows. */
+    .reveal .fig-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.6em 0 0.2em; }
+    .reveal .fig-tabs button, .reveal .seg button {
+      font: inherit; font-size: 0.9em; padding: 4px 10px; border-radius: 6px; cursor: pointer;
+      border: 1px solid var(--rule); background: var(--bg); color: var(--muted);
+    }
+    .reveal .fig-tabs button[aria-pressed="true"], .reveal .seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* Widgets (js/b0-widgets.js): controls row and the before/after split of Figure 5.12. */
+    .reveal .w-controls { display: flex; align-items: center; gap: 10px; margin-top: 0.8em; font-size: 0.9em; }
+    .reveal .w-controls .w-range { flex: 1; min-width: 0; accent-color: var(--accent); }
+    .reveal .w-play { font: inherit; padding: 4px 14px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+    .reveal .w-time { min-width: 5.5em; text-align: right; font-variant-numeric: tabular-nums; }
+    .reveal .w-split .w-layer { position: absolute; inset: 0; }
+    .reveal .w-split .w-before { clip-path: inset(0 50% 0 0); }
+    .reveal .w-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 30px; margin-left: -15px; cursor: ew-resize; touch-action: none; z-index: 2; }
+    .reveal .w-handle::before { content: ""; position: absolute; top: 0; bottom: 0; left: 14px; width: 2px; background: #2a3f5f; opacity: 0.6; }
+    .reveal .w-knob { position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--accent); color: #fff; font-size: 16px; line-height: 30px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.35); }
+
+    /* ΔTE calculator */
+    .reveal .dte-cols { grid-template-columns: 1.05fr 1fr; gap: 44px; }
+    .reveal .dte-cols ul { font-size: 0.78em; }
+    .reveal .dte-calc { background: var(--panel); border-radius: 12px; padding: 22px 26px; font-size: 0.72em; }
+    .reveal .dte-calc h3 { margin-bottom: 0.2em; }
+    .reveal .dte-calc .eq-box { background: var(--bg); margin: 0.3em 0 0.8em; }
+    .reveal .dte-calc .row { display: flex; align-items: center; gap: 12px; margin: 0.6em 0; }
+    .reveal .dte-calc .row > span:first-child { width: 4.6em; color: var(--muted); }
+    .reveal .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+    .reveal .dte-ppm { flex: 1; accent-color: var(--accent); }
+    .reveal .dte-result { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 1em; }
+    .reveal .dte-result div { background: var(--bg); border-radius: 10px; padding: 10px 14px; }
+    .reveal .dte-result b { display: block; font-size: 1.9em; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+    /* Overview slides */
+    .reveal .cards.two { grid-template-columns: 1fr 1fr; }
+    /* Slide 2: the two cards stacked on the left, a measured B0 map on the right. */
+    .reveal .why-cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 36px; margin-top: 0.5em; }
+    .reveal .why-cards { display: grid; gap: 18px; align-content: start; }
+    .reveal .why-cards .card { padding: 14px 20px; font-size: 0.72em; }
+    .reveal .why-cards .card h3 { font-size: 1.25em; margin-bottom: 0.3em; }
+    .reveal .why-cards .card ul { columns: 2; column-gap: 1.6em; }
+    .reveal .why-cards .card li { break-inside: avoid; margin: 0 0 0.35em; }
+    .reveal .why-fig { display: flex; flex-direction: column; }
+    .reveal .why-fig .fig-host { height: 500px; flex: none; }
+    .reveal .why-fig .fig-hint { margin-top: 0; }
+    .reveal .card.bad { --card: #b45309; }
+    .reveal .card.use { --card: #1f5f99; }
+    .reveal .card.hw { --card: #6b7a8c; }
+    .reveal .card.rt { --card: #00805d; }
+    .reveal .card ul { margin-left: 1em; }
+    .reveal .tools { width: 100%; border-collapse: collapse; font-size: 0.72em; margin-top: 0.3em; }
+    .reveal .tools th, .reveal .tools td { text-align: left; padding: 0.42em 0.6em; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .reveal .tools th { color: var(--muted); font-weight: 400; }
+    .reveal .tools td:first-child { font-weight: 700; white-space: nowrap; }
+    .reveal .tag { display: inline-block; font-size: 0.8em; padding: 1px 8px; border-radius: 999px; background: var(--panel); color: var(--muted); }
+    .reveal .keys { font-size: 0.86em; margin-left: 1.3em; }
+    .reveal .keys li + li { margin-top: 0.7em; }
+  </style>
+</head>
+<body class="nav-zones">
+<div class="reveal">
+<div class="slides">
+
+<!-- 1 -->
+<section>
+  <div class="center-col">
+    <p class="kicker">qMRI mOOC · Chapter 5</p>
+    <h1>B<sub>0</sub> Mapping</h1>
+    <p class="subtitle">Dual-echo mapping · Phase unwrapping · Multi-echo methods</p>
+    <p class="byline">Slides from the qMRLab mOOC chapter by Alexandre d'Astous<br>NeuroPoly Lab, Polytechnique Montréal</p>
+  </div>
+  <a class="book-link" href="https://qmrlab.org/mooc/b0-mapping" target="_blank" rel="noopener">📖 B0 Mapping</a>
+</section>
+
+<!-- 2 -->
+<section data-book="introduction">
+  <h2>Why map B<sub>0</sub>?</h2>
+  <p>Image reconstruction assumes a <b>perfectly uniform B<sub>0</sub></b>. It never is.</p>
+  <div class="why-cols">
+  <div class="why-cards">
+    <div class="card bad">
+      <h3>A non-uniform B<sub>0</sub> causes</h3>
+      <ul>
+        <li>Signal loss (T<sub>2</sub><sup>*</sup>)</li>
+        <li>Geometric distortion (EPI)</li>
+        <li>Failed fat saturation</li>
+        <li>Broad MRS lines</li>
+      </ul>
+    </div>
+    <div class="card use">
+      <h3>A B<sub>0</sub> map lets you</h3>
+      <ul>
+        <li>Shim the field</li>
+        <li>Unwarp EPI (FUGUE)</li>
+        <li>Correct T<sub>2</sub><sup>*</sup> decay</li>
+        <li>Compute QSM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="why-fig">
+    <div class="fig-host" data-fig="b0MapStikov"></div>
+    <p class="fig-hint">Measured at 3 T, after shimming: one axial slice, dual-echo GRE.</p>
+  </div>
+  </div>
+  <aside class="notes">B0 sets the precession frequency and the bulk magnetization; the RF coils are tuned to it. Reconstruction assumes it is perfectly homogeneous. Inhomogeneity leads to signal loss, distortions (Jezzard 1995), poor fat saturation (Anzai 1992) and broader MRS linewidths; in extreme cases no image at all. B0 maps are used for active shimming, retrospective distortion correction (FSL FUGUE, Jenkinson 2012), recovery of T2* signal decay (An 2002) and QSM. The map: the 2013 Stikov 3 T session (the B1 deck's dataset), the qMT protocol's B0 map (mtspgr_b0, Boudreau, Stikov &amp; Pike, MRM 2018): a two-point phase-difference GRE, TR 25 ms, 7°, one 5 mm slice, 2 mm pixels. Complex phase difference divided by 2π·ΔTE with ΔTE = 2.24 ms (the data and the original pipeline agree on 2.24 ms; the paper reports 4/8.48 ms). Even after shimming the field varies across the slice by roughly −30 to +10 Hz, lowest frontally toward the sinuses. The scalp is masked: fat's chemical shift is not field.</aside>
+</section>
+
+<!-- 3 -->
+<section class="figure side" data-book="b0plot1">
+  <div class="fig-layout">
+    <h2>What a B<sub>0</sub> map shows</h2>
+    <div class="side-text">
+      <ul>
+        <li>Per voxel: <b>actual − expected</b> field</li>
+        <li>Units: <b>Hz</b>, <b>µT</b> or <b>ppm</b></li>
+      </ul>
+      <div class="eq eq-box">$$\delta_{ppm} = \frac{\Delta f}{f_0}\,10^6 = \frac{\Delta B}{B_0}\,10^6$$</div>
+      <table class="ppm-table">
+        <tr><th>B<sub>0</sub></th><th>1 ppm =</th><th></th></tr>
+        <tr><td>64 mT</td><td>2.7 Hz</td><td>0.064 µT</td></tr>
+        <tr><td>1.5 T</td><td>64 Hz</td><td>1.5 µT</td></tr>
+        <tr class="hl"><td>3 T</td><td>128 Hz</td><td>3 µT</td></tr>
+        <tr><td>7 T</td><td>298 Hz</td><td>7 µT</td></tr>
+      </table>
+      <p class="fig-hint">A 3 T brain, field map in ppm. Menu: magnitude, phase, or the map in Hz or µT.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig1jn"></div>
+  </div>
+  <aside class="notes">A B0 map is the difference between the current field and the expected field, in T, Hz or ppm (Eq. 5.1). Frequency and field are linked by the Larmor equation f = γB/2π (γ/2π = 42.58 MHz/T), so at 3 T: f0 ≈ 127.7 MHz and 1 ppm ≈ 128 Hz ≈ 3 µT. Figure 5.1: magnitude, phase and computed field map of a brain at 3 T.</aside>
+</section>
+
+<!-- 4 -->
+<section class="figure side" data-book="b0plot2">
+  <div class="fig-layout">
+    <h2>Where ΔB<sub>0</sub> comes from</h2>
+    <div class="side-text">
+      <h3>The scanner</h3>
+      <ul>
+        <li>Magnet imperfections: <b>&lt; 1 ppm</b>, fixed by passive shimming</li>
+        <li>Slow drift from heating</li>
+      </ul>
+      <h3>The subject</h3>
+      <ul>
+        <li>Tissue <b>magnetic susceptibility</b> χ</li>
+      </ul>
+      <div class="eq eq-box">$$\Delta B_z = B_0\,(\Delta\chi \otimes d)$$</div>
+      <p class="fig-hint">The dipole kernel d (image space) and D (k-space, as used in QSM).</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig2jn"></div>
+  </div>
+  <aside class="notes">Hardware: kilometres of superconducting wire wound within tolerances, plus nearby metal; homogenized at installation by passive shimming (ferromagnetic pieces). Under 1 ppm (Webb 2016). Field probes (e.g. Skope) can measure the field more precisely and quickly than field maps, including eddy currents. Heating during a session causes drift, about 0.4 Hz/min in MRS at 3 T; scanners correct for it. Subject: susceptibility χ, the ability to become magnetized. The field change is proportional to Δχ and to B0, and depends on geometry: a convolution of Δχ with the unit dipole field d = (3cos²θ − 1)/(4π|r|³), θ the angle with B0 (Eq. 5.2, de Rochefort 2008).</aside>
+</section>
+
+<!-- 5 -->
+<section class="figure" data-book="b0plot3">
+  <div class="fig-layout">
+    <h2>Air–tissue interfaces dominate</h2>
+    <ul class="top-points">
+      <li>Air (+χ) next to tissue (−χ): <b>largest offsets</b></li>
+      <li>ΔB<sub>0</sub> scales with <b>B<sub>0</sub></b> (here 7 T)</li>
+      <li>Every subject needs <b>its own shim</b></li>
+    </ul>
+    <div class="fig-host" data-fig="b0Fig3ajn"></div>
+    <p class="fig-hint">Menu: cylinders or brain. χ (left), field (middle), field with the slow background removed (right).</p>
+  </div>
+  <aside class="notes">A homogeneous empty bore becomes inhomogeneous once a subject is inside, hence active shimming for each subject. Strongest variations at boundaries between air (slightly paramagnetic, +χ) and water/tissue (diamagnetic, −χ). Figure 5.3: susceptibility distributions for nested cylinders and a brain surrounded by air, the simulated B0 at 7 T, and the field with the slowly varying background removed. In the brain the field is dominated by air-tissue boundaries. The book's version shows the brain at higher resolution; this is the notebook's compact version with a menu.</aside>
+</section>
+
+<!-- 6 -->
+<section class="figure side" data-book="b0plot4">
+  <div class="fig-layout">
+    <h2>Effect 1: dephasing</h2>
+    <div class="side-text">
+      <ul>
+        <li>Different frequencies in a voxel → <b>phases spread</b> → faster decay</li>
+        <li>Demodulating at the wrong frequency → <b>oscillations</b></li>
+      </ul>
+      <div class="eq eq-box">$$\frac{1}{T_2^{*}} = \frac{1}{T_2} + \frac{1}{T_2'}$$</div>
+      <p class="fig-hint">Menu: one, two or many frequencies (isochromats).</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig4jn"></div>
+  </div>
+  <aside class="notes">Excitation off resonance gives a suboptimal flip angle, varying across the image (Wang 2006). On readout the signal is demodulated at the Larmor frequency. One isochromat at exactly that frequency: the T2 decay is recovered. Off resonance: low-frequency oscillations. Many isochromats (or a homogeneous sample in a non-uniform B0): intravoxel phase dispersion and a faster decay, T2*, with 1/T2* = 1/T2 + 1/T2'. Figure 5.4.</aside>
+</section>
+
+<!-- 7 -->
+<section class="figure side" data-book="b0plot5">
+  <div class="fig-layout">
+    <h2>Effect 2: wrong frequency, wrong place</h2>
+    <div class="side-text">
+      <ul>
+        <li>Frequency encodes position: off-resonance <b>shifts voxels</b></li>
+        <li>Errors <b>build up</b> along the readout: EPI is worst</li>
+        <li>Also: slice shifts, failed fat sat</li>
+      </ul>
+      <p class="fig-hint">Red: a 0.1 mT/m parasitic gradient (0.25 % of the 40 mT/m encoding gradients).</p>
+      <div class="w-controls" data-for="kspace"></div>
+    </div>
+    <div class="fig-host w-host" data-widget="kspace"></div>
+  </div>
+  <aside class="notes">Off-resonance breaks the one-to-one link between frequency and position, so images are distorted; errors compound the further k-space is traversed. Figure 5.5: EPI with bipolar readouts (blue) and the same with a constant gradient added in the phase-encoding direction (red), one in five phase-encoding lines shown. RF pulses are affected too: during slice selection the field is Gz·z + B0 + ΔB0(x,y,z), so the slice is distorted or shifted; frequency-selective pulses such as fat saturation can fail. Also ringing, blurring and ghosting. All are reduced by shimming, which needs a B0 map.</aside>
+</section>
+
+<!-- 8 -->
+<section class="figure side" data-book="b0plot6">
+  <div class="fig-layout">
+    <h2>Phase grows linearly with time</h2>
+    <div class="side-text">
+      <div class="eq eq-box">$$\phi(\mathbf r,t) = \phi_0(\mathbf r) + \gamma\,\Delta B_0(\mathbf r)\,t$$</div>
+      <ul>
+        <li>Slope = <b>γΔB<sub>0</sub></b>: the field map</li>
+        <li>φ<sub>0</sub> (coil, RF) is unknown → <b>at least two echoes</b></li>
+      </ul>
+      <p class="fig-hint">Play; the menu switches between laboratory and rotating frame. In the rotating frame the on-resonance spin (blue) stands still.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig6jn"></div>
+  </div>
+  <aside class="notes">Figure 5.6: a spin at the Larmor frequency (blue) and one at a lower frequency (red), in the transverse plane and as phase versus time. Eq. 5.3 (rotating frame, ignoring transients such as eddy currents): φ = φ0 + γΔB0·t. φ0 is an initial phase offset (coil, local conductivity/permittivity), generally unknown and non-zero, so two phase images are needed.</aside>
+</section>
+
+<!-- 9 -->
+<section class="figure side" data-book="b0plot7">
+  <div class="fig-layout">
+    <h2>Phase at longer echo times</h2>
+    <div class="side-text">
+      <ul>
+        <li>Measured phase lives in <b>(−π, π]</b></li>
+        <li>Sharp jumps are <b>phase wraps</b></li>
+        <li>Longer TE → <b>more wraps</b></li>
+      </ul>
+      <p class="takeaway">Phase images come from real and imaginary data: ∠ = atan2(imag, real)</p>
+      <p class="fig-hint">Slider: echo time.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig7jn"></div>
+  </div>
+  <aside class="notes">Figure 5.7: brain phase at progressively longer echo times. At one voxel the phase changes linearly; sharp lines are phase wraps, because phase is only defined over −π to π. Wraps also appear spatially, and more of them at longer TE. Not every scanner exports phase by default; it can be turned on, or computed from real/imaginary data with arctan2 (Eq. 5.4).</aside>
+</section>
+
+<!-- 10 -->
+<section class="figure side" data-book="b0plot8">
+  <div class="fig-layout">
+    <h2>Dual echo: subtract two phases</h2>
+    <div class="side-text">
+      <div class="eq eq-box">$$\Delta B_0 = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
+      <ul>
+        <li>φ<sub>0</sub> <b>cancels</b></li>
+        <li>Complex difference keeps Δφ in (−π, π]: \(\angle\big(e^{i\phi_2}\,e^{-i\phi_1}\big)\)</li>
+      </ul>
+      <div class="fig-tabs" data-for="f8"><button aria-pressed="true" data-show="b0Fig8jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig8jn">Δφ and ΔB<sub>0</sub></button></div>
+      <p class="fig-hint">A cylinder at one constant frequency offset.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig8jna" data-tabs="f8"></div>
+  </div>
+  <aside class="notes">Eq. 5.5 and 5.6. Some sequences export a single phase-difference image. Figure 5.8: a sample at a constant offset from f0 (not realistic, since susceptibilities interact, but good for intuition). Phase accumulates between the echoes; the difference divided by γΔTE gives the field. If ΔTE is too long the phase turns more than half a revolution between echoes and the estimate is wrong (Nyquist). A constant offset like this one could simply be fixed by adjusting the scanner frequency.</aside>
+</section>
+
+<!-- 11 -->
+<section class="figure side" data-book="b0plot9">
+  <div class="fig-layout">
+    <h2>Dual echo in the brain</h2>
+    <div class="side-text">
+      <ul>
+        <li>Each echo has <b>wraps</b></li>
+        <li>The difference often <b>removes them</b>…</li>
+        <li>…not always: large offsets (sinuses) leave <span class="caution">residual wraps</span></li>
+      </ul>
+      <div class="fig-tabs" data-for="f9"><button aria-pressed="true" data-show="b0Fig9jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig9jn">Δφ and ΔB<sub>0</sub></button></div>
+    </div>
+    <div class="fig-host" data-fig="b0Fig9jna" data-tabs="f9"></div>
+  </div>
+  <aside class="notes">Figure 5.9: two phase images of a brain, with wraps where the phase goes from −π to +π, then the phase difference and the B0 map. Here the difference removes the wraps, but in a more inhomogeneous field there can be residual wraps, which need unwrapping (next section).</aside>
+</section>
+
+<!-- 12 -->
+<section data-book="b0table1">
+  <h2>Choosing the echo times</h2>
+  <div class="cols dte-cols">
+    <div>
+      <ul>
+        <li>Phase noise: \(\sigma_{\phi} = 1/\mathrm{SNR}_{mag}\) → <b>short TE<sub>1</sub></b></li>
+        <li><b>Longer ΔTE</b>: more precise field</li>
+        <li><b>Shorter ΔTE</b>: fewer wraps</li>
+        <li>Fat and water in phase at 3 T: <b>ΔTE ≈ 2.34 ms</b></li>
+        <li>GRE, <b>monopolar</b> readouts, high bandwidth (not EPI)</li>
+      </ul>
+    </div>
+    <div class="dte-calc">
+      <h3>No wraps in Δφ if</h3>
+      <div class="eq eq-box">$$\Delta TE < \frac{1}{2\,\Delta f_{max}}$$</div>
+      <div class="row"><span>B<sub>0</sub></span><div class="seg">
+        <button data-b0="0.064" aria-pressed="false">0.064 T</button><button data-b0="0.3" aria-pressed="false">0.3 T</button><button data-b0="1.5" aria-pressed="false">1.5 T</button><button data-b0="3" aria-pressed="true">3 T</button><button data-b0="7" aria-pressed="false">7 T</button>
+      </div></div>
+      <div class="row"><span>Max ΔB<sub>0</sub></span><input class="dte-ppm" type="range" min="0.5" max="5" step="0.1" value="1" aria-label="Largest field offset in ppm"><span><span class="dte-ppm-out">1.0</span> ppm</span></div>
+      <div class="dte-result">
+        <div>Δf<sub>max</sub><b><span class="dte-df">128</span> Hz</b></div>
+        <div>ΔTE<sub>max</sub><b><span class="dte-out">3.91</span> ms</b></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Benefits and pitfalls. At least two phase images, since φ0 is unknown. GRE, or spin echo with an asymmetric second echo shifted 1-2 ms. High bandwidth, thin slices and multi-shot reduce B0 artifacts in the field map itself, so EPI is generally avoided (Akcakaya 2022). Monopolar readouts avoid misregistration between odd and even echoes. σphase = 1/SNRmag (Eq. 5.7, Brown 2014), so TE1 is short. ΔTE: fat has a ~3.35 ppm shift, which is mistaken for field; choose ΔTE so fat and water are in phase (~2.34 ms at 3 T). Longer ΔTE: better estimate if SNR allows; shorter: fewer wraps. Table 5.1 (calculator): with offsets up to ±Δf_max, the phase difference 2πΔf·ΔTE stays within ±π if ΔTE < 1/(2Δf_max). At 1 ppm this reproduces the book's table (3.91 ms at 3 T, 7.82 ms at 1.5 T). Eddy currents from fast switching between echoes: one echo per RF pulse avoids them, at twice the scan time. Note: this calculator also answers the chapter's first exercise.</aside>
+</section>
+
+<!-- 13 -->
+<section class="figure side" data-book="b0plot11">
+  <div class="fig-layout">
+    <h2>Phase wrapping</h2>
+    <div class="side-text">
+      <ul>
+        <li>We measure phase <b>modulo 2π</b></li>
+        <li>True phase = measured + <b>2πn</b>: find n</li>
+      </ul>
+      <h3>Two families</h3>
+      <ul>
+        <li><b>Temporal</b>: across echoes</li>
+        <li><b>Spatial</b>: across neighbouring voxels</li>
+      </ul>
+      <p class="fig-hint">Wrapped phase (blue) and true phase (red) along one line.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig11jn"></div>
+  </div>
+  <aside class="notes">Phase can only be measured from −π to +π. When it crosses ±π a 2π jump appears although the true phase varies smoothly. Spins can turn more than one revolution, so unwrapping is needed. Temporal unwrapping uses several time points, assuming the change between them is below π. Spatial unwrapping assumes neighbouring voxels vary smoothly. Figure 5.11: a linearly varying phase, wrapped.</aside>
+</section>
+
+<!-- 14 -->
+<section class="figure side" data-book="b0plot10">
+  <div class="fig-layout">
+    <h2>Temporal unwrapping</h2>
+    <div class="side-text">
+      <ul>
+        <li>Assume the phase changes by <b>&lt; π</b> between echoes</li>
+        <li>Add or remove 2π where it jumps</li>
+        <li>Fit a line: <b>slope = γΔB<sub>0</sub></b></li>
+      </ul>
+      <p class="fig-hint">One voxel at four echo times: measured (blue), unwrapped (red), linear fit (green).</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig10jn"></div>
+  </div>
+  <aside class="notes">With two or more time points whose phase differs by at most π, the complex difference is free of wraps (Eq. 5.8: Δf0 = Δφ/(2πΔTE)). Table 5.1 gives the largest ΔTE for 1 ppm at each field strength; it gets shorter at higher field. If ΔTE is longer, or the field worse than expected, the difference image wraps too and spatial unwrapping is needed. Figure 5.10: the 4th echo has wrapped; subtracting 2π recovers the true phase; the slope of the fit is the field map value.</aside>
+</section>
+
+<!-- 15 -->
+<section class="figure side" data-book="b0plot12">
+  <div class="fig-layout">
+    <h2>Spatial unwrapping</h2>
+    <div class="side-text">
+      <ul>
+        <li>Neighbours vary smoothly: <b>region growing</b> from a seed</li>
+        <li>The seed sets the answer: solutions differ by <b>2nπ</b></li>
+      </ul>
+      <p class="fig-hint">Drag the divider: wrapped phase (left), the three possible unwrapped solutions (right).</p>
+      <div class="w-controls" data-for="unwrap"></div>
+    </div>
+    <div class="fig-host w-host" data-widget="unwrap"></div>
+  </div>
+  <aside class="notes">Spatial unwrapping looks for offsets larger than 2π between neighbours, typically with region growing. Figure 5.12: a phase that varies non-linearly in space. Unwrapping gives several solutions, 2nπ apart, depending on which part of the signal is taken as the true phase. The book's Dash app is redrawn here.</aside>
+</section>
+
+<!-- 16 -->
+<section class="figure side" data-book="b0plot13">
+  <div class="fig-layout">
+    <h2>Unwrapping in 2D</h2>
+    <div class="side-text">
+      <ul>
+        <li>Needs <b>one connected region</b>, and noise masked out</li>
+        <li>Pick n so the mean phase in the ROI is <b>≈ 0</b> (after shimming)</li>
+        <li><b>Δφ</b> maps unwrap more reliably than single echoes</li>
+      </ul>
+      <p class="fig-hint">Simulated wrapped (left) and unwrapped (right) phase. More wraps = more inhomogeneity.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig13jn"></div>
+  </div>
+  <aside class="notes">Region growing needs a single region, or there can be 2nπ offsets between regions, and usually a threshold so noise is not unwrapped. Figure 5.13. Ambiguity: when unwrapping one phase volume, choose n so the mean phase in the ROI is close to 0, assuming a good frequency shim. Not fully robust (receive coil, RF pulse and eddy currents add phase), but phase differences are better behaved because constant offsets cancel. With multiple echoes, spatial and temporal unwrapping can be combined, and well-chosen echo times remove the 2nπ ambiguity.</aside>
+</section>
+
+<!-- 17 -->
+<section class="figure side" data-book="b0plot14">
+  <div class="fig-layout">
+    <h2>Phase singularities</h2>
+    <div class="side-text">
+      <ul>
+        <li>Two paths from A to B cross a <b>different number of wraps</b></li>
+        <li>No unwrapper can give one right answer</li>
+        <li>Cause: poor <b>coil combination</b></li>
+      </ul>
+      <p class="takeaway">Fix the coil combination, not the unwrapper</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig14jn"></div>
+  </div>
+  <aside class="notes">Phase singularities (poles, open-ended fringe lines). Counting wraps: −π to +π (black to white) is +1, the reverse −1. All paths between two points should cross the same net number of wraps; around a singularity they don't. Figure 5.14: from A to B the left path crosses no wrap (3π/4 to −3π/4), the right one crosses one (3π/4 to −3π/4 + 2π). Some techniques mitigate this, but the main solution is to combine the coil channels correctly.</aside>
+</section>
+
+<!-- 18 -->
+<section data-book="software">
+  <h2>Unwrapping software</h2>
+  <table class="tools">
+    <tr><th>Tool</th><th>Approach</th><th>Notes</th></tr>
+    <tr><td>PRELUDE</td><td>Spatial, region growing</td><td>Robust to noise; slow</td></tr>
+    <tr><td>SEGUE</td><td>Spatial, like PRELUDE</td><td>Much faster</td></tr>
+    <tr><td>BEST PATH</td><td>Spatial 3D, quality-guided</td><td>Unwraps high-quality regions first</td></tr>
+    <tr><td>ROMEO</td><td>Spatial + temporal</td><td>Fast; beats PRELUDE and BEST PATH with noise</td></tr>
+    <tr><td>UMPIRE</td><td>Temporal, ≥ 3 uneven echoes</td><td>Handles ΔTE beyond π; noise-sensitive</td></tr>
+    <tr><td>Laplacian</td><td>Spatial, global</td><td><span class="caution">Robust but inaccurate</span>: fine for QSM, not for shimming or qMRI</td></tr>
+  </table>
+  <aside class="notes">PRELUDE (Jenkinson 2003); SEGUE (Karsa 2019); BEST PATH (Abdul-Rahman 2007); ROMEO (Dymerska 2021); UMPIRE (Robinson 2014). Laplacian unwrapping is very robust even when highly wrapped, but its error has low spatial variability, which QSM removes with the background field anyway; where accuracy matters (shimming, qMRI) it is not recommended. PRELUDE-type unwrappers cannot resolve offsets larger than π between time points.</aside>
+</section>
+
+<!-- 19 -->
+<section class="figure side" data-book="b0plot15">
+  <div class="fig-layout">
+    <h2>Multi-echo: fit the slope</h2>
+    <div class="side-text">
+      <ul>
+        <li>Unwrap each echo spatially, then across echoes</li>
+        <li>Fit a line through all echoes</li>
+        <li>A 2π offset moves the line, <b>not its slope</b></li>
+      </ul>
+      <p class="takeaway">More echoes → more accurate maps (QSM, shimming)</p>
+      <p class="fig-hint">Two unwrapped solutions of three echoes, exactly 2π apart.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig15jn"></div>
+  </div>
+  <aside class="notes">Multi-echo (three or more) improves accuracy; all dual-echo pitfalls apply, plus later echoes need enough signal. The field map is the slope of phase against time (Eq. 5.9). Simplest pipeline: spatially unwrap every echo, then temporally unwrap to remove 2nπ offsets between echoes (needs Δφ < π between them), then a linear fit. Figure 5.15: two solutions 2π apart, e.g. from a different seed voxel; same slope, so the same field map. An advantage over phase-difference methods.</aside>
+</section>
+
+<!-- 20 -->
+<section class="figure side" data-book="b0plot16">
+  <div class="fig-layout">
+    <h2>A close pair, then a late echo</h2>
+    <div class="side-text">
+      <ul>
+        <li>TE<sub>1</sub>, TE<sub>2</sub> close: <b>no wraps</b>, a first field estimate</li>
+        <li>It predicts the wraps of a <b>late TE<sub>3</sub></b></li>
+        <li>Refit with all three: more precise</li>
+        <li>Late echoes have less SNR: <b>weight by magnitude</b></li>
+      </ul>
+    </div>
+    <div class="fig-host" data-fig="b0Fig16jn"></div>
+  </div>
+  <aside class="notes">Figure 5.16: the first two echoes respect Nyquist and are unwrapped accurately; the third has a much longer TE. The first two predict the number of wraps in the third; with all three unwrapped, a three-point fit. Because σphase = 1/SNRmag, long echoes can hurt if not accounted for: weigh echoes by the SNR of their magnitude images.</aside>
+</section>
+
+<!-- 21 -->
+<section class="figure side" data-book="b0plot17">
+  <div class="fig-layout">
+    <h2>UMPIRE</h2>
+    <div class="side-text">
+      <ul>
+        <li>Three echoes, <b>slightly uneven</b> spacing: ΔTE<sub>1</sub> ≠ ΔTE<sub>2</sub></li>
+        <li>δTE = ΔTE<sub>2</sub> − ΔTE<sub>1</sub> is short: its phase <b>cannot wrap</b></li>
+        <li>It predicts every wrap: ΔTEs can exceed the Nyquist limit</li>
+      </ul>
+      <p class="fig-hint">Click the legend to show or hide traces.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig17jn"></div>
+  </div>
+  <aside class="notes">UMPIRE (Robinson 2014) only uses temporal unwrapping and needs at least three echoes. The two echo spacings are chosen slightly different; the phase accrued over their difference δTE is small and free of wraps, so it gives the field, which predicts and removes the wraps in each echo before a linear fit. Its phase must be below π but above zero. (The book writes the accrued phase over "TE2 − TE1 = δTE"; the small interval is the difference of the spacings.) Figure 5.17: one voxel unwrapped with UMPIRE although its phase changes by more than π between echoes.</aside>
+</section>
+
+<!-- 22 -->
+<section class="figure side" data-book="b0plot18">
+  <div class="fig-layout">
+    <h2>UMPIRE and noise</h2>
+    <div class="side-text">
+      <ul>
+        <li>δTE is short: a little noise is a <b>large field error</b></li>
+        <li>Wrong wrap count → <span class="caution">wrong slope</span></li>
+        <li>PRELUDE, SEGUE, ROMEO: less noise-sensitive, but no ΔTE beyond π</li>
+      </ul>
+      <p class="fig-hint">Slider: phase offset added to the 2nd echo.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig18jn"></div>
+  </div>
+  <aside class="notes">Figure 5.18: the same data as Figure 5.17 with an offset added to the second echo, as noise would; watch the unwrapped points and the fit jump. Unwrappers such as PRELUDE are less susceptible to noise but cannot resolve phase changes larger than π between time points and can be slow; SEGUE is similar but faster; ROMEO is fast and performs better than PRELUDE and BEST PATH with noise.</aside>
+</section>
+
+<!-- 23 -->
+<section data-book="b0eddy">
+  <h2>Eddy currents and real-time mapping</h2>
+  <div class="cards two">
+    <div class="card hw">
+      <h3>Eddy currents</h3>
+      <ul>
+        <li>Fast gradient switching → fields that <b>change with TE</b></li>
+        <li>They do <b>not cancel</b> in Δφ</li>
+        <li>Fixes: longer TR, one echo per TR, or <b>reverse all gradients and average</b></li>
+      </ul>
+    </div>
+    <div class="card rt">
+      <h3>Real-time (breathing)</h3>
+      <ul>
+        <li>A map in <b>much less than a breath</b></li>
+        <li><b>2D</b>, slice by slice: each slice has its own time</li>
+        <li>Dual-echo GRE, minimum TR and TEs (EPI is fast, but distorted)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">Eddy currents from rapidly changing gradients create spatially and temporally varying fields, which can differ between echo times and so do not cancel in the phase difference. Longer TRs help. For short TRs, acquire twice with frequency, phase and slice encoding reversed, which reverses the eddy-current polarity, and average the two field maps. Real-time mapping of respiration: acquire a map in much less than a respiratory cycle; 2D so slice timing can be associated with each slice's field; EPI is faster but distorted, so a 2D dual-echo GRE with minimum TR, short TEs and short RF pulses.</aside>
+</section>
+
+<!-- 24 -->
+<section data-book="top">
+  <h2>Key takeaways</h2>
+  <ol class="keys">
+    <li>ΔB<sub>0</sub> grows with B<sub>0</sub> and is dominated by <b>air–tissue interfaces</b></li>
+    <li>Phase grows <b>linearly</b> with TE: φ = φ<sub>0</sub> + γΔB<sub>0</sub>t, so <b>two echoes</b> at least</li>
+    <li>ΔTE trades <b>precision</b> against <b>wraps</b>: no wraps if ΔTE &lt; 1/(2Δf<sub>max</sub>)</li>
+    <li>Unwrapping (temporal or spatial) leaves a <b>2nπ ambiguity</b>; singularities cannot be unwrapped</li>
+    <li>More echoes: fit the <b>slope</b>; UMPIRE reaches long ΔTEs but is noise-sensitive</li>
+  </ol>
+  <aside class="notes">Summary of the chapter; exercises follow in the exercises deck.</aside>
+</section>
+
+</div>
+</div>
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/b0-widgets.js"></script>
+<script src="js/nav.js?v=2"></script>
+</body>
+</html>
