@@ -384,3 +384,11 @@
 .reveal .ans { font-size: 17px; line-height: 1.4; margin: 10px 0 0; padding: 10px 14px 10px 32px; background: var(--panel); border: 2px solid var(--accent); border-radius: 10px; }
 .reveal .ans li { margin: 5px 0; }
 .reveal .ans[hidden] { display: none; }
+
+/* Tabs across the top of a slide, for an exercise in several parts (js/ex-common.js). */
+.reveal .ex-tabs { display: flex; gap: 4px; margin: 0 0 14px; border-bottom: 2px solid var(--rule); }
+.reveal .ex-tabs button { font: inherit; font-size: 16px; padding: 7px 18px; margin-bottom: -2px; border: 2px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0; background: none; color: var(--muted); cursor: pointer; }
+.reveal .ex-tabs button:hover { color: var(--accent); }
+.reveal .ex-tabs button[aria-selected="true"] { background: #fff; color: var(--ink); font-weight: 700; border-color: var(--rule); border-bottom: 2px solid #fff; }
+.reveal .ex-tabs button.done::after { content: " ✓"; color: #2e8b3a; }
+.reveal .ex-panel[hidden] { display: none; }

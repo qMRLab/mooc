@@ -16,6 +16,7 @@ function svgEl(tag, attrs, parent) {
 
 document.querySelectorAll('.ask').forEach((box) => {
   const input = box.querySelector('input'), go = box.querySelector('.ask-go'), fb = box.querySelector('.ask-fb');
+  if (!go) return;   // a box styled as .ask but checked by its own script
   keepSlider(input);
   const check = () => {
     const v = Number(input.value), a = Number(box.dataset.answer);
@@ -38,4 +39,16 @@ document.querySelectorAll('.show-ans').forEach((b) => {
     b.setAttribute('aria-pressed', String(open));
     b.textContent = open ? (b.dataset.hide || 'Hide the answer') : (b.dataset.show || 'Show the answer');
   });
+});
+
+// Tabs: a .ex-tabs row of [data-tab] buttons shows the .ex-panel with the same data-panel in its slide.
+// The panel shown fires 'tabshown' (detail: the tab's key) on the slide, for scripts that draw on demand.
+document.querySelectorAll('.ex-tabs').forEach((bar) => {
+  const slide = bar.closest('section');
+  bar.querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => {
+    b.blur();
+    bar.querySelectorAll('[data-tab]').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    slide.querySelectorAll('.ex-panel').forEach((p) => { p.hidden = p.dataset.panel !== b.dataset.tab; });
+    slide.dispatchEvent(new CustomEvent('tabshown', { detail: b.dataset.tab }));
+  }));
 });

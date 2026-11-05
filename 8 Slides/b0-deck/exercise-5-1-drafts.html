@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 5-1 drafts (fat suppression) · B0 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <style>
+    .reveal .ph-svg { display: block; }
+    .reveal .ph-err { width: 560px; height: 230px; }
+    .reveal .img-row { display: flex; gap: 8px; align-items: flex-start; }
+    .reveal .img { width: 300px; height: 430px; }
+    .reveal .img.sm { width: 250px; height: 360px; }
+    .reveal .ir-plot { width: 330px; height: 300px; }
+    .reveal .sp-plot { width: 390px; height: 250px; }
+    .reveal .goal { font-size: 14px; margin: 8px 0 0; padding: 6px 12px; border-radius: 6px; background: var(--panel); }
+    .reveal .lg { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+    .reveal section .ans { position: absolute; left: 56px; bottom: 58px; width: 600px; max-height: 330px; overflow: auto; margin: 0; z-index: 20; background: #fff; box-shadow: 0 10px 28px rgba(29,39,51,0.22); }
+    .reveal .ex-head span { margin-left: 18px; font-size: 1.45em; letter-spacing: 0; text-transform: none; color: var(--ink); }
+    .reveal .sv-layout { display: grid; grid-template-columns: 600px 1fr; gap: 0 22px; }
+    .reveal .sv-col { width: 600px; }
+    /* the controls, centred on the gap between the circle and the measurement list (x = 270 px in the drawing) */
+    .reveal .sv-ctrl { width: max-content; position: relative; left: 270px; transform: translateX(-50%); }
+    .reveal .sv-ctrl .bs-row { margin-bottom: 6px; }
+    .reveal .sv-num { width: 4.6em; font: inherit; font-weight: 700; color: var(--ink); padding: 1px 4px; }
+    .reveal .bs-btn.sv-acq { font-weight: 700; background: var(--accent); border-color: var(--accent); color: #fff; }
+    .reveal .bs-btn.sv-acq:hover { background: #174a78; }
+    .reveal .bs-btn.sv-calc-go { background: #f9dcd8; border-color: #eab5ae; color: #8a2c22; }
+    .reveal .bs-btn.sv-calc-go:hover { background: #f4c9c3; }
+    .reveal .sv-calc { display: flex; gap: 16px; align-items: flex-start; margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--rule); }
+    .reveal .sv-eq { flex: 0 0 auto; text-align: center; }
+    .reveal .sv-eq .eq-box { margin: 0 0 6px; font-size: 0.52em; }
+    .reveal .sv-lec { font-size: 13px; color: var(--accent); text-decoration: none; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
+    .reveal .sv-lec:hover { border-color: var(--accent); }
+    .reveal .sv-in { display: grid; grid-template-columns: auto auto auto auto; gap: 6px 6px; font-size: 14px; color: var(--muted); align-items: center; }
+    .reveal .sv-in > span { white-space: nowrap; }
+    .reveal .sv-in > span:nth-child(3n+1) { text-align: right; }
+    .reveal .sv-in input { width: 60px; font: inherit; font-size: 14px; padding: 2px 4px; }
+    .reveal .sv-go { grid-column: 4; grid-row: 1 / 3; margin-left: 8px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .reveal .sv-calc-out { grid-column: 4; grid-row: 3; margin-left: 8px; white-space: nowrap; margin: 0; font-size: 15px; color: var(--ink); min-height: 1.3em; }
+    .reveal .sv-qn { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+    .reveal .sv-qs p { font-size: 17px; }
+    /* number | case | Δφ = | box | ° | feedback, so the boxes line up */
+    .reveal .sv-cases { display: grid; grid-template-columns: auto auto auto auto auto 1fr; gap: 6px 8px; align-items: center; font-size: 17px; margin: 0 0 8px; }
+    .reveal .sv-cases > span { white-space: nowrap; }
+    .reveal .sv-cases input { width: 5.5em; font-size: 16px; }
+    .reveal .sv-qs .sv-why { font-size: 14px; line-height: 1.35; margin: 8px 0 0; color: var(--ink); }
+    .reveal .sv-qs .ask { margin: 8px 0; padding: 8px 14px; }
+    .reveal .sv-hl { display: block; margin-top: 6px; padding: 5px 9px; border-radius: 6px; background: #e3f2e1; color: #1d5e24; font-weight: 700; }
+    .reveal .sv-qs p { margin-bottom: 0.4em; }
+    .reveal .sv-page .sv-qn:not(:first-child) { margin-top: 10px; }
+    .reveal .sv-qnav { margin: 0 0 8px; }
+    .reveal .sv-page[hidden] { display: none; }
+    .reveal .sv-qs { border-left: 2px solid var(--rule); padding-left: 26px; min-height: 520px; }
+    .reveal .sv-svg { display: block; margin: 0 0 8px; }
+    .reveal .sv-col .bs-row > span:first-child { white-space: nowrap; }
+    .reveal .sv-lab { display: inline-block; width: 6.4em; }
+    .reveal .sv-u { display: inline-block; width: 2.4em; margin-left: 5px; }
+    .reveal .sv-ctrl .bs-row input[type="range"] { width: 210px; }
+    .reveal .tbl-sum { width: 100%; border-collapse: collapse; font-size: 0.6em; margin-top: 0.4em; }
+    .reveal .tbl-sum th, .reveal .tbl-sum td { text-align: left; padding: 0.4em 0.6em; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .reveal .tbl-sum th { color: var(--muted); font-weight: 400; }
+    .reveal .tbl-sum td:first-child { font-weight: 700; white-space: nowrap; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-1</p>
+  <h2>Water, fat and B<sub>0</sub>: when to take your echoes, and how many</h2>
+</section>
+
+<!-- (b) the fat-suppression problem -->
+<section id="fs-intro">
+  <p class="kicker">Exercise 5-1 · (b)</p>
+  <h2>How would you suppress the fat signal in this image?</h2>
+  <div class="ex-grid" style="--left: 330px">
+    <div><div class="img fs-base" role="img" aria-label="T1-weighted gradient echo image of a head"></div><p class="ex-cap">T<sub>1</sub>-weighted GRE, 3 T (TR 20 ms, 25°). Scalp and marrow fat are bright.</p></div>
+    <div class="ex-side" style="font-size:18px">
+      <p class="ex-lead">Fat is bright on T<sub>1</sub>-weighted images and can hide what you want to see. <b>What do you know about fat that sets it apart from water? Think of two or three ways to get rid of its signal.</b></p>
+      <div class="bs-row"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li><b>Its T<sub>1</sub> is short</b> (≈ 380 ms at 3 T): invert, and image when fat crosses zero (STIR). → (c)</li>
+        <li><b>It precesses 3.4 ppm slower</b> than water: saturate only its frequency (fat sat). → (d)</li>
+        <li><b>So its phase drifts from water’s with TE</b>: separate the two from echoes at chosen TEs (Dixon). → (g), (h)</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">The simulated image uses the 2013 Stikov 3 T slice: measured T1 in the brain, the head segmentation (brain, bone, scalp, fat), and the measured B1 map. Fat: T1 = 380 ms; scalp is taken as mostly fat (subcutaneous), bone as fatty marrow. The three answers follow the lecture notes' T1-based, frequency-based and phase-based families.</aside>
+</section>
+
+<!-- (c) STIR -->
+<section id="fs-stir">
+  <p class="kicker">Exercise 5-1 · (c)</p>
+  <h2>Use T<sub>1</sub>: invert, and image when fat crosses zero</h2>
+  <div class="ex-grid" style="--left: 650px">
+    <div class="img-row"><div class="ir-plot"></div><div class="img sm st-img"></div></div>
+    <div class="ex-side">
+      <div class="ask" data-answer="263" data-tol="0.06" data-unit=" ms" data-explain="TI = T₁ ln 2 = 380 ms × 0.693 = 263 ms (for TR ≫ T₁).">
+        <p><b>Predict first:</b> fat T<sub>1</sub> = 380 ms. At what TI does fat cross zero?</p>
+        <div class="ask-row">TI = <input type="number" step="1" aria-label="TI in ms"> ms <button class="bs-btn ask-go">Check</button></div>
+        <p class="ask-fb"></p>
+      </div>
+      <p class="ex-lead"><b>Null the fat. What happens to the rest of the image? And with the B<sub>1</sub> you really get?</b></p>
+      <div class="bs-row"><span>TI <b class="st-ti-read"></b></span><input class="st-ti" type="range" min="50" max="1200" step="1" value="600" aria-label="Inversion time"></div>
+      <div class="bs-row"><span>Inversion</span><div class="seg"><button data-stb1="ideal" aria-pressed="true">Perfect 180°</button><button data-stb1="meas" aria-pressed="false">Measured B<sub>1</sub></button></div></div>
+      <table class="stats">
+        <tr><td>Fat signal left</td><td><b class="st-fat"></b></td></tr>
+        <tr><td>White matter / grey matter / CSF</td><td><b class="st-wgc"></b></td></tr>
+      </table>
+      <div class="bs-row" style="margin-top:8px"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li><b>Contrast changes:</b> at TI = 263 ms every tissue has lost signal (WM to about half), and anything else with a short T<sub>1</sub> is nulled too, e.g. a gadolinium-enhanced lesion.</li>
+        <li><b>B<sub>1</sub>:</b> where the inversion isn’t 180°, fat doesn’t reach zero (≈ 10 % left at B<sub>1</sub> = 0.8).</li>
+        <li><b>Time:</b> the inversion and TI make every TR longer.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">STIR magnitude signal with TR ≫ T1: |1 − (1 − cos θ)e^(−TI/T1)|, θ = 180° × B1, times the proton density. With a perfect inversion fat nulls at T1 ln 2; with the measured B1 (0.7–1.25 in this slice) the null moves and fat leaves a residue, more in the scalp where B1 is lowest. Insensitive to B0 though (lecture notes: STIR pros).</aside>
+</section>
+
+<!-- (d) fat sat -->
+<section id="fs-sat">
+  <p class="kicker">Exercise 5-1 · (d)</p>
+  <h2>Use frequency: saturate only the fat</h2>
+  <div class="ex-grid" style="--left: 680px">
+    <div class="img-row"><div><div class="sp-plot sa-spec"></div><p class="ex-cap">Spectrum of the whole slice. Blue: your saturation band.</p></div><div class="img sm sa-img"></div></div>
+    <div class="ex-side">
+      <p class="ex-lead">Before each excitation, a frequency-selective pulse saturates everything in a band. <b>Place the band: remove the fat, keep the water.</b> Fat is at −3.4 ppm, −434 Hz at 3 T.</p>
+      <div class="bs-row"><span>Band centre <b class="sa-c-read"></b></span><input class="sa-c" type="range" min="-800" max="200" step="5" value="-150" aria-label="Band centre"></div>
+      <div class="bs-row"><span>Band width <b class="sa-w-read"></b></span><input class="sa-w" type="range" min="50" max="600" step="10" value="200" aria-label="Band width"></div>
+      <table class="stats">
+        <tr><td>Fat signal left</td><td><b class="sa-fat"></b></td></tr>
+        <tr><td>Water signal left</td><td><b class="sa-water"></b></td></tr>
+      </table>
+      <p class="goal sa-goal"></p>
+    </div>
+  </div>
+  <aside class="notes">Here the field is perfectly shimmed. An ideal rectangular band (with 15 Hz edges) saturates fat at −434 Hz. Fat is modelled as a single peak; real fat also has smaller peaks (one close to water), so even a perfect fat sat leaves about 15 % of the fat signal (lecture notes, slide 10). Water excitation is the mirror image of this.</aside>
+</section>
+
+<!-- (e) whoops: B0 -->
+<section id="fs-shim">
+  <p class="kicker">Exercise 5-1 · (e)</p>
+  <h2>Whoops: the field isn’t uniform</h2>
+  <div class="ex-grid" style="--left: 680px">
+    <div class="img-row"><div><div class="sp-plot sh-spec"></div><div class="img sm sh-map" style="height:200px;width:390px"></div></div><div class="img sm sh-img"></div></div>
+    <div class="ex-side">
+      <p class="ex-lead">Your band from (d), and a field that varies across the head, as with a poor shim (simulated). <b>Increase it: what happens to the fat on one side, and the water on the other?</b></p>
+      <div class="bs-row"><span>Field across the head <b class="sh-g-read"></b></span><input class="sh-g" type="range" min="0" max="800" step="10" value="0" aria-label="Field variation"></div>
+      <table class="stats">
+        <tr><td>Fat signal left</td><td><b class="sh-fat"></b></td></tr>
+        <tr><td>Water signal left</td><td><b class="sh-water"></b></td></tr>
+      </table>
+      <div class="bs-row" style="margin-top:8px"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li>The field shifts water and fat together, voxel by voxel. On one side fat moves <b>out of the band</b> and stays bright; on the other, water moves <b>into it</b> and goes dark.</li>
+        <li>It only takes a field about as large as the band’s margins, a few hundred Hz, which is common at the edges of the neck, the shoulders or near implants.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">The field here is a simulated left-right gradient (from −X/2 to +X/2 across the head), as from a poor linear shim; the lecture's own B0 map of this slice is much smaller (±30 Hz) because the head is well shimmed. The spectrum of the slice broadens as the field spreads. Lecture notes, slides 9 and 15.</aside>
+</section>
+
+<!-- (f) can a B0 map fix it? -->
+<section id="fs-quiz" class="hl-quiz" data-done="On to the next slide: a method that uses the B0 map instead of fighting it.">
+  <p class="kicker">Exercise 5-1 · (f) · predict first</p>
+  <h2>You have a B<sub>0</sub> map. Can it fix the fat sat?</h2>
+  <p class="hq-lead">The head of (e), with a field that varies across it, and a perfect map of that field.</p>
+  <div class="hq-card">
+    <div class="hq-top"><span class="hq-count"></span><b class="hq-score"></b></div>
+    <p class="hq-q"></p>
+    <div class="hq-btns"></div>
+    <p class="hq-fb" hidden></p>
+    <p class="hq-why" hidden></p>
+    <p class="hq-check" hidden></p>
+    <button class="bs-btn hq-next" hidden>Next question</button>
+  </div>
+  <ol class="hq-data" hidden>
+    <li data-a="shim" data-opts="shift:Yes: shift the band to the measured field|voxel:Yes: a different band in each voxel|shim:Only through a better shim"><span class="q">Before the scan: can the B<sub>0</sub> map make the fat sat work everywhere?</span>
+      <span class="w">The fat-sat pulse saturates one band of frequencies for the whole slice: it can’t follow the field voxel by voxel. Shifting it fixes one side and breaks the other. The map helps prospectively only through shimming, and shims only cancel smooth fields.</span>
+      <span class="c">See it on the previous slide: move the field, and think about where you would put the band. <button class="bs-btn hq-go" data-go="-1">← Previous slide</button></span></li>
+    <li data-a="no" data-opts="yes:Yes|no:No"><span class="q">After the scan: can the B<sub>0</sub> map undo the fat that wasn’t saturated?</span>
+      <span class="w">No: in each voxel that fat is now part of one signal with the water. One image gives no way to split them, whatever you know about the field.</span></li>
+  </ol>
+</section>
+
+<!-- (g) 2-point Dixon -->
+<section id="fs-dixon2">
+  <p class="kicker">Exercise 5-1 · (g)</p>
+  <h2>Use phase: 2-point Dixon, in phase + opposed</h2>
+  <div class="ex-grid" style="--left: 520px">
+    <div class="img-row"><div><p class="ex-cap">Water = (IP + OP)/2</p><div class="img sm d2-w" style="width:250px;height:360px"></div></div><div><p class="ex-cap">Fat = (IP − OP)/2</p><div class="img sm d2-f" style="width:250px;height:360px"></div></div></div>
+    <div class="ex-side">
+      <p class="ex-lead">Two echoes: in phase (IP, 2.30 ms) and opposed (OP, 1.15 ms). Water adds the same way in both; fat flips sign. <b>Sum and difference give water and fat. Does it survive the field of (e)?</b></p>
+      <div class="bs-row"><span>Field across the head <b class="d2-g-read"></b></span><input class="d2-g" type="range" min="0" max="600" step="10" value="0" aria-label="Field variation"></div>
+      <table class="stats"><tr><td>Fat in the water image</td><td><b class="d2-leak"></b></td></tr><tr><td>Field phase between OP and IP, at the edge</td><td><b class="d2-ph"></b></td></tr></table>
+      <div class="bs-row" style="margin-top:8px"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li>Sum and difference only work if the field adds <b>no phase between the two echoes</b>.</li>
+        <li>A field ψ turns OP by 2πψ × 1.15 ms relative to IP: water and fat mix, half and half at ±217 Hz, and <b>swap</b> at ±434 Hz.</li>
+        <li>To correct it you need the field, but two echoes can’t also give you a field map. <b>What would a third echo add?</b></li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">Echoes at 1.15 and 2.30 ms (fat at −180° and 0° from water at 3 T, single peak). Water = (IP + OP)/2, fat = (IP − OP)/2, as complex images (lecture notes slides 20-23). The error is the field's phase between the echoes, 2πψ × 1.15 ms. Modern 2-point methods estimate that phase with extra assumptions (a smooth field), which is where water-fat swaps come from.</aside>
+</section>
+
+<!-- (h) 3-point Dixon -->
+<section id="fs-dixon3">
+  <p class="kicker">Exercise 5-1 · (h)</p>
+  <h2>3-point Dixon: a third echo, and a B<sub>0</sub> map for free</h2>
+  <div class="ex-grid" style="--left: 780px">
+    <div>
+      <svg class="d3-ph" width="780" height="170" viewBox="0 0 780 170" role="img" aria-label="Water and fat in one scalp voxel at the three echoes"></svg>
+      <div class="img-row"><div><p class="ex-cap">Water</p><div class="img sm d3-w" style="width:230px;height:330px"></div></div><div><p class="ex-cap">Fat</p><div class="img sm d3-f" style="width:230px;height:330px"></div></div><div><p class="ex-cap">B<sub>0</sub> map from echoes 1 and 3</p><div class="img sm d3-b" style="width:300px;height:330px"></div></div></div>
+    </div>
+    <div class="ex-side">
+      <p class="ex-lead">Echoes at 1.15 (opposed), 2.30 (in phase) and 3.45 ms (opposed). Fat has the same angle to water at echoes 1 and 3, as in (a). <b>What does their phase difference give you, and what can you then do with it?</b></p>
+      <div class="bs-row"><span>Field across the head <b class="d3-g-read"></b></span><input class="d3-g" type="range" min="0" max="600" step="10" value="200" aria-label="Field variation"></div>
+      <table class="stats">
+        <tr><td>Fat in the water image</td><td><b class="d3-leak"></b></td></tr>
+        <tr><td>B<sub>0</sub> map error (RMS, head)</td><td><b class="d3-berr"></b></td></tr>
+      </table>
+      <div class="bs-row" style="margin-top:8px"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li><b>Echoes 1 and 3</b>, 2.30 ms apart, give the field alone: <b>a B<sub>0</sub> map</b>, ψ = ∠(S<sub>3</sub>S<sub>1</sub><sup>*</sup>) / (2π × 2.30 ms).</li>
+        <li><b>Remove that phase</b> from IP and OP, then sum and difference: water and fat separate cleanly.</li>
+        <li><b>The catch:</b> a 2.30 ms gap wraps past ±217 Hz. Push the field to see it, then unwrap the map, or use IDEAL’s uneven echoes.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">Glover's 3-point Dixon (1991), lecture notes slides 24-26: echoes at −π, 0 and +π fat-water angle. Echoes 1 and 3 have the same fat angle, so ∠(S3·S1*) = 2πψ × 2.30 ms: the field (here without unwrapping, so it wraps past ±217 Hz). The phasors show one scalp voxel at the field's highest edge. IDEAL (Reeder 2004) generalises this to any three TEs with a least-squares fit, and adds multi-peak fat and T2*.</aside>
+</section>
+
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 5-1 · Summary</p>
+  <h2>Water, fat and B<sub>0</sub></h2>
+  <table class="tbl-sum">
+    <tr><th></th><th>Uses</th><th>Costs</th><th>Fails when</th></tr>
+    <tr><td>Two-point B<sub>0</sub> map</td><td>Phase between two echoes</td><td>2 echoes</td><td>ΔTE isn’t n × 2.30 ms (3 T): fat reads as field</td></tr>
+    <tr><td>STIR</td><td>Fat’s short T<sub>1</sub></td><td>Contrast and SNR; longer TR</td><td>B<sub>1</sub> isn’t 180°; other short-T<sub>1</sub> tissue (gadolinium)</td></tr>
+    <tr><td>Fat sat</td><td>Fat’s frequency</td><td>An extra pulse each TR (time, SAR)</td><td>B<sub>0</sub> isn’t uniform: a map can’t fix it</td></tr>
+    <tr><td>3-point Dixon</td><td>Fat’s phase vs TE</td><td>3 echoes</td><td>The field wraps (unwrap it); fat isn’t one peak</td></tr>
+  </table>
+  <ol style="margin-top:0.8em">
+    <li><b>Knowing fat quantitatively</b> (its T<sub>1</sub>, its chemical shift, and how its phase moves with TE) is what each tool is built on.</li>
+    <li><b>B<sub>0</sub> breaks frequency-based methods, but phase-based ones measure it:</b> 3-point Dixon gives water, fat and a B<sub>0</sub> map in one scan.</li>
+  </ol>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script>
+  renderMathInElement(document.querySelector('.reveal .slides'), { delimiters: [{ left: '$$', right: '$$', display: true }], throwOnError: false });
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/ex-common.js"></script>
+<script src="js/head-data.js"></script>
+<script src="js/hl-quiz.js"></script>
+<script src="js/ex51-fat.js"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

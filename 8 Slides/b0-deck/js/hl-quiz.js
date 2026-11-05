@@ -40,7 +40,7 @@
       const fb = q('.hq-fb'), ok = st.answered === it.a;
       fb.hidden = done || !st.answered;
       fb.className = `hq-fb ${ok ? 'hq-right' : 'hq-wrong'}`;
-      fb.innerHTML = st.answered ? (ok ? `✓ Right: ${label(it, it.a)}` : `✗ It’s ${label(it, it.a)}`) : '';
+      fb.innerHTML = st.answered ? (ok ? `✓ Right: ${label(it, it.a)}` : it.opts ? `✗ Answer: ${label(it, it.a)}` : `✗ It’s ${label(it, it.a)}`) : '';
       q('.hq-why').hidden = done || !st.answered;
       q('.hq-why').innerHTML = st.answered ? it.w : '';
       const chk = q('.hq-check');   // wrong answer: where to check it (state is kept when they leave the slide and come back)

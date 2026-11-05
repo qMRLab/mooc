@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Engine · two-echo phasors · B0 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <style>
+    .reveal .ph-svg { display: block; }
+    .reveal .ph-err { width: 560px; height: 230px; }
+    .reveal .img-row { display: flex; gap: 8px; align-items: flex-start; }
+    .reveal .img { width: 300px; height: 430px; }
+    .reveal .img.sm { width: 250px; height: 360px; }
+    .reveal .ir-plot { width: 330px; height: 300px; }
+    .reveal .sp-plot { width: 390px; height: 250px; }
+    .reveal .goal { font-size: 14px; margin: 8px 0 0; padding: 6px 12px; border-radius: 6px; background: var(--panel); }
+    .reveal .lg { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+    .reveal section .ans { position: absolute; left: 56px; bottom: 58px; width: 600px; max-height: 330px; overflow: auto; margin: 0; z-index: 20; background: #fff; box-shadow: 0 10px 28px rgba(29,39,51,0.22); }
+    .reveal .tbl-sum { width: 100%; border-collapse: collapse; font-size: 0.6em; margin-top: 0.4em; }
+    .reveal .tbl-sum th, .reveal .tbl-sum td { text-align: left; padding: 0.4em 0.6em; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .reveal .tbl-sum th { color: var(--muted); font-weight: 400; }
+    .reveal .tbl-sum td:first-child { font-weight: 700; white-space: nowrap; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<!-- Saved from Exercise 5-1 (slide 2, "A two-point B0 map in a voxel with fat"): water and fat phasors at two echoes,
+     the field the pair gives and its error against ΔTE. Driven by js/ex51-fat.js (#wf-phasor). Not linked from the exercises. -->
+<!-- (a) two-point B0 with fat in the voxel -->
+<section id="wf-phasor">
+  <p class="kicker">Exercise 5-1 · (a)</p>
+  <h2>A two-point B<sub>0</sub> map in a voxel with fat</h2>
+  <div class="ex-grid" style="--left: 580px">
+    <div>
+      <svg class="ph-svg" width="580" height="290" viewBox="0 0 580 290" role="img" aria-label="Water, fat and their sum at the two echo times"></svg>
+      <div class="ph-err" role="img" aria-label="Error of the measured field against the time between echoes"></div>
+    </div>
+    <div class="ex-side">
+      <div class="ask" data-answer="2.30" data-tol="0.04" data-unit=" ms" data-explain="Fat precesses 3.4 ppm (434 Hz at 3 T) slower than water: one full cycle every 1/434 Hz = 2.30 ms.">
+        <p><b>Predict first:</b> at 3 T, how often do water and fat come back in phase?</p>
+        <div class="ask-row">every <input type="number" step="0.01" aria-label="Period in ms"> ms <button class="bs-btn ask-go">Check</button></div>
+        <p class="ask-fb"></p>
+      </div>
+      <p class="ex-lead">One voxel, two echoes, field from Δφ / (2π ΔTE). <b>Do water and fat have to be in phase at both echoes, or is something else enough?</b> Try the presets, then move TE<sub>1</sub> and ΔTE.</p>
+      <div class="bs-row wp-presets"><button class="bs-btn" data-wp="2.30,2.30">In phase at both</button><button class="bs-btn" data-wp="1.15,2.30">Opposed at both</button><button class="bs-btn" data-wp="1.70,2.30">Any TE<sub>1</sub>, ΔTE = 2.30</button><button class="bs-btn" data-wp="2.30,1.50">ΔTE = 1.50</button></div>
+      <div class="bs-row"><span>Fat in the voxel <b class="wp-ff-read"></b></span><input class="wp-ff" type="range" min="0" max="100" step="5" value="30" aria-label="Fat fraction"></div>
+      <div class="bs-row"><span>True field <b class="wp-psi-read"></b></span><input class="wp-psi" type="range" min="-80" max="80" step="5" value="20" aria-label="True field offset"></div>
+      <div class="bs-row"><span>TE<sub>1</sub> <b class="wp-te1-read"></b></span><input class="wp-te1" type="range" min="1" max="6" step="any" value="2.3" aria-label="First echo time"></div>
+      <div class="bs-row"><span>ΔTE <b class="wp-dte-read"></b></span><input class="wp-dte" type="range" min="0.5" max="6" step="any" value="1.5" aria-label="Time between echoes"></div>
+      <table class="stats">
+        <tr><td>Field the two echoes give</td><td><b class="wp-meas"></b></td></tr>
+        <tr><td>Error (fat counted as field)</td><td><b class="wp-errv"></b></td></tr>
+        <tr><td>Fat–water angle at TE<sub>1</sub> / TE<sub>2</sub></td><td><b class="wp-ang"></b></td></tr>
+      </table>
+      <div class="bs-row" style="margin-top:8px"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li>They don’t have to be in phase: fat only needs the <b>same angle to water at both echoes</b>. That’s ΔTE = n × 2.30 ms at 3 T, for any TE<sub>1</sub>.</li>
+        <li>In phase at both is the usual choice (it also avoids signal cancellation), but opposed at both (1.15 and 3.45 ms) works too. Keep that in mind for (h).</li>
+        <li>Any other ΔTE counts fat’s chemical shift as field, worst in voxels that are half fat.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">Signal model: S(t) = (W + F·e^(i2π·f_F·t))·e^(i2πψt), f_F = −434 Hz (−3.4 ppm at 3 T, single fat peak). The two-point field is ∠(S2·S1*)/(2πΔTE). The fat term changes the phase of the sum unless it has the same angle relative to water at both echoes, i.e. f_F·ΔTE is a whole number of turns. TE1 alone doesn't matter for the bias; it sets where in the cycle both echoes sit (and the SNR). The chapter's "ΔTE ≈ 2.34 ms at 3 T" and the 2.24 ms of the lecture's slide 2 map are this.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/ex-common.js"></script>
+<script src="js/head-data.js"></script>
+<script src="js/hl-quiz.js"></script>
+<script src="js/ex51-fat.js"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

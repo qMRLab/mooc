@@ -9,27 +9,63 @@
   <link rel="stylesheet" href="vendor/reveal/reveal.css">
   <link rel="stylesheet" href="deck.css">
   <link rel="stylesheet" href="exercise.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <style>
-    .reveal .ck-clocks { display: flex; gap: 26px; }
-    .reveal .ck-clocks figure { margin: 0; text-align: center; }
-    .reveal .ck-clocks figcaption { font-size: 15px; color: var(--muted); margin-bottom: 4px; }
-    .reveal .ck-clocks figcaption b { color: var(--ink); }
-    .reveal .ck-legend { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
-    .reveal .ck-legend .dash { display: inline-block; width: 22px; border-top: 2px dashed #8a95a3; vertical-align: middle; margin-right: 4px; }
-    .reveal .ck-task { font-size: 16px; margin: 0 0 10px; padding: 8px 12px; background: #fdecea; border: 1px solid #f2b8b5; border-radius: 8px; }
-    .reveal .ck-hint { font-size: 14px; margin: 0 0 10px; padding: 6px 12px; background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; }
-    .reveal .ck-timer { height: 6px; background: #eef1f4; border-radius: 3px; overflow: hidden; margin: 4px 0 10px; }
-    .reveal .ck-timer div { height: 100%; width: 0; background: var(--accent); }
-    .reveal .ck-answer .bs-btn { font-size: 17px; padding: 7px 18px; }
-    .reveal .ck-answer .bs-btn:disabled { opacity: 0.45; cursor: default; }
-    .reveal .ck-answer .bs-btn.good { border: 2px solid #2e8b3a; background: #e6f4e8; font-weight: 700; opacity: 1; }
-    .reveal .ck-answer .bs-btn.bad { border: 2px solid #c0392b; opacity: 1; }
-    .reveal .ck-fb { min-height: 2.6em; margin: 8px 0; font-size: 15px; }
-    .reveal .ck-results { font-size: 14px; }
-    .reveal .ck-results td { padding: 2px 8px 2px 0; }
-    .reveal .al-plot { width: 600px; height: 340px; }
-    .reveal .sd-dial { display: block; }
-    .reveal section.summary-lessons ol { font-size: 0.8em; }
+    .reveal .ph-svg { display: block; }
+    .reveal .ph-err { width: 560px; height: 230px; }
+    .reveal .img-row { display: flex; gap: 8px; align-items: flex-start; }
+    .reveal .img { width: 300px; height: 430px; }
+    .reveal .img.sm { width: 250px; height: 360px; }
+    .reveal .ir-plot { width: 330px; height: 300px; }
+    .reveal .sp-plot { width: 390px; height: 250px; }
+    .reveal .goal { font-size: 14px; margin: 8px 0 0; padding: 6px 12px; border-radius: 6px; background: var(--panel); }
+    .reveal .lg { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+    .reveal section .ans { position: absolute; left: 56px; bottom: 58px; width: 600px; max-height: 330px; overflow: auto; margin: 0; z-index: 20; background: #fff; box-shadow: 0 10px 28px rgba(29,39,51,0.22); }
+    .reveal .ex-head span { margin-left: 18px; font-size: 1.45em; letter-spacing: 0; text-transform: none; color: var(--ink); }
+    .reveal .sv-layout { display: grid; grid-template-columns: 600px 1fr; gap: 0 22px; }
+    .reveal .sv-col { width: 600px; }
+    /* the controls, centred on the gap between the circle and the measurement list (x = 270 px in the drawing) */
+    .reveal .sv-ctrl { width: max-content; position: relative; left: 270px; transform: translateX(-50%); }
+    .reveal .sv-ctrl .bs-row { margin-bottom: 6px; }
+    .reveal .sv-num { width: 4.6em; font: inherit; font-weight: 700; color: var(--ink); padding: 1px 4px; }
+    .reveal .bs-btn.sv-acq { font-weight: 700; background: var(--accent); border-color: var(--accent); color: #fff; }
+    .reveal .bs-btn.sv-acq:hover { background: #174a78; }
+    .reveal .bs-btn.sv-calc-go { background: #f9dcd8; border-color: #eab5ae; color: #8a2c22; }
+    .reveal .bs-btn.sv-calc-go:hover { background: #f4c9c3; }
+    .reveal .sv-calc { display: flex; gap: 16px; align-items: flex-start; margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--rule); }
+    .reveal .sv-eq { flex: 0 0 auto; text-align: center; }
+    .reveal .sv-eq .eq-box { margin: 0 0 6px; font-size: 0.52em; }
+    .reveal .sv-lec { font-size: 13px; color: var(--accent); text-decoration: none; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
+    .reveal .sv-lec:hover { border-color: var(--accent); }
+    .reveal .sv-in { display: grid; grid-template-columns: auto auto auto auto; gap: 6px 6px; font-size: 14px; color: var(--muted); align-items: center; }
+    .reveal .sv-in > span { white-space: nowrap; }
+    .reveal .sv-in > span:nth-child(3n+1) { text-align: right; }
+    .reveal .sv-in input { width: 60px; font: inherit; font-size: 14px; padding: 2px 4px; }
+    .reveal .sv-go { grid-column: 4; grid-row: 1 / 3; margin-left: 8px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .reveal .sv-calc-out { grid-column: 4; grid-row: 3; margin-left: 8px; white-space: nowrap; margin: 0; font-size: 15px; color: var(--ink); min-height: 1.3em; }
+    .reveal .sv-qn { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+    .reveal .sv-qs p { font-size: 17px; }
+    /* number | case | Δφ = | box | ° | feedback, so the boxes line up */
+    .reveal .sv-cases { display: grid; grid-template-columns: auto auto auto auto auto 1fr; gap: 6px 8px; align-items: center; font-size: 17px; margin: 0 0 8px; }
+    .reveal .sv-cases > span { white-space: nowrap; }
+    .reveal .sv-cases input { width: 5.5em; font-size: 16px; }
+    .reveal .sv-qs .sv-why { font-size: 14px; line-height: 1.35; margin: 8px 0 0; color: var(--ink); }
+    .reveal .sv-qs .ask { margin: 8px 0; padding: 8px 14px; }
+    .reveal .sv-hl { display: block; margin-top: 6px; padding: 5px 9px; border-radius: 6px; background: #e3f2e1; color: #1d5e24; font-weight: 700; }
+    .reveal .sv-qs p { margin-bottom: 0.4em; }
+    .reveal .sv-page .sv-qn:not(:first-child) { margin-top: 10px; }
+    .reveal .sv-qnav { margin: 0 0 8px; }
+    .reveal .sv-page[hidden] { display: none; }
+    .reveal .sv-qs { border-left: 2px solid var(--rule); padding-left: 26px; min-height: 520px; }
+    .reveal .sv-svg { display: block; margin: 0 0 8px; }
+    .reveal .sv-col .bs-row > span:first-child { white-space: nowrap; }
+    .reveal .sv-lab { display: inline-block; width: 6.4em; }
+    .reveal .sv-u { display: inline-block; width: 2.4em; margin-left: 5px; }
+    .reveal .sv-ctrl .bs-row input[type="range"] { width: 210px; }
+    .reveal .tbl-sum { width: 100%; border-collapse: collapse; font-size: 0.6em; margin-top: 0.4em; }
+    .reveal .tbl-sum th, .reveal .tbl-sum td { text-align: left; padding: 0.4em 0.6em; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    .reveal .tbl-sum th { color: var(--muted); font-weight: 400; }
+    .reveal .tbl-sum td:first-child { font-weight: 700; white-space: nowrap; }
   </style>
 </head>
 <body class="nav-zones" data-home="exercises.html">
@@ -39,104 +75,252 @@
 <section class="problem">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-1</p>
-  <h2>Building intuition: what can you tell from a clock you only glance at?</h2>
+  <h2>Water, fat and B<sub>0</sub>: when to take your echoes</h2>
 </section>
 
-<section id="clock-game" data-book="exercises">
-  <p class="kicker">Exercise 5-1 · (a)</p>
-  <h2>Fast or slow? Only two glances to go on</h2>
-  <div class="ex-grid" style="--left: 560px">
-    <div>
-      <div class="ck-clocks">
-        <figure><figcaption>1st glance · your watch: <b class="ck-t1">9:00</b></figcaption><svg class="ck-c1" width="260" height="260" viewBox="-130 -130 260 260" role="img" aria-label="The wall clock at the first glance"></svg></figure>
-        <figure><figcaption>2nd glance · your watch: <b class="ck-t2">–</b></figcaption><svg class="ck-c2" width="260" height="260" viewBox="-130 -130 260 260" role="img" aria-label="The wall clock at the second glance"></svg></figure>
+<!-- The exercise: one slide, three parts in tabs (js/ex51-voxel.js). The earlier two-echo phasor slide is kept in
+     exercise-5-1-engine.html, and the fat-suppression slides (STIR, fat sat, Dixon) in exercise-5-1-drafts.html. -->
+<section id="new-a">
+  <p class="kicker ex-head">Exercise 5-1<span>Double-echo B<sub>0</sub> mapping in a single voxel</span></p>
+  <div class="ex-tabs" role="tablist" aria-label="Parts of this exercise">
+    <button role="tab" data-tab="1" aria-selected="true">Single spin</button>
+    <button role="tab" data-tab="2" aria-selected="false">Water + Fat</button>
+    <button role="tab" data-tab="3" aria-selected="false">Choosing ΔTE</button>
+  </div>
+  <div class="ex-panel" role="tabpanel" data-panel="1">
+    <div class="sv-layout">
+    <div class="sv-col">
+      <!-- the spin (left) and the measurements (right) in one drawing -->
+      <svg class="sv-svg" width="600" height="276" viewBox="-230 -230 1000 460" role="img" aria-label="The transverse magnetization of one spin, seen from above, and the measurements taken"></svg>
+      <div class="sv-ctrl">
+      <div class="bs-row"><span><span class="sv-lab">TE:</span><input class="sv-num sv-te-num" type="number" min="0" max="60" step="0.01" value="0" aria-label="Echo time in ms"><span class="sv-u">ms</span></span><input class="sv-te" type="range" min="0" max="60" step="0.1" value="0" aria-label="Echo time"></div>
+      <div class="bs-row"><span><span class="sv-lab">Freq. offset:</span><input class="sv-num sv-off-num" type="number" step="1" aria-label="Frequency offset"><span class="sv-u sv-off-unit">Hz</span></span><input class="sv-off" type="range" min="-250" max="250" step="1" value="50" aria-label="Frequency offset"><div class="seg sv-unit"><button data-svu="hz" aria-pressed="true">Hz</button><button data-svu="ppm" aria-pressed="false">ppm</button></div></div>
+      <div class="bs-row"><span><span class="sv-lab">B<sub>0</sub>:</span><input class="sv-num sv-b0-num" type="number" min="0.05" max="7" step="0.01" aria-label="Field strength in tesla"><span class="sv-u">T</span></span><input class="sv-b0" type="range" min="0.05" max="7" step="0.05" value="3" aria-label="Field strength"></div>
+      <div class="bs-row"><button class="bs-btn sv-acq">Acquire</button><button class="bs-btn sv-clear">Clear</button></div>
       </div>
-      <p class="ck-legend"><span class="dash"></span>where a correct clock would point · the wall clock has no hour hand</p>
-    </div>
-    <div class="ex-side">
-      <p class="ck-task">A wall clock with only a minute hand. You glance at it twice, and note the time on your (perfect) watch. Press <b>Start</b>: is the wall clock running <b>fast</b>, <b>slow</b>, or <b>can’t you tell</b>? A right answer scores up to 1000 points, fewer the longer you take.</p>
-      <p class="ck-hint"><b>Hint:</b> the clock runs between 0.5× and 1.5× real speed.</p>
-      <div class="bs-row"><button class="bs-btn ck-start">Start</button><b class="ck-status"></b></div>
-      <div class="ck-timer"><div></div></div>
-      <div class="bs-row ck-answer"><button class="bs-btn" data-ck="fast" disabled>Fast</button><button class="bs-btn" data-ck="slow" disabled>Slow</button><button class="bs-btn" data-ck="cant" disabled>Can’t tell</button></div>
-      <p class="ck-fb"></p>
-      <table class="stats ck-results"><tbody></tbody></table>
-    </div>
-  </div>
-  <aside class="notes">The chapter's clock exercise (5) as a game. Five rounds, with the time between glances growing: 10, 20, 30, 50 and 75 minutes. The hint (0.5–1.5× real speed) plays the part of the largest field offset you expect. Up to 50 minutes there is only one rate in that range that fits both glances; at 75 minutes two do (45 and 105 minutes per 75), so the honest answer is "can't tell". After each answer the second clock replays what the hand really did, including the full turns you couldn't see.</aside>
-</section>
-
-<section id="clock-alias">
-  <p class="kicker">Exercise 5-1 · (b)</p>
-  <h2>How long can you wait between glances?</h2>
-  <div class="ex-grid" style="--left: 610px">
-    <div><div class="al-plot" role="img" aria-label="Clock rates that fit the two glances"></div><p class="ex-cap">Each line is a clock rate that puts the minute hand exactly where you saw it at the 2nd glance.</p></div>
-    <div class="ex-side">
-      <p class="ex-lead">Every extra full turn of the minute hand between your glances gives another rate that fits what you saw. <b>Move the time between glances: when do you start to have more than one possible rate inside 0.5–1.5×?</b></p>
-      <div class="bs-row"><span>Time between glances <b class="al-dt-read"></b></span><input class="al-dt" type="range" min="5" max="120" step="5" value="30" aria-label="Time between glances"></div>
-      <div class="bs-row"><span>True clock rate <b class="al-r-read"></b></span><input class="al-r" type="range" min="0.5" max="1.5" step="0.05" value="1.4" aria-label="True clock rate"></div>
-      <table class="stats">
-        <tr><td>Rates that fit, in 0.5–1.5×</td><td><b class="al-fits"></b></td></tr>
-        <tr><td>Can you tell fast from slow?</td><td><b class="al-tell"></b></td></tr>
-      </table>
-      <div class="bs-row" style="margin-top:10px"><button class="bs-btn show-ans" aria-pressed="false" data-show="Show the answer" data-hide="Hide the answer">Show the answer</button></div>
-      <ul class="ans" hidden>
-        <li>Rates from 0.5× to 1.5× move the hand between 0.5 Δt and 1.5 Δt in Δt: a spread of <b>Δt</b> minutes.</li>
-        <li>One fit only while that spread is under one turn: <b>Δt &lt; 60 min</b>.</li>
-        <li>In MRI: offsets from −Δf<sub>max</sub> to +Δf<sub>max</sub> spread the phase by 2Δf<sub>max</sub>·ΔTE turns, so <b>ΔTE &lt; 1/(2Δf<sub>max</sub>)</b>.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="spin-dial">
-  <p class="kicker">Exercise 5-1 · (c)</p>
-  <h2>From clocks to spins: the phase is the minute hand</h2>
-  <div class="ex-grid" style="--left: 420px">
-    <div><svg class="sd-dial" width="400" height="400" viewBox="-200 -200 400 400" role="img" aria-label="The phase of a spin between the two echoes"></svg><p class="ex-cap">Grey: the phase the spin really gained (one ring per turn). Blue: what the phase difference image shows.</p></div>
-    <div class="ex-side">
-      <div class="ask" data-answer="54" data-tol="0.06" data-unit="°" data-explain="360° × 50 Hz × 3 ms = 54° (0.94 rad).">
-        <p><b>Predict first:</b> a spin 50 Hz off resonance, two echoes 3 ms apart. By how many degrees does its phase move between the echoes?</p>
-        <div class="ask-row"><input type="number" step="1" aria-label="Phase in degrees"> ° <button class="bs-btn ask-go">Check</button></div>
-        <p class="ask-fb"></p>
+      <!-- the dual-echo equation (lecture slide 10) and a calculator for it -->
+      <div class="sv-calc">
+        <div class="sv-eq">
+          <div class="eq eq-box tight">$$\Delta B_0\,[\mathrm{T}] = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
+          <a class="sv-lec" href="index.html#/9" target="_blank" rel="noopener">Lecture slide 10: dual echo ↗</a>
+        </div>
+        <div class="sv-in">
+          <span>φ(TE<sub>1</sub>)</span><input class="sv-p1" type="number" step="any" aria-label="Phase at TE1 in radians"><span>rad</span>
+          <span>φ(TE<sub>2</sub>)</span><input class="sv-p2" type="number" step="any" aria-label="Phase at TE2 in radians"><span>rad</span>
+          <span>ΔTE</span><input class="sv-dte" type="number" step="any" min="0" aria-label="Echo spacing in seconds"><span>s</span>
+          <div class="sv-go"><button class="bs-btn sv-calc-go">Calculate ΔB<sub>0</sub></button><div class="seg"><button data-svb="ut" aria-pressed="true">µT</button><button data-svb="hz" aria-pressed="false">Hz</button><button data-svb="ppm" aria-pressed="false">ppm</button></div></div>
+          <p class="sv-calc-out"></p>
+        </div>
       </div>
-      <p class="ex-lead">Now move Δf and ΔTE. <b>When does the measured offset stop matching the true one, and what does it show instead?</b></p>
-      <div class="bs-row"><span>Δf (true) <b class="sd-f-read"></b></span><input class="sd-f" type="range" min="-250" max="250" step="5" value="50" aria-label="Frequency offset"></div>
-      <div class="bs-row"><span>ΔTE <b class="sd-te-read"></b></span><input class="sd-te" type="range" min="0.5" max="10" step="0.25" value="3" aria-label="Echo time difference"></div>
-      <table class="stats">
-        <tr><td>Phase gained, 360° × Δf × ΔTE</td><td><b class="sd-gain"></b></td></tr>
-        <tr><td>Phase difference you measure</td><td><b class="sd-meas"></b></td></tr>
-        <tr><td>Δf you compute from it</td><td><b class="sd-fmeas"></b></td></tr>
-        <tr><td>No wraps while |Δf| &lt; 1/(2 ΔTE) =</td><td><b class="sd-lim"></b></td></tr>
-      </table>
+    </div>
+    <div class="sv-qs">
+      <div class="seg sv-qnav"><button data-qp="1" aria-pressed="true">Question 1</button><button data-qp="2" aria-pressed="false">Question 2</button></div>
+      <div class="sv-page" data-page="1">
+        <p class="sv-qn">Question 1a</p>
+        <p>You are scanning on a <b>3 T</b> scanner, and your sequence has a minimum TE of <b>2 ms</b>. Compute the difference in phase between that measurement and a measurement at <b>4 ms</b>, for two cases:</p>
+        <div class="ask sv-q" data-b0="3">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0" type="number" step="any" aria-label="Phase difference for 0 ppm at 3 T, in degrees"><span>°</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0.5" type="number" step="any" aria-label="Phase difference for 0.5 ppm at 3 T, in degrees"><span>°</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+        <p class="sv-qn">Question 1b</p>
+        <p>What is the measured ΔB<sub>0</sub> for each case, in µT?</p>
+        <div class="ask sv-q" data-b0="3">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0" type="number" step="any" aria-label="Measured field offset for 0 ppm at 3 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0.5" type="number" step="any" aria-label="Measured field offset for 0.5 ppm at 3 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+      </div>
+      <div class="sv-page" data-page="2" hidden>
+        <p class="sv-qn">Question 2a</p>
+        <p>Same question, on a <b>1.5 T</b> scanner.</p>
+        <div class="ask sv-q" data-b0="1.5">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0" type="number" step="any" aria-label="Phase difference for 0 ppm at 1.5 T, in degrees"><span>°</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0.5" type="number" step="any" aria-label="Phase difference for 0.5 ppm at 1.5 T, in degrees"><span>°</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+        <p class="sv-qn">Question 2b</p>
+        <p>What is the measured ΔB<sub>0</sub> for each case, in µT?</p>
+        <div class="ask sv-q" data-b0="1.5">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0" type="number" step="any" aria-label="Measured field offset for 0 ppm at 1.5 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0.5" type="number" step="any" aria-label="Measured field offset for 0.5 ppm at 1.5 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
-  <aside class="notes">The chapter's exercise 2 (50 Hz, ΔTE = 3 ms) as the predict-first question: 0.15 turn, 54°, 0.94 rad. Then the same picture as the clock: the phase difference only shows where the hand points, not how many turns it made. Past ±1/(2ΔTE) the computed offset jumps to the other sign: +200 Hz with ΔTE = 3 ms reads as −133 Hz.</aside>
-</section>
-
-<section class="lesson summary-lessons">
-  <p class="kicker">Exercise 5-1 · Summary</p>
-  <h2>A phase image is a clock you only glance at</h2>
-  <ol>
-    <li><b>Each echo is one glance:</b> the phase shows where the hand points, not how many turns it made since the last echo.</li>
-    <li><b>Knowing the range is what makes two glances enough:</b> one rate fits as long as the whole range of offsets moves the phase by less than one turn, <b>ΔTE &lt; 1/(2Δf<sub>max</sub>)</b>.</li>
-    <li><b>Past that, the map aliases:</b> a too-large offset reads as a smaller one of the other sign. That’s a phase wrap in time. <b>So how would you measure an offset larger than the limit?</b>
-      <p class="sl-answer fragment">Glance more often (a shorter ΔTE), or add a third echo at a different spacing (the multi-echo methods and UMPIRE of the lecture).</p>
-    </li>
-  </ol>
+  <div class="ex-panel" role="tabpanel" data-panel="2" hidden>
+    <div class="sv-layout">
+    <div class="sv-col">
+      <!-- water, fat and their sum (left) and the measurements of the sum (right) in one drawing -->
+      <svg class="sv-svg" width="600" height="276" viewBox="-230 -230 1000 460" role="img" aria-label="Water and fat magnetization in one voxel, seen from above, their sum, and the measurements taken"></svg>
+      <div class="sv-ctrl">
+      <div class="bs-row"><span><span class="sv-lab">TE:</span><input class="sv-num sv-te-num" type="number" min="0" max="60" step="0.01" value="0" aria-label="Echo time in ms"><span class="sv-u">ms</span></span><input class="sv-te" type="range" min="0" max="60" step="0.1" value="0" aria-label="Echo time"></div>
+      <div class="bs-row"><span><span class="sv-lab">Freq. offset:</span><input class="sv-num sv-off-num" type="number" step="1" aria-label="Frequency offset"><span class="sv-u sv-off-unit">Hz</span></span><input class="sv-off" type="range" min="-250" max="250" step="1" value="50" aria-label="Frequency offset"><div class="seg sv-unit"><button data-svu="hz" aria-pressed="true">Hz</button><button data-svu="ppm" aria-pressed="false">ppm</button></div></div>
+      <div class="bs-row"><span><span class="sv-lab">B<sub>0</sub>:</span><input class="sv-num sv-b0-num" type="number" min="0.05" max="7" step="0.01" aria-label="Field strength in tesla"><span class="sv-u">T</span></span><input class="sv-b0" type="range" min="0.05" max="7" step="0.05" value="3" aria-label="Field strength"></div>
+      <div class="bs-row"><span><span class="sv-lab">Fat:</span><input class="sv-num sv-ff-num" type="number" min="0" max="100" step="1" aria-label="Fat fraction in percent"><span class="sv-u">%</span></span><input class="sv-ff" type="range" min="0" max="100" step="1" value="30" aria-label="Fat fraction"><div class="seg"><button data-svv="sum" aria-pressed="true">Tip to tail</button><button data-svv="sep" aria-pressed="false">Two spins</button></div></div>
+      <div class="bs-row"><button class="bs-btn sv-acq">Acquire</button><button class="bs-btn sv-clear">Clear</button></div>
+      </div>
+      <!-- the dual-echo equation (lecture slide 10) and a calculator for it -->
+      <div class="sv-calc">
+        <div class="sv-eq">
+          <div class="eq eq-box tight">$$\Delta B_0\,[\mathrm{T}] = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
+          <a class="sv-lec" href="index.html#/9" target="_blank" rel="noopener">Lecture slide 10: dual echo ↗</a>
+        </div>
+        <div class="sv-in">
+          <span>φ(TE<sub>1</sub>)</span><input class="sv-p1" type="number" step="any" aria-label="Phase at TE1 in radians"><span>rad</span>
+          <span>φ(TE<sub>2</sub>)</span><input class="sv-p2" type="number" step="any" aria-label="Phase at TE2 in radians"><span>rad</span>
+          <span>ΔTE</span><input class="sv-dte" type="number" step="any" min="0" aria-label="Echo spacing in seconds"><span>s</span>
+          <div class="sv-go"><button class="bs-btn sv-calc-go">Calculate ΔB<sub>0</sub></button><div class="seg"><button data-svb="ut" aria-pressed="true">µT</button><button data-svb="hz" aria-pressed="false">Hz</button><button data-svb="ppm" aria-pressed="false">ppm</button></div></div>
+          <p class="sv-calc-out"></p>
+        </div>
+      </div>
+    </div>
+    <div class="sv-qs">
+      <div class="seg sv-qnav"><button data-qp="1" aria-pressed="true">Question 1</button><button data-qp="2" aria-pressed="false">Question 2</button></div>
+      <div class="sv-page" data-page="1">
+        <p class="sv-qn">Question 1a</p>
+        <p>Your voxel now holds <b>50 % fat</b> (−3.4 ppm from water). At <b>3 T</b>, compute the difference in the signal’s phase between <b>2 ms</b> and <b>4 ms</b>:</p>
+        <div class="ask sv-q" data-b0="3" data-ff="0.5">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0" type="number" step="any" aria-label="Phase difference for 0 ppm at 3 T, in degrees"><span>°</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0.5" type="number" step="any" aria-label="Phase difference for 0.5 ppm at 3 T, in degrees"><span>°</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+        <p class="sv-qn">Question 1b</p>
+        <p>What is the measured ΔB<sub>0</sub> for each voxel, in µT?</p>
+        <div class="ask sv-q" data-b0="3" data-ff="0.5">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0" type="number" step="any" aria-label="Measured field offset for 0 ppm at 3 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0.5" type="number" step="any" aria-label="Measured field offset for 0.5 ppm at 3 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+      </div>
+      <div class="sv-page" data-page="2" hidden>
+        <p class="sv-qn">Question 2a</p>
+        <p>Same question, on a <b>1.5 T</b> scanner.</p>
+        <div class="ask sv-q" data-b0="1.5" data-ff="0.5">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0" type="number" step="any" aria-label="Phase difference for 0 ppm at 1.5 T, in degrees"><span>°</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0.5" type="number" step="any" aria-label="Phase difference for 0.5 ppm at 1.5 T, in degrees"><span>°</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+        <p class="sv-qn">Question 2b</p>
+        <p>What is the measured ΔB<sub>0</sub> for each voxel, in µT?</p>
+        <div class="ask sv-q" data-b0="1.5" data-ff="0.5">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0" type="number" step="any" aria-label="Measured field offset for 0 ppm at 1.5 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0.5" type="number" step="any" aria-label="Measured field offset for 0.5 ppm at 1.5 T, in microtesla"><span>µT</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="ex-panel" role="tabpanel" data-panel="3" hidden>
+    <div class="sv-layout">
+    <div class="sv-col">
+      <!-- water, fat and their sum (left) and the measurements of the sum (right) in one drawing -->
+      <svg class="sv-svg" width="600" height="276" viewBox="-230 -230 1000 460" role="img" aria-label="Water and fat magnetization in one voxel, seen from above, their sum, and the measurements taken"></svg>
+      <div class="sv-ctrl">
+      <div class="bs-row"><span><span class="sv-lab">TE:</span><input class="sv-num sv-te-num" type="number" min="0" max="60" step="0.01" value="0" aria-label="Echo time in ms"><span class="sv-u">ms</span></span><input class="sv-te" type="range" min="0" max="60" step="0.1" value="0" aria-label="Echo time"></div>
+      <div class="bs-row"><span><span class="sv-lab">Freq. offset:</span><input class="sv-num sv-off-num" type="number" step="1" aria-label="Frequency offset"><span class="sv-u sv-off-unit">Hz</span></span><input class="sv-off" type="range" min="-250" max="250" step="1" value="50" aria-label="Frequency offset"><div class="seg sv-unit"><button data-svu="hz" aria-pressed="true">Hz</button><button data-svu="ppm" aria-pressed="false">ppm</button></div></div>
+      <div class="bs-row"><span><span class="sv-lab">B<sub>0</sub>:</span><input class="sv-num sv-b0-num" type="number" min="0.05" max="7" step="0.01" aria-label="Field strength in tesla"><span class="sv-u">T</span></span><input class="sv-b0" type="range" min="0.05" max="7" step="0.05" value="3" aria-label="Field strength"></div>
+      <div class="bs-row"><span><span class="sv-lab">Fat:</span><input class="sv-num sv-ff-num" type="number" min="0" max="100" step="1" aria-label="Fat fraction in percent"><span class="sv-u">%</span></span><input class="sv-ff" type="range" min="0" max="100" step="1" value="30" aria-label="Fat fraction"><div class="seg"><button data-svv="sum" aria-pressed="true">Tip to tail</button><button data-svv="sep" aria-pressed="false">Two spins</button></div></div>
+      <div class="bs-row"><button class="bs-btn sv-acq">Acquire</button><button class="bs-btn sv-clear">Clear</button></div>
+      </div>
+      <!-- the dual-echo equation (lecture slide 10) and a calculator for it -->
+      <div class="sv-calc">
+        <div class="sv-eq">
+          <div class="eq eq-box tight">$$\Delta B_0\,[\mathrm{T}] = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
+          <a class="sv-lec" href="index.html#/9" target="_blank" rel="noopener">Lecture slide 10: dual echo ↗</a>
+        </div>
+        <div class="sv-in">
+          <span>φ(TE<sub>1</sub>)</span><input class="sv-p1" type="number" step="any" aria-label="Phase at TE1 in radians"><span>rad</span>
+          <span>φ(TE<sub>2</sub>)</span><input class="sv-p2" type="number" step="any" aria-label="Phase at TE2 in radians"><span>rad</span>
+          <span>ΔTE</span><input class="sv-dte" type="number" step="any" min="0" aria-label="Echo spacing in seconds"><span>s</span>
+          <div class="sv-go"><button class="bs-btn sv-calc-go">Calculate ΔB<sub>0</sub></button><div class="seg"><button data-svb="ut" aria-pressed="true">µT</button><button data-svb="hz" aria-pressed="false">Hz</button><button data-svb="ppm" aria-pressed="false">ppm</button></div></div>
+          <p class="sv-calc-out"></p>
+        </div>
+      </div>
+    </div>
+    <div class="sv-qs">
+      <div class="seg sv-qnav"><button data-qp="1" aria-pressed="true">Question 1</button><button data-qp="2" aria-pressed="false">Question 2</button><button data-qp="3" aria-pressed="false">Question 3</button></div>
+      <div class="sv-page" data-page="1">
+        <p class="sv-qn">Question 1</p>
+        <p>Your voxel holds <b>30 % fat</b>, at <b>3 T</b>, with a freq. offset of <b>0 ppm</b>. After TE = 0, at what TE are water and fat first back in phase (TE<sub>1</sub>)? And when are they next in phase (TE<sub>2</sub>)?</p>
+        <div class="ask sv-q" data-b0="3" data-ff="0.3" data-te1="ip1" data-te2="ip2">
+          <div class="sv-cases">
+            <span>1.</span><span>first back in phase:</span><span>TE<sub>1</sub> =</span><input class="sv-a" data-kind="te" data-n="1" aria-label="First in-phase echo time, in ms" type="number" step="any"><span>ms</span><span class="ask-fb"></span>
+            <span>2.</span><span>next in phase:</span><span>TE<sub>2</sub> =</span><input class="sv-a" data-kind="te" data-n="2" aria-label="Second in-phase echo time, in ms" type="number" step="any"><span>ms</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+      </div>
+      <div class="sv-page" data-page="2" hidden>
+        <p class="sv-qn">Question 2</p>
+        <p>With those two echoes, compute the difference in the signal’s phase between TE<sub>1</sub> and TE<sub>2</sub>:</p>
+        <div class="ask sv-q" data-b0="3" data-ff="0.3" data-te1="ip1" data-te2="ip2">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0" aria-label="Phase difference for 0 ppm, in degrees" type="number" step="any"><span>°</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>Δφ =</span><input class="sv-a" data-kind="dphi" data-ppm="0.5" aria-label="Phase difference for 0.5 ppm, in degrees" type="number" step="any"><span>°</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+      </div>
+      <div class="sv-page" data-page="3" hidden>
+        <p class="sv-qn">Question 3</p>
+        <p>What is the measured ΔB<sub>0</sub> for each voxel, in µT?</p>
+        <div class="ask sv-q" data-b0="3" data-ff="0.3" data-te1="ip1" data-te2="ip2">
+          <div class="sv-cases">
+            <span>1.</span><span>a freq. offset of <b>0 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0" aria-label="Measured field offset for 0 ppm, in microtesla" type="number" step="any"><span>µT</span><span class="ask-fb"></span>
+            <span>2.</span><span>a freq. offset of <b>0.5 ppm</b>:</span><span>ΔB<sub>0</sub> =</span><input class="sv-a" data-kind="ut" data-ppm="0.5" aria-label="Measured field offset for 0.5 ppm, in microtesla" type="number" step="any"><span>µT</span><span class="ask-fb"></span>
+          </div>
+          <button class="bs-btn sv-submit">Submit</button>
+          <p class="sv-why" hidden></p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
 </section>
 
 </div>
 </div>
 
 <script src="vendor/reveal/reveal.js"></script>
-<script src="vendor/plotly/plotly-cartesian.min.js"></script>
 <script src="js/common.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
 <script>
+  renderMathInElement(document.querySelector('.reveal .slides'), { delimiters: [{ left: '$$', right: '$$', display: true }], throwOnError: false });
   Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
 </script>
 <script src="js/ex-common.js"></script>
-<script src="js/ex51-clock.js"></script>
+<script src="js/ex51-voxel.js"></script>
 <script src="js/nav.js?v=2"></script>
 <script src="js/popout.js"></script>
 <script src="js/home.js"></script>
