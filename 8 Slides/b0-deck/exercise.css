@@ -392,3 +392,132 @@
 .reveal .ex-tabs button[aria-selected="true"] { background: #fff; color: var(--ink); font-weight: 700; border-color: var(--rule); border-bottom: 2px solid #fff; }
 .reveal .ex-tabs button.done::after { content: " ✓"; color: #2e8b3a; }
 .reveal .ex-panel[hidden] { display: none; }
+
+/* Exercise 5-2, the unwrapping viewers (js/unwrap-demo.js, js/nifti-lite.js): four pixel panels and the controls */
+.reveal .uw-view .fig-layout { grid-template-columns: 290px 1fr; column-gap: 24px; }
+.reveal .uw-host { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-start; justify-content: flex-start; align-content: flex-start; }
+.reveal .uw-host figure { margin: 0; text-align: center; display: flex; flex-direction: column; align-items: center; width: 215px; }
+.reveal .uw-host canvas { width: 215px; height: 215px; image-rendering: pixelated; display: block; background: #e9edf1; outline: 1px solid #c9d1db; }
+.reveal .uw-host figcaption { font-size: 15px; color: var(--muted); margin-top: 4px; }
+.reveal .uw-ctrl { display: grid; gap: 10px; font-size: 15px; margin-top: 4px; }
+.reveal .uw-ctrl label, .reveal .uw-ctrl .uw-row { display: grid; grid-template-columns: 5.6em 1fr 5em; align-items: center; gap: 8px; color: var(--muted); }
+.reveal .uw-ctrl .uw-row .seg { grid-column: 2 / 4; justify-self: start; }
+.reveal .uw-ctrl label[hidden] { display: none; }
+.reveal .uw-ctrl b { color: var(--ink); white-space: nowrap; }
+.reveal .uw-stats { font-size: 15px; margin: 12px 0 0; line-height: 1.45; }
+.reveal .uw-files { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.reveal .uw-view .uw-back { display: none; }
+.reveal .uw-view.uw-own .uw-back { display: inline-block; }
+.reveal .uw-view.uw-mask-none .uw-thr-row, .reveal .uw-view.uw-no-mag .uw-thr-row, .reveal .uw-view.uw-no-mag .uw-mask-row { display: none; }
+/* a file dragged over the slide */
+.reveal .uw-view.uw-dropping .uw-host { outline: 3px dashed var(--accent); outline-offset: 8px; border-radius: 6px; }
+/* the intervals' list under their panel: a swatch and [lower, upper) for each */
+.reveal .uw-int-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 10px; margin-top: 6px; font-size: 13px; color: var(--ink); text-align: left; width: 100%; font-variant-numeric: tabular-nums; }
+.reveal .uw-int-list span { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.reveal .uw-int-list i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; flex: none; }
+/* real data: 8 panels in 4 columns; the B0 maps and ΔTE only with two echoes */
+.reveal .uw-view[data-uw="real"] .uw-host figure { width: 146px; }
+.reveal .uw-view[data-uw="real"] .uw-host canvas { width: 146px; height: 166px; }
+.reveal .uw-view[data-uw="real"] .uw-host { gap: 8px 9px; }
+.reveal .uw-view[data-uw="real"] .uw-cbar { font-size: 11px; }
+.reveal .uw-view[data-uw="real"] .uw-host figcaption { font-size: 13px; }
+.reveal .uw-view:not(.uw-two-echoes) .uw-map, .reveal .uw-view:not(.uw-two-echoes) .uw-dte-row { display: none; }
+.reveal .uw-ctrl .uw-dte { width: 5em; font: inherit; padding: 1px 4px; }
+/* colour bars under the phase and B0 panels: the ramp, then −, 0, + labels */
+.reveal .uw-cbar { width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 3px; font-size: 12px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.reveal .uw-cbar i { grid-column: 1 / -1; height: 9px; border-radius: 2px; border: 1px solid #c9d1db; }
+.reveal .uw-cbar span { margin-top: 1px; }
+.reveal .uw-cbar span:nth-of-type(1) { text-align: left; }
+.reveal .uw-cbar span:nth-of-type(2) { text-align: center; }
+.reveal .uw-cbar span:nth-of-type(3) { text-align: right; }
+/* the lock button at the right end of a colour bar */
+.reveal .uw-cbar.uw-lockable { grid-template-columns: 1fr 1fr 1fr auto; column-gap: 0; }
+.reveal .uw-cbar.uw-lockable i { grid-column: 1 / 4; }
+.reveal .uw-cbar .uw-lock { grid-column: 4; grid-row: 1 / 3; align-self: center; margin-left: 4px; font-size: 13px; line-height: 1; padding: 3px 4px; border: 1px solid #c9d1db; border-radius: 5px; background: #fff; cursor: pointer; }
+.reveal .uw-cbar .uw-lock[aria-pressed="true"] { background: #e9eef5; border-color: var(--accent); }
+/* the citation for the unwrapping method, under the controls */
+.reveal .uw-cite { font-size: 12px; line-height: 1.35; color: var(--muted); margin: 10px 0 0; }
+/* which file is the phase and which the magnitude */
+.reveal .uw-roles { flex-basis: 100%; font-size: 13px; line-height: 1.4; color: var(--muted); margin: 2px 0 0; word-break: break-all; }
+.reveal .uw-roles b { color: var(--ink); font-weight: 600; }
+/* the poor-shim and simulated-head slides: 11 panels in 5 columns; the expected B0 only when it is known */
+.reveal .uw-view[data-grad] .uw-host figure, .reveal .uw-view[data-truth] .uw-host figure { width: 122px; }
+.reveal .uw-view[data-grad] .uw-host canvas, .reveal .uw-view[data-truth] .uw-host canvas { width: 122px; height: 145px; }
+.reveal .uw-view[data-grad] .uw-host, .reveal .uw-view[data-truth] .uw-host { gap: 8px 8px; }
+.reveal .uw-view[data-grad] .uw-cbar, .reveal .uw-view[data-truth] .uw-cbar { font-size: 10px; }
+.reveal .uw-view[data-grad] .uw-host figcaption, .reveal .uw-view[data-truth] .uw-host figcaption { font-size: 12px; }
+.reveal .uw-view.uw-no-truth .uw-map:has(.uw-c-b0e), .reveal .uw-view.uw-no-truth .uw-map:has(.uw-c-b0d) { display: none; }
+/* the unwrap switch only with two echoes; unwrapping Δφ, the echo slider has nothing to choose */
+.reveal .uw-view:not(.uw-two-echoes) .uw-unwrap-row { display: none; }
+.reveal .uw-view.uw-diff .uw-t-row { display: none; }
+/* the pipeline slide (.uw-pipe): input | one step at a time, in tabs | output */
+.reveal .uw-pipe .pipe { display: grid; grid-template-columns: 124px 640px 240px; column-gap: 30px; align-items: start; margin-top: 4px; }
+.reveal .uw-pipe .pipe-mid, .reveal .uw-pipe .pipe-out { border-left: 1px solid var(--rule); padding-left: 30px; min-height: 520px; }
+.reveal .uw-pipe h3 { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+.reveal .uw-pipe figure { margin: 0 0 6px; display: flex; flex-direction: column; align-items: center; }
+.reveal .uw-pipe .pipe-in figure { width: 116px; }
+.reveal .uw-pipe .pipe-out figure { width: 210px; }
+.reveal .uw-pipe canvas { image-rendering: pixelated; display: block; background: #e9edf1; outline: 1px solid #c9d1db; }
+.reveal .uw-pipe figcaption { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.reveal .uw-pipe .pipe-in .uw-cbar { font-size: 10px; }
+.reveal .uw-pipe .ex-tabs { margin-bottom: 10px; }
+.reveal .uw-pipe .ex-tabs button { font-size: 15px; padding: 6px 14px; }
+.reveal .uw-pipe .pipe-echo { margin: 0 0 12px; width: 300px; }
+.reveal .uw-pipe .pipe-hidden { display: none !important; }
+.reveal .uw-pipe .ex-panel:not([hidden]) { display: grid; grid-template-columns: 280px 300px; column-gap: 26px; align-items: start; }
+.reveal .uw-pipe .ex-panel figure { width: 280px; }
+.reveal .uw-pipe .ex-panel .uw-ctrl { margin-top: 0; }
+.reveal .uw-pipe .ex-panel .uw-stats { margin: 0; }
+.reveal .uw-pipe .pipe-in, .reveal .uw-pipe .pipe-out { display: flex; flex-direction: column; align-items: center; }
+.reveal .uw-pipe .pipe-out { padding-left: 30px; }
+.reveal .uw-pipe .ex-panel.pipe-proto:not([hidden]) { display: block; max-width: 520px; }
+.reveal .uw-pipe .pipe-proto .uw-ctrl label, .reveal .uw-pipe .pipe-proto .uw-ctrl .uw-row { grid-template-columns: 7em auto 1fr; }
+.reveal .uw-pipe .uw-num { width: 5.5em; font: inherit; padding: 1px 4px; }
+.reveal .uw-pipe .pipe-proto .uw-ctrl > label > b { justify-self: start; }
+.reveal .uw-pipe.uw-te-delta .te-pair, .reveal .uw-pipe:not(.uw-te-delta) .te-delta { display: none; }
+.reveal .uw-pipe:not(.uw-mask-file) .mask-file-row { display: none; }
+.reveal .uw-view.uw-mask-file .uw-thr-row { display: none; }
+.reveal .uw-pipe .ex-panel .uw-stats { margin-top: 6px; }
+.reveal .uw-pipe[data-tab="view"] .pipe-echo, .reveal .uw-pipe[data-tab="proto"] .pipe-echo, .reveal .uw-pipe[data-tab="mask"] .pipe-echo { display: none; }   /* the mask: from echo 1, for both */
+.reveal .uw-pipe.uw-unwrap-none .ex-tabs [data-tab="int"], .reveal .uw-pipe.uw-unwrap-none .ex-tabs [data-tab="unw"], .reveal .uw-pipe.uw-unwrap-none .ex-tabs [data-tab="cmp"] { display: none; }   /* nothing to unwrap */
+.reveal .uw-pipe .pipe-slice { width: 116px; margin-top: 6px; }
+.reveal .uw-pipe .pipe-slice label { display: flex; flex-direction: column; align-items: stretch; gap: 2px; font-size: 13px; text-align: center; }
+.reveal .uw-pipe .pipe-slice label[hidden] { display: none; }
+.reveal .uw-pipe .pipe-slice input { width: 100%; }
+.reveal .uw-pipe .pipe-out .uw-cite { font-size: 11px; width: 210px; margin: 8px 0 0; }
+.reveal .uw-pipe .uw-view-seg { justify-self: start; }
+.reveal .uw-pipe .ex-panel .uw-cite { margin: 0; }
+/* the steps slides: the citation at the bottom of the Intervals and Unwrapped tabs; the unwrapped image centred */
+.reveal .uw-pipe .ex-panel > .uw-cite { grid-column: 1 / -1; margin: 14px 0 0; font-size: 12px; }
+.reveal .uw-pipe .ex-panel.pipe-unw:not([hidden]) { display: flex; flex-direction: column; align-items: center; }
+.reveal .uw-pipe .ex-panel.pipe-unw > .uw-cite { text-align: center; max-width: 560px; }
+/* the viewer tab: a mini qMRLab viewer (its palette: zinc greys, olive accent, mono names, black image panel) */
+.reveal .uw-pipe .ex-panel.pipe-view:not([hidden]) { display: block; }
+.reveal .uw-mv { display: grid; grid-template-columns: 250px 1fr; gap: 10px; height: 440px; padding: 8px; border: 1px solid #e4e4e7; border-radius: 10px; background: #f6f6f7; font-size: 12px; color: #18181b; }
+.reveal .uw-mv .mv-side { background: #fff; border: 1px solid #e4e4e7; border-radius: 8px; padding: 8px 10px; overflow: hidden; }
+.reveal .uw-mv .mv-h { margin: 2px 0 6px; font: 500 10px ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a93; }
+.reveal .uw-mv .mv-h + .uw-mv-xy, .reveal .uw-mv .uw-mv-layers + .mv-h { margin-top: 10px; }
+.reveal .uw-mv .mv-group { margin: 6px 0 2px; font-size: 10px; color: #8a8a93; }
+.reveal .uw-mv .mv-layer { display: grid; grid-template-columns: 12px 1fr auto 26px; gap: 6px; align-items: center; width: 100%; height: 24px; padding: 0 6px 0 8px; margin: 1px 0; border: 1px solid transparent; border-radius: 7px; background: none; color: #18181b; cursor: pointer; text-align: left; font: inherit; }
+.reveal .uw-mv .mv-layer:hover { background: #f1f1f3; }
+.reveal .uw-mv .mv-layer.sel { background: #e7e7ea; border-color: #d4d4d8; box-shadow: inset 2px 0 0 #4d7c0f; }
+.reveal .uw-mv .mv-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 11px ui-monospace, "SF Mono", Menlo, monospace; }
+.reveal .uw-mv .mv-val { font: 11px ui-monospace, "SF Mono", Menlo, monospace; color: #4d7c0f; text-align: right; font-variant-numeric: tabular-nums; }
+.reveal .uw-mv .mv-unit { font-size: 10px; color: #8a8a93; }
+.reveal .uw-mv .mv-swatch { width: 10px; height: 10px; border-radius: 3px; border: 1px solid #d4d4d8; }
+.reveal .uw-mv .mv-gray { background: linear-gradient(to right, #000, #fff); }
+.reveal .uw-mv .mv-phase { background: linear-gradient(to right, rgb(86,124,189), #fff, rgb(196,92,84)); }
+.reveal .uw-mv .mv-bwr { background: linear-gradient(to right, rgb(5,48,97), #fff, rgb(103,0,31)); }
+.reveal .uw-mv .uw-mv-xy { margin: 0; font: 11px ui-monospace, "SF Mono", Menlo, monospace; color: #52525b; white-space: pre; }
+.reveal .uw-mv .mv-main { display: flex; flex-direction: column; min-width: 0; background: #000; border: 1px solid #e4e4e7; border-radius: 10px; padding: 8px; }
+.reveal .uw-mv .uw-mv-view { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.reveal .uw-mv .uw-mv-canvas { display: block; cursor: crosshair; touch-action: none; }
+.reveal .uw-mv .uw-mv-cbar { display: grid; grid-template-columns: 1fr 1fr; margin-top: 6px; font: 10px ui-monospace, "SF Mono", Menlo, monospace; color: #d4d4d8; }
+.reveal .uw-mv .uw-mv-cbar i { grid-column: 1 / -1; height: 8px; border-radius: 2px; }
+.reveal .uw-mv .uw-mv-cbar span:last-child { text-align: right; }
+.reveal .uw-pipe .uw-mv canvas { outline: none; background: #000; }
+.reveal .uw-mv.mv-nocur .mv-h-cur, .reveal .uw-mv.mv-nocur .mv-val, .reveal .uw-mv.mv-nocur .mv-unit { visibility: hidden; }
+.reveal .uw-pipe .uw-drag-range canvas, .reveal .uw-pipe .uw-drag-range .uw-cbar i { cursor: ew-resize; touch-action: none; }
+.reveal .uw-pipe .uw-drag-range { user-select: none; }
+.reveal .uw-pipe .ex-panel.pipe-cmp:not([hidden]) { display: flex; gap: 14px; justify-content: center; }
+.reveal .uw-pipe .ex-panel.pipe-cmp figure { width: 190px; }

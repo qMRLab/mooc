@@ -1,0 +1,19 @@
+[package]
+name = "volread"
+version = "0.1.0"
+edition = "2021"
+description = "Reads MINC1, MINC2 and NIfTI volumes in the browser for the B0 deck's Exercise 5-2, using the qMRLab NIfTI viewer's parser (github.com/qmrlab/viewer)."
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# The qMRLab viewer (local working tree: its MINC reader is not committed yet; pin to a commit once it is)
+labview = { path = "../../../../../../viewer" }
+wasm-bindgen = "0.2"
+
+[profile.release]
+opt-level = "z"
+lto = true
