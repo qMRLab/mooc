@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 5-1 · B0 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <style>
+    .reveal .ck-clocks { display: flex; gap: 26px; }
+    .reveal .ck-clocks figure { margin: 0; text-align: center; }
+    .reveal .ck-clocks figcaption { font-size: 15px; color: var(--muted); margin-bottom: 4px; }
+    .reveal .ck-clocks figcaption b { color: var(--ink); }
+    .reveal .ck-legend { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+    .reveal .ck-legend .dash { display: inline-block; width: 22px; border-top: 2px dashed #8a95a3; vertical-align: middle; margin-right: 4px; }
+    .reveal .ck-task { font-size: 16px; margin: 0 0 10px; padding: 8px 12px; background: #fdecea; border: 1px solid #f2b8b5; border-radius: 8px; }
+    .reveal .ck-hint { font-size: 14px; margin: 0 0 10px; padding: 6px 12px; background: #fff4d6; border-left: 4px solid #e0a800; border-radius: 6px; }
+    .reveal .ck-timer { height: 6px; background: #eef1f4; border-radius: 3px; overflow: hidden; margin: 4px 0 10px; }
+    .reveal .ck-timer div { height: 100%; width: 0; background: var(--accent); }
+    .reveal .ck-answer .bs-btn { font-size: 17px; padding: 7px 18px; }
+    .reveal .ck-answer .bs-btn:disabled { opacity: 0.45; cursor: default; }
+    .reveal .ck-answer .bs-btn.good { border: 2px solid #2e8b3a; background: #e6f4e8; font-weight: 700; opacity: 1; }
+    .reveal .ck-answer .bs-btn.bad { border: 2px solid #c0392b; opacity: 1; }
+    .reveal .ck-fb { min-height: 2.6em; margin: 8px 0; font-size: 15px; }
+    .reveal .ck-results { font-size: 14px; }
+    .reveal .ck-results td { padding: 2px 8px 2px 0; }
+    .reveal .al-plot { width: 600px; height: 340px; }
+    .reveal .sd-dial { display: block; }
+    .reveal section.summary-lessons ol { font-size: 0.8em; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-1</p>
+  <h2>Building intuition: what can you tell from a clock you only glance at?</h2>
+</section>
+
+<section id="clock-game" data-book="exercises">
+  <p class="kicker">Exercise 5-1 · (a)</p>
+  <h2>Fast or slow? Only two glances to go on</h2>
+  <div class="ex-grid" style="--left: 560px">
+    <div>
+      <div class="ck-clocks">
+        <figure><figcaption>1st glance · your watch: <b class="ck-t1">9:00</b></figcaption><svg class="ck-c1" width="260" height="260" viewBox="-130 -130 260 260" role="img" aria-label="The wall clock at the first glance"></svg></figure>
+        <figure><figcaption>2nd glance · your watch: <b class="ck-t2">–</b></figcaption><svg class="ck-c2" width="260" height="260" viewBox="-130 -130 260 260" role="img" aria-label="The wall clock at the second glance"></svg></figure>
+      </div>
+      <p class="ck-legend"><span class="dash"></span>where a correct clock would point · the wall clock has no hour hand</p>
+    </div>
+    <div class="ex-side">
+      <p class="ck-task">A wall clock with only a minute hand. You glance at it twice, and note the time on your (perfect) watch. Press <b>Start</b>: is the wall clock running <b>fast</b>, <b>slow</b>, or <b>can’t you tell</b>? A right answer scores up to 1000 points, fewer the longer you take.</p>
+      <p class="ck-hint"><b>Hint:</b> the clock runs between 0.5× and 1.5× real speed.</p>
+      <div class="bs-row"><button class="bs-btn ck-start">Start</button><b class="ck-status"></b></div>
+      <div class="ck-timer"><div></div></div>
+      <div class="bs-row ck-answer"><button class="bs-btn" data-ck="fast" disabled>Fast</button><button class="bs-btn" data-ck="slow" disabled>Slow</button><button class="bs-btn" data-ck="cant" disabled>Can’t tell</button></div>
+      <p class="ck-fb"></p>
+      <table class="stats ck-results"><tbody></tbody></table>
+    </div>
+  </div>
+  <aside class="notes">The chapter's clock exercise (5) as a game. Five rounds, with the time between glances growing: 10, 20, 30, 50 and 75 minutes. The hint (0.5–1.5× real speed) plays the part of the largest field offset you expect. Up to 50 minutes there is only one rate in that range that fits both glances; at 75 minutes two do (45 and 105 minutes per 75), so the honest answer is "can't tell". After each answer the second clock replays what the hand really did, including the full turns you couldn't see.</aside>
+</section>
+
+<section id="clock-alias">
+  <p class="kicker">Exercise 5-1 · (b)</p>
+  <h2>How long can you wait between glances?</h2>
+  <div class="ex-grid" style="--left: 610px">
+    <div><div class="al-plot" role="img" aria-label="Clock rates that fit the two glances"></div><p class="ex-cap">Each line is a clock rate that puts the minute hand exactly where you saw it at the 2nd glance.</p></div>
+    <div class="ex-side">
+      <p class="ex-lead">Every extra full turn of the minute hand between your glances gives another rate that fits what you saw. <b>Move the time between glances: when do you start to have more than one possible rate inside 0.5–1.5×?</b></p>
+      <div class="bs-row"><span>Time between glances <b class="al-dt-read"></b></span><input class="al-dt" type="range" min="5" max="120" step="5" value="30" aria-label="Time between glances"></div>
+      <div class="bs-row"><span>True clock rate <b class="al-r-read"></b></span><input class="al-r" type="range" min="0.5" max="1.5" step="0.05" value="1.4" aria-label="True clock rate"></div>
+      <table class="stats">
+        <tr><td>Rates that fit, in 0.5–1.5×</td><td><b class="al-fits"></b></td></tr>
+        <tr><td>Can you tell fast from slow?</td><td><b class="al-tell"></b></td></tr>
+      </table>
+      <div class="bs-row" style="margin-top:10px"><button class="bs-btn show-ans" aria-pressed="false" data-show="Show the answer" data-hide="Hide the answer">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li>Rates from 0.5× to 1.5× move the hand between 0.5 Δt and 1.5 Δt in Δt: a spread of <b>Δt</b> minutes.</li>
+        <li>One fit only while that spread is under one turn: <b>Δt &lt; 60 min</b>.</li>
+        <li>In MRI: offsets from −Δf<sub>max</sub> to +Δf<sub>max</sub> spread the phase by 2Δf<sub>max</sub>·ΔTE turns, so <b>ΔTE &lt; 1/(2Δf<sub>max</sub>)</b>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="spin-dial">
+  <p class="kicker">Exercise 5-1 · (c)</p>
+  <h2>From clocks to spins: the phase is the minute hand</h2>
+  <div class="ex-grid" style="--left: 420px">
+    <div><svg class="sd-dial" width="400" height="400" viewBox="-200 -200 400 400" role="img" aria-label="The phase of a spin between the two echoes"></svg><p class="ex-cap">Grey: the phase the spin really gained (one ring per turn). Blue: what the phase difference image shows.</p></div>
+    <div class="ex-side">
+      <div class="ask" data-answer="54" data-tol="0.06" data-unit="°" data-explain="360° × 50 Hz × 3 ms = 54° (0.94 rad).">
+        <p><b>Predict first:</b> a spin 50 Hz off resonance, two echoes 3 ms apart. By how many degrees does its phase move between the echoes?</p>
+        <div class="ask-row"><input type="number" step="1" aria-label="Phase in degrees"> ° <button class="bs-btn ask-go">Check</button></div>
+        <p class="ask-fb"></p>
+      </div>
+      <p class="ex-lead">Now move Δf and ΔTE. <b>When does the measured offset stop matching the true one, and what does it show instead?</b></p>
+      <div class="bs-row"><span>Δf (true) <b class="sd-f-read"></b></span><input class="sd-f" type="range" min="-250" max="250" step="5" value="50" aria-label="Frequency offset"></div>
+      <div class="bs-row"><span>ΔTE <b class="sd-te-read"></b></span><input class="sd-te" type="range" min="0.5" max="10" step="0.25" value="3" aria-label="Echo time difference"></div>
+      <table class="stats">
+        <tr><td>Phase gained, 360° × Δf × ΔTE</td><td><b class="sd-gain"></b></td></tr>
+        <tr><td>Phase difference you measure</td><td><b class="sd-meas"></b></td></tr>
+        <tr><td>Δf you compute from it</td><td><b class="sd-fmeas"></b></td></tr>
+        <tr><td>No wraps while |Δf| &lt; 1/(2 ΔTE) =</td><td><b class="sd-lim"></b></td></tr>
+      </table>
+    </div>
+  </div>
+  <aside class="notes">The chapter's exercise 2 (50 Hz, ΔTE = 3 ms) as the predict-first question: 0.15 turn, 54°, 0.94 rad. Then the same picture as the clock: the phase difference only shows where the hand points, not how many turns it made. Past ±1/(2ΔTE) the computed offset jumps to the other sign: +200 Hz with ΔTE = 3 ms reads as −133 Hz.</aside>
+</section>
+
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 5-1 · Summary</p>
+  <h2>A phase image is a clock you only glance at</h2>
+  <ol>
+    <li><b>Each echo is one glance:</b> the phase shows where the hand points, not how many turns it made since the last echo.</li>
+    <li><b>Knowing the range is what makes two glances enough:</b> one rate fits as long as the whole range of offsets moves the phase by less than one turn, <b>ΔTE &lt; 1/(2Δf<sub>max</sub>)</b>.</li>
+    <li><b>Past that, the map aliases:</b> a too-large offset reads as a smaller one of the other sign. That’s a phase wrap in time. <b>So how would you measure an offset larger than the limit?</b>
+      <p class="sl-answer fragment">Glance more often (a shorter ΔTE), or add a third echo at a different spacing (the multi-echo methods and UMPIRE of the lecture).</p>
+    </li>
+  </ol>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/ex-common.js"></script>
+<script src="js/ex51-clock.js"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

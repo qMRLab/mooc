@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 5-3 · B0 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <style>
+    .reveal .fo-pics { display: flex; gap: 10px; }
+    .reveal .fo-map { width: 330px; height: 340px; }
+    .reveal .fo-saw { width: 360px; height: 340px; }
+    .reveal .fo-presets .bs-btn { font-size: 13.5px; padding: 4px 10px; }
+    .reveal .fx-map { width: 420px; height: 430px; }
+    .reveal .fx-seg { display: flex; flex-direction: column; gap: 8px; margin: 0 0 12px; }
+    .reveal .fx-seg .bs-btn { text-align: left; font-size: 15px; }
+    .reveal section.summary-lessons ol { font-size: 0.8em; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-3</p>
+  <h2>The scanner’s frequency was set wrong: what does the field map show?</h2>
+</section>
+
+<section id="fo-convert">
+  <p class="kicker">Exercise 5-3 · (a)</p>
+  <h2>A perfect field, a wrong frequency</h2>
+  <div class="ex-side" style="max-width: 820px; font-size: 18px">
+    <p class="ex-lead">A homogeneous phantom in a perfectly uniform field of exactly 3 T, on a 3 T scanner. By mistake, the imaging frequency (f<sub>0</sub>) was set to that of <b>3 T − 4.69731 µT</b>. You run a dual-echo GRE with <b>ΔTE = 5 ms</b>.</p>
+    <div class="ask" data-answer="200" data-tol="0.02" data-unit=" Hz" data-explain="γ/2π × ΔB = 42.58 MHz/T × 4.69731 µT = 200.0 Hz: the spins precess 200 Hz faster than the frequency the scanner demodulates at.">
+      <p><b>First, convert:</b> how far off resonance are the spins, in Hz?</p>
+      <div class="ask-row"><input type="number" step="1" aria-label="Offset in Hz"> Hz <button class="bs-btn ask-go">Check</button></div>
+      <p class="ask-fb"></p>
+    </div>
+  </div>
+  <aside class="notes">The chapter's exercise 3. γ/2π = 42.58 MHz/T, so 4.69731 µT is 200.0 Hz (and 2.35 µT, in part (b) of the book's exercise, is 100 Hz).</aside>
+</section>
+
+<section id="fo-quiz" class="hl-quiz" data-done="Check them with the simulator on the next slide.">
+  <p class="kicker">Exercise 5-3 · (b) · predict first</p>
+  <h2>What will the field map show?</h2>
+  <p class="hq-lead">The phantom of (a): a perfectly uniform field, f<sub>0</sub> set too low, dual-echo GRE with ΔTE = 5 ms, a little noise.</p>
+  <div class="hq-card">
+    <div class="hq-top"><span class="hq-count"></span><b class="hq-score"></b></div>
+    <p class="hq-q"></p>
+    <div class="hq-btns"></div>
+    <p class="hq-fb" hidden></p>
+    <p class="hq-why" hidden></p>
+    <p class="hq-check" hidden></p>
+    <button class="bs-btn hq-next" hidden>Next question</button>
+  </div>
+  <ol class="hq-data" hidden>
+    <li data-a="zero" data-opts="p:+200 Hz everywhere|m:−200 Hz everywhere|zero:0 Hz everywhere|noise:Noise"><span class="q">f<sub>0</sub> is 200 Hz too low. What does the field map show?</span>
+      <span class="w">0 Hz: in 5 ms, 200 Hz turns the phase exactly once (360°), so both echoes have the same phase. The map looks perfectly shimmed.</span>
+      <span class="c">Check it on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="flip" data-opts="p:+100 Hz everywhere|m:−100 Hz everywhere|zero:0 Hz everywhere|flip:±100 Hz, flipping from voxel to voxel"><span class="q">If f<sub>0</sub> were 2.35 µT too low instead (100 Hz), what would the map show?</span>
+      <span class="w">In 5 ms, 100 Hz turns the phase by exactly 180°: the phase difference sits on the ±π edge, and noise pushes each voxel to one side or the other, +100 or −100 Hz at random.</span>
+      <span class="c">Check it on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="a80" data-opts="a80:80 Hz|a120:120 Hz|a180:180 Hz|a250:250 Hz"><span class="q">With ΔTE = 5 ms, which of these offsets does the map show correctly?</span>
+      <span class="w">Only offsets within ±1/(2ΔTE) = ±100 Hz: 80 Hz is right, but 120 Hz reads as −80 Hz, 180 Hz as −20 Hz and 250 Hz as +50 Hz.</span>
+      <span class="c">Check it on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+  </ol>
+</section>
+
+<section id="fo-sim">
+  <p class="kicker">Exercise 5-3 · (c)</p>
+  <h2>Check it: the phantom’s field map, for any f<sub>0</sub> error</h2>
+  <div class="ex-grid" style="--left: 700px">
+    <div><div class="fo-pics"><div class="fo-map"></div><div class="fo-saw"></div></div><p class="ex-cap">Left: the phantom’s field map. Right: the offset the map shows against the true one; shaded, the range it shows correctly.</p></div>
+    <div class="ex-side">
+      <p class="ex-lead"><b>Move the frequency error: which offsets look perfectly shimmed? Which flip from voxel to voxel?</b></p>
+      <div class="bs-row"><span>f<sub>0</sub> too low by <b class="fo-f-read"></b></span><input class="fo-f" type="range" min="-300" max="300" step="5" value="200" aria-label="Frequency error"></div>
+      <div class="bs-row"><span>ΔTE <b class="fo-te-read"></b></span><input class="fo-te" type="range" min="1" max="10" step="0.5" value="5" aria-label="Echo time difference"></div>
+      <div class="bs-row fo-presets"><button class="bs-btn" data-fo="200">4.69731 µT (200 Hz)</button><button class="bs-btn" data-fo="100">2.35 µT (100 Hz)</button><button class="bs-btn" data-fo="0">Set right (0 Hz)</button></div>
+      <table class="stats">
+        <tr><td>True offset</td><td><b class="fo-true"></b></td></tr>
+        <tr><td>Phase turned in ΔTE</td><td><b class="fo-turn"></b></td></tr>
+        <tr><td>Mean of the map</td><td><b class="fo-mean"></b></td></tr>
+        <tr><td>Voxels reading + / −</td><td><b class="fo-split"></b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="fo-fix">
+  <p class="kicker">Exercise 5-3 · (d)</p>
+  <h2>The map looks perfect. How would you catch it?</h2>
+  <div class="ex-grid" style="--left: 440px">
+    <div><div class="fx-map"></div></div>
+    <div class="ex-side">
+      <p class="ex-lead">The phantom of (a): f<sub>0</sub> 200 Hz too low, ΔTE = 5 ms, so the map reads 0 Hz. <b>Predict first: which of these would show the 200 Hz?</b></p>
+      <div class="fx-seg">
+        <button class="bs-btn" data-fx="two" aria-pressed="true">Two echoes, 5 ms apart (what you have)</button>
+        <button class="bs-btn" data-fx="spatial" aria-pressed="false">… then unwrap the map spatially</button>
+        <button class="bs-btn" data-fx="third" aria-pressed="false">… or add a 3rd echo, 1 ms after the 1st</button>
+      </div>
+      <table class="stats"><tr><td>Mean of the map</td><td><b class="fx-mean"></b></td></tr></table>
+      <div class="bs-row" style="margin-top:10px"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li><b>Spatial unwrapping can’t:</b> a uniform offset has no wraps in space to find. The map stays at 0 Hz.</li>
+        <li><b>A short echo spacing can:</b> 1 ms gives ±500 Hz without wraps, coarse but unambiguous. It then tells how many turns the 5 ms pair made.</li>
+        <li><b>At the scanner:</b> check the frequency adjustment. The water peak should sit at f<sub>0</sub>.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">The third echo is the lecture's "close pair, then a late echo" (Figure 5.16): the 1 ms pair estimates the offset coarsely without wraps (±500 Hz), which gives the number of turns of the 5 ms pair; the 5 ms pair then refines it. Spatial unwrapping only finds 2π jumps between neighbouring voxels, and a uniform offset has none.</aside>
+</section>
+
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 5-3 · Summary</p>
+  <h2>A wrong f<sub>0</sub> in a field map</h2>
+  <ol>
+    <li><b>A wrong f<sub>0</sub> adds the same offset everywhere:</b> 4.69731 µT is 200 Hz at 3 T.</li>
+    <li><b>The map can hide it:</b> with ΔTE = 5 ms, 200 Hz is exactly one turn and reads 0 Hz, a perfectly shimmed map. 100 Hz is half a turn and flips between ±100 Hz with noise.</li>
+    <li><b>Spatial unwrapping can’t see it</b> (there are no wraps in space); <b>a shorter echo spacing can</b>, which is one reason for multi-echo field maps.</li>
+  </ol>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/ex-common.js"></script>
+<script src="js/hl-quiz.js"></script>
+<script src="js/ex53-offset.js"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

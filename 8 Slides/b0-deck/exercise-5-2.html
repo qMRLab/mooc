@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 5-2 · B0 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <style>
+    .reveal .rd-map { width: 520px; height: 520px; }
+    .reveal .pr-maps { display: flex; gap: 6px; }
+    .reveal .pr-map { width: 330px; height: 360px; }
+    .reveal .pr-best { font-size: 14px; margin-top: 6px; }
+    .reveal .pr-best td { padding: 2px 10px 2px 0; }
+    .reveal .st-map { width: 440px; height: 500px; }
+    .reveal section.summary-lessons ol { font-size: 0.78em; }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-2</p>
+  <h2>Your protocol: which ΔTE would you choose?</h2>
+</section>
+
+<section id="read-field">
+  <p class="kicker">Exercise 5-2 · (a)</p>
+  <h2>First, read the field you will be mapping</h2>
+  <div class="ex-grid" style="--left: 540px">
+    <div><div class="rd-map" role="img" aria-label="Field map of a brain at 3 T, in Hz"></div><p class="ex-cap">A brain at 3 T, after shimming (the book’s Figure 5.1). Click a voxel to read its offset.</p></div>
+    <div class="ex-side">
+      <p class="ex-lead">You will map this brain with two echoes. <b>Find the largest offset |Δf| in the brain, then the largest ΔTE that can’t wrap.</b></p>
+      <table class="stats"><tr><td>Voxel you clicked</td><td><b class="rd-click">–</b></td></tr><tr><td>Largest |Δf| you clicked</td><td><b class="rd-max">–</b></td></tr></table>
+      <div class="ask" data-answer="79" data-tol="0.15" data-unit=" Hz" data-explain="Near the front of the brain, toward the sinuses.">
+        <p>Largest |Δf| in the brain:</p>
+        <div class="ask-row"><input type="number" step="1" aria-label="Largest offset in Hz"> Hz <button class="bs-btn ask-go">Check</button></div>
+        <p class="ask-fb"></p>
+      </div>
+      <div class="ask" data-answer="6.3" data-tol="0.15" data-unit=" ms" data-explain="1 / (2 × 79 Hz) = 6.3 ms: offsets from −79 to +79 Hz then move the phase by less than one turn.">
+        <p>Largest ΔTE with no wraps:</p>
+        <div class="ask-row"><input type="number" step="0.1" aria-label="Largest echo time difference in ms"> ms <button class="bs-btn ask-go">Check</button></div>
+        <p class="ask-fb"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pr-quiz" class="hl-quiz" data-done="Check them with the simulator on the next slide.">
+  <p class="kicker">Exercise 5-2 · (b) · predict first</p>
+  <h2>Higher or lower? Before you scan</h2>
+  <p class="hq-lead">Dual-echo GRE on the brain of (a), at 3 T unless the question says otherwise. The field map is Δf = Δφ / (2π ΔTE).</p>
+  <div class="hq-card">
+    <div class="hq-top"><span class="hq-count"></span><b class="hq-score"></b></div>
+    <p class="hq-q"></p>
+    <div class="hq-btns"><button class="bs-btn" data-hq="hi">Higher</button><button class="bs-btn" data-hq="lo">Lower</button><button class="bs-btn" data-hq="same">About the same</button></div>
+    <p class="hq-fb" hidden></p>
+    <p class="hq-why" hidden></p>
+    <p class="hq-check" hidden></p>
+    <button class="bs-btn hq-next" hidden>Next question</button>
+  </div>
+  <ol class="hq-data" hidden>
+    <li data-a="lo"><span class="q">ΔTE doubles, from 3 to 6 ms (no wraps yet): is the noise in the field map higher or lower?</span>
+      <span class="w">Lower, about half: the same phase noise is divided by a phase difference twice as large (σ<sub>Δf</sub> ∝ 1/ΔTE).</span>
+      <span class="c">Check it on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="hi"><span class="q">ΔTE goes from 6 to 8 ms: is the error at the front of the brain (offsets up to 79 Hz) higher or lower?</span>
+      <span class="w">Higher: 1/(2 × 8 ms) = 62.5 Hz, below 79 Hz, so those voxels wrap. 79 Hz then reads as about −46 Hz.</span>
+      <span class="c">Check it on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="hi"><span class="q">TE<sub>1</sub> goes from 2 to 20 ms, ΔTE fixed at 4 ms: is the noise in the field map higher or lower?</span>
+      <span class="w">Higher: both echoes have decayed with T<sub>2</sub><sup>*</sup> (e<sup>−20/45</sup> ≈ 0.64 of the signal), and σ<sub>φ</sub> = 1/SNR.</span>
+      <span class="c">Check it on the next slide, then come back: your progress here is kept. <button class="bs-btn hq-go" data-go="1">Check it on the next slide →</button></span></li>
+    <li data-a="same"><span class="q">The SNR doubles: is the largest ΔTE you can use without wraps higher or lower?</span>
+      <span class="w">About the same: wraps depend only on the offsets and ΔTE, not on noise. More SNR makes the map less noisy, not harder to wrap.</span></li>
+    <li data-a="hi"><span class="q">The same brain at 7 T, same ΔTE: is the risk of wraps higher or lower?</span>
+      <span class="w">Higher: offsets scale with B<sub>0</sub> (×2.3), so the largest ΔTE without wraps drops from 6.3 to about 2.7 ms.</span></li>
+  </ol>
+</section>
+
+<section id="pr-scan">
+  <p class="kicker">Exercise 5-2 · (c) · your protocol</p>
+  <h2>Scan it: find the TE<sub>1</sub> and ΔTE with the smallest error</h2>
+  <div class="ex-grid" style="--left: 680px">
+    <div><div class="pr-maps"><div class="pr-map pr-meas"></div><div class="pr-map pr-err"></div></div><p class="ex-cap">Left: your field map. Right: your map minus the true field.</p></div>
+    <div class="ex-side">
+      <p class="ex-lead">Dual-echo GRE on the brain of (a): complex noise on both echoes, T<sub>2</sub><sup>*</sup> = 45 ms. <b>Which settings give the smallest error? Why not the longest ΔTE?</b></p>
+      <div class="bs-row"><span>TE<sub>1</sub> <b class="pr-te1-read"></b></span><input class="pr-te1" type="range" min="1" max="20" step="0.5" value="4" aria-label="First echo time"></div>
+      <div class="bs-row"><span>ΔTE <b class="pr-dte-read"></b></span><input class="pr-dte" type="range" min="0.5" max="12" step="0.25" value="1" aria-label="Echo time difference"></div>
+      <div class="bs-row"><span>SNR <b class="pr-snr-read"></b></span><input class="pr-snr" type="range" min="5" max="100" step="5" value="20" aria-label="Signal-to-noise ratio"></div>
+      <table class="stats">
+        <tr><td>Error in the brain (RMS)</td><td><b class="pr-rmse"></b></td></tr>
+        <tr><td>Voxels that wrap (|Δf| &gt; 1/(2ΔTE))</td><td><b class="pr-wrap"></b></td></tr>
+        <tr><td>No wraps while |Δf| &lt;</td><td><b class="pr-lim"></b></td></tr>
+      </table>
+      <table class="stats pr-best"><tbody><tr><td colspan="3"><b>Your best so far</b></td></tr><tr><td>–</td><td></td><td></td></tr></tbody></table>
+    </div>
+  </div>
+  <aside class="notes">The brain's true field is the book's Figure 5.1 map (Hz). Each echo is m·e^(−TE/T2*)·e^(i2πΔf·TE) plus complex Gaussian noise (σ = median brain magnitude / SNR), with T2* = 45 ms; the map is the angle of S2·S1* over 2πΔTE. Short ΔTE: noise dominates (σ ∝ 1/ΔTE). Past 6.3 ms the frontal voxels wrap and the error jumps. Long TE1 costs SNR. The best is a short TE1 and ΔTE just under 6.3 ms; at low SNR the optimum moves a little shorter, since noisy voxels near the limit wrap too.</aside>
+</section>
+
+<section id="pr-real">
+  <p class="kicker">Exercise 5-2 · (d)</p>
+  <h2>A real protocol: what could this map measure?</h2>
+  <div class="ex-grid" style="--left: 460px">
+    <div><div class="st-map" role="img" aria-label="A measured field map at 3 T"></div></div>
+    <div class="ex-side">
+      <p class="ex-lead">A field map measured at 3 T with two echoes <b>2.24 ms</b> apart (TE<sub>1</sub> = 4 ms), one axial slice.</p>
+      <div class="ask" data-answer="223" data-tol="0.04" data-unit=" Hz" data-shown="±223">
+        <p><b>What is the largest offset it can measure without wraps?</b></p>
+        <div class="ask-row">± <input type="number" step="1" aria-label="Largest offset in Hz"> Hz <button class="bs-btn ask-go">Check</button></div>
+        <p class="ask-fb"></p>
+      </div>
+      <p class="ex-lead"><b>That’s far more than this brain needs. Why choose such a short ΔTE?</b></p>
+      <div class="bs-row"><button class="bs-btn show-ans" aria-pressed="false">Show the answer</button></div>
+      <ul class="ans" hidden>
+        <li><b>±223 Hz</b> = 1/(2 × 2.24 ms): about 3 times the offsets in a shimmed brain, so nothing wraps. Outside the head, where there is only noise, the map fills that whole range.</li>
+        <li><b>Fat:</b> about 447 Hz below water at 3 T, it turns about once in 2.24 ms. Fat and water are back in phase, so fat’s chemical shift doesn’t show up as field.</li>
+        <li><b>The cost:</b> a short ΔTE gives a noisier map (σ ∝ 1/ΔTE). It’s fine at high SNR.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">The lecture's slide 2 map (the 2013 Stikov 3 T session, mtspgr_b0). ΔTE = 2.24 ms is one fat-water in-phase period at 3 T (3.5 ppm × 127.7 MHz ≈ 447 Hz). The saved maps from the original processing span −223 to +223 Hz because noise voxels outside the head fill the whole ±1/(2ΔTE) range.</aside>
+</section>
+
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 5-2 · Summary</p>
+  <h2>Choosing ΔTE</h2>
+  <ol>
+    <li><b>Read your field before choosing ΔTE:</b> no wraps while ΔTE &lt; 1/(2|Δf|<sub>max</sub>), about 6.3 ms for this brain at 3 T, 2.7 ms at 7 T.</li>
+    <li><b>Longer ΔTE, less noise</b> (σ ∝ 1/ΔTE), <b>until the largest offsets wrap:</b> the best ΔTE sits just under the limit.</li>
+    <li><b>Keep TE<sub>1</sub> short:</b> T<sub>2</sub><sup>*</sup> decay makes both echoes noisier.</li>
+    <li><b>Or pick ΔTE for fat:</b> with fat and water in phase (≈ 2.2–2.5 ms at 3 T), fat isn’t mistaken for field, at the cost of a noisier map.</li>
+  </ol>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/ex-common.js"></script>
+<script src="js/figures/b0Fig1jn.js"></script>
+<script src="js/figures/b0MapStikov.js"></script>
+<script src="js/hl-quiz.js"></script>
+<script src="js/ex52-protocol.js"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
