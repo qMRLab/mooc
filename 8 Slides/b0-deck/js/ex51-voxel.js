@@ -88,6 +88,19 @@
     const MAXROWS = 8;
 
     const tip = (phi, r) => [r * Math.cos(phi), -r * Math.sin(phi)];   // math angle → screen (y up)
+    // a switch of buttons drawn in the SVG: items [[key, label], ...], each w wide, rounded on the outer ends
+    function svgSwitch(parent, x0, y0, w, items, current, onPick) {
+      const g = svgEl('g', { transform: `translate(${x0}, ${y0})`, style: 'cursor:pointer', 'font-size': 18 }, parent);
+      items.forEach(([key, label], i) => {
+        const on = current === key, x = i * w, h = 26, y = -18, r = 6, first = i === 0, last = i === items.length - 1;
+        const b = svgEl('g', { role: 'button', 'aria-pressed': String(on), 'aria-label': label }, g);
+        const d = `M${x + (first ? r : 0)},${y} H${x + w - (last ? r : 0)} ${last ? `Q${x + w},${y} ${x + w},${y + r}` : ''} V${y + h - (last ? r : 0)} ${last ? `Q${x + w},${y + h} ${x + w - r},${y + h}` : ''} H${x + (first ? r : 0)} ${first ? `Q${x},${y + h} ${x},${y + h - r}` : ''} V${y + (first ? r : 0)} ${first ? `Q${x},${y} ${x + r},${y}` : ''} Z`;
+        svgEl('path', { d, fill: on ? '#e9eef5' : '#fff', stroke: '#c9d1db', 'stroke-width': 1.5 }, b);
+        svgEl('text', { x: x + w / 2, y: 1, 'text-anchor': 'middle', fill: on ? INK : '#7a8a9c', 'font-weight': on ? 700 : 400 }, b).textContent = label;
+        b.addEventListener('click', () => onPick(key));
+      });
+      return g;
+    }
     // an arrow from (x0, y0) to (x1, y1), in units of R, screen y down; the head shrinks for short arrows
     const setArrow = (a, x0, y0, x1, y1) => {
       const X0 = x0 * R, Y0 = y0 * R, X1 = x1 * R, Y1 = y1 * R, L = Math.hypot(X1 - X0, Y1 - Y0);
@@ -168,21 +181,12 @@
     }
     function drawTable() {
       list.innerHTML = '';
+      if (st.ready) fillPickers();
       const row = (y, cells, attrs) => cells.forEach((c, j) => { svgEl('text', { x: LX + COL[j], y, ...(attrs[j] || {}) }, list).textContent = c; });
       const grey = { fill: '#7a8a9c', 'font-size': 21 };
       row(-R + 30, ['#', 'TE', 'Freq. offset', '|M|', 'Phase'], [grey, grey, grey, grey, grey]);
       // the phase unit, a two-button switch above the Phase column
-      const sw = svgEl('g', { transform: `translate(${LX + COL[4] - 4}, ${-R - 8})`, style: 'cursor:pointer', 'font-size': 18 }, list);
-      [['deg', 'deg', 0], ['rad', 'rad', 52]].forEach(([u, label, x]) => {
-        const on = st.phase === u, b = svgEl('g', { role: 'button', 'aria-pressed': String(on), 'aria-label': `Phase in ${u === 'deg' ? 'degrees' : 'radians'}` }, sw);
-        // rounded on the outer side only: the left button's left corners, the right button's right corners
-        const w = 52, h = 26, y = -18, r = 6, L = x === 0;
-        const d = L ? `M${x + r},${y} H${x + w} V${y + h} H${x + r} Q${x},${y + h} ${x},${y + h - r} V${y + r} Q${x},${y} ${x + r},${y} Z`
-          : `M${x},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${y + h - r} Q${x + w},${y + h} ${x + w - r},${y + h} H${x} Z`;
-        svgEl('path', { d, fill: on ? '#e9eef5' : '#fff', stroke: '#c9d1db', 'stroke-width': 1.5 }, b);
-        svgEl('text', { x: x + 26, y: 1, 'text-anchor': 'middle', fill: on ? INK : '#7a8a9c', 'font-weight': on ? 700 : 400 }, b).textContent = label;
-        b.addEventListener('click', () => { st.phase = u; drawTable(); draw(); });
-      });
+      svgSwitch(list, LX + COL[4] - 4, -R - 8, 52, [['deg', 'deg'], ['rad', 'rad']], st.phase, (u) => { st.phase = u; drawTable(); draw(); });
       svgEl('line', { x1: LX, x2: LX + COL[4] + 120, y1: -R + 41, y2: -R + 41, stroke: '#d8dee6', 'stroke-width': 1.5 }, list);
       const first = Math.max(0, st.shots.length - MAXROWS);   // the latest ones, if there are many
       st.shots.slice(first).forEach((s, k) => {
@@ -226,7 +230,9 @@
     if (fat) {
       ff.addEventListener('input', () => { st.F = Number(ff.value) / 100; draw(); });
       st.view = 'sum';
-      segToggle(panel, 'svv', (v) => { st.view = v; draw(); });
+      const viewSw = svgEl('g', {}, svg);
+      const drawViewSw = () => { viewSw.innerHTML = ''; svgSwitch(viewSw, R - 172, R + 30, 108, [['sum', 'Tip to tail'], ['sep', 'Two spins']], st.view, (v) => { st.view = v; drawViewSw(); draw(); }); };
+      drawViewSw();
       typed(ffNum, () => 0, () => 100, (v) => { st.F = v / 100; ff.value = v; });
     }
     segToggle(panel, 'svu', (u) => {
@@ -242,7 +248,8 @@
     st.out = 'ut'; let calcShown = false;
     function calc() {
       if (!calcShown) return;
-      const p1 = q('.sv-p1').value, p2 = q('.sv-p2').value, d = q('.sv-dte').value, out = q('.sv-calc-out');
+      const val = (el) => (el.tagName === 'SELECT' ? el.dataset.v ?? '' : el.value);   // a picker or a typed box
+      const p1 = val(q('.sv-p1')), p2 = val(q('.sv-p2')), d = q('.sv-dte').value, out = q('.sv-calc-out');
       if (p1 === '' || p2 === '' || d === '' || !(Number(d) > 0)) { out.textContent = 'Fill in both phases and a ΔTE above 0.'; return; }
       const dphi = Number(p2) - Number(p1);
       const hz = dphi / (2 * Math.PI * Number(d)), B = st.b0;   // γ̄ΔB0 = Δφ / (2π ΔTE)
@@ -252,8 +259,48 @@
         : `ΔB<sub>0</sub> = <b>${sg}${(hz / (GAMMA_BAR * B)).toFixed(3)} ppm</b> <span style="color:var(--muted)">at ${B.toFixed(2)} T</span>`;
     }
     q('.sv-calc-go').addEventListener('click', (e) => { e.currentTarget.blur(); calcShown = true; calc(); });
-    ['.sv-p1', '.sv-p2', '.sv-dte'].forEach((c) => { keepSlider(q(c)); q(c).addEventListener('keydown', (e) => { if (e.key === 'Enter') { calcShown = true; calc(); } }); });
+    ['.sv-p1', '.sv-p2', '.sv-dte'].forEach((c) => { if (q(c).tagName === 'SELECT') return; keepSlider(q(c)); q(c).addEventListener('keydown', (e) => { if (e.key === 'Enter') { calcShown = true; calc(); } }); });
     segToggle(panel, 'svb', (u) => { st.out = u; calc(); });
+    // Water + Fat and Choosing ΔTE: the measured values are picked, not typed. A picker (select.sv-pk) lists the
+    // table's rows; once one is picked it shows only its phase (data-unit: rad or deg), and lists the rows again
+    // when opened. Its value is in data-v. The calculator's ΔTE follows from its two picks.
+    const pickers = [...panel.querySelectorAll('select.sv-pk')];
+    const pkVal = (sh, unit) => (unit === 'deg' ? ((sh.phase * 180) / Math.PI).toFixed(1) : sh.phase.toFixed(4));
+    const pkFull = (sh, i, unit) => `#${i + 1} · ${sh.te.toFixed(2)} ms · ${pkVal(sh, unit)}${unit === 'deg' ? '°' : ''}`;
+    function pkShort(sel) {   // closed: the picked option reads as the value only
+      const o = sel.selectedOptions[0];
+      if (o && o.value !== '') o.textContent = pkVal(st.shots[Number(o.value)], sel.dataset.unit) + (sel.dataset.unit === 'deg' ? '°' : '');
+    }
+    function pkLong(sel) { [...sel.options].forEach((o) => { if (o.value !== '') o.textContent = pkFull(st.shots[Number(o.value)], Number(o.value), sel.dataset.unit); }); }
+    function fillPickers() {
+      pickers.forEach((sel) => {
+        const keep = sel.value, ok = keep !== '' && Number(keep) < st.shots.length;
+        sel.innerHTML = `<option value="">${sel.dataset.ph || 'pick…'}</option>` + st.shots.map((sh, i) => `<option value="${i}">${pkFull(sh, i, sel.dataset.unit)}</option>`).join('');
+        sel.value = ok ? keep : '';
+        if (ok) sel.dataset.v = pkVal(st.shots[Number(keep)], sel.dataset.unit); else delete sel.dataset.v;
+        pkShort(sel);
+      });
+      pickers.forEach((sel) => sel.closest('.sv-pair') && pairShow(sel.closest('.sv-pair')));
+    }
+    // a Δφ answer: the two picks, second echo − first, wrapped to ±180°, shown beside them
+    const pairVal = (pair) => { const [a, b] = pair.querySelectorAll('select'); return a.dataset.v === undefined || b.dataset.v === undefined ? '' : String((wrap(((Number(a.dataset.v) - Number(b.dataset.v)) * Math.PI) / 180) * 180) / Math.PI); };
+    function pairShow(pair) { const v = pairVal(pair), out = pair.nextElementSibling; out.textContent = v === '' ? '' : `= ${Number(v).toFixed(1)}°`; }
+    pickers.forEach((sel) => {
+      keepSlider(sel);
+      ['mousedown', 'focus', 'keydown'].forEach((ev) => sel.addEventListener(ev, () => pkLong(sel)));
+      sel.addEventListener('change', () => {
+        if (sel.value === '') delete sel.dataset.v; else sel.dataset.v = pkVal(st.shots[Number(sel.value)], sel.dataset.unit);
+        pkShort(sel);
+        const pair = sel.closest('.sv-pair'); if (pair) pairShow(pair);
+        if (sel.classList.contains('sv-p1') || sel.classList.contains('sv-p2')) {
+          const a = q('.sv-p1'), b = q('.sv-p2');
+          q('.sv-dte').value = a.value !== '' && b.value !== '' ? +((st.shots[Number(b.value)].te - st.shots[Number(a.value)].te) / 1000).toFixed(7) : '';
+          calc();
+        }
+      });
+      sel.addEventListener('blur', () => pkShort(sel));
+    });
+    fillPickers();
 
     // The questions (pages: data-page; boxes .sv-q at the field data-b0, with fat fraction data-ff, 0 in Part 1), with
     // this simulation's sign (clockwise for a positive offset), on the signal. The echoes: data-te1 / data-te2 in ms
@@ -275,10 +322,13 @@
         const parts = [], kind0 = inputs[0].dataset.kind;
         inputs.forEach((inp) => {
           const kind = inp.dataset.kind, ppm = Number(inp.dataset.ppm || 0), hz = ppm * GAMMA_BAR * B;
-          const p1 = signal(TE1, hz, B, F).phase, p2 = signal(TE2, hz, B, F).phase, dphi = (wrap(p2 - p1) * 180) / Math.PI, rad = (dphi * Math.PI) / 180;
+          // the phases as the table shows them (0.1°), so the working matches what students read and subtract
+          const r1 = (x) => Math.round(x * 10) / 10, toDeg = (x) => (x * 180) / Math.PI;
+          const p1 = signal(TE1, hz, B, F).phase, p2 = signal(TE2, hz, B, F).phase;
+          const dphi = r1(toDeg(wrap(((r1(toDeg(p2)) - r1(toDeg(p1))) * Math.PI) / 180))), rad = (dphi * Math.PI) / 180;
           const want = kind === 'te' ? ipTE(Number(inp.dataset.n)) : kind === 'ut' ? rad / (2 * Math.PI * DTE) / GAMMA_BAR : dphi;
-          const fb = inp.nextElementSibling.nextElementSibling, v = inp.value;
-          if (v === '' || !Number.isFinite(Number(v))) { fb.className = 'ask-fb'; fb.textContent = 'Type a number first.'; }
+          const pair = inp.classList.contains('sv-pair'), fb = inp.nextElementSibling.nextElementSibling, v = pair ? pairVal(inp) : inp.value;
+          if (v === '' || !Number.isFinite(Number(v))) { fb.className = 'ask-fb'; fb.textContent = pair ? 'Pick both.' : 'Fill in.'; }
           else {
             const ok = kind === 'te' ? Math.abs(Number(v) - want) <= 0.02 : kind === 'ut' ? Math.abs(Number(v) - want) <= 0.02 : Math.abs(wrap(((Number(v) - want) * Math.PI) / 180)) <= Math.PI / 180;
             fb.className = `ask-fb ${ok ? 'right' : 'wrong'}`;
@@ -297,8 +347,9 @@
           why.innerHTML += `<span class="sv-hl">The 0.5 ppm voxel gives the same ΔB<sub>0</sub> as water alone (${z(-0.5 * B, 2)} µT): with water and fat in phase at both echoes, fat no longer adds a false field.</span>`;
         }
       });
-      inputs.forEach((inp) => { keepSlider(inp); inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') go.click(); }); });
+      inputs.forEach((inp) => { if (inp.tagName !== 'INPUT') return; keepSlider(inp); inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') go.click(); }); });
     });
+    st.ready = true;
     setOffsetSlider(); draw(); drawTable();
   }
 })();
