@@ -245,6 +245,25 @@
 </section>
 
 <!-- 9 -->
+<section class="figure side" data-book="b0plot8">
+  <div class="fig-layout">
+    <h2>Dual echo: subtract two phases</h2>
+    <div class="side-text">
+      <div class="eq eq-box">$$\Delta B_0 = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
+      <ul>
+        <li>φ<sub>0</sub> <b>cancels</b></li>
+        <li>Complex difference keeps Δφ in (−π, π]: \(\angle\big(e^{i\phi_2}\,e^{-i\phi_1}\big)\)</li>
+      </ul>
+      <div class="fig-tabs" data-for="f8"><button aria-pressed="true" data-show="b0Fig8jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig8jn">Δφ and ΔB<sub>0</sub></button></div>
+      <p class="fig-hint">A cylinder at one constant frequency offset.</p>
+    </div>
+    <div class="fig-host" data-fig="b0Fig8jna" data-tabs="f8"></div>
+  </div>
+  <div class="pause-badges"><a class="pause-badge" href="exercise-5-1.html" target="_blank" rel="noopener" title="Stop here for Exercise 5-1">⏸ Exercise 5-1</a></div>
+  <aside class="notes">Pause here: the corner link opens the exercise in a new tab. Eq. 5.5 and 5.6. Some sequences export a single phase-difference image. Figure 5.8: a sample at a constant offset from f0 (not realistic, since susceptibilities interact, but good for intuition). Phase accumulates between the echoes; the difference divided by γΔTE gives the field. If ΔTE is too long the phase turns more than half a revolution between echoes and the estimate is wrong (Nyquist). A constant offset like this one could simply be fixed by adjusting the scanner frequency.</aside>
+</section>
+
+<!-- 10 -->
 <section class="figure side" data-book="b0plot7">
   <div class="fig-layout">
     <h2>Phase at longer echo times</h2>
@@ -260,24 +279,6 @@
     <div class="fig-host" data-fig="b0Fig7jn"></div>
   </div>
   <aside class="notes">Figure 5.7: brain phase at progressively longer echo times. At one voxel the phase changes linearly; sharp lines are phase wraps, because phase is only defined over −π to π. Wraps also appear spatially, and more of them at longer TE. Not every scanner exports phase by default; it can be turned on, or computed from real/imaginary data with arctan2 (Eq. 5.4).</aside>
-</section>
-
-<!-- 10 -->
-<section class="figure side" data-book="b0plot8">
-  <div class="fig-layout">
-    <h2>Dual echo: subtract two phases</h2>
-    <div class="side-text">
-      <div class="eq eq-box">$$\Delta B_0 = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
-      <ul>
-        <li>φ<sub>0</sub> <b>cancels</b></li>
-        <li>Complex difference keeps Δφ in (−π, π]: \(\angle\big(e^{i\phi_2}\,e^{-i\phi_1}\big)\)</li>
-      </ul>
-      <div class="fig-tabs" data-for="f8"><button aria-pressed="true" data-show="b0Fig8jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig8jn">Δφ and ΔB<sub>0</sub></button></div>
-      <p class="fig-hint">A cylinder at one constant frequency offset.</p>
-    </div>
-    <div class="fig-host" data-fig="b0Fig8jna" data-tabs="f8"></div>
-  </div>
-  <aside class="notes">Eq. 5.5 and 5.6. Some sequences export a single phase-difference image. Figure 5.8: a sample at a constant offset from f0 (not realistic, since susceptibilities interact, but good for intuition). Phase accumulates between the echoes; the difference divided by γΔTE gives the field. If ΔTE is too long the phase turns more than half a revolution between echoes and the estimate is wrong (Nyquist). A constant offset like this one could simply be fixed by adjusting the scanner frequency.</aside>
 </section>
 
 <!-- 11 -->
