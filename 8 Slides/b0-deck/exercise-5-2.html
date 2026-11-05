@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 5-2 · B0 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-2</p>
+  <h2>Phase unwrapping</h2>
+</section>
+
+<!-- The viewers (js/unwrap-demo.js, js/nifti-lite.js): (a) the steps, input to B0 map, on the 2013 Stikov
+     two-echo scan (nii/); (b) the same steps on a QSM scan whose phase difference must be unwrapped. Unwrapped by region
+     merging (Jenkinson 2003; our implementation in vendor/unwrap/). -->
+<!-- (a) the pipeline, one step at a time: the input (magnitude and both echoes' phase, as acquired) on the left, the
+     steps in tabs in the middle (for the echo chosen), the B0 map on the right. The 2013 Stikov two-echo scan. -->
+<section class="figure uw-view uw-pipe" data-tab="proto" data-unwrap="none" data-uw="real" data-default="nii/stikov2013_b0_phase.nii.gz,nii/stikov2013_b0_mag.nii.gz">
+  <p class="kicker">Exercise 5-2 · (a)</p>
+  <h2>From phase to B<sub>0</sub>: dual-echo dataset</h2>
+  <div class="pipe">
+    <div class="pipe-col pipe-in">
+      <h3>Input</h3>
+      <figure><canvas class="uw-c-mag" data-box="116,132"></canvas><figcaption>Magnitude</figcaption></figure>
+      <figure><canvas class="uw-c-ph1" data-box="116,132"></canvas><figcaption>Phase, echo 1</figcaption></figure>
+      <figure><canvas class="uw-c-ph2" data-box="116,132"></canvas><figcaption>Phase, echo 2</figcaption><div class="uw-cbar" data-for="wrap"></div></figure>
+      <div class="uw-ctrl pipe-slice"><label class="uw-z-row" hidden><span>Slice <b class="uw-z-v"></b></span><input class="uw-z" type="range" min="0" max="0" step="1" value="0" aria-label="Slice"></label></div>
+    </div>
+    <div class="pipe-col pipe-mid">
+      <div class="ex-tabs" role="tablist" aria-label="Steps">
+        <button role="tab" data-tab="view" aria-selected="false">Viewer</button>
+        <button role="tab" data-tab="proto" aria-selected="true">Protocol</button>
+        <button role="tab" data-tab="mask" aria-selected="false">Mask</button>
+        <button role="tab" data-tab="int" aria-selected="false">Intervals</button>
+        <button role="tab" data-tab="unw" aria-selected="false">Unwrapped</button>
+        <button role="tab" data-tab="cmp" aria-selected="false">B<sub>0</sub> compared</button>
+      </div>
+      <div class="uw-ctrl pipe-echo">
+        <label class="uw-t-row"><span>Echo</span><input class="uw-t" type="range" min="0" max="0" step="1" value="0" aria-label="Echo"><b class="uw-t-v"></b></label>
+      </div>
+      <div class="ex-panel pipe-view" role="tabpanel" data-panel="view" hidden>
+        <div class="uw-mv">
+          <div class="mv-side"><p class="mv-h">Layers</p><div class="uw-mv-layers"></div><p class="mv-h mv-h-cur">Cursor</p><p class="uw-mv-xy"></p></div>
+          <div class="mv-main"><div class="uw-mv-view"><canvas class="uw-mv-canvas" aria-label="The selected layer; click to move the cursor"></canvas></div><div class="uw-mv-cbar"></div></div>
+        </div>
+      </div>
+      <div class="ex-panel pipe-proto" role="tabpanel" data-panel="proto">
+        <div class="uw-ctrl">
+          <div class="uw-row"><span>Echo times</span><div class="seg"><button data-tem="pair" aria-pressed="true">TE₁ and TE₂</button><button data-tem="delta" aria-pressed="false">ΔTE</button></div></div>
+          <label class="te-pair"><span>TE₁</span><input class="uw-te1 uw-num" type="number" min="0" step="0.01" value="4" aria-label="First echo time in ms"><b>ms</b></label>
+          <label class="te-pair"><span>TE₂</span><input class="uw-te2 uw-num" type="number" min="0" step="0.01" value="6.24" aria-label="Second echo time in ms"><b>ms</b></label>
+          <div class="uw-row te-pair"><span></span><b class="uw-dte-v"></b></div>
+          <label class="te-delta"><span>ΔTE</span><input class="uw-dte uw-num" type="number" min="0.01" step="0.01" value="2.24" aria-label="Echo spacing in ms"><b>ms</b></label>
+          <div class="uw-row uw-unwrap-row"><span>Unwrap</span><div class="seg"><button data-uwu="none" aria-pressed="true">none</button><button data-uwu="echo" aria-pressed="false">each echo</button><button data-uwu="diff" aria-pressed="false">phase difference</button></div></div>
+          <div class="uw-row uw-mask-row"><span>Mask</span><div class="seg"><button data-uwm="none" aria-pressed="false">None</button><button data-uwm="thr" aria-pressed="true">Threshold</button><button data-uwm="file" aria-pressed="false">Load</button></div></div>
+          <div class="uw-row mask-file-row"><span></span><div><button class="bs-btn uw-open-mask">Choose a mask file…</button><input class="uw-file-mask" type="file" accept=".nii,.mnc,.gz" hidden></div></div>
+          <div class="uw-row mask-file-row"><span></span><b class="uw-mask-name"></b></div>
+        </div>
+      </div>
+      <div class="ex-panel" role="tabpanel" data-panel="mask" hidden>
+        <figure><canvas class="uw-c-mask" data-box="280,330"></canvas></figure>
+        <div class="uw-ctrl">
+          <label class="uw-thr-row"><span>Threshold</span><input class="uw-thr" type="range" min="0" max="0.5" step="0.01" value="0" aria-label="Mask threshold, as a fraction of the magnitude range"><b class="uw-thr-v"></b></label>
+        </div>
+      </div>
+      <div class="ex-panel" role="tabpanel" data-panel="int" hidden>
+        <figure><canvas class="uw-c-int" data-box="280,330"></canvas></figure>
+        <div class="uw-ctrl">
+          <label><span>Intervals</span><input class="uw-n" type="range" min="1" max="12" step="1" value="2" aria-label="Number of phase intervals"><b class="uw-n-v"></b></label>
+          <div class="uw-int-list" aria-label="The phase intervals"></div>
+          <p class="uw-stats"></p>
+        </div>
+        <p class="uw-cite">qMRLab mOOC implementation of the phase-unwrapping algorithm based on Jenkinson M. <i>Fast, automated, N-dimensional phase-unwrapping algorithm.</i> Magn Reson Med 2003;49:193–197.</p>
+      </div>
+      <div class="ex-panel pipe-cmp" role="tabpanel" data-panel="cmp" hidden>
+        <figure><canvas class="uw-c-b0p" data-box="190,230"></canvas><figcaption>B<sub>0</sub> from phase</figcaption><div class="uw-cbar" data-for="b0p"></div></figure>
+        <figure><canvas class="uw-c-b0u2" data-box="190,230"></canvas><figcaption>B<sub>0</sub> from unwrapped phase</figcaption><div class="uw-cbar" data-for="b0u2"></div></figure>
+        <figure><canvas class="uw-c-b0x" data-box="190,230"></canvas><figcaption>Unwrapped − phase</figcaption><div class="uw-cbar" data-for="b0x"></div></figure>
+      </div>
+      <div class="ex-panel pipe-unw" role="tabpanel" data-panel="unw" hidden>
+        <figure><canvas class="uw-c-unw" data-box="280,330"></canvas><div class="uw-cbar" data-for="unw"></div></figure>
+        <p class="uw-cite">qMRLab mOOC implementation of the phase-unwrapping algorithm based on Jenkinson M. <i>Fast, automated, N-dimensional phase-unwrapping algorithm.</i> Magn Reson Med 2003;49:193–197.</p>
+      </div>
+    </div>
+    <div class="pipe-col pipe-out">
+      <h3>Output</h3>
+      <figure class="uw-map"><canvas class="uw-c-b0u" data-box="210,250"></canvas><figcaption>B<sub>0</sub> map</figcaption><div class="uw-cbar" data-for="b0u"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- (b) the same steps on a QSM scan (multi-echo GRE, 3 T, echoes 1 and 2, ΔTE 5.83 ms): its phase difference wraps
+     past ±86 Hz near the sinuses, and its background is the scanner's own noise. QSM consensus example data, CC BY 4.0
+     (nii/qsmcons_SOURCE.md). Opens on slice 12. -->
+<section class="figure uw-view uw-pipe" data-tab="proto" data-unwrap="none" data-uw="real" data-default="nii/qsmcons_siemens_e12_phase.nii.gz,nii/qsmcons_siemens_e12_mag.nii.gz" data-z="11">
+  <p class="kicker">Exercise 5-2 · (b)</p>
+  <h2>From phase to B<sub>0</sub>: QSM challenge dataset</h2>
+  <div class="pipe">
+    <div class="pipe-col pipe-in">
+      <h3>Input</h3>
+      <figure><canvas class="uw-c-mag" data-box="116,118"></canvas><figcaption>Magnitude</figcaption></figure>
+      <figure><canvas class="uw-c-ph1" data-box="116,118"></canvas><figcaption>Phase, echo 1</figcaption></figure>
+      <figure><canvas class="uw-c-ph2" data-box="116,118"></canvas><figcaption>Phase, echo 2</figcaption><div class="uw-cbar" data-for="wrap"></div></figure>
+      <div class="uw-ctrl pipe-slice"><label class="uw-z-row" hidden><span>Slice <b class="uw-z-v"></b></span><input class="uw-z" type="range" min="0" max="0" step="1" value="0" aria-label="Slice"></label></div>
+    </div>
+    <div class="pipe-col pipe-mid">
+      <div class="ex-tabs" role="tablist" aria-label="Steps">
+        <button role="tab" data-tab="view" aria-selected="false">Viewer</button>
+        <button role="tab" data-tab="proto" aria-selected="true">Protocol</button>
+        <button role="tab" data-tab="mask" aria-selected="false">Mask</button>
+        <button role="tab" data-tab="int" aria-selected="false">Intervals</button>
+        <button role="tab" data-tab="unw" aria-selected="false">Unwrapped</button>
+        <button role="tab" data-tab="cmp" aria-selected="false">B<sub>0</sub> compared</button>
+      </div>
+      <div class="uw-ctrl pipe-echo">
+        <label class="uw-t-row"><span>Echo</span><input class="uw-t" type="range" min="0" max="0" step="1" value="0" aria-label="Echo"><b class="uw-t-v"></b></label>
+      </div>
+      <div class="ex-panel pipe-view" role="tabpanel" data-panel="view" hidden>
+        <div class="uw-mv">
+          <div class="mv-side"><p class="mv-h">Layers</p><div class="uw-mv-layers"></div><p class="mv-h mv-h-cur">Cursor</p><p class="uw-mv-xy"></p></div>
+          <div class="mv-main"><div class="uw-mv-view"><canvas class="uw-mv-canvas" aria-label="The selected layer; click to move the cursor"></canvas></div><div class="uw-mv-cbar"></div></div>
+        </div>
+      </div>
+      <div class="ex-panel pipe-proto" role="tabpanel" data-panel="proto">
+        <div class="uw-ctrl">
+          <div class="uw-row"><span>Echo times</span><div class="seg"><button data-tem="pair" aria-pressed="true">TE₁ and TE₂</button><button data-tem="delta" aria-pressed="false">ΔTE</button></div></div>
+          <label class="te-pair"><span>TE₁</span><input class="uw-te1 uw-num" type="number" min="0" step="0.01" value="5.25" aria-label="First echo time in ms"><b>ms</b></label>
+          <label class="te-pair"><span>TE₂</span><input class="uw-te2 uw-num" type="number" min="0" step="0.01" value="11.08" aria-label="Second echo time in ms"><b>ms</b></label>
+          <div class="uw-row te-pair"><span></span><b class="uw-dte-v"></b></div>
+          <label class="te-delta"><span>ΔTE</span><input class="uw-dte uw-num" type="number" min="0.01" step="0.01" value="5.83" aria-label="Echo spacing in ms"><b>ms</b></label>
+          <div class="uw-row uw-unwrap-row"><span>Unwrap</span><div class="seg"><button data-uwu="none" aria-pressed="true">none</button><button data-uwu="echo" aria-pressed="false">each echo</button><button data-uwu="diff" aria-pressed="false">phase difference</button></div></div>
+          <div class="uw-row uw-mask-row"><span>Mask</span><div class="seg"><button data-uwm="none" aria-pressed="false">None</button><button data-uwm="thr" aria-pressed="true">Threshold</button><button data-uwm="file" aria-pressed="false">Load</button></div></div>
+          <div class="uw-row mask-file-row"><span></span><div><button class="bs-btn uw-open-mask">Choose a mask file…</button><input class="uw-file-mask" type="file" accept=".nii,.mnc,.gz" hidden></div></div>
+          <div class="uw-row mask-file-row"><span></span><b class="uw-mask-name"></b></div>
+        </div>
+      </div>
+      <div class="ex-panel" role="tabpanel" data-panel="mask" hidden>
+        <figure><canvas class="uw-c-mask" data-box="280,330"></canvas></figure>
+        <div class="uw-ctrl">
+          <label class="uw-thr-row"><span>Threshold</span><input class="uw-thr" type="range" min="0" max="0.5" step="0.01" value="0" aria-label="Mask threshold, as a fraction of the magnitude range"><b class="uw-thr-v"></b></label>
+        </div>
+      </div>
+      <div class="ex-panel" role="tabpanel" data-panel="int" hidden>
+        <figure><canvas class="uw-c-int" data-box="280,330"></canvas></figure>
+        <div class="uw-ctrl">
+          <label><span>Intervals</span><input class="uw-n" type="range" min="1" max="12" step="1" value="2" aria-label="Number of phase intervals"><b class="uw-n-v"></b></label>
+          <div class="uw-int-list" aria-label="The phase intervals"></div>
+          <p class="uw-stats"></p>
+        </div>
+        <p class="uw-cite">qMRLab mOOC implementation of the phase-unwrapping algorithm based on Jenkinson M. <i>Fast, automated, N-dimensional phase-unwrapping algorithm.</i> Magn Reson Med 2003;49:193–197.</p>
+      </div>
+      <div class="ex-panel pipe-cmp" role="tabpanel" data-panel="cmp" hidden>
+        <figure><canvas class="uw-c-b0p" data-box="190,230"></canvas><figcaption>B<sub>0</sub> from phase</figcaption><div class="uw-cbar" data-for="b0p"></div></figure>
+        <figure><canvas class="uw-c-b0u2" data-box="190,230"></canvas><figcaption>B<sub>0</sub> from unwrapped phase</figcaption><div class="uw-cbar" data-for="b0u2"></div></figure>
+        <figure><canvas class="uw-c-b0x" data-box="190,230"></canvas><figcaption>Unwrapped − phase</figcaption><div class="uw-cbar" data-for="b0x"></div></figure>
+      </div>
+      <div class="ex-panel pipe-unw" role="tabpanel" data-panel="unw" hidden>
+        <figure><canvas class="uw-c-unw" data-box="280,330"></canvas><div class="uw-cbar" data-for="unw"></div></figure>
+        <p class="uw-cite">qMRLab mOOC implementation of the phase-unwrapping algorithm based on Jenkinson M. <i>Fast, automated, N-dimensional phase-unwrapping algorithm.</i> Magn Reson Med 2003;49:193–197.</p>
+      </div>
+    </div>
+    <div class="pipe-col pipe-out">
+      <h3>Output</h3>
+      <figure class="uw-map"><canvas class="uw-c-b0u" data-box="210,250"></canvas><figcaption>B<sub>0</sub> map</figcaption><div class="uw-cbar" data-for="b0u"></div></figure>
+      <p class="uw-cite">Data: Chan K-S, Marques JP, Spincemaille P, Wang Y. QSM consensus example data (Siemens). Zenodo, doi:10.5281/zenodo.7795492, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>; echoes 1 and 2, averaged to 2 mm, every 4th slice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Summary -->
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 5-2 · Summary</p>
+  <h2>Summary</h2>
+  <ol>
+    <li>You can unwrap either each echo's phase map, then subtract, or the phase difference Δφ = φ<sub>2</sub> − φ<sub>1</sub>.</li>
+    <li>Unwrapping might not be necessary: Δφ does not wrap as long as the field offset stays within ±1/(2ΔTE), that is when
+      <div class="eq-box">ΔTE [s] &lt; 1 / (2 γ̄ ΔB<sub>0</sub> [Hz])</div>where ΔB<sub>0</sub> is the largest field offset expected.</li>
+    <li>Near air–tissue interfaces (sinuses, ear canals), the field can be strong enough that phase wraps are unavoidable, even with a short ΔTE.</li>
+  </ol>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/nifti-lite.js"></script>
+<script src="js/unwrap-demo.js"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
