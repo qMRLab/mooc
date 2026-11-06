@@ -472,7 +472,7 @@
 .reveal .dc-top .eq-box { font-size: 0.62em; margin: 0; justify-self: center; }
 .reveal .dc-speed-row { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; white-space: nowrap; }
 .reveal .dc-bar .dc-speed { width: 90px; }
-.reveal .dc-bar { display: flex; gap: 12px; align-items: center; font-size: 15px; margin: 8px 0 8px; }
+.reveal .dc-bar { display: flex; gap: 12px; align-items: center; font-size: 15px; margin: 20px 0 16px; }
 .reveal .dc .seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
 .reveal .dc .seg button { font: inherit; font-size: 14px; padding: 6px 14px; border: none; background: #fff; color: var(--muted); cursor: pointer; white-space: nowrap; }
 .reveal .dc .seg button + button { border-left: 1px solid var(--rule); }
@@ -488,14 +488,14 @@
 .reveal .dc-row { display: flex; gap: 14px; align-items: flex-start; justify-content: center; }
 .reveal .dc-row figure { margin: 0; display: flex; flex-direction: column; align-items: center; width: 235px; }
 .reveal .dc-row canvas { width: 205px; height: 205px; object-fit: contain; image-rendering: pixelated; background: #e9edf1; }
-.reveal .dc-legend { font-size: 15px; margin: 6px 0 0; text-align: center; }
+.reveal .dc-legend { font-size: 15px; margin: 4px 0 0; text-align: center; }
 .reveal .dc-mark { display: inline-block; width: 12px; height: 12px; background: rgb(0, 229, 255); border: 1px solid #0a6a77; vertical-align: -1px; }
 .reveal .dc-term { font-size: 18px; margin: 0 0 4px; height: 28px; display: flex; align-items: flex-end; gap: 5px; white-space: nowrap; }
 .reveal .dc-inputs .dc-term { font-size: 16px; height: 24px; }
 .reveal .dc-op { align-self: center; margin-top: 30px; font-size: 26px; color: var(--muted); text-align: center; }
 .reveal .dc-small .dc-b0 { margin-top: 4px; }
-.reveal .dc-ft { font-size: 15px; margin: 8px 0 0; color: var(--muted); }
-.reveal .dc-qsm { margin: 6px 0 0; padding: 8px 18px; background: #fdecea; border: 2px solid #c0392b; border-radius: 10px; }
+.reveal .dc-ft { font-size: 15px; margin: 4px 0 0; color: var(--muted); }
+.reveal .dc-qsm { margin: 4px 0 0; padding: 4px 16px; background: #fdecea; border: 2px solid #c0392b; border-radius: 10px; }
 .reveal .dc-qsm p { font-size: 21px; margin: 0; line-height: 1.35; }
 .reveal .dc-qsm .dc-qsm-more { font-size: 15px; color: var(--muted); margin-top: 3px; }
 .reveal .dc-sum { display: flex; flex-direction: column; align-items: center; width: 92px; }

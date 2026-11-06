@@ -62,8 +62,8 @@ BWR = [[0, "#053061"], [0.2, "#2166ac"], [0.4, "#92c5de"], [0.5, "#ffffff"], [0.
 
 
 def fig1_field_map_first(fig):
-    """Figure 5.1 on slide 3: open on the field map in ppm (trace 4, menu entry 4) and show the three field
-    maps (Hz, µT, ppm: traces 2-4) in blue-white-red around 0, with matching ranges (±0.65 ppm at 3 T)."""
+    """Figure 5.1 on slide 3: open on the field map in ppm (trace 4, menu entry 4) and show the phase (trace 1, on ±π) and
+    the three field maps (Hz, µT, ppm: traces 2-4) in blue-white-red around 0, with matching ranges (±0.65 ppm at 3 T)."""
     menu = fig["layout"]["updatemenus"][0]
     # No plot title: it repeats the menu (and sat off-centre). Subscript 0 in the menu labels.
     fig["layout"].pop("title", None)
@@ -80,6 +80,7 @@ def fig1_field_map_first(fig):
     f0_mhz = 127.7  # 3 T
     for trace, limit in zip(fig["data"][2:5], (ppm_limit * f0_mhz, ppm_limit * 3.0, ppm_limit)):
         trace.update(colorscale=BWR, zmin=-limit, zmax=limit)
+    fig["data"][1].update(colorscale=BWR, zmin=-math.pi, zmax=math.pi)  # the phase entry, like the other phase images
 
 
 def fig2_dipole_bwr(fig):
