@@ -51,8 +51,6 @@ FIGURES = {
     "b0Fig14jn": "3 Phase Unwrapping/Notebooks/Figure-5-3-5.ipynb",
     "b0Fig15jn": "4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-1.ipynb",
     "b0Fig16jn": "4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-2.ipynb",
-    "b0Fig17jn": "4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-3.ipynb",
-    "b0Fig18jn": "4 Advanced B0 Mapping Methods/Notebooks/Figure-5-4-4.ipynb",
 }
 
 # Figure 5.3: b0Fig3ajn holds the cylinder and the brain images (the brain hidden) but no menu; b0Fig3jn has the

@@ -119,8 +119,8 @@
       <ul>
         <li>Shim the field</li>
         <li>Unwarp EPI (FUGUE)</li>
-        <li>Correct T<sub>2</sub><sup>*</sup> decay</li>
-        <li>Compute QSM</li>
+        <li>Mitigate T<sub>2</sub><sup>*</sup> signal loss</li>
+        <li>Compute susceptibility, χ</li>
       </ul>
     </div>
   </div>
@@ -297,17 +297,24 @@
 <section class="figure side title-top" data-book="b0plot8">
   <div class="fig-layout">
     <h2>B<sub>0</sub> mapping technique: dual echo method</h2>
-    <div class="side-text">
+    <div class="side-text side-low">
+      <p>The phase of an MRI pixel at TE is:</p>
+      <div class="eq">$$\phi(TE) = \phi_0 + \gamma\,\Delta B_0\,TE$$</div>
+      <p>where φ<sub>0</sub> is the initial phase after the excitation pulse, and is independent of TE.</p>
       <div class="eq eq-box">$$\Delta B_0 = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
       <ul>
-        <li>φ<sub>0</sub> <b>cancels</b></li>
-        <li>Complex difference keeps Δφ in (−π, π]: \(\angle\big(e^{i\phi_2}\,e^{-i\phi_1}\big)\)</li>
+        <li>Complex difference keeps Δφ in [−π, π): \(\angle\big(e^{i\phi_2}\,e^{-i\phi_1}\big)\)</li>
       </ul>
-      <p class="fig-hint">A cylinder at one constant frequency offset.</p>
     </div>
     <div class="fig-col tabs-below">
+      <p class="fig-hint fig-hint-top">A cylinder at one constant frequency offset.</p>
       <div class="fig-host" data-fig="b0Fig8jna" data-tabs="f8"></div>
       <div class="fig-tabs" data-for="f8"><button aria-pressed="true" data-show="b0Fig8jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig8jn">Δφ and ΔB<sub>0</sub></button></div>
+      <div class="raw-phase">
+        <b>From the scanner:</b> DICOM typically stores phase as unsigned integers (e.g. 0 to 4095) with a rescale slope and intercept (e.g. 2 and −4096). Depending on how you read it, you get one of two ranges, both spanning [−π, π):
+        <div class="raw-phase-eq"><span class="raw-phase-case">0 to 4095:</span> \(\phi = \dfrac{2\pi}{4096}\,\text{value} - \pi\) <span class="raw-phase-gap"></span> <span class="raw-phase-case">−4096 to 4094:</span> \(\phi = \dfrac{\pi}{4096}\,\text{value}\)</div>
+        <p class="raw-phase-note">Data ranges differ by vendor, converter and reader, so check yours. It caught us too: <a href="https://github.com/qMRLab/mooc-data/pull/1" target="_blank" rel="noopener">qMRLab/mooc-data#1&nbsp;↗</a></p>
+      </div>
     </div>
   </div>
   <div class="pause-badges"><a class="pause-badge" href="exercise-5-1.html" target="_blank" rel="noopener" title="Stop here for Exercise 5-1">⏸ Exercise 5-1</a></div>
@@ -325,7 +332,6 @@
         <li>Longer TE → <b>more wraps</b></li>
       </ul>
       <p class="takeaway">Phase images come from real and imaginary data: ∠ = atan2(imag, real)</p>
-      <p class="fig-hint">Slider: echo time.</p>
     </div>
     <div class="fig-host" data-fig="b0Fig7jn"></div>
   </div>
@@ -344,8 +350,11 @@
       </ul>
     </div>
     <div class="fig-col tabs-below">
+      <div class="fig-tabs" data-sets-for="f9"><button aria-pressed="true" data-set="1">Dataset 1</button><button aria-pressed="false" data-set="2">Dataset 2</button></div>
       <div class="fig-host" data-fig="b0Fig9jna" data-tabs="f9"></div>
-      <div class="fig-tabs" data-for="f9"><button aria-pressed="true" data-show="b0Fig9jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig9jn">Δφ and ΔB<sub>0</sub></button></div>
+      <div class="fig-tabs" data-for="f9"><button aria-pressed="true" data-show="b0Fig9jna" data-show2="b0QsmPhases">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig9jn" data-show2="b0QsmDiff">Δφ and ΔB<sub>0</sub></button></div>
+      <p class="fig-hint fig-credit" data-credit="1">qMRLab mOOC dataset: <a href="https://github.com/qMRLab/mooc-data" target="_blank" rel="noopener">qMRLab/mooc-data&nbsp;↗</a></p>
+      <p class="fig-hint fig-credit" data-credit="2">QSM consensus dataset (Chan et al., CC BY 4.0): <a href="https://doi.org/10.5281/zenodo.7795492" target="_blank" rel="noopener">Zenodo&nbsp;↗</a></p>
     </div>
   </div>
   <aside class="notes">Figure 5.9: two phase images of a brain, with wraps where the phase goes from −π to +π, then the phase difference and the B0 map. Here the difference removes the wraps, but in a more inhomogeneous field there can be residual wraps, which need unwrapping (next section).</aside>
@@ -521,40 +530,6 @@
 </section>
 
 <!-- 21 -->
-<section class="figure side title-top" data-book="b0plot17">
-  <div class="fig-layout">
-    <h2>Multi-echo data: UMPIRE technique</h2>
-    <div class="side-text">
-      <ul>
-        <li>Three echoes, <b>slightly uneven</b> spacing: ΔTE<sub>1</sub> ≠ ΔTE<sub>2</sub></li>
-        <li>δTE = ΔTE<sub>2</sub> − ΔTE<sub>1</sub> is short: its phase <b>cannot wrap</b></li>
-        <li>It predicts every wrap: ΔTEs can exceed the Nyquist limit</li>
-      </ul>
-      <p class="fig-hint">Click the legend to show or hide traces.</p>
-    </div>
-    <div class="fig-host" data-fig="b0Fig17jn"></div>
-  </div>
-  <aside class="notes">UMPIRE (Robinson 2014) only uses temporal unwrapping and needs at least three echoes. The two echo spacings are chosen slightly different; the phase accrued over their difference δTE is small and free of wraps, so it gives the field, which predicts and removes the wraps in each echo before a linear fit. Its phase must be below π but above zero. (The book writes the accrued phase over "TE2 − TE1 = δTE"; the small interval is the difference of the spacings.) Figure 5.17: one voxel unwrapped with UMPIRE although its phase changes by more than π between echoes.</aside>
-</section>
-
-<!-- 22 -->
-<section class="figure side title-top" data-book="b0plot18">
-  <div class="fig-layout">
-    <h2>Multi-echo data: UMPIRE and noise</h2>
-    <div class="side-text">
-      <ul>
-        <li>δTE is short: a little noise is a <b>large field error</b></li>
-        <li>Wrong wrap count → <span class="caution">wrong slope</span></li>
-        <li>PRELUDE, SEGUE, ROMEO: less noise-sensitive, but no ΔTE beyond π</li>
-      </ul>
-      <p class="fig-hint">Slider: phase offset added to the 2nd echo.</p>
-    </div>
-    <div class="fig-host" data-fig="b0Fig18jn"></div>
-  </div>
-  <aside class="notes">Figure 5.18: the same data as Figure 5.17 with an offset added to the second echo, as noise would; watch the unwrapped points and the fit jump. Unwrappers such as PRELUDE are less susceptible to noise but cannot resolve phase changes larger than π between time points and can be slow; SEGUE is similar but faster; ROMEO is fast and performs better than PRELUDE and BEST PATH with noise.</aside>
-</section>
-
-<!-- 23 -->
 <section data-book="realtime-b0-mapping">
   <div class="pause-badges"><a class="pause-badge" href="exercise-5-3.html" target="_blank" rel="noopener" title="Stop here for Exercise 5-3">⏸ Exercise 5-3</a></div>
   <h2>Shimming and real-time mapping</h2>
@@ -584,7 +559,7 @@
   <aside class="notes">Shimming: the B0 map is the field to cancel. The scanner's shim coils (and gradients, for 1st order) each make a known field pattern, the spherical harmonics: 0th order is the centre frequency f0, 1st order the linear X, Y, Z gradients, 2nd order Z², ZX, ZY, X²−Y² and XY. The currents are chosen so that the sum of these patterns cancels the measured field as well as it can over the region of interest, by least squares: over a whole volume (volume-wise), or slice by slice with the currents changed for each slice (slice-wise, or dynamic, shimming). Exercise 5-3 does this by hand, then compares with the optimal currents. Real-time mapping of respiration: acquire a map in much less than a respiratory cycle; 2D so slice timing can be associated with each slice's field; EPI is faster but distorted, so a 2D dual-echo GRE with minimum TR, short TEs and short RF pulses.</aside>
 </section>
 
-<!-- 24 -->
+<!-- 22 -->
 <section data-book="top">
   <h2>Key takeaways</h2>
   <ol class="keys">
@@ -592,7 +567,7 @@
     <li>Phase grows <b>linearly</b> with TE: φ = φ<sub>0</sub> + γΔB<sub>0</sub>t, so <b>two echoes</b> at least</li>
     <li>ΔTE trades <b>precision</b> against <b>wraps</b>: no wraps if ΔTE &lt; 1/(2Δf<sub>max</sub>)</li>
     <li>Unwrapping (temporal or spatial) leaves a <b>2nπ ambiguity</b>; singularities cannot be unwrapped</li>
-    <li>More echoes: fit the <b>slope</b>; UMPIRE reaches long ΔTEs but is noise-sensitive</li>
+    <li>More echoes: fit the <b>slope</b>; a close echo pair helps unwrap a late echo</li>
   </ol>
   <aside class="notes">Summary of the chapter; exercises follow in the exercises deck.</aside>
 </section>

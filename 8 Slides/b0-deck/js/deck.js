@@ -46,8 +46,6 @@
     b0multiecho: ['Multi-echo B0 Mapping', 'adv'],
     b0plot15: ['Figure 5.15', 'adv'],
     b0plot16: ['Figure 5.16', 'adv'],
-    b0plot17: ['Figure 5.17', 'adv'],
-    b0plot18: ['Figure 5.18', 'adv'],
     b0eddy: ['Reducing Eddy Currents', 'adv'],
     'realtime-b0-mapping': ['Realtime B0 Mapping', 'adv'],
     exercises: ['Exercises', 'top'],
@@ -189,15 +187,26 @@
 
   // Tabs over one figure host: each button names the figure to show (data-show).
   function setupFigTabs(section) {
-    section.querySelectorAll('.fig-tabs').forEach((tabs) => {
+    section.querySelectorAll('.fig-tabs[data-for]').forEach((tabs) => {
       const host = section.querySelector(`.fig-host[data-tabs="${tabs.dataset.for}"]`);
-      tabs.querySelectorAll('button').forEach((b) => {
-        b.addEventListener('click', () => {
-          tabs.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-          if (host.dataset.fig === b.dataset.show) return;
-          unmountFigure(host);
-          host.dataset.fig = b.dataset.show;
-          mountFigure(host);
+      // An optional second row picks a dataset (data-set="n"): a view's figure for it is its data-show<n>, else data-show.
+      const sets = section.querySelector(`.fig-tabs[data-sets-for="${tabs.dataset.for}"]`);
+      const show = () => {
+        const view = tabs.querySelector('button[aria-pressed="true"]');
+        const set = sets && sets.querySelector('button[aria-pressed="true"]').dataset.set;
+        const fig = (set && view.dataset[`show${set}`]) || view.dataset.show;
+        if (host.dataset.fig === fig) return;
+        unmountFigure(host);
+        host.dataset.fig = fig;
+        mountFigure(host);
+      };
+      [tabs, sets].forEach((row) => {
+        if (!row) return;
+        row.querySelectorAll('button').forEach((b) => {
+          b.addEventListener('click', () => {
+            row.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+            show();
+          });
         });
       });
     });

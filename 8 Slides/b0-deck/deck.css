@@ -530,3 +530,20 @@
 .reveal .tool-mini img { display: block; margin: 0; border: 0; box-shadow: none; background: none; }
 .reveal .tool-mini a { white-space: nowrap; }
 .reveal .tool-mini.tool-corner { position: absolute; right: 0; bottom: 34px; margin: 0; flex-wrap: nowrap; gap: 16px; font-size: 18px; }
+
+/* Slide 10: how stored phase integers become radians (one example) */
+.reveal .raw-phase { margin-top: 1em; padding: 0.6em 0.8em; border-left: 3px solid var(--accent); background: #f4f6f9; border-radius: 0 6px 6px 0; font-size: 0.85em; line-height: 1.4; }
+.reveal .raw-phase .raw-phase-note { margin: 0.4em 0 0; color: var(--muted, #5d6b7c); }
+.reveal .raw-phase .raw-phase-eq { margin: 0.35em 0; text-align: center; }
+.reveal .fig-col > .raw-phase { align-self: center; max-width: 760px; margin-top: 0.9em; font-size: 0.5em; }
+.reveal .raw-phase .raw-phase-case { color: var(--muted, #5d6b7c); margin-right: 0.3em; }
+.reveal .raw-phase .raw-phase-gap { display: inline-block; width: 2.2em; }
+/* Slide 10: the side text starts level with the images, not right under the title */
+.reveal section.figure.side .side-text.side-low { margin-top: 1.6em; }
+.reveal .side-text.side-low > p { margin: 0 0 0.3em; }
+.reveal .side-text.side-low > .eq:not(.eq-box) { margin: 0.2em 0 0.5em; }
+.reveal section.figure.side .fig-col > .fig-hint-top { grid-column: auto; grid-row: auto; text-align: center; font-size: 0.6em; margin: 0 0 0.2em; }
+/* Slide 12: under the tabs, the credit of the dataset shown */
+.reveal section.figure.side .fig-col > .fig-credit { display: none; grid-column: auto; grid-row: auto; text-align: center; font-size: 0.5em; margin: 0.6em 0 0; }
+.reveal section.figure.side .fig-col:has(button[data-set="1"][aria-pressed="true"]) > .fig-credit[data-credit="1"],
+.reveal section.figure.side .fig-col:has(button[data-set="2"][aria-pressed="true"]) > .fig-credit[data-credit="2"] { display: block; }
