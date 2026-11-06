@@ -60,7 +60,7 @@
     .reveal .ex53-bars { display: flex; gap: 28px; align-items: flex-start; }
     .reveal .ex53-bars figure { margin: 0; }
     .reveal .ex53-bars svg { overflow: visible; font-family: inherit; }
-    .reveal .ex53-cmp-row { display: flex; gap: 22px; align-items: flex-start; margin-top: 8px; }
+    .reveal .ex53-cmp-row { display: flex; gap: 22px; align-items: flex-start; justify-content: center; margin-top: 18px; }
     .reveal .ex53-cmp-row figure { margin: 0; width: 160px; display: flex; flex-direction: column; align-items: center; }
     .reveal .ex53-cmp-row canvas { width: 130px; height: 189px; image-rendering: pixelated; display: block; background: #e9edf1; outline: 1px solid #c9d1db; }
     .reveal .ex53-cmp-row figcaption { font-size: 13px; color: var(--muted); margin-top: 3px; }
@@ -72,6 +72,15 @@
     /* (c), (d) */
     .reveal .ex53-vol .ex53-over-row { display: flex; gap: 12px; align-items: center; font-size: 15px; color: var(--muted); margin: 0 0 8px; }
     .reveal .ex53-vol .ex53-goal { margin-bottom: 6px; }
+    .reveal .ex53-vol .ex53-views { gap: 4px; }
+    .reveal .ex53-vol.ex53-slicemode.ex53-onshim canvas.ex53-c-in, .reveal .ex53-vol.ex53-slicemode.ex53-onshim canvas.ex53-c-out { outline: 3px solid #d62728; outline-offset: 1px; }   /* the shimmed slice */
+    .reveal .ex53-vol .pipe-in canvas.ex53-c-in, .reveal .ex53-vol .pipe-out canvas.ex53-c-out { width: 120px; height: 174px; }
+    .reveal .ex53-vol .pipe-in canvas.ex53-c-in-sag, .reveal .ex53-vol .pipe-out canvas.ex53-c-out-sag { width: 176px; height: 99px; }
+    .reveal .ex53-planes { width: 210px; gap: 4px; margin-top: 6px; font-size: 13px; }
+    .reveal .ex53-planes label { grid-template-columns: 4.6em 1fr 3.6em; gap: 6px; }
+    .reveal .ex53-vol .ex53-big { margin-top: 6px; }
+    .reveal .ex53-vol .ex53-big b { font-size: 22px; }
+    .reveal .ex53-vol .ex53-submit { margin-top: 8px; }
     .reveal .ex53-over { margin: 6px 0 -6px; font-size: 13px; color: var(--muted); text-align: center; width: 220px; }
     .reveal .ex53-data { position: absolute; left: 230px; bottom: 22px; font-size: 11px; max-width: 760px; }
     .reveal .ex53-cmp2 .ex53-cmp-row { gap: 12px; }
@@ -93,6 +102,12 @@
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-3</p>
   <h2>Shimming</h2>
+  <p class="ex-cover-lead">In this exercise, we will cover:</p>
+  <ol class="ex-cover">
+    <li>How to find the shim currents that make the field more uniform</li>
+    <li>How your shim compares with the optimal one</li>
+    <li>Volume-wise and slice-wise shimming</li>
+  </ol>
 </section>
 
 <!-- (a) the field to shim: the measured map plus f0 +90 Hz, Y +50 µT/m and X2−Y2 +300 µT/m² (data-preset); the sliders,
@@ -151,14 +166,18 @@
 <section class="figure ex53-vol uw-pipe" data-slice="34" data-affine="-2,0,0,95.9279,0,-2,0,144.9334,0,0,2,-63.4818">
   <p class="kicker">Exercise 5-3 · (c)</p>
   <h2>Volume-wise vs slice-wise shimming</h2>
-  <p class="ex53-goal">Find the shim currents that minimize the mean and the SD of B<sub>0</sub>: first over the whole brain, then over this slice only.</p>
+  <p class="ex53-goal">Find the shim currents that minimize the mean and the SD of B<sub>0</sub>: first over the whole brain, then over axial slice 35 only.</p>
   <div class="pipe">
     <div class="pipe-col pipe-in">
       <h3>Input</h3>
-      <figure><canvas class="ex53-c-in"></canvas><figcaption>B<sub>0</sub> as acquired, this slice</figcaption><div class="ex53-cbar"></div></figure>
+      <figure class="ex53-views"><canvas class="ex53-c-in"></canvas><canvas class="ex53-c-in-sag"></canvas><figcaption>B<sub>0</sub> as acquired</figcaption><div class="ex53-cbar"></div></figure>
+      <div class="uw-ctrl ex53-planes">
+        <label><span>Axial</span><input class="ex53-k" type="range" min="0" max="0" step="1" value="0" aria-label="Axial slice shown"><b class="ex53-k-v"></b></label>
+        <label><span>Sagittal</span><input class="ex53-i" type="range" min="0" max="0" step="1" value="0" aria-label="Sagittal slice shown"><b class="ex53-i-v"></b></label>
+      </div>
     </div>
     <div class="pipe-col pipe-mid">
-      <div class="uw-row ex53-over-row"><span>Shim over</span><div class="seg"><button data-shimover="vol" aria-pressed="true">the volume</button><button data-shimover="slice" aria-pressed="false">this slice</button></div></div>
+      <div class="uw-row ex53-over-row"><span>Shim over</span><div class="seg"><button data-shimover="vol" aria-pressed="true">the volume</button><button data-shimover="slice" aria-pressed="false">axial slice 35</button></div></div>
       <div class="ex-tabs" role="tablist" aria-label="Shim orders">
         <button role="tab" data-tab="0" aria-selected="true">0th order</button>
         <button role="tab" data-tab="1" aria-selected="false">1st order</button>
@@ -171,7 +190,7 @@
     </div>
     <div class="pipe-col pipe-out">
       <h3>Output</h3>
-      <figure><canvas class="ex53-c-out"></canvas><figcaption>B<sub>0</sub> after shimming, this slice</figcaption><div class="ex53-cbar"></div></figure>
+      <figure class="ex53-views"><canvas class="ex53-c-out"></canvas><canvas class="ex53-c-out-sag"></canvas><figcaption>B<sub>0</sub> after shimming</figcaption><div class="ex53-cbar"></div></figure>
       <p class="ex53-over"></p>
       <div class="ex53-big"><div><span>Mean</span><b class="ex53-mean"></b></div><div><span>SD</span><b class="ex53-sd"></b></div></div>
       <button class="bs-btn ex53-submit ex53-submit-vol">Submit volume shim</button>
@@ -192,10 +211,10 @@
     <div class="ex53-bars"></div>
     <div class="ex53-cmp-row">
       <figure><canvas class="ex53-c-minevol"></canvas><figcaption>Yours, volume</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="mineVol"></p></figure>
-      <figure><canvas class="ex53-c-mineslice"></canvas><figcaption>Yours, slice</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="mineSlice"></p></figure>
       <figure><canvas class="ex53-c-vol"></canvas><figcaption>Optimal, volume</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="vol"></p></figure>
-      <figure><canvas class="ex53-c-slice"></canvas><figcaption>Optimal, slice</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="slice"></p></figure>
-      <figure><canvas class="ex53-c-diff"></canvas><figcaption>Volume − slice</figcaption><div class="ex53-cbar ex53-cbar-diff"></div></figure>
+      <figure><canvas class="ex53-c-mineslice"></canvas><figcaption>Yours, slice <span data-slicen>35</span></figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="mineSlice"></p></figure>
+      <figure><canvas class="ex53-c-slice"></canvas><figcaption>Optimal, slice <span data-slicen>35</span></figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="slice"></p></figure>
+      <figure><canvas class="ex53-c-diff"></canvas><figcaption>Volume − slice <span data-slicen>35</span></figcaption><div class="ex53-cbar ex53-cbar-diff"></div></figure>
     </div>
   </div>
 </section>
