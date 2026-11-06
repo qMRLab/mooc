@@ -465,3 +465,68 @@
 .reveal .mwf-right .btn-row { margin-bottom: 0; }
 .reveal .mwf-right .btn-row button { font-size: 0.6em; }
 .reveal .game-prompt.mwf-q { font-size: 0.55em; margin: -0.1em 0 0.2em; }
+/* Lecture slide 5, "From χ to ΔB0, and back": the convolution, voxel by voxel (js/dipole-conv.js) */
+.reveal .dc h2 { margin-bottom: 0.15em; }
+.reveal .dc-top { display: grid; gap: 6px; }
+.reveal .dc-top p { font-size: 17px; line-height: 1.4; margin: 0; }
+.reveal .dc-top .eq-box { font-size: 0.62em; margin: 0; justify-self: center; }
+.reveal .dc-speed-row { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; white-space: nowrap; }
+.reveal .dc-bar .dc-speed { width: 90px; }
+.reveal .dc-bar { display: flex; gap: 12px; align-items: center; font-size: 15px; margin: 8px 0 8px; }
+.reveal .dc .seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.reveal .dc .seg button { font: inherit; font-size: 14px; padding: 6px 14px; border: none; background: #fff; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.reveal .dc .seg button + button { border-left: 1px solid var(--rule); }
+.reveal .dc .seg button[aria-pressed="true"] { background: var(--panel); color: var(--ink); font-weight: 700; }
+.reveal .dc .bs-btn { font: inherit; font-size: 14px; padding: 6px 13px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.reveal .dc-bar .dc-pos { width: 220px; }
+.reveal .dc-b0, .reveal .dc-status, .reveal .dc-lim { font-size: 13px; color: var(--muted); }
+.reveal .dc-main { display: flex; gap: 22px; align-items: flex-start; justify-content: center; }
+.reveal .dc-inputs { display: flex; flex-direction: column; gap: 6px; padding-right: 20px; border-right: 1px solid var(--rule); }
+.reveal .dc-inputs figure { margin: 0; display: flex; flex-direction: column; align-items: center; width: 120px; }
+.reveal .dc-inputs canvas { width: 96px; height: 96px; image-rendering: pixelated; background: #fff; }
+.reveal .dc-inputs .dc-b0 { white-space: nowrap; }
+.reveal .dc-row { display: flex; gap: 14px; align-items: flex-start; justify-content: center; }
+.reveal .dc-row figure { margin: 0; display: flex; flex-direction: column; align-items: center; width: 235px; }
+.reveal .dc-row canvas { width: 205px; height: 205px; object-fit: contain; image-rendering: pixelated; background: #e9edf1; }
+.reveal .dc-legend { font-size: 15px; margin: 6px 0 0; text-align: center; }
+.reveal .dc-mark { display: inline-block; width: 12px; height: 12px; background: rgb(0, 229, 255); border: 1px solid #0a6a77; vertical-align: -1px; }
+.reveal .dc-term { font-size: 18px; margin: 0 0 4px; height: 28px; display: flex; align-items: flex-end; gap: 5px; white-space: nowrap; }
+.reveal .dc-inputs .dc-term { font-size: 16px; height: 24px; }
+.reveal .dc-op { align-self: center; margin-top: 30px; font-size: 26px; color: var(--muted); text-align: center; }
+.reveal .dc-small .dc-b0 { margin-top: 4px; }
+.reveal .dc-ft { font-size: 15px; margin: 8px 0 0; color: var(--muted); }
+.reveal .dc-qsm { margin: 6px 0 0; padding: 8px 18px; background: #fdecea; border: 2px solid #c0392b; border-radius: 10px; }
+.reveal .dc-qsm p { font-size: 21px; margin: 0; line-height: 1.35; }
+.reveal .dc-qsm .dc-qsm-more { font-size: 15px; color: var(--muted); margin-top: 3px; }
+.reveal .dc-sum { display: flex; flex-direction: column; align-items: center; width: 92px; }
+.reveal .dc-sum .dc-term { justify-content: center; }
+.reveal .dc-sigma { font-size: 26px; margin-top: 52px; }
+.reveal .dc-arrow { font-size: 26px; color: var(--muted); margin-top: 2px; }
+.reveal .dc-main canvas { outline: 1px solid #c9d1db; }   /* a frame, now that 0 is white */
+
+/* Slide 7: the spins of Figure 5.4 in the rotating frame, under the plot (js/spins.js) */
+.reveal section.figure.side .fig-col { grid-column: 2; grid-row: 1 / span 2; display: flex; flex-direction: column; min-height: 0; }
+.reveal .fig-col .fig-host { flex: 1; min-height: 0; }
+.reveal .spins { flex: none; display: flex; align-items: center; justify-content: center; gap: 22px; font-size: 15px; margin-top: 6px; }
+.reveal .spins-cv { width: 220px; height: 220px; }
+.reveal .spins-ctl { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.reveal .spins-ctl .bs-btn { font: inherit; font-size: 14px; padding: 6px 13px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+.reveal .spins-ctl input { width: 160px; }
+.reveal .spins-time { font-variant-numeric: tabular-nums; color: var(--muted, #5d6b7c); }
+.reveal .spins-cursor { position: absolute; width: 0; border-left: 1.5px solid #2a3f5f; opacity: 0.55; pointer-events: none; z-index: 5; }
+.reveal .spins-speed-row { display: flex; align-items: center; gap: 8px; color: var(--muted, #5d6b7c); }
+.reveal .spins-ctl .spins-speed { width: 90px; }
+
+/* A side-layout slide with its title across the top, centred (slides 10 and 12): text and figure share the row below. */
+.reveal section.figure.side.title-top h2 { grid-column: 1 / -1; grid-row: 1; text-align: center; margin: 0.3em 0 0.5em; }
+.reveal section.figure.side.title-top .fig-host,
+.reveal section.figure.side.title-top .fig-col { grid-row: 2; }
+/* Figure tabs under the figure: the figure keeps a fixed height so the buttons sit right below it. */
+.reveal .fig-col.tabs-below > .fig-host { flex: 0 0 auto; height: 370px; }
+.reveal .fig-col.tabs-below > .fig-tabs { justify-content: center; font-size: 0.62em; margin: 0.5em 0 0; }
+
+/* A small tool pointer (slide 24): a link and logos, in the bottom-right corner. */
+.reveal .tool-mini { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 1.4em; font-size: 0.8em; }
+.reveal .tool-mini img { display: block; margin: 0; border: 0; box-shadow: none; background: none; }
+.reveal .tool-mini a { white-space: nowrap; }
+.reveal .tool-mini.tool-corner { position: absolute; right: 0; bottom: 34px; margin: 0; flex-wrap: nowrap; gap: 16px; font-size: 18px; }

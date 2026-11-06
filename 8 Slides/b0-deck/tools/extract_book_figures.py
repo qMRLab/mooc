@@ -117,8 +117,130 @@ def fig2_dipole_bwr(fig):
              colorbar=dict(bar, x=1.012, tickvals=[-2 / 3 * scale, 0, 1 / 3 * scale], ticktext=["−2/3", "0", "+1/3"]))
 
 
+# White (0) to purple, for chi >= 0 (ColorBrewer Purples), and purple-white-green for signed chi (PRGn: purple > 0),
+# as on slide 5 (js/dipole-conv.js).
+PURPLES = [[0, "#ffffff"], [0.25, "#dadaeb"], [0.5, "#bcbddc"], [0.75, "#807dba"], [1, "#54278f"]]
+PRGN = [[0, "#1b7837"], [0.25, "#7fbf7b"], [0.5, "#ffffff"], [0.75, "#af8dc3"], [1, "#762a83"]]
+
+
+def fig3_colormaps(fig):
+    """Figure 5.3 on slide 6: colour maps instead of grey, white at 0 everywhere. chi: Purples (cylinders, >= 0) or PRGn
+    (the brain, relative to tissue, on ±0.1 ppm, tighter than the book's ±0.5); the fields: blue-white-red, symmetric about 0."""
+    d = fig["data"]
+    peak = lambda t: max(abs(v) for row in t["z"] for v in row if v is not None)
+    d[0].update(colorscale=PURPLES, zmin=0, zmax=peak(d[0]))
+    for t in (d[1], d[2]):
+        lim = peak(t)
+        t.update(colorscale=BWR, zmin=-lim, zmax=lim)
+    d[3].update(colorscale=PRGN, zmin=-0.1, zmax=0.1)   # tissue is within about ±0.1 ppm (1st-99th percentile -0.10 to 0.16); air saturates
+    for t in (d[4], d[5]):                  # the book's symmetric ranges are kept
+        t.update(colorscale=BWR)
+    # the third panel's title gets an asterisk: the slide's footnote says it is the field QSM uses
+    for ann in fig["layout"].get("annotations", []):
+        # "Simulated B0 map" -> "Simulated ΔB0", as on the other slides
+        ann["text"] = ann.get("text", "").replace("Simulated B0 map", "Simulated ΔB<sub>0</sub>")
+        if ann["text"].endswith("no background field"):
+            ann["text"] += "*"
+    # more room between the three panels (the book's spacing leaves the colour bars against the next image): narrower
+    # panels, each colour bar just right of its panel, the titles re-centred, and a wider figure
+    domains = ([0, 0.215], [0.39, 0.605], [0.78, 0.995])
+    L = fig["layout"]
+    for ax, dom in zip(("xaxis", "xaxis2", "xaxis3"), domains):
+        L[ax]["domain"] = dom
+    bar_x = {"x": domains[0][1] + 0.012, "x2": domains[1][1] + 0.012, "x3": domains[2][1] + 0.012}
+    for t in d:
+        t.setdefault("colorbar", {})["x"] = bar_x[t.get("xaxis", "x")]
+    centres = [(a + b) / 2 for a, b in domains]
+    for ann, c in zip([a for a in L.get("annotations", []) if a.get("xref", "paper") == "paper"][:3], centres):
+        ann["x"] = c
+    L["width"] = 820
+    # a thin frame around each panel, now that 0 is white
+    for k in list(fig["layout"].keys()):
+        if k.startswith(("xaxis", "yaxis")):
+            fig["layout"][k].update(showline=True, mirror=True, linecolor="#c9d1db", linewidth=1)
+
+
+def framed(fig):
+    """A thin frame around each panel, for images whose 0 (often the background) is now white."""
+    for k in list(fig["layout"].keys()):
+        if k.startswith(("xaxis", "yaxis")):
+            fig["layout"][k].update(showline=True, mirror=True, linecolor="#c9d1db", linewidth=1)
+    if not any(k.startswith("xaxis") for k in fig["layout"]):
+        fig["layout"]["xaxis"] = dict(showline=True, mirror=True, linecolor="#c9d1db", linewidth=1)
+        fig["layout"]["yaxis"] = dict(showline=True, mirror=True, linecolor="#c9d1db", linewidth=1)
+
+
+def phase_bwr(fig):
+    """Phase images (slides 10-12, 17, 18): blue-white-red instead of grey, white at 0. Phase keeps the book's -pi to pi;
+    a phase difference too. Other maps (the unwrapped phase, the field in Hz) get a range symmetric about 0, so that 0
+    stays white. The book's "B0 field map" titles become "ΔB0 map", as on the other slides."""
+    peak = lambda t: max(abs(v) for row in t["z"] for v in row if v is not None)
+    L = fig["layout"]
+    if "coloraxis" in L:                    # Figure 5.7: one colour axis for all echo times
+        L["coloraxis"].update(colorscale=BWR, cmin=-math.pi, cmax=math.pi)
+    for t in fig["data"]:
+        if t.get("type") != "heatmap" or "coloraxis" in t:
+            continue
+        ticks = t.get("colorbar", {}).get("ticktext", [])
+        if ticks == ["-𝜋", 0, "𝜋"]:          # wrapped phase or a phase difference
+            t.update(colorscale=BWR, zmin=-math.pi, zmax=math.pi)
+        else:
+            lim = peak(t)
+            t.update(colorscale=BWR, zmin=-lim, zmax=lim)
+    for ann in L.get("annotations", []):
+        ann["text"] = ann.get("text", "").replace("B0 field map", "ΔB<sub>0</sub> map")
+    # Figures 5.8 and 5.9 (two panels): the book puts the second colour bar at x = 0.98, inside its panel (0.55-1), and
+    # the first against the second panel. Narrower panels, each bar just right of its panel, titles re-centred.
+    if L.get("xaxis", {}).get("domain") == [0, 0.45] and L.get("xaxis2", {}).get("domain") == [0.55, 1]:
+        domains = ([0, 0.4], [0.53, 0.93])
+        L["xaxis"]["domain"], L["xaxis2"]["domain"] = domains
+        for t in fig["data"]:
+            t.setdefault("colorbar", {})["x"] = domains[1 if t.get("xaxis") == "x2" else 0][1] + 0.012
+        for ann, dom in zip([a for a in L.get("annotations", []) if a.get("xref", "paper") == "paper"][:2], domains):
+            ann["x"] = (dom[0] + dom[1]) / 2
+        # and less empty space above and below (Plotly's default 100 and 80 px margins), with the plot area kept
+        L["margin"] = dict(L.get("margin", {}), t=40, b=15)
+        L["height"] = L.get("height", 450) - (100 - 40) - (80 - 15)
+    framed(fig)
+
+
+def fig8_field_range(fig):
+    """Figure 5.8 (Δφ and ΔB0) on slide 10: as phase_bwr, but the field (one constant 95.5 Hz) on ±250 Hz rather than
+    ±its peak, which made it the same dark red as the phase difference (3 rad on ±π), a coincidence that could mislead."""
+    phase_bwr(fig)
+    fig["data"][1].update(zmin=-250, zmax=250)
+
+
+def fig6_title(fig):
+    """Figure 5.6 on slide 9: the title centred at the top (the book's sits at the left), and the two plots moved down,
+    clear of it; the figure is made taller by the same amount so the plots keep their size."""
+    L = fig["layout"]
+    L["title"] = dict(L.get("title", {}), x=0.5, xanchor="center", y=0.97, yanchor="top")
+    L["margin"] = dict(L.get("margin", {}), t=125)
+    L["height"] = L.get("height", 450) + 25
+
+
+def fig14_paths(fig):
+    """Figure 5.14 on slide 18: blue-white-red like the other phase images; the two paths and their end points, red in the
+    book, become dark so they show on red, and the A and B labels sit on white."""
+    phase_bwr(fig)
+    ink = "#1c2430"
+    for shape in fig["layout"].get("shapes", []):
+        shape["line"]["color"] = ink
+    for t in fig["data"]:
+        if t.get("type") == "scatter":
+            t.setdefault("line", {})["color"] = ink
+            t.setdefault("marker", {})["color"] = ink
+    for ann in fig["layout"].get("annotations", []):
+        if ann.get("text") in ("A", "B"):
+            ann.update(font=dict(color=ink, size=15), bgcolor="#ffffff", borderpad=2)
+
+
 # Deck-only display changes, applied before compacting.
-TWEAKS = {"b0Fig1jn": fig1_field_map_first, "b0Fig2jn": fig2_dipole_bwr}
+TWEAKS = {"b0Fig1jn": fig1_field_map_first, "b0Fig2jn": fig2_dipole_bwr, "b0Fig3ajn": fig3_colormaps,
+          **{k: phase_bwr for k in ("b0Fig7jn", "b0Fig8jna", "b0Fig9jna", "b0Fig9jn", "b0Fig13jn")},
+          "b0Fig8jn": fig8_field_range,
+          "b0Fig14jn": fig14_paths, "b0Fig6jn": fig6_title}
 
 
 def figure_from(notebook, label):
