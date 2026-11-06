@@ -526,3 +526,10 @@
 .reveal .ex-cover { list-style: none; counter-reset: cover; margin: 0 0 0 0.6em; padding: 0; font-size: 1.05em; line-height: 1.6; }
 .reveal .ex-cover li { counter-increment: cover; }
 .reveal .ex-cover li::before { content: counter(cover) "."; display: inline-block; width: 1.5em; font-weight: 700; color: var(--accent); }
+/* the summary slides: our tools (Shimming Toolbox, NeuroPoly) */
+.reveal .tool-promo { display: flex; align-items: center; gap: 24px; margin-top: 0.7em; padding: 6px 18px; background: #fff; border: 1px solid var(--rule); border-radius: 12px; max-width: 1130px; }
+.reveal .tool-promo img { display: block; margin: 0; }
+.reveal .tool-promo p { flex: 1; margin: 0; font-size: 0.8em; line-height: 1.45; }
+.reveal .tool-promo code { font-size: 0.9em; }
+.reveal .tool-promo .tool-qmrlab { display: flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 0.8em; white-space: nowrap; }
+.reveal .tool-promo { gap: 20px; }
