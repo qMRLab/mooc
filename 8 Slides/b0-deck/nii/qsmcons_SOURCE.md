@@ -1,4 +1,4 @@
-# qsmcons_siemens_e12_*: a QSM scan (Exercise 5-2, slide d)
+# qsmcons_siemens_*: a QSM scan (Exercise 5-2, slide b; Exercise 5-3, slides c–d)
 
 - **Data:** Chan K-S, Marques JP, Spincemaille P, Wang Y. *Recommended implementation of quantitative susceptibility
   mapping for clinical research in the brain: a consensus of the ISMRM Electro-Magnetic Tissue Properties Study Group*,
@@ -9,3 +9,8 @@
 - **Changes** (`tools/qsm_consensus/make_pair.py <GRE dir> <out> 0 1`): only echoes 1 and 2 (ΔTE 5.83 ms); phase
   ±4096 → ±π; the complex signal averaged to 2 × 2 mm in-plane; every 4th slice from slice 8 (4 mm apart, 32 slices);
   stored as int16 with scl_slope (phase in radians, magnitude rescaled).
+- **Field map** (`qsmcons_siemens_field{,_mag,_brain}.nii.gz`, Exercise 5-3; `tools/qsm_consensus/make_field.py <GRE dir>
+  <out> <unwrap3d>`): echoes 1 and 2 complex-averaged to 2 mm isotropic; a brain mask (magnitude above 20 % of its
+  range, eroded by 2 voxels, largest piece, dilated back by 1, holes filled slice by slice); the phase difference
+  unwrapped in 3D inside it with the course's region-merging unwrapper (`tools/qsm_consensus/unwrap3d`), in Hz
+  (ΔTE 5.83 ms); the affine is the scanner's (RAS, mm), from the DICOM geometry.

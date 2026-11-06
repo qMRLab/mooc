@@ -1,0 +1,9 @@
+# unwrap3d: the 3D phase unwrapping step of make_field.py, with the course's region-merging unwrapper
+# (the regionmerge-unwrap crate, checked out next to this repository's folder)
+[package]
+name = "unwrap3d"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+regionmerge-unwrap = { path = "../../../../../../../regionmerge-unwrap" }
