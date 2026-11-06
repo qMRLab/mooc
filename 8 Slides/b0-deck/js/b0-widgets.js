@@ -132,7 +132,12 @@
       tickvals: [-2, -1, 0, 1, 2, 3, 4, 5].map((m) => m * Math.PI),
       ticktext: [`-2${PI}`, `-${PI}`, '0', PI, `2${PI}`, `3${PI}`, `4${PI}`, `5${PI}`],
     };
-    const base = { ...LOOK, width: W, height: H, margin: { l: 70, r: 30, t: 50, b: 45 }, hovermode: 'x unified', xaxis: AXIS, yaxis, showlegend: true, colorway: ['#636efa', '#EF553B', '#00cc96'] };
+    // Each plot gets its own axis objects: Plotly writes back into them (autorange: true on an axis without a range), and
+    // a shared object would carry that into the next mount, so that each panel autoscaled to its own data.
+    const layout = (extra) => ({
+      ...LOOK, width: W, height: H, margin: { l: 70, r: 30, t: 50, b: 45 }, hovermode: 'x unified',
+      xaxis: { ...AXIS, range: [0, 3] }, yaxis: { ...yaxis }, showlegend: true, colorway: ['#636efa', '#EF553B', '#00cc96'], ...extra,
+    });
     const line = (y, name) => ({ type: 'scatter', mode: 'lines', x: t, y, name });
 
     const box = scaledBox(host, W, H);
@@ -142,8 +147,8 @@
     const before = box.querySelector('.w-before');
     const handle = box.querySelector('.w-handle');
     Plotly.newPlot(after, [line(yu, 'Solution 1'), line(yu.map((v) => v + 2 * Math.PI), 'Solution 2'), line(yu.map((v) => v - 2 * Math.PI), 'Solution 3')],
-      { ...base, title: { text: 'Unwrapped', x: 0.75 }, legend: { x: 0.85, y: 0.95 } }, CONFIG);
-    Plotly.newPlot(before, [line(yw, 'Wrapped')], { ...base, title: { text: 'Wrapped', x: 0.25 }, legend: { x: 0.03, y: 0.95 } }, CONFIG);
+      layout({ title: { text: 'Unwrapped', x: 0.75 }, legend: { x: 0.85, y: 0.95 } }), CONFIG);
+    Plotly.newPlot(before, [line(yw, 'Wrapped')], layout({ title: { text: 'Wrapped', x: 0.25 }, legend: { x: 0.03, y: 0.95 } }), CONFIG);
 
     controls.innerHTML = '<span>Wrapped</span><input class="w-range" type="range" min="0" max="100" value="50" aria-label="Divider position"><span>Unwrapped</span>';
     const range = controls.querySelector('.w-range');
