@@ -533,3 +533,5 @@
 .reveal .tool-promo code { font-size: 0.9em; }
 .reveal .tool-promo .tool-qmrlab { display: flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 0.8em; white-space: nowrap; }
 .reveal .tool-promo { gap: 20px; }
+/* Exercise 5-2: the task, under the title */
+.reveal .uw-goal { font-size: 18px; margin: -4px 0 8px; color: var(--ink); }
