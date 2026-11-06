@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 5-3 · B0 Mapping · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="exercise.css">
+  <style>
+    /* Exercise 5-3: shimming */
+    .reveal .ex53-layout { display: grid; grid-template-columns: 330px 1fr; column-gap: 28px; align-items: start; margin-top: 4px; }
+    .reveal .ex53-maps { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+    .reveal :is(.ex53, .ex53-vol) figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
+    .reveal :is(.ex53, .ex53-vol) canvas { image-rendering: pixelated; display: block; background: #e9edf1; outline: 1px solid #c9d1db; }
+    .reveal .ex53-maps canvas { width: 155px; height: 225px; }
+    .reveal :is(.ex53, .ex53-vol) figcaption { font-size: 13px; color: var(--muted); margin-top: 3px; }
+    .reveal .ex53-st { font-size: 12px; color: var(--ink); font-variant-numeric: tabular-nums; margin-top: 2px; text-align: center; }
+    .reveal .ex53-cbar { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr; font-size: 11px; margin-top: 4px; }
+    .reveal .ex53-cbar i { grid-column: 1 / -1; height: 9px; border-radius: 2px; border: 1px solid #c9d1db; }
+    .reveal .ex53-cbar span:nth-of-type(2) { text-align: center; } .reveal .ex53-cbar span:nth-of-type(3) { text-align: right; }
+    .reveal .ex53-terms { display: grid; gap: 4px; border-left: 1px solid var(--rule); padding-left: 26px; }
+    .reveal .ex53-oh { margin: 0 0 2px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .reveal .ex53-row { display: flex; gap: 10px; }
+    .reveal .ex53-row figure { width: 104px; }
+    .reveal .ex53-row canvas { width: 60px; height: 87px; }
+    .reveal .ex53-row figcaption { font-size: 13px; color: var(--ink); font-weight: 600; margin-top: 1px; }
+    .reveal .ex53-peak { font-size: 10px; color: var(--muted); white-space: nowrap; }
+    .reveal .ex53-row input[type=range] { width: 100px; margin: 2px 0 0; }
+    .reveal .ex53-row b { font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .reveal .ex53-reset { margin-top: 12px; }
+    /* (a) input | shims, one order per tab | output */
+    .reveal :is(.ex53, .ex53-vol).uw-pipe .pipe { grid-template-columns: 220px 1fr 240px; column-gap: 28px; }
+    .reveal .ex53-goal { font-size: 18px; margin: -4px 0 10px; color: var(--ink); }
+    .reveal :is(.ex53, .ex53-vol) .pipe-in canvas, .reveal :is(.ex53, .ex53-vol) .pipe-out canvas { width: 170px; height: 247px; }
+    .reveal :is(.ex53, .ex53-vol) .pipe-in figure, .reveal :is(.ex53, .ex53-vol) .pipe-out figure { width: 200px; }
+    .reveal :is(.ex53, .ex53-vol) .pipe .ex53-cbar { width: 200px; }
+    .reveal .ex53-in-st { font-size: 13px; color: var(--muted); margin: 8px 0 0; text-align: center; font-variant-numeric: tabular-nums; }
+    .reveal .ex53-in-st b { color: var(--ink); }
+    .reveal .ex53-big { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; width: 220px; }
+    .reveal .ex53-big div { background: var(--panel); border-radius: 10px; padding: 8px 10px; text-align: center; }
+    .reveal .ex53-big span { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .reveal .ex53-big b { display: block; font-size: 26px; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
+    .reveal :is(.ex53, .ex53-vol) .pipe-mid .ex53-row { flex-wrap: wrap; gap: 16px 18px; }
+    .reveal :is(.ex53, .ex53-vol) .pipe-mid .ex53-row figure { width: 130px; }
+    .reveal :is(.ex53, .ex53-vol) .pipe-mid .ex53-row canvas { width: 100px; height: 145px; }
+    .reveal :is(.ex53, .ex53-vol) .pipe-mid .ex53-row input[type=range] { width: 125px; }
+    .reveal :is(.ex53, .ex53-vol) .pipe-mid .ex53-terms { border-left: none; padding-left: 0; }
+    .reveal :is(.ex53, .ex53-vol) .ex-panel:not([hidden]) { display: block; }
+    .reveal :is(.ex53, .ex53-vol) .pipe-in figure, .reveal :is(.ex53, .ex53-vol) .pipe-out figure { cursor: ew-resize; user-select: none; touch-action: none; }
+    .reveal .ex53-submit { margin-top: 14px; width: 220px; font-weight: 700; background: var(--accent); border-color: var(--accent); color: #fff; }
+    .reveal .ex53-submit:hover { background: #174a78; }
+    /* (b) the comparison */
+    .reveal .ex53-cmp .ex53-wait { font-size: 20px; color: var(--muted); }
+    .reveal .ex53-cmp.ex53-done .ex53-wait, .reveal .ex53-cmp:not(.ex53-done) .ex53-cmp-body { display: none; }
+    .reveal .ex53-legend { font-size: 16px; margin: 0 0 6px; display: flex; gap: 8px; align-items: center; }
+    .reveal .ex53-legend i { display: inline-block; width: 16px; height: 12px; border-radius: 2px; margin-left: 10px; }
+    .reveal .ex53-bars { display: flex; gap: 28px; align-items: flex-start; }
+    .reveal .ex53-bars figure { margin: 0; }
+    .reveal .ex53-bars svg { overflow: visible; font-family: inherit; }
+    .reveal .ex53-cmp-row { display: flex; gap: 22px; align-items: flex-start; margin-top: 8px; }
+    .reveal .ex53-cmp-row figure { margin: 0; width: 160px; display: flex; flex-direction: column; align-items: center; }
+    .reveal .ex53-cmp-row canvas { width: 130px; height: 189px; image-rendering: pixelated; display: block; background: #e9edf1; outline: 1px solid #c9d1db; }
+    .reveal .ex53-cmp-row figcaption { font-size: 13px; color: var(--muted); margin-top: 3px; }
+    .reveal .ex53-cmp-row .ex53-cbar { width: 160px; }
+    .reveal .ex53-cmp-st { display: flex; flex-direction: column; gap: 12px; margin-left: 10px; }
+    .reveal .ex53-cmp-st div { background: var(--panel); border-radius: 10px; padding: 8px 16px; }
+    .reveal .ex53-cmp-st span { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .reveal .ex53-cmp-st b { font-size: 22px; font-variant-numeric: tabular-nums; }
+    /* (c), (d) */
+    .reveal .ex53-vol .ex53-over-row { display: flex; gap: 12px; align-items: center; font-size: 15px; color: var(--muted); margin: 0 0 8px; }
+    .reveal .ex53-vol .ex53-goal { margin-bottom: 6px; }
+    .reveal .ex53-over { margin: 6px 0 -6px; font-size: 13px; color: var(--muted); text-align: center; width: 220px; }
+    .reveal .ex53-data { position: absolute; left: 230px; bottom: 22px; font-size: 11px; max-width: 760px; }
+    .reveal .ex53-cmp2 .ex53-cmp-row { gap: 12px; }
+    .reveal .ex53-cmp2 .ex53-cmp-row figure { width: 168px; }
+    .reveal .ex53-cmp2 .ex53-cmp-row .ex53-cbar { width: 150px; }
+    .reveal .ex53-cmp2 .ex53-cmp-row canvas { width: 112px; height: 163px; }
+    .reveal .ex53-submit-slice { margin-top: 8px; }
+    .reveal .ex53-submit:disabled { background: #b8c4d0; border-color: #b8c4d0; cursor: default; }
+    .reveal .ex53-submit.done::after { content: " ✓"; }
+    .reveal .ex53-st4 { font-size: 11px; line-height: 1.35; margin: 4px 0 0; text-align: center; font-variant-numeric: tabular-nums; color: var(--muted); }
+    .reveal .ex53-st4 b { color: var(--ink); }
+  </style>
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">B<sub>0</sub> Mapping · Exercise 5-3</p>
+  <h2>Shimming</h2>
+</section>
+
+<!-- (a) the field to shim: the measured map plus f0 +90 Hz, Y +50 µT/m and X2−Y2 +300 µT/m² (data-preset); the sliders,
+     all at 0, are the shims to find; the output = input + shims, with its mean and SD over the brain. js/ex53-shim.js. -->
+<section class="figure ex53 uw-pipe" data-preset="f0:90,y:50,x2y2:300">
+  <p class="kicker">Exercise 5-3 · (a)</p>
+  <h2>Shimming the B<sub>0</sub> map</h2>
+  <p class="ex53-goal">Find the shim currents that optimize the shim, that is, that minimize the mean and the SD of B<sub>0</sub>.</p>
+  <div class="pipe">
+    <div class="pipe-col pipe-in">
+      <h3>Input</h3>
+      <figure><canvas class="ex53-c-in"></canvas><figcaption>B<sub>0</sub> before shimming</figcaption><div class="ex53-cbar"></div></figure>
+      <p class="ex53-in-st"></p>
+    </div>
+    <div class="pipe-col pipe-mid">
+      <div class="ex-tabs" role="tablist" aria-label="Shim orders">
+        <button role="tab" data-tab="0" aria-selected="true">0th order</button>
+        <button role="tab" data-tab="1" aria-selected="false">1st order</button>
+        <button role="tab" data-tab="2" aria-selected="false">2nd order</button>
+      </div>
+      <div class="ex-panel" role="tabpanel" data-panel="0"><div class="ex53-terms" data-order="0"></div></div>
+      <div class="ex-panel" role="tabpanel" data-panel="1" hidden><div class="ex53-terms" data-order="1"></div></div>
+      <div class="ex-panel" role="tabpanel" data-panel="2" hidden><div class="ex53-terms" data-order="2"></div></div>
+      <button class="bs-btn ex53-reset">Reset the shims</button>
+    </div>
+    <div class="pipe-col pipe-out">
+      <h3>Output</h3>
+      <figure><canvas class="ex53-c-out"></canvas><figcaption>B<sub>0</sub> after shimming</figcaption><div class="ex53-cbar"></div></figure>
+      <div class="ex53-big"><div><span>Mean</span><b class="ex53-mean"></b></div><div><span>SD</span><b class="ex53-sd"></b></div></div>
+      <button class="bs-btn ex53-submit">Submit my shim</button>
+    </div>
+  </div>
+</section>
+
+<!-- (b) after "Submit my shim" on (a): your shim currents and the optimal ones (least squares over the brain), one chart
+     per order, and both shims' mean and SD. js/ex53-shim.js. -->
+<section class="figure ex53-cmp">
+  <p class="kicker">Exercise 5-3 · (b)</p>
+  <h2>Your shim and the optimal shim</h2>
+  <p class="ex53-wait">Submit your shim on the previous slide.</p>
+  <div class="ex53-cmp-body">
+    <p class="ex53-legend"><i style="background:#1f5f99"></i>Your shim <i style="background:#d9822b"></i>Optimal shim</p>
+    <div class="ex53-bars"></div>
+    <div class="ex53-cmp-row">
+      <figure><canvas class="ex53-c-mine"></canvas><figcaption>Your shim</figcaption><div class="ex53-cbar ex53-cbar-b0"></div></figure>
+      <figure><canvas class="ex53-c-opt"></canvas><figcaption>Optimal shim</figcaption><div class="ex53-cbar ex53-cbar-b0"></div></figure>
+      <figure><canvas class="ex53-c-diff"></canvas><figcaption>Yours − optimal</figcaption><div class="ex53-cbar ex53-cbar-diff"></div></figure>
+      <div class="ex53-cmp-st"></div>
+    </div>
+  </div>
+</section>
+
+<!-- (c) the QSM consensus scan (Siemens, echoes 1–2, unwrapped in 3D, 2 mm; nii/qsmcons_siemens_field*): the field as
+     acquired, shimmed over the whole brain volume or over one slice (34, z = +4 mm: genu and splenium, just above the
+     frontal sinus). The slice-wise sliders start from the volume-wise ones. js/ex53-shim.js. -->
+<section class="figure ex53-vol uw-pipe" data-slice="34" data-affine="-2,0,0,95.9279,0,-2,0,144.9334,0,0,2,-63.4818">
+  <p class="kicker">Exercise 5-3 · (c)</p>
+  <h2>Volume-wise vs slice-wise shimming</h2>
+  <p class="ex53-goal">Find the shim currents that minimize the mean and the SD of B<sub>0</sub>: first over the whole brain, then over this slice only.</p>
+  <div class="pipe">
+    <div class="pipe-col pipe-in">
+      <h3>Input</h3>
+      <figure><canvas class="ex53-c-in"></canvas><figcaption>B<sub>0</sub> as acquired, this slice</figcaption><div class="ex53-cbar"></div></figure>
+    </div>
+    <div class="pipe-col pipe-mid">
+      <div class="uw-row ex53-over-row"><span>Shim over</span><div class="seg"><button data-shimover="vol" aria-pressed="true">the volume</button><button data-shimover="slice" aria-pressed="false">this slice</button></div></div>
+      <div class="ex-tabs" role="tablist" aria-label="Shim orders">
+        <button role="tab" data-tab="0" aria-selected="true">0th order</button>
+        <button role="tab" data-tab="1" aria-selected="false">1st order</button>
+        <button role="tab" data-tab="2" aria-selected="false">2nd order</button>
+      </div>
+      <div class="ex-panel" role="tabpanel" data-panel="0"><div class="ex53-terms" data-order="0"></div></div>
+      <div class="ex-panel" role="tabpanel" data-panel="1" hidden><div class="ex53-terms" data-order="1"></div></div>
+      <div class="ex-panel" role="tabpanel" data-panel="2" hidden><div class="ex53-terms" data-order="2"></div></div>
+      <button class="bs-btn ex53-reset">Reset the shims</button>
+    </div>
+    <div class="pipe-col pipe-out">
+      <h3>Output</h3>
+      <figure><canvas class="ex53-c-out"></canvas><figcaption>B<sub>0</sub> after shimming, this slice</figcaption><div class="ex53-cbar"></div></figure>
+      <p class="ex53-over"></p>
+      <div class="ex53-big"><div><span>Mean</span><b class="ex53-mean"></b></div><div><span>SD</span><b class="ex53-sd"></b></div></div>
+      <button class="bs-btn ex53-submit ex53-submit-vol">Submit volume shim</button>
+      <button class="bs-btn ex53-submit ex53-submit-slice" disabled>Submit slice-wise shim</button>
+    </div>
+  </div>
+  <p class="uw-cite ex53-data">Data: Chan K-S, Marques JP, Spincemaille P, Wang Y. QSM consensus example data (Siemens). Zenodo, doi:10.5281/zenodo.7795492, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>; echoes 1 and 2, 2 mm, phase difference unwrapped in 3D.</p>
+</section>
+
+<!-- (d) after "Submit my shim" on (c), on slice 34: your currents, the optimal volume-wise and slice-wise ones (the
+     slice-wise nearest the volume-wise among those that fit the slice equally well), the maps and their difference. -->
+<section class="figure ex53-cmp ex53-cmp2">
+  <p class="kicker">Exercise 5-3 · (d)</p>
+  <h2>Volume-wise and slice-wise shims</h2>
+  <p class="ex53-wait">Submit your shim on the previous slide.</p>
+  <div class="ex53-cmp-body">
+    <p class="ex53-legend"></p>
+    <div class="ex53-bars"></div>
+    <div class="ex53-cmp-row">
+      <figure><canvas class="ex53-c-minevol"></canvas><figcaption>Yours, volume</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="mineVol"></p></figure>
+      <figure><canvas class="ex53-c-mineslice"></canvas><figcaption>Yours, slice</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="mineSlice"></p></figure>
+      <figure><canvas class="ex53-c-vol"></canvas><figcaption>Optimal, volume</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="vol"></p></figure>
+      <figure><canvas class="ex53-c-slice"></canvas><figcaption>Optimal, slice</figcaption><div class="ex53-cbar ex53-cbar-b0"></div><p class="ex53-st4" data-st="slice"></p></figure>
+      <figure><canvas class="ex53-c-diff"></canvas><figcaption>Volume − slice</figcaption><div class="ex53-cbar ex53-cbar-diff"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- Summary -->
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 5-3 · Summary</p>
+  <h2>Summary</h2>
+  <ol>
+    <li>B<sub>0</sub> maps let us compute the shim currents that reduce the field inhomogeneity.</li>
+    <li>Volume-wise shimming minimizes the mean and the SD of Δf over the whole masked volume; slice-wise shimming does it over a single slice only.</li>
+    <li>Slice-wise shimming can give better shims for multislice acquisitions, with the shims updated for each slice.</li>
+  </ol>
+</section>
+
+</div>
+</div>
+<script src="vendor/reveal/reveal.js"></script>
+<script src="js/common.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/nifti-lite.js"></script>
+<script src="js/ex53-shim.js"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/popout.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
