@@ -82,6 +82,10 @@
 .reveal .card.multi { --card: #e69f00; }
 .reveal .card.t2star { --card: #009e73; }
 .reveal .card.mwf { --card: #cc79a7; }
+/* the B0 exercises: one colour each (Okabe–Ito, as above) */
+.reveal .card.ex-1 { --card: #0072b2; }
+.reveal .card.ex-2 { --card: #e69f00; }
+.reveal .card.ex-3 { --card: #009e73; }
 
 /* Images (pulse sequences) */
 .reveal .pulse img { display: block; margin: 0.8em auto 0; max-width: 100%; max-height: 470px; }

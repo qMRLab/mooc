@@ -133,12 +133,12 @@
     sl.querySelector('.ex53-bars').innerHTML = [0, 1, 2].map((o) => {
       const ks = TERMS.map((t, k) => k).filter((k) => TERMS[k].order === o), unit = TERMS[ks[0]].unit;
       const vmax = Math.max(1, ...ks.map((k) => Math.max(Math.abs(res.mine.c[k]), Math.abs(res.opt.c[k])))) * 1.15;
-      const W = 70 + ks.length * 104, Hh = 230, top = 34, bot = 44, y0 = top + (Hh - top - bot) / 2, sc = (Hh - top - bot) / 2 / vmax;
+      const W = 70 + ks.length * 104, Hh = 230, top = 34, bot = 36, y0 = top + (Hh - top - bot) / 2, sc = (Hh - top - bot) / 2 / vmax;
       const bar = (x, v, col) => { const h = v * sc; return `<rect x="${x}" y="${Math.min(y0, y0 - h)}" width="34" height="${Math.max(1, Math.abs(h))}" fill="${col}"/><text x="${x + 17}" y="${h >= 0 ? y0 - h - 5 : y0 - h + 14}" text-anchor="middle" font-size="12">${fmt(v)}</text>`; };
       return `<figure><svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="${['0th', '1st', '2nd'][o]} order shim currents">
         <text x="10" y="18" font-size="14" font-weight="700" fill="#5b6776">${['0TH', '1ST', '2ND'][o]} ORDER (${unit})</text>
         <line x1="50" x2="${W - 10}" y1="${y0}" y2="${y0}" stroke="#9aa6b4"/>
-        ${ks.map((k, j) => { const x = 62 + j * 104; return bar(x, res.mine.c[k], '#1f5f99') + bar(x + 42, res.opt.c[k], '#d9822b') + `<text x="${x + 38}" y="${Hh - 16}" text-anchor="middle" font-size="15" font-weight="700" fill="#1d2733">${TERMS[k].name.replace(/<sub>0<\/sub>/, '₀').replace(/<sup>2<\/sup>/g, '²')}</text>`; }).join('')}
+        ${ks.map((k, j) => { const x = 62 + j * 104; return `<rect x="${x - 10}" y="${top - 4}" width="96" height="${Hh - top - 2}" rx="6" fill="#f2f5f8"/>` + bar(x, res.mine.c[k], '#1f5f99') + bar(x + 42, res.opt.c[k], '#d9822b') + `<text x="${x + 38}" y="${Hh - 12}" text-anchor="middle" font-size="15" font-weight="700" fill="#1d2733">${TERMS[k].name.replace(/<sub>0<\/sub>/, '₀').replace(/<sup>2<\/sup>/g, '²')}</text>`; }).join('')}
       </svg></figure>`;
     }).join('');
   }
@@ -221,9 +221,9 @@
   // ---------------------------------------------------------------- (c) the QSM scan: shim the volume, or one slice
   // nii/qsmcons_siemens_field*: the B0 field (Hz, unwrapped in 3D), echo 1 magnitude and the brain, 2 mm isotropic;
   // data-affine: voxel (i, j, k) → scanner RAS mm (12 numbers, row by row); data-slice: the slice shown (0-based k).
-  // Shim over the volume: the mean and SD over every brain voxel; over this slice: over its brain voxels only. The
+  // Shim over the volume: the mean and SD over every brain voxel; over axial slice data-slice + 1: over its brain voxels only. The
   // slice-wise sliders start from the volume-wise ones. Submit: the optimal volume-wise shim, then the optimal
-  // slice-wise shim nearest to it, and the comparison on the next slide (section.ex53-cmp2), on this slice.
+  // slice-wise shim nearest to it, and the comparison on the next slide (section.ex53-cmp2), on that slice.
   const volData = (async () => {
     const get = async (u) => NiftiLite.read(new Uint8Array(await (await fetch(u)).arrayBuffer()));
     const [f, m, b] = await Promise.all(['nii/qsmcons_siemens_field.nii.gz', 'nii/qsmcons_siemens_field_mag.nii.gz', 'nii/qsmcons_siemens_field_brain.nii.gz'].map(get));
@@ -242,7 +242,7 @@
     }));
     volData.then((v) => {
       const [nx, ny, nz] = v.dims, ns = nx * ny, N = ns * nz;
-      // every brain voxel, and those of this slice; the shim terms at each (indexed by voxel, 0 elsewhere)
+      // every brain voxel, and those of the shimmed slice; the shim terms at each (indexed by voxel, 0 elsewhere)
       const all = [], sl = [];
       for (let i = 0; i < N; i++) if (v.brain[i] > 0) { all.push(i); if (Math.floor(i / ns) === kSel) sl.push(i); }
       const basis = TERMS.map(() => new Float32Array(N)), norm = TERMS.map(() => 0);
@@ -251,13 +251,32 @@
         const x = A[0] * c + A[1] * j + A[2] * k + A[3], y = A[4] * c + A[5] * j + A[6] * k + A[7], z = A[8] * c + A[9] * j + A[10] * k + A[11];
         TERMS.forEach((t, kk) => { const val = t.f(x, y, z); basis[kk][i] = val; if (k === kSel) norm[kk] = Math.max(norm[kk], Math.abs(val)); });
       }
-      const d = { nx, ny, n: ns, mask: new Uint8Array(ns) };   // this slice, for painting
+      const d = { nx, ny, n: ns, mask: new Uint8Array(ns) };   // the shimmed slice, for painting
       for (const i of sl) d.mask[i - kSel * ns] = 1;
       const onSlice = (a) => a.subarray(kSel * ns, (kSel + 1) * ns);
       const inS = onSlice(v.field), auto = Math.max(10, Math.round(pct(sl.map((i) => Math.abs(v.field[i])), 0.98)));
       const lim = { in: auto, out: auto };
-      const drawIn = () => { paint(q('.ex53-c-in'), d, (i) => (d.mask[i] ? bwr(0.5 + inS[i] / (2 * lim.in)) : BG)); cbar(q('.pipe-in .ex53-cbar'), lim.in, 'Hz'); };
-      drawIn();
+      // the views, the same for the input and the output: an axial slice (k) and a sagittal one (column i), each with a
+      // line where the other cuts it; the slice-wise shim is always over slice kSel
+      const view = { k: kSel, i: Math.max(0, Math.min(nx - 1, Math.round(-A[3] / A[0]))) };   // the sagittal: x = 0
+      const LINE = [70, 78, 90], RED = [214, 39, 40];
+      let mode = 'vol';   // shim over: 'vol' or 'slice'
+      const fieldAt = (idx, c) => { let val = v.field[idx]; if (c) for (let kk = 0; kk < TERMS.length; kk++) if (c[kk]) val += c[kk] * basis[kk][idx]; return val; };
+      const drawViews = (axSel, sagSel, c, L) => {
+        const ax = { nx, ny, n: ns }, sag = { nx: ny, ny: nz, n: ny * nz };
+        paint(q(axSel), ax, (p) => { const idx = view.k * ns + p; if (p % nx === view.i) return LINE; return v.brain[idx] > 0 ? bwr(0.5 + fieldAt(idx, c) / (2 * L)) : BG; });
+        paint(q(sagSel), sag, (p) => {
+          const r = Math.floor(p / ny), j = p % ny, k = nz - 1 - r, idx = k * ns + j * nx + view.i;   // superior at the top, anterior at the left
+          if (mode === 'slice' && k === kSel) return RED;   // the slice being shimmed
+          if (k === view.k) return LINE;
+          return v.brain[idx] > 0 ? bwr(0.5 + fieldAt(idx, c) / (2 * L)) : BG;
+        });
+      };
+      const drawIn = () => { drawViews('.ex53-c-in', '.ex53-c-in-sag', null, lim.in); cbar(q('.pipe-in .ex53-cbar'), lim.in, 'Hz'); };
+      const showView = () => { q('.ex53-k-v').textContent = `${view.k + 1} / ${nz}`; q('.ex53-i-v').textContent = `${view.i + 1} / ${nx}`; slide.classList.toggle('ex53-onshim', view.k === kSel); };
+      q('.ex53-k').max = String(nz - 1); q('.ex53-k').value = String(view.k);
+      q('.ex53-i').max = String(nx - 1); q('.ex53-i').value = String(view.i);
+      showView(); drawIn();
       TERMS.forEach((t, kk) => {
         const cv = q(`[data-term-c="${t.key}"]`), bs = onSlice(basis[kk]);
         paint(cv, d, (i) => (d.mask[i] ? bwr(0.5 + (norm[kk] ? bs[i] / norm[kk] : 1) / 2) : BG));
@@ -270,31 +289,36 @@
       };
       const sliceMap = (c) => { const o = new Float32Array(ns); for (const i of sl) { let val = v.field[i]; for (let kk = 0; kk < TERMS.length; kk++) if (c[kk]) val += c[kk] * basis[kk][i]; o[i - kSel * ns] = val; } return o; };
       // the two sets of currents (volume, slice); the sliders show the active one
-      const cur = { vol: TERMS.map(() => 0), slice: null }; let mode = 'vol';
+      const cur = { vol: TERMS.map(() => 0), slice: null };
       const read = () => TERMS.map((t) => Number(q(`[data-term="${t.key}"]`).value));
       const write = (c) => TERMS.forEach((t, kk) => { q(`[data-term="${t.key}"]`).value = String(c[kk]); });
       const update = () => {
         const c = read(); cur[mode] = c;
         TERMS.forEach((t, kk) => { q(`[data-term-v="${t.key}"]`).textContent = fmtV(c[kk], t.unit); });
-        const out = sliceMap(c);
-        paint(q('.ex53-c-out'), d, (i) => (d.mask[i] ? bwr(0.5 + out[i] / (2 * lim.out)) : BG));
+        drawViews('.ex53-c-out', '.ex53-c-out-sag', c, lim.out);
         cbar(q('.pipe-out .ex53-cbar'), lim.out, 'Hz');
         const [mu, sd] = statsOf(mode === 'vol' ? all : sl, c);
         q('.ex53-mean').textContent = `${mu.toFixed(1)} Hz`; q('.ex53-sd').textContent = `${sd.toFixed(1)} Hz`;
-        q('.ex53-over').textContent = mode === 'vol' ? 'over the volume' : 'over this slice';
+        q('.ex53-over').textContent = mode === 'vol' ? 'over the volume' : `over axial slice ${kSel + 1}`;
+        slide.classList.toggle('ex53-slicemode', mode === 'slice'); slide.classList.toggle('ex53-onshim', view.k === kSel);
       };
       slide.querySelectorAll('[data-shimover]').forEach((bt) => bt.addEventListener('click', () => {
         bt.blur(); mode = bt.dataset.shimover;
         slide.querySelectorAll('[data-shimover]').forEach((x) => x.setAttribute('aria-pressed', String(x === bt)));
         if (mode === 'slice' && !cur.slice) cur.slice = cur.vol.slice();   // the slice starts from the volume's shim
-        write(cur[mode]); update();
+        write(cur[mode]); update(); drawIn();
       }));
       slide.querySelectorAll('[data-term]').forEach((el) => {
         el.addEventListener('input', () => requestAnimationFrame(update));
         el.addEventListener('keydown', (e) => e.stopPropagation());
         el.addEventListener('dblclick', () => { el.value = '0'; update(); });
       });
-      [['in', '.pipe-in figure', drawIn], ['out', '.pipe-out figure', update]].forEach(([key, sel, draw]) => {
+      [['.ex53-k', 'k'], ['.ex53-i', 'i']].forEach(([sel, key]) => {   // the planes shown, for both the input and the output
+        const el = q(sel);
+        el.addEventListener('input', () => { view[key] = Number(el.value); showView(); requestAnimationFrame(() => { drawIn(); update(); }); });
+        el.addEventListener('keydown', (e) => e.stopPropagation());
+      });
+      [['in', '.pipe-in .ex53-views', drawIn], ['out', '.pipe-out .ex53-views', update]].forEach(([key, sel, draw]) => {
         const fig = q(sel); let drag = null;
         fig.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, lim: lim[key] }; fig.setPointerCapture(e.pointerId); e.preventDefault(); });
         fig.addEventListener('pointermove', (e) => { if (!drag) return; lim[key] = Math.max(1, Math.round(drag.lim * Math.exp((e.clientX - drag.x) / 120))); requestAnimationFrame(draw); });
@@ -319,32 +343,33 @@
         if (mode !== 'slice') toMode('slice');
         const mineSlice = read(), cv = lsq(basis, v.field, all, null), cs = lsq(basis, v.field, sl, cv);
         const entry = (c) => ({ c, map: sliceMap(c), slice: statsOf(sl, c), vol: statsOf(all, c) });
-        showCompare2({ d, mineVol: entry(mineVol), mineSlice: entry(mineSlice), vol: entry(cv), slice: entry(cs) });
+        showCompare2({ d, k: kSel, mineVol: entry(mineVol), mineSlice: entry(mineSlice), vol: entry(cv), slice: entry(cs) });
         if (typeof Reveal !== 'undefined') Reveal.next();
       });
       const U = new URLSearchParams(location.search);   // ?vshim=key:value,… and ?vsubmit=1, for checking the slides
       if (U.get('vshim')) { U.get('vshim').split(',').forEach((kv) => { const [k, val] = kv.split(':'); const el = q(`[data-term="${k}"]`); if (el) el.value = val; }); }
       update();
       if (U.get('vsubmit') === '1') { q('.ex53-submit-vol').click(); q('.ex53-submit-slice').click(); }
+      else if (U.get('vsubmit') === 'vol') q('.ex53-submit-vol').click();
     }).catch((e) => { q('.ex53-mean').textContent = `Could not load: ${e.message || e}`; });
   }
-  // (d) the comparison, on this slice: yours, the optimal volume-wise and slice-wise shims; their currents, maps and the
+  // (d) the comparison, on the shimmed slice: yours, the optimal volume-wise and slice-wise shims; their currents, maps and the
   // difference between the two optimal ones
   function showCompare2(res) {
     const sl = document.querySelector('section.ex53-cmp2'); if (!sl) return;
     sl.classList.add('ex53-done');
     const d = res.d, fmt = (val) => (Math.abs(val) >= 100 ? val.toFixed(0) : Math.abs(val) >= 10 ? val.toFixed(1) : val.toFixed(2));
-    const series = [['mineVol', 'Yours, volume', '#1f5f99'], ['mineSlice', 'Yours, slice', '#7fb0dc'], ['vol', 'Optimal, volume', '#d9822b'], ['slice', 'Optimal, slice', '#3f8f5a']];
+    const n1 = res.k + 1, series = [['mineVol', 'Yours, volume', '#1f5f99'], ['vol', 'Optimal, volume', '#d9822b'], ['mineSlice', `Yours, slice ${n1}`, '#7fb0dc'], ['slice', `Optimal, slice ${n1}`, '#3f8f5a']];
     sl.querySelector('.ex53-legend').innerHTML = series.map(([, name, col]) => `<i style="background:${col}"></i>${name}`).join(' ');
     sl.querySelector('.ex53-bars').innerHTML = [0, 1, 2].map((o) => {
       const ks = TERMS.map((t, k) => k).filter((k) => TERMS[k].order === o), unit = TERMS[ks[0]].unit;
       const vmax = Math.max(1, ...ks.flatMap((k) => series.map(([key]) => Math.abs(res[key].c[k])))) * 1.2;
-      const W = 50 + ks.length * 102, Hh = 210, top = 30, bot = 36, y0 = top + (Hh - top - bot) / 2, scl = (Hh - top - bot) / 2 / vmax;
+      const W = 50 + ks.length * 102, Hh = 214, top = 30, bot = 30, y0 = top + (Hh - top - bot) / 2, scl = (Hh - top - bot) / 2 / vmax;
       const bar = (x, val, col) => { const h = val * scl; return `<rect x="${x}" y="${Math.min(y0, y0 - h)}" width="20" height="${Math.max(1, Math.abs(h))}" fill="${col}"/><text x="${x + 10}" y="${h >= 0 ? y0 - h - 4 : y0 - h + 11}" text-anchor="middle" font-size="9">${fmt(val)}</text>`; };
       return `<figure><svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="${['0th', '1st', '2nd'][o]} order shim currents">
         <text x="6" y="16" font-size="13" font-weight="700" fill="#5b6776">${['0TH', '1ST', '2ND'][o]} ORDER (${unit})</text>
         <line x1="44" x2="${W - 6}" y1="${y0}" y2="${y0}" stroke="#9aa6b4"/>
-        ${ks.map((k, j) => { const x = 46 + j * 102; return series.map(([key, , col], si) => bar(x + si * 22, res[key].c[k], col)).join('') + `<text x="${x + 43}" y="${Hh - 10}" text-anchor="middle" font-size="14" font-weight="700" fill="#1d2733">${TERMS[k].name.replace(/<sub>0<\/sub>/, '₀').replace(/<sup>2<\/sup>/g, '²')}</text>`; }).join('')}
+        ${ks.map((k, j) => { const x = 46 + j * 102; return `<rect x="${x - 6}" y="${top - 4}" width="98" height="${Hh - top - 2}" rx="6" fill="#f2f5f8"/>` + series.map(([key, , col], si) => bar(x + si * 22 + (si >= 2 ? 4 : 0), res[key].c[k], col)).join('') + `<text x="${x + 45}" y="${Hh - 8}" text-anchor="middle" font-size="14" font-weight="700" fill="#1d2733">${TERMS[k].name.replace(/<sub>0<\/sub>/, '₀').replace(/<sup>2<\/sup>/g, '²')}</text>`; }).join('')}
       </svg></figure>`;
     }).join('');
     const inSl = (a) => Array.from(a).filter((_, i) => d.mask[i]).map(Math.abs);
@@ -355,7 +380,8 @@
     paint(sl.querySelector('.ex53-c-diff'), d, (i) => (d.mask[i] ? bwr(0.5 + diff[i] / (2 * limD)) : BG));
     sl.querySelectorAll('.ex53-cbar-b0').forEach((el) => cbar(el, lim, 'Hz'));
     cbar(sl.querySelector('.ex53-cbar-diff'), limD, 'Hz');
-    sl.querySelectorAll('[data-st]').forEach((el) => { const e = res[el.dataset.st]; el.innerHTML = `slice: mean ${fmt(e.slice[0])} · SD <b>${fmt(e.slice[1])}</b> Hz<br>volume: mean ${fmt(e.vol[0])} · SD <b>${fmt(e.vol[1])}</b> Hz`; });
+    sl.querySelectorAll('[data-slicen]').forEach((el) => { el.textContent = String(n1); });
+    sl.querySelectorAll('[data-st]').forEach((el) => { const e = res[el.dataset.st]; el.innerHTML = `slice ${n1}: mean ${fmt(e.slice[0])} · SD <b>${fmt(e.slice[1])}</b> Hz<br>volume: mean ${fmt(e.vol[0])} · SD <b>${fmt(e.vol[1])}</b> Hz`; });
   }
   document.querySelectorAll('section.ex53').forEach(initSlide);
   document.querySelectorAll('section.ex53-vol').forEach(initVolSlide);

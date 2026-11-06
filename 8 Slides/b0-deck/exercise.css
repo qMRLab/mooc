@@ -521,3 +521,8 @@
 .reveal .uw-pipe .uw-drag-range { user-select: none; }
 .reveal .uw-pipe .ex-panel.pipe-cmp:not([hidden]) { display: flex; gap: 14px; justify-content: center; }
 .reveal .uw-pipe .ex-panel.pipe-cmp figure { width: 190px; }
+/* the exercises' title slides: "In this exercise, we will cover:" and a numbered list */
+.reveal .ex-cover-lead { margin: 1.1em 0 0.3em; font-size: 1.05em; color: var(--ink); }
+.reveal .ex-cover { list-style: none; counter-reset: cover; margin: 0 0 0 0.6em; padding: 0; font-size: 1.05em; line-height: 1.6; }
+.reveal .ex-cover li { counter-increment: cover; }
+.reveal .ex-cover li::before { content: counter(cover) "."; display: inline-block; width: 1.5em; font-weight: 700; color: var(--accent); }
