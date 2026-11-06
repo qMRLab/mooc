@@ -502,16 +502,16 @@
 </section>
 
 <!-- 23 -->
-<section data-book="b0eddy">
+<section data-book="realtime-b0-mapping">
   <div class="pause-badges"><a class="pause-badge" href="exercise-5-3.html" target="_blank" rel="noopener" title="Stop here for Exercise 5-3">⏸ Exercise 5-3</a></div>
-  <h2>Eddy currents and real-time mapping</h2>
+  <h2>Shimming and real-time mapping</h2>
   <div class="cards two">
     <div class="card hw">
-      <h3>Eddy currents</h3>
+      <h3>Shimming</h3>
       <ul>
-        <li>Fast gradient switching → fields that <b>change with TE</b></li>
-        <li>They do <b>not cancel</b> in Δφ</li>
-        <li>Fixes: longer TR, one echo per TR, or <b>reverse all gradients and average</b></li>
+        <li>A B<sub>0</sub> map tells us the field to <b>cancel</b></li>
+        <li>Currents in coils make <b>known field patterns</b>: 0th order (f<sub>0</sub>), 1st order (X, Y, Z), 2nd order (Z², ZX, ZY, X²−Y², XY)</li>
+        <li>Choose the currents that make the field most <b>uniform</b>, over a volume or a slice (i.e. minimizing the spatial SD of the field)</li>
       </ul>
     </div>
     <div class="card rt">
@@ -523,7 +523,7 @@
       </ul>
     </div>
   </div>
-  <aside class="notes">Eddy currents from rapidly changing gradients create spatially and temporally varying fields, which can differ between echo times and so do not cancel in the phase difference. Longer TRs help. For short TRs, acquire twice with frequency, phase and slice encoding reversed, which reverses the eddy-current polarity, and average the two field maps. Real-time mapping of respiration: acquire a map in much less than a respiratory cycle; 2D so slice timing can be associated with each slice's field; EPI is faster but distorted, so a 2D dual-echo GRE with minimum TR, short TEs and short RF pulses.</aside>
+  <aside class="notes">Shimming: the B0 map is the field to cancel. The scanner's shim coils (and gradients, for 1st order) each make a known field pattern, the spherical harmonics: 0th order is the centre frequency f0, 1st order the linear X, Y, Z gradients, 2nd order Z², ZX, ZY, X²−Y² and XY. The currents are chosen so that the sum of these patterns cancels the measured field as well as it can over the region of interest, by least squares: over a whole volume (volume-wise), or slice by slice with the currents changed for each slice (slice-wise, or dynamic, shimming). Exercise 5-3 does this by hand, then compares with the optimal currents. Real-time mapping of respiration: acquire a map in much less than a respiratory cycle; 2D so slice timing can be associated with each slice's field; EPI is faster but distorted, so a 2D dual-echo GRE with minimum TR, short TEs and short RF pulses.</aside>
 </section>
 
 <!-- 24 -->
