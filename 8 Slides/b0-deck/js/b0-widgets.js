@@ -80,21 +80,21 @@
 
     controls.innerHTML = `
       <button type="button" class="w-play">Play</button>
-      <input class="w-range" type="range" min="2" max="${d.n}" value="${d.n}" aria-label="Time along the readout">
+      <input class="w-range" type="range" min="1" max="${d.n}" value="1" aria-label="Time along the readout">
       <span class="w-time"></span>`;
     const play = controls.querySelector('.w-play');
     const range = controls.querySelector('.w-range');
     const time = controls.querySelector('.w-time');
-    let shown = d.n;
+    let shown = d.n;   // drawn in full, then cut back to t = 0 by show(1)
     const show = (count) => {
-      count = Math.max(2, Math.min(d.n, Math.round(count)));
+      count = Math.max(1, Math.min(d.n, Math.round(count)));
       range.value = String(count);
       time.textContent = `t = ${d.tms[count - 1].toFixed(1)} ms`;
       if (count === shown) return;
       shown = count;
       Plotly.restyle(plot, { x: [d.kx.slice(0, count), d.dx.slice(0, count)], y: [d.ky.slice(0, count), d.dy.slice(0, count)] });
     };
-    show(d.n);
+    show(1);
     let raf = 0, last = 0, progress = 0;
     const stop = () => { cancelAnimationFrame(raf); raf = 0; play.textContent = 'Play'; };
     const tick = (now) => {
@@ -105,7 +105,7 @@
     };
     play.onclick = () => {
       if (raf) return stop();
-      progress = shown >= d.n ? 2 : shown;
+      progress = shown >= d.n ? 1 : shown;
       show(progress);
       last = performance.now();
       play.textContent = 'Pause';

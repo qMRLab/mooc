@@ -26,6 +26,7 @@
 
     /* Two figures of one book figure: buttons swap what the host shows. */
     .reveal .fig-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.6em 0 0.2em; }
+    .reveal .fig-col > .fig-tabs { justify-content: center; font-size: 0.62em; margin: 0.4em 0 0.3em; }
     .reveal .fig-tabs button, .reveal .seg button {
       font: inherit; font-size: 0.9em; padding: 4px 10px; border-radius: 6px; cursor: pointer;
       border: 1px solid var(--rule); background: var(--bg); color: var(--muted);
@@ -177,6 +178,42 @@
   <aside class="notes">Hardware: kilometres of superconducting wire wound within tolerances, plus nearby metal; homogenized at installation by passive shimming (ferromagnetic pieces). Under 1 ppm (Webb 2016). Field probes (e.g. Skope) can measure the field more precisely and quickly than field maps, including eddy currents. Heating during a session causes drift, about 0.4 Hz/min in MRS at 3 T; scanners correct for it. Subject: susceptibility χ, the ability to become magnetized. The field change is proportional to Δχ and to B0, and depends on geometry: a convolution of Δχ with the unit dipole field d = (3cos²θ − 1)/(4π|r|³), θ the angle with B0 (Eq. 5.2, de Rochefort 2008).</aside>
 </section>
 
+<!-- 5: from χ to ΔB0 (a convolution, voxel by voxel; js/dipole-conv.js, js/dipoleConvData.js), and QSM, the inverse -->
+<section class="figure dc" data-book="b0plot2">
+  <h2>From χ to ΔB<sub>0</sub>, and back</h2>
+  <div class="dc-top">
+    <p>If χ is known, ΔB<sub>0</sub> is its convolution with the dipole kernel <i>d</i>. B<sub>0</sub> maps simulated this way are useful for designing shim coils and evaluating shimming algorithms.</p>
+    <div class="eq eq-box">$$\textcolor{#CC79A7}{\Delta B_0(\mathbf{r})}\,[\text{ppm}] = \textcolor{#009E73}{\int} \textcolor{#0072B2}{\Delta\chi(\mathbf{r}')}\, \textcolor{#D55E00}{d(\mathbf{r}-\mathbf{r}')}\, \textcolor{#009E73}{\mathrm{d}^3\mathbf{r}'}$$</div>
+  </div>
+  <div class="dc-bar">
+    <div class="seg"><button data-case="impulse">One voxel</button><button data-case="sphere">Sphere</button><button data-case="interface">Interface ⊥ B<sub>0</sub></button><button data-case="interface90">Interface ‖ B<sub>0</sub></button></div>
+    <button class="bs-btn dc-play">▶ Play</button>
+    <label class="dc-speed-row">Speed <input class="dc-speed" type="range" min="-2" max="2" step="0.25" value="0" aria-label="Sweep speed"><b class="dc-speed-v">1×</b></label>
+    <input class="dc-pos" type="range" min="0" max="0" step="1" value="0" aria-label="The voxel being computed">
+    <span class="dc-status"></span>
+  </div>
+  <div class="dc-main">
+    <div class="dc-inputs">
+      <figure><p class="dc-term">\(\textcolor{#0072B2}{\Delta\chi(\mathbf{r}')}\)</p><canvas class="dc-chi0"></canvas></figure>
+      <figure><p class="dc-term">\(\textcolor{#D55E00}{d(\mathbf{r})}\)</p><canvas class="dc-kern"></canvas><span class="dc-b0">B<sub>0</sub> ↑ · ◯ the r′ summed</span></figure>
+    </div>
+    <div class="dc-row">
+      <figure><p class="dc-term">\(\textcolor{#D55E00}{d(\mathbf{r}-\mathbf{r}')}\) on \(\textcolor{#0072B2}{\Delta\chi(\mathbf{r}')}\)</p><canvas class="dc-chi"></canvas></figure>
+      <span class="dc-op">→</span>
+      <figure><p class="dc-term">\(\textcolor{#0072B2}{\Delta\chi(\mathbf{r}')}\,\textcolor{#D55E00}{d(\mathbf{r}-\mathbf{r}')}\)</p><canvas class="dc-prod"></canvas></figure>
+      <div class="dc-sum"><p class="dc-term">\(\textcolor{#009E73}{\int\!\cdot\;\mathrm{d}^3\mathbf{r}'}\)</p><span class="dc-sigma">\(\textcolor{#009E73}{\displaystyle\sum_{\mathbf{r}'}}\)</span><span class="dc-arrow">→</span></div>
+      <figure><p class="dc-term">\(\textcolor{#CC79A7}{\Delta B_0(\mathbf{r})}\)</p><canvas class="dc-field"></canvas><span class="dc-lim"></span></figure>
+    </div>
+  </div>
+  <p class="dc-legend"><i class="dc-mark"></i> <b>r</b>: the voxel where ΔB<sub>0</sub> is computed, which moves across the map. <b>r′</b>: every voxel of Δχ, which the sum runs over.</p>
+  <p class="dc-ft">In practice the convolution is computed in k-space, as a multiplication: \(\Delta B_0 = \mathcal{F}^{-1}\{D \cdot \mathcal{F}\{\Delta\chi\}\}\) (Marques &amp; Bowtell, <i>Concepts Magn Reson B</i> 2005;25B:65–78).</p>
+  <div class="dc-qsm fragment">
+    <p><b>Quantitative Susceptibility Mapping (QSM)</b> asks the inverse question: from ΔB<sub>0</sub> (the phase), compute χ, which tells us about the tissue.</p>
+    <p class="dc-qsm-more">We come back to it on slides 19–20 (unwrapping and multi-echo mapping for QSM), and in the <a href="../t2/index.html#/25" target="_blank" rel="noopener">T2 lecture, slide 26</a>.</p>
+  </div>
+  <aside class="notes">Forward problem: knowing the susceptibility distribution, the field is its convolution with the dipole kernel d = (3cos²θ − 1)/(4π r³), θ from B0. The demo does it voxel by voxel: the kernel is centred on one voxel, multiplied by Δχ everywhere (middle), and summed, in 3D, to give the field at that voxel (right); then the next voxel. Here the kernel is cut off at 10 voxels, so the field is an approximation, but what is shown is exactly what is summed. In practice the convolution is done in k-space as a multiplication by D = 1/3 − kz²/k² (the convolution theorem; Marques & Bowtell 2005), as in Shimming Toolbox's susceptibility-to-fieldmap-fft. The yellow voxel is r; the kernel is cut off at 10 voxels, and the sum is over the 3D volume. One voxel: the field is the kernel. A uniform sphere: uniform field inside, a dipole outside. An interface: the field changes most where B0 crosses it (⊥), less when it runs along it (‖). QSM is the inverse problem: from the measured field (phase), recover χ; ill-posed where D = 0 (the magic angle cone), hence regularization. χ tells us about iron, myelin, calcium.</aside>
+</section>
+
 <!-- 5 -->
 <section class="figure" data-book="b0plot3">
   <div class="fig-layout">
@@ -188,6 +225,7 @@
     </ul>
     <div class="fig-host" data-fig="b0Fig3ajn"></div>
     <p class="fig-hint">Menu: cylinders or brain. χ (left), field (middle), field with the slow background removed (right).</p>
+    <p class="fig-hint">* This is the ΔB<sub>0</sub> map used in QSM to compute χ.</p>
   </div>
   <aside class="notes">A homogeneous empty bore becomes inhomogeneous once a subject is inside, hence active shimming for each subject. Strongest variations at boundaries between air (slightly paramagnetic, +χ) and water/tissue (diamagnetic, −χ). Figure 5.3: susceptibility distributions for nested cylinders and a brain surrounded by air, the simulated B0 at 7 T, and the field with the slowly varying background removed. In the brain the field is dominated by air-tissue boundaries. The book's version shows the brain at higher resolution; this is the notebook's compact version with a menu.</aside>
 </section>
@@ -195,7 +233,7 @@
 <!-- 6 -->
 <section class="figure side" data-book="b0plot4">
   <div class="fig-layout">
-    <h2>Effect 1: dephasing</h2>
+    <h2>ΔB<sub>0</sub> effect 1:<br>dephasing</h2>
     <div class="side-text">
       <ul>
         <li>Different frequencies in a voxel → <b>phases spread</b> → faster decay</li>
@@ -204,7 +242,18 @@
       <div class="eq eq-box">$$\frac{1}{T_2^{*}} = \frac{1}{T_2} + \frac{1}{T_2'}$$</div>
       <p class="fig-hint">Menu: one, two or many frequencies (isochromats).</p>
     </div>
-    <div class="fig-host" data-fig="b0Fig4jn"></div>
+    <div class="fig-col">
+      <div class="fig-host" data-fig="b0Fig4jn"></div>
+      <div class="spins">
+        <canvas class="spins-cv" width="440" height="440" aria-label="The spins in the transverse plane and, in red, the demodulated amplitude"></canvas>
+        <div class="spins-ctl">
+          <button type="button" class="bs-btn spins-play">▶ Play</button>
+          <input class="spins-t" type="range" min="0" max="1000" value="0" aria-label="Time">
+          <span class="spins-time">t = 0.000 s</span>
+          <label class="spins-speed-row">Speed <input class="spins-speed" type="range" min="-2" max="2" step="1" value="0" aria-label="Playback speed"> <span class="spins-speed-v">1×</span></label>
+        </div>
+      </div>
+    </div>
   </div>
   <aside class="notes">Excitation off resonance gives a suboptimal flip angle, varying across the image (Wang 2006). On readout the signal is demodulated at the Larmor frequency. One isochromat at exactly that frequency: the T2 decay is recovered. Off resonance: low-frequency oscillations. Many isochromats (or a homogeneous sample in a non-uniform B0): intravoxel phase dispersion and a faster decay, T2*, with 1/T2* = 1/T2 + 1/T2'. Figure 5.4.</aside>
 </section>
@@ -212,7 +261,7 @@
 <!-- 7 -->
 <section class="figure side" data-book="b0plot5">
   <div class="fig-layout">
-    <h2>Effect 2: wrong frequency, wrong place</h2>
+    <h2>ΔB<sub>0</sub> effect 2: wrong frequency, wrong place</h2>
     <div class="side-text">
       <ul>
         <li>Frequency encodes position: off-resonance <b>shifts voxels</b></li>
@@ -230,7 +279,7 @@
 <!-- 8 -->
 <section class="figure side" data-book="b0plot6">
   <div class="fig-layout">
-    <h2>Phase grows linearly with time</h2>
+    <h2>How to measure ΔB<sub>0</sub>:<br>phase changes linearly with time</h2>
     <div class="side-text">
       <div class="eq eq-box">$$\phi(\mathbf r,t) = \phi_0(\mathbf r) + \gamma\,\Delta B_0(\mathbf r)\,t$$</div>
       <ul>
@@ -245,19 +294,21 @@
 </section>
 
 <!-- 9 -->
-<section class="figure side" data-book="b0plot8">
+<section class="figure side title-top" data-book="b0plot8">
   <div class="fig-layout">
-    <h2>Dual echo: subtract two phases</h2>
+    <h2>B<sub>0</sub> mapping technique: dual echo method</h2>
     <div class="side-text">
       <div class="eq eq-box">$$\Delta B_0 = \frac{\phi(TE_2) - \phi(TE_1)}{\gamma\,\Delta TE}$$</div>
       <ul>
         <li>φ<sub>0</sub> <b>cancels</b></li>
         <li>Complex difference keeps Δφ in (−π, π]: \(\angle\big(e^{i\phi_2}\,e^{-i\phi_1}\big)\)</li>
       </ul>
-      <div class="fig-tabs" data-for="f8"><button aria-pressed="true" data-show="b0Fig8jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig8jn">Δφ and ΔB<sub>0</sub></button></div>
       <p class="fig-hint">A cylinder at one constant frequency offset.</p>
     </div>
-    <div class="fig-host" data-fig="b0Fig8jna" data-tabs="f8"></div>
+    <div class="fig-col tabs-below">
+      <div class="fig-host" data-fig="b0Fig8jna" data-tabs="f8"></div>
+      <div class="fig-tabs" data-for="f8"><button aria-pressed="true" data-show="b0Fig8jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig8jn">Δφ and ΔB<sub>0</sub></button></div>
+    </div>
   </div>
   <div class="pause-badges"><a class="pause-badge" href="exercise-5-1.html" target="_blank" rel="noopener" title="Stop here for Exercise 5-1">⏸ Exercise 5-1</a></div>
   <aside class="notes">Pause here: the corner link opens the exercise in a new tab. Eq. 5.5 and 5.6. Some sequences export a single phase-difference image. Figure 5.8: a sample at a constant offset from f0 (not realistic, since susceptibilities interact, but good for intuition). Phase accumulates between the echoes; the difference divided by γΔTE gives the field. If ΔTE is too long the phase turns more than half a revolution between echoes and the estimate is wrong (Nyquist). A constant offset like this one could simply be fixed by adjusting the scanner frequency.</aside>
@@ -282,18 +333,20 @@
 </section>
 
 <!-- 11 -->
-<section class="figure side" data-book="b0plot9">
+<section class="figure side title-top" data-book="b0plot9">
   <div class="fig-layout">
-    <h2>Dual echo in the brain</h2>
+    <h2>B<sub>0</sub> mapping technique: dual echo in the brain</h2>
     <div class="side-text">
       <ul>
         <li>Each echo has <b>wraps</b></li>
         <li>The difference often <b>removes them</b>…</li>
         <li>…not always: large offsets (sinuses) leave <span class="caution">residual wraps</span></li>
       </ul>
+    </div>
+    <div class="fig-col tabs-below">
+      <div class="fig-host" data-fig="b0Fig9jna" data-tabs="f9"></div>
       <div class="fig-tabs" data-for="f9"><button aria-pressed="true" data-show="b0Fig9jna">φ at TE<sub>1</sub>, TE<sub>2</sub></button><button aria-pressed="false" data-show="b0Fig9jn">Δφ and ΔB<sub>0</sub></button></div>
     </div>
-    <div class="fig-host" data-fig="b0Fig9jna" data-tabs="f9"></div>
   </div>
   <aside class="notes">Figure 5.9: two phase images of a brain, with wraps where the phase goes from −π to +π, then the phase difference and the B0 map. Here the difference removes the wraps, but in a more inhomogeneous field there can be residual wraps, which need unwrapping (next section).</aside>
 </section>
@@ -413,13 +466,13 @@
     </div>
     <div class="fig-host" data-fig="b0Fig14jn"></div>
   </div>
-  <aside class="notes">Phase singularities (poles, open-ended fringe lines). Counting wraps: −π to +π (black to white) is +1, the reverse −1. All paths between two points should cross the same net number of wraps; around a singularity they don't. Figure 5.14: from A to B the left path crosses no wrap (3π/4 to −3π/4), the right one crosses one (3π/4 to −3π/4 + 2π). Some techniques mitigate this, but the main solution is to combine the coil channels correctly.</aside>
+  <aside class="notes">Phase singularities (poles, open-ended fringe lines). Counting wraps: −π to +π (blue to red) is +1, the reverse −1. All paths between two points should cross the same net number of wraps; around a singularity they don't. Figure 5.14: from A to B the left path crosses no wrap (3π/4 to −3π/4), the right one crosses one (3π/4 to −3π/4 + 2π). Some techniques mitigate this, but the main solution is to combine the coil channels correctly.</aside>
 </section>
 
 <!-- 18 -->
 <section data-book="software">
   <div class="pause-badges"><a class="pause-badge" href="exercise-5-2.html" target="_blank" rel="noopener" title="Stop here for Exercise 5-2">⏸ Exercise 5-2</a></div>
-  <h2>Unwrapping software</h2>
+  <h2>Phase unwrapping software</h2>
   <table class="tools">
     <tr><th>Tool</th><th>Approach</th><th>Notes</th></tr>
     <tr><td>PRELUDE</td><td>Spatial, region growing</td><td>Robust to noise; slow</td></tr>
@@ -433,9 +486,9 @@
 </section>
 
 <!-- 19 -->
-<section class="figure side" data-book="b0plot15">
+<section class="figure side title-top" data-book="b0plot15">
   <div class="fig-layout">
-    <h2>Multi-echo: fit the slope</h2>
+    <h2>Multi-echo data: unwrap by fitting the slope</h2>
     <div class="side-text">
       <ul>
         <li>Unwrap each echo spatially, then across echoes</li>
@@ -451,9 +504,9 @@
 </section>
 
 <!-- 20 -->
-<section class="figure side" data-book="b0plot16">
+<section class="figure side title-top" data-book="b0plot16">
   <div class="fig-layout">
-    <h2>A close pair, then a late echo</h2>
+    <h2>Multi-echo data: choosing echo times</h2>
     <div class="side-text">
       <ul>
         <li>TE<sub>1</sub>, TE<sub>2</sub> close: <b>no wraps</b>, a first field estimate</li>
@@ -468,9 +521,9 @@
 </section>
 
 <!-- 21 -->
-<section class="figure side" data-book="b0plot17">
+<section class="figure side title-top" data-book="b0plot17">
   <div class="fig-layout">
-    <h2>UMPIRE</h2>
+    <h2>Multi-echo data: UMPIRE technique</h2>
     <div class="side-text">
       <ul>
         <li>Three echoes, <b>slightly uneven</b> spacing: ΔTE<sub>1</sub> ≠ ΔTE<sub>2</sub></li>
@@ -485,9 +538,9 @@
 </section>
 
 <!-- 22 -->
-<section class="figure side" data-book="b0plot18">
+<section class="figure side title-top" data-book="b0plot18">
   <div class="fig-layout">
-    <h2>UMPIRE and noise</h2>
+    <h2>Multi-echo data: UMPIRE and noise</h2>
     <div class="side-text">
       <ul>
         <li>δTE is short: a little noise is a <b>large field error</b></li>
@@ -523,6 +576,11 @@
       </ul>
     </div>
   </div>
+  <p class="tool-mini tool-corner">
+    <a href="https://shimming-toolbox.org" target="_blank" rel="noopener">shimming-toolbox.org ↗</a>
+    <a href="https://shimming-toolbox.org" target="_blank" rel="noopener"><img src="img/shimming-toolbox-logo.png" alt="Shimming Toolbox" width="176" height="88"></a>
+    <a href="https://neuro.polymtl.ca" target="_blank" rel="noopener"><img src="img/neuropoly-logo.png" alt="NeuroPoly" width="80" height="80"></a>
+  </p>
   <aside class="notes">Shimming: the B0 map is the field to cancel. The scanner's shim coils (and gradients, for 1st order) each make a known field pattern, the spherical harmonics: 0th order is the centre frequency f0, 1st order the linear X, Y, Z gradients, 2nd order Z², ZX, ZY, X²−Y² and XY. The currents are chosen so that the sum of these patterns cancels the measured field as well as it can over the region of interest, by least squares: over a whole volume (volume-wise), or slice by slice with the currents changed for each slice (slice-wise, or dynamic, shimming). Exercise 5-3 does this by hand, then compares with the optimal currents. Real-time mapping of respiration: acquire a map in much less than a respiratory cycle; 2D so slice timing can be associated with each slice's field; EPI is faster but distorted, so a 2D dual-echo GRE with minimum TR, short TEs and short RF pulses.</aside>
 </section>
 
@@ -548,6 +606,9 @@
 <script src="vendor/plotly/plotly-cartesian.min.js"></script>
 <script src="js/deck.js"></script>
 <script src="js/b0-widgets.js"></script>
+<script src="js/spins.js"></script>
+<script src="js/dipoleConvData.js"></script>
+<script src="js/dipole-conv.js"></script>
 <script src="js/nav.js?v=2"></script>
 </body>
 </html>
