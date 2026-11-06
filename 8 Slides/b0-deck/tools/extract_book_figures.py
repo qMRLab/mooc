@@ -211,12 +211,9 @@ def fig8_field_range(fig):
 
 
 def fig6_title(fig):
-    """Figure 5.6 on slide 9: the title centred at the top (the book's sits at the left), and the two plots moved down,
-    clear of it; the figure is made taller by the same amount so the plots keep their size."""
+    """Figure 5.6 on slide 9: the figure's title centred (the book's sits at the left)."""
     L = fig["layout"]
-    L["title"] = dict(L.get("title", {}), x=0.5, xanchor="center", y=0.97, yanchor="top")
-    L["margin"] = dict(L.get("margin", {}), t=125)
-    L["height"] = L.get("height", 450) + 25
+    L["title"] = dict(L.get("title", {}), x=0.5, xanchor="center")
 
 
 def fig14_paths(fig):
