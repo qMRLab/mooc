@@ -22,8 +22,9 @@
     .reveal .lg { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
     .reveal section .ans { position: absolute; left: 56px; bottom: 58px; width: 600px; max-height: 330px; overflow: auto; margin: 0; z-index: 20; background: #fff; box-shadow: 0 10px 28px rgba(29,39,51,0.22); }
     .reveal .ex-head span { margin-left: 18px; font-size: 1.45em; letter-spacing: 0; text-transform: none; color: var(--ink); }
-    .reveal .sv-layout { display: grid; grid-template-columns: 600px 1fr; gap: 0 22px; }
-    .reveal .sv-col { width: 600px; }
+    /* the questions on the left, the diagram and its controls on the right */
+    .reveal .sv-layout { display: grid; grid-template-columns: 1fr 600px; gap: 0 22px; }
+    .reveal .sv-col { width: 600px; grid-column: 2; grid-row: 1; }
     /* the controls, centred on the gap between the circle and the measurement list (x = 270 px in the drawing) */
     .reveal .sv-ctrl { width: max-content; position: relative; left: 270px; transform: translateX(-50%); }
     .reveal .sv-ctrl .bs-row { margin-bottom: 6px; }
@@ -63,7 +64,7 @@
     .reveal .sv-page .sv-qn:not(:first-child) { margin-top: 10px; }
     .reveal .sv-qnav { margin: 0 0 8px; }
     .reveal .sv-page[hidden] { display: none; }
-    .reveal .sv-qs { border-left: 2px solid var(--rule); padding-left: 26px; min-height: 520px; }
+    .reveal .sv-qs { grid-column: 1; grid-row: 1; border-right: 2px solid var(--rule); padding-right: 26px; min-height: 520px; }
     .reveal .sv-svg { display: block; margin: 0 0 8px; }
     .reveal .sv-col .bs-row > span:first-child { white-space: nowrap; }
     .reveal .sv-lab { display: inline-block; width: 6.4em; }
@@ -320,6 +321,18 @@
     </div>
   </div>
 </section>
+
+<!-- Summary -->
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 5-1 · Summary</p>
+  <h2>Summary</h2>
+  <ol>
+    <li>Two echoes give ΔB<sub>0</sub> from the change in phase between them: ΔB<sub>0</sub> = Δφ / (γ ΔTE), with Δφ in radians and ΔTE in seconds.</li>
+    <li>Fat precesses 3.4 ppm slower than water (−434 Hz at 3 T), so in a voxel with fat the measured phase is that of the sum of the two, and the B<sub>0</sub> measured is biased.</li>
+    <li>Echoes taken when water and fat are in phase (every 2.30 ms at 3 T) remove that bias.</li>
+  </ol>
+</section>
+
 
 </div>
 </div>
