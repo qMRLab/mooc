@@ -80,6 +80,9 @@ jobs:
           mkdir -p ../../_build/html/slides/b0
           cd "../b0-deck"
           cp -R index.html exercises.html exercise-*.html deck.css exercise.css js img vendor nii ../../_build/html/slides/b0/
+          mkdir -p ../../_build/html/slides/mt
+          cd "../mt-deck"
+          cp -R index.html exercises.html exercise-*.html deck.css mt.css exercise.css js img vendor ../../_build/html/slides/mt/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
