@@ -30,26 +30,29 @@ const text = (page, id) => page.evaluate((i) => document.getElementById(i).textC
 const DRIVE = {
   async 'index.html'(page) {
     const out = [];
-    await go(page, 's-lines'); await page.waitForTimeout(500);
-    const r0 = await text(page, 'lines-ratio');
-    await setRange(page, 'lines-offset', 4); await page.waitForTimeout(300);
-    if ((await text(page, 'lines-ratio')) === r0) out.push('slide 3: the offset slider does not change the ratio');
+    await go(page, 's-scales'); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => document.querySelectorAll('#sc-zoom line').length === 2))) out.push('slide 2: no zoom lines');
+    await go(page, 's-protons'); await page.waitForTimeout(800);
+    await go(page, 's-fidgrid'); await page.waitForTimeout(1200);
+    await go(page, 's-bm'); await page.waitForTimeout(600);
+    await page.click('#s-bm [data-v="both"]'); await page.click('#bm-play'); await page.waitForTimeout(1500);
+    if (!/%/.test(await page.locator('#bm-tanks').innerHTML())) out.push('slide 6: no tank levels');
     await go(page, 's-tanks'); await page.waitForTimeout(500);
     await page.click('#s-tanks [data-ctl="tk-rf"] [data-v="on"]'); await page.waitForTimeout(2500);
-    if (!(Number(await text(page, 'tk-hf')) < 0.8)) out.push('slide 5: the RF does not lower the water tank');
+    if (!(Number(await text(page, 'tk-hf')) < 0.8)) out.push('slide 9: the RF does not lower the water tank');
     await go(page, 's-myelin'); await page.waitForTimeout(1500);
     await page.click('#my-restart'); await page.waitForTimeout(500);
     await go(page, 's-zspec'); await page.waitForTimeout(800);
     await setRange(page, 'z-F', 0); await page.waitForTimeout(800);
     await go(page, 's-realz'); await page.waitForTimeout(800);
     await page.click('#s-realz [data-preset="gm"]'); await page.waitForTimeout(800);
-    if (!/F/.test(await text(page, 'realz-table'))) out.push('slide 12: no parameter table');
+    if (!/F/.test(await text(page, 'realz-table'))) out.push('slide 15: no parameter table');
     await go(page, 's-mtrconf'); await page.waitForTimeout(600);
     const m0 = await text(page, 'mc-mtr');
     await setRange(page, 'mc-t1', 1.5); await page.waitForTimeout(400);
-    if ((await text(page, 'mc-mtr')) === m0) out.push('slide 18: the T1 slider does not change MTR');
+    if ((await text(page, 'mc-mtr')) === m0) out.push('slide 20: the T1 slider does not change MTR');
     await go(page, 's-budget'); await page.waitForTimeout(600);
-    if (!/%/.test(await text(page, 'bud-nums'))) out.push('slide 23: no budget numbers');
+    if (!/%/.test(await text(page, 'bud-nums'))) out.push('slide 25: no budget numbers');
     return out;
   },
   async 'exercise-6-1.html'(page) {

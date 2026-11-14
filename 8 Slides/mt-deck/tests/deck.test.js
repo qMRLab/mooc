@@ -23,10 +23,10 @@ test('book links point at the chapter with the book’s numbering', () => {
   assert.throws(() => deck.bookLink('nope'), /Unknown book label/);
 });
 
-// 20 to 25 is the target; 26 while the two-tanks and myelin slides (5, 6) are drafts.
-test('the lecture has 20 to 26 slides, each with a known book anchor (but the title)', () => {
+// 20 to 25 is the target; drafts (slides 2, 3, 4, 5, 9) are being added and will be trimmed.
+test('the lecture has 20 to 30 slides, each with a known book anchor (but the title)', () => {
   const sections = (html.match(/<section\b/g) || []).length;
-  assert.ok(sections >= 20 && sections <= 26, `${sections} slides`);
+  assert.ok(sections >= 20 && sections <= 30, `${sections} slides`);
   const books = all(html, /data-book="([^"]+)"/g);
   assert.equal(books.length, sections - 1, 'each <section> but the title slide needs data-book');
   for (const label of books) assert.ok(deck.LABELS[label], `no LABELS entry for "${label}"`);
@@ -42,7 +42,7 @@ test('every script and stylesheet exists, on every page', () => {
 });
 
 test('every widget registered in a script has its slide, and every slide id is unique', () => {
-  const pages = { 'index.html': ['js/mt-widgets.js', 'js/mt-tanks.js', 'js/mt-myelin.js'], 'exercise-6-1.html': ['js/ex61.js'], 'exercise-6-2.html': ['js/ex62.js'], 'exercise-6-3.html': ['js/ex63.js'] };
+  const pages = { 'index.html': ['js/mt-widgets.js', 'js/mt-scales.js', 'js/mt-protons.js', 'js/mt-fidgrid.js', 'js/mt-tanks.js', 'js/mt-myelin.js'], 'exercise-6-1.html': ['js/ex61.js'], 'exercise-6-2.html': ['js/ex62.js'], 'exercise-6-3.html': ['js/ex63.js'] };
   for (const [page, scripts] of Object.entries(pages)) for (const script of scripts) {
     const ids = all(read(page), /<section id="([^"]+)"/g);
     assert.equal(new Set(ids).size, ids.length, `${page}: duplicate slide ids`);

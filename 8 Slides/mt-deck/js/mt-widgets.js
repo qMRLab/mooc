@@ -39,42 +39,11 @@
     draw('F');
   });
 
-  // ------------------------------------------------------------------ 3 · lineshapes
-  W('s-lines', (section) => {
-    const el = $('lines-plot');
-    const T2F = 0.04;
-    let shape = 'superlorentzian';
-    const xs = logspace(0.5, 200000, 160);
-    const gWater = (d) => S.lorentzianG(d, T2F);
-    const draw = throttle(() => {
-      const off = 10 ** offset.get(), t2r = t2rS.get() * 1e-6;
-      const gR = (d) => S.lineshape(shape, d, t2r);
-      const ratio = gR(off) / gWater(off);
-      $('lines-ratio').textContent = ratio >= 100 ? `${Math.round(ratio).toLocaleString('en')}×` : `${ratio.toFixed(ratio < 10 ? 1 : 0)}×`;
-      plot(el, [
-        { x: xs, y: xs.map(gWater), mode: 'lines', line: { color: C.free, width: 3 }, name: 'water', hovertemplate: 'water: %{y:.2e} s<extra></extra>' },
-        { x: xs, y: xs.map(gR), mode: 'lines', line: { color: C.restr, width: 3 }, name: 'macromolecules', hovertemplate: 'macromolecules: %{y:.2e} s<extra></extra>' },
-        { x: [off, off], y: [gWater(off), gR(off)], mode: 'markers', marker: { size: 12, color: [C.free, C.restr], line: { color: '#fff', width: 2 } }, hoverinfo: 'skip' },
-      ], {
-        xaxis: { type: 'log', title: { text: 'Offset from the water resonance, Δ' }, range: [-0.3, 5.3], tickvals: [1, 10, 100, 1000, 10000, 100000], ticktext: ['1 Hz', '10 Hz', '100 Hz', '1 kHz', '10 kHz', '100 kHz'] },
-        yaxis: { type: 'log', title: { text: 'Absorption lineshape G (s)', standoff: 14 }, range: [-11, -1.5], exponentformat: 'power' },
-        shapes: [{ type: 'line', x0: off, x1: off, yref: 'paper', y0: 0, y1: 1, line: { color: C.ink, width: 2, dash: 'dot' } }],
-        annotations: [
-          { x: Math.log10(off), y: 1, yref: 'paper', text: `<b>MT pulse</b> · ${fmt.hz(off)}`, showarrow: false, yanchor: 'bottom', font: { size: 15 } },
-          { x: Math.log10(14), y: Math.log10(gWater(14)), text: 'water · T<sub>2</sub> = 40 ms', showarrow: false, xanchor: 'left', yanchor: 'bottom', xshift: 6, font: { color: C.free, size: 16 } },
-          { x: 1.2, y: Math.log10(gR(20)), text: `macromolecules · T<sub>2</sub> = ${(t2r * 1e6).toFixed(1)} µs`, showarrow: false, xanchor: 'left', yanchor: 'bottom', font: { color: C.restr, size: 16 } },
-        ],
-        margin: { l: 96, r: 20, t: 34, b: 60 },
-      });
-    });
-    const offset = slider('lines-offset', (v) => fmt.hz(10 ** v), draw);
-    const t2rS = slider('lines-t2r', (v) => `${v.toFixed(1)} µs`, draw);
-    seg(section, 'shape', (v) => { shape = v; draw(); });
-    draw();
-  });
-
-  // ------------------------------------------------------------------ 4 · saturate, then exchange (tanks)
-  W('s-exchange', (section) => {
+  // ------------------------------------------------------------------ saturate, then exchange (tanks)
+  // Two tanks of Mz (water, macromolecules) during 4 s of off-resonance RF and after it, with a play button and a time
+  // slider; cases: two pools, no exchange (kf = 0), water only (F = 0). Used by "Saturate, then exchange" (with the Mz
+  // curves below) and by the Bloch-McConnell slide (tanks only). ids: { tanks, play, time, plot (optional), seg, start }.
+  function exchangeTanks(section, ids) {
     const ON = 4, OFF = 4, N = 200;
     const w1 = 2 * Math.PI * 100, offset = 2000;
     const cases = {
@@ -84,10 +53,10 @@
     };
     const runs = {};
     for (const [k, t] of Object.entries(cases)) runs[k] = S.cwEvolution(t, { w1, offset, on: ON, off: OFF, n: N });
-    let which = 'both', i = 0, timer = null;
+    let which = ids.start || 'both', i = 0, timer = null;
 
     // tanks
-    const host = $('ex-tanks');
+    const host = $(ids.tanks);
     const s = svg('svg', { viewBox: '0 0 820 260', width: '100%', height: '260' }, host);
     const tank = (x, w, color, label, sub) => {
       const g = svg('g', {}, s);
@@ -100,20 +69,20 @@
     const water = tank(70, 300, C.free, 'Water (free pool)', '');
     const macro = tank(560, 110, C.restr, 'Macromolecules', '');
     const exArrow = svg('g', {}, s);
-    const exR = svg('path', { d: 'M 395 120 L 535 120', stroke: C.ex, 'stroke-width': 6, fill: 'none', 'marker-end': 'url(#exhead)' }, exArrow);
-    const exL = svg('path', { d: 'M 535 160 L 395 160', stroke: C.ex, 'stroke-width': 6, fill: 'none', 'marker-end': 'url(#exhead)' }, exArrow);
+    const exR = svg('path', { d: 'M 395 120 L 535 120', stroke: C.ex, 'stroke-width': 6, fill: 'none', 'marker-end': `url(#${ids.tanks}-head)` }, exArrow);
+    const exL = svg('path', { d: 'M 535 160 L 395 160', stroke: C.ex, 'stroke-width': 6, fill: 'none', 'marker-end': `url(#${ids.tanks}-head)` }, exArrow);
     const defs = svg('defs', {}, s);
-    const m = svg('marker', { id: 'exhead', viewBox: '0 0 10 10', refX: 6, refY: 5, markerWidth: 4, markerHeight: 4, orient: 'auto-start-reverse' }, defs);
+    const m = svg('marker', { id: `${ids.tanks}-head`, viewBox: '0 0 10 10', refX: 6, refY: 5, markerWidth: 4, markerHeight: 4, orient: 'auto-start-reverse' }, defs);
     svg('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: C.ex }, m);
-    svg('text', { x: 465, y: 108, 'text-anchor': 'middle', 'font-size': 16, fill: C.ex }, exArrow, 'k_f · Mz,f');
-    svg('text', { x: 465, y: 186, 'text-anchor': 'middle', 'font-size': 16, fill: C.ex }, exArrow, 'k_r · Mz,r');
+    svg('text', { x: 465, y: 98, 'text-anchor': 'middle', 'font-size': 16, fill: C.ex }, exArrow, 'k_f · Mz,f');
+    svg('text', { x: 465, y: 196, 'text-anchor': 'middle', 'font-size': 16, fill: C.ex }, exArrow, 'k_r · Mz,r');
     const rf = svg('g', {}, s);
     svg('path', { d: 'M 735 40 l -16 26 l 14 0 l -16 30', stroke: C.restr, 'stroke-width': 4, fill: 'none' }, rf);
     svg('text', { x: 742, y: 50, 'font-size': 17, 'font-weight': 700, fill: C.restr }, rf, 'RF');
     const noMacro = svg('text', { x: 615, y: 135, 'text-anchor': 'middle', 'font-size': 17, fill: C.muted }, s, '(none)');
 
-    const el = $('ex-plot');
-    const time = slider('ex-time', (v) => `${((v / N) * (ON + OFF)).toFixed(1)} s`, (v) => { i = v; render(); });
+    const el = ids.plot ? $(ids.plot) : null;
+    const time = slider(ids.time, (v) => `${((v / N) * (ON + OFF)).toFixed(1)} s`, (v) => { i = v; render(); });
     function render() {
       const r = runs[which], t = cases[which];
       const fw = r.mzf[i], fr = t.F > 0 ? r.mzr[i] / t.F : 0;
@@ -137,6 +106,7 @@
       exR.setAttribute('stroke-width', wR); exL.setAttribute('stroke-width', wL);
       exArrow.style.opacity = kf > 0 ? 1 : 0.15;
       time.set(i);
+      if (!el) return;
       plot(el, [
         { x: r.t, y: r.mzf.map((v) => 100 * v), mode: 'lines', line: { color: C.free, width: 3 }, hovertemplate: 'water %{y:.0f} %<extra></extra>' },
         ...(t.F > 0 ? [{ x: r.t, y: r.mzr.map((v) => (100 * v) / t.F), mode: 'lines', line: { color: C.restr, width: 3 }, hovertemplate: 'macromolecules %{y:.0f} %<extra></extra>' }] : []),
@@ -151,7 +121,7 @@
         annotations: [{ x: ON / 2, y: 1, yref: 'paper', yanchor: 'top', text: 'RF on', showarrow: false, font: { color: C.restr } }],
       });
     }
-    const play = $('ex-play');
+    const play = $(ids.play);
     const stop = () => { clearInterval(timer); timer = null; play.textContent = '▶ Play'; };
     play.addEventListener('click', () => {
       play.blur();
@@ -160,10 +130,12 @@
       play.textContent = '❚❚ Pause';
       timer = setInterval(() => { i += 1; if (i >= N) { i = N; stop(); } render(); }, 35);
     });
-    seg(section, 'case', (v) => { which = v; render(); });
+    seg(section, ids.seg, (v) => { which = v; render(); if (ids.onCase) ids.onCase(v); });
     i = 0; render();
+    if (ids.onCase) ids.onCase(which);
     return { hide: stop };
-  });
+  }
+  W('s-exchange', (section) => exchangeTanks(section, { tanks: 'ex-tanks', play: 'ex-play', time: 'ex-time', plot: 'ex-plot', seg: 'case' }));
 
   // ------------------------------------------------------------------ 5 · MT everywhere: VFA T1 in WM
   W('s-everywhere', () => {
@@ -405,29 +377,20 @@
     section.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => { b.blur(); sel = brain.preset(b.dataset.preset); drawMap(); drawPlot(); }));
   });
 
-  // ------------------------------------------------------------------ 11 · the two-pool diagram
-  W('s-bm', () => {
-    const host = $('bm-svg');
-    const s = svg('svg', { viewBox: '0 0 460 250', width: '100%', height: 250 }, host);
-    const d = svg('defs', {}, s);
-    const head = (id, col) => { const m = svg('marker', { id, viewBox: '0 0 10 10', refX: 7, refY: 5, markerWidth: 5, markerHeight: 5, orient: 'auto-start-reverse' }, d); svg('path', { d: 'M0 0 L10 5 L0 10 z', fill: col }, m); };
-    head('bm-ex', C.ex); head('bm-rf', C.restr); head('bm-t1', C.muted);
-    svg('rect', { x: 20, y: 70, width: 170, height: 150, rx: 10, fill: '#e7f0f9', stroke: C.free, 'stroke-width': 2.5 }, s);
-    svg('text', { x: 105, y: 130, 'text-anchor': 'middle', 'font-size': 19, 'font-weight': 700, fill: C.free }, s, 'Free pool');
-    svg('text', { x: 105, y: 156, 'text-anchor': 'middle', 'font-size': 16, fill: C.free }, s, 'M₀,f = 1 · T₁,f, T₂,f');
-    svg('rect', { x: 330, y: 120, width: 110, height: 100, rx: 10, fill: '#fbe9e2', stroke: C.restr, 'stroke-width': 2.5 }, s);
-    svg('text', { x: 385, y: 160, 'text-anchor': 'middle', 'font-size': 18, 'font-weight': 700, fill: C.restr }, s, 'Restricted');
-    svg('text', { x: 385, y: 184, 'text-anchor': 'middle', 'font-size': 16, fill: C.restr }, s, 'M₀,r = F · T₂,r');
-    svg('path', { d: 'M 195 150 L 322 150', stroke: C.ex, 'stroke-width': 4, 'marker-end': 'url(#bm-ex)' }, s);
-    svg('path', { d: 'M 322 190 L 195 190', stroke: C.ex, 'stroke-width': 4, 'marker-end': 'url(#bm-ex)' }, s);
-    svg('text', { x: 258, y: 140, 'text-anchor': 'middle', 'font-size': 18, fill: C.ex }, s, 'k_f');
-    svg('text', { x: 258, y: 212, 'text-anchor': 'middle', 'font-size': 18, fill: C.ex }, s, 'k_r');
-    svg('path', { d: 'M 400 20 l -14 28 l 14 0 l -14 36', stroke: C.restr, 'stroke-width': 3.5, fill: 'none', 'marker-end': 'url(#bm-rf)' }, s);
-    svg('text', { x: 412, y: 40, 'font-size': 17, fill: C.restr, 'font-weight': 700 }, s, 'W');
-    svg('path', { d: 'M 120 10 l -12 24 l 12 0 l -12 28', stroke: C.restr, 'stroke-width': 2.5, fill: 'none', opacity: 0.55, 'marker-end': 'url(#bm-rf)' }, s);
-    svg('text', { x: 132, y: 30, 'font-size': 16, fill: C.restr, opacity: 0.8 }, s, 'ω₁ (direct, small)');
+  // ------------------------------------------------------------------ Bloch-McConnell: the equations, with the two-pool tanks
+  // Picking a case greys out the terms it removes: no exchange, the exchange terms (green); water only, those and the
+  // whole restricted-pool equation (4th line). Terms are found by their KaTeX colour.
+  W('s-bm', (section) => {
+    const EXCH = /rgb\(43,\s*138,\s*62\)|#2b8a3e/i;   // the exchange colour, as the browser writes KaTeX's inline style
+    const grey = (v) => {
+      const eqs = [...section.querySelectorAll('.bm-eqs .katex-display')];
+      section.querySelectorAll('.bm-eqs .bm-off').forEach((e) => e.classList.remove('bm-off'));
+      if (v === 'both' || eqs.length < 4) return;
+      section.querySelectorAll('.bm-eqs [style]').forEach((e) => { if (EXCH.test(e.getAttribute('style'))) e.classList.add('bm-off'); });
+      if (v === 'noF') eqs[3].classList.add('bm-off');
+    };
+    return exchangeTanks(section, { tanks: 'bm-tanks', play: 'bm-play', time: 'bm-time', seg: 'bm-case', start: 'both', onCase: grey });
   });
-
 
   // ------------------------------------------------------------------ 12 · fit errors from wrong input maps
   W('s-fit', (section) => {
