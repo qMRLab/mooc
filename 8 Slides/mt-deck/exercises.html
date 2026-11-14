@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercises · Magnetization Transfer · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="mt.css">
+  <style>
+    .reveal .cards.three { grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 0.6em; }
+    .reveal .cards.three .card { padding: 14px 18px; font-size: 0.66em; text-decoration: none; color: var(--ink); }
+    .reveal .cards.three .card h3 { font-size: 1.35em; margin-bottom: 0.3em; color: var(--accent); }
+    .reveal .card.ex-1 { --card: var(--restr); } .reveal .card.ex-2 { --card: var(--mtr); } .reveal .card.ex-3 { --card: var(--mtsat); }
+  </style>
+</head>
+<body class="nav-zones" data-next-deck="exercise-6-1.html">
+<div class="reveal">
+<div class="slides">
+
+<!-- The starting page for the MT exercises, embedded in the book by "8 Slides/6 - Magnetization Transfer Exercises.md".
+     Each exercise is its own deck (exercise-6-N.html), as in the B0 deck. -->
+<section class="problem hub">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">Magnetization Transfer</p>
+  <div class="cards three">
+    <a class="card ex-1" href="exercise-6-1.html"><h3>Exercise 6-1</h3><p><b>Fit a qMT voxel by hand</b></p><p>The two-pool model against a measured Z-spectrum: your fit, the computer's, the F–k<sub>f</sub> trade-off, and what a wrong B<sub>1</sub> map does.</p></a>
+    <a class="card ex-2" href="exercise-6-2.html"><h3>Exercise 6-2</h3><p><b>What does MTR measure?</b></p><p>The chapter's exercises: MTR from a Z-spectrum, then MTR for macromolecular content F and exchange rate k<sub>f</sub> from zero up.</p></a>
+    <a class="card ex-3" href="exercise-6-3.html"><h3>Exercise 6-3</h3><p><b>MTsat by hand, then on a brain</b></p><p>T<sub>1</sub> and MTsat from three images with Helms' equations, how good the approximations are, then MTsat and MTR maps of a real brain.</p></a>
+  </div>
+  <p class="nav-tip"><b>Changing slides:</b> move the mouse to the far left or right edge of the window until a grey bar appears, then click it to go back or forward. Space and Page Down also move forward.</p>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script>
+  Reveal.initialize({ width: 1280, height: 720, margin: 0.03, center: false, hash: true, slideNumber: 'c/t', transition: 'slide' });
+</script>
+<script src="js/nav.js"></script>
+</body>
+</html>

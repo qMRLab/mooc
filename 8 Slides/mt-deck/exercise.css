@@ -1,0 +1,58 @@
+/* The MT exercise decks (exercise-6-N.html), on top of deck.css and mt.css. The answer boxes, answers and cover
+ * slides are the B0 exercises' (b0-deck/exercise.css); the rest is the MT exercises' own layout. */
+
+/* "Your answer" boxes: a number, Check, then right / wrong (js/ex-common.js). */
+.reveal .ask { margin: 8px 0; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 10px; background: var(--panel); font-size: 17px; }
+.reveal .ask p { margin: 0 0 6px; }
+.reveal .ask-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.reveal .ask input[type="number"] { font: inherit; width: 6em; padding: 3px 8px; border: 1px solid var(--rule); border-radius: 6px; }
+.reveal .ask button, .reveal .ex-btn { font: inherit; font-size: 16px; padding: 3px 12px; border-radius: 6px; border: 1px solid var(--accent); background: #fff; color: var(--accent); cursor: pointer; }
+.reveal .ex-btn.primary { background: var(--accent); color: #fff; font-weight: 700; }
+.reveal .ex-btn:disabled { opacity: 0.45; cursor: default; }
+.reveal .ask-fb { font-weight: 700; }
+.reveal .ask-fb.right { color: #2e8b3a; } .reveal .ask-fb.wrong { color: #c0392b; }
+.reveal .ask .unit { color: var(--muted); }
+
+/* the answer behind "Show the answer" */
+.reveal .ans { font-size: 17px; line-height: 1.4; margin: 10px 0 0; padding: 10px 14px 10px 32px; background: var(--panel); border: 2px solid var(--accent); border-radius: 10px; }
+.reveal .ans li { margin: 5px 0; }
+.reveal .ans[hidden] { display: none; }
+
+/* cover slides: "In this exercise, we will cover:" */
+.reveal .ex-cover-lead { margin: 1.1em 0 0.3em; font-size: 1.05em; color: var(--ink); }
+.reveal .ex-cover { list-style: none; counter-reset: cover; margin: 0 0 0 0.6em; padding: 0; font-size: 1.05em; line-height: 1.6; }
+.reveal .ex-cover li { counter-increment: cover; }
+.reveal .ex-cover li::before { content: counter(cover) "."; display: inline-block; width: 1.5em; font-weight: 700; color: var(--accent); }
+
+/* exercise slides: the task under the title, controls on the left, figures on the right */
+.reveal section.ex { padding-top: 10px; }
+.reveal section.ex h2 { font-size: 1.1em; margin-bottom: 0.15em; }
+.reveal .ex-goal { font-size: 18px; margin: 0 0 10px; color: var(--ink); max-width: 1150px; }
+.reveal .ex-grid { display: grid; grid-template-columns: 360px 1fr; column-gap: 26px; align-items: start; }
+.reveal .ex-grid.wide-left { grid-template-columns: 450px 1fr; }
+.reveal .ex-side { font-size: 17px; }
+.reveal .ex-side .w-controls { font-size: 17px; }
+.reveal .ex-side .w-controls label { grid-template-columns: 3.4em 1fr 5em; }
+.reveal .ex-side h3 { font-size: 18px; margin: 10px 0 4px; }
+.reveal .ex-side .seg { font-size: 15px; }
+.reveal .ex-note { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+.reveal .ex-big { display: flex; gap: 10px; margin: 10px 0; }
+.reveal .ex-big div { flex: 1; background: var(--panel); border-radius: 10px; padding: 6px 10px; text-align: center; }
+.reveal .ex-big span { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.reveal .ex-big b { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
+.reveal table.ex-table { border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; margin: 6px 0; }
+.reveal table.ex-table th, .reveal table.ex-table td { padding: 3px 10px; border-bottom: 1px solid var(--rule); text-align: right; }
+.reveal table.ex-table th:first-child, .reveal table.ex-table td:first-child { text-align: left; }
+.reveal table.ex-table th { color: var(--muted); font-weight: 600; }
+.reveal table.ex-table td.you { color: var(--accent); font-weight: 700; }
+.reveal .predict { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+.reveal .predict button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.reveal .reveal-later[hidden] { display: none; }
+.reveal .ex-cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.reveal .eq-inline { font-size: 0.9em; }
+
+/* the summary slides: where to go next */
+.reveal .tool-promo { display: flex; align-items: center; gap: 20px; margin-top: 0.7em; padding: 8px 18px; background: #fff; border: 1px solid var(--rule); border-radius: 12px; max-width: 1130px; }
+.reveal .tool-promo p { flex: 1; margin: 0; font-size: 0.8em; line-height: 1.45; }
+.reveal .tool-promo code { font-size: 0.9em; }
+.reveal .seg[hidden] { display: none; }
