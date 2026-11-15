@@ -1,4 +1,4 @@
-/* Slide "Mobile and bound protons": two canvases. Top: water molecules tumbling and diffusing freely. Bottom: a lipid
+/* Slide "Mobile and restricted protons": two canvases. Top: water molecules tumbling and diffusing freely. Bottom: a lipid
  * bilayer (the macromolecules of myelin): the same hydrogens, locked in place, only vibrating. Hydrogen is drawn the
  * same way in both (H_FILL), so the protons read as the same particles in two environments. Drawn only while shown. */
 (function () {

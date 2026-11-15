@@ -19,103 +19,46 @@
 <section class="problem">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">Magnetization Transfer · Exercise 6-2</p>
-  <h2>What does MTR measure?</h2>
+  <h2>Pulse after pulse, to a steady state</h2>
   <p class="ex-cover-lead">In this exercise, we will cover:</p>
   <ol class="ex-cover">
-    <li>Computing MTR from the points of a Z-spectrum</li>
-    <li>How MTR changes with the amount of macromolecules, F</li>
-    <li>How MTR changes with the exchange rate, k<sub>f</sub>, and what that says about MTR</li>
+    <li>How water and the macromolecules approach a steady state, one MT-SPGR repetition after another</li>
+    <li>What happens inside one TR: the MT pulse, exchange, T<sub>1</sub> recovery and the excitation</li>
+    <li>White matter, grey matter and a water phantom, with and without the MT pulse</li>
   </ol>
-  <p class="nav-tip">The chapter's Exercises 1–7, with a two-pool simulator in place of qMRLab.</p>
+  <p class="nav-tip">One interactive slide: pick a tissue, move the TR slider, overlay MT off.</p>
 </section>
 
-<!-- (a) the chapter's Exercise 1: MTR of each point of a measured Z-spectrum -->
-<section id="ex62-a" class="ex">
-  <p class="kicker">Exercise 6-2 · (a)</p>
-  <h2>MTR from a Z-spectrum</h2>
-  <p class="ex-goal">One white matter voxel, ten MT-weighted images, each divided by the image without MT (S<sub>MT</sub>/S<sub>0</sub>). Each one is an MTR measurement. Compute three of them.</p>
-  <div class="ex-grid wide-left">
-    <div class="ex-side">
-      <div class="eq eq-box eq-inline">$$\text{MTR} = \frac{S_0 - S_{MT}}{S_0}\cdot 100\,\% = \left(1 - \frac{S_{MT}}{S_0}\right)\cdot 100\,\%$$</div>
-      <div class="ask" id="ex62-a1" data-tol="0.02" data-unit=" %"><p><b>426° at 1.1 kHz:</b> S<sub>MT</sub>/S<sub>0</sub> = <b class="val"></b></p><div class="ask-row"><span>MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex62-a2" data-tol="0.02" data-unit=" %"><p><b>142° at 2.7 kHz:</b> S<sub>MT</sub>/S<sub>0</sub> = <b class="val"></b></p><div class="ask-row"><span>MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex62-a3" data-tol="0.05" data-abs="0.6" data-unit=" %"><p><b>426° at 17 kHz:</b> S<sub>MT</sub>/S<sub>0</sub> = <b class="val"></b></p><div class="ask-row"><span>MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <button class="ex-btn" id="ex62-all">Show all ten</button>
-    </div>
-    <div class="w-plot" id="ex62-plot-a" style="height:560px"></div>
-  </div>
-</section>
-
-<!-- (b) the chapter's Exercises 2-4: MTR for F = 0, 10 and 20 % -->
-<section id="ex62-b" class="ex">
-  <p class="kicker">Exercise 6-2 · (b)</p>
-  <h2>MTR and the amount of macromolecules</h2>
-  <p class="ex-goal">The Brown 2013 Siemens protocol (15°, TR 30 ms, Gaussian MT pulse 7.68 ms, 500°, 1.5 kHz) on a tissue with k<sub>f</sub> = 5 s⁻¹, T<sub>1,f</sub> = 1200 ms, R<sub>1,r</sub> = 1 s⁻¹, T<sub>2,f</sub> = 100 ms, T<sub>2,r</sub> = 10 µs.<sup>*</sup></p>
-  <div class="ex-grid wide-left">
-    <div class="ex-side">
-      <p><b>Predict first.</b> With no macromolecules at all (F = 0), MTR is:</p>
-      <div class="predict" data-ctl="p0"><button class="ex-btn" data-v="zero">exactly 0</button><button class="ex-btn" data-v="few">a few %</button><button class="ex-btn" data-v="half">about half the WM value</button></div>
-      <p class="ex-note" id="ex62-p0-fb"></p>
-      <div class="w-controls col"><label><span>F</span> <input type="range" id="ex62-F" min="0" max="0.3" step="0.01" value="0.05"><output id="ex62-F-v"></output></label></div>
-      <div class="ex-big"><div><span>Simulated MTR</span><b id="ex62-mtr-b">–</b></div></div>
-      <div class="ask" id="ex62-b1" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>F = 0: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex62-b2" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>F = 10 %: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex62-b3" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>F = 20 %: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <p class="ex-note"><sup>*</sup>The chapter writes F as 0.0, 10.0 and 20.0, in %. Read the simulated MTR off the slider.</p>
-    </div>
-    <div class="w-plot" id="ex62-plot-b" style="height:560px"></div>
-  </div>
-</section>
-
-<!-- (c) the chapter's Exercises 5-6: MTR for kf = 5, 2.5 and 0 -->
-<section id="ex62-c" class="ex">
-  <p class="kicker">Exercise 6-2 · (c)</p>
-  <h2>MTR and the exchange rate</h2>
-  <p class="ex-goal">Same protocol and tissue, F = 20 %. Now slow the exchange down: k<sub>f</sub> = 5, 2.5 and 0 s⁻¹.</p>
-  <div class="ex-grid wide-left">
-    <div class="ex-side">
-      <p><b>Predict first.</b> With k<sub>f</sub> = 0 (macromolecules present, no exchange), MTR is:</p>
-      <div class="predict" data-ctl="pk"><button class="ex-btn" data-v="same">as with k<sub>f</sub> = 5</button><button class="ex-btn" data-v="half">about half</button><button class="ex-btn" data-v="f0">as with F = 0</button></div>
-      <p class="ex-note" id="ex62-pk-fb"></p>
-      <div class="w-controls col"><label><span>k<sub>f</sub></span> <input type="range" id="ex62-kf" min="0" max="8" step="0.1" value="1"><output id="ex62-kf-v"></output></label></div>
-      <div class="ex-big"><div><span>Simulated MTR</span><b id="ex62-mtr-c">–</b></div></div>
-      <div class="ask" id="ex62-c1" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>k<sub>f</sub> = 5 s⁻¹: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex62-c2" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>k<sub>f</sub> = 2.5 s⁻¹: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex62-c3" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>k<sub>f</sub> = 0: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-    </div>
-    <div class="w-plot" id="ex62-plot-c" style="height:560px"></div>
-  </div>
-</section>
-
-<!-- (d) the chapter's Exercise 7: reflect -->
-<section id="ex62-d" class="ex">
-  <p class="kicker">Exercise 6-2 · (d)</p>
-  <h2>What did MTR measure?</h2>
-  <p class="ex-goal">Your six answers on the two curves. What do they say about MTR as a measure of macromolecules?</p>
-  <div class="ex-grid wide-left">
-    <div class="ex-side">
-      <button class="ex-btn show-ans">Show the answer</button>
-      <ul class="ans" hidden>
-        <li><b>F = 0 is not MTR = 0.</b> The pulse saturates water directly a little (~4 % here): a floor that depends on the pulse and on water's T<sub>2</sub>.</li>
-        <li><b>Not proportional to F.</b> Doubling F from 10 to 20 % raises MTR by about a third, not twice: the saturation saturates.</li>
-        <li><b>Exchange matters as much as quantity.</b> Halving k<sub>f</sub> costs as much MTR as removing a quarter of the macromolecules; with k<sub>f</sub> = 0 they are invisible, however many there are.</li>
-        <li>So MTR mixes F, k<sub>f</sub> (and T<sub>1</sub>, B<sub>1</sub>, the protocol): a lower MTR in a lesion can mean less myelin, or slower exchange, or longer T<sub>1</sub>.</li>
+<!-- 80 TRs from equilibrium and one TR zoomed in; js/mt-steady.js (moved here from the lecture) -->
+<section id="s-tr" class="figure side">
+  <div class="fig-layout">
+    <h2>Pulse after pulse, to a steady state</h2>
+    <div class="side-text">
+      <ul>
+        <li>Each MT pulse takes a bite of the restricted pool; exchange drags water down <b>between pulses</b> too</li>
+        <li>A steady state after <b id="tr-n95">–</b> TRs</li>
+        <li>Fast models assume it: acquire the <b>centre of k-space</b> after it is reached</li>
       </ul>
+      <div class="seg small" data-ctl="tissue"><button data-v="wm" aria-pressed="true">White matter</button><button data-v="gm" aria-pressed="false">Grey matter</button><button data-v="water" aria-pressed="false">Water</button></div>
+      <div class="w-controls col"><label><span>TR</span> <input type="range" id="tr-sel" min="1" max="80" step="1" value="2"><output id="tr-sel-v"></output></label></div>
+      <label class="tr-off"><input type="checkbox" id="tr-off"> Overlay MT off (dashed)</label>
+      <p class="fig-hint">From equilibrium, 80 TRs of the Karakuzu Siemens MT-weighted image (TR 32 ms; MT pulse: Gaussian, 10 ms, 540° at 1.2 kHz). The slider, or a click on the top plot, picks the TR shown below.</p>
     </div>
-    <div class="w-col" style="display:flex; flex-direction:column">
-      <div class="w-plot" id="ex62-plot-d1" style="height:280px"></div>
-      <div class="w-plot" id="ex62-plot-d2" style="height:280px"></div>
+    <div class="w-col">
+      <div class="w-plot" id="tr-all" style="height:300px"></div>
+      <div class="w-plot" id="tr-one" style="height:280px"></div>
     </div>
   </div>
+  <aside class="notes">Simulated with the full Bloch-McConnell equations (as qMRLab's "Bloch sim"). Top: Mz of water (blue) and of the restricted pool (orange, as a fraction of its equilibrium F), and the signal at each readout (dots), from equilibrium. Bottom: one TR, with the MT pulse's power (ω1², shaded), which sets the saturation rate W. The Gaussian pulse has almost no power in its first and last ~2 ms, so there the restricted pool keeps recovering (exchange with water pulls it up at k_r = k_f/F ≈ 27/s, faster than T1); it falls once W·Mz,r beats that recovery, and bottoms out after the peak, where the waning W just balances it. The bottom plot opens on TR 2, where exchange visibly drags water down after the pulse (about −1.8/s, against +0.06/s of T1 recovery); the line above it gives both rates for whichever TR is chosen. At steady state (slider to the end, or a click near the end of the top plot) water sits low enough (0.35) that its T1 recovery, R1f(1 − m_f) ≈ +0.65/s, cancels the exchange drain, k_f(m_f − m_r) ≈ −0.4 to −0.7/s, so its curve is flat between pulses: that balance is what defines the steady state. The "Overlay MT off" box adds the same sequence without the MT pulse (dashed), excitation at the same time: the gap between the two water curves at the readout is the MT effect (MTR), and in the water phantom it shrinks to the direct effect alone. The water phantom (doped water, T1 = T2 = 1 s, no macromolecules) shows the direct effects alone: the same tilt and return during the MT pulse, nearly no lasting loss, and a steady state set by the excitations and T1 only. Water's dip and return during the pulse is the off-resonance pulse tipping it a little (direct effect), undone as B1 goes back to zero. During the MT pulse the restricted pool drops sharply; water drops a little (exchange and direct saturation); after the pulse, water keeps losing to the saturated restricted pool while both recover by T1. The excitation takes a small step off water. The analytical qMT signal models (Sled & Pike) assume this steady state, which is why the centre of k-space is acquired after it (Figure 6.4 compares Bloch simulations of 1 to 600 pulses with the analytical solution).</aside>
 </section>
 
 <section class="lesson summary-lessons">
   <p class="kicker">Exercise 6-2 · Summary</p>
   <h2>Summary</h2>
   <ol>
-    <li>Each point of a Z-spectrum is an MTR measurement; the MTR protocol picks one offset and one pulse.</li>
-    <li>MTR rises with F, but not in proportion, and it is not 0 without macromolecules (direct saturation).</li>
-    <li>MTR depends on the exchange rate as much as on F: it is a mixture, not a measure of one tissue property.</li>
+    <li>Each MT pulse takes a bite of the restricted pool, and exchange drags water down between pulses; after a few dozen TRs both settle into a steady state.</li>
+    <li>At steady state, water's T<sub>1</sub> recovery balances what exchange and the excitation take each TR, so its curve is flat between pulses.</li>
+    <li>Without macromolecules (the water phantom), only the excitation and the small direct effect of the MT pulse are left.</li>
   </ol>
 </section>
 
@@ -131,7 +74,7 @@
 <script src="js/deck.js"></script>
 <script src="js/mt-common.js"></script>
 <script src="js/ex-common.js"></script>
-<script src="js/ex62.js"></script>
+<script src="js/mt-steady.js"></script>
 <script src="js/nav.js"></script>
 </body>
 </html>

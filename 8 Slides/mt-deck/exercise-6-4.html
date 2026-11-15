@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 6-4 · Magnetization Transfer · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="mt.css">
+  <link rel="stylesheet" href="exercise.css">
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<section class="problem">
+  <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
+  <p class="kicker">Magnetization Transfer · Exercise 6-4</p>
+  <h2>What does MTR measure?</h2>
+  <p class="ex-cover-lead">In this exercise, we will cover:</p>
+  <ol class="ex-cover">
+    <li>Computing MTR from the points of a Z-spectrum</li>
+    <li>How MTR changes with the amount of macromolecules, F</li>
+    <li>How MTR changes with the exchange rate, k<sub>f</sub>, and what that says about MTR</li>
+  </ol>
+  <p class="nav-tip">The chapter's Exercises 1–7, with a two-pool simulator in place of qMRLab.</p>
+</section>
+
+<!-- (a) the chapter's Exercise 1: MTR of each point of a measured Z-spectrum -->
+<section id="ex64-a" class="ex">
+  <p class="kicker">Exercise 6-4 · (a)</p>
+  <h2>MTR from a Z-spectrum</h2>
+  <p class="ex-goal">One white matter voxel, ten MT-weighted images, each divided by the image without MT (S<sub>MT</sub>/S<sub>0</sub>). Each one is an MTR measurement. Compute three of them.</p>
+  <div class="ex-grid wide-left">
+    <div class="ex-side">
+      <div class="eq eq-box eq-inline">$$\text{MTR} = \frac{S_0 - S_{MT}}{S_0}\cdot 100\,\% = \left(1 - \frac{S_{MT}}{S_0}\right)\cdot 100\,\%$$</div>
+      <div class="ask" id="ex64-a1" data-tol="0.02" data-unit=" %"><p><b>426° at 1.1 kHz:</b> S<sub>MT</sub>/S<sub>0</sub> = <b class="val"></b></p><div class="ask-row"><span>MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <div class="ask" id="ex64-a2" data-tol="0.02" data-unit=" %"><p><b>142° at 2.7 kHz:</b> S<sub>MT</sub>/S<sub>0</sub> = <b class="val"></b></p><div class="ask-row"><span>MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <div class="ask" id="ex64-a3" data-tol="0.05" data-abs="0.6" data-unit=" %"><p><b>426° at 17 kHz:</b> S<sub>MT</sub>/S<sub>0</sub> = <b class="val"></b></p><div class="ask-row"><span>MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <button class="ex-btn" id="ex64-all">Show all ten</button>
+    </div>
+    <div class="w-plot" id="ex64-plot-a" style="height:560px"></div>
+  </div>
+</section>
+
+<!-- (b) the chapter's Exercises 2-4: MTR for F = 0, 10 and 20 % -->
+<section id="ex64-b" class="ex">
+  <p class="kicker">Exercise 6-4 · (b)</p>
+  <h2>MTR and the amount of macromolecules</h2>
+  <p class="ex-goal">The Brown 2013 Siemens protocol (15°, TR 30 ms, Gaussian MT pulse 7.68 ms, 500°, 1.5 kHz) on a tissue with k<sub>f</sub> = 5 s⁻¹, T<sub>1,f</sub> = 1200 ms, R<sub>1,r</sub> = 1 s⁻¹, T<sub>2,f</sub> = 100 ms, T<sub>2,r</sub> = 10 µs.<sup>*</sup></p>
+  <div class="ex-grid wide-left">
+    <div class="ex-side">
+      <p><b>Predict first.</b> With no macromolecules at all (F = 0), MTR is:</p>
+      <div class="predict" data-ctl="p0"><button class="ex-btn" data-v="zero">exactly 0</button><button class="ex-btn" data-v="few">a few %</button><button class="ex-btn" data-v="half">about half the WM value</button></div>
+      <p class="ex-note" id="ex64-p0-fb"></p>
+      <div class="w-controls col"><label><span>F</span> <input type="range" id="ex64-F" min="0" max="0.3" step="0.01" value="0.05"><output id="ex64-F-v"></output></label></div>
+      <div class="ex-big"><div><span>Simulated MTR</span><b id="ex64-mtr-b">–</b></div></div>
+      <div class="ask" id="ex64-b1" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>F = 0: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <div class="ask" id="ex64-b2" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>F = 10 %: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <div class="ask" id="ex64-b3" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>F = 20 %: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <p class="ex-note"><sup>*</sup>The chapter writes F as 0.0, 10.0 and 20.0, in %. Read the simulated MTR off the slider.</p>
+    </div>
+    <div class="w-plot" id="ex64-plot-b" style="height:560px"></div>
+  </div>
+</section>
+
+<!-- (c) the chapter's Exercises 5-6: MTR for kf = 5, 2.5 and 0 -->
+<section id="ex64-c" class="ex">
+  <p class="kicker">Exercise 6-4 · (c)</p>
+  <h2>MTR and the exchange rate</h2>
+  <p class="ex-goal">Same protocol and tissue, F = 20 %. Now slow the exchange down: k<sub>f</sub> = 5, 2.5 and 0 s⁻¹.</p>
+  <div class="ex-grid wide-left">
+    <div class="ex-side">
+      <p><b>Predict first.</b> With k<sub>f</sub> = 0 (macromolecules present, no exchange), MTR is:</p>
+      <div class="predict" data-ctl="pk"><button class="ex-btn" data-v="same">as with k<sub>f</sub> = 5</button><button class="ex-btn" data-v="half">about half</button><button class="ex-btn" data-v="f0">as with F = 0</button></div>
+      <p class="ex-note" id="ex64-pk-fb"></p>
+      <div class="w-controls col"><label><span>k<sub>f</sub></span> <input type="range" id="ex64-kf" min="0" max="8" step="0.1" value="1"><output id="ex64-kf-v"></output></label></div>
+      <div class="ex-big"><div><span>Simulated MTR</span><b id="ex64-mtr-c">–</b></div></div>
+      <div class="ask" id="ex64-c1" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>k<sub>f</sub> = 5 s⁻¹: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <div class="ask" id="ex64-c2" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>k<sub>f</sub> = 2.5 s⁻¹: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+      <div class="ask" id="ex64-c3" data-abs="0.5" data-unit=" %"><div class="ask-row"><span>k<sub>f</sub> = 0: MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
+    </div>
+    <div class="w-plot" id="ex64-plot-c" style="height:560px"></div>
+  </div>
+</section>
+
+<!-- (d) the chapter's Exercise 7: reflect -->
+<section id="ex64-d" class="ex">
+  <p class="kicker">Exercise 6-4 · (d)</p>
+  <h2>What did MTR measure?</h2>
+  <p class="ex-goal">Your six answers on the two curves. What do they say about MTR as a measure of macromolecules?</p>
+  <div class="ex-grid wide-left">
+    <div class="ex-side">
+      <button class="ex-btn show-ans">Show the answer</button>
+      <ul class="ans" hidden>
+        <li><b>F = 0 is not MTR = 0.</b> The pulse saturates water directly a little (~4 % here): a floor that depends on the pulse and on water's T<sub>2</sub>.</li>
+        <li><b>Not proportional to F.</b> Doubling F from 10 to 20 % raises MTR by about a third, not twice: the saturation saturates.</li>
+        <li><b>Exchange matters as much as quantity.</b> Halving k<sub>f</sub> costs as much MTR as removing a quarter of the macromolecules; with k<sub>f</sub> = 0 they are invisible, however many there are.</li>
+        <li>So MTR mixes F, k<sub>f</sub> (and T<sub>1</sub>, B<sub>1</sub>, the protocol): a lower MTR in a lesion can mean less myelin, or slower exchange, or longer T<sub>1</sub>.</li>
+      </ul>
+    </div>
+    <div class="w-col" style="display:flex; flex-direction:column">
+      <div class="w-plot" id="ex64-plot-d1" style="height:280px"></div>
+      <div class="w-plot" id="ex64-plot-d2" style="height:280px"></div>
+    </div>
+  </div>
+</section>
+
+<section class="lesson summary-lessons">
+  <p class="kicker">Exercise 6-4 · Summary</p>
+  <h2>Summary</h2>
+  <ol>
+    <li>Each point of a Z-spectrum is an MTR measurement; the MTR protocol picks one offset and one pulse.</li>
+    <li>MTR rises with F, but not in proportion, and it is not 0 without macromolecules (direct saturation).</li>
+    <li>MTR depends on the exchange rate as much as on F: it is a mixture, not a measure of one tissue property.</li>
+  </ol>
+</section>
+
+</div>
+</div>
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/mt-sim.js"></script>
+<script src="js/data/brain.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/mt-common.js"></script>
+<script src="js/ex-common.js"></script>
+<script src="js/ex64.js"></script>
+<script src="js/nav.js"></script>
+</body>
+</html>

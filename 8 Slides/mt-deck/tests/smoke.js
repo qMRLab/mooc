@@ -1,4 +1,4 @@
-// Headless walk-through of every slide of the MT deck, the exercise hub and the three exercises, offline (file://),
+// Headless walk-through of every slide of the MT deck, the exercise hub and the five exercises, offline (file://),
 // at two viewport sizes, failing on any script error. It also drives the main interactions: sliders, presets, voxel
 // clicks, the exercises' answer boxes and fits.
 // Usage: npm run smoke   (screenshots are written to tests/screenshots/)
@@ -10,7 +10,7 @@ const path = require('node:path');
 const DECK = path.resolve(__dirname, '..');
 const SHOTS = path.join(__dirname, 'screenshots');
 const SIZES = [[1280, 720], [1920, 1080]];
-const PAGES = ['index.html', 'exercises.html', 'exercise-6-1.html', 'exercise-6-2.html', 'exercise-6-3.html'];
+const PAGES = ['index.html', 'exercises.html', 'exercise-6-1.html', 'exercise-6-2.html', 'exercise-6-3.html', 'exercise-6-4.html', 'exercise-6-5.html'];
 
 async function open(browser, file, w, h) {
   const page = await browser.newPage({ viewport: { width: w, height: h } });
@@ -37,61 +37,81 @@ const DRIVE = {
     await go(page, 's-bm'); await page.waitForTimeout(600);
     await page.click('#s-bm [data-v="both"]'); await page.click('#bm-play'); await page.waitForTimeout(1500);
     if (!/%/.test(await page.locator('#bm-tanks').innerHTML())) out.push('slide 6: no tank levels');
-    await go(page, 's-tanks'); await page.waitForTimeout(500);
-    await page.click('#s-tanks [data-ctl="tk-rf"] [data-v="on"]'); await page.waitForTimeout(2500);
-    if (!(Number(await text(page, 'tk-hf')) < 0.8)) out.push('slide 9: the RF does not lower the water tank');
+    await go(page, 's-onoff'); await page.waitForTimeout(800);
+    await page.click('#s-onoff [data-v="ratio"]'); await page.waitForTimeout(600);
+    if (!(await page.evaluate(() => document.querySelectorAll('#oo-off .hm, #oo-on .hm, #oo-off image, #oo-on image').length >= 2))) out.push('slide 7: missing MT off / MT on images');
+    await go(page, 's-mtrintro'); await page.waitForTimeout(800);
+    if (!/%/.test(await text(page, 'mi-wm'))) out.push('slide 10: no MTR medians');
+    await go(page, 's-mtsatintro'); await page.waitForTimeout(500);
+    if (!(await page.evaluate(() => [...document.querySelectorAll('#s-mtsatintro img')].every((i) => i.complete && i.naturalWidth > 0)))) out.push('slide 12: a sequence figure did not load');
     await go(page, 's-myelin'); await page.waitForTimeout(1500);
     await page.click('#my-restart'); await page.waitForTimeout(500);
     await go(page, 's-zspec'); await page.waitForTimeout(800);
     await setRange(page, 'z-F', 0); await page.waitForTimeout(800);
     await go(page, 's-realz'); await page.waitForTimeout(800);
     await page.click('#s-realz [data-preset="gm"]'); await page.waitForTimeout(800);
-    if (!/F/.test(await text(page, 'realz-table'))) out.push('slide 15: no parameter table');
+    if (!/F/.test(await text(page, 'realz-table'))) out.push('slide 14: no parameter table');
     await go(page, 's-mtrconf'); await page.waitForTimeout(600);
     const m0 = await text(page, 'mc-mtr');
     await setRange(page, 'mc-t1', 1.5); await page.waitForTimeout(400);
-    if ((await text(page, 'mc-mtr')) === m0) out.push('slide 20: the T1 slider does not change MTR');
+    if ((await text(page, 'mc-mtr')) === m0) out.push('slide 19: the T1 slider does not change MTR');
     await go(page, 's-budget'); await page.waitForTimeout(600);
-    if (!/%/.test(await text(page, 'bud-nums'))) out.push('slide 25: no budget numbers');
+    if (!/%/.test(await text(page, 'bud-nums'))) out.push('slide 24: no budget numbers');
     return out;
   },
   async 'exercise-6-1.html'(page) {
     const out = [];
-    await go(page, 'ex61-a'); await page.waitForTimeout(600);
-    const e0 = Number(await text(page, 'ex61-sse'));
-    for (const [id, v] of [['ex61-F', 0.22], ['ex61-kf', 1.8], ['ex61-T2f', 21], ['ex61-T2r', 12]]) await setRange(page, id, v);
-    await page.waitForTimeout(500);
-    if (!(Number(await text(page, 'ex61-sse')) < e0)) out.push('6-1 (a): moving towards the fit does not lower the error');
-    await page.click('#ex61-submit');
-    await go(page, 'ex61-b'); await page.waitForTimeout(600);
-    await page.click('#ex61-fit'); await page.waitForFunction(() => !document.getElementById('ex61-fit').disabled, null, { timeout: 20000 });
-    if (!/Computer/.test(await text(page, 'ex61-table')) || /–/.test((await page.locator('#ex61-table tr:nth-child(2) td:nth-child(3)').innerText()))) out.push('6-1 (b): no computer fit in the table');
-    await page.click('#ex61-valley'); await page.waitForTimeout(3000);
-    await go(page, 'ex61-c'); await page.waitForTimeout(600);
-    await page.click('#ex61-c [data-v="higher"]'); await page.waitForTimeout(4000);
-    if (!/Error in F/.test(await text(page, 'ex61-table-c'))) out.push('6-1 (c): no refit with the wrong B1');
+    await go(page, 's-tanks'); await page.waitForTimeout(500);
+    await page.click('#s-tanks [data-ctl="tk-rf"] [data-v="on"]'); await page.waitForTimeout(2500);
+    if (!(Number(await text(page, 'tk-hf')) < 0.8)) out.push('6-1: the RF does not lower the water tank');
     return out;
   },
   async 'exercise-6-2.html'(page) {
     const out = [];
-    await go(page, 'ex62-a'); await page.waitForTimeout(500);
-    const ans = await page.evaluate(() => Number(document.getElementById('ex62-a1').dataset.answer));
-    await page.fill('#ex62-a1 input', ans.toFixed(1)); await page.click('#ex62-a1 .ask-go');
-    if (!/Right/.test(await page.locator('#ex62-a1 .ask-fb').innerText())) out.push('6-2 (a): the right MTR is not accepted');
-    await go(page, 'ex62-b'); await page.waitForTimeout(500);
-    await page.fill('#ex62-b1 input', '50'); await page.click('#ex62-b1 .ask-go');
-    if (!/Not quite/.test(await page.locator('#ex62-b1 .ask-fb').innerText())) out.push('6-2 (b): a wrong MTR is accepted');
+    await go(page, 's-tr'); await page.waitForTimeout(1500);
+    await setRange(page, 'tr-sel', 60); await page.waitForTimeout(600);
+    if (!/60/.test(await text(page, 'tr-sel-v'))) out.push('6-2: the TR slider does not move the zoomed TR');
+    await page.click('#tr-off'); await page.click('#s-tr [data-v="water"]'); await page.waitForTimeout(1200);
+    if (!/TRs?/.test(await page.locator('#s-tr .side-text').innerText()) || !(await text(page, 'tr-n95')).trim()) out.push('6-2: no steady-state count');
     return out;
   },
   async 'exercise-6-3.html'(page) {
     const out = [];
-    await go(page, 'ex63-a'); await page.waitForTimeout(500);
-    const ans = await page.evaluate(() => Number(document.getElementById('ex63-mts').dataset.answer));
-    await page.fill('#ex63-mts input', ans.toFixed(2)); await page.click('#ex63-mts .ask-go');
-    if (!/Right/.test(await page.locator('#ex63-mts .ask-fb').innerText())) out.push('6-3 (a): the right MTsat is not accepted');
+    await go(page, 'ex63-a'); await page.waitForTimeout(600);
+    const e0 = Number(await text(page, 'ex63-sse'));
+    for (const [id, v] of [['ex63-F', 0.22], ['ex63-kf', 1.8], ['ex63-T2f', 21], ['ex63-T2r', 12]]) await setRange(page, id, v);
+    await page.waitForTimeout(500);
+    if (!(Number(await text(page, 'ex63-sse')) < e0)) out.push('6-3 (a): moving towards the fit does not lower the error');
+    await page.click('#ex63-submit');
+    await go(page, 'ex63-b'); await page.waitForTimeout(600);
+    await page.click('#ex63-fit'); await page.waitForFunction(() => !document.getElementById('ex63-fit').disabled, null, { timeout: 20000 });
+    if (!/Computer/.test(await text(page, 'ex63-table')) || /–/.test((await page.locator('#ex63-table tr:nth-child(2) td:nth-child(3)').innerText()))) out.push('6-3 (b): no computer fit in the table');
+    await page.click('#ex63-valley'); await page.waitForTimeout(3000);
     await go(page, 'ex63-c'); await page.waitForTimeout(600);
-    await page.click('#ex63-c [data-v="mtsat"]'); await page.waitForTimeout(800);
-    if (!/ratio/.test(await text(page, 'ex63-contrast-fb'))) out.push('6-3 (c): no contrast feedback');
+    await page.click('#ex63-c [data-v="higher"]'); await page.waitForTimeout(4000);
+    if (!/Error in F/.test(await text(page, 'ex63-table-c'))) out.push('6-3 (c): no refit with the wrong B1');
+    return out;
+  },
+  async 'exercise-6-4.html'(page) {
+    const out = [];
+    await go(page, 'ex64-a'); await page.waitForTimeout(500);
+    const ans = await page.evaluate(() => Number(document.getElementById('ex64-a1').dataset.answer));
+    await page.fill('#ex64-a1 input', ans.toFixed(1)); await page.click('#ex64-a1 .ask-go');
+    if (!/Right/.test(await page.locator('#ex64-a1 .ask-fb').innerText())) out.push('6-4 (a): the right MTR is not accepted');
+    await go(page, 'ex64-b'); await page.waitForTimeout(500);
+    await page.fill('#ex64-b1 input', '50'); await page.click('#ex64-b1 .ask-go');
+    if (!/Not quite/.test(await page.locator('#ex64-b1 .ask-fb').innerText())) out.push('6-4 (b): a wrong MTR is accepted');
+    return out;
+  },
+  async 'exercise-6-5.html'(page) {
+    const out = [];
+    await go(page, 'ex65-a'); await page.waitForTimeout(500);
+    const ans = await page.evaluate(() => Number(document.getElementById('ex65-mts').dataset.answer));
+    await page.fill('#ex65-mts input', ans.toFixed(2)); await page.click('#ex65-mts .ask-go');
+    if (!/Right/.test(await page.locator('#ex65-mts .ask-fb').innerText())) out.push('6-5 (a): the right MTsat is not accepted');
+    await go(page, 'ex65-c'); await page.waitForTimeout(600);
+    await page.click('#ex65-c [data-v="mtsat"]'); await page.waitForTimeout(800);
+    if (!/ratio/.test(await text(page, 'ex65-contrast-fb'))) out.push('6-5 (c): no contrast feedback');
     return out;
   },
 };

@@ -57,7 +57,10 @@
 .reveal .vfa-nums .hlbox b { color: var(--restr); }
 
 /* slide 6 */
-.reveal .cards.methods .card { font-size: 0.68em; }
+.reveal .cards.methods { margin-top: 1.6em; }
+.reveal .cards.methods .card { font-size: 0.9em; padding: 28px 30px 30px; }
+.reveal .cards.methods .card .tagline { font-size: 1.1em; margin: 0 0 0.5em; }
+.reveal .cards.methods .card p:not(.tagline) { color: var(--muted); }
 .reveal .card.m-qmt { --card: var(--restr); } .reveal .card.m-mtr { --card: var(--mtr); } .reveal .card.m-mtsat { --card: var(--mtsat); }
 .reveal .card .tagline { font-weight: 700; margin-top: 0.8em; }
 .reveal .foot-note { font-size: 0.62em; color: var(--muted); margin-top: 1em; }
@@ -183,16 +186,20 @@
 #s-scales .sc-zoom { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 
 /* slide 3: mobile and bound protons (text | two animations) */
-#s-protons .pr-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 270px 1fr; grid-template-rows: 1fr 1fr; column-gap: 28px; row-gap: 18px; margin-bottom: 34px; }
+/* the canvases start right of the book link (bottom left) and end well above it */
+#s-protons .pr-grid { flex: 1 1 0; min-height: 0; overflow: hidden; display: grid; grid-template-columns: 290px 1fr; grid-template-rows: 1fr 1fr; column-gap: 54px; row-gap: 18px; margin-bottom: 100px; }
 #s-protons .pr-text { grid-column: 1; font-size: 0.58em; align-self: center; }
 #s-protons .pr-top { grid-row: 1; }
-#s-protons #pr-lipid { grid-row: 2; }
 #s-protons .pr-bot { grid-row: 2; }
 #s-protons .pr-text h3 { font-size: 1.1em; margin: 0 0 0.2em; }
 #s-protons .pr-text h3.free { color: var(--free); }
 #s-protons .pr-text h3.restr { color: var(--restr); }
 #s-protons .pr-text li + li { margin-top: 0.4em; }
-#s-protons .pr-cv { grid-column: 2; grid-row: 1; width: 100%; height: 100%; min-height: 0; border-radius: 8px; display: block; }
+/* each canvas fills a box positioned in the grid; absolute, so its pixel size never stretches the rows (Safari sizes grid rows from a canvas's intrinsic height) */
+#s-protons .pr-box { grid-column: 2; position: relative; min-height: 0; overflow: hidden; border-radius: 8px; }
+#s-protons .pr-box-top { grid-row: 1; }
+#s-protons .pr-box-bot { grid-row: 2; }
+#s-protons .pr-cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 /* slide 4: decay ⇄ lineshape (text | FIDs | transforms) */
 #s-fidgrid .fg-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 230px 1fr 1fr; grid-template-rows: auto 1fr 1fr; column-gap: 22px; row-gap: 10px; margin-bottom: 34px; }
@@ -216,3 +223,59 @@
 .reveal .bm-side .tanks svg { height: auto; }
 .reveal .bm-side .w-controls { margin: 0.1em 0 0.3em; }
 .reveal .bm-eqs .bm-off, .reveal .bm-eqs .bm-off * { color: #c9d0d8 !important; }
+
+/* slide 13: three tissue buttons on one line */
+#s-tr .seg { flex-wrap: nowrap; white-space: nowrap; gap: 5px; font-size: 0.8em; }
+#s-tr .tr-off { display: flex; align-items: center; gap: 8px; font-size: 0.8em; margin: 0.3em 0 0.2em; cursor: pointer; }
+#s-tr .tr-off input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+/* slide 7: MT off and MT on side by side (the right panel can show their ratio) */
+#s-onoff .oo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; margin-top: 6px; }
+#s-onoff .oo-panel { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+#s-onoff .oo-label { font-size: 0.66em; font-weight: 700; color: var(--ink); height: 40px; display: flex; align-items: center; }
+#s-onoff .oo-panel .seg { height: 40px; margin: 0; justify-content: center; }
+#s-onoff .w-plot { width: 100%; height: 520px; }
+/* slide 8's closing line, which leads into the MT-SPGR slide */
+.reveal .methods-foot { margin-top: 1.3em; font-size: 0.8em; padding: 12px 20px; background: var(--panel); border-left: 6px solid var(--accent); border-radius: 0 10px 10px 0; color: var(--ink); }
+.reveal .methods-foot b { color: var(--accent); }
+
+/* slide 10: the MTR method slide: a banner naming the method, its facts on the left, the dataset's MTR map on the right */
+.reveal .method-banner { display: flex; align-items: baseline; gap: 18px; padding: 10px 22px; border-radius: 12px; background: var(--panel); border-left: 10px solid var(--card, var(--accent)); margin: 0 0 14px; flex: none; }
+.reveal .method-banner.m-mtr { --card: var(--mtr); }
+.reveal .method-banner .mb-name { font-size: 1.5em; font-weight: 800; color: var(--card); }
+.reveal .method-banner .mb-sub { font-size: 0.7em; color: var(--muted); font-weight: 600; }
+#s-mtrintro .mi-cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+#s-mtrintro .mi-facts { font-size: 0.76em; margin: 0.4em 0 0 1.3em; padding: 0; }
+#s-mtrintro .mi-facts li { margin-bottom: 0.9em; padding-left: 0.2em; }
+#s-mtrintro .mi-facts li::marker { color: var(--mtr); font-weight: 800; }
+#s-mtrintro .mi-facts .eq-box { font-size: 1.05em; margin: 0; }
+#s-mtrintro .mi-map .w-plot { height: 470px; }
+#s-mtrintro .mi-map .fig-hint { font-size: 0.55em; text-align: center; margin-top: 4px; }
+
+/* slide 11: MTR benefits and pitfalls, two columns under the method banner */
+#s-mtrpros .pp-cols { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 26px; margin-top: 6px; }
+#s-mtrpros .pp-col { background: var(--panel); border-radius: 12px; padding: 16px 24px 10px; border-top: 6px solid var(--pp); font-size: 0.74em; }
+#s-mtrpros .pp-good { --pp: var(--ex); } #s-mtrpros .pp-bad { --pp: var(--restr); }
+#s-mtrpros .pp-col h3 { color: var(--pp); font-size: 1.3em; margin: 0 0 0.4em; }
+#s-mtrpros .pp-col ul { list-style: none; margin: 0; padding: 0; }
+#s-mtrpros .pp-col li { position: relative; padding-left: 1.5em; margin-bottom: 0.8em; }
+#s-mtrpros .pp-good li::before { content: "✓"; position: absolute; left: 0; color: var(--ex); font-weight: 800; }
+#s-mtrpros .pp-bad li::before { content: "!"; position: absolute; left: 0.25em; color: var(--restr); font-weight: 800; }
+#s-mtrpros .pp-num { display: block; color: var(--muted); font-size: 0.85em; margin-top: 0.15em; }
+#s-mtrpros .pp-foot { font-size: 0.5em; color: var(--muted); margin-top: 0.8em; }
+
+/* slide 12: the MTsat method slide: facts on the left, the chapter's sequence and Helms' model on the right */
+.reveal .method-banner.m-mtsat { --card: var(--mtsat); }
+#s-mtsatintro .ms-cols { display: grid; grid-template-columns: 1fr 1.05fr; gap: 30px; align-items: start; }
+#s-mtsatintro .ms-facts { font-size: 0.72em; margin: 0.3em 0 0 1.3em; padding: 0; }
+#s-mtsatintro .ms-facts li { margin-bottom: 0.8em; padding-left: 0.2em; }
+#s-mtsatintro .ms-facts li::marker { color: var(--mtsat); font-weight: 800; }
+#s-mtsatintro .ms-facts .eq-box { font-size: 1.05em; margin: 0.4em 0 0; }
+#s-mtsatintro .ms-figs { display: flex; flex-direction: column; align-items: center; }
+#s-mtsatintro .ms-figs figure { margin: 0; width: 100%; text-align: center; }
+#s-mtsatintro .ms-figs figcaption { font-size: 0.52em; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+#s-mtsatintro .ms-figs img { display: block; margin: 0 auto; max-width: 100%; }
+#s-mtsatintro .ms-figs figure:first-child img { width: 92%; }
+#s-mtsatintro .ms-figs figure:last-child img { width: 82%; }
+#s-mtsatintro .ms-arrow { font-size: 0.8em; color: var(--mtsat); font-weight: 800; margin: 10px 0 12px; }
+#s-mtsatintro .ms-arrow span { font-size: 0.6em; color: var(--muted); font-weight: 600; }

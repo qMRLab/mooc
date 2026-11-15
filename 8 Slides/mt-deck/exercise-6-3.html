@@ -19,73 +19,81 @@
 <section class="problem">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">Magnetization Transfer · Exercise 6-3</p>
-  <h2>MTsat by hand, then on a brain</h2>
+  <h2>Fit a qMT voxel by hand</h2>
   <p class="ex-cover-lead">In this exercise, we will cover:</p>
   <ol class="ex-cover">
-    <li>Computing T<sub>1</sub> and MTsat from three images with Helms' equations</li>
-    <li>How good the approximations are, and what MTsat stands for</li>
-    <li>MTsat and MTR maps of a real brain, and which separates tissues better</li>
+    <li>Fitting the two-pool model to a measured Z-spectrum, by hand</li>
+    <li>How your fit compares with a computer's, and why F and k<sub>f</sub> are hard to separate</li>
+    <li>What a wrong B<sub>1</sub> map does to the fitted F</li>
   </ol>
 </section>
 
-<!-- (a) T1, A and MTsat from three simulated signals -->
+<!-- (a) sliders for F, kf, T2f, T2r against the 10 measured points of one voxel; js/ex63.js -->
 <section id="ex63-a" class="ex">
   <p class="kicker">Exercise 6-3 · (a)</p>
-  <h2>Three images, by hand</h2>
-  <p class="ex-goal">A white matter voxel scanned with the Karakuzu 2022 Siemens MTsat protocol. Compute R<sub>1</sub>, A, then MTsat. Angles in <b>radians</b>, TR in <b>seconds</b>.</p>
-  <div class="ex-grid wide-left">
+  <h2>Fit this voxel by hand</h2>
+  <p class="ex-goal">Move the sliders until the curves go through the measured points. Get the sum of squared errors below <b>0.01</b>, then submit.</p>
+  <div class="ex-grid">
     <div class="ex-side">
-      <table class="ex-table" id="ex63-sig"></table>
-      <div class="ask" id="ex63-r1" data-tol="0.03" data-unit=" s⁻¹"><div class="ask-row"><span>R<sub>1</sub> =</span> <input type="number" step="0.01"><span class="unit">s⁻¹</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex63-A" data-tol="0.03"><div class="ask-row"><span>A =</span> <input type="number" step="1"><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <div class="ask" id="ex63-mts" data-tol="0.04" data-unit=" %"><div class="ask-row"><span>MTsat =</span> <input type="number" step="0.01"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <button class="ex-btn show-ans">Show the answer</button>
-      <div class="ans" hidden id="ex63-a-ans"></div>
+      <div class="ex-cols2" style="grid-template-columns: 150px 1fr; gap: 12px; align-items: center">
+        <div class="w-plot" id="ex63-map" style="width:150px; height:185px"></div>
+        <div>
+          <div class="seg" data-ctl="voxel"><button data-v="wm" aria-pressed="true">White matter</button><button data-v="gm" aria-pressed="false">Grey matter</button></div>
+          <p class="ex-note">Or click the map. T<sub>1</sub>, B<sub>0</sub> and B<sub>1</sub> come from their maps: <span id="ex63-known"></span></p>
+        </div>
+      </div>
+      <div class="w-controls col">
+        <label><span>F</span> <input type="range" id="ex63-F" min="0.02" max="0.35" step="0.005" value="0.1"><output id="ex63-F-v"></output></label>
+        <label><span>k<sub>f</sub></span> <input type="range" id="ex63-kf" min="0.2" max="6" step="0.05" value="3"><output id="ex63-kf-v"></output></label>
+        <label><span>T<sub>2,f</sub></span> <input type="range" id="ex63-T2f" min="8" max="80" step="0.5" value="40"><output id="ex63-T2f-v"></output></label>
+        <label><span>T<sub>2,r</sub></span> <input type="range" id="ex63-T2r" min="5" max="25" step="0.1" value="15"><output id="ex63-T2r-v"></output></label>
+      </div>
+      <div class="ex-big"><div><span>Sum of squared errors</span><b id="ex63-sse">–</b></div></div>
+      <div class="btn-row"><button class="ex-btn primary" id="ex63-submit">Submit my fit</button><button class="ex-btn" id="ex63-reset">Reset</button></div>
+      <p class="ex-note" id="ex63-sub-note"></p>
     </div>
-    <div class="ex-eqs" style="font-size:0.72em">
-      $$R_1 = \frac{1}{2}\,\frac{S_{T1}\alpha_{T1}/TR_{T1} - S_{PD}\alpha_{PD}/TR_{PD}}{S_{PD}/\alpha_{PD} - S_{T1}/\alpha_{T1}}$$
-      $$A = S_{PD}S_{T1}\,\frac{TR_{PD}\,\alpha_{T1}/\alpha_{PD} - TR_{T1}\,\alpha_{PD}/\alpha_{T1}}{TR_{PD}\,S_{T1}\,\alpha_{T1} - TR_{T1}\,S_{PD}\,\alpha_{PD}}$$
-      $$\text{MTsat} = \left(\frac{A\,\alpha_{MT}}{S_{MT}} - 1\right)R_1\,TR_{MT} - \frac{\alpha_{MT}^2}{2}\quad(\times 100\,\%)$$
-    </div>
+    <div class="w-plot" id="ex63-plot" style="height:560px"></div>
   </div>
 </section>
 
-<!-- (b) the approximations, against the simulation's truth -->
+<!-- (b) the computer's fit (this deck's simulator + Levenberg-Marquardt) and qMRLab's, and the F-kf valley -->
 <section id="ex63-b" class="ex">
   <p class="kicker">Exercise 6-3 · (b)</p>
-  <h2>How good are the approximations?</h2>
-  <p class="ex-goal">The signals came from a two-pool simulation whose truth we know. Compare, then explain.</p>
+  <h2>Your fit, the computer's, and qMRLab's</h2>
+  <p class="ex-goal">The computer minimizes the same sum of squares (Levenberg–Marquardt). How close did you get? Which parameter was hardest?</p>
   <div class="ex-grid wide-left">
     <div class="ex-side">
-      <div class="ask" id="ex63-mtr" data-tol="0.02" data-unit=" %"><p>First, the MTR of the same voxel (MTw and PDw):</p><div class="ask-row"><span>MTR =</span> <input type="number" step="0.1"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <table class="ex-table" id="ex63-cmp"></table>
+      <div class="btn-row"><button class="ex-btn primary" id="ex63-fit">Fit it for me</button><button class="ex-btn" id="ex63-valley">Show the F–k<sub>f</sub> valley</button></div>
+      <table class="ex-table" id="ex63-table"></table>
       <button class="ex-btn show-ans">Show the answer</button>
       <ul class="ans" hidden>
-        <li><b>T<sub>1</sub> comes out ~13 % short.</b> Not the small-angle approximations (they cost ~1 %): the excitations tip water only, and water then recovers faster between pulses by exchanging with the untouched macromolecules. MT biases VFA T<sub>1</sub>.</li>
-        <li><b>MTsat is close to the total MT loss of water per TR</b> (during the pulse and after it, by exchange), slide 25 of the lecture: that is what δ stands for.</li>
-        <li><b>MTR and MTsat are different quantities</b>: a steady-state signal drop (tens of %) versus the saturation per TR (a few %).</li>
+        <li><b>F</b> sets how deep the curves dip; <b>T<sub>2,r</sub></b> how wide; <b>T<sub>2,f</sub></b> only the points nearest resonance (direct saturation).</li>
+        <li><b>k<sub>f</sub></b> is the hardest: more macromolecules with slower exchange (higher F, lower k<sub>f</sub>) give almost the same curves. The valley shows it: a long, tilted trough of good fits.</li>
+        <li>qMRLab fits an analytical steady-state model (Sled &amp; Pike); here the model is a full simulation. Both land in the same place, within a few %.</li>
       </ul>
     </div>
-    <div class="w-plot" id="ex63-plot-b" style="height:520px"></div>
+    <div class="w-plot" id="ex63-plot-b" style="height:560px"></div>
   </div>
 </section>
 
-<!-- (c) MTsat of one real voxel, then the maps -->
+<!-- (c) refit with a wrong B1 -->
 <section id="ex63-c" class="ex">
   <p class="kicker">Exercise 6-3 · (c)</p>
-  <h2>MTsat of a real brain</h2>
-  <p class="ex-goal">The chapter's dataset: an MT-weighted image (426° at 1.1 kHz), the image without MT (same 7° and TR 25 ms) and a measured T<sub>1</sub> map. With T<sub>1</sub> known, two images are enough:</p>
+  <h2>A wrong B<sub>1</sub> map</h2>
+  <p class="ex-goal">The fits so far used this voxel's measured B<sub>1</sub>, <b id="ex63-b1true"></b>. Suppose the B<sub>1</sub> map is missing and the fit assumes <b>B<sub>1</sub> = 1</b> (<span id="ex63-b1rel"></span>).</p>
   <div class="ex-grid wide-left">
     <div class="ex-side">
-      <div class="eq eq-box eq-inline">$$\text{MTsat} = \left(R_1TR + \frac{\alpha^2}{2}\right)\left(\frac{S_0}{S_{MT}} - 1\right),\ \ \alpha = 7^\circ \times B_1$$</div>
-      <table class="ex-table" id="ex63-vox"></table>
-      <div class="ask" id="ex63-vmts" data-tol="0.03" data-unit=" %"><div class="ask-row"><span>MTsat =</span> <input type="number" step="0.01"><span class="unit">%</span><button class="ask-go">Check</button><span class="ask-fb"></span></div></div>
-      <p><b>Then predict:</b> white matter and grey matter differ more, relative to each other, in</p>
-      <div class="predict" data-ctl="contrast"><button class="ex-btn" data-v="mtr">MTR</button><button class="ex-btn" data-v="mtsat">MTsat</button></div>
-      <p class="ex-note" id="ex63-contrast-fb"></p>
-      <div class="seg" data-ctl="corr" hidden id="ex63-corr"><button data-v="0" aria-pressed="true">MTsat</button><button data-v="1" aria-pressed="false">MTsat, B<sub>1</sub>-corrected</button></div>
+      <p><b>Predict first.</b> The fitted F will come out:</p>
+      <div class="predict" data-ctl="guess"><button class="ex-btn" data-v="higher">higher</button><button class="ex-btn" data-v="lower">lower</button><button class="ex-btn" data-v="same">about the same</button></div>
+      <p class="ex-note" id="ex63-guess-fb"></p>
+      <div class="reveal-later" id="ex63-c-more" hidden>
+        <div class="w-controls col"><label><span>B<sub>1</sub> used</span> <input type="range" id="ex63-b1" min="0.7" max="1.3" step="0.05" value="1"><output id="ex63-b1-v"></output></label></div>
+        <table class="ex-table" id="ex63-table-c"></table>
+        <button class="ex-btn show-ans">Why?</button>
+        <div class="ans" hidden><p>With a B<sub>1</sub> lower than the truth, the fit thinks the MT pulses were weaker than they were. To explain the same signal drop with weaker pulses, it needs more macromolecules: F goes up (and the other parameters shift to compensate). A 10 % B<sub>1</sub> error gives tens of % in F, which is why qMT always comes with a B<sub>1</sub> map.</p></div>
+      </div>
     </div>
-    <div class="w-plot" id="ex63-plot-c" style="height:500px"></div>
+    <div class="w-plot" id="ex63-plot-c" style="height:560px"></div>
   </div>
 </section>
 
@@ -93,12 +101,12 @@
   <p class="kicker">Exercise 6-3 · Summary</p>
   <h2>Summary</h2>
   <ol>
-    <li>Three SPGR images give T<sub>1</sub> and MTsat in closed form; with a measured T<sub>1</sub>, two are enough.</li>
-    <li>MTsat is about the whole MT loss of water per TR; the small-angle approximations are good, but MT itself biases the VFA T<sub>1</sub>.</li>
-    <li>MTsat removes most of MTR's T<sub>1</sub> dependence, so tissues separate more cleanly; B<sub>1</sub> still needs a map or a correction.</li>
+    <li>The Z-spectrum's depth, width and shape near resonance carry F, T<sub>2,r</sub> and T<sub>2,f</sub>; a qMT fit finds the four parameters that reproduce all ten points.</li>
+    <li>F and k<sub>f</sub> trade off: many (F, k<sub>f</sub>) pairs fit almost equally well, so k<sub>f</sub> is the noisiest qMT map.</li>
+    <li>The fit trusts its input maps: a B<sub>1</sub> map 10 % off biases F by tens of %.</li>
   </ol>
   <div class="tool-promo">
-    <p>To compute MTsat maps of your own, use <a href="https://qmrlab.org" target="_blank" rel="noopener">qMRLab</a> (<code>mt_sat</code>), the open-source software behind this chapter.</p>
+    <p>To fit qMT data of your own, use <a href="https://qmrlab.org" target="_blank" rel="noopener">qMRLab</a> (<code>qmt_spgr</code>), the open-source software behind this chapter.</p>
   </div>
 </section>
 

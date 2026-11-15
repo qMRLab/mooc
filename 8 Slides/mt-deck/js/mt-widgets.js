@@ -23,26 +23,36 @@
   const hzTicks = { tickvals: [100, 300, 1000, 3000, 10000, 30000, 100000], ticktext: ['100 Hz', '300 Hz', '1 kHz', '3 kHz', '10 kHz', '30 kHz', '100 kHz'] };
 
   // ------------------------------------------------------------------ 2 · two kinds of protons (F map)
-  W('s-pools', (section) => {
-    const el = $('pools-map');
-    const hasS0 = brain && brain.B.S0;
-    const draw = (v) => {
-      if (!brain) return;
-      const B = brain.B;
-      const t = v === 'S0' && hasS0
-        ? brainHeat(brain.grid((y, x) => B.S0[y][x]), { colorscale: GRAY, zmin: 0, zmax: 1, showscale: false, hovertemplate: 'MT-off image<extra></extra>' })
-        : brainHeat(brain.grid((y, x) => 100 * B.F[y][x]), { zmin: 0, zmax: 30, colorbar: { title: { text: 'F (%)', side: 'right' }, thickness: 14 }, hovertemplate: 'F = %{z:.1f} %<extra></extra>' });
-      plot(el, [t], brainAxes({ margin: { l: 4, r: 70, t: 4, b: 4 } }));
+  W('s-onoff', (section) => {
+    if (!brain) return;
+    const B = brain.B, K = brain.idx(1, 1);   // 1088 Hz, 426°
+    // the mask's one-voxel rim is left out: partial volume makes it darker in MT off and brighter in the ratio
+    // (and so are the few non-brain voxels at the edge with almost no MT-off signal)
+    const off = (y, x) => (B.S0 ? B.S0[y][x] : 1), ratio = (y, x) => B.mt[K][y][x];
+    const inner = (y, x) => off(y, x) > 0.35 && [[0, 1], [0, -1], [1, 0], [-1, 0]].every(([dy, dx]) => brain.inMask(y + dy, x + dx));
+    const grid = (f) => brain.grid((y, x) => (inner(y, x) ? f(y, x) : null));
+    // the same margins on every view (room for the ratio's colour bar), so the brain keeps its size when the right panel switches
+    const lay = brainAxes({ margin: { l: 2, r: 52, t: 2, b: 2, autoexpand: false } });
+    const grey = { colorscale: GRAY, zmin: 0, zmax: 1, showscale: false };
+    if (B.S0) plot($('oo-off'), [brainHeat(grid(off), { ...grey, hovertemplate: 'MT off: %{z:.2f}<extra></extra>' })], lay);
+    const right = (v) => {
+      if (v === 'ratio' || !B.S0) {
+        plot($('oo-on'), [brainHeat(grid(ratio), { zmin: 0.25, zmax: 1, colorbar: { thickness: 12, len: 0.7, outlinewidth: 0, tickfont: { size: 12 } }, hovertemplate: 'MT on ÷ MT off: %{z:.2f}<extra></extra>' })], lay);
+      } else {
+        plot($('oo-on'), [brainHeat(grid((y, x) => off(y, x) * ratio(y, x)), { ...grey, hovertemplate: 'MT on: %{z:.2f}<extra></extra>' })], lay);
+      }
     };
-    seg(section, 'view', draw);
-    if (!hasS0) section.querySelector('.seg[data-ctl="view"]').hidden = true;
-    draw('F');
+    seg(section, 'oo-right', right);
+    right('on');
+    const pct = (f) => `${Math.round(100 * brain.median(brain.voxels.filter(([y, x]) => f(y, x)).map(([y, x]) => ratio(y, x))))} %`;
+    $('oo-wm').textContent = pct(brain.wmLike);
+    $('oo-gm').textContent = pct(brain.gmLike);
   });
 
-  // ------------------------------------------------------------------ saturate, then exchange (tanks)
+  // ------------------------------------------------------------------ the two-pool tanks (Bloch-McConnell slide)
   // Two tanks of Mz (water, macromolecules) during 4 s of off-resonance RF and after it, with a play button and a time
-  // slider; cases: two pools, no exchange (kf = 0), water only (F = 0). Used by "Saturate, then exchange" (with the Mz
-  // curves below) and by the Bloch-McConnell slide (tanks only). ids: { tanks, play, time, plot (optional), seg, start }.
+  // slider; cases: two pools, no exchange (kf = 0), water only (F = 0). Used by the Bloch-McConnell slide (tanks only; the
+  // optional Mz plot below them is not used at the moment). ids: { tanks, play, time, plot (optional), seg, start }.
   function exchangeTanks(section, ids) {
     const ON = 4, OFF = 4, N = 200;
     const w1 = 2 * Math.PI * 100, offset = 2000;
@@ -135,7 +145,6 @@
     if (ids.onCase) ids.onCase(which);
     return { hide: stop };
   }
-  W('s-exchange', (section) => exchangeTanks(section, { tanks: 'ex-tanks', play: 'ex-play', time: 'ex-time', plot: 'ex-plot', seg: 'case' }));
 
   // ------------------------------------------------------------------ 5 · MT everywhere: VFA T1 in WM
   W('s-everywhere', () => {
@@ -226,70 +235,20 @@
     drawSequence(host, { mtOn: true });
   });
 
-  // ------------------------------------------------------------------ 8 · approach to steady state
-  W('s-tr', (section) => {
-    const NTR = 80;
-    const elAll = $('tr-all'), elOne = $('tr-one');
-    let tissue = 'wm', sel = NTR - 1, run = null;
-    const tissues = { wm: WM1, gm: { ...S.TISSUES.gm } };
-    const seq = KS.mtw;
-    function compute() {
-      run = S.trajectory(tissues[tissue], seq, NTR, { steps: 48, restSamples: 18 });
-      const ss = S.steadyState(tissues[tissue], seq).beforeExcitation[0];
-      const first = run.marks[0].beforeExcitation[0];
-      const n95 = run.marks.findIndex((m) => Math.abs(m.beforeExcitation[0] - ss) <= 0.05 * Math.abs(first - ss));
-      $('tr-n95').textContent = `~${n95 + 1}`;
-      run.ss = ss;
-    }
-    function drawAll() {
-      const t = tissues[tissue];
-      const sig = run.marks.map((m) => m.beforeExcitation[0]);
-      const tSig = run.marks.map((m, k) => k * seq.tr + seq.mt.duration + 0.003);
-      plot(elAll, [
-        { x: run.t, y: run.mzf, mode: 'lines', line: { color: C.free, width: 1.6 }, hovertemplate: 'water Mz %{y:.3f}<extra></extra>' },
-        { x: run.t, y: run.mzr.map((v) => v / t.F), mode: 'lines', line: { color: C.restr, width: 1.6 }, hovertemplate: 'macromolecules %{y:.3f}<extra></extra>' },
-        { x: tSig, y: sig, mode: 'markers', marker: { color: C.ink, size: 5 }, hovertemplate: 'TR %{pointNumber}: water Mz at readout %{y:.3f}<extra></extra>' },
-      ], {
-        xaxis: { title: { text: 'time (s)' } }, yaxis: { title: { text: 'Mz / M0' }, range: [0, 1.04] },
-        margin: { l: 66, r: 16, t: 10, b: 50 },
-        shapes: [
-          { type: 'rect', x0: sel * seq.tr, x1: (sel + 1) * seq.tr, yref: 'paper', y0: 0, y1: 1, fillcolor: C.ink, opacity: 0.12, line: { width: 0 } },
-          { type: 'line', xref: 'paper', x0: 0, x1: 1, y0: run.ss, y1: run.ss, line: { color: C.free, dash: 'dot', width: 1 } },
-        ],
-        annotations: [
-          { xref: 'paper', x: 0.99, y: 0.97, yref: 'paper', text: '<span style="color:#1f5f99">■</span> water   <span style="color:#c2410c">■</span> macromolecules ÷ F   ● readout', showarrow: false, xanchor: 'right', font: { size: 14 } },
-        ],
-      });
-    }
-    function drawOne() {
-      const t = tissues[tissue];
-      // the selected TR, from its own start, finely sampled
-      const start = run.marks[sel].before;
-      const one = S.trajectory(t, seq, 1, { steps: 96, restSamples: 60, start });
-      const ms = one.t.map((v) => v * 1000);
-      plot(elOne, [
-        { x: ms, y: one.mzf, mode: 'lines', line: { color: C.free, width: 3 }, hovertemplate: 'water %{y:.4f}<extra></extra>' },
-        { x: ms, y: one.mzr.map((v) => v / t.F), mode: 'lines', line: { color: C.restr, width: 3 }, yaxis: 'y2', hovertemplate: 'macromolecules %{y:.4f}<extra></extra>' },
-      ], {
-        xaxis: { title: { text: `time within TR ${sel + 1} (ms)` }, range: [0, 32] },
-        yaxis: { title: { text: 'water Mz', font: { color: C.free } }, tickfont: { color: C.free } },
-        yaxis2: { title: { text: 'macromol. Mz ÷ F', font: { color: C.restr } }, tickfont: { color: C.restr }, overlaying: 'y', side: 'right', showgrid: false },
-        margin: { l: 66, r: 70, t: 10, b: 50 },
-        shapes: [{ type: 'rect', x0: 0, x1: 10, yref: 'paper', y0: 0, y1: 1, fillcolor: C.restr, opacity: 0.08, line: { width: 0 } },
-          { type: 'line', x0: 13, x1: 13, yref: 'paper', y0: 0, y1: 1, line: { color: C.free, width: 1.5, dash: 'dot' } }],
-        annotations: [{ x: 5, y: 1, yref: 'paper', yanchor: 'top', text: 'MT pulse', showarrow: false, font: { color: C.restr } },
-          { x: 13.4, y: 0.02, yref: 'paper', xanchor: 'left', yanchor: 'bottom', text: 'excitation', showarrow: false, font: { color: C.free, size: 13 } }],
-      });
-    }
-    function all() { compute(); drawAll(); drawOne(); }
-    seg(section, 'tissue', (v) => { tissue = v; all(); });
-    all();
-    elAll.on('plotly_click', (ev) => {
-      const t = ev.points && ev.points[0] && ev.points[0].x;
-      if (t == null) return;
-      sel = Math.max(0, Math.min(NTR - 1, Math.floor(t / seq.tr)));
-      drawAll(); drawOne();
-    });
+  // ------------------------------------------------------------------ MTR, the first method: the dataset's MTR map
+  W('s-mtrintro', () => {
+    if (!brain) return;
+    const B = brain.B, K = brain.idx(1, 1);   // 1088 Hz, 426°
+    const mtr = (y, x) => 100 * (1 - B.mt[K][y][x]);
+    // the mask's one-voxel rim and the near-empty edge voxels are left out, as on "MT off vs MT on"
+    const inner = (y, x) => (!B.S0 || B.S0[y][x] > 0.35) && [[0, 1], [0, -1], [1, 0], [-1, 0]].every(([dy, dx]) => brain.inMask(y + dy, x + dx));
+    plot($('mi-map'), [brainHeat(brain.grid((y, x) => (inner(y, x) ? mtr(y, x) : null)), {
+      zmin: 30, zmax: 65, colorbar: { title: { text: 'MTR (%)', side: 'top', font: { size: 14 } }, thickness: 14, len: 0.8, outlinewidth: 0, tickfont: { size: 13 } },
+      hovertemplate: 'MTR = %{z:.1f} %<extra></extra>',
+    })], brainAxes({ margin: { l: 2, r: 70, t: 2, b: 2 } }));
+    const med = (f) => `${Math.round(brain.median(brain.voxels.filter(([y, x]) => f(y, x)).map(([y, x]) => mtr(y, x))))} %`;
+    $('mi-wm').textContent = med(brain.wmLike);
+    $('mi-gm').textContent = med(brain.gmLike);
   });
 
   // ------------------------------------------------------------------ 9 · the Z-spectrum, live

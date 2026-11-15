@@ -14,7 +14,7 @@
   const COL = {
     extra: '#e4f0fa', gap: '#d9eaf8', axon: '#e8f1ea', band: 'rgba(242, 226, 202, 0.55)',
     head: [242, 223, 196], tail: [201, 178, 147], sat: [240, 120, 50],
-    water: [52, 125, 196], waterH: [196, 223, 245], waterSat: [235, 100, 30], waterHSat: [255, 206, 170],
+    water: [52, 125, 196], waterH: [214, 40, 40], waterSat: [235, 100, 30], waterHSat: [176, 58, 12],
     ink: '#1d2a36', muted: '#5d6b79', rf: '#d6336c', spark: '#ffb703',
   };
   const PALE = [236, 228, 236];
@@ -170,7 +170,7 @@
       const hCol = mix3(COL.waterH, COL.waterHSat, w.s);
       for (const ang of [0.92, -0.92]) {
         const hx = w.x + 6.2 * (ca * Math.cos(ang) - sa * Math.sin(ang)), hy = w.y + 6.2 * (sa * Math.cos(ang) + ca * Math.sin(ang));
-        ctx.beginPath(); ctx.arc(hx, hy, 3.1, 0, 6.283); ctx.fillStyle = hCol; ctx.fill();
+        ctx.beginPath(); ctx.arc(hx, hy, 3.5, 0, 6.283); ctx.fillStyle = hCol; ctx.fill();
       }
       if (w.s > 0.2) { ctx.beginPath(); ctx.arc(w.x, w.y, 9.5, 0, 6.283); ctx.fillStyle = `rgba(235, 100, 30, ${0.18 * w.s})`; ctx.fill(); }
       ctx.beginPath(); ctx.arc(w.x, w.y, 5.3, 0, 6.283); ctx.fillStyle = mix3(COL.water, COL.waterSat, w.s); ctx.fill();
