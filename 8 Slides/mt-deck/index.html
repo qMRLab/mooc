@@ -451,44 +451,70 @@
       <tr><td>Healthy WM</td><td>30–60 %</td><td>2–7 %</td><td>F ≈ 15–25 %</td></tr>
       <tr><td>Depends on the protocol</td><td class="bad">Strongly</td><td class="mid">Yes</td><td class="ok">Little</td></tr>
       <tr><td>Depends on T<sub>1</sub></td><td class="bad">Yes</td><td class="ok">Mostly removed</td><td class="ok">Modelled (T<sub>1</sub> map)</td></tr>
-      <tr><td>Depends on B<sub>1</sub></td><td class="bad">Yes</td><td class="mid">Yes, inherently</td><td class="mid">Modelled, but sensitive to B<sub>1</sub> map errors</td></tr>
+      <tr><td>Depends on B<sub>1</sub></td><td class="bad">Yes</td><td class="mid">Yes, inherently</td><td class="ok">Modelled, but sensitive to B<sub>1</sub> map errors<sup>*</sup></td></tr>
     </tbody>
   </table>
+  <p class="sum-foot"><sup>*</sup> Unless the protocol is designed for it: qMT protocols can be optimized to be insensitive to B<sub>1</sub> errors <span class="cite">(Boudreau 2018a, b)</span></p>
   </div>
-  <aside class="notes">Summary of the three methods, in the order of the lecture. MTR and MTsat are semi-quantitative: their values depend on the MT pulse and timing chosen, not only on the tissue. qMT is quantitative: it fits the two-pool model for tissue parameters. MTR is the most widely available and the least comparable (protocol, T1 and B1 all change it). MTsat costs one more image, removes most of the T1 dependence and gives a T1 map, but stays protocol dependent and inherently B1-sensitive. qMT is the most complete and least protocol-dependent, at the cost of a long acquisition (about 34 min whole brain for this dataset's protocol), extra maps whose errors propagate into the fit (Boudreau 2018), and a model fit. Healthy white matter F: 16 % in Sled &amp; Pike's values, 22 % in this dataset's median. Beyond the chapter: qMT-bSSFP (Gloor 2008) and SIRFSE are faster qMT variants (both in qMRLab); inhomogeneous MT (ihMT, Varma 2015) uses the difference between single- and dual-offset saturation to target the dipolar order of myelin lipids more specifically; and recent work models MT inside T1 mapping itself (Assländer 2025), so that T1 no longer depends on the method.</aside>
+  <aside class="notes">Summary of the three methods, in the order of the lecture. MTR and MTsat are semi-quantitative: their values depend on the MT pulse and timing chosen, not only on the tissue. qMT is quantitative: it fits the two-pool model for tissue parameters. MTR is the most widely available and the least comparable (protocol, T1 and B1 all change it). MTsat costs one more image, removes most of the T1 dependence and gives a T1 map, but stays protocol dependent and inherently B1-sensitive. qMT is the most complete and least protocol-dependent, at the cost of a long acquisition (about 34 min whole brain for this dataset's protocol), extra maps whose errors propagate into the fit (Boudreau 2018a), and a model fit. The asterisk: the choice of MT flip angles and offsets sets how much B1 errors matter, and a protocol optimized with a B1-sensitivity-regularized Cramér-Rao lower bound makes qMT largely insensitive to B1 errors (Boudreau &amp; Pike 2018, the "b"). Healthy white matter F: 16 % in Sled &amp; Pike's values, 22 % in this dataset's median. Beyond the chapter: qMT-bSSFP (Gloor 2008) and SIRFSE are faster qMT variants (both in qMRLab); inhomogeneous MT (ihMT, Varma 2015) uses the difference between single- and dual-offset saturation to target the dipolar order of myelin lipids more specifically; and recent work models MT inside T1 mapping itself (Assländer 2025), so that T1 no longer depends on the method.</aside>
 </section>
 
 <!-- 20 -->
 <section id="s-everywhere" data-book="introduction">
-  <h2>MT is in every sequence</h2>
+  <h2>Why understanding MT is important</h2>
   <div class="cols every-cols">
+    <div class="every-col">
+    <p class="every-lead">Its effects impact <b>every pulse sequence</b>:</p>
     <ul class="every">
       <li><b>Any RF pulse</b> saturates the restricted pool a little, on resonance too</li>
       <li><b>Multi-slice imaging:</b> the other slices' pulses are off-resonance MT pulses for this one <span class="cite">(Santyr 1993)</span></li>
-      <li><b>Spin-echo trains</b> (many 180°s): T<sub>2</sub> biased</li>
+      <li><b>Spin-echo trains</b> (many 180°s): the 180°s saturate the macromolecules, so T<sub>2</sub> reads low <span class="cite">(Radunsky 2019)</span></li>
       <li><b>T<sub>1</sub> mapping</b> depends on the method <span class="cite">(Assländer 2025)</span></li>
-      <li>A big reason qMRI values differ <b>between protocols and sites</b></li>
     </ul>
+    </div>
     <div class="vfa-card">
-      <h3>Variable flip angle T<sub>1</sub> in white matter</h3>
-      <p class="muted">SPGR 6°/32 ms and 20°/18 ms, simulated with both pools</p>
+      <h3>T<sub>1</sub> in white matter: one brain, three methods</h3>
+      <p class="muted">This course's volunteer at 3 T, same white-matter voxels; VFA B<sub>1</sub>-corrected</p>
       <div class="vfa-nums">
-        <div><span>True T<sub>1</sub></span><b id="every-true">–</b></div>
-        <div><span>VFA, one pool</span><b id="every-one">–</b></div>
-        <div class="hlbox"><span>VFA, two pools</span><b id="every-two">–</b></div>
+        <div><span>Inv. recovery</span><b>0.85 s</b></div>
+        <div><span>Look-Locker</span><b>0.70 s</b></div>
+        <div class="hlbox"><span>VFA</span><b>1.01 s</b></div>
       </div>
-      <p class="small">The excitation pulses tip water only; exchange with the untouched macromolecules speeds up water's recovery between pulses, so VFA reads a shorter T<sub>1</sub>.</p>
+      <p class="small">VFA reads the longest, as in Stikov et al. (2015). Each method's RF pulses saturate the macromolecules differently, and a single-T<sub>1</sub> fit ignores the two-pool recovery: MT explains most of the T<sub>1</sub> spread in the literature (Assländer et al. 2025).</p>
     </div>
   </div>
-  <aside class="notes">Introduction of the chapter: virtually every sequence has MT effects. On-resonance pulses pump the restricted pool too (inversion pulses, spin-echo trains); in multi-slice acquisitions the pulses of the other slices are off resonance for this one (Santyr 1993). Ignoring MT biases T1 mapping (Assländer 2025) and T2 mapping. The card is computed with this deck's two-pool simulator: healthy WM (Sled 2001) with R1f = R1r = 1 s⁻¹, so the true (apparent mono-exponential) T1 is 1 s. With one pool, the two SPGR signals give T1 ≈ 1.01 s (Helms' small-angle formula). With two pools the excitation only tips water; between pulses water re-magnetizes both by T1 and by exchange with the restricted pool, which the readout pulses barely touch, so VFA reads ~13 % shorter. Inversion recovery, whose long recovery lets both pools relax together, is much less affected.</aside>
+  <aside class="notes">Introduction of the chapter: virtually every sequence has MT effects. On-resonance pulses saturate the restricted pool too; in multi-slice acquisitions the pulses of the other slices are off resonance for this one (Santyr 1993). In multi-echo spin echo, intra-slice saturation of the macromolecules by the refocusing pulses biases T2 low (Radunsky et al. 2019, MRM 82:145). The card is measured, not simulated: the T1 maps of this course's volunteer (2013 session, one 2 × 2 × 5 mm slice), median over the voxels that both the IR and the EPI-seg segmentations call white matter (1340 voxels): TSE inversion recovery 0.85 s (IQR 0.83–0.91), EPI-segmented Look-Locker 0.70 s (0.68–0.72), GRE VFA with an AFI B1 map 1.01 s (0.95–1.08; 1.10 s with nominal B1). The same ordering, VFA longest, is in Stikov et al. (2015). Assländer et al. (2025) show that a two-pool model in which each method's pulses saturate the semi-solid pool differently explains most of the T1 variability across the literature.</aside>
 </section>
 
 <!-- 21 -->
+<section id="s-gratio" data-book="top">
+  <h2>Application: g-ratio mapping in vivo</h2>
+  <div class="gr-recipe">
+    <div class="gr-card gr-mvf"><div class="gr-lab">Myelin volume fraction ← MT</div><div class="eq">$$\text{MVF}=\kappa\,F$$</div><p>κ calibrated against electron microscopy in the macaque <span class="cite">(Stikov 2015)</span></p></div>
+    <div class="gr-op">+</div>
+    <div class="gr-card gr-avf"><div class="gr-lab">Axon volume fraction ← diffusion</div><div class="eq">$$\text{AVF}=(1-\text{MVF})(1-v_{iso})\,v_{ic}$$</div><p>NODDI: <i>v</i><sub>iso</sub> free water (CSF), <i>v</i><sub>ic</sub> intra-axonal share of the rest</p></div>
+    <div class="gr-op">→</div>
+    <div class="gr-card gr-g"><div class="gr-lab">g-ratio</div><div class="eq">$$g=\sqrt{1-\frac{\text{MVF}}{\text{MVF}+\text{AVF}}}$$</div><p>Healthy WM ≈ 0.7; MS lesions 0.80 vs 0.75 in normal-appearing WM</p></div>
+  </div>
+  <div class="gr-bottom">
+  <figure class="gr-what">
+    <img src="img/gratio-axon.svg" alt="Cross-section of a myelinated axon: the g-ratio is the axon diameter d over the fibre diameter D, including myelin">
+    <figcaption>Thinner myelin → <i>g</i> closer to 1</figcaption>
+  </figure>
+  <figure class="gr-fig">
+    <img src="img/gratio-stikov2015-ms.png" alt="FLAIR, MVF, AVF and g-ratio maps of a multiple sclerosis patient, with lesions marked by arrows">
+    <figcaption>g-ratio mapping in multiple sclerosis: in the lesions (arrows) MVF drops, and in some of them the g-ratio rises. Stikov et al. (2015), Fig. 4.</figcaption>
+  </figure>
+  </div>
+  <aside class="notes">A key application of MT measurements: the myelin g-ratio (inner axon diameter over outer fibre diameter) can be estimated per voxel by combining a myelin volume fraction from MT with an axon volume fraction from diffusion (Stikov et al. 2015, NeuroImage 118:397; Mohammadi et al. 2015 did it with MTsat). MVF = κF with zero intercept; κ was fitted against MVF from electron microscopy in the macaque corpus callosum, because literature values differ (Thiessen 2013 ≈ 5.2, Dula 2010 ≈ 2.5) and appear protocol-specific. AVF = (1 − MVF)(1 − v_iso)v_ic from NODDI, since the diffusion fractions are fractions of the non-myelin volume. g = sqrt(1 − MVF/FVF), FVF = MVF + AVF. Healthy white matter came out around 0.7; in the MS patient, lesions averaged 0.80 vs 0.75 in normal-appearing WM (p &lt; 0.001), with more variability in lesions. This is an aggregate g-ratio: it cannot separate many thin-myelin axons from fewer normally myelinated ones, and its accuracy hinges on the MVF calibration, which is why the MT quantification issues in this deck matter (Campbell et al. 2018).</aside>
+</section>
+
 <section id="s-keys" data-book="top">
   <h2>Key takeaways</h2>
   <ol class="keys">
     <li>Macromolecular protons are invisible (T<sub>2</sub> ≈ 10 µs), but their <b>broad line</b> lets an off-resonance pulse saturate them</li>
-    <li><b>Exchange</b> passes that saturation to water: less signal where there are more macromolecules (myelin)</li>
+    <li><b>Exchange</b> passes that saturation to water: less signal where there are more macromolecules</li>
+    <li>MT is <b>sensitive</b> to myelin but not <b>specific</b> to it: every macromolecule carrying <sup>1</sup>H protons contributes</li>
     <li><b>MTR</b> is one point of the Z-spectrum: quick, but it also measures the protocol, T<sub>1</sub> and B<sub>1</sub></li>
     <li><b>MTsat</b> models the MT pulse as an extra flip: T<sub>1</sub> removed, the whole MT loss per TR, still B<sub>1</sub>- and protocol-dependent</li>
     <li><b>qMT</b> fits the two-pool model to the Z-spectrum: quantitative, but slow and map-hungry</li>

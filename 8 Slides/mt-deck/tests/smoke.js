@@ -55,6 +55,7 @@ const DRIVE = {
     if (!(await page.evaluate(() => [...document.querySelectorAll('#s-qmtfit img')].every((i) => i.complete && i.naturalWidth > 0)))) out.push('slide 17: the qMRLab logo or options screenshot did not load');
     await go(page, 's-qmtout'); await page.waitForTimeout(800);
     if (!(await page.evaluate(() => ['qo-F', 'qo-kf', 'qo-T2f', 'qo-T2r'].every((id) => document.querySelector(`#${id} .hm, #${id} image`))))) out.push('slide 18: a qMT map is missing');
+    if (!(await page.evaluate(() => [...document.querySelectorAll('#s-gratio img')].every((i) => i.complete && i.naturalWidth > 0)))) out.push('slide 21: a g-ratio figure did not load');
     await go(page, 's-myelin'); await page.waitForTimeout(1500);
     await page.click('#my-restart'); await page.waitForTimeout(500);
     return out;

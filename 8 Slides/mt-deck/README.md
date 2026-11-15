@@ -1,6 +1,6 @@
 # Magnetization Transfer slides (draft)
 
-Lecture deck and exercises for the [Magnetization Transfer chapter](https://qmrlab.org/mooc/magnetization-transfer-imaging) of the qMRLab mOOC: `index.html` (21 slides; 2, 3, 4, 5 are new drafts, to be trimmed) and five exercise decks linked from `exercises.html`. Same static-folder format as the T1, T2, B1 and B0 decks: reveal.js, KaTeX and plotly.js (cartesian) are vendored in `vendor/`, `deck.css` is the shared deck style and `js/nav.js` adds the left and right click zones. Everything works offline, even from `file://`.
+Lecture deck and exercises for the [Magnetization Transfer chapter](https://qmrlab.org/mooc/magnetization-transfer-imaging) of the qMRLab mOOC: `index.html` (22 slides; 2, 3, 4, 5 are new drafts, to be trimmed) and five exercise decks linked from `exercises.html`. Same static-folder format as the T1, T2, B1 and B0 decks: reveal.js, KaTeX and plotly.js (cartesian) are vendored in `vendor/`, `deck.css` is the shared deck style and `js/nav.js` adds the left and right click zones. Everything works offline, even from `file://`.
 
 Unlike the other decks, almost no figure is copied from the book. The slides are built around one engine, **a two-pool Bloch–McConnell simulator that runs in the page** (`js/mt-sim.js`), and **the chapter's own 3 T qMT dataset** (`js/data/brain.js`). Every plot is computed live, so students can move a slider, click a voxel or switch a protocol. The order of the slides follows the physics (two pools, saturation, exchange, then the Z-spectrum, then qMT, MTR and MTsat), not the chapter's sections.
 
@@ -25,7 +25,9 @@ Unlike the other decks, almost no figure is copied from the book. The slides are
 | 17 | qMT: fitting | Sled &amp; Pike (most general), Ramani, Yarnykh; other choices (lineshape: super-Lorentzian for tissue; fitted vs fixed parameters); the qMRLab logo with "don't implement qMT yourself"; qMRLab's qmt_spgr options window (`img/qmrlab-qmtspgr-options.png`, from the GUI-migration project: replace with an official screenshot if wanted) with the fitting table and the model and lineshape boxed |
 | 18 | qMT: outputs | F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub> maps; robust to B<sub>0</sub>/B<sub>1</sub>/T<sub>1</sub> variations but not to errors in those maps (Boudreau 2018), with the deck's fit-error numbers; an exercise comparing MTR, MTsat and qMT is to come |
 | 19 | Summary | SPGR-based MT techniques: MTR, MTsat, qMT side by side (MTR and MTsat semi-quantitative, qMT quantitative): images, acquisition, processing, outputs, WM values, protocol, T<sub>1</sub> and B<sub>1</sub> dependence |
-| 20 | MT is in every sequence (after the summary: keep or scrap) | Two-pool simulation of VFA T<sub>1</sub>: 0.87 s for a true 1.00 s |
+| 20 | Why understanding MT is important: its effects impact every pulse sequence (after the summary: keep or scrap) | Measured WM T<sub>1</sub> of the volunteer: IR 0.85 s, Look-Locker 0.70 s, VFA 1.01 s |
+| 21 | Application: g-ratio mapping in vivo | MVF from MT (κF) + AVF from diffusion (NODDI) → g; an axon cross-section drawn to scale (`img/gratio-axon.svg`) and Fig. 4 of Stikov 2015 (MS patient), `img/gratio-stikov2015-ms.png` (© Elsevier, reproduced for teaching) |
+| 22 | Key takeaways | MTR, MTsat, qMT in the order of the slides |
 
 Pause badges link the exercises: 6-1 on slide 7, 6-2 on slide 9, 6-4 on slide 11 (MTR), 6-5 on slide 14 (MTsat), 6-3 on slide 18 (qMT outputs).
 
