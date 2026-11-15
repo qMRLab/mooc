@@ -251,6 +251,29 @@
     $('mi-gm').textContent = med(brain.gmLike);
   });
 
+  // ------------------------------------------------------------------ MTsat: protocol & equations (three output maps)
+  W('s-mtsatproto', () => {
+    if (!brain) return;
+    const B = brain.B, K = brain.idx(1, 1), TR = 0.025, A7 = 7 * DEG;   // 1088 Hz, 426°, as on the MTR slide
+    const inner = (y, x) => (!B.S0 || B.S0[y][x] > 0.35) && [[0, 1], [0, -1], [1, 0], [-1, 0]].every(([dy, dx]) => brain.inMask(y + dy, x + dx));
+    const n = (y, x) => B.mt[K][y][x];
+    const maps = [
+      ['mp-mtr', (y, x) => 100 * (1 - n(y, x)), 30, 65, '%', 'MTR %{z:.1f} %'],
+      ['mp-t1', (y, x) => 1 / B.R1[y][x], 0.6, 2, 's', 'T₁ %{z:.2f} s'],
+      ['mp-mtsat', (y, x) => { const a = A7 * B.B1[y][x]; return 100 * (B.R1[y][x] * TR + (a * a) / 2) * (1 / n(y, x) - 1); }, 0, null, '%', 'MTsat %{z:.2f} %'],
+    ];
+    maps.forEach(([id, f, zmin, zmax, unit, hover]) => {
+      if (zmax === null) {   // 98th percentile of the brain, as on "MTR and MTsat of the same brain"
+        const v = brain.voxels.map(([y, x]) => f(y, x)).filter(Number.isFinite).sort((a, b) => a - b);
+        zmax = Math.ceil(v[Math.floor(0.98 * (v.length - 1))] * 2) / 2;
+      }
+      plot($(id), [brainHeat(brain.grid((y, x) => (inner(y, x) ? f(y, x) : null)), {
+        zmin, zmax, colorbar: { title: { text: unit, side: 'top', font: { size: 13 } }, thickness: 11, len: 0.85, outlinewidth: 0, tickfont: { size: 12 } },
+        hovertemplate: `${hover}<extra></extra>`,
+      })], brainAxes({ margin: { l: 2, r: 50, t: 2, b: 2, autoexpand: false } }));
+    });
+  });
+
   // ------------------------------------------------------------------ 9 · the Z-spectrum, live
   W('s-zspec', (section) => {
     const el = $('z-plot');

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 600" font-family="Arial, Helvetica, sans-serif" font-weight="700">
+  <!-- Redrawn from the chapter's Figure 6.15 (Helms' MTsat model), reordered so that
+       alpha2 + spoil come first, matching the MT-SPGR sequence (MT pulse, spoil, excitation, readout, spoil). -->
+  <defs>
+    <marker id="dr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#e8322a"/></marker>
+    <marker id="db" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a72c4"/></marker>
+  </defs>
+
+  <!-- legend -->
+  <g font-size="33">
+    <text x="640" y="68" fill="#111" font-size="40">α<tspan font-size="24" dy="8">1</tspan><tspan dy="-8" font-size="33"> : </tspan><tspan fill="#e8322a" font-size="33">excitation pulse angle</tspan></text>
+    <text x="640" y="125" fill="#111" font-size="40">α<tspan font-size="24" dy="8">2</tspan><tspan dy="-8" font-size="33"> : </tspan><tspan fill="#4a72c4" font-size="33">on-resonance pulse angle</tspan></text>
+    <text x="640" y="166" fill="#4a72c4">equivalent to the reduction in Mz</text>
+    <text x="640" y="204" fill="#4a72c4">due to the MT pulse</text>
+  </g>
+
+  <!-- baseline -->
+  <line x1="60" y1="452" x2="1190" y2="452" stroke="#111" stroke-width="5"/>
+
+  <!-- alpha2 (stands in for the MT pulse) -->
+  <line x1="72" y1="450" x2="72" y2="322" stroke="#4a72c4" stroke-width="5" marker-end="url(#db)"/>
+  <text x="72" y="298" text-anchor="middle" font-size="46" fill="#111">α<tspan font-size="30" dy="10">2</tspan></text>
+
+  <!-- spoil after alpha2 -->
+  <path d="M104 450 L136 310 L410 310 L442 450 Z" fill="#a8a8a8" stroke="#333" stroke-width="1.5"/>
+  <text x="273" y="393" text-anchor="middle" font-size="40" fill="#111">Spoil</text>
+
+  <!-- alpha1 excitation -->
+  <line x1="466" y1="450" x2="466" y2="202" stroke="#e8322a" stroke-width="5" marker-end="url(#dr)"/>
+  <text x="466" y="176" text-anchor="middle" font-size="46" fill="#111">α<tspan font-size="30" dy="10">1</tspan></text>
+
+  <!-- readout -->
+  <rect x="606" y="348" width="226" height="102" fill="#a8a8a8" stroke="#333" stroke-width="1.5"/>
+  <text x="719" y="412" text-anchor="middle" font-size="40" fill="#111">IMG: S<tspan font-size="24" dy="8">1</tspan></text>
+
+  <!-- spoil after readout -->
+  <path d="M838 450 L870 310 L1146 310 L1178 450 Z" fill="#a8a8a8" stroke="#333" stroke-width="1.5"/>
+  <text x="1008" y="393" text-anchor="middle" font-size="40" fill="#111">Spoil</text>
+
+  <!-- TR brackets -->
+  <line x1="66" y1="496" x2="456" y2="496" stroke="#4a72c4" stroke-width="3.5" stroke-dasharray="16 9" marker-start="url(#db)" marker-end="url(#db)"/>
+  <line x1="476" y1="496" x2="1184" y2="496" stroke="#e8322a" stroke-width="3.5" stroke-dasharray="16 9" marker-start="url(#dr)" marker-end="url(#dr)"/>
+  <text x="261" y="560" text-anchor="middle" font-size="46" fill="#111">TR<tspan font-size="32" dy="10">2</tspan></text>
+  <text x="830" y="560" text-anchor="middle" font-size="46" fill="#111">TR<tspan font-size="32" dy="10">1</tspan></text>
+</svg>

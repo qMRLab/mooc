@@ -44,19 +44,22 @@ const DRIVE = {
     if (!/%/.test(await text(page, 'mi-wm'))) out.push('slide 10: no MTR medians');
     await go(page, 's-mtsatintro'); await page.waitForTimeout(500);
     if (!(await page.evaluate(() => [...document.querySelectorAll('#s-mtsatintro img')].every((i) => i.complete && i.naturalWidth > 0)))) out.push('slide 12: a sequence figure did not load');
+    await go(page, 's-mtsatproto'); await page.waitForTimeout(500);
+    if (!(await page.evaluate(() => document.querySelectorAll('#s-mtsatproto .mp-eq .katex').length === 4))) out.push('slide 13: the MTR, R1, A and MTsat equations did not render');
+    if (!(await page.evaluate(() => ['mp-mtr', 'mp-t1', 'mp-mtsat'].every((id) => document.querySelector(`#${id} .hm, #${id} image`))))) out.push('slide 13: an output map is missing');
     await go(page, 's-myelin'); await page.waitForTimeout(1500);
     await page.click('#my-restart'); await page.waitForTimeout(500);
     await go(page, 's-zspec'); await page.waitForTimeout(800);
     await setRange(page, 'z-F', 0); await page.waitForTimeout(800);
     await go(page, 's-realz'); await page.waitForTimeout(800);
     await page.click('#s-realz [data-preset="gm"]'); await page.waitForTimeout(800);
-    if (!/F/.test(await text(page, 'realz-table'))) out.push('slide 14: no parameter table');
+    if (!/F/.test(await text(page, 'realz-table'))) out.push('slide 16: no parameter table');
     await go(page, 's-mtrconf'); await page.waitForTimeout(600);
     const m0 = await text(page, 'mc-mtr');
     await setRange(page, 'mc-t1', 1.5); await page.waitForTimeout(400);
-    if ((await text(page, 'mc-mtr')) === m0) out.push('slide 19: the T1 slider does not change MTR');
+    if ((await text(page, 'mc-mtr')) === m0) out.push('slide 21: the T1 slider does not change MTR');
     await go(page, 's-budget'); await page.waitForTimeout(600);
-    if (!/%/.test(await text(page, 'bud-nums'))) out.push('slide 24: no budget numbers');
+    if (!/%/.test(await text(page, 'bud-nums'))) out.push('slide 26: no budget numbers');
     return out;
   },
   async 'exercise-6-1.html'(page) {
