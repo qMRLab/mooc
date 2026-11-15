@@ -3,7 +3,7 @@
  * (the chapter's 3 T qMT slice, through MT.brain); look and controls: js/mt-common.js. */
 (function () {
   'use strict';
-  const { S, C, TISSUE_COLORS, PROTOCOL_COLORS, VIRIDIS, BWR, GRAY, plot, seg, slider, throttle, fmt, brain, brainHeat, brainAxes } = window.MT;
+  const { S, C, GRAY, plot, seg, slider, brain, brainHeat, brainAxes } = window.MT;
   const W = window.MTDeck.widget;
   const $ = (id) => document.getElementById(id);
   const DEG = Math.PI / 180;
@@ -16,11 +16,9 @@
     return el;
   }
   const logspace = (a, b, n) => Array.from({ length: n }, (_, i) => 10 ** (Math.log10(a) + ((Math.log10(b) - Math.log10(a)) * i) / (n - 1)));
-  const linspace = (a, b, n) => Array.from({ length: n }, (_, i) => a + ((b - a) * i) / (n - 1));
   const KS = S.MTSAT_PROTOCOLS.karakuzuSiemens;
   // Healthy WM as in the chapter's Appendix C simulations (T1 = 1 s), and the Table 6.3 tissues.
   const WM1 = { ...S.TISSUES.wm, R1f: 1 };
-  const hzTicks = { tickvals: [100, 300, 1000, 3000, 10000, 30000, 100000], ticktext: ['100 Hz', '300 Hz', '1 kHz', '3 kHz', '10 kHz', '30 kHz', '100 kHz'] };
 
   // ------------------------------------------------------------------ 2 · two kinds of protons (F map)
   W('s-onoff', (section) => {
@@ -274,89 +272,51 @@
     });
   });
 
-  // ------------------------------------------------------------------ 9 · the Z-spectrum, live
-  W('s-zspec', (section) => {
-    const el = $('z-plot');
-    const xs = logspace(250, 40000, 22);
-    const angles = [142, 426];
+  // ------------------------------------------------------------------ qMT: acquisition protocol (Z-spectrum of white matter)
+  W('s-qmtproto', () => {
+    const el = $('qp-plot'), E = window.MTFitErrors;
+    const T = E ? E.truth : { F: 0.2222, kf: 1.746, T2f: 0.0207, T2r: 11.88e-6, R1: 1.016 };   // the dataset's median white matter fit
+    const t = { F: T.F, kf: T.kf, T2f: T.T2f, T2r: T.T2r, R1r: 1, R1f: S.r1fFromMeasured(T.R1, T.F, T.kf, 1) };
     const seq = (offset, angle) => ({ tr: 0.025, flipAngle: 7, mt: { shape: 'gausshann', duration: 0.01024, angle, offset } });
-    const draw = throttle(() => {
-      const t = { F: zF.get(), kf: zkf.get(), R1f: 1, R1r: 1, T2f: zt2f.get() / 1000, T2r: zt2r.get() * 1e-6 };
-      const water = { ...t, F: 0 };
-      const traces = [];
-      angles.forEach((a, k) => {
-        const col = k ? C.a426 : C.a142;
-        traces.push({ x: xs, y: xs.map((o) => S.normalizedSignal(water, seq(o, a), { steps: 40 })), mode: 'lines', line: { color: col, width: 2, dash: 'dash' }, hovertemplate: `water alone, ${a}°: %{y:.3f}<extra></extra>` });
-        traces.push({ x: xs, y: xs.map((o) => S.normalizedSignal(t, seq(o, a), { steps: 40 })), mode: 'lines', line: { color: col, width: 3.5, shape: 'spline' }, hovertemplate: `${a}°: %{y:.3f}<extra></extra>` });
-        traces.push({ x: S.QMT_OFFSETS, y: S.QMT_OFFSETS.map((o) => S.normalizedSignal(t, seq(o, a), { steps: 40 })), mode: 'markers', marker: { color: '#fff', size: 10, line: { color: col, width: 2.5 } }, hoverinfo: 'skip' });
-      });
-      plot(el, traces, {
-        xaxis: { type: 'log', title: { text: 'MT pulse offset' }, range: [Math.log10(250), Math.log10(40000)], tickvals: [300, 1000, 3000, 10000, 30000], ticktext: ['300 Hz', '1 kHz', '3 kHz', '10 kHz', '30 kHz'] },
-        yaxis: { title: { text: 'S<sub>MT</sub> / S<sub>0</sub>' }, range: [0, 1.04] },
-        annotations: [
-          { x: Math.log10(18000), y: 0.12, text: '<b>142°</b>', showarrow: false, font: { color: C.a142, size: 17 } },
-          { x: Math.log10(18000), y: 0.05, text: '<b>426°</b>', showarrow: false, font: { color: C.a426, size: 17 } },
-          { x: Math.log10(18000), y: 0.19, text: 'MT pulse', showarrow: false, font: { color: C.muted, size: 14 } },
-        ],
-        margin: { l: 70, r: 20, t: 16, b: 60 },
-      });
+    const xs = logspace(250, 40000, 40);
+    const traces = [];
+    S.QMT_ANGLES.forEach((a, ai) => {
+      const col = ai ? C.a426 : C.a142;
+      traces.push({ x: xs, y: xs.map((o) => S.normalizedSignal(t, seq(o, a), { steps: 40 })), mode: 'lines', line: { color: col, width: 3, shape: 'spline' }, name: `${a}°`, hovertemplate: `model, ${a}°: %{y:.3f}<extra></extra>` });
+      if (brain) {
+        const med = S.QMT_OFFSETS.map((o, oi) => { const k = brain.idx(oi, ai); return brain.median(brain.voxels.filter(([y, x]) => brain.wmLike(y, x)).map(([y, x]) => brain.B.mt[k][y][x])); });
+        traces.push({ x: S.QMT_OFFSETS, y: med, mode: 'markers', marker: { color: col, size: 13, line: { color: '#fff', width: 2 } }, name: `${a}° measured`, hovertemplate: `measured WM, ${a}°, %{x} Hz: %{y:.3f}<extra></extra>` });
+      }
     });
-    const zF = slider('z-F', (v) => `${(100 * v).toFixed(1)} %`, draw);
-    const zkf = slider('z-kf', (v) => `${v.toFixed(1)} s⁻¹`, draw);
-    const zt2r = slider('z-t2r', (v) => `${v.toFixed(1)} µs`, draw);
-    const zt2f = slider('z-t2f', (v) => `${v.toFixed(0)} ms`, draw);
-    const setT = (t) => { zF.set(t.F); zkf.set(t.kf); zt2r.set(t.T2r * 1e6); zt2f.set(t.T2f * 1000); draw(); };
-    $('z-reset').addEventListener('click', (e) => { e.target.blur(); setT(S.TISSUES.wm); });
-    $('z-gm').addEventListener('click', (e) => { e.target.blur(); setT(S.TISSUES.gm); });
-    draw();
+    plot(el, traces, {
+      xaxis: { type: 'log', title: { text: 'MT pulse offset frequency' }, range: [Math.log10(250), Math.log10(40000)], tickvals: [300, 1000, 3000, 10000, 30000], ticktext: ['300 Hz', '1 kHz', '3 kHz', '10 kHz', '30 kHz'] },
+      yaxis: { title: { text: 'S<sub>MT</sub> / S<sub>0</sub>' }, range: [0, 1.04] },
+      showlegend: false, margin: { l: 70, r: 20, t: 34, b: 60 },
+      annotations: [
+        { x: Math.log10(22000), y: 0.2, text: '<b>142°</b>', showarrow: false, font: { color: C.a142, size: 18 } },
+        { x: Math.log10(22000), y: 0.11, text: '<b>426°</b>', showarrow: false, font: { color: C.a426, size: 18 } },
+        { x: Math.log10(22000), y: 0.29, text: 'MT angle', showarrow: false, font: { color: C.muted, size: 15 } },
+        { xref: 'paper', yref: 'paper', x: 0, y: 1.07, xanchor: 'left', text: 'White matter of the brain: <b>dots</b> measured (10 images), lines the two-pool model', showarrow: false, font: { size: 14, color: C.muted } },
+      ],
+    });
   });
 
-  // ------------------------------------------------------------------ 10 · real Z-spectra
-  W('s-realz', (section) => {
+  // ------------------------------------------------------------------ qMT: outputs (four fitted maps)
+  W('s-qmtout', () => {
     if (!brain) return;
     const B = brain.B;
-    const elMap = $('realz-map'), elPlot = $('realz-plot');
-    let sel = brain.preset('wm');
-    const xs = logspace(300, 25000, 18);
-    function drawMap() {
-      plot(elMap, [
-        brainHeat(brain.grid((y, x) => 100 * B.F[y][x]), { zmin: 0, zmax: 30, showscale: false, hovertemplate: 'F = %{z:.1f} %<extra></extra>' }),
-        { type: 'scatter', x: [sel[1]], y: [sel[0]], mode: 'markers', marker: { symbol: 'circle-open', size: 16, color: '#ff2d55', line: { width: 3 } }, hoverinfo: 'skip' },
-      ], brainAxes());
-    }
-    function drawPlot() {
-      const [y, x] = sel;
-      const t = brain.tissue(y, x);
-      const traces = [];
-      [142, 426].forEach((a, ai) => {
-        const col = ai ? C.a426 : C.a142;
-        traces.push({ x: xs, y: xs.map((o) => brain.model(y, x, o, a, t)), mode: 'lines', line: { color: col, width: 3 }, hovertemplate: `model ${a}°: %{y:.3f}<extra></extra>` });
-        traces.push({ x: S.QMT_OFFSETS, y: S.QMT_OFFSETS.map((o, oi) => B.mt[brain.idx(oi, ai)][y][x]), mode: 'markers', marker: { color: col, size: 13, line: { color: '#fff', width: 2 } }, hovertemplate: `measured ${a}°: %{y:.3f}<extra></extra>` });
-      });
-      plot(elPlot, traces, {
-        xaxis: { type: 'log', title: { text: 'MT pulse offset' }, range: [Math.log10(300), Math.log10(25000)], tickvals: [300, 1000, 3000, 10000], ticktext: ['300 Hz', '1 kHz', '3 kHz', '10 kHz'] },
-        yaxis: { title: { text: 'S<sub>MT</sub> / S<sub>0</sub>' }, range: [0, 1.04] },
-        annotations: [
-          { x: Math.log10(14000), y: 0.12, text: '<b>142°</b>', showarrow: false, font: { color: C.a142, size: 17 } },
-          { x: Math.log10(14000), y: 0.05, text: '<b>426°</b>', showarrow: false, font: { color: C.a426, size: 17 } },
-        ],
-        margin: { l: 70, r: 20, t: 16, b: 60 },
-      });
-      $('realz-table').innerHTML = [
-        ['F', `${(100 * B.F[y][x]).toFixed(1)} %`], ['k<sub>f</sub>', `${B.kf[y][x].toFixed(2)} s⁻¹`],
-        ['T<sub>2,f</sub>', `${B.T2f[y][x].toFixed(1)} ms`], ['T<sub>2,r</sub>', `${B.T2r[y][x].toFixed(1)} µs`],
-        ['T<sub>1</sub>', `${(1 / B.R1[y][x]).toFixed(2)} s`], ['B<sub>1</sub>', B.B1[y][x].toFixed(2)],
-      ].map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('');
-    }
-    drawMap(); drawPlot();
-    elMap.on('plotly_click', (ev) => {
-      const p = ev.points && ev.points[0];
-      if (!p) return;
-      const y = Math.round(p.y), x = Math.round(p.x);
-      if (!brain.inMask(y, x)) return;
-      sel = [y, x]; drawMap(); drawPlot();
+    const MAPS = [
+      ['qo-F', (y, x) => 100 * B.F[y][x], 0, 30, '%', 'F %{z:.1f} %'],
+      ['qo-kf', (y, x) => B.kf[y][x], 0, 4, 's⁻¹', 'k<sub>f</sub> %{z:.2f} s⁻¹'],
+      ['qo-T2f', (y, x) => B.T2f[y][x], 10, 60, 'ms', 'T<sub>2,f</sub> %{z:.1f} ms'],
+      ['qo-T2r', (y, x) => B.T2r[y][x], 6, 18, 'µs', 'T<sub>2,r</sub> %{z:.1f} µs'],
+    ];
+    MAPS.forEach(([id, f, zmin, zmax, unit, hover]) => {
+      plot($(id), [brainHeat(brain.grid(f), {
+        zmin, zmax, colorbar: { title: { text: unit, side: 'top', font: { size: 13 } }, thickness: 11, len: 0.85, outlinewidth: 0, tickfont: { size: 12 } },
+        hovertemplate: `${hover}<extra></extra>`,
+      })], brainAxes({ margin: { l: 2, r: 50, t: 2, b: 2, autoexpand: false } }));
     });
-    section.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => { b.blur(); sel = brain.preset(b.dataset.preset); drawMap(); drawPlot(); }));
   });
 
   // ------------------------------------------------------------------ Bloch-McConnell: the equations, with the two-pool tanks
@@ -372,324 +332,5 @@
       if (v === 'noF') eqs[3].classList.add('bm-off');
     };
     return exchangeTanks(section, { tanks: 'bm-tanks', play: 'bm-play', time: 'bm-time', seg: 'bm-case', start: 'both', onCase: grey });
-  });
-
-  // ------------------------------------------------------------------ 12 · fit errors from wrong input maps
-  W('s-fit', (section) => {
-    const E = window.MTFitErrors, el = $('fit-plot');
-    if (!E) return;
-    const COLS = { F: C.restr, kf: C.ex, T2f: C.free, T2r: C.t1 };
-    const NAMES = { F: 'F', kf: 'k<sub>f</sub>', T2f: 'T<sub>2,f</sub>', T2r: 'T<sub>2,r</sub>' };
-    const AX = { B1: 'B<sub>1</sub> map used (true B<sub>1</sub> = 1)', T1: 'T<sub>1</sub> map used ÷ true T<sub>1</sub>', B0: 'B<sub>0</sub> map used − true B<sub>0</sub> (Hz)' };
-    const draw = (k) => {
-      const c = E.cases[k];
-      const traces = Object.keys(COLS).map((p) => ({ x: c.x, y: c.err[p], mode: 'lines+markers', name: NAMES[p], line: { color: COLS[p], width: p === 'F' ? 4 : 2.5 }, marker: { size: p === 'F' ? 8 : 6 }, hovertemplate: `${NAMES[p]}: %{y:+.0f} %<extra></extra>` }));
-      const last = c.x.length - 1;
-      plot(el, traces, {
-        xaxis: { title: { text: AX[k] } }, yaxis: { title: { text: 'error in the fitted value (%)' }, range: [-60, 120], zeroline: true, zerolinecolor: '#9aa5b1' },
-        margin: { l: 70, r: 70, t: 16, b: 60 },
-        annotations: Object.keys(COLS).map((p) => ({ x: c.x[last], y: Math.max(-58, Math.min(118, c.err[p][last])), text: `<b>${NAMES[p]}</b>`, showarrow: false, xanchor: 'left', xshift: 8, font: { color: COLS[p], size: 16 } })),
-        shapes: [{ type: 'line', x0: k === 'B0' ? 0 : 1, x1: k === 'B0' ? 0 : 1, yref: 'paper', y0: 0, y1: 1, line: { color: C.muted, width: 1, dash: 'dot' } }],
-      });
-    };
-    seg(section, 'map', draw);
-    draw('B1');
-  });
-
-  // ------------------------------------------------------------------ 13 · qMT maps
-  W('s-maps', (section) => {
-    if (!brain) return;
-    const B = brain.B, el = $('maps-plot');
-    const MAPS = {
-      F: { f: (y, x) => 100 * B.F[y][x], z: [0, 30], unit: '%', title: 'F (%)', d: 1, text: '<b>Pool size ratio F</b>: macromolecular protons per water proton. Highest in white matter (myelin).' },
-      kf: { f: (y, x) => B.kf[y][x], z: [0, 4], unit: 's⁻¹', title: 'k<sub>f</sub> (s⁻¹)', d: 2, text: '<b>Exchange rate k<sub>f</sub></b> (free → restricted). Noisier: harder to pin down than F.' },
-      T2f: { f: (y, x) => B.T2f[y][x], z: [10, 60], unit: 'ms', title: 'T<sub>2,f</sub> (ms)', d: 1, text: '<b>Water T<sub>2,f</sub></b>, from the Z-spectrum near resonance (direct saturation).' },
-      T2r: { f: (y, x) => B.T2r[y][x], z: [6, 18], unit: 'µs', title: 'T<sub>2,r</sub> (µs)', d: 1, text: '<b>Macromolecular T<sub>2,r</sub></b>: about 12 µs everywhere in tissue: the width of its line.' },
-      B0: { f: (y, x) => B.B0[y][x], z: [-40, 40], unit: 'Hz', title: 'B<sub>0</sub> (Hz)', d: 0, scale: BWR, text: '<b>Input: B<sub>0</sub> map</b>. Shifts every MT offset by up to ±30 Hz here.' },
-      B1: { f: (y, x) => B.B1[y][x], z: [0.7, 1.3], unit: '', title: 'B<sub>1</sub>', d: 2, scale: BWR, text: '<b>Input: B<sub>1</sub> map</b> (relative). Scales both RF pulses: ~0.8 to 1.1 across this slice.' },
-      T1: { f: (y, x) => 1 / B.R1[y][x], z: [0.5, 3], unit: 's', title: 'T<sub>1</sub> (s)', d: 2, text: '<b>Input: measured T<sub>1</sub></b> (inversion recovery). Gives R<sub>1,f</sub> through Eq. 6.6.' },
-    };
-    const draw = (k) => {
-      const m = MAPS[k];
-      plot(el, [brainHeat(brain.grid(m.f), { colorscale: m.scale || VIRIDIS, zmin: m.z[0], zmax: m.z[1], colorbar: { title: { text: m.title, side: 'right' }, thickness: 16, len: 0.85 }, hovertemplate: `%{z:.${m.d}f} ${m.unit}<extra></extra>` })], brainAxes({ margin: { l: 4, r: 90, t: 4, b: 4 } }));
-      const wm = brain.median(brain.voxels.filter(([y, x]) => brain.wmLike(y, x)).map(([y, x]) => m.f(y, x)));
-      const gm = brain.median(brain.voxels.filter(([y, x]) => brain.gmLike(y, x)).map(([y, x]) => m.f(y, x)));
-      $('maps-text').innerHTML = `<p>${m.text}</p><table class="params big"><tr><th>White matter</th><td>${wm.toFixed(m.d)} ${m.unit}</td></tr><tr><th>Grey matter</th><td>${gm.toFixed(m.d)} ${m.unit}</td></tr></table><p class="fig-hint">Medians over voxels with F &gt; 18 % (WM) and 5–10 % (GM). Hover to read a voxel.</p>`;
-    };
-    seg(section, 'map', draw);
-    draw('F');
-  });
-
-  // ------------------------------------------------------------------ 14 · MTR on real data
-  W('s-mtr', (section) => {
-    if (!brain) return;
-    const B = brain.B, el = $('mtr-plot');
-    let ai = 1, oi = 2;
-    const hasS0 = !!B.S0;
-    const draw = () => {
-      const k = brain.idx(oi, ai);
-      const n = (y, x) => B.mt[k][y][x];
-      const s0 = (y, x) => (hasS0 ? B.S0[y][x] : 1);
-      const traces = [
-        brainHeat(brain.grid(s0), { colorscale: GRAY, zmin: 0, zmax: 1, showscale: false, xaxis: 'x', yaxis: 'y', hovertemplate: 'S0 %{z:.2f}<extra></extra>' }),
-        brainHeat(brain.grid((y, x) => s0(y, x) * n(y, x)), { colorscale: GRAY, zmin: 0, zmax: 1, showscale: false, xaxis: 'x2', yaxis: 'y2', hovertemplate: 'S_MT %{z:.2f}<extra></extra>' }),
-        brainHeat(brain.grid((y, x) => 100 * (1 - n(y, x))), { zmin: 0, zmax: 70, xaxis: 'x3', yaxis: 'y3', colorbar: { title: { text: 'MTR (%)', side: 'right' }, x: 1.0, thickness: 14, len: 0.9 }, hovertemplate: 'MTR %{z:.1f} %<extra></extra>' }),
-      ];
-      const ax = (dom, a) => ({ domain: dom, visible: false, fixedrange: true, ...(a ? { anchor: a } : {}) });
-      const ay = (a) => ({ visible: false, autorange: 'reversed', scaleanchor: a, scaleratio: 1, fixedrange: true });
-      plot(el, traces, {
-        xaxis: ax([0, 0.3]), yaxis: ay('x'), xaxis2: ax([0.33, 0.63], 'y2'), yaxis2: { ...ay('x2'), anchor: 'x2' }, xaxis3: ax([0.66, 0.95], 'y3'), yaxis3: { ...ay('x3'), anchor: 'x3' },
-        margin: { l: 4, r: 70, t: 34, b: 4 }, plot_bgcolor: 'rgba(0,0,0,0)',
-        annotations: [
-          { xref: 'paper', yref: 'paper', x: 0.15, y: 1.06, text: '<b>S<sub>0</sub></b> · MT off', showarrow: false, font: { size: 17 } },
-          { xref: 'paper', yref: 'paper', x: 0.48, y: 1.06, text: `<b>S<sub>MT</sub></b> · ${S.QMT_ANGLES[ai]}° at ${fmt.hz(S.QMT_OFFSETS[oi])}`, showarrow: false, font: { size: 17 } },
-          { xref: 'paper', yref: 'paper', x: 0.805, y: 1.06, text: '<b>MTR</b>', showarrow: false, font: { size: 17, color: C.mtr } },
-        ],
-      });
-      const wm = brain.median(brain.voxels.filter(([y, x]) => brain.wmLike(y, x)).map(([y, x]) => 100 * (1 - n(y, x))));
-      const gm = brain.median(brain.voxels.filter(([y, x]) => brain.gmLike(y, x)).map(([y, x]) => 100 * (1 - n(y, x))));
-      $('mtr-stats').innerHTML = `MTR in white matter <b>${wm.toFixed(0)} %</b> · grey matter <b>${gm.toFixed(0)} %</b> · same brain, same session; only the MT pulse changed.`;
-    };
-    seg(section, 'angle', (v) => { ai = Number(v); draw(); });
-    seg(section, 'offset', (v) => { oi = Number(v); draw(); });
-    draw();
-  });
-
-  // ------------------------------------------------------------------ 15 · same tissue, different scanner
-  W('s-scanners', () => {
-    const el = $('sc-plot');
-    const tk = ['gm', 'wm', 'nawm', 'early', 'late'];
-    const pk = ['brownSiemens', 'brownPhilips', 'karakuzuGE', 'karakuzuSiemens'];
-    const vals = pk.map((p) => tk.map((t) => S.mtr(S.TISSUES[t], S.MTR_PROTOCOLS[p])));
-    let level = null;
-    const shapeOf = (P) => ({ gaussian: 'Gauss', sincgauss: 'Sinc-Gauss', fermi: 'Fermi' }[P.mt.shape]);
-    $('sc-table').innerHTML = pk.map((p, i) => {
-      const P = S.MTR_PROTOCOLS[p];
-      return `<li><b><i style="background:${PROTOCOL_COLORS[i]}"></i>${P.name.replace(' · ', ' ')}</b><span>${shapeOf(P)} ${(P.mt.duration * 1000).toFixed(1).replace('.0', '')} ms, ${P.mt.angle}°, ${(P.mt.offset / 1000).toFixed(1)} kHz</span></li>`;
-    }).join('');
-    const draw = () => plot(el, pk.map((p, i) => ({
-      type: 'bar', name: S.MTR_PROTOCOLS[p].name, x: tk.map((t) => S.TISSUES[t].name), y: vals[i], marker: { color: PROTOCOL_COLORS[i] },
-      hovertemplate: `${S.MTR_PROTOCOLS[p].name}<br>%{x}: <b>%{y:.1f} %</b><extra></extra>`,
-    })), {
-      barmode: 'group', bargap: 0.25,
-      yaxis: { title: { text: 'MTR (%)' }, range: [0, 60] }, xaxis: { tickfont: { size: 14 } },
-      margin: { l: 66, r: 16, t: 16, b: 50 },
-      shapes: level == null ? [] : [{ type: 'line', xref: 'paper', x0: 0, x1: 1, y0: level, y1: level, line: { color: C.ink, width: 2, dash: 'dash' } }],
-    });
-    draw();
-    el.on('plotly_click', (ev) => { const p = ev.points && ev.points[0]; if (!p) return; level = level === p.y ? null : p.y; draw(); });
-  });
-
-  // ------------------------------------------------------------------ 16 · MTR vs T1 and B1
-  W('s-mtrconf', () => {
-    const base = S.TISSUES.wm, seq = KS.mtw;
-    const tissueAt = (T1) => ({ ...base, R1f: S.r1fFromMeasured(1 / T1, base.F, base.kf, 1) });
-    const mtrAt = (T1, b1) => S.mtr(tissueAt(T1), { ...seq, b1 }, { steps: 48 });
-    const T1s = linspace(0.4, 1.6, 25), B1s = linspace(0.7, 1.3, 25);
-    const draw = throttle(() => {
-      const T1 = t1.get(), b1 = b1s.get();
-      const now = mtrAt(T1, b1);
-      $('mc-mtr').textContent = `${now.toFixed(1)} %`;
-      const common = { yaxis: { title: { text: 'MTR (%)' }, range: [30, 70] }, margin: { l: 66, r: 16, t: 12, b: 52 } };
-      plot($('mc-t1-plot'), [
-        { x: T1s, y: T1s.map((T) => mtrAt(T, b1)), mode: 'lines', line: { color: C.mtr, width: 3 }, hovertemplate: 'T1 %{x:.2f} s: MTR %{y:.1f} %<extra></extra>' },
-        { x: [T1], y: [now], mode: 'markers', marker: { color: C.mtr, size: 14, line: { color: '#fff', width: 2 } }, hoverinfo: 'skip' },
-      ], { ...common, xaxis: { title: { text: 'T<sub>1</sub> (s)' } } });
-      plot($('mc-b1-plot'), [
-        { x: B1s, y: B1s.map((b) => mtrAt(T1, b)), mode: 'lines', line: { color: C.mtr, width: 3 }, hovertemplate: 'B1 %{x:.2f}: MTR %{y:.1f} %<extra></extra>' },
-        { x: [b1], y: [now], mode: 'markers', marker: { color: C.mtr, size: 14, line: { color: '#fff', width: 2 } }, hoverinfo: 'skip' },
-      ], { ...common, xaxis: { title: { text: 'B<sub>1</sub> (relative)' } } });
-    });
-    const t1 = slider('mc-t1', (v) => `${v.toFixed(2)} s`, draw);
-    const b1s = slider('mc-b1', (v) => v.toFixed(2), draw);
-    draw();
-  });
-
-  // ------------------------------------------------------------------ 17 · Helms' trick
-  // One-pool steady state with an instantaneous fractional loss δ at time tp and the excitation at te (both in a TR).
-  function helmsTR(R1, delta, seq, tp, te, n = 400) {
-    const a = seq.flipAngle * DEG, TR = seq.tr;
-    // steady state by iterating the affine map (fast convergence)
-    const relax = (m, dt) => 1 - (1 - m) * Math.exp(-R1 * dt);
-    const once = (m0) => { let m = relax(m0, tp); m *= 1 - delta; m = relax(m, te - tp); m *= Math.cos(a); return relax(m, TR - te); };
-    let m = 1; for (let k = 0; k < 2000; k++) m = once(m);
-    const t = [], mz = [];
-    let cur = m, last = 0;
-    const events = [[tp, (v) => v * (1 - delta)], [te, (v) => v * Math.cos(a)]];
-    for (let k = 0; k <= n; k++) {
-      const tk = (TR * k) / n;
-      for (const [te_, f] of events) if (last < te_ && tk >= te_) { cur = relax(cur, te_ - last); t.push(te_); mz.push(cur); cur = f(cur); t.push(te_); mz.push(cur); last = te_; }
-      cur = relax(cur, tk - last); last = tk; t.push(tk); mz.push(cur);
-    }
-    const beforeExc = (() => { let v = relax(m, tp); v *= 1 - delta; return relax(v, te - tp); })();
-    return { t, mz, beforeExc };
-  }
-  W('s-helms', (section) => {
-    const t = WM1, seq = KS.mtw;
-    const R1 = S.r1Observed(t);
-    const ss = S.steadyState(t, seq);
-    const one = S.trajectory(t, seq, 1, { steps: 120, restSamples: 80, start: ss.z });
-    const te = seq.mt.duration + 0.003, tp = seq.mt.duration / 2;
-    // δ such that the one-pool model gives the two-pool signal (water Mz before the excitation)
-    let lo = 0, hi = 0.5;
-    for (let k = 0; k < 60; k++) { const mid = (lo + hi) / 2; if (helmsTR(R1, mid, seq, tp, te).beforeExc > ss.beforeExcitation[0]) lo = mid; else hi = mid; }
-    const delta = (lo + hi) / 2;
-    const h = helmsTR(R1, delta, seq, tp, te);
-    drawSequence($('helms-seq'), { slim: true });
-    const trig = $('helms-trig');
-    const ts = svg('svg', { viewBox: '0 0 300 150', width: '100%', height: 150 }, trig);
-    const a2 = Math.acos(1 - 0.25);   // exaggerated for the drawing
-    const ox = 60, oy = 140, L = 120;
-    svg('line', { x1: ox, y1: oy, x2: ox, y2: oy - L, stroke: C.free, 'stroke-width': 3, 'stroke-dasharray': '5 4' }, ts);
-    svg('line', { x1: ox, y1: oy, x2: ox + L * Math.sin(a2), y2: oy - L * Math.cos(a2), stroke: C.free, 'stroke-width': 3 }, ts);
-    svg('line', { x1: ox, y1: oy - L * Math.cos(a2), x2: ox + L * Math.sin(a2), y2: oy - L * Math.cos(a2), stroke: C.muted, 'stroke-width': 1.5, 'stroke-dasharray': '3 3' }, ts);
-    svg('path', { d: `M ${ox} ${oy - 34} A 34 34 0 0 1 ${ox + 34 * Math.sin(a2)} ${oy - 34 * Math.cos(a2)}`, stroke: C.restr, 'stroke-width': 2.5, fill: 'none' }, ts);
-    svg('text', { x: ox + 8, y: oy - 42, 'font-size': 16, fill: C.restr, 'font-weight': 700 }, ts, 'α₂');
-    svg('line', { x1: ox - 14, y1: oy - L, x2: ox - 14, y2: oy - L * Math.cos(a2), stroke: C.restr, 'stroke-width': 4 }, ts);
-    svg('text', { x: ox - 20, y: oy - L * (1 + Math.cos(a2)) / 2 + 5, 'font-size': 16, fill: C.restr, 'text-anchor': 'end', 'font-weight': 700 }, ts, 'δ·Mz');
-    svg('text', { x: 150, y: 50, 'font-size': 16, fill: C.ink }, ts, 'cos α₂ = 1 − δ');
-    svg('text', { x: 150, y: 76, 'font-size': 16, fill: C.ink }, ts, 'δ ≈ α₂²/2');
-    svg('text', { x: 150, y: 102, 'font-size': 16, fill: C.restr, 'font-weight': 700 }, ts, `here δ = ${(100 * delta).toFixed(1)} %`);
-    const el = $('helms-plot');
-    const draw = (which) => {
-      const traces = [];
-      if (which !== 'helms') traces.push({ x: one.t.map((v) => v * 1000), y: one.mzf, mode: 'lines', line: { color: C.free, width: 3.5 }, name: 'two pools', hovertemplate: 'two pools %{y:.4f}<extra></extra>' });
-      if (which !== 'real') traces.push({ x: h.t.map((v) => v * 1000), y: h.mz, mode: 'lines', line: { color: C.restr, width: 3, dash: which === 'both' ? 'dash' : 'solid' }, name: 'Helms model', hovertemplate: 'Helms %{y:.4f}<extra></extra>' });
-      const ys = [...one.mzf, ...h.mz];
-      plot(el, traces, {
-        xaxis: { title: { text: 'time within a steady-state TR (ms)' }, range: [0, 32] },
-        yaxis: { title: { text: 'water Mz / M0' }, range: [Math.min(...ys) - 0.01, Math.max(...ys) + 0.01] },
-        showlegend: true, legend: { x: 0.99, xanchor: 'right', y: 0.02, yanchor: 'bottom', font: { size: 15 } },
-        margin: { l: 70, r: 16, t: 12, b: 52 },
-        shapes: [{ type: 'rect', x0: 0, x1: 10, yref: 'paper', y0: 0, y1: 1, fillcolor: C.restr, opacity: 0.07, line: { width: 0 } },
-          { type: 'line', x0: te * 1000, x1: te * 1000, yref: 'paper', y0: 0, y1: 1, line: { color: C.free, dash: 'dot', width: 1.5 } }],
-        annotations: [{ x: te * 1000, y: 0.98, yref: 'paper', yanchor: 'top', xanchor: 'left', xshift: 6, text: 'readout: same signal', showarrow: false, font: { size: 14, color: C.free } }],
-      });
-    };
-    seg(section, 'show', draw);
-    draw('both');
-  });
-
-  // ------------------------------------------------------------------ 19 · MTsat across protocols
-  W('s-mtsat', () => {
-    const tk = ['gm', 'wm', 'nawm', 'early', 'late'];
-    const pk = Object.keys(S.MTSAT_PROTOCOLS);
-    plot($('ms-plot'), pk.map((p, i) => ({
-      type: 'bar', name: S.MTSAT_PROTOCOLS[p].name.replace('Karakuzu 2022 · ', 'Karakuzu '), x: tk.map((t) => S.TISSUES[t].name),
-      y: tk.map((t) => S.mtsatExperiment(S.TISSUES[t], S.MTSAT_PROTOCOLS[p]).mtsat), marker: { color: PROTOCOL_COLORS[i] },
-      hovertemplate: `${S.MTSAT_PROTOCOLS[p].name}<br>%{x}: <b>%{y:.2f} %</b><extra></extra>`,
-    })), {
-      barmode: 'group', bargap: 0.2, showlegend: true, legend: { orientation: 'h', y: 1.13, x: 0, font: { size: 14 }, entrywidth: 170 },
-      yaxis: { title: { text: 'MTsat (%)' }, range: [0, 8] }, xaxis: { tickfont: { size: 14 } },
-      margin: { l: 66, r: 16, t: 66, b: 50 },
-    });
-  });
-
-  // ------------------------------------------------------------------ 20 · MTsat vs MTR: T1 and B1
-  W('s-mtsatconf', (section) => {
-    const base = S.TISSUES.wm, p = KS;
-    const T1nom = 1 / S.r1Observed(base);
-    const at = (T1, b1) => S.mtsatExperiment({ ...base, R1f: S.r1fFromMeasured(1 / T1, base.F, base.kf, 1) }, p, { b1, b1Known: true, steps: 48 });
-    const ref = at(T1nom, 1);
-    const fT = linspace(0.6, 1.4, 17), fB = linspace(0.7, 1.3, 17);
-    const rT = fT.map((f) => at(T1nom * f, 1)), rB = fB.map((b) => at(T1nom, b));
-    const rel = (v, r) => 100 * (v / r - 1);
-    let corr = false;
-    const draw = () => {
-      const lines = (xs, rs, xb) => {
-        const tr = [
-          { x: xs, y: rs.map((r) => rel(r.mtr, ref.mtr)), mode: 'lines', line: { color: C.mtr, width: 3.5 }, name: 'MTR' },
-          { x: xs, y: rs.map((r, i) => rel(corr && xb ? S.correctMTsatB1(r.mtsat, xb[i]) : r.mtsat, ref.mtsat)), mode: 'lines', line: { color: C.mtsat, width: 3.5 }, name: corr && xb ? 'MTsat (B₁-corr.)' : 'MTsat' },
-          { x: xs, y: rs.map((r) => rel(r.T1, ref.T1)), mode: 'lines', line: { color: C.exc, width: 2, dash: 'dot' }, name: 'T₁ (Helms)' },
-        ];
-        tr.forEach((t) => { t.hovertemplate = `${t.name}: %{y:+.1f} %<extra></extra>`; });
-        return tr;
-      };
-      const common = { yaxis: { title: { text: 'change (%)' }, range: [-45, 45], zeroline: true, zerolinecolor: '#9aa5b1' }, margin: { l: 66, r: 16, t: 12, b: 52 }, showlegend: true, legend: { x: 0.01, y: 0.99, font: { size: 14 }, bgcolor: 'rgba(255,255,255,0.8)' } };
-      plot($('mm-t1'), lines(fT.map((f) => T1nom * f), rT, null), { ...common, xaxis: { title: { text: 'true T<sub>1</sub> (s)' } } });
-      plot($('mm-b1'), lines(fB, rB, fB), { ...common, showlegend: false, xaxis: { title: { text: 'B<sub>1</sub> (relative)' } } });
-    };
-    seg(section, 'corr', (v) => { corr = v === '1'; draw(); });
-    draw();
-  });
-
-  // ------------------------------------------------------------------ 21 · what MTsat measures (budget)
-  W('s-budget', (section) => {
-    const el = $('bud-plot');
-    const tissues = { wm: WM1, gm: S.TISSUES.gm, late: S.TISSUES.late };
-    const seq = KS.mtw;
-    const draw = (k) => {
-      const t = tissues[k];
-      const b = S.budget(t, seq);
-      // Helms MTsat from the simulated MTw and PDw with the true T1 (two images, A from PDw)
-      const sMT = S.signal(t, seq), sPD = S.signal(t, { ...seq, mt: null });
-      const a = seq.flipAngle * DEG, R1 = S.r1Observed(t);
-      const helms = 100 * (R1 * seq.tr + (a * a) / 2) * (sPD / sMT - 1);
-      const steps = [
-        ['T₁ recovery', b.t1Pulse, C.t1, 'pulse'], ['exchange', b.exPulse, C.ex, 'pulse'], ['direct sat.', b.direct, C.direct, 'pulse'],
-        ['exchange', b.exAfter, C.ex, 'after'], ['T₁ recovery', b.t1After, C.t1, 'after'], ['excitation', b.excitation, C.exc, 'after'],
-      ];
-      let level = 100;
-      const x = [], base = [], h = [], col = [], txt = [];
-      x.push('start'); base.push(0); h.push(100); col.push('#c9d3de'); txt.push('100 %');
-      steps.forEach(([name, v, c, when], i) => {
-        const d = 100 * v;
-        x.push(`${name}<br><span style="font-size:12px;color:#5b6776">${when === 'pulse' ? 'during pulse' : 'after pulse'}</span>`.replace(/^/, `${i}·`));
-        base.push(d >= 0 ? level : level + d); h.push(Math.abs(d)); col.push(c); txt.push(`${d >= 0 ? '+' : '−'}${Math.abs(d).toFixed(2)} %`);
-        level += d;
-      });
-      x.push('end'); base.push(0); h.push(level); col.push('#c9d3de'); txt.push(`${level.toFixed(1)} %`);
-      const lo = Math.min(...base.slice(1, -1)) - 1.2, hi = Math.max(...base.map((v, i) => v + h[i]).slice(1, -1)) + 1;
-      plot(el, [{ type: 'bar', x, y: h, base, marker: { color: col }, text: txt, textposition: 'outside', textfont: { size: 14 }, cliponaxis: false, hovertemplate: '%{text}<extra></extra>' }], {
-        xaxis: { tickvals: x, ticktext: x.map((s) => s.replace(/^\d·/, '')), tickfont: { size: 13 } },
-        yaxis: { title: { text: 'water Mz (% of its value before the pulse)' }, range: [lo, hi] },
-        margin: { l: 80, r: 16, t: 20, b: 80 },
-        shapes: [{ type: 'rect', x0: 0.5, x1: 3.5, yref: 'paper', y0: 0, y1: 1, fillcolor: C.restr, opacity: 0.06, line: { width: 0 } }],
-        annotations: [{ x: 2, y: 1, yref: 'paper', yanchor: 'top', text: 'during the MT pulse', showarrow: false, font: { color: C.restr, size: 15 } },
-          { x: 5, y: 1, yref: 'paper', yanchor: 'top', text: 'rest of the TR', showarrow: false, font: { color: C.muted, size: 15 } }],
-      });
-      const mtLoss = -100 * (b.exPulse + b.exAfter + b.direct);
-      $('bud-nums').innerHTML = `
-        <div><span>Net drop across the pulse</span><b>${(100 * b.netDropDuringPulse).toFixed(2)} %</b></div>
-        <div class="hl-mt"><span>All MT losses in the TR</span><b>${mtLoss.toFixed(1)} %</b></div>
-        <div class="hl-mt"><span>Helms MTsat (same images)</span><b>${helms.toFixed(1)} %</b></div>`;
-    };
-    seg(section, 'tissue', draw);
-    draw('wm');
-  });
-
-  // ------------------------------------------------------------------ 22 · real MTR and MTsat maps
-  W('s-realmtsat', (section) => {
-    if (!brain) return;
-    const B = brain.B, el = $('rm-plot');
-    const TR = 0.025, A7 = 7 * DEG;
-    const draw = (k) => {
-      k = Number(k);
-      const n = (y, x) => B.mt[k][y][x];
-      const mtr = (y, x) => 100 * (1 - n(y, x));
-      const mtsat = (y, x) => { const a = A7 * B.B1[y][x]; return 100 * (B.R1[y][x] * TR + (a * a) / 2) * (1 / n(y, x) - 1); };
-      const vM = brain.voxels.map(([y, x]) => mtr(y, x)), vS = brain.voxels.map(([y, x]) => mtsat(y, x)), vT = brain.voxels.map(([y, x]) => 1 / B.R1[y][x]);
-      const q = (arr, p) => { const s = arr.filter(Number.isFinite).slice().sort((a, b) => a - b); return s[Math.floor(p * (s.length - 1))]; };
-      const sMax = Math.ceil(q(vS, 0.98) * 2) / 2, mMax = Math.ceil(q(vM, 0.98) / 5) * 5;
-      const ax = (dom, a) => ({ domain: dom, visible: false, fixedrange: true, anchor: a });
-      const ay = (a) => ({ visible: false, autorange: 'reversed', scaleanchor: a, scaleratio: 1, fixedrange: true, anchor: a });
-      plot(el, [
-        brainHeat(brain.grid(mtr), { zmin: 0, zmax: mMax, xaxis: 'x', yaxis: 'y', colorbar: { title: { text: 'MTR (%)', side: 'right' }, x: 0.235, thickness: 12, len: 0.8 }, hovertemplate: 'MTR %{z:.1f} %<extra></extra>' }),
-        brainHeat(brain.grid(mtsat), { zmin: 0, zmax: sMax, xaxis: 'x2', yaxis: 'y2', colorbar: { title: { text: 'MTsat (%)', side: 'right' }, x: 0.555, thickness: 12, len: 0.8 }, hovertemplate: 'MTsat %{z:.2f} %<extra></extra>' }),
-        { type: 'scatter', mode: 'markers', x: vS, y: vM, xaxis: 'x3', yaxis: 'y3', marker: { size: 4, color: vT, colorscale: 'Plasma', cmin: 0.6, cmax: 2.5, opacity: 0.7, colorbar: { title: { text: 'T₁ (s)', side: 'right' }, x: 1.0, thickness: 12, len: 0.8 } }, hovertemplate: 'MTsat %{x:.2f} % · MTR %{y:.1f} %<extra></extra>' },
-      ], {
-        xaxis: ax([0, 0.22], 'y'), yaxis: ay('x'), xaxis2: ax([0.32, 0.54], 'y2'), yaxis2: ay('x2'),
-        xaxis3: { domain: [0.69, 0.94], anchor: 'y3', title: { text: 'MTsat (%)' }, range: [0, sMax] },
-        yaxis3: { domain: [0.08, 1], anchor: 'x3', title: { text: 'MTR (%)' }, range: [0, mMax] },
-        margin: { l: 10, r: 60, t: 20, b: 50 }, plot_bgcolor: '#fff',
-        annotations: [
-          { xref: 'paper', yref: 'paper', x: 0.11, y: 1.04, text: '<b>MTR</b>', showarrow: false, font: { size: 17, color: C.mtr } },
-          { xref: 'paper', yref: 'paper', x: 0.43, y: 1.04, text: '<b>MTsat</b>', showarrow: false, font: { size: 17, color: C.mtsat } },
-          { xref: 'paper', yref: 'paper', x: 0.815, y: 1.04, text: 'every brain voxel', showarrow: false, font: { size: 15 } },
-        ],
-      });
-    };
-    seg(section, 'pt', draw);
-    draw(3);
   });
 })();

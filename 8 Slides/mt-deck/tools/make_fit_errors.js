@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Write js/data/fit-errors.js: how wrong the qMT fit gets when an input map is wrong (slide 17; the book's Figure 6.6).
+/* Write js/data/fit-errors.js: how wrong the qMT fit gets when an input map is wrong (the numbers on slide 18, qMT outputs, and the white matter of slide 16; the book's Figure 6.6).
  *
  * Truth: the median qMRLab fit of the dataset's white matter (voxels with F > 0.18 in js/data/brain.js), simulated
  * without noise for its protocol with the true B1 = 1, B0 = 0 Hz and its measured R1. Each fit (js/mt-sim.js, fitQMT)

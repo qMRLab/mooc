@@ -214,6 +214,7 @@
 <!-- 11 -->
 <section id="s-mtrpros" class="figure" data-book="mtr-in-practice">
   <div class="fig-layout">
+    <div class="pause-badges"><a class="pause-badge" href="exercise-6-4.html" target="_blank" rel="noopener" title="Stop here for Exercise 6-4">⏸ Exercise 6-4</a></div>
     <div class="method-banner m-mtr"><span class="mb-name">MTR</span><span class="mb-sub">Benefits and pitfalls</span></div>
     <div class="pp-cols">
       <div class="pp-col pp-good">
@@ -299,6 +300,7 @@
 <!-- 14 -->
 <section id="s-mtsatpros" class="figure" data-book="mtsatplot2">
   <div class="fig-layout">
+    <div class="pause-badges"><a class="pause-badge" href="exercise-6-5.html" target="_blank" rel="noopener" title="Stop here for Exercise 6-5">⏸ Exercise 6-5</a></div>
     <div class="method-banner m-mtsat"><span class="mb-name">MTsat</span><span class="mb-sub">Benefits and pitfalls</span></div>
     <div class="pp-cols">
       <div class="pp-col pp-good">
@@ -322,275 +324,141 @@
     </div>
     <p class="pp-foot">Numbers: two-pool simulation of healthy white matter, Karakuzu 2022 Siemens MTsat protocol unless stated (protocols: the chapter's Table 6.4).</p>
   </div>
-  <aside class="notes">MTsat's practical trade-off, against MTR's on slide 11. Benefits: T1 is measured and divided out, so a T1 20 % longer with the same myelin moves MTsat by under 1 % (6.13 to 6.17 %), where MTR from the same MTw/PDw pair moves by 9 % (47.5 to 51.9 %; slide 11 shows 47.5 to 51.5 % for the MTR protocol). The one extra image (T1w) buys two extra maps, T1 and MTsat, and MTR still comes from the MTw/PDw pair. Processing stays a closed-form calculation, as fast as MTR. In multiple sclerosis, MTsat has shown better tissue contrast and seems more sensitive to tissue damage and early demyelination than MTR: Lema et al. 2017 (J Neuroimaging 27:221–226, brain and cervical cord; their wording is "may be more sensitive") and York et al. 2022 (NeuroImage: Clinical 36, early relapsing-remitting MS, longitudinal). Pitfalls: MTsat is still not a property of the tissue alone. It is inherently sensitive to B1: MTsat is, in large part, the saturation caused by a single MT pulse, whose power scales with B1², so even with a perfect B1 map correcting the readout angles, B1 10 % low lowers white matter MTsat by 13 % (6.13 to 5.35 %; MTR drops 6 %, 47.5 to 44.5 %). The empirical correction of Weiskopf 2013 (later slide) helps. Its scale differs from MTR's: both are percentages but of different things (per-TR saturation vs steady-state signal change). And it still depends on the MT pulse and timing chosen: 1.8 % (Weiskopf 2013, 220° pulse) to 7.4 % (Karakuzu 2022 GE) for the same simulated white matter across Table 6.4. All numbers from the deck's two-pool simulator, Sled &amp; Pike 2001 healthy white matter.</aside>
+  <aside class="notes">MTsat's practical trade-off, against MTR's on slide 11. Benefits: T1 is measured and divided out, so a T1 20 % longer with the same myelin moves MTsat by under 1 % (6.13 to 6.17 %), where MTR from the same MTw/PDw pair moves by 9 % (47.5 to 51.9 %; slide 11 shows 47.5 to 51.5 % for the MTR protocol). The one extra image (T1w) buys two extra maps, T1 and MTsat, and MTR still comes from the MTw/PDw pair. Processing stays a closed-form calculation, as fast as MTR. In multiple sclerosis, MTsat has shown better tissue contrast and seems more sensitive to tissue damage and early demyelination than MTR: Lema et al. 2017 (J Neuroimaging 27:221–226, brain and cervical cord; their wording is "may be more sensitive") and York et al. 2022 (NeuroImage: Clinical 36, early relapsing-remitting MS, longitudinal). Pitfalls: MTsat is still not a property of the tissue alone. It is inherently sensitive to B1: MTsat is, in large part, the saturation caused by a single MT pulse, whose power scales with B1², so even with a perfect B1 map correcting the readout angles, B1 10 % low lowers white matter MTsat by 13 % (6.13 to 5.35 %; MTR drops 6 %, 47.5 to 44.5 %). An empirical correction (Weiskopf 2013) helps. Its scale differs from MTR's: both are percentages but of different things (per-TR saturation vs steady-state signal change). And it still depends on the MT pulse and timing chosen: 1.8 % (Weiskopf 2013, 220° pulse) to 7.4 % (Karakuzu 2022 GE) for the same simulated white matter across Table 6.4. All numbers from the deck's two-pool simulator, Sled &amp; Pike 2001 healthy white matter.</aside>
 </section>
 
 <!-- 15 -->
-<section id="s-zspec" class="figure side" data-book="qmtfig3">
+<section id="s-qmtintro" class="figure" data-book="qmtintro">
   <div class="fig-layout">
-    <h2>The Z-spectrum</h2>
-    <div class="side-text">
-      <ul>
-        <li>Signal (MT on / MT off) vs <b>offset</b>, at two pulse powers</li>
-        <li>Its shape encodes the tissue: <b>F</b> (depth), <b>k<sub>f</sub></b>, <b>T<sub>2,r</sub></b> (width)</li>
-        <li>Dashed: water alone, <b>direct saturation</b> only</li>
-      </ul>
-      <div class="w-controls col">
-        <label><span>F</span> <input type="range" id="z-F" min="0" max="0.3" step="0.005" value="0.161"><output id="z-F-v"></output></label>
-        <label><span>k<sub>f</sub></span> <input type="range" id="z-kf" min="0" max="10" step="0.1" value="4.3"><output id="z-kf-v"></output></label>
-        <label><span>T<sub>2,r</sub></span> <input type="range" id="z-t2r" min="5" max="30" step="0.5" value="12.3"><output id="z-t2r-v"></output></label>
-        <label><span>T<sub>2,f</sub></span> <input type="range" id="z-t2f" min="10" max="100" step="1" value="37"><output id="z-t2f-v"></output></label>
-      </div>
-      <div class="btn-row"><button class="secondary" id="z-reset">Healthy WM</button><button class="secondary" id="z-gm">Cortical GM</button></div>
+    <div class="method-banner m-qmt"><span class="mb-name">qMT</span><span class="mb-sub">Quantitative magnetization transfer · method 3 of 3</span></div>
+    <div class="qi-cols">
+      <ol class="qi-facts">
+        <li><b>Many approaches</b> exist, but mainly: take <b>many acquisitions</b>, then <b>fit the Bloch–McConnell equations</b> for the key parameters (F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub>)</li>
+        <li>Most often, you also need <b>additional acquisitions</b>: B<sub>1</sub>, T<sub>1</sub>, and/or B<sub>0</sub> maps</li>
+        <li>For this MOOC, we only cover the <b>SPGR-based version</b> (MT&#8209;SPGR)</li>
+      </ol>
+      <figure class="qi-paper">
+        <img src="img/qmtlab-cabana2015.jpg" alt="First page of Cabana et al. 2015, Quantitative Magnetization Transfer Imaging Made Easy with qMTLab: Software for Data Simulation, Analysis, and Visualization, Concepts in Magnetic Resonance Part A">
+        <figcaption><b>Cabana et al. (2015)</b>, <i>Concepts Magn Reson A</i>: qMTLab, <b>the first version of qMRLab</b>. The methods are covered in detail here.</figcaption>
+      </figure>
     </div>
-    <div class="w-plot" id="z-plot" style="height:600px"></div>
   </div>
-  <aside class="notes">A Z-spectrum is the MT-weighted signal, normalized by the signal without MT, as a function of the MT pulse's offset (Figure 6.3). Here: qMRLab's default qMT-SPGR protocol, the one of the dataset (7°, TR 25 ms, a 10.24 ms Gauss-Hann pulse at 142° and 426°), simulated with the Bloch-McConnell equations. Deeper dip: more macromolecules (F) or faster exchange (kf); wider: shorter T2,r (broader restricted line); close to resonance, direct saturation of water (dashed, F = 0) takes over, more so with a long T2,f. The circles are the dataset's 10 offsets and powers. qMT fits this curve; MTR samples one point of it.</aside>
+  <aside class="notes">The third method, and the only fully quantitative one. There are many qMT approaches (pulsed MT-SPGR, MT-bSSFP, selective inversion recovery with fast spin echo, ...), but they share the same idea: acquire many images with different MT weightings and fit the two-pool Bloch–McConnell model, voxel by voxel, for its key parameters: the pool size ratio F, the exchange rate k_f, and the two pools' T2. Most protocols also need B1, T1 and/or B0 maps, because the model must know the actual pulse amplitudes, the free pool's R1 and the actual offset frequency. Cabana et al. 2015 (Concepts in Magnetic Resonance Part A 44A(5):263–277) introduced qMTLab, which unified MT-SPGR, MT-bSSFP and SIR-FSE in one interface and became the first version of qMRLab; it describes the methods in detail. In this MOOC we only cover MT-SPGR. First page reproduced from the article (© 2016 Wiley Periodicals) for teaching.</aside>
 </section>
 
 <!-- 16 -->
-<section id="s-realz" class="figure side" data-book="qmtfig8">
+<section id="s-qmtproto" class="figure" data-book="qmtfig3">
   <div class="fig-layout">
-    <h2>Real Z-spectra, voxel by voxel</h2>
-    <div class="side-text">
-      <ul>
-        <li><b>Dots:</b> measured, 10 images</li>
-        <li><b>Lines:</b> two-pool model with qMRLab's fit for that voxel</li>
-        <li>White matter dips deepest</li>
-      </ul>
-      <div class="btn-row"><button class="secondary" data-preset="wm">White matter</button><button class="secondary" data-preset="gm">Grey matter</button><button class="secondary" data-preset="csf">Near CSF</button></div>
-      <table class="params" id="realz-table"></table>
-      <p class="fig-hint">Click the map to pick a voxel.</p>
-    </div>
-    <div class="w-col realz-cols">
-      <div class="w-plot" id="realz-map" style="height:330px; width:270px"></div>
-      <div class="w-plot" id="realz-plot" style="height:600px"></div>
+    <div class="method-banner m-qmt"><span class="mb-name">qMT</span><span class="mb-sub">Acquisition protocol</span></div>
+    <div class="qp-cols">
+      <div class="qp-text">
+        <p class="qp-def"><b>Z-spectrum:</b> the MT-weighted signal (normalized by MT off) against the <b>offset frequency</b> of the MT pulse, at one or more MT pulse powers</p>
+        <table class="qp-table">
+          <tr><th>Readout</th><td>SPGR, 7°, TR 25&nbsp;ms</td></tr>
+          <tr><th>MT pulse</th><td>Gauss-Hann, 10.24&nbsp;ms</td></tr>
+          <tr><th>MT angles</th><td><b class="c-142">142°</b> and <b class="c-426">426°</b></td></tr>
+          <tr><th>Offsets</th><td>443, 1088, 2732, 6862, 17235&nbsp;Hz</td></tr>
+          <tr class="qp-sum"><th>Images</th><td><b>2 × 5 = 10</b> MT on, + 1 MT off</td></tr>
+        </table>
+        <ul class="qp-more">
+          <li>Also requires <b>B<sub>1</sub>, B<sub>0</sub> and T<sub>1</sub> maps</b></li>
+          <li><b>Total acquisition time is long</b>: whole brain at 1&nbsp;mm, 11 × 3&nbsp;min&nbsp;7&nbsp;s ≈ <b>34&nbsp;min</b>, before the extra maps</li>
+        </ul>
+      </div>
+      <div class="w-plot" id="qp-plot"></div>
     </div>
   </div>
-  <aside class="notes">The chapter's dataset (Figure 6.7): one axial slice at 3 T, 10 MT-SPGR images (142° and 426° at 443, 1088, 2732, 6862 and 17235 Hz) normalized by the MT-off image, with B0, B1 and T1 maps. Lines: this deck's simulator with the voxel's qMRLab fit (Sled & Pike model; F, kf, T2f, T2r; R1f from the measured R1 with Eq. 6.6), with the measured B1 scaling both RF pulses and the B0 offset shifting the MT offset. Across the brain the simulator and the measurements agree to ±0.013 (median absolute), like qMRLab's own fit residuals. CSF-rich voxels hardly dip: almost no macromolecules.</aside>
+  <aside class="notes">Just the acquisition. The Z-spectrum is the MT-weighted signal normalized by the MT-off signal, plotted against the MT pulse's offset frequency; at each power (MT angle), it dips more at small offsets, where the restricted pool's broad line absorbs more of the pulse. The example protocol is the chapter's dataset (qMRLab's default qMT-SPGR protocol): SPGR readout 7°, TR 25 ms, Gauss-Hann MT pulse of 10.24 ms at 142° and 426°, each at 5 offsets from 443 Hz to 17.2 kHz: 10 MT-weighted images plus one MT-off reference. Dots: the measured white matter medians of this slice; lines: the two-pool model with the median white matter fit (F 22 %, kf 1.75 s⁻¹, T2f 21 ms, T2r 12 µs). The model also needs B1 (actual pulse amplitudes), B0 (actual offsets) and T1 (the free pool's R1) maps. Time: the chapter's single 2D slice (2 × 2 × 5 mm) took 14 s per image, but the same session also ran the protocol whole-brain in 3D at 1 mm isotropic (iPAT 4): 3 min 7 s per image, so 11 images take about 34 min, before the B1, B0 and T1 maps.</aside>
 </section>
 
 <!-- 17 -->
-<section id="s-fit" class="figure side" data-book="qmtfig6">
+<section id="s-qmtfit" class="figure" data-book="qmtfig5">
   <div class="fig-layout">
-    <h2>qMT: fit the model, voxel by voxel</h2>
-    <div class="side-text">
-      <ul>
-        <li>Fit <b>F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub></b> to the Z-spectrum</li>
-        <li><b>B<sub>0</sub></b> shifts the offsets, <b>B<sub>1</sub></b> scales the pulses, <b>T<sub>1</sub></b> sets R<sub>1,f</sub>:</li>
-      </ul>
-      <div class="eq eq-box small-eq">$$R_{1,f} = R_1^{meas} - \frac{k_f\left(R_{1,r}-R_1^{meas}\right)}{R_{1,r}-R_1^{meas}+k_f/F}$$</div>
-      <p class="takeaway">A wrong input map biases the fit. B<sub>1</sub> matters most.</p>
-      <p class="fig-hint">White matter of the dataset, simulated, then fitted with one wrong input map (the others right).</p>
-    </div>
-    <div class="w-col">
-      <div class="seg" data-ctl="map"><span class="seg-label">Wrong input</span><button data-v="B1" aria-pressed="true">B<sub>1</sub> map</button><button data-v="T1" aria-pressed="false">T<sub>1</sub> map</button><button data-v="B0" aria-pressed="false">B<sub>0</sub> map</button></div>
-      <div class="w-plot" id="fit-plot" style="height:560px"></div>
+    <div class="method-banner m-qmt"><span class="mb-name">qMT</span><span class="mb-sub">Fitting</span></div>
+    <div class="qf-cols">
+      <div class="qf-left">
+        <p class="qf-lead">Fit the two-pool model to each voxel's Z-spectrum. Different models make different approximations, suited to different acquisitions:</p>
+        <div class="qf-models">
+          <div class="qf-model qf-main"><h3>Sled &amp; Pike <span>2000, 2001</span></h3><p>Models the shaped, pulsed MT saturation of both pools</p><p class="qf-tag">The most general</p></div>
+          <div class="qf-model"><h3>Ramani et al. <span>2002</span></h3><p>Replaces the pulses with continuous-wave irradiation of the same power</p></div>
+          <div class="qf-model"><h3>Yarnykh <span>2002</span></h3><p>Pulsed model that neglects water's direct saturation: for fast protocols with few offsets</p></div>
+        </div>
+        <div class="qf-choices">
+          <h3>Other choices in the software</h3>
+          <ul>
+            <li><b>Lineshape</b> of the restricted pool: depends on what you measure
+              <ul><li>Agar gel: Gaussian</li><li><b>Tissue: super-Lorentzian</b></li></ul></li>
+            <li>Which parameters to fit, and which to fix (e.g. R<sub>1,r</sub> = 1&nbsp;s<sup>−1</sup>)</li>
+          </ul>
+        </div>
+        <div class="qf-sw">
+          <img src="img/qmrlab-logo.png" alt="qMRLab logo">
+          <p><b>Don't try to implement qMT yourself:</b> use one of the available open-source packages, such as <b>qMRLab</b></p>
+        </div>
+      </div>
+      <figure class="qf-shot">
+        <div class="qf-shot-img">
+          <img src="img/qmrlab-qmtspgr-options.png" alt="qMRLab's qmt_spgr options window: the protocol (10 MT angle and offset pairs, timing), the fitting table (start, bounds, fixed parameters), and options including the MT pulse shape, the model (SledPikeRP) and the lineshape (SuperLorentzian)">
+          <span class="qf-hl qf-hl-fit" title="Which parameters to fit or fix"></span>
+          <span class="qf-hl qf-hl-model" title="Model and lineshape"></span>
+        </div>
+        <figcaption>qMRLab: <b>qmt_spgr</b> options. Boxed: the parameters to fit or fix, and the model and lineshape.</figcaption>
+      </figure>
     </div>
   </div>
-  <aside class="notes">Data fitting. qMRLab's qMT-SPGR offers three steady-state models: Sled &amp; Pike (pre-computed free-pool saturation, continuous or rectangular approximations of the pulse), Ramani (continuous wave on both pools) and Yarnykh &amp; Yuan (water's direct saturation neglected); Figure 6.5 compares them on one voxel. Three extra maps are needed: B0 (the offset each voxel actually sees), B1 (the actual MT and excitation flip angles) and T1 (R1,f from Eq. 6.6, with R1,r fixed at 1 s⁻¹). This plot redoes the book's Figure 6.6 with this deck's simulator and fitter: the dataset's median white matter fit (F 22 %, kf 1.75 s⁻¹, T2f 21 ms, T2r 12 µs) is simulated for its protocol, then fitted (Levenberg-Marquardt on F, kf, T2f, T2r) with one input map wrong. A B1 map 10 % too low makes F 50 % too high: B1 errors propagate strongly (Boudreau 2018). The T1 mapping method matters too: VFA T1 is itself B1-sensitive, inversion recovery is not (Stikov 2015). B0 errors of tens of Hz hardly matter at these offsets.</aside>
+  <aside class="notes">qMRLab's qMT-SPGR offers three fitting models (the chapter's Figure 6.5 compares them on one voxel). Sled &amp; Pike (J Magn Reson 2000; Magn Reson Med 2001) is the most general: it follows the shaped MT pulse's saturation of the restricted pool and approximates the free pool's as an instantaneous fractional saturation, so it applies to any pulse shape, power and offset. Ramani et al. (Magn Reson Imaging 2002) replace the pulse train by continuous-wave irradiation of the same average power (CWPE), valid when the pulses are frequent compared with the exchange and relaxation. Yarnykh (Magn Reson Med 2002; Yarnykh &amp; Yuan 2004) uses a pulsed model that neglects the direct saturation of water, valid at large enough offsets; it was designed for fast protocols with few offsets (cross-relaxation imaging). Other choices a software asks for: the restricted pool's absorption lineshape (Gaussian for agar, Lorentzian for liquids; tissue's macromolecules are best described by a super-Lorentzian), the timing and pulse parameters, and which parameters are fixed (R1,r = 1 s⁻¹ by convention; R1,f then follows from the measured T1, Eq. 6.6). The window is qMRLab's qmt_spgr options for this dataset's protocol: MT angles and offsets, timing, the fitting table, the MT pulse, the model (SledPikeRP) and the lineshape (SuperLorentzian). Don't write your own qMT fitter: qMRLab and other open-source packages implement and validate these models.</aside>
 </section>
 
 <!-- 18 -->
-<section id="s-maps" class="figure" data-book="qmtfig8">
+<section id="s-qmtout" class="figure" data-book="qmtfig8">
   <div class="fig-layout">
     <div class="pause-badges"><a class="pause-badge" href="exercise-6-3.html" target="_blank" rel="noopener" title="Stop here for Exercise 6-3">⏸ Exercise 6-3</a></div>
-    <h2>qMT maps of one brain</h2>
-    <div class="maps-row">
-      <div class="seg" data-ctl="map">
-        <span class="seg-label">Fitted</span>
-        <button data-v="F" aria-pressed="true">F</button><button data-v="kf" aria-pressed="false">k<sub>f</sub></button><button data-v="T2f" aria-pressed="false">T<sub>2,f</sub></button><button data-v="T2r" aria-pressed="false">T<sub>2,r</sub></button>
-        <span class="seg-label">Inputs</span>
-        <button data-v="B0" aria-pressed="false">B<sub>0</sub></button><button data-v="B1" aria-pressed="false">B<sub>1</sub></button><button data-v="T1" aria-pressed="false">T<sub>1</sub></button>
+    <div class="method-banner m-qmt"><span class="mb-name">qMT</span><span class="mb-sub">Outputs</span></div>
+    <div class="qo-cols">
+      <div class="qo-text">
+        <ul class="qo-facts">
+          <li class="qo-good"><b>Robust to B<sub>0</sub>, B<sub>1</sub> and T<sub>1</sub> variations</b>: they are measured and included in the model</li>
+          <li class="qo-bad"><b>But not inherently to inaccuracies in those maps</b> <span class="cite">(Boudreau et al. 2018)</span>
+            <span class="pp-num">B<sub>1</sub> map 10 % low: F +29 %<br>T<sub>1</sub> map 10 % low: F +11 %, k<sub>f</sub> +12 %<br>B<sub>0</sub> map 20 Hz off: T<sub>2,f</sub> −8 %</span></li>
+        </ul>
+        <p class="qo-ex">Coming up, in an exercise: how sensitive are <b class="c-mtr">MTR</b>, <b class="c-mtsat">MTsat</b> and <b class="c-qmt">qMT</b> to these?</p>
+      </div>
+      <div class="qo-maps">
+        <div class="qo-map"><div class="qo-name">F <span>pool size ratio</span></div><div class="w-plot" id="qo-F"></div></div>
+        <div class="qo-map"><div class="qo-name">k<sub>f</sub> <span>exchange rate</span></div><div class="w-plot" id="qo-kf"></div></div>
+        <div class="qo-map"><div class="qo-name">T<sub>2,f</sub> <span>water</span></div><div class="w-plot" id="qo-T2f"></div></div>
+        <div class="qo-map"><div class="qo-name">T<sub>2,r</sub> <span>macromolecules</span></div><div class="w-plot" id="qo-T2r"></div></div>
       </div>
     </div>
-    <div class="maps-cols">
-      <div class="w-plot" id="maps-plot" style="height:540px; width:520px"></div>
-      <div class="maps-text" id="maps-text"></div>
-    </div>
   </div>
-  <aside class="notes">Figure 6.7 of the chapter, from qMRLab's qMT-SPGR fit (Sled & Pike, R1,f from Eq. 6.6): the fitted F, kf, T2f, T2r maps, and the input B0 (Hz), B1 (relative) and T1 maps. F tracks myelin: high in white matter. kf is noisier. T2r is about 12 µs everywhere in tissue. The B1 map spans about 0.8 to 1.1 across the slice at 3 T: without it, F would be wrong by tens of %. Exercise 6-3 fits a voxel of this slice by hand.</aside>
+  <aside class="notes">The qMT outputs of the chapter's dataset (qMRLab's Sled &amp; Pike fit, Figure 6.7): the pool size ratio F (macromolecular over free protons; highest in white matter), the exchange rate k_f (noisier), the free pool T2,f and the restricted pool T2,r (about 12 µs everywhere in tissue). Because B0, B1 and T1 are measured and modelled, the fitted parameters do not change with them the way MTR does. But they inherit any error in those maps: Boudreau, Stikov &amp; Pike 2018 (Magn Reson Med 79:276–285) showed that B1 errors propagate strongly into F. The numbers are this deck's simulation (tools/make_fit_errors.js: the dataset's median white matter, simulated for its protocol, then fitted with one wrong input map). An exercise will compare the sensitivity of MTR, MTsat and qMT to B1, T1 and B0 errors.</aside>
 </section>
 
 <!-- 19 -->
-<section id="s-mtr" class="figure" data-book="mtreq1">
+<section id="s-summary" class="figure" data-book="parting-thoughts">
   <div class="fig-layout">
-    <h2>MTR: two images, one ratio</h2>
-    <div class="mtr-head">
-      <div class="eq eq-box">$$\text{MTR} = \frac{S_0 - S_{MT}}{S_0}\cdot 100\,\%$$</div>
-      <div class="mtr-pick">
-        <span class="seg-label">MT pulse of S<sub>MT</sub></span>
-        <div class="seg small" data-ctl="angle"><button data-v="1" aria-pressed="true">426°</button><button data-v="0" aria-pressed="false">142°</button></div>
-        <div class="seg small" data-ctl="offset"><button data-v="0" aria-pressed="false">443 Hz</button><button data-v="1" aria-pressed="false">1.1 kHz</button><button data-v="2" aria-pressed="true">2.7 kHz</button><button data-v="3" aria-pressed="false">6.9 kHz</button><button data-v="4" aria-pressed="false">17 kHz</button></div>
-      </div>
-    </div>
-    <div class="w-plot" id="mtr-plot" style="height:430px"></div>
-    <p class="fig-hint" id="mtr-stats">–</p>
+  <div class="method-banner m-sum"><span class="mb-name">Summary</span><span class="mb-sub">SPGR-based MT techniques: MTR, MTsat, and qMT</span></div>
+  <table class="sum-table">
+    <thead><tr><th></th>
+      <th class="sum-m m-mtr"><span class="sum-name">MTR</span><span class="sum-tag">Semi-quantitative</span></th>
+      <th class="sum-m m-mtsat"><span class="sum-name">MTsat</span><span class="sum-tag">Semi-quantitative</span></th>
+      <th class="sum-m m-qmt"><span class="sum-name">qMT</span><span class="sum-tag sum-q">Quantitative</span></th></tr></thead>
+    <tbody>
+      <tr><td>Images</td><td>2: MT on, MT off</td><td>3: + a T<sub>1</sub>w</td><td>10+, and B<sub>0</sub>, B<sub>1</sub>, T<sub>1</sub> maps</td></tr>
+      <tr><td>Acquisition</td><td class="ok">Short</td><td class="ok">Short</td><td class="bad">Long</td></tr>
+      <tr><td>Processing</td><td>One division</td><td>Closed form, no fitting</td><td>Model fit, voxel by voxel</td></tr>
+      <tr><td>Outputs</td><td>MTR (%)</td><td>MTsat (%), T<sub>1</sub>, MTR</td><td>F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub></td></tr>
+      <tr><td>Healthy WM</td><td>30–60 %</td><td>2–7 %</td><td>F ≈ 15–25 %</td></tr>
+      <tr><td>Depends on the protocol</td><td class="bad">Strongly</td><td class="mid">Yes</td><td class="ok">Little</td></tr>
+      <tr><td>Depends on T<sub>1</sub></td><td class="bad">Yes</td><td class="ok">Mostly removed</td><td class="ok">Modelled (T<sub>1</sub> map)</td></tr>
+      <tr><td>Depends on B<sub>1</sub></td><td class="bad">Yes</td><td class="mid">Yes, inherently</td><td class="mid">Modelled, but sensitive to B<sub>1</sub> map errors</td></tr>
+    </tbody>
+  </table>
   </div>
-  <aside class="notes">MTR (Eq. 6.7, Wolff & Balaban 1989): the percent signal reduction caused by the MT pulse, in the steady state. Higher macromolecular content, higher MTR; MTR is lower where myelin is lost (MS), and it correlates with myelin in post-mortem histology (Schmierer 2004, 2007). All ten images here are from the same subject and session, the qMT dataset: each MT-weighted image gives its own MTR map. Same brain, MTR from a few % to ~70 % depending on the pulse: MTR is only comparable for the same protocol. S0 is the measured MT-off image; S_MT is shown as S0 × the measured (normalized) ratio. White and grey matter: voxels with qMRLab F above 0.18, and between 0.05 and 0.10.</aside>
+  <aside class="notes">Summary of the three methods, in the order of the lecture. MTR and MTsat are semi-quantitative: their values depend on the MT pulse and timing chosen, not only on the tissue. qMT is quantitative: it fits the two-pool model for tissue parameters. MTR is the most widely available and the least comparable (protocol, T1 and B1 all change it). MTsat costs one more image, removes most of the T1 dependence and gives a T1 map, but stays protocol dependent and inherently B1-sensitive. qMT is the most complete and least protocol-dependent, at the cost of a long acquisition (about 34 min whole brain for this dataset's protocol), extra maps whose errors propagate into the fit (Boudreau 2018), and a model fit. Healthy white matter F: 16 % in Sled &amp; Pike's values, 22 % in this dataset's median. Beyond the chapter: qMT-bSSFP (Gloor 2008) and SIRFSE are faster qMT variants (both in qMRLab); inhomogeneous MT (ihMT, Varma 2015) uses the difference between single- and dual-offset saturation to target the dipolar order of myelin lipids more specifically; and recent work models MT inside T1 mapping itself (Assländer 2025), so that T1 no longer depends on the method.</aside>
 </section>
 
 <!-- 20 -->
-<section id="s-scanners" class="figure side" data-book="mtrplot1">
-  <div class="fig-layout">
-    <h2>Same tissue, different scanner</h2>
-    <div class="side-text">
-      <ul>
-        <li>Vendors use different MT pulses <span class="cite">(Table 6.2)</span></li>
-        <li>An <b>MS lesion</b> on one scanner can match <b>healthy WM</b> on another</li>
-        <li>Compare MTR within one protocol, or normalize</li>
-      </ul>
-      <ul class="proto" id="sc-table"></ul>
-      <p class="fig-hint">Two-pool simulations, Sled 2001 tissues (1.5 T). Click a bar to draw its level across.</p>
-    </div>
-    <div class="w-plot" id="sc-plot" style="height:600px"></div>
-  </div>
-  <aside class="notes">Figure 6.9 recomputed live: MTR of five tissues (Table 6.3: Sled & Pike 2001 at 1.5 T, healthy cortical GM, healthy WM, normal-appearing WM, early and late MS lesions) for the four MT-weighted protocols of Table 6.2 (Brown 2013: Siemens and Philips; Karakuzu 2022: GE and Siemens). The values agree with the chapter's qMRLab simulations to within one MTR point (the GE Fermi pulse's exact width is not reported and is set to match). The Philips protocol's longer, stronger pulse gives higher MTR for every tissue; an early lesion at Karakuzu's protocols reads like healthy WM at Brown's.</aside>
-</section>
-
-<!-- 21 -->
-<section id="s-mtrconf" class="figure side" data-book="mtrplot2">
-  <div class="fig-layout">
-    <div class="pause-badges"><a class="pause-badge" href="exercise-6-4.html" target="_blank" rel="noopener" title="Stop here for Exercise 6-4">⏸ Exercise 6-4</a></div>
-    <h2>MTR also measures T<sub>1</sub> and B<sub>1</sub></h2>
-    <div class="side-text">
-      <ul>
-        <li><b>Longer T<sub>1</sub></b>: slower recovery, more saturation builds up, <b>higher MTR</b>, same macromolecules</li>
-        <li><b>Lower B<sub>1</sub></b>: weaker MT pulse, <b>lower MTR</b>; B<sub>1</sub> varies ±30 % at 3 T</li>
-      </ul>
-      <div class="w-controls col">
-        <label><span>T<sub>1</sub></span> <input type="range" id="mc-t1" min="0.4" max="1.6" step="0.01" value="1.0"><output id="mc-t1-v"></output></label>
-        <label><span>B<sub>1</sub></span> <input type="range" id="mc-b1" min="0.7" max="1.3" step="0.01" value="1"><output id="mc-b1-v"></output></label>
-      </div>
-      <div class="big-num"><span>MTR</span><b id="mc-mtr">–</b></div>
-      <p class="fig-hint">Healthy WM macromolecules (F, k<sub>f</sub>, T<sub>2</sub>) fixed, Karakuzu Siemens protocol. T<sub>1</sub> is the measured (apparent) T<sub>1</sub>.</p>
-    </div>
-    <div class="w-col">
-      <div class="w-plot" id="mc-t1-plot" style="height:300px"></div>
-      <div class="w-plot" id="mc-b1-plot" style="height:300px"></div>
-    </div>
-  </div>
-  <aside class="notes">Figures 6.10 and 6.11 recomputed live. MTR depends on things other than macromolecular content. T1: with the macromolecular parameters fixed, a longer T1 (a disease that changes water content, say) means less recovery between MT pulses, so the steady-state saturation and MTR rise. B1: the MT pulse's power scales with B1² (W ∝ ω1²), so a 20 % low B1 lowers MTR substantially; B1 also changes the readout flip angle. At 3 T, B1 varies by up to ~30 % across the head. TR (Figure 6.12) changes MTR too: a longer TR leaves more recovery time between MT pulses.</aside>
-</section>
-
-<!-- 22 -->
-<section id="s-helms" class="figure side" data-book="mtsatfig2">
-  <div class="fig-layout">
-    <h2>MTsat: Helms' trick</h2>
-    <div class="side-text">
-      <ul>
-        <li>Replace the 10 ms MT pulse by an <b>instant second flip α<sub>2</sub></b> <span class="cite">(Helms 2008)</span></li>
-        <li>One pool, two pulses: an <b>SPGR equation</b>, no Bloch-McConnell</li>
-        <li><b>δ</b>: the fraction of M<sub>z</sub> that α<sub>2</sub> removes, <b>MTsat = 100 δ</b></li>
-      </ul>
-      <div id="helms-trig" class="trig"></div>
-      <div class="seg small" data-ctl="show"><button data-v="both" aria-pressed="true">Both</button><button data-v="real" aria-pressed="false">Two pools</button><button data-v="helms" aria-pressed="false">Helms model</button></div>
-    </div>
-    <div class="w-col">
-      <div id="helms-seq" class="seq-svg slim"></div>
-      <div class="w-plot" id="helms-plot" style="height:430px"></div>
-    </div>
-  </div>
-  <aside class="notes">Helms 2008 (and 2010) models the MT-weighted SPGR (Figure 6.14) as a dual-excitation SPGR (Figure 6.15): the readout α1 and a second, instantaneous on-resonance pulse α2 whose effect on the free pool's Mz equals the MT pulse's. Then the steady state has a closed form (Eq. 6.9). The plot shows one steady-state TR of water's Mz: the two-pool simulation (smooth: saturation during the pulse, exchange after it, T1 recovery throughout) and the Helms model with the δ that gives the same signal (one instantaneous drop, then plain T1 recovery). They agree at the readout, the only time the signal is measured, not in between. The triangle: cos α2 = 1 − δ, so δ ≈ α2²/2 for small α2 (Figure 6.16).</aside>
-</section>
-
-<!-- 23 -->
-<section id="s-derive" data-book="theory">
-  <h2>From two pulses to one simple equation</h2>
-  <div class="derive">
-    <div class="d-step">
-      <span class="d-tag">Dual-pulse SPGR (exact)</span>
-      $$S = A\sin\alpha_1\,\frac{1-e^{-R_1TR} - (1-\cos\alpha_2)\left(1-e^{-R_1TR_1}\right)e^{-R_1TR_2}}{1-\cos\alpha_1\cos\alpha_2\,e^{-R_1TR}}$$
-    </div>
-    <div class="d-step fragment">
-      <span class="d-tag">R<sub>1</sub>TR ≪ 1 · α<sub>2</sub> small · α<sub>1</sub> small</span>
-      <span class="d-why">TR ~ 30 ms, T<sub>1</sub> ~ 1 s · δ ~ 5 % (α<sub>2</sub> ~ 18°) · α<sub>1</sub> ~ 5°–20°</span>
-    </div>
-    <div class="d-step fragment final">
-      $$S = A\,\alpha_1\,\frac{R_1\,TR}{\alpha_1^2/2 + \color{#c2410c}{\delta} + R_1\,TR}, \qquad \color{#c2410c}{\delta = \alpha_2^2/2}$$
-    </div>
-    <div class="d-step fragment">
-      <span class="d-tag">δ = 0: back to the plain SPGR equation · δ &gt; 0: MT acts like extra relaxation</span>
-    </div>
-  </div>
-  <aside class="notes">The chapter's Eqs. 6.9 to 6.12, condensed. Eq. 6.9 is the exact dual-excitation steady state (TR1 from α1 to α2, TR2 from α2 to the next α1, TR = TR1 + TR2). Three approximations: R1·TR ≪ 1 (exponentials to first order; TR1 and TR2 drop out), α2 small (cos α2 ≈ 1 − α2²/2; checked a posteriori: δ ≈ 5 % means α2 ≈ 18°), α1 small. Result: S = A α1 R1 TR / (α1²/2 + δ + R1 TR), Helms 2008. The chapter prints R1·TR1 in the denominators of Eqs. 6.10–6.12; it is R1·TR (Helms 2008; the chapter's own Appendix B uses 1.8 × 0.03, i.e. TR), and the denominator of Eq. 6.10 should read 1 − cos α1 cos α2 (1 − R1 TR). In the final form δ adds to R1·TR: the MT saturation per TR behaves like extra longitudinal relaxation, which is why it can be separated from T1 with one more image.</aside>
-</section>
-
-<!-- 24 -->
-<section id="s-mtsat" class="figure side" data-book="mtsateq7">
-  <div class="fig-layout">
-    <h2>Three images: MTsat and T<sub>1</sub></h2>
-    <div class="side-text">
-      <ul>
-        <li><b>PDw</b> and <b>T<sub>1</sub>w</b> (no MT): solve for A and R<sub>1</sub>, as in VFA</li>
-        <li><b>MTw</b>: solve for δ</li>
-      </ul>
-      <div class="eq eq-box small-eq">$$R_1 = \tfrac{1}{2}\,\frac{S_{T1}\alpha_{T1}/TR_{T1} - S_{PD}\alpha_{PD}/TR_{PD}}{S_{PD}/\alpha_{PD} - S_{T1}/\alpha_{T1}}$$</div>
-      <div class="eq eq-box small-eq">$$\text{MTsat} = \left(\frac{A\,\alpha_{MT}}{S_{MT}} - 1\right)R_1TR_{MT} - \frac{\alpha_{MT}^2}{2}$$</div>
-      <ul><li>Closed form: as fast as MTR. Values <b>~2–7 %</b>, not 30–60 %</li></ul>
-      <p class="fig-hint">MTsat of the five tissues for the six protocols of Table 6.4, simulated (MTw, PDw and T<sub>1</sub>w each with both pools).</p>
-    </div>
-    <div class="w-plot" id="ms-plot" style="height:600px"></div>
-  </div>
-  <aside class="notes">Eqs. 6.7–6.9 (MTsat numbering) of the chapter, from Helms 2008: R1 and the apparent amplitude A from the PDw and T1w images (the small-angle VFA solution), then δ from the MTw image. A is in the chapter's Eq. 6.8. No fitting: MTsat maps are as quick to compute as MTR. MTsat and MTR are both percentages but of different things: MTR is a steady-state signal difference (~30–60 %), MTsat the fractional saturation per TR (~2–7 %). The bars recompute Figure 6.17 with every image simulated with both pools (the chapter took PDw and T1w from the one-pool SPGR equation; that gives slightly lower MTsat, e.g. 5.5 % vs 6.1 % in WM for Karakuzu's Siemens protocol). MTsat still depends on the protocol: compare within one.</aside>
-</section>
-
-<!-- 25 -->
-<section id="s-mtsatconf" class="figure side" data-book="mtsatplot2">
-  <div class="fig-layout">
-    <h2>MTsat vs MTR: T<sub>1</sub> and B<sub>1</sub></h2>
-    <div class="side-text">
-      <ul>
-        <li><b>T<sub>1</sub>:</b> MTR follows it, MTsat barely does</li>
-        <li><b>B<sub>1</sub>:</b> both move: the true saturation <i>is</i> lower with a weaker pulse</li>
-        <li>Empirical correction <span class="cite">(Weiskopf 2013)</span>:</li>
-      </ul>
-      <div class="eq eq-box small-eq">$$\text{MTsat}_{corr} = \text{MTsat}\,\frac{1-\lambda}{1-\lambda B_1},\quad \lambda = 0.4$$</div>
-      <div class="seg small" data-ctl="corr"><button data-v="0" aria-pressed="true">No B<sub>1</sub> correction</button><button data-v="1" aria-pressed="false">B<sub>1</sub>-corrected</button></div>
-      <p class="fig-hint">Change from the value at nominal T<sub>1</sub> and B<sub>1</sub> (%). Healthy WM, Karakuzu Siemens protocol.</p>
-    </div>
-    <div class="w-col">
-      <div class="w-plot" id="mm-t1" style="height:300px"></div>
-      <div class="w-plot" id="mm-b1" style="height:300px"></div>
-    </div>
-  </div>
-  <aside class="notes">Figures 6.18 and 6.19 recomputed live. With F, kf and the T2s fixed, T1 varied by ±40 %: MTR changes a lot, MTsat a few %, and the Helms T1 tracks the true T1 (with an offset: two-pool VFA bias, slide 28). B1 varied ±30 % on both the MT and excitation pulses: MTR and MTsat both change, MTsat roughly in proportion to B1, because the saturation really is weaker; the T1 from VFA is wrong unless the angles are corrected with the B1 map (done here). The empirical correction of Helms 2008 / Weiskopf 2013 (λ ≈ 0.4) gives the MTsat that would have been measured at B1 = 1; it is a standardization, not the tissue's actual saturation.</aside>
-</section>
-
-<!-- 26 -->
-<section id="s-budget" class="figure side" data-book="interpreting-mtsat">
-  <div class="fig-layout">
-    <h2>What does MTsat actually measure?</h2>
-    <div class="side-text">
-      <ul>
-        <li>The net M<sub>z</sub> drop <b>across the pulse</b> is tiny: T<sub>1</sub> recovery offsets it</li>
-        <li>MT losses keep going <b>after the pulse</b>: exchange with the still-saturated pool</li>
-        <li>All MT losses over the TR <b>≈ MTsat</b></li>
-      </ul>
-      <div class="seg small" data-ctl="tissue"><button data-v="wm" aria-pressed="true">Healthy WM</button><button data-v="gm" aria-pressed="false">Cortical GM</button><button data-v="late" aria-pressed="false">Late lesion</button></div>
-      <div class="budget-nums" id="bud-nums"></div>
-    </div>
-    <div class="w-plot" id="bud-plot" style="height:600px"></div>
-  </div>
-  <aside class="notes">Appendix C of the chapter asks whether MTsat really is "the saturation caused by one MT pulse". Here, the free pool's Mz over one steady-state TR, term by term, exactly (each term of the Bloch-McConnell equation integrated; the bars close to zero): T1 recovery (+), exchange with the restricted pool (−), direct saturation of water by the pulse (−), during the pulse and after it, and the excitation (−). Healthy WM with Karakuzu's Siemens protocol: the net drop across the pulse is 0.32 % (the chapter's Bloch simulation found 0.314 %), but exchange during the pulse (1.5 %) plus direct saturation (0.6 %) plus exchange after it (3.2 %) total 5.4 %, close to Helms' MTsat from the same simulated images with the true T1 (5.6 %). So MTsat is the whole MT loss per TR, most of it after the pulse, as the chapter concludes (5.49 % vs 5.34 % there).</aside>
-</section>
-
-<!-- 27 -->
-<section id="s-realmtsat" class="figure" data-book="mtsatintro">
-  <div class="fig-layout">
-    <div class="pause-badges"><a class="pause-badge" href="exercise-6-5.html" target="_blank" rel="noopener" title="Stop here for Exercise 6-5">⏸ Exercise 6-5</a></div>
-    <h2>MTR and MTsat of the same brain</h2>
-    <div class="mtr-head">
-      <div class="eq eq-box small-eq">$$\text{MTsat} = \left(R_1TR + \tfrac{\alpha^2}{2}\right)\left(\frac{S_0}{S_{MT}} - 1\right)$$</div>
-      <p class="small rm-note">With a measured T<sub>1</sub> map, two images are enough (the Helms equation with A from S<sub>0</sub>). α: 7° × B<sub>1</sub>.</p>
-      <div class="seg small" data-ctl="pt"><button data-v="3" aria-pressed="true">426° · 1.1 kHz</button><button data-v="5" aria-pressed="false">426° · 2.7 kHz</button><button data-v="2" aria-pressed="false">142° · 1.1 kHz</button></div>
-    </div>
-    <div class="w-plot" id="rm-plot" style="height:470px"></div>
-  </div>
-  <aside class="notes">Real data, one of the dataset's MT-weighted images and the MT-off image, with the measured T1 (R1) and B1 maps: MTR (Eq. 6.7) and MTsat from the Helms equation solved with A from the MT-off image (same flip angle and TR), α = 7° × B1. Right: every brain voxel, MTR against MTsat, coloured by T1. MTR mixes in T1: at the same MTsat, long-T1 voxels (grey matter, CSF partial volume) have higher MTR. White and grey matter separate more cleanly in MTsat. With the 426° pulse at 1.1 kHz, white matter MTsat is about 4–5 %, in the range of slide 24's protocols. In white matter versus grey matter (voxels with F &gt; 18 % and 5–10 %), MTR differs by a factor of ~1.3, MTsat by ~3.</aside>
-</section>
-
-<!-- 28 -->
 <section id="s-everywhere" data-book="introduction">
   <h2>MT is in every sequence</h2>
   <div class="cols every-cols">
@@ -615,32 +483,15 @@
   <aside class="notes">Introduction of the chapter: virtually every sequence has MT effects. On-resonance pulses pump the restricted pool too (inversion pulses, spin-echo trains); in multi-slice acquisitions the pulses of the other slices are off resonance for this one (Santyr 1993). Ignoring MT biases T1 mapping (Assländer 2025) and T2 mapping. The card is computed with this deck's two-pool simulator: healthy WM (Sled 2001) with R1f = R1r = 1 s⁻¹, so the true (apparent mono-exponential) T1 is 1 s. With one pool, the two SPGR signals give T1 ≈ 1.01 s (Helms' small-angle formula). With two pools the excitation only tips water; between pulses water re-magnetizes both by T1 and by exchange with the restricted pool, which the readout pulses barely touch, so VFA reads ~13 % shorter. Inversion recovery, whose long recovery lets both pools relax together, is much less affected.</aside>
 </section>
 
-<!-- 29 -->
-<section id="s-summary" data-book="parting-thoughts">
-  <h2>qMT, MTR, MTsat</h2>
-  <table class="summary-table">
-    <tr><th></th><th class="c-qmt">qMT</th><th class="c-mtr">MTR</th><th class="c-mtsat">MTsat</th></tr>
-    <tr><td>Images</td><td>10+ (and B<sub>0</sub>, B<sub>1</sub>, T<sub>1</sub>)</td><td>2</td><td>3 (and B<sub>1</sub>)</td></tr>
-    <tr><td>Processing</td><td>Model fit, slow</td><td>Ratio, instant</td><td>Closed form, instant</td></tr>
-    <tr><td>Output</td><td>F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub></td><td>MTR (%)</td><td>MTsat (%), T<sub>1</sub></td></tr>
-    <tr><td>Healthy WM</td><td>F ≈ 10–20 %</td><td>30–60 %</td><td>2–7 %</td></tr>
-    <tr><td>Depends on protocol</td><td class="ok">Little</td><td class="bad">Strongly</td><td class="mid">Yes</td></tr>
-    <tr><td>Depends on T<sub>1</sub></td><td class="ok">Modelled</td><td class="bad">Yes</td><td class="ok">Mostly removed</td></tr>
-    <tr><td>Depends on B<sub>1</sub></td><td class="mid">Corrected with a map</td><td class="bad">Yes</td><td class="mid">Yes, empirical correction</td></tr>
-  </table>
-  <p class="foot-note">Also: qMT with bSSFP or selective inversion recovery, inhomogeneous MT (ihMT), and MT-aware T<sub>1</sub> mapping.</p>
-  <aside class="notes">Summary of the chapter's three methods. qMT is the most complete and least protocol-dependent, at the cost of time and extra maps; MTR is the most widely available and the least comparable; MTsat sits between, with T1 largely removed but a protocol- and B1-dependent value. Beyond the chapter: qMT-bSSFP (Gloor 2008) and SIRFSE are faster qMT variants (both in qMRLab); inhomogeneous MT (ihMT, Varma 2015) uses the difference between single- and dual-offset saturation to target the dipolar order of myelin lipids more specifically; and recent work models MT inside T1 mapping itself (Assländer 2025), so that T1 no longer depends on the method.</aside>
-</section>
-
-<!-- 30 -->
+<!-- 21 -->
 <section id="s-keys" data-book="top">
   <h2>Key takeaways</h2>
   <ol class="keys">
     <li>Macromolecular protons are invisible (T<sub>2</sub> ≈ 10 µs), but their <b>broad line</b> lets an off-resonance pulse saturate them</li>
     <li><b>Exchange</b> passes that saturation to water: less signal where there are more macromolecules (myelin)</li>
-    <li><b>qMT</b> fits the two-pool model to the Z-spectrum: quantitative, but slow and map-hungry</li>
     <li><b>MTR</b> is one point of the Z-spectrum: quick, but it also measures the protocol, T<sub>1</sub> and B<sub>1</sub></li>
     <li><b>MTsat</b> models the MT pulse as an extra flip: T<sub>1</sub> removed, the whole MT loss per TR, still B<sub>1</sub>- and protocol-dependent</li>
+    <li><b>qMT</b> fits the two-pool model to the Z-spectrum: quantitative, but slow and map-hungry</li>
   </ol>
   <aside class="notes">Summary of the chapter; the exercises follow in the exercises deck.</aside>
 </section>

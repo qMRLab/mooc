@@ -308,3 +308,77 @@
 #s-mtsatproto .mp-map { flex: 1 1 0; min-height: 0; width: 250px; align-self: center; position: relative; left: 24px; }   /* the brain (not the brain + colorbar) sits under its title: plot area 2–200 px of 250 */
 #s-mtsatpros .pp-cols { grid-template-columns: 1fr 1fr; }
 #s-mtsatpros .pp-col { font-size: 0.68em; }
+
+/* qMT: method 3 of 3 */
+.reveal .method-banner.m-qmt { --card: var(--restr); }
+#s-qmtintro .qi-cols { display: grid; grid-template-columns: 1fr 430px; gap: 40px; align-items: start; flex: 1 1 0; min-height: 0; }
+#s-qmtintro .qi-facts { font-size: 0.74em; margin: 0.3em 0 0 1.3em; padding: 0; }
+#s-qmtintro .qi-facts li { margin-bottom: 1em; padding-left: 0.2em; }
+#s-qmtintro .qi-facts li::marker { color: var(--restr); font-weight: 800; }
+#s-qmtintro .qi-paper { margin: 0; text-align: left; }
+#s-qmtintro .qi-paper img { display: block; width: 100%; max-height: 470px; object-fit: cover; object-position: top; border: 1px solid var(--rule); box-shadow: 0 6px 18px rgba(20, 30, 45, 0.18); }
+#s-qmtintro .qi-paper figcaption { font-size: 0.46em; color: var(--ink); margin-top: 10px; line-height: 1.35; }
+
+#s-qmtproto .qp-cols { display: grid; grid-template-columns: 455px 1fr; gap: 30px; flex: 1 1 0; min-height: 0; }
+#s-qmtproto .qp-def { font-size: 0.62em; margin: 0 0 0.6em; padding: 8px 14px; background: var(--panel); border-left: 6px solid var(--restr); border-radius: 0 10px 10px 0; }
+#s-qmtproto .qp-table { border-collapse: collapse; font-size: 0.56em; width: 100%; }
+#s-qmtproto .qp-table th { text-align: left; color: var(--muted); font-weight: 600; padding: 0.22em 0.8em 0.22em 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+#s-qmtproto .qp-table td { padding: 0.22em 0; border-bottom: 1px solid var(--rule); }
+#s-qmtproto .qp-table tr.qp-sum th, #s-qmtproto .qp-table tr.qp-sum td { border-bottom: 2px solid var(--restr); }
+#s-qmtproto .c-142 { color: var(--a142, #4dabf7); } #s-qmtproto .c-426 { color: #1c3d6e; }
+#s-qmtproto .qp-more { font-size: 0.6em; margin: 0.8em 0 0 1.1em; padding: 0; }
+#s-qmtproto .qp-more li { margin-bottom: 0.5em; }
+#s-qmtproto .w-plot { height: 100%; min-height: 0; }
+
+#s-qmtfit .qf-cols { display: grid; grid-template-columns: 1fr 380px; gap: 28px; flex: 1 1 0; min-height: 0; }
+#s-qmtfit .qf-left { display: flex; flex-direction: column; min-height: 0; }
+#s-qmtfit .qf-lead { font-size: 0.6em; margin: 0 0 0.5em; }
+#s-qmtfit .qf-models { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+#s-qmtfit .qf-model { background: var(--panel); border-radius: 10px; padding: 10px 14px 8px; border-top: 5px solid var(--rule); font-size: 0.5em; }
+#s-qmtfit .qf-model h3 { font-size: 1.15em; margin: 0 0 0.3em; color: var(--ink); }
+#s-qmtfit .qf-model h3 span { font-size: 0.75em; color: var(--muted); font-weight: 600; }
+#s-qmtfit .qf-model p { margin: 0; }
+#s-qmtfit .qf-main { border-top-color: var(--restr); background: color-mix(in srgb, var(--restr) 9%, var(--panel)); }
+#s-qmtfit .qf-tag { margin-top: 0.4em !important; color: var(--restr); font-weight: 800; }
+#s-qmtfit .qf-choices { margin-top: 18px; }
+#s-qmtfit .qf-choices h3 { font-size: 0.64em; margin: 0 0 0.4em; color: var(--ink); }
+#s-qmtfit .qf-choices ul { font-size: 0.56em; margin: 0 0 0 1.1em; padding: 0; }
+#s-qmtfit .qf-choices li { margin-bottom: 0.5em; }
+#s-qmtfit .qf-choices ul ul { font-size: 1em; margin: 0.3em 0 0 1.2em; list-style: circle; }
+#s-qmtfit .qf-choices ul ul li { margin-bottom: 0.2em; }
+#s-qmtfit .qf-sw { display: flex; align-items: center; gap: 18px; margin-top: 16px; padding: 10px 16px; background: var(--panel); border-left: 6px solid var(--restr); border-radius: 0 10px 10px 0; }
+#s-qmtfit .qf-sw img { height: 92px; width: auto; flex: none; }
+#s-qmtfit .qf-sw p { font-size: 0.58em; margin: 0; }
+#s-qmtfit .qf-shot { margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 0; }
+#s-qmtfit .qf-shot-img { position: relative; height: 520px; aspect-ratio: 859 / 1252; flex: none; }
+#s-qmtfit .qf-shot-img img { display: block; width: 100%; height: 100%; border: 1px solid var(--rule); box-shadow: 0 6px 18px rgba(20, 30, 45, 0.18); }
+#s-qmtfit .qf-hl { position: absolute; border: 3px solid var(--restr); border-radius: 6px; pointer-events: auto; }
+#s-qmtfit .qf-hl-fit { left: 51%; top: 7%; width: 45.5%; height: 20.5%; }
+#s-qmtfit .qf-hl-model { left: 52%; top: 54.5%; width: 43.5%; height: 8.2%; }
+#s-qmtfit .qf-shot figcaption { font-size: 0.44em; color: var(--muted); margin-top: 8px; text-align: center; }
+
+#s-qmtout .qo-cols { display: grid; grid-template-columns: 430px 1fr; gap: 26px; flex: 1 1 0; min-height: 0; }
+#s-qmtout .qo-facts { list-style: none; margin: 0.3em 0 0; padding: 0; font-size: 0.64em; }
+#s-qmtout .qo-facts li { position: relative; padding-left: 1.5em; margin-bottom: 0.9em; }
+#s-qmtout .qo-good::before { content: "✓"; position: absolute; left: 0; color: var(--ex); font-weight: 800; }
+#s-qmtout .qo-bad::before { content: "!"; position: absolute; left: 0.25em; color: var(--restr); font-weight: 800; }
+#s-qmtout .pp-num { display: block; color: var(--muted); font-size: 0.85em; margin-top: 0.3em; line-height: 1.45; }
+#s-qmtout .qo-ex { font-size: 0.58em; margin-top: 1.2em; padding: 10px 14px; background: var(--panel); border-left: 6px solid var(--ex); border-radius: 0 10px 10px 0; }
+#s-qmtout .qo-maps { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px 10px; min-height: 0; }
+#s-qmtout .qo-map { display: flex; flex-direction: column; min-height: 0; }
+#s-qmtout .qo-name { font-size: 0.52em; font-weight: 800; color: var(--restr); text-align: center; position: relative; left: -24px; }
+#s-qmtout .qo-name span { color: var(--muted); font-weight: 600; font-size: 0.85em; }
+#s-qmtout .qo-map .w-plot { flex: 1 1 0; min-height: 0; }
+
+/* Summary: the three methods side by side, in the lecture's order */
+.reveal .method-banner.m-sum { --card: var(--accent); }
+#s-summary .sum-table { width: 100%; border-collapse: separate; border-spacing: 10px 0; font-size: 0.66em; margin: 4px 0 0 -10px; }
+#s-summary .sum-table td { padding: 0.42em 0.7em; border-bottom: 1px solid var(--rule); }
+#s-summary .sum-table td:first-child { color: var(--muted); font-weight: 600; white-space: nowrap; padding-left: 0; }
+#s-summary .sum-table tbody td:not(:first-child) { background: var(--panel); width: 29%; }
+#s-summary .sum-table tbody tr:last-child td:not(:first-child) { border-radius: 0 0 10px 10px; border-bottom: none; }
+#s-summary .sum-m { --card: var(--accent); text-align: left; padding: 10px 0.7em 8px; background: var(--panel); border-top: 6px solid var(--card); border-radius: 10px 10px 0 0; }
+#s-summary .sum-m.m-mtr { --card: var(--mtr); } #s-summary .sum-m.m-mtsat { --card: var(--mtsat); } #s-summary .sum-m.m-qmt { --card: var(--restr); }
+#s-summary .sum-name { display: block; font-size: 1.5em; font-weight: 800; color: var(--card); line-height: 1.1; }
+#s-summary .sum-tag { display: inline-block; margin-top: 4px; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: var(--card); border: 2px solid var(--card); }
+#s-summary .sum-tag.sum-q { background: var(--card); color: #fff; }

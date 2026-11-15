@@ -47,19 +47,16 @@ const DRIVE = {
     await go(page, 's-mtsatproto'); await page.waitForTimeout(500);
     if (!(await page.evaluate(() => document.querySelectorAll('#s-mtsatproto .mp-eq .katex').length === 4))) out.push('slide 13: the MTR, R1, A and MTsat equations did not render');
     if (!(await page.evaluate(() => ['mp-mtr', 'mp-t1', 'mp-mtsat'].every((id) => document.querySelector(`#${id} .hm, #${id} image`))))) out.push('slide 13: an output map is missing');
+    await go(page, 's-qmtintro'); await page.waitForTimeout(400);
+    if (!(await page.evaluate(() => { const i = document.querySelector('#s-qmtintro img'); return i && i.complete && i.naturalWidth > 0; }))) out.push('slide 15: the qMTLab paper image did not load');
+    await go(page, 's-qmtproto'); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => document.querySelectorAll('#qp-plot .scatterlayer .trace').length === 4))) out.push('slide 16: the Z-spectrum needs 2 model lines and 2 sets of measured points');
+    await go(page, 's-qmtfit'); await page.waitForTimeout(600);
+    if (!(await page.evaluate(() => [...document.querySelectorAll('#s-qmtfit img')].every((i) => i.complete && i.naturalWidth > 0)))) out.push('slide 17: the qMRLab logo or options screenshot did not load');
+    await go(page, 's-qmtout'); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => ['qo-F', 'qo-kf', 'qo-T2f', 'qo-T2r'].every((id) => document.querySelector(`#${id} .hm, #${id} image`))))) out.push('slide 18: a qMT map is missing');
     await go(page, 's-myelin'); await page.waitForTimeout(1500);
     await page.click('#my-restart'); await page.waitForTimeout(500);
-    await go(page, 's-zspec'); await page.waitForTimeout(800);
-    await setRange(page, 'z-F', 0); await page.waitForTimeout(800);
-    await go(page, 's-realz'); await page.waitForTimeout(800);
-    await page.click('#s-realz [data-preset="gm"]'); await page.waitForTimeout(800);
-    if (!/F/.test(await text(page, 'realz-table'))) out.push('slide 16: no parameter table');
-    await go(page, 's-mtrconf'); await page.waitForTimeout(600);
-    const m0 = await text(page, 'mc-mtr');
-    await setRange(page, 'mc-t1', 1.5); await page.waitForTimeout(400);
-    if ((await text(page, 'mc-mtr')) === m0) out.push('slide 21: the T1 slider does not change MTR');
-    await go(page, 's-budget'); await page.waitForTimeout(600);
-    if (!/%/.test(await text(page, 'bud-nums'))) out.push('slide 26: no budget numbers');
     return out;
   },
   async 'exercise-6-1.html'(page) {
@@ -80,6 +77,12 @@ const DRIVE = {
   },
   async 'exercise-6-3.html'(page) {
     const out = [];
+    await go(page, 's-realz'); await page.waitForTimeout(800);
+    await page.click('#s-realz [data-preset="gm"]'); await page.waitForTimeout(800);
+    if (!/F/.test(await text(page, 'realz-table'))) out.push('6-3: real Z-spectra, no parameter table');
+    await go(page, 's-zspec'); await page.waitForTimeout(800);
+    await setRange(page, 'z-F', 0); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => document.querySelectorAll('#z-plot .scatterlayer .trace').length >= 6))) out.push('6-3: the live Z-spectrum did not draw');
     await go(page, 'ex63-a'); await page.waitForTimeout(600);
     const e0 = Number(await text(page, 'ex63-sse'));
     for (const [id, v] of [['ex63-F', 0.22], ['ex63-kf', 1.8], ['ex63-T2f', 21], ['ex63-T2r', 12]]) await setRange(page, id, v);
