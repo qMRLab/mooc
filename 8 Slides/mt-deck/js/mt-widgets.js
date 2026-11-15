@@ -16,7 +16,6 @@
     return el;
   }
   const logspace = (a, b, n) => Array.from({ length: n }, (_, i) => 10 ** (Math.log10(a) + ((Math.log10(b) - Math.log10(a)) * i) / (n - 1)));
-  const KS = S.MTSAT_PROTOCOLS.karakuzuSiemens;
   // Healthy WM as in the chapter's Appendix C simulations (T1 = 1 s), and the Table 6.3 tissues.
   const WM1 = { ...S.TISSUES.wm, R1f: 1 };
 
@@ -143,18 +142,6 @@
     if (ids.onCase) ids.onCase(which);
     return { hide: stop };
   }
-
-  // ------------------------------------------------------------------ 5 · MT everywhere: VFA T1 in WM
-  W('s-everywhere', () => {
-    const t = WM1;
-    const p = KS;
-    const trueT1 = 1 / S.r1Observed(t);
-    const one = S.helms({ sMT: 1, sPD: S.spgr(trueT1, p.pdw.flipAngle, p.pdw.tr), sT1: S.spgr(trueT1, p.t1w.flipAngle, p.t1w.tr), aMT: 6, aPD: p.pdw.flipAngle, aT1: p.t1w.flipAngle, trMT: 0.032, trPD: p.pdw.tr, trT1: p.t1w.tr }).T1;
-    const two = S.mtsatExperiment(t, p).T1;
-    $('every-true').textContent = `${trueT1.toFixed(2)} s`;
-    $('every-one').textContent = `${one.toFixed(2)} s`;
-    $('every-two').textContent = `${two.toFixed(2)} s`;
-  });
 
   // ------------------------------------------------------------------ 7 · the MT-SPGR sequence, to scale
   function drawSequence(host, { mtOn = true, slim = false, helms = false } = {}) {

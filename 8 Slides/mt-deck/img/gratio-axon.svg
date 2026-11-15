@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 330" font-family="Arial, Helvetica, sans-serif">
+  <!-- Myelinated axon in cross-section, drawn to scale for g = d/D = 0.7 (outer radius 100, inner radius 70). -->
+  <defs>
+    <marker id="ga" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#111"/></marker>
+    <marker id="gw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#fff"/></marker>
+  </defs>
+  <!-- myelin sheath -->
+  <circle cx="130" cy="125" r="100" fill="#c2410c"/>
+  <g fill="none" stroke="#f5b48a" stroke-width="1.2" opacity="0.8">
+    <circle cx="130" cy="125" r="94"/><circle cx="130" cy="125" r="88"/><circle cx="130" cy="125" r="82"/><circle cx="130" cy="125" r="76"/>
+  </g>
+  <!-- axon -->
+  <circle cx="130" cy="125" r="70" fill="#1f5f99"/>
+  <text x="130" y="105" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">axon</text>
+  <text x="130" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">myelin</text>
+  <!-- d: inner (axon) diameter -->
+  <line x1="62" y1="132" x2="198" y2="132" stroke="#fff" stroke-width="2.5" marker-start="url(#gw)" marker-end="url(#gw)"/>
+  <text x="130" y="156" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-style="italic">d</text>
+  <!-- D: outer (fibre) diameter -->
+  <line x1="30" y1="244" x2="230" y2="244" stroke="#111" stroke-width="2.5" marker-start="url(#ga)" marker-end="url(#ga)"/>
+  <line x1="30" y1="125" x2="30" y2="252" stroke="#111" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="230" y1="125" x2="230" y2="252" stroke="#111" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="130" y="270" text-anchor="middle" font-size="22" font-weight="700" fill="#111" font-style="italic">D</text>
+  <!-- formula -->
+  <text x="130" y="312" text-anchor="middle" font-size="23" font-weight="700" fill="#111"><tspan font-style="italic">g</tspan> = <tspan font-style="italic">d</tspan> / <tspan font-style="italic">D</tspan> ≈ 0.6–0.7</text>
+</svg>
