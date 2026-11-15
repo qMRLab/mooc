@@ -1,6 +1,6 @@
 # Magnetization Transfer slides (draft)
 
-Lecture deck and exercises for the [Magnetization Transfer chapter](https://qmrlab.org/mooc/magnetization-transfer-imaging) of the qMRLab mOOC: `index.html` (28 slides; 2, 3, 4, 5 are new drafts, to be trimmed) and five exercise decks linked from `exercises.html`. Same static-folder format as the T1, T2, B1 and B0 decks: reveal.js, KaTeX and plotly.js (cartesian) are vendored in `vendor/`, `deck.css` is the shared deck style and `js/nav.js` adds the left and right click zones. Everything works offline, even from `file://`.
+Lecture deck and exercises for the [Magnetization Transfer chapter](https://qmrlab.org/mooc/magnetization-transfer-imaging) of the qMRLab mOOC: `index.html` (30 slides; 2, 3, 4, 5 are new drafts, to be trimmed) and five exercise decks linked from `exercises.html`. Same static-folder format as the T1, T2, B1 and B0 decks: reveal.js, KaTeX and plotly.js (cartesian) are vendored in `vendor/`, `deck.css` is the shared deck style and `js/nav.js` adds the left and right click zones. Everything works offline, even from `file://`.
 
 Unlike the other decks, almost no figure is copied from the book. The slides are built around one engine, **a two-pool Bloch–McConnell simulator that runs in the page** (`js/mt-sim.js`), and **the chapter's own 3 T qMT dataset** (`js/data/brain.js`). Every plot is computed live, so students can move a slider, click a voxel or switch a protocol. The order of the slides follows the physics (two pools, saturation, exchange, then the Z-spectrum, then qMT, MTR and MTsat), not the chapter's sections.
 
@@ -17,23 +17,25 @@ Unlike the other decks, almost no figure is copied from the book. The slides are
 | 8–9 | MT-based mapping methods we’ll cover (MTR, MTsat, qMT); the MT-SPGR | The sequence drawn to scale, MT on or off |
 | 10 | MTR (method 1 of 3) | A method banner; 2 acquisitions, Eq. 6.7, units and the WM range (30–60 %, depending on the protocol), typical MT pulse settings; the dataset's MTR map with WM and GM medians |
 | 11 | MTR: benefits and pitfalls | Benefits (available, fast to acquire and process) and pitfalls (not tissue-specific, B<sub>1</sub><sup>+</sup>, T<sub>1</sub>, vendor settings), each pitfall with a simulated WM number |
-| 12 | MTsat (method 2 of 3) | A method banner; Helms 2008, the MT pulse modelled as a second on-resonance pulse α<sub>2</sub>, MTsat = δ = 1 − cos α<sub>2</sub>, units and the WM range (2–7 %, Table 6.4 protocols simulated); the chapter's Figures 6.14 and 6.15 (`img/mtsat-sequence.png`, `img/mtsat-model.png`) |
-| 13 | The Z-spectrum | Sliders for F, k<sub>f</sub>, T<sub>2,r</sub>, T<sub>2,f</sub>; direct saturation alone dashed |
-| 14 | Real Z-spectra | Click any voxel: its 10 measured points and the model with qMRLab's fit |
-| 15 | qMT fit | Error in the fitted F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub> when the B<sub>1</sub>, T<sub>1</sub> or B<sub>0</sub> map is wrong (our redo of Figure 6.6) |
-| 16 | qMT maps | F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub>, B<sub>0</sub>, B<sub>1</sub>, T<sub>1</sub>, with WM and GM medians |
-| 17 | MTR | S<sub>0</sub>, S<sub>MT</sub> and the MTR map for any of the 10 MT images of the same session |
-| 18 | Same tissue, different scanner | MTR of five tissues × four vendor protocols (Figure 6.9) |
-| 19 | MTR vs T<sub>1</sub> and B<sub>1</sub> | Sliders and curves (Figures 6.10–6.11) |
-| 20 | Helms' trick | One steady-state TR, two-pool water M<sub>z</sub> against the Helms model with the same signal |
-| 21 | The derivation | Fragments; the TR<sub>1</sub> → TR correction |
-| 22 | MTsat across protocols | Five tissues × six protocols of Table 6.4 (Figure 6.17) |
-| 23 | MTsat vs MTR, T<sub>1</sub> and B<sub>1</sub> | Relative change, with or without B<sub>1</sub> correction (Figures 6.18–6.19) |
-| 24 | What MTsat measures | The free pool's M<sub>z</sub> budget over one TR, term by term (Appendix C, exact) |
-| 25 | MTR and MTsat of one brain | Real maps and every voxel's MTR against MTsat, coloured by T<sub>1</sub> |
-| 26 | MT is in every sequence (moved near the end: keep or scrap) | Two-pool simulation of VFA T<sub>1</sub>: 0.87 s for a true 1.00 s |
+| 12 | MTsat (method 2 of 3) | A method banner; Helms 2008, the MT pulse modelled as a second on-resonance pulse α<sub>2</sub>, MTsat = δ = 1 − cos α<sub>2</sub>, units and the WM range (2–7 %, Table 6.4 protocols simulated); the chapter's Figures 6.14 and 6.15 (`img/mtsat-sequence.png`; `img/mtsat-model.svg` is Figure 6.15 redrawn with α<sub>2</sub> and its spoiler first, to match the sequence order) |
+| 13 | MTsat: protocol & equations | Three rows. Inputs: Helms 2008's MTw, PDw (braced as the MTR measurement) and T<sub>1</sub>w (+ 1 more). Equations: MTR, R<sub>1</sub>, A<sub>app</sub> and MTsat (Eqs. 6.7–6.9). Outputs: the MTR, T<sub>1</sub> and MTsat maps of the same brain |
+| 14 | MTsat: benefits and pitfalls | Benefits (T<sub>1</sub>-insensitive, 1 extra image → T<sub>1</sub> and MTsat maps, no fitting, more sensitive to myelin change: Lema 2017, York 2022) and pitfalls (not a tissue property, inherently B<sub>1</sub>-sensitive, a different scale than MTR, protocol dependent), with simulated numbers |
+| 15 | The Z-spectrum | Sliders for F, k<sub>f</sub>, T<sub>2,r</sub>, T<sub>2,f</sub>; direct saturation alone dashed |
+| 16 | Real Z-spectra | Click any voxel: its 10 measured points and the model with qMRLab's fit |
+| 17 | qMT fit | Error in the fitted F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub> when the B<sub>1</sub>, T<sub>1</sub> or B<sub>0</sub> map is wrong (our redo of Figure 6.6) |
+| 18 | qMT maps | F, k<sub>f</sub>, T<sub>2,f</sub>, T<sub>2,r</sub>, B<sub>0</sub>, B<sub>1</sub>, T<sub>1</sub>, with WM and GM medians |
+| 19 | MTR | S<sub>0</sub>, S<sub>MT</sub> and the MTR map for any of the 10 MT images of the same session |
+| 20 | Same tissue, different scanner | MTR of five tissues × four vendor protocols (Figure 6.9) |
+| 21 | MTR vs T<sub>1</sub> and B<sub>1</sub> | Sliders and curves (Figures 6.10–6.11) |
+| 22 | Helms' trick | One steady-state TR, two-pool water M<sub>z</sub> against the Helms model with the same signal |
+| 23 | The derivation | Fragments; the TR<sub>1</sub> → TR correction |
+| 24 | MTsat across protocols | Five tissues × six protocols of Table 6.4 (Figure 6.17) |
+| 25 | MTsat vs MTR, T<sub>1</sub> and B<sub>1</sub> | Relative change, with or without B<sub>1</sub> correction (Figures 6.18–6.19) |
+| 26 | What MTsat measures | The free pool's M<sub>z</sub> budget over one TR, term by term (Appendix C, exact) |
+| 27 | MTR and MTsat of one brain | Real maps and every voxel's MTR against MTsat, coloured by T<sub>1</sub> |
+| 28 | MT is in every sequence (moved near the end: keep or scrap) | Two-pool simulation of VFA T<sub>1</sub>: 0.87 s for a true 1.00 s |
 
-Pause badges link the exercises: 6-1 on slide 7, 6-2 on slide 9, 6-3 on slide 16, 6-4 on slide 19, 6-5 on slide 25.
+Pause badges link the exercises: 6-1 on slide 7, 6-2 on slide 9, 6-3 on slide 18, 6-4 on slide 21, 6-5 on slide 27.
 
 ## Exercises
 
@@ -65,7 +67,7 @@ Each is its own short deck (cover, one to three parts, summary), with checked an
 | `js/mt-myelin.js` | Slide 5 (draft): the myelin cartoon, a 22 s canvas loop drawn while shown |
 | `js/ex-common.js`, `js/ex6*.js` | Answer boxes and the exercises' scripts |
 | `js/data/brain.js` | One slice of the dataset, written by `tools/make_brain_data.py` |
-| `js/data/fit-errors.js` | Slide 15's fits, written by `tools/make_fit_errors.js` |
+| `js/data/fit-errors.js` | Slide 17's fits, written by `tools/make_fit_errors.js` |
 | `vendor/` | reveal.js 5.2.1, KaTeX 0.16.11, plotly.js-cartesian 2.35.2 (copied from the B0 deck) |
 
 ## The simulator
@@ -116,11 +118,11 @@ The book's deploy workflow copies `index.html`, `exercises.html`, `exercise-*.ht
 ## Chapter issues found while building the deck
 
 - **Eq. 6.3** is missing the −k<sub>f</sub>M<sub>z,f</sub> exchange term, and in **Eq. 6.4** the saturation term should be −WM<sub>z,r</sub> (fixed on slide 6).
-- **Eqs. 6.10–6.12** (MTsat theory) have R<sub>1</sub>·TR<sub>1</sub> in their denominators; it is R<sub>1</sub>·TR (Helms 2008; the chapter's own Appendix B computes with TR). Eq. 6.10's denominator should be 1 − cos α<sub>1</sub> cos α<sub>2</sub>(1 − R<sub>1</sub>TR). Fixed on slide 21.
+- **Eqs. 6.10–6.12** (MTsat theory) have R<sub>1</sub>·TR<sub>1</sub> in their denominators; it is R<sub>1</sub>·TR (Helms 2008; the chapter's own Appendix B computes with TR). Eq. 6.10's denominator should be 1 − cos α<sub>1</sub> cos α<sub>2</sub>(1 − R<sub>1</sub>TR). Fixed on slide 23.
 - **Equation numbers repeat**: 6.5–6.9 are each used twice (qMT and MTsat), and MTR is Eq. 6.7 as well.
 - **Appendix B** says α<sub>1</sub> = 15° (Brown 2013's angle) but computes with 0.087 rad = 5°. With 15°, δ would be 7.5 %, not 4.9 %.
 - The MTsat text refers to "Appendix A" for the derivation that is in Appendix B; the label `mtsatAppendixA` names Appendix B. Appendix C has two sections titled "Simulation 3" and still contains "(figure or quote)".
 - **Exercise 1** refers to `#daPlot3`, a double-angle figure of the B<sub>1</sub> chapter, not a Z-spectrum. Exercises 2–4 give F as "0.0, 10.0, 20.0", which only makes sense in %. Exercise 6-4 uses a measured Z-spectrum and reads F in %.
 - The captions of Figures 6.10–6.12 still have placeholders ("(protocol?) and (tissue?)"), and Figure 6.13's caption is "Surface map". Figure 6.14's caption calls the MTsat sequence "an MTR imaging sequence", and Figure 6.17's caption says "four … MTR protocols" where Table 6.4 lists six MTsat protocols.
-- In **Figure 6.6** one x-axis title ("Input map") covers three different quantities (B<sub>1</sub> relative, B<sub>0</sub> in Hz, T<sub>1</sub> as a ratio), and the T<sub>2,f</sub> panel's axis says "(s)" for a % error (slide 15 redoes it).
+- In **Figure 6.6** one x-axis title ("Input map") covers three different quantities (B<sub>1</sub> relative, B<sub>0</sub> in Hz, T<sub>1</sub> as a ratio), and the T<sub>2,f</sub> panel's axis says "(s)" for a % error (slide 17 redoes it).
 - The MTsat theory checks the δ = 0 limit against "[](#mtsatFig3)", a figure; the equation meant is Eq. 6.11/6.12.

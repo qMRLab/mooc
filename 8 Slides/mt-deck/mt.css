@@ -253,16 +253,16 @@
 #s-mtrintro .mi-map .fig-hint { font-size: 0.55em; text-align: center; margin-top: 4px; }
 
 /* slide 11: MTR benefits and pitfalls, two columns under the method banner */
-#s-mtrpros .pp-cols { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 26px; margin-top: 6px; }
-#s-mtrpros .pp-col { background: var(--panel); border-radius: 12px; padding: 16px 24px 10px; border-top: 6px solid var(--pp); font-size: 0.74em; }
-#s-mtrpros .pp-good { --pp: var(--ex); } #s-mtrpros .pp-bad { --pp: var(--restr); }
-#s-mtrpros .pp-col h3 { color: var(--pp); font-size: 1.3em; margin: 0 0 0.4em; }
-#s-mtrpros .pp-col ul { list-style: none; margin: 0; padding: 0; }
-#s-mtrpros .pp-col li { position: relative; padding-left: 1.5em; margin-bottom: 0.8em; }
-#s-mtrpros .pp-good li::before { content: "✓"; position: absolute; left: 0; color: var(--ex); font-weight: 800; }
-#s-mtrpros .pp-bad li::before { content: "!"; position: absolute; left: 0.25em; color: var(--restr); font-weight: 800; }
-#s-mtrpros .pp-num { display: block; color: var(--muted); font-size: 0.85em; margin-top: 0.15em; }
-#s-mtrpros .pp-foot { font-size: 0.5em; color: var(--muted); margin-top: 0.8em; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-cols { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 26px; margin-top: 6px; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-col { background: var(--panel); border-radius: 12px; padding: 16px 24px 10px; border-top: 6px solid var(--pp); font-size: 0.74em; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-good { --pp: var(--ex); } :is(#s-mtrpros, #s-mtsatpros) .pp-bad { --pp: var(--restr); }
+:is(#s-mtrpros, #s-mtsatpros) .pp-col h3 { color: var(--pp); font-size: 1.3em; margin: 0 0 0.4em; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-col ul { list-style: none; margin: 0; padding: 0; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-col li { position: relative; padding-left: 1.5em; margin-bottom: 0.8em; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-good li::before { content: "✓"; position: absolute; left: 0; color: var(--ex); font-weight: 800; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-bad li::before { content: "!"; position: absolute; left: 0.25em; color: var(--restr); font-weight: 800; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-num { display: block; color: var(--muted); font-size: 0.85em; margin-top: 0.15em; }
+:is(#s-mtrpros, #s-mtsatpros) .pp-foot { font-size: 0.5em; color: var(--muted); margin-top: 0.8em; }
 
 /* slide 12: the MTsat method slide: facts on the left, the chapter's sequence and Helms' model on the right */
 .reveal .method-banner.m-mtsat { --card: var(--mtsat); }
@@ -279,3 +279,32 @@
 #s-mtsatintro .ms-figs figure:last-child img { width: 82%; }
 #s-mtsatintro .ms-arrow { font-size: 0.8em; color: var(--mtsat); font-weight: 800; margin: 10px 0 12px; }
 #s-mtsatintro .ms-arrow span { font-size: 0.6em; color: var(--muted); font-weight: 600; }
+
+/* MTsat: protocol & equations */
+#s-mtsatproto .mp-grid { display: grid; grid-template-columns: 112px minmax(260px, auto) minmax(260px, auto) 1fr; grid-template-rows: auto auto 1fr; column-gap: 12px; row-gap: 12px; flex: 1 1 0; min-height: 0; justify-content: start; }
+#s-mtsatproto .mp-row-lab { font-size: 0.5em; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); align-self: center; border-right: 3px solid var(--rule); padding-right: 10px; height: 100%; display: flex; align-items: center; }
+#s-mtsatproto .mp-in { grid-column: 2 / 5; }
+#s-mtsatproto .mp-table { border-collapse: collapse; font-size: 0.6em; font-variant-numeric: tabular-nums; }
+#s-mtsatproto .mp-table th { text-align: left; color: var(--muted); font-weight: 600; padding: 0.1em 0.7em; border-bottom: 2px solid var(--rule); }
+#s-mtsatproto .mp-table td { padding: 0.25em 0.7em; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+#s-mtsatproto .mp-table td span { font-size: 0.78em; color: var(--muted); font-weight: 600; margin-left: 0.3em; }
+#s-mtsatproto .mp-table tr.mp-plus td:not(.mp-brace) { background: color-mix(in srgb, var(--mtsat) 12%, transparent); }
+#s-mtsatproto .mp-table td.mp-brace { border-bottom: none; padding: 0 0 0 0.3em; vertical-align: middle; }
+#s-mtsatproto .mp-brace svg { width: 18px; height: 58px; vertical-align: middle; fill: none; stroke: var(--mtr); stroke-width: 2.4; }
+#s-mtsatproto .mp-table td.mp-brace span { margin-left: 0.4em; font-size: 1.05em; font-weight: 800; color: var(--mtr); vertical-align: middle; }
+#s-mtsatproto .mp-table td.mp-b-plus span { color: var(--mtsat); margin-left: 0.4em; }
+#s-mtsatproto .mp-src { font-size: 0.4em; color: var(--muted); margin: 0.3em 0 0; }
+#s-mtsatproto .mp-eq { background: var(--panel); border-radius: 10px; padding: 6px 8px 4px; border-top: 4px solid var(--card); display: flex; flex-direction: column; justify-content: flex-start; }
+#s-mtsatproto .mp-eq.m-mtr { --card: var(--mtr); } #s-mtsatproto .mp-eq.m-t1 { --card: var(--free); } #s-mtsatproto .mp-eq.m-mtsat { --card: var(--mtsat); }
+#s-mtsatproto .mp-lab { font-size: 0.46em; font-weight: 700; color: var(--muted); }
+#s-mtsatproto .mp-eq .eq { font-size: 0.55em; padding: 0 2px; }
+#s-mtsatproto .mp-eq .eq .katex-display { margin: 0.25em 0; }
+#s-mtsatproto .mp-lab { align-self: flex-start; }   /* label pinned top left; the equation(s) centred in the rest */
+#s-mtsatproto .mp-eq .mp-lab + .eq { margin-top: auto; }
+#s-mtsatproto .mp-eq .eq:last-child { margin-bottom: auto; }
+#s-mtsatproto .mp-out { display: flex; flex-direction: column; min-height: 0; }
+#s-mtsatproto .mp-out-name { font-size: 0.56em; font-weight: 800; text-align: center; }
+#s-mtsatproto .c-t1 { color: var(--free); }
+#s-mtsatproto .mp-map { flex: 1 1 0; min-height: 0; width: 250px; align-self: center; position: relative; left: 24px; }   /* the brain (not the brain + colorbar) sits under its title: plot area 2–200 px of 250 */
+#s-mtsatpros .pp-cols { grid-template-columns: 1fr 1fr; }
+#s-mtsatpros .pp-col { font-size: 0.68em; }
