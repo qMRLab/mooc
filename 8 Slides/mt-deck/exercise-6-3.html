@@ -22,10 +22,56 @@
   <h2>Fit a qMT voxel by hand</h2>
   <p class="ex-cover-lead">In this exercise, we will cover:</p>
   <ol class="ex-cover">
+    <li>Real Z-spectra, voxel by voxel, and how F, k<sub>f</sub>, T<sub>2,r</sub> and T<sub>2,f</sub> shape a Z-spectrum</li>
     <li>Fitting the two-pool model to a measured Z-spectrum, by hand</li>
     <li>How your fit compares with a computer's, and why F and k<sub>f</sub> are hard to separate</li>
     <li>What a wrong B<sub>1</sub> map does to the fitted F</li>
   </ol>
+</section>
+
+<!-- real Z-spectra of this brain, voxel by voxel; js/mt-zspec.js (moved here from the lecture) -->
+<section id="s-realz" class="figure side">
+  <div class="fig-layout">
+    <h2>Real Z-spectra, voxel by voxel</h2>
+    <div class="side-text">
+      <ul>
+        <li><b>Dots:</b> measured, 10 images</li>
+        <li><b>Lines:</b> two-pool model with qMRLab's fit for that voxel</li>
+        <li>White matter dips deepest</li>
+      </ul>
+      <div class="btn-row"><button class="secondary" data-preset="wm">White matter</button><button class="secondary" data-preset="gm">Grey matter</button><button class="secondary" data-preset="csf">Near CSF</button></div>
+      <table class="params" id="realz-table"></table>
+      <p class="fig-hint">Click the map to pick a voxel.</p>
+    </div>
+    <div class="w-col realz-cols">
+      <div class="w-plot" id="realz-map" style="height:330px; width:270px"></div>
+      <div class="w-plot" id="realz-plot" style="height:600px"></div>
+    </div>
+  </div>
+  <aside class="notes">The chapter's dataset (Figure 6.7): one axial slice at 3 T, 10 MT-SPGR images (142° and 426° at 443, 1088, 2732, 6862 and 17235 Hz) normalized by the MT-off image, with B0, B1 and T1 maps. Lines: this deck's simulator with the voxel's qMRLab fit (Sled & Pike model; F, kf, T2f, T2r; R1f from the measured R1 with Eq. 6.6), with the measured B1 scaling both RF pulses and the B0 offset shifting the MT offset. Across the brain the simulator and the measurements agree to ±0.013 (median absolute), like qMRLab's own fit residuals. CSF-rich voxels hardly dip: almost no macromolecules.</aside>
+</section>
+
+<!-- the Z-spectrum, live: F, kf, T2r, T2f sliders; js/mt-zspec.js (moved here from the lecture) -->
+<section id="s-zspec" class="figure side">
+  <div class="fig-layout">
+    <h2>The Z-spectrum</h2>
+    <div class="side-text">
+      <ul>
+        <li>Signal (MT on / MT off) vs <b>offset</b>, at two pulse powers</li>
+        <li>Its shape encodes the tissue: <b>F</b> (depth), <b>k<sub>f</sub></b>, <b>T<sub>2,r</sub></b> (width)</li>
+        <li>Dashed: water alone, <b>direct saturation</b> only</li>
+      </ul>
+      <div class="w-controls col">
+        <label><span>F</span> <input type="range" id="z-F" min="0" max="0.3" step="0.005" value="0.161"><output id="z-F-v"></output></label>
+        <label><span>k<sub>f</sub></span> <input type="range" id="z-kf" min="0" max="10" step="0.1" value="4.3"><output id="z-kf-v"></output></label>
+        <label><span>T<sub>2,r</sub></span> <input type="range" id="z-t2r" min="5" max="30" step="0.5" value="12.3"><output id="z-t2r-v"></output></label>
+        <label><span>T<sub>2,f</sub></span> <input type="range" id="z-t2f" min="10" max="100" step="1" value="37"><output id="z-t2f-v"></output></label>
+      </div>
+      <div class="btn-row"><button class="secondary" id="z-reset">Healthy WM</button><button class="secondary" id="z-gm">Cortical GM</button></div>
+    </div>
+    <div class="w-plot" id="z-plot" style="height:600px"></div>
+  </div>
+  <aside class="notes">A Z-spectrum is the MT-weighted signal, normalized by the signal without MT, as a function of the MT pulse's offset (Figure 6.3). Here: qMRLab's default qMT-SPGR protocol, the one of the dataset (7°, TR 25 ms, a 10.24 ms Gauss-Hann pulse at 142° and 426°), simulated with the Bloch-McConnell equations. Deeper dip: more macromolecules (F) or faster exchange (kf); wider: shorter T2,r (broader restricted line); close to resonance, direct saturation of water (dashed, F = 0) takes over, more so with a long T2,f. The circles are the dataset's 10 offsets and powers. qMT fits this curve; MTR samples one point of it.</aside>
 </section>
 
 <!-- (a) sliders for F, kf, T2f, T2r against the 10 measured points of one voxel; js/ex63.js -->
@@ -122,6 +168,7 @@
 <script src="js/deck.js"></script>
 <script src="js/mt-common.js"></script>
 <script src="js/ex-common.js"></script>
+<script src="js/mt-zspec.js"></script>
 <script src="js/ex63.js"></script>
 <script src="js/nav.js"></script>
 </body>
