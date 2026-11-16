@@ -12,7 +12,7 @@ const deck = require('../js/deck.js');
 const read = (f) => fs.readFileSync(path.join(DECK, f), 'utf8');
 const html = read('index.html');
 const all = (text, re) => [...text.matchAll(re)].map((m) => m[1]);
-const EXERCISES = [1, 2, 3, 4, 5].map((n) => `exercise-6-${n}.html`);
+const EXERCISES = [1, 2, 3].map((n) => `exercise-6-${n}.html`);
 
 test('book links point at the chapter with the book’s numbering', () => {
   assert.deepEqual(deck.bookLink('qmtfig3'), {
@@ -42,7 +42,7 @@ test('every script and stylesheet exists, on every page', () => {
 });
 
 test('every widget registered in a script has its slide, and every slide id is unique', () => {
-  const pages = { 'index.html': ['js/mt-widgets.js', 'js/mt-scales.js', 'js/mt-protons.js', 'js/mt-fidgrid.js', 'js/mt-myelin.js'], 'exercise-6-1.html': ['js/ex61-build.js', 'js/mt-tanks.js'], 'exercise-6-2.html': ['js/ex62.js'], 'exercise-6-2-drafts.html': ['js/mt-steady.js'], 'exercise-6-3.html': ['js/mt-zspec.js', 'js/ex63.js'], 'exercise-6-4.html': ['js/ex64.js'], 'exercise-6-5.html': ['js/ex65.js'] };
+  const pages = { 'index.html': ['js/mt-widgets.js', 'js/mt-scales.js', 'js/mt-protons.js', 'js/mt-fidgrid.js', 'js/mt-myelin.js'], 'exercise-6-1.html': ['js/ex61-build.js', 'js/mt-tanks.js'], 'exercise-6-2.html': ['js/ex62.js'], 'exercise-6-2-drafts.html': ['js/mt-steady.js'], 'exercise-6-3.html': ['js/mt-zspec.js', 'js/ex63.js', 'js/ex63-raw.js'] };
   for (const [page, scripts] of Object.entries(pages)) for (const script of scripts) {
     const ids = all(read(page), /<section id="([^"]+)"/g);
     assert.equal(new Set(ids).size, ids.length, `${page}: duplicate slide ids`);
@@ -52,7 +52,7 @@ test('every widget registered in a script has its slide, and every slide id is u
   }
 });
 
-test('exercises: the hub links the five decks; the decks carry noindex and the home link; the lecture badges link them', () => {
+test('exercises: the hub links the three decks; the decks carry noindex and the home link; the lecture badges link them', () => {
   const hub = read('exercises.html');
   for (const f of EXERCISES) {
     assert.ok(hub.includes(`href="${f}"`), `exercises.html has no link to ${f}`);

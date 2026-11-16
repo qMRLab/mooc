@@ -1,58 +1,83 @@
-/* Exercise 6-3's first two slides, moved here from the lecture: real Z-spectra of the dataset, voxel by voxel
- * (measured points and the two-pool model with qMRLab's fit), then a live Z-spectrum with F, k_f, T2,r and T2,f sliders. */
+/* Exercise 6-3: a live Z-spectrum with F, k_f, T2,r and T2,f sliders (moved here from the lecture), and "Pick your voxels":
+ * an image of the dataset and the measured Z-spectrum of the voxels clicked, a white matter one and a grey matter one. */
 (function () {
   'use strict';
-  const { S, C, plot, slider, throttle, brain, brainHeat, brainAxes } = window.MT;
+  const { S, C, plot, slider, throttle, brain } = window.MT;
   const W = window.MTDeck.widget;
   const $ = (id) => document.getElementById(id);
   const logspace = (a, b, n) => Array.from({ length: n }, (_, i) => 10 ** (Math.log10(a) + ((Math.log10(b) - Math.log10(a)) * i) / (n - 1)));
 
-  // ------------------------------------------------------------------ real Z-spectra, voxel by voxel
-  W('s-realz', (section) => {
+  // ------------------------------------------------------------------ pick your voxels: an image, its measured Z-spectrum
+  // One image at a time (MT off, or one of the 10 MT images divided by MT off), chosen in a dropdown; clicking a voxel plots
+  // its 10 measured points (no model, no fitted values). The task: a white matter voxel, then a grey matter one, judged by
+  // the voxel's qMRLab F (WM above 18 %, GM 5-10 %), which stays hidden. The picks go to the fit slides (window.MTEx63).
+  W('s-pick', (section) => {
     if (!brain) return;
-    const B = brain.B;
-    const elMap = $('realz-map'), elPlot = $('realz-plot');
-    let sel = brain.preset('wm');
-    const xs = logspace(300, 25000, 18);
-    function drawMap() {
-      plot(elMap, [
-        brainHeat(brain.grid((y, x) => 100 * B.F[y][x]), { zmin: 0, zmax: 30, showscale: false, hovertemplate: 'F = %{z:.1f} %<extra></extra>' }),
-        { type: 'scatter', x: [sel[1]], y: [sel[0]], mode: 'markers', marker: { symbol: 'circle-open', size: 16, color: '#ff2d55', line: { width: 3 } }, hoverinfo: 'skip' },
-      ], brainAxes());
+    const B = brain.B, OFF = S.QMT_OFFSETS, ANG = S.QMT_ANGLES, COL = [C.a142, C.a426];
+    const cv = $('pk-cv'), ctx = cv.getContext('2d'), sel = $('pk-img'), elPlot = $('pk-plot');
+    const W2 = 320, H2 = 400;
+    cv.width = W2 * 2; cv.height = H2 * 2; ctx.setTransform(2, 0, 0, 2, 0, 0);
+    const fmtOff = (o) => (o >= 1000 ? `${(o / 1000).toFixed(o < 10000 ? 1 : 0)} kHz` : `${o} Hz`);
+    sel.innerHTML = '<option value="-1">MT off</option>' + OFF.flatMap((o, oi) => ANG.map((a, ai) => `<option value="${brain.idx(oi, ai)}">${a}° · ${fmtOff(o)} (÷ MT off)</option>`)).join('');
+    sel.value = String(brain.idx(1, 1));
+    window.MT.keepKeys(sel);
+    let vmax = 0;
+    for (const [y, x] of brain.voxels) vmax = Math.max(vmax, B.S0[y][x]);
+    const picks = { wm: null, gm: null };
+    let task = 'wm', last = null;
+    const kind = ([y, x]) => { const F = B.F[y][x]; return F > 0.18 ? 'wm' : F >= 0.05 && F <= 0.1 ? 'gm' : F > 0.1 ? 'mixed' : 'csf'; };
+    function drawImage() {
+      const k = Number(sel.value), sx = W2 / B.w, sy = H2 / B.h;
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W2, H2);
+      for (const [y, x] of brain.voxels) {
+        const v = k < 0 ? B.S0[y][x] / vmax : B.mt[k][y][x];
+        const g = Math.round(255 * Math.max(0, Math.min(1, v)));
+        ctx.fillStyle = `rgb(${g},${g},${g})`; ctx.fillRect(x * sx, y * sy, Math.ceil(sx), Math.ceil(sy));
+      }
+      const ring = (v, col, label) => { if (!v) return; ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc((v[1] + 0.5) * sx, (v[0] + 0.5) * sy, 7, 0, 6.283); ctx.stroke(); ctx.fillStyle = col; ctx.font = '700 12px "Helvetica Neue", Helvetica, Arial, sans-serif'; ctx.fillText(label, (v[1] + 0.5) * sx + 10, (v[0] + 0.5) * sy - 8); };
+      if (last && last !== picks.wm && last !== picks.gm) ring(last, '#ffd43b', '?');
+      ring(picks.wm, '#ff2d55', 'WM'); ring(picks.gm, '#20c997', 'GM');
     }
     function drawPlot() {
-      const [y, x] = sel;
-      const t = brain.tissue(y, x);
-      const traces = [];
-      [142, 426].forEach((a, ai) => {
-        const col = ai ? C.a426 : C.a142;
-        traces.push({ x: xs, y: xs.map((o) => brain.model(y, x, o, a, t)), mode: 'lines', line: { color: col, width: 3 }, hovertemplate: `model ${a}°: %{y:.3f}<extra></extra>` });
-        traces.push({ x: S.QMT_OFFSETS, y: S.QMT_OFFSETS.map((o, oi) => B.mt[brain.idx(oi, ai)][y][x]), mode: 'markers', marker: { color: col, size: 13, line: { color: '#fff', width: 2 } }, hovertemplate: `measured ${a}°: %{y:.3f}<extra></extra>` });
-      });
-      plot(elPlot, traces, {
+      const tr = [];
+      const add = (v, name, hollow) => { if (!v) return; ANG.forEach((a, ai) => tr.push({ x: OFF, y: OFF.map((o, oi) => B.mt[brain.idx(oi, ai)][v[0]][v[1]]), mode: 'lines+markers', name: `${name} ${a}°`, line: { color: COL[ai], width: 1.5, dash: hollow ? 'dot' : 'solid' }, marker: { color: hollow ? '#fff' : COL[ai], size: 12, line: { color: COL[ai], width: 2.5 } }, hovertemplate: `${name} ${a}°: %{y:.3f}<extra></extra>` })); };
+      add(picks.wm, 'WM', false); add(picks.gm, 'GM', true);
+      if (last && last !== picks.wm && last !== picks.gm) add(last, 'clicked', true);
+      plot(elPlot, tr, {
         xaxis: { type: 'log', title: { text: 'MT pulse offset' }, range: [Math.log10(300), Math.log10(25000)], tickvals: [300, 1000, 3000, 10000], ticktext: ['300 Hz', '1 kHz', '3 kHz', '10 kHz'] },
-        yaxis: { title: { text: 'S<sub>MT</sub> / S<sub>0</sub>' }, range: [0, 1.04] },
-        annotations: [
-          { x: Math.log10(14000), y: 0.12, text: '<b>142°</b>', showarrow: false, font: { color: C.a142, size: 17 } },
-          { x: Math.log10(14000), y: 0.05, text: '<b>426°</b>', showarrow: false, font: { color: C.a426, size: 17 } },
-        ],
-        margin: { l: 70, r: 20, t: 16, b: 60 },
+        yaxis: { title: { text: 'S<sub>MT</sub> / S<sub>MT off</sub>' }, range: [0, 1.04] },
+        showlegend: tr.length > 0, legend: { x: 0.02, y: 0.02, yanchor: 'bottom', bgcolor: 'rgba(255,255,255,0.85)', font: { size: 13 }, entrywidth: 110 },
+        margin: { l: 70, r: 16, t: 10, b: 56 },
       });
-      $('realz-table').innerHTML = [
-        ['F', `${(100 * B.F[y][x]).toFixed(1)} %`], ['k<sub>f</sub>', `${B.kf[y][x].toFixed(2)} s⁻¹`],
-        ['T<sub>2,f</sub>', `${B.T2f[y][x].toFixed(1)} ms`], ['T<sub>2,r</sub>', `${B.T2r[y][x].toFixed(1)} µs`],
-        ['T<sub>1</sub>', `${(1 / B.R1[y][x]).toFixed(2)} s`], ['B<sub>1</sub>', B.B1[y][x].toFixed(2)],
-      ].map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('');
     }
-    drawMap(); drawPlot();
-    elMap.on('plotly_click', (ev) => {
-      const p = ev.points && ev.points[0];
-      if (!p) return;
-      const y = Math.round(p.y), x = Math.round(p.x);
+    function prompt() {
+      const t = $('pk-task');
+      if (task === 'wm') t.innerHTML = '<b>1.</b> Click a <b style="color:#ff2d55">white matter</b> voxel.';
+      else if (task === 'gm') t.innerHTML = '<b>2.</b> Now click a <b style="color:#20c997">grey matter</b> voxel.';
+      else t.innerHTML = '✓ Both picked. They are the voxels of the next slides. Compare their Z-spectra: which one dips deeper, and why?';
+    }
+    cv.addEventListener('click', (e) => {
+      const r = cv.getBoundingClientRect();
+      const y = Math.floor((e.clientY - r.top) * (H2 / r.height) / (H2 / B.h)), x = Math.floor((e.clientX - r.left) * (W2 / r.width) / (W2 / B.w));
       if (!brain.inMask(y, x)) return;
-      sel = [y, x]; drawMap(); drawPlot();
+      const v = [y, x], k = kind(v), fb = $('pk-fb');
+      last = v;
+      if (task === 'wm' || task === 'gm') {
+        if (k === task) {
+          picks[task] = v; if (window.MTEx63) window.MTEx63.setPick(task, v);
+          fb.className = 'pk-fb right'; fb.textContent = task === 'wm' ? '✓ White matter: it dips the most.' : '✓ Grey matter: it dips less than white matter.';
+          task = task === 'wm' ? 'gm' : 'done';
+        } else {
+          fb.className = 'pk-fb wrong';
+          const what = { wm: 'more like white matter', gm: 'more like grey matter', mixed: 'like a mix of tissues (a partial-volume voxel)', csf: 'like it holds a lot of CSF: it hardly dips' }[k];
+          fb.textContent = `✗ That voxel looks ${what}. Look at its points, then try another one.`;
+        }
+      }
+      prompt(); drawImage(); drawPlot();
     });
-    section.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => { b.blur(); sel = brain.preset(b.dataset.preset); drawMap(); drawPlot(); }));
+    sel.addEventListener('change', drawImage);
+    $('pk-reset').addEventListener('click', (e) => { e.currentTarget.blur(); picks.wm = null; picks.gm = null; last = null; task = 'wm'; $('pk-fb').textContent = ''; prompt(); drawImage(); drawPlot(); });
+    prompt(); drawImage(); drawPlot();
   });
 
   // ------------------------------------------------------------------ the Z-spectrum, live

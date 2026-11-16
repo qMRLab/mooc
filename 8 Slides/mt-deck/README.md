@@ -1,6 +1,6 @@
 # Magnetization Transfer slides (draft)
 
-Lecture deck and exercises for the [Magnetization Transfer chapter](https://qmrlab.org/mooc/magnetization-transfer-imaging) of the qMRLab mOOC: `index.html` (22 slides; 2, 3, 4, 5 are new drafts, to be trimmed) and five exercise decks linked from `exercises.html`. Same static-folder format as the T1, T2, B1 and B0 decks: reveal.js, KaTeX and plotly.js (cartesian) are vendored in `vendor/`, `deck.css` is the shared deck style and `js/nav.js` adds the left and right click zones. Everything works offline, even from `file://`.
+Lecture deck and exercises for the [Magnetization Transfer chapter](https://qmrlab.org/mooc/magnetization-transfer-imaging) of the qMRLab mOOC: `index.html` (22 slides; 2, 3, 4, 5 are new drafts, to be trimmed) and three exercise decks linked from `exercises.html`. Same static-folder format as the T1, T2, B1 and B0 decks: reveal.js, KaTeX and plotly.js (cartesian) are vendored in `vendor/`, `deck.css` is the shared deck style and `js/nav.js` adds the left and right click zones. Everything works offline, even from `file://`.
 
 Unlike the other decks, almost no figure is copied from the book. The slides are built around one engine, **a two-pool Bloch–McConnell simulator that runs in the page** (`js/mt-sim.js`), and **the chapter's own 3 T qMT dataset** (`js/data/brain.js`). Every plot is computed live, so students can move a slider, click a voxel or switch a protocol. The order of the slides follows the physics (two pools, saturation, exchange, then the Z-spectrum, then qMT, MTR and MTsat), not the chapter's sections.
 
@@ -29,7 +29,7 @@ Unlike the other decks, almost no figure is copied from the book. The slides are
 | 21 | Application: g-ratio mapping in vivo | MVF from MT (κF) + AVF from diffusion (NODDI) → g; an axon cross-section drawn to scale (`img/gratio-axon.svg`) and Fig. 4 of Stikov 2015 (MS patient), `img/gratio-stikov2015-ms.png` (© Elsevier, reproduced for teaching) |
 | 22 | Key takeaways | MTR, MTsat, qMT in the order of the slides |
 
-Pause badges link the exercises: 6-1 on slide 7, 6-2 on slide 9 (its content changed: MTR vs MTsat sensitivity; the badge may fit better after slide 14), 6-4 on slide 11 (MTR), 6-5 on slide 14 (MTsat), 6-3 on slide 18 (qMT outputs).
+Pause badges link the exercises: 6-1 on slide 7, 6-2 on slide 14 (after MTsat benefits and pitfalls), 6-3 on slide 18 (qMT outputs). Exercises 6-4 (the chapter's MTR exercises) and 6-5 (MTsat by hand) were removed; they remain in the git history (up to merge commit f5bf16e).
 
 ## Exercises
 
@@ -40,8 +40,6 @@ Each is its own short deck (cover, one to three parts, summary), with checked an
 | 6-1 · Two tanks, one pipe | (1) The model: what each part of the tank analogy stands for (static figure). (2) Predict, then watch: 12 multiple-choice questions, each answer playing a short two-pool simulation (one pool; two pools without exchange; exchange alone, without relaxation; long and short off-resonance pulses), `js/ex61-build.js`. (3) The full plumbing simulator, `js/mt-tanks.js` |
 | 6-2 · MTR vs MTsat: what changes them? | The human slice simulated voxel by voxel from its qMT maps with an MTsat protocol (`js/ex62.js`); tabbed questions with the maps, % change and histograms revealed on answering. (1) Tissue, as numbers: F halves (same k<sub>r</sub>), k<sub>f</sub> halves. (2) Protocol, lower / same / higher: TR 25 → 40 ms, MT angle halves, offset doubles. (3) Imperfections: B<sub>1</sub> = 0.8 without and with a B<sub>1</sub> map, B<sub>0</sub> 100 Hz off, T<sub>1</sub> 17 % shorter (IR vs VFA). The former steady-state slide is kept in `exercise-6-2-drafts.html` |
 | 6-3 · Fit a qMT voxel by hand | Real Z-spectra, voxel by voxel, and the live Z-spectrum with sliders (both moved from the lecture); (a) sliders on a real voxel against its 10 points; (b) your fit, the computer's (Levenberg–Marquardt with the simulator) and qMRLab's, and the F–k<sub>f</sub> valley; (c) refit with a wrong B<sub>1</sub> |
-| 6-4 · What does MTR measure? | The chapter's Exercises 1–7: (a) MTR from a Z-spectrum; (b) F = 0, 10, 20 %; (c) k<sub>f</sub> = 5, 2.5, 0; (d) what it means |
-| 6-5 · MTsat by hand, then on a brain | (a) R<sub>1</sub>, A and MTsat from three images; (b) against the simulation's truth; (c) MTsat of a real voxel, then MTR and MTsat maps and their WM/GM contrast |
 
 ## What's here
 

@@ -1,9 +1,8 @@
-/* Exercise 6-3: fit a qMT voxel by hand (a), against the computer's fit and qMRLab's, with the F-kf valley (b),
- * then refit with a wrong B1 (c). Data: the chapter's 3 T slice (js/data/brain.js); model and fitter: js/mt-sim.js
- * (S.qmtForward, S.fitQMT). One voxel is shared by the three slides; picking another resets them. */
+/* Exercise 6-3: fit a qMT voxel by hand (a), then against the computer's fit and qMRLab's, with the F-kf valley (b). Data: the chapter's 3 T slice (js/data/brain.js); model and fitter: js/mt-sim.js
+ * (S.qmtForward, S.fitQMT). One voxel is shared by the slides: the student's WM or GM voxel from the picking slide. */
 (function () {
   'use strict';
-  const { S, C, plot, seg, slider, throttle, brain, brainHeat, brainAxes, VIRIDIS } = window.MT;
+  const { S, C, plot, seg, slider, throttle, brain, brainHeat, brainAxes, VIRIDIS, GRAY } = window.MT;
   const W = window.MTDeck.widget;
   const $ = (id) => document.getElementById(id);
   if (!brain) return;
@@ -54,7 +53,7 @@
   W('ex63-a', (section) => {
     const elMap = $('ex63-map'), el = $('ex63-plot');
     const drawMap = () => plot(elMap, [
-      brainHeat(brain.grid((y, x) => 100 * B.F[y][x]), { zmin: 0, zmax: 30, showscale: false, hovertemplate: 'F (qMRLab) %{z:.0f} %<extra></extra>' }),
+      brainHeat(brain.grid((y, x) => B.S0[y][x]), { colorscale: GRAY, showscale: false, hoverinfo: 'skip' }),
       { type: 'scatter', x: [st.vox[1]], y: [st.vox[0]], mode: 'markers', marker: { symbol: 'circle-open', size: 12, color: '#ff2d55', line: { width: 3 } }, hoverinfo: 'skip' },
     ], brainAxes());
     const draw = throttle(() => {
@@ -85,15 +84,9 @@
       $('ex63-sub-note').innerHTML = ok ? '✓ Submitted. Compare it with the computer on the next slide.' : 'Submitted, though the fit could be closer (aim below 0.01). Compare on the next slide.';
       listeners.forEach((fn) => fn('submit'));
     });
-    seg(section, 'voxel', (v) => setVoxel(brain.preset(v)));
+    seg(section, 'voxel', (v) => { current = v; setVoxel(picks[v]); });
     onVoxel((why) => { if (why === 'submit') return; drawMap(); showKnown(); reset(); });
     drawMap(); showKnown(); draw();
-    elMap.on('plotly_click', (ev) => {   // after the first plot: Plotly adds .on() to the element
-      const pt = ev.points && ev.points[0];
-      if (!pt) return;
-      const y = Math.round(pt.y), x = Math.round(pt.x);
-      if (brain.inMask(y, x)) setVoxel([y, x]);
-    });
   });
 
   // ------------------------------------------------------------------ (b) the computer's fit and the valley
@@ -149,50 +142,8 @@
     return { show: draw };
   });
 
-  // ------------------------------------------------------------------ (c) a wrong B1
-  W('ex63-c', (section) => {
-    const el = $('ex63-plot-c');
-    const more = $('ex63-c-more');
-    let b1s = null;
-    const truthText = () => {
-      const b = known().b1;
-      $('ex63-b1true').textContent = b.toFixed(2);
-      $('ex63-b1rel').textContent = b > 1 ? 'lower than the truth' : 'higher than the truth';
-    };
-    function table() {
-      const k = known();
-      const rows = [['Measured B<sub>1</sub>', k.b1, st.fit], ['Assumed B<sub>1</sub>', b1s ? b1s.get() : 1, st.refit]];
-      $('ex63-table-c').innerHTML = `<tr><th>B<sub>1</sub> used</th><th>F</th><th>k<sub>f</sub></th><th>T<sub>2,f</sub></th><th>T<sub>2,r</sub></th></tr>` +
-        rows.map(([n, b, p], i) => `<tr><td>${n} ${b.toFixed(2)}</td>${['F', 'kf', 'T2f', 'T2r'].map((key) => `<td class="${i ? 'you' : ''}">${p ? fmtP[key](p) : '…'}</td>`).join('')}</tr>`).join('') +
-        (st.fit && st.refit ? `<tr><td>Error in F</td><td class="you" colspan="4" style="text-align:left">${(100 * (st.refit.F / st.fit.F - 1)).toFixed(0)} %</td></tr>` : '');
-    }
-    function draw() {
-      const tr = [...pointsTraces()];
-      if (st.fit) tr.unshift(...curveTraces(st.fit, null, 'true B1'));
-      if (st.refit) tr.unshift(...curveTraces(st.refit, 'dash', 'wrong B1', b1s.get()));
-      plot(el, tr, zLayout({ annotations: [{ xref: 'paper', yref: 'paper', x: 0.98, y: 0.04, xanchor: 'right', text: 'solid: fit with the measured B₁ · dashed: with the assumed B₁', showarrow: false, font: { size: 14, color: C.muted } }] }));
-      table();
-    }
-    function refit() {
-      if (!st.fit) st.fit = fitWith(known().b1);
-      st.refit = fitWith(b1s.get(), st.fit);
-      draw();
-    }
-    const guessBox = section.querySelector('[data-ctl="guess"]');
-    guessBox.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
-      b.blur();
-      guessBox.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      st.guess = b.dataset.v;
-      const right = known().b1 > 1 ? 'higher' : 'lower';
-      $('ex63-guess-fb').innerHTML = st.guess === right ? '✓ Right. See by how much below.' : `✗ It comes out <b>${right}</b>. See below, then why.`;
-      more.hidden = false;
-      if (!b1s) {
-        b1s = slider('ex63-b1', (v) => v.toFixed(2), () => { table(); });
-        b1s.el.addEventListener('change', () => setTimeout(refit, 10));
-      }
-      setTimeout(refit, 30);
-    }));
-    onVoxel(() => { truthText(); st.refit = null; more.hidden = true; guessBox.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', 'false')); $('ex63-guess-fb').textContent = ''; draw(); });
-    truthText(); draw();
-  });
+  // the picking slide (js/mt-zspec.js, s-pick) hands the student's WM and GM voxels to these slides
+  const picks = { wm: brain.preset('wm'), gm: brain.preset('gm') };
+  let current = 'wm';
+  window.MTEx63 = { setPick(kind, v) { picks[kind] = v; if (kind === current) setVoxel(v); } };
 })();

@@ -22,33 +22,43 @@
   <h2>Fit a qMT voxel by hand</h2>
   <p class="ex-cover-lead">In this exercise, we will cover:</p>
   <ol class="ex-cover">
-    <li>Real Z-spectra, voxel by voxel, and how F, k<sub>f</sub>, T<sub>2,r</sub> and T<sub>2,f</sub> shape a Z-spectrum</li>
-    <li>Fitting the two-pool model to a measured Z-spectrum, by hand</li>
-    <li>How your fit compares with a computer's, and why F and k<sub>f</sub> are hard to separate</li>
-    <li>What a wrong B<sub>1</sub> map does to the fitted F</li>
+    <li>The qMT images, raw and divided by MT off</li>
+    <li>How F, k<sub>f</sub>, T<sub>2,r</sub> and T<sub>2,f</sub> shape a Z-spectrum</li>
+    <li>Pick a white matter and a grey matter voxel, and see their measured Z-spectra</li>
+    <li>Fit them by hand, then compare with a computer's fit and qMRLab's</li>
   </ol>
 </section>
 
-<!-- real Z-spectra of this brain, voxel by voxel; js/mt-zspec.js (moved here from the lecture) -->
-<section id="s-realz" class="figure side">
+<!-- the qMT images, laid out like a Z-spectrum, raw or divided by MT off, with predict-first questions; js/ex63-raw.js -->
+<section id="s-raw" class="figure">
   <div class="fig-layout">
-    <h2>Real Z-spectra, voxel by voxel</h2>
-    <div class="side-text">
-      <ul>
-        <li><b>Dots:</b> measured, 10 images</li>
-        <li><b>Lines:</b> two-pool model with qMRLab's fit for that voxel</li>
-        <li>White matter dips deepest</li>
-      </ul>
-      <div class="btn-row"><button class="secondary" data-preset="wm">White matter</button><button class="secondary" data-preset="gm">Grey matter</button><button class="secondary" data-preset="csf">Near CSF</button></div>
-      <table class="params" id="realz-table"></table>
-      <p class="fig-hint">Click the map to pick a voxel.</p>
+    <h2>The qMT images</h2>
+    <div class="seg rw-views" data-ctl="rw-view"><button data-v="raw" aria-pressed="true">Raw</button><button data-v="norm" aria-pressed="false">Divided by MT off</button></div>
+    <div class="rw-cols">
+      <canvas class="rw-cv" id="rw-cv" aria-label="The MT-off image and the 10 MT-weighted images, a row per MT angle, the offset increasing to the right"></canvas>
+      <div class="hq-card">
+        <div class="hq-top"><span class="hq-count"></span><b class="hq-score"></b></div>
+        <p class="hq-q"></p>
+        <div class="hq-btns"></div>
+        <p class="hq-fb" hidden></p>
+        <p class="hq-why" hidden></p>
+        <button class="bs-btn hq-next" hidden>Next question</button>
+      </div>
     </div>
-    <div class="w-col realz-cols">
-      <div class="w-plot" id="realz-map" style="height:330px; width:270px"></div>
-      <div class="w-plot" id="realz-plot" style="height:600px"></div>
-    </div>
+    <ol class="hq-data" hidden>
+      <li data-view="raw" data-a="hiclose" data-opts="loclose:142°, close to resonance|hiclose:426°, close to resonance|lofar:142°, far from resonance|hifar:426°, far from resonance"><span class="q">Which images are the <b>darkest</b>?</span>
+        <span class="w">The stronger pulse (426°) closest to resonance (443 Hz) saturates the macromolecules the most, and exchange passes it on to water.</span></li>
+      <li data-view="raw" data-a="absorb" data-opts="absorb:The macromolecules absorb almost nothing that far from resonance|off:The MT pulse was switched off|water:Water is already fully saturated"><span class="q">At <b>17 kHz</b>, the MT images look almost like MT off. Why?</span>
+        <span class="w">Even the macromolecules’ broad line has little absorption 17 kHz away, so the pulse barely saturates anything. That makes these points close to 1 once normalized.</span></li>
+      <li data-view="raw" data-a="no" data-opts="yes:Yes|no:No"><span class="q">The <b>MT-off</b> image is not uniform across the brain. Does a brighter voxel there mean more macromolecules?</span>
+        <span class="w">No: without the MT pulse, the signal reflects proton density, T<sub>1</sub> weighting, and the receive coil’s sensitivity, which varies across the head. None of that is MT.</span></li>
+      <li data-view="norm" data-a="scale" data-opts="scale:To set where 1 is, and cancel what scales the whole voxel (proton density, receive coil)|noise:To remove noise|b1:To correct for B&lt;sub&gt;1&lt;/sub&gt;"><span class="q">Why <b>divide by the MT-off image</b>?</span>
+        <span class="w">Each voxel’s MT images and its MT-off image share the same proton density, T<sub>1</sub> weighting and coil sensitivity; the ratio keeps only what the MT pulse did, with 1 meaning no MT effect. It does not correct B<sub>1</sub>: the MT pulse’s real angle still matters.</span></li>
+      <li data-view="norm" data-a="wm" data-opts="wm:White matter|gm:Grey matter|csf:CSF"><span class="q">In the normalized images, which tissue is the <b>darkest</b>?</span>
+        <span class="w">White matter: it has the most macromolecules (myelin), so the most MT. CSF has almost none and stays near 1.</span></li>
+    </ol>
   </div>
-  <aside class="notes">The chapter's dataset (Figure 6.7): one axial slice at 3 T, 10 MT-SPGR images (142° and 426° at 443, 1088, 2732, 6862 and 17235 Hz) normalized by the MT-off image, with B0, B1 and T1 maps. Lines: this deck's simulator with the voxel's qMRLab fit (Sled & Pike model; F, kf, T2f, T2r; R1f from the measured R1 with Eq. 6.6), with the measured B1 scaling both RF pulses and the B0 offset shifting the MT offset. Across the brain the simulator and the measurements agree to ±0.013 (median absolute), like qMRLab's own fit residuals. CSF-rich voxels hardly dip: almost no macromolecules.</aside>
+  <aside class="notes">The qMT-SPGR acquisition of the dataset, arranged like a Z-spectrum: one row per MT angle (142°, 426°), the offset increasing to the right (443, 1088, 2732, 6862 and 17 235 Hz), with the MT-off image on the left. Raw: one grey scale for all 11 images (the MT-weighted images = the dataset's normalized MT data × its MT-off image, in arbitrary units). Divided by MT off: each voxel's values become S_MT/S_MToff, 0 to 1; proton density, T1 weighting and the receive coil's sensitivity cancel, so only the MT effect is left. Darkest: high power, close to resonance; white matter darkest after normalization.</aside>
 </section>
 
 <!-- the Z-spectrum, live: F, kf, T2r, T2f sliders; js/mt-zspec.js (moved here from the lecture) -->
@@ -74,6 +84,26 @@
   <aside class="notes">A Z-spectrum is the MT-weighted signal, normalized by the signal without MT, as a function of the MT pulse's offset (Figure 6.3). Here: qMRLab's default qMT-SPGR protocol, the one of the dataset (7°, TR 25 ms, a 10.24 ms Gauss-Hann pulse at 142° and 426°), simulated with the Bloch-McConnell equations. Deeper dip: more macromolecules (F) or faster exchange (kf); wider: shorter T2,r (broader restricted line); close to resonance, direct saturation of water (dashed, F = 0) takes over, more so with a long T2,f. The circles are the dataset's 10 offsets and powers. qMT fits this curve; MTR samples one point of it.</aside>
 </section>
 
+<!-- pick a white matter and a grey matter voxel on the dataset's images; their measured Z-spectra; js/mt-zspec.js -->
+<section id="s-pick" class="figure">
+  <div class="fig-layout">
+    <h2>Pick your voxels</h2>
+    <div class="pk-cols">
+      <div class="pk-left">
+        <label class="pk-sel"><span>Image</span> <select id="pk-img" aria-label="Image shown"></select></label>
+        <canvas class="pk-cv" id="pk-cv" aria-label="The chosen image of the dataset; click a voxel"></canvas>
+      </div>
+      <div class="pk-right">
+        <p class="pk-task" id="pk-task"></p>
+        <p class="pk-fb" id="pk-fb"></p>
+        <div class="w-plot" id="pk-plot"></div>
+        <button class="ex-btn" id="pk-reset">Pick again</button>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Students pick a white matter voxel and then a grey matter voxel by clicking the image (any of the 11, chosen in the dropdown); each click plots that voxel's 10 measured points. No model and no fitted values are shown. A pick is accepted from the voxel's qMRLab F (white matter above 18 %, grey matter 5–10 %), which is not shown; other voxels get a hint (more like WM, GM, a partial-volume mix, or CSF). The two picks are the voxels of the next slides: fit by hand, then compare with the computer and qMRLab.</aside>
+</section>
+
 <!-- (a) sliders for F, kf, T2f, T2r against the 10 measured points of one voxel; js/ex63.js -->
 <section id="ex63-a" class="ex">
   <p class="kicker">Exercise 6-3 · (a)</p>
@@ -84,8 +114,8 @@
       <div class="ex-cols2" style="grid-template-columns: 150px 1fr; gap: 12px; align-items: center">
         <div class="w-plot" id="ex63-map" style="width:150px; height:185px"></div>
         <div>
-          <div class="seg" data-ctl="voxel"><button data-v="wm" aria-pressed="true">White matter</button><button data-v="gm" aria-pressed="false">Grey matter</button></div>
-          <p class="ex-note">Or click the map. T<sub>1</sub>, B<sub>0</sub> and B<sub>1</sub> come from their maps: <span id="ex63-known"></span></p>
+          <div class="seg" data-ctl="voxel"><button data-v="wm" aria-pressed="true">Your WM voxel</button><button data-v="gm" aria-pressed="false">Your GM voxel</button></div>
+          <p class="ex-note">The voxels you picked. T<sub>1</sub>, B<sub>0</sub> and B<sub>1</sub> come from their maps: <span id="ex63-known"></span></p>
         </div>
       </div>
       <div class="w-controls col">
@@ -122,34 +152,13 @@
   </div>
 </section>
 
-<!-- (c) refit with a wrong B1 -->
-<section id="ex63-c" class="ex">
-  <p class="kicker">Exercise 6-3 · (c)</p>
-  <h2>A wrong B<sub>1</sub> map</h2>
-  <p class="ex-goal">The fits so far used this voxel's measured B<sub>1</sub>, <b id="ex63-b1true"></b>. Suppose the B<sub>1</sub> map is missing and the fit assumes <b>B<sub>1</sub> = 1</b> (<span id="ex63-b1rel"></span>).</p>
-  <div class="ex-grid wide-left">
-    <div class="ex-side">
-      <p><b>Predict first.</b> The fitted F will come out:</p>
-      <div class="predict" data-ctl="guess"><button class="ex-btn" data-v="higher">higher</button><button class="ex-btn" data-v="lower">lower</button><button class="ex-btn" data-v="same">about the same</button></div>
-      <p class="ex-note" id="ex63-guess-fb"></p>
-      <div class="reveal-later" id="ex63-c-more" hidden>
-        <div class="w-controls col"><label><span>B<sub>1</sub> used</span> <input type="range" id="ex63-b1" min="0.7" max="1.3" step="0.05" value="1"><output id="ex63-b1-v"></output></label></div>
-        <table class="ex-table" id="ex63-table-c"></table>
-        <button class="ex-btn show-ans">Why?</button>
-        <div class="ans" hidden><p>With a B<sub>1</sub> lower than the truth, the fit thinks the MT pulses were weaker than they were. To explain the same signal drop with weaker pulses, it needs more macromolecules: F goes up (and the other parameters shift to compensate). A 10 % B<sub>1</sub> error gives tens of % in F, which is why qMT always comes with a B<sub>1</sub> map.</p></div>
-      </div>
-    </div>
-    <div class="w-plot" id="ex63-plot-c" style="height:560px"></div>
-  </div>
-</section>
-
 <section class="lesson summary-lessons">
   <p class="kicker">Exercise 6-3 · Summary</p>
   <h2>Summary</h2>
   <ol>
     <li>The Z-spectrum's depth, width and shape near resonance carry F, T<sub>2,r</sub> and T<sub>2,f</sub>; a qMT fit finds the four parameters that reproduce all ten points.</li>
     <li>F and k<sub>f</sub> trade off: many (F, k<sub>f</sub>) pairs fit almost equally well, so k<sub>f</sub> is the noisiest qMT map.</li>
-    <li>The fit trusts its input maps: a B<sub>1</sub> map 10 % off biases F by tens of %.</li>
+    <li>Before any fit: divide by MT off (the “1”, and the receive field cancels), and use the voxel’s B<sub>0</sub> (the true offsets) and B<sub>1</sub> (the true MT angles).</li>
   </ol>
   <div class="tool-promo">
     <p>To fit qMT data of your own, use <a href="https://qmrlab.org" target="_blank" rel="noopener">qMRLab</a> (<code>qmt_spgr</code>), the open-source software behind this chapter.</p>
@@ -170,6 +179,7 @@
 <script src="js/ex-common.js"></script>
 <script src="js/mt-zspec.js"></script>
 <script src="js/ex63.js"></script>
+<script src="js/ex63-raw.js"></script>
 <script src="js/nav.js"></script>
 </body>
 </html>
