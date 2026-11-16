@@ -1,4 +1,4 @@
-// Headless walk-through of every slide of the MT deck, the exercise hub and the five exercises, offline (file://),
+// Headless walk-through of every slide of the MT deck, the exercise hub and the three exercises, offline (file://),
 // at two viewport sizes, failing on any script error. It also drives the main interactions: sliders, presets, voxel
 // clicks, the exercises' answer boxes and fits.
 // Usage: npm run smoke   (screenshots are written to tests/screenshots/)
@@ -10,7 +10,7 @@ const path = require('node:path');
 const DECK = path.resolve(__dirname, '..');
 const SHOTS = path.join(__dirname, 'screenshots');
 const SIZES = [[1280, 720], [1920, 1080]];
-const PAGES = ['index.html', 'exercises.html', 'exercise-6-1.html', 'exercise-6-2.html', 'exercise-6-3.html', 'exercise-6-4.html', 'exercise-6-5.html'];
+const PAGES = ['index.html', 'exercises.html', 'exercise-6-1.html', 'exercise-6-2.html', 'exercise-6-3.html'];
 
 async function open(browser, file, w, h) {
   const page = await browser.newPage({ viewport: { width: w, height: h } });
@@ -87,15 +87,21 @@ const DRIVE = {
   },
   async 'exercise-6-3.html'(page) {
     const out = [];
-    await go(page, 's-realz'); await page.waitForTimeout(800);
-    await page.click('#s-realz [data-preset="gm"]'); await page.waitForTimeout(800);
-    if (!/F/.test(await text(page, 'realz-table'))) out.push('6-3: real Z-spectra, no parameter table');
+    await go(page, 's-raw'); await page.waitForTimeout(600);
+    await page.click('#s-raw [data-ctl="rw-view"] [data-v="norm"]'); await page.click('#s-raw .hq-btns [data-hq="hiclose"]'); await page.waitForTimeout(200);
+    if (!/Right/.test(await page.locator('#s-raw .hq-fb').innerText())) out.push('6-3: the images quiz does not mark the right answer');
+    await go(page, 's-pick'); await page.waitForTimeout(600);
+    const wm = await page.evaluate(() => { const B = window.MTBrain; for (let y = 0; y < B.h; y++) for (let x = 0; x < B.w; x++) if (B.mask[y][x] === '1' && B.F[y][x] > 0.2) return [y, x]; });
+    const bb = await page.locator('#pk-cv').boundingBox();
+    await page.mouse.click(bb.x + (wm[1] + 0.5) * bb.width / 69, bb.y + (wm[0] + 0.5) * bb.height / 86); await page.waitForTimeout(400);
+    if (!/White matter/.test(await text(page, 'pk-fb'))) out.push('6-3: a white matter pick is not accepted');
     await go(page, 's-zspec'); await page.waitForTimeout(800);
     await setRange(page, 'z-F', 0); await page.waitForTimeout(800);
     if (!(await page.evaluate(() => document.querySelectorAll('#z-plot .scatterlayer .trace').length >= 6))) out.push('6-3: the live Z-spectrum did not draw');
     await go(page, 'ex63-a'); await page.waitForTimeout(600);
     const e0 = Number(await text(page, 'ex63-sse'));
-    for (const [id, v] of [['ex63-F', 0.22], ['ex63-kf', 1.8], ['ex63-T2f', 21], ['ex63-T2r', 12]]) await setRange(page, id, v);
+    const fit = await page.evaluate(([y, x]) => { const B = window.MTBrain; return [B.F[y][x], B.kf[y][x], B.T2f[y][x], B.T2r[y][x]]; }, wm);   // the picked voxel's qMRLab fit
+    for (const [id, v] of [['ex63-F', fit[0]], ['ex63-kf', fit[1]], ['ex63-T2f', Math.min(80, fit[2])], ['ex63-T2r', fit[3]]]) await setRange(page, id, v);
     await page.waitForTimeout(500);
     if (!(Number(await text(page, 'ex63-sse')) < e0)) out.push('6-3 (a): moving towards the fit does not lower the error');
     await page.click('#ex63-submit');
@@ -103,31 +109,6 @@ const DRIVE = {
     await page.click('#ex63-fit'); await page.waitForFunction(() => !document.getElementById('ex63-fit').disabled, null, { timeout: 20000 });
     if (!/Computer/.test(await text(page, 'ex63-table')) || /–/.test((await page.locator('#ex63-table tr:nth-child(2) td:nth-child(3)').innerText()))) out.push('6-3 (b): no computer fit in the table');
     await page.click('#ex63-valley'); await page.waitForTimeout(3000);
-    await go(page, 'ex63-c'); await page.waitForTimeout(600);
-    await page.click('#ex63-c [data-v="higher"]'); await page.waitForTimeout(4000);
-    if (!/Error in F/.test(await text(page, 'ex63-table-c'))) out.push('6-3 (c): no refit with the wrong B1');
-    return out;
-  },
-  async 'exercise-6-4.html'(page) {
-    const out = [];
-    await go(page, 'ex64-a'); await page.waitForTimeout(500);
-    const ans = await page.evaluate(() => Number(document.getElementById('ex64-a1').dataset.answer));
-    await page.fill('#ex64-a1 input', ans.toFixed(1)); await page.click('#ex64-a1 .ask-go');
-    if (!/Right/.test(await page.locator('#ex64-a1 .ask-fb').innerText())) out.push('6-4 (a): the right MTR is not accepted');
-    await go(page, 'ex64-b'); await page.waitForTimeout(500);
-    await page.fill('#ex64-b1 input', '50'); await page.click('#ex64-b1 .ask-go');
-    if (!/Not quite/.test(await page.locator('#ex64-b1 .ask-fb').innerText())) out.push('6-4 (b): a wrong MTR is accepted');
-    return out;
-  },
-  async 'exercise-6-5.html'(page) {
-    const out = [];
-    await go(page, 'ex65-a'); await page.waitForTimeout(500);
-    const ans = await page.evaluate(() => Number(document.getElementById('ex65-mts').dataset.answer));
-    await page.fill('#ex65-mts input', ans.toFixed(2)); await page.click('#ex65-mts .ask-go');
-    if (!/Right/.test(await page.locator('#ex65-mts .ask-fb').innerText())) out.push('6-5 (a): the right MTsat is not accepted');
-    await go(page, 'ex65-c'); await page.waitForTimeout(600);
-    await page.click('#ex65-c [data-v="mtsat"]'); await page.waitForTimeout(800);
-    if (!/ratio/.test(await text(page, 'ex65-contrast-fb'))) out.push('6-5 (c): no contrast feedback');
     return out;
   },
 };
