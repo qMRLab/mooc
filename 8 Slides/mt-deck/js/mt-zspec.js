@@ -89,12 +89,16 @@
     const draw = throttle(() => {
       const t = { F: zF.get(), kf: zkf.get(), R1f: 1, R1r: 1, T2f: zt2f.get() / 1000, T2r: zt2r.get() * 1e-6 };
       const water = { ...t, F: 0 };
-      const traces = [];
+      // legend keys only (grey, no data): solid = the tissue, dashed = water alone
+      const traces = [
+        { x: [null], y: [null], mode: 'lines', name: 'Solid: tissue (both pools)', line: { color: C.muted, width: 3.5 }, showlegend: true, hoverinfo: 'skip' },
+        { x: [null], y: [null], mode: 'lines', name: 'Dashed: direct saturation only (water alone)', line: { color: C.muted, width: 2, dash: 'dash' }, showlegend: true, hoverinfo: 'skip' },
+      ];
       angles.forEach((a, k) => {
         const col = k ? C.a426 : C.a142;
-        traces.push({ x: xs, y: xs.map((o) => S.normalizedSignal(water, seq(o, a), { steps: 40 })), mode: 'lines', line: { color: col, width: 2, dash: 'dash' }, hovertemplate: `water alone, ${a}°: %{y:.3f}<extra></extra>` });
-        traces.push({ x: xs, y: xs.map((o) => S.normalizedSignal(t, seq(o, a), { steps: 40 })), mode: 'lines', line: { color: col, width: 3.5, shape: 'spline' }, hovertemplate: `${a}°: %{y:.3f}<extra></extra>` });
-        traces.push({ x: S.QMT_OFFSETS, y: S.QMT_OFFSETS.map((o) => S.normalizedSignal(t, seq(o, a), { steps: 40 })), mode: 'markers', marker: { color: '#fff', size: 10, line: { color: col, width: 2.5 } }, hoverinfo: 'skip' });
+        traces.push({ x: xs, y: xs.map((o) => S.normalizedSignal(water, seq(o, a), { steps: 40 })), mode: 'lines', line: { color: col, width: 2, dash: 'dash' }, showlegend: false, hovertemplate: `water alone, ${a}°: %{y:.3f}<extra></extra>` });
+        traces.push({ x: xs, y: xs.map((o) => S.normalizedSignal(t, seq(o, a), { steps: 40 })), mode: 'lines', line: { color: col, width: 3.5, shape: 'spline' }, showlegend: false, hovertemplate: `${a}°: %{y:.3f}<extra></extra>` });
+        traces.push({ x: S.QMT_OFFSETS, y: S.QMT_OFFSETS.map((o) => S.normalizedSignal(t, seq(o, a), { steps: 40 })), mode: 'markers', marker: { color: '#fff', size: 10, line: { color: col, width: 2.5 } }, showlegend: false, hoverinfo: 'skip' });
       });
       plot(el, traces, {
         xaxis: { type: 'log', title: { text: 'MT pulse offset' }, range: [Math.log10(250), Math.log10(40000)], tickvals: [300, 1000, 3000, 10000, 30000], ticktext: ['300 Hz', '1 kHz', '3 kHz', '10 kHz', '30 kHz'] },
@@ -104,7 +108,8 @@
           { x: Math.log10(18000), y: 0.05, text: '<b>426°</b>', showarrow: false, font: { color: C.a426, size: 17 } },
           { x: Math.log10(18000), y: 0.19, text: 'MT pulse', showarrow: false, font: { color: C.muted, size: 14 } },
         ],
-        margin: { l: 70, r: 20, t: 16, b: 60 },
+        showlegend: true, legend: { orientation: 'h', x: 0, y: 1.01, yanchor: 'bottom', font: { size: 14 }, entrywidth: 330 },
+        margin: { l: 70, r: 20, t: 44, b: 60 },
       });
     });
     const zF = slider('z-F', (v) => `${(100 * v).toFixed(1)} %`, draw);
