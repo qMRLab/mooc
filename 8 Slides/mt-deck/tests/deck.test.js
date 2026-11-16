@@ -42,7 +42,7 @@ test('every script and stylesheet exists, on every page', () => {
 });
 
 test('every widget registered in a script has its slide, and every slide id is unique', () => {
-  const pages = { 'index.html': ['js/mt-widgets.js', 'js/mt-scales.js', 'js/mt-protons.js', 'js/mt-fidgrid.js', 'js/mt-myelin.js'], 'exercise-6-1.html': ['js/mt-tanks.js'], 'exercise-6-2.html': ['js/mt-steady.js'], 'exercise-6-3.html': ['js/mt-zspec.js', 'js/ex63.js'], 'exercise-6-4.html': ['js/ex64.js'], 'exercise-6-5.html': ['js/ex65.js'] };
+  const pages = { 'index.html': ['js/mt-widgets.js', 'js/mt-scales.js', 'js/mt-protons.js', 'js/mt-fidgrid.js', 'js/mt-myelin.js'], 'exercise-6-1.html': ['js/ex61-build.js', 'js/mt-tanks.js'], 'exercise-6-2.html': ['js/ex62.js'], 'exercise-6-2-drafts.html': ['js/mt-steady.js'], 'exercise-6-3.html': ['js/mt-zspec.js', 'js/ex63.js'], 'exercise-6-4.html': ['js/ex64.js'], 'exercise-6-5.html': ['js/ex65.js'] };
   for (const [page, scripts] of Object.entries(pages)) for (const script of scripts) {
     const ids = all(read(page), /<section id="([^"]+)"/g);
     assert.equal(new Set(ids).size, ids.length, `${page}: duplicate slide ids`);

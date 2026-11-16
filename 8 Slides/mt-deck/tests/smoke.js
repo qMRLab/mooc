@@ -62,6 +62,11 @@ const DRIVE = {
   },
   async 'exercise-6-1.html'(page) {
     const out = [];
+    await go(page, 's-build'); await page.waitForTimeout(500);
+    await page.click('#s-build .hq-btns [data-hq="zero"]'); await page.waitForTimeout(300);
+    if (!(await page.evaluate(() => document.querySelector('#bd-tanks svg') && /Right/.test(document.querySelector('#s-build .hq-fb').textContent)))) out.push('6-1: the quiz did not mark the right answer');
+    await page.click('#s-build [data-stage-go="3"]'); await page.waitForTimeout(300);
+    if (!/exchange/i.test(await page.evaluate(() => document.querySelector('#s-build .hq-q').textContent))) out.push('6-1: the stage tabs do not jump to stage 3');
     await go(page, 's-tanks'); await page.waitForTimeout(500);
     await page.click('#s-tanks [data-ctl="tk-rf"] [data-v="on"]'); await page.waitForTimeout(2500);
     if (!(Number(await text(page, 'tk-hf')) < 0.8)) out.push('6-1: the RF does not lower the water tank');
@@ -69,11 +74,15 @@ const DRIVE = {
   },
   async 'exercise-6-2.html'(page) {
     const out = [];
-    await go(page, 's-tr'); await page.waitForTimeout(1500);
-    await setRange(page, 'tr-sel', 60); await page.waitForTimeout(600);
-    if (!/60/.test(await text(page, 'tr-sel-v'))) out.push('6-2: the TR slider does not move the zoomed TR');
-    await page.click('#tr-off'); await page.click('#s-tr [data-v="water"]'); await page.waitForTimeout(1200);
-    if (!/TRs?/.test(await page.locator('#s-tr .side-text').innerText()) || !(await text(page, 'tr-n95')).trim()) out.push('6-2: no steady-state count');
+    await go(page, 's-q62'); await page.waitForFunction(() => document.getElementById('q62-mtr-ask').dataset.answer, null, { timeout: 30000 });
+    await page.fill('#q62-mtr-ask input', '21'); await page.click('#q62-mtr-ask .ask-go'); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => /Right/.test(document.querySelector('#q62-mtr-ask .ask-fb').textContent) && document.querySelector('#q62-mtr-hist .main-svg')))) out.push('6-2: the F-halved question did not check or reveal its maps');
+    await go(page, 's-q62b'); await page.waitForFunction(() => document.getElementById('q62b-mtsat-ask').dataset.answer, null, { timeout: 40000 });
+    await page.click('#q62b-mtsat-ask [data-pick="hi"]'); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => /Right/.test(document.querySelector('#q62b-mtsat-ask .ask-fb').textContent) && document.querySelector('#q62b-mtsat-hist .main-svg')))) out.push('6-2: the protocol question did not mark MTsat higher or reveal its maps');
+    await go(page, 's-q62c'); await page.waitForFunction(() => document.getElementById('q62c-mtsat-ask').dataset.answer, null, { timeout: 40000 });
+    await page.click('#q62c-mtsat-ask [data-pick="hi"]'); await page.waitForTimeout(800);
+    if (!(await page.evaluate(() => /Right/.test(document.querySelector('#q62c-mtsat-ask .ask-fb').textContent)))) out.push('6-2: the B1 question did not mark MTsat higher');
     return out;
   },
   async 'exercise-6-3.html'(page) {

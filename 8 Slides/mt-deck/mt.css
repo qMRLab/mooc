@@ -159,8 +159,8 @@
 .reveal .tk-restr, .reveal .tk-restr b { color: var(--restr); }
 .reveal .tk-rf.on { color: #c92a2a; font-weight: 700; }
 .reveal .tk-plot { display: block; width: 100%; height: 120px; flex: none; }
-.reveal .tk-eqs { font-size: 0.62em; margin-top: 0.35em; display: grid; gap: 2px; justify-items: center; }
-.reveal .tk-eqs span { padding: 0 2px; border-bottom: 3px solid currentColor; }
+.reveal .tk-eqs { font-size: 0.62em; margin-top: 0.4em; display: grid; gap: 12px; justify-items: center; word-spacing: 0.3em; }
+.reveal .tk-eqs span { padding: 0 3px; margin: 0 0.15em; border-bottom: 3px solid currentColor; word-spacing: normal; }
 .reveal .tk-eqs .tk-t1 { color: #6b7785; } .reveal .tk-eqs .tk-ex { color: var(--ex); }
 .reveal .tk-eqs .tk-dir { color: #b8860b; } .reveal .tk-eqs .tk-rfc { color: #c92a2a; }
 .reveal .tk-eqs .tk-free, .reveal .tk-eqs .tk-restr { border-bottom: 0; }
@@ -402,3 +402,74 @@
 #s-gratio .gr-fig img { display: block; width: 100%; margin: 0; }
 #s-gratio .gr-fig figcaption { font-size: 0.42em; color: var(--ink); margin-top: 6px; text-align: center; }
 #s-summary .sum-foot { font-size: 0.48em; color: var(--muted); margin: 10px 0 0; }
+
+/* ---- exercise 6-1: predict, then watch (quiz card as the B1 deck's Exercise 4-3) ---- */
+#s-build .bd-tabs { font-size: 0.55em; margin: 0 0 0.2em; }
+#s-build .bd-tabs .bd-replay { margin-left: auto; color: var(--ink); }
+#s-build .bd-main { display: grid; grid-template-columns: 330px 1fr; gap: 24px; align-items: center; height: 300px; }
+#s-build .bd-tanks { height: 300px; }
+#s-build .bd-tanks svg { display: block; }
+#s-build .bd-plot { display: block; width: 100%; height: 290px; }
+#s-build .hq-card { margin-top: 6px; padding: 10px 18px 12px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); font-size: 16px; }
+#s-build .hq-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); }
+#s-build .hq-top b { color: var(--accent); }
+#s-build .hq-q { font-size: 19px; font-weight: 700; line-height: 1.3; margin: 4px 0 8px; color: var(--ink); }
+#s-build .hq-q b { color: var(--accent); }
+#s-build .hq-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+#s-build .hq-btns .bs-btn { font-size: 15px; padding: 6px 14px; background: #fff; }
+#s-build .hq-btns .bs-btn:disabled { cursor: default; opacity: 0.45; }
+#s-build .hq-btns .bs-btn.hq-pick { opacity: 1; border-width: 2px; border-color: #c0392b; }
+#s-build .hq-btns .bs-btn.hq-good { opacity: 1; border-width: 2px; border-color: #2e8b3a; background: #e6f4e8; font-weight: 700; }
+#s-build .hq-fb { display: inline-block; margin: 8px 10px 0 0; padding: 2px 10px; border-radius: 5px; color: #fff; font-weight: 700; font-size: 15px; }
+#s-build .hq-fb.hq-right { background: #2e8b3a; } #s-build .hq-fb.hq-wrong { background: #c0392b; }
+#s-build .hq-fb[hidden], #s-build .hq-why[hidden], #s-build .hq-next[hidden], #s-build .bd-replay[hidden] { display: none; }
+#s-build .hq-why { display: inline; margin: 0; line-height: 1.35; font-size: 15px; }
+#s-build .hq-next { display: block; margin-top: 8px; font-size: 15px; }
+
+/* ---- exercise 6-1: the model defined ---- */
+#s-model .md-cols { display: grid; grid-template-columns: 600px 1fr; gap: 30px; align-items: start; margin-top: 4px; }
+#s-model .md-svg { width: 600px; height: 470px; display: block; }
+#s-model .md-key { font-size: 0.5em; margin: 0.2em 0 0 1.2em; padding: 0; line-height: 1.38; }
+#s-model .md-key li { margin-bottom: 0.65em; padding-left: 0.2em; }
+#s-model .md-key li::marker { font-weight: 800; color: var(--muted); }
+#s-model .md-key .md-t1 b { color: #4e5966; } #s-model .md-key .md-rf b { color: #c92a2a; } #s-model .md-key .md-ex b { color: #2b8a3e; }
+.reveal .tk-hdef { font-size: 0.5em; text-align: center; margin: 0.5em 0 0; color: var(--muted); }
+.reveal .tk-hdef b { font-size: 1.05em; }
+
+
+/* ---- exercise 6-2: predict on a real brain ---- */
+.q62 .q62-tabs { font-size: 0.55em; margin: 0 0 0.25em; }
+.q62 .q62-cols { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
+.q62 .q62-side { font-size: 15px; line-height: 1.4; }
+.q62 .q62-side p { margin: 0 0 0.6em; }
+.q62 .q62-q { font-size: 17px; font-weight: 700; color: var(--ink); }
+.q62 .q62-q b { color: var(--accent); }
+.q62 .ask { font-size: 15px; padding: 6px 10px; margin: 6px 0; }
+.q62 .ask input[type="number"] { width: 4.5em; }
+.q62 .ask button:disabled { opacity: 0.4; cursor: default; }
+.q62 .ask .ask-fb { margin: 4px 0 0; font-size: 14px; }
+.q62 .q62-hint { color: var(--muted); font-size: 13px; }
+.q62 .q62-status { color: var(--accent); font-weight: 700; }
+.q62 .q62-maps { display: grid; gap: 6px; }
+.q62 .q62-row { display: grid; grid-template-columns: 22px repeat(4, 1fr); gap: 4px; align-items: center; }
+.q62 .q62-name { writing-mode: vertical-rl; transform: rotate(180deg); font-weight: 800; font-size: 16px; text-align: center; }
+.q62 .q62-row-mtr .q62-name { color: var(--mtr); } .q62 .q62-row-mtsat .q62-name { color: var(--mtsat); }
+.q62 figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.q62 figcaption { width: 196px; padding-right: 44px; box-sizing: border-box; text-align: center; font-size: 13px; font-weight: 700; color: var(--ink); }
+.q62 .q62-hist + figcaption, .q62 figure:last-child figcaption { padding-right: 0; }
+.q62 .q62-map { width: 196px; height: 218px; }
+.q62 .q62-hist { width: 196px; height: 218px; }
+.q62 .q62-hide { visibility: hidden; } .q62 .q62-hide.q62-shown { visibility: visible; }
+.q62 .q62-prot { border-collapse: collapse; font-size: 13px; margin: 0 0 8px; width: 100%; }
+.q62 .q62-prot th, .q62 .q62-prot td { padding: 3px 5px; border-bottom: 1px solid var(--rule); text-align: left; }
+.q62 .q62-prot th { color: var(--muted); font-weight: 700; }
+.q62 .q62-prot td:first-child { color: var(--muted); white-space: nowrap; }
+.q62 .q62-prot .q62-same { text-align: center; color: var(--ink); }
+.q62 .q62-pick .ask-row { gap: 6px; flex-wrap: wrap; }
+.q62 .q62-pick .q62-pname { font-weight: 700; width: 100%; margin-bottom: -2px; }
+.q62 .q62-pick button { font-size: 13.5px; padding: 3px 9px; white-space: nowrap; }
+.q62 .ask.q62-pick { padding: 6px 7px; }
+.q62 .q62-pick button:disabled { opacity: 0.45; cursor: default; }
+.q62 .q62-pick button.hq-pick { opacity: 1; border-width: 2px; border-color: #c0392b; }
+.q62 .q62-pick button.hq-good { opacity: 1; border-width: 2px; border-color: #2e8b3a; background: #e6f4e8; font-weight: 700; }
+.q62 .q62-setup { font-size: 14.5px; margin: 0 0 0.6em; padding: 8px 10px; background: var(--panel); border-radius: 8px; }

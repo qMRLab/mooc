@@ -11,7 +11,7 @@ Unlike the other decks, almost no figure is copied from the book. The slides are
 | 2 | A tale of two timescales (draft) | One on-resonance FID over 300 ms (slow part, T<sub>2</sub> = 70 ms) beside an MPRAGE of the same volunteer, and its first 0.1 ms zoomed in from a red rectangle: a fast part (T<sub>2</sub> ≈ 12 µs) falling to the slow part, beside an image that cannot exist (`js/mt-scales.js`, `img/mprage.png`) |
 | 3 | Mobile and restricted protons (draft) | Two animations: water molecules tumbling and moving freely, and a lipid bilayer (myelin) whose hydrogens are locked in place; hydrogen drawn the same in both (`js/mt-protons.js`) |
 | 4 | Decay ⇄ lineshape (draft) | 2 × 2: the FIDs of water (T<sub>2</sub> = 70 ms) and of the macromolecules (super-Lorentzian decay, T<sub>2</sub> = 12 µs), and their Fourier transforms on the same symmetric-log offset axis (±100 kHz, linear within ±0.1 Hz), Lorentzian and super-Lorentzian (`js/mt-fidgrid.js`) |
-| 5 | Where it happens: myelin (draft) | Animated cartoon of myelin lamellae: RF saturates the membrane, water carries the saturation away (`js/mt-myelin.js`) |
+| 5 | Where it happens: myelin (draft) | Animated cartoon of myelin lamellae (`js/mt-myelin.js`): a short off-resonance pulse saturates the membrane, exchange keeps handing the saturation to water after the pulse (the water signal keeps dropping), then both recover with T<sub>1</sub>; each caption holds 5 s |
 | 6 | The model behind it: Bloch–McConnell | The equations, colour-coded (with the chapter's sign errors fixed), F = M<sub>0,r</sub>/M<sub>0,f</sub> defined, and the two-pool tanks during and after off-resonance RF: water only, two pools without exchange, two pools with exchange (the default; no signal curve). Picking a case greys out the terms it removes from the equations |
 | 7 | MT off vs MT on | The real slice without and with the off-resonance RF (same grey scale) and their ratio: the signal drops most where there is myelin |
 | 8–9 | MT-based mapping methods we’ll cover (MTR, MTsat, qMT); the MT-SPGR | The sequence drawn to scale, MT on or off |
@@ -29,7 +29,7 @@ Unlike the other decks, almost no figure is copied from the book. The slides are
 | 21 | Application: g-ratio mapping in vivo | MVF from MT (κF) + AVF from diffusion (NODDI) → g; an axon cross-section drawn to scale (`img/gratio-axon.svg`) and Fig. 4 of Stikov 2015 (MS patient), `img/gratio-stikov2015-ms.png` (© Elsevier, reproduced for teaching) |
 | 22 | Key takeaways | MTR, MTsat, qMT in the order of the slides |
 
-Pause badges link the exercises: 6-1 on slide 7, 6-2 on slide 9, 6-4 on slide 11 (MTR), 6-5 on slide 14 (MTsat), 6-3 on slide 18 (qMT outputs).
+Pause badges link the exercises: 6-1 on slide 7, 6-2 on slide 9 (its content changed: MTR vs MTsat sensitivity; the badge may fit better after slide 14), 6-4 on slide 11 (MTR), 6-5 on slide 14 (MTsat), 6-3 on slide 18 (qMT outputs).
 
 ## Exercises
 
@@ -37,8 +37,8 @@ Each is its own short deck (cover, one to three parts, summary), with checked an
 
 | Exercise | Parts |
 |---|---|
-| 6-1 · Two tanks, one pipe | The two-pool equations as plumbing (moved from the lecture): faucet + drain = T<sub>1</sub>, one pipe = exchange, RF valve = W<sub>r</sub>, direct-saturation valve = W<sub>f</sub>; live levels, strip chart, RF amplitude and offset, F, k<sub>f</sub>, T<sub>1</sub>; presets for white matter, no exchange and water only |
-| 6-2 · Pulse after pulse | 80 TRs of the Karakuzu Siemens MT-weighted protocol from equilibrium (moved from the lecture): WM, GM or a water phantom; TR slider for the zoomed TR, with the pulse power and water's exchange vs T<sub>1</sub> rates; optional MT-off overlay |
+| 6-1 · Two tanks, one pipe | (1) The model: what each part of the tank analogy stands for (static figure). (2) Predict, then watch: 12 multiple-choice questions, each answer playing a short two-pool simulation (one pool; two pools without exchange; exchange alone, without relaxation; long and short off-resonance pulses), `js/ex61-build.js`. (3) The full plumbing simulator, `js/mt-tanks.js` |
+| 6-2 · MTR vs MTsat: what changes them? | The human slice simulated voxel by voxel from its qMT maps with an MTsat protocol (`js/ex62.js`); tabbed questions with the maps, % change and histograms revealed on answering. (1) Tissue, as numbers: F halves (same k<sub>r</sub>), k<sub>f</sub> halves. (2) Protocol, lower / same / higher: TR 25 → 40 ms, MT angle halves, offset doubles. (3) Imperfections: B<sub>1</sub> = 0.8 without and with a B<sub>1</sub> map, B<sub>0</sub> 100 Hz off, T<sub>1</sub> 17 % shorter (IR vs VFA). The former steady-state slide is kept in `exercise-6-2-drafts.html` |
 | 6-3 · Fit a qMT voxel by hand | Real Z-spectra, voxel by voxel, and the live Z-spectrum with sliders (both moved from the lecture); (a) sliders on a real voxel against its 10 points; (b) your fit, the computer's (Levenberg–Marquardt with the simulator) and qMRLab's, and the F–k<sub>f</sub> valley; (c) refit with a wrong B<sub>1</sub> |
 | 6-4 · What does MTR measure? | The chapter's Exercises 1–7: (a) MTR from a Z-spectrum; (b) F = 0, 10, 20 %; (c) k<sub>f</sub> = 5, 2.5, 0; (d) what it means |
 | 6-5 · MTsat by hand, then on a brain | (a) R<sub>1</sub>, A and MTsat from three images; (b) against the simulation's truth; (c) MTsat of a real voxel, then MTR and MTsat maps and their WM/GM contrast |
@@ -57,7 +57,9 @@ Each is its own short deck (cover, one to three parts, summary), with checked an
 | `js/mt-protons.js` | Slide 3 (draft): mobile water and a restricted lipid bilayer, two canvas animations drawn while shown |
 | `js/mt-fidgrid.js` | Slide 4 (draft): decays and their Fourier transforms (symmetric-log ±100 kHz), water and macromolecules, fixed T<sub>2</sub>s |
 | `js/mt-tanks.js` | Exercise 6-1: the two-tank, one-pipe picture, animated while shown |
-| `js/mt-steady.js` | Exercise 6-2: 80 MT-SPGR repetitions to a steady state, one TR zoomed in (moved from the lecture) |
+| `js/ex61-build.js` | Exercise 6-1: the predict-then-watch quiz (two-pool simulations, tanks and time course) |
+| `js/ex62.js` | Exercise 6-2: the slice simulated with MTsat protocols, and the three tabbed question slides |
+| `js/mt-steady.js` | 80 MT-SPGR repetitions to a steady state, one TR zoomed in; now only in `exercise-6-2-drafts.html` |
 | `js/mt-zspec.js` | Exercise 6-3: real Z-spectra voxel by voxel, and the live Z-spectrum with F, k<sub>f</sub>, T<sub>2,r</sub>, T<sub>2,f</sub> sliders (moved from the lecture) |
 | `js/mt-myelin.js` | Slide 5 (draft): the myelin cartoon, a 22 s canvas loop drawn while shown |
 | `js/ex-common.js`, `js/ex6*.js` | Answer boxes and the exercises' scripts |
