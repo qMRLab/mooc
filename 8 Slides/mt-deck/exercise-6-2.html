@@ -19,46 +19,131 @@
 <section class="problem">
   <div class="brand"><img src="img/qmrlab-logo.png" alt="qMRLab logo" width="39" height="36"><span>Quantitative MRI mOOC</span></div>
   <p class="kicker">Magnetization Transfer · Exercise 6-2</p>
-  <h2>Pulse after pulse, to a steady state</h2>
+  <h2>MTR vs MTsat: what changes them?</h2>
   <p class="ex-cover-lead">In this exercise, we will cover:</p>
   <ol class="ex-cover">
-    <li>How water and the macromolecules approach a steady state, one MT-SPGR repetition after another</li>
-    <li>What happens inside one TR: the MT pulse, exchange, T<sub>1</sub> recovery and the excitation</li>
-    <li>White matter, grey matter and a water phantom, with and without the MT pulse</li>
+    <li>A brain simulated voxel by voxel from its qMT maps, measured with an MTsat protocol</li>
+    <li>Sensitivity to the tissue: the pool size or the exchange halves</li>
+    <li>Sensitivity to the protocol: a longer TR, a weaker MT pulse, a larger offset</li>
+    <li>Sensitivity to imperfections: B<sub>1</sub> with and without correction, B<sub>0</sub>, and the T<sub>1</sub> method</li>
   </ol>
-  <p class="nav-tip">One interactive slide: pick a tissue, move the TR slider, overlay MT off.</p>
+  <p class="nav-tip">Three interactive slides, each with tabs: predict how MTR and MTsat change, then check on the maps and histograms.</p>
 </section>
 
-<!-- 80 TRs from equilibrium and one TR zoomed in; js/mt-steady.js (moved here from the lecture) -->
-<section id="s-tr" class="figure side">
+<!-- predict on a real brain: MTsat-protocol data simulated voxel by voxel from the slice's qMT fit, one question per tab;
+     js/ex62.js -->
+<section id="s-q62" class="figure q62">
   <div class="fig-layout">
-    <h2>Pulse after pulse, to a steady state</h2>
-    <div class="side-text">
-      <ul>
-        <li>Each MT pulse takes a bite of the restricted pool; exchange drags water down <b>between pulses</b> too</li>
-        <li>A steady state after <b id="tr-n95">–</b> TRs</li>
-        <li>Fast models assume it: acquire the <b>centre of k-space</b> after it is reached</li>
-      </ul>
-      <div class="seg small" data-ctl="tissue"><button data-v="wm" aria-pressed="true">White matter</button><button data-v="gm" aria-pressed="false">Grey matter</button><button data-v="water" aria-pressed="false">Water</button></div>
-      <div class="w-controls col"><label><span>TR</span> <input type="range" id="tr-sel" min="1" max="80" step="1" value="2"><output id="tr-sel-v"></output></label></div>
-      <label class="tr-off"><input type="checkbox" id="tr-off"> Overlay MT off (dashed)</label>
-      <p class="fig-hint">From equilibrium, 80 TRs of the Karakuzu Siemens MT-weighted image (TR 32 ms; MT pulse: Gaussian, 10 ms, 540° at 1.2 kHz). The slider, or a click on the top plot, picks the TR shown below.</p>
-    </div>
-    <div class="w-col">
-      <div class="w-plot" id="tr-all" style="height:300px"></div>
-      <div class="w-plot" id="tr-one" style="height:280px"></div>
+    <h2>Sensitivity to the tissue: MTR vs MTsat</h2>
+    <div class="seg q62-tabs"><button data-q-tab="half" aria-pressed="true">1 · The pool size halves</button><button data-q-tab="exch" aria-pressed="false">2 · Exchange halves</button></div>
+    <div class="q62-cols">
+      <div class="q62-side">
+        <p>We simulated an <b>MTsat protocol</b> (Karakuzu 2022, Siemens: MT-weighted, PD-weighted and T<sub>1</sub>-weighted SPGR) in every voxel of the brain slice, from its qMT parameters (F, k<sub>f</sub>, T<sub>1</sub>, T<sub>2</sub>s). B<sub>1</sub> and B<sub>0</sub> are ignored.</p>
+        <p class="q62-q" id="q62-q"></p>
+        <div class="ask" id="q62-mtr-ask" data-abs="4" data-unit=" %"><div class="ask-row"><span>MTR drops by</span> <input type="number" step="1" aria-label="MTR drop in percent"><span class="unit">%</span><button class="ask-go" disabled>Check</button></div><p class="ask-fb"></p></div>
+        <div class="ask" id="q62-mtsat-ask" data-abs="4" data-unit=" %"><div class="ask-row"><span>MTsat drops by</span> <input type="number" step="1" aria-label="MTsat drop in percent"><span class="unit">%</span><button class="ask-go" disabled>Check</button></div><p class="ask-fb"></p></div>
+        <p class="q62-hint">In % of the original value (a drop to half = 50 %). Within 4 points counts as right.</p>
+        <p class="q62-status" id="q62-status"></p>
+      </div>
+      <div class="q62-maps">
+        <div class="q62-row q62-row-mtr">
+          <div class="q62-name">MTR</div>
+          <figure><figcaption class="q62-a-label">Original</figcaption><div class="q62-map" id="q62-mtr-base"></div></figure>
+          <figure class="q62-hide"><figcaption class="q62-b-label">F halved</figcaption><div class="q62-map" id="q62-mtr-alt"></div></figure>
+          <figure class="q62-hide"><figcaption>Change (%)</figcaption><div class="q62-map" id="q62-mtr-diff"></div></figure>
+          <figure class="q62-hide"><figcaption>Histograms</figcaption><div class="q62-hist" id="q62-mtr-hist"></div></figure>
+        </div>
+        <div class="q62-row q62-row-mtsat">
+          <div class="q62-name">MTsat</div>
+          <figure><figcaption class="q62-a-label">Original</figcaption><div class="q62-map" id="q62-mtsat-base"></div></figure>
+          <figure class="q62-hide"><figcaption class="q62-b-label">F halved</figcaption><div class="q62-map" id="q62-mtsat-alt"></div></figure>
+          <figure class="q62-hide"><figcaption>Change (%)</figcaption><div class="q62-map" id="q62-mtsat-diff"></div></figure>
+          <figure class="q62-hide"><figcaption>Histograms</figcaption><div class="q62-hist" id="q62-mtsat-hist"></div></figure>
+        </div>
+      </div>
     </div>
   </div>
-  <aside class="notes">Simulated with the full Bloch-McConnell equations (as qMRLab's "Bloch sim"). Top: Mz of water (blue) and of the restricted pool (orange, as a fraction of its equilibrium F), and the signal at each readout (dots), from equilibrium. Bottom: one TR, with the MT pulse's power (ω1², shaded), which sets the saturation rate W. The Gaussian pulse has almost no power in its first and last ~2 ms, so there the restricted pool keeps recovering (exchange with water pulls it up at k_r = k_f/F ≈ 27/s, faster than T1); it falls once W·Mz,r beats that recovery, and bottoms out after the peak, where the waning W just balances it. The bottom plot opens on TR 2, where exchange visibly drags water down after the pulse (about −1.8/s, against +0.06/s of T1 recovery); the line above it gives both rates for whichever TR is chosen. At steady state (slider to the end, or a click near the end of the top plot) water sits low enough (0.35) that its T1 recovery, R1f(1 − m_f) ≈ +0.65/s, cancels the exchange drain, k_f(m_f − m_r) ≈ −0.4 to −0.7/s, so its curve is flat between pulses: that balance is what defines the steady state. The "Overlay MT off" box adds the same sequence without the MT pulse (dashed), excitation at the same time: the gap between the two water curves at the readout is the MT effect (MTR), and in the water phantom it shrinks to the direct effect alone. The water phantom (doped water, T1 = T2 = 1 s, no macromolecules) shows the direct effects alone: the same tilt and return during the MT pulse, nearly no lasting loss, and a steady state set by the excitations and T1 only. Water's dip and return during the pulse is the off-resonance pulse tipping it a little (direct effect), undone as B1 goes back to zero. During the MT pulse the restricted pool drops sharply; water drops a little (exchange and direct saturation); after the pulse, water keeps losing to the saturated restricted pool while both recover by T1. The excitation takes a small step off water. The analytical qMT signal models (Sled & Pike) assume this steady state, which is why the centre of k-space is acquired after it (Figure 6.4 compares Bloch simulations of 1 to 600 pulses with the analytical solution).</aside>
+  <aside class="notes">Every voxel of the human slice simulated with the Karakuzu 2022 Siemens MTsat protocol (MTw: 6°, TR 32 ms, Gaussian MT pulse 540°, 10 ms, 1.2 kHz; PDw: 6°, 32 ms; T1w: 20°, 18 ms) from its qMRLab qMT fit (Sled &amp; Pike: F, k_f, T2,f, T2,r; R1,f from the measured R1 with Eq. 6.6, R1,r = 1 s⁻¹), B1 = 1 and no B0 offset; MTR and MTsat as on the lecture slides (MTsat with Helms' formula, T1 from the PDw and T1w images). Halving the macromolecules: F halves, and since k_f = F·k_r with k_r (the exchange rate per macromolecular proton) a property of the molecules, k_f halves too. T1,f, T2s and R1,r unchanged. MTR drops by only about 21 % of its value and MTsat by about 40 %; neither halves. MTR is far from linear in the macromolecular content: water's T1 recovery and the readout limit how far it can move. MTsat is closer to proportional but not linear either. (Halving F alone at fixed k_f, which doubles k_r, would give drops of about 9 % and 22 %.) Tab 2, exchange halves: k_f halves at the same F (so k_r halves too): MTR drops by about 16 % (53.5 → 45.1 %) and MTsat by about 30 % (3.92 → 2.80 %): slower exchange passes less of the macromolecular saturation on to water.</aside>
+</section>
+
+<!-- sensitivity to the protocol: two MTsat protocols on the same simulated brain, lower / same / higher; js/ex62.js -->
+<section id="s-q62b" class="figure q62">
+  <div class="fig-layout">
+    <h2>Sensitivity to the protocol: MTR vs MTsat</h2>
+    <div class="seg q62-tabs"><button data-q-tab="tr" aria-pressed="true">1 · Longer TR</button><button data-q-tab="fa" aria-pressed="false">2 · MT flip angle halves</button><button data-q-tab="off" aria-pressed="false">3 · MT offset doubles</button></div>
+    <div class="q62-cols">
+      <div class="q62-side">
+        <div id="q62b-setup"></div>
+        <p class="q62-q" id="q62b-q"></p>
+        <div class="ask q62-pick" id="q62b-mtr-ask"><div class="ask-row"><span class="q62-pname">MTR</span><button data-pick="lo" disabled>Lower</button><button data-pick="same" disabled>≈ The same</button><button data-pick="hi" disabled>Higher</button></div><p class="ask-fb"></p></div>
+        <div class="ask q62-pick" id="q62b-mtsat-ask"><div class="ask-row"><span class="q62-pname">MTsat</span><button data-pick="lo" disabled>Lower</button><button data-pick="same" disabled>≈ The same</button><button data-pick="hi" disabled>Higher</button></div><p class="ask-fb"></p></div>
+        <p class="q62-hint">“≈ The same” = within 5 % of the value. Same simulated brain as before; B<sub>1</sub> and B<sub>0</sub> ignored.</p>
+        <p class="q62-status" id="q62b-status"></p>
+      </div>
+      <div class="q62-maps">
+        <div class="q62-row q62-row-mtr">
+          <div class="q62-name">MTR</div>
+          <figure><figcaption class="q62-a-label">Protocol 1</figcaption><div class="q62-map" id="q62b-mtr-base"></div></figure>
+          <figure class="q62-hide"><figcaption class="q62-b-label">Protocol 2</figcaption><div class="q62-map" id="q62b-mtr-alt"></div></figure>
+          <figure class="q62-hide"><figcaption>Change (%)</figcaption><div class="q62-map" id="q62b-mtr-diff"></div></figure>
+          <figure class="q62-hide"><figcaption>Histograms</figcaption><div class="q62-hist" id="q62b-mtr-hist"></div></figure>
+        </div>
+        <div class="q62-row q62-row-mtsat">
+          <div class="q62-name">MTsat</div>
+          <figure><figcaption class="q62-a-label">Protocol 1</figcaption><div class="q62-map" id="q62b-mtsat-base"></div></figure>
+          <figure class="q62-hide"><figcaption class="q62-b-label">Protocol 2</figcaption><div class="q62-map" id="q62b-mtsat-alt"></div></figure>
+          <figure class="q62-hide"><figcaption>Change (%)</figcaption><div class="q62-map" id="q62b-mtsat-diff"></div></figure>
+          <figure class="q62-hide"><figcaption>Histograms</figcaption><div class="q62-hist" id="q62b-mtsat-hist"></div></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">The same simulated brain (each voxel's qMT fit, B1 = 1, no B0) with two MTsat protocols that differ only in the TR of the MT-weighted and PD-weighted images: Helms 2008 (TR 25 ms) and the same protocol at TR 40 ms, both with a Gaussian MT pulse of 540°, 12.8 ms at 2.2 kHz, 5° readouts, and the same T1-weighted image (15°, 11 ms). Brain medians: MTR 49.1 → 44.4 % (−9 %, lower), MTsat 2.54 → 3.17 % (+26 %, higher): they move in opposite directions. With a longer TR, water recovers more between MT pulses, so the MT-weighted signal sits closer to the PD-weighted one and MTR drops; MTsat, Helms' saturation per MT pulse after the T1 correction, rises (the readout's share of each TR's loss is smaller). (Campbell 2018, TR 30 ms, gives −3 % and +10 %.) Tab 2, the MT pulse at 270° instead of 540° (a quarter of the power): MTR 49.1 → 29.8 % (−38 %), MTsat 2.54 → 1.12 % (−55 %); both lower, MTsat roughly in proportion to the pulse power, MTR much less. Tab 3, the offset at 4.4 instead of 2.2 kHz: MTR 49.1 → 41.4 % (−16 %), MTsat 2.54 → 1.85 % (−26 %); both lower, as the macromolecular line absorbs less further out. Neither is a tissue property: both depend on the protocol, which is why values from different sites are hard to compare.</aside>
+</section>
+
+<!-- sensitivity to imperfections: B1, B0 and T1 on the same simulated brain, lower / same / higher; js/ex62.js -->
+<section id="s-q62c" class="figure q62">
+  <div class="fig-layout">
+    <h2>Sensitivity to imperfections: MTR vs MTsat</h2>
+    <div class="seg q62-tabs"><button data-q-tab="b1" aria-pressed="true">1 · B<sub>1</sub> = 0.8, not corrected</button><button data-q-tab="b1map" aria-pressed="false">2 · B<sub>1</sub> = 0.8, corrected</button><button data-q-tab="b0" aria-pressed="false">3 · B<sub>0</sub> 100 Hz off</button><button data-q-tab="t1" aria-pressed="false">4 · A shorter T<sub>1</sub></button></div>
+    <div class="q62-cols">
+      <div class="q62-side">
+        <div id="q62c-setup"></div>
+        <p class="q62-q" id="q62c-q"></p>
+        <div class="ask q62-pick" id="q62c-mtr-ask"><div class="ask-row"><span class="q62-pname">MTR</span><button data-pick="lo" disabled>Lower</button><button data-pick="same" disabled>≈ The same</button><button data-pick="hi" disabled>Higher</button></div><p class="ask-fb"></p></div>
+        <div class="ask q62-pick" id="q62c-mtsat-ask"><div class="ask-row"><span class="q62-pname">MTsat</span><button data-pick="lo" disabled>Lower</button><button data-pick="same" disabled>≈ The same</button><button data-pick="hi" disabled>Higher</button></div><p class="ask-fb"></p></div>
+        <p class="q62-hint">“≈ The same” = within 5 % of the value. Same simulated brain, Karakuzu 2022 Siemens protocol.</p>
+        <p class="q62-status" id="q62c-status"></p>
+      </div>
+      <div class="q62-maps">
+        <div class="q62-row q62-row-mtr">
+          <div class="q62-name">MTR</div>
+          <figure><figcaption class="q62-a-label">Nominal</figcaption><div class="q62-map" id="q62c-mtr-base"></div></figure>
+          <figure class="q62-hide"><figcaption class="q62-b-label"></figcaption><div class="q62-map" id="q62c-mtr-alt"></div></figure>
+          <figure class="q62-hide"><figcaption>Change (%)</figcaption><div class="q62-map" id="q62c-mtr-diff"></div></figure>
+          <figure class="q62-hide"><figcaption>Histograms</figcaption><div class="q62-hist" id="q62c-mtr-hist"></div></figure>
+        </div>
+        <div class="q62-row q62-row-mtsat">
+          <div class="q62-name">MTsat</div>
+          <figure><figcaption class="q62-a-label">Nominal</figcaption><div class="q62-map" id="q62c-mtsat-base"></div></figure>
+          <figure class="q62-hide"><figcaption class="q62-b-label"></figcaption><div class="q62-map" id="q62c-mtsat-alt"></div></figure>
+          <figure class="q62-hide"><figcaption>Change (%)</figcaption><div class="q62-map" id="q62c-mtsat-diff"></div></figure>
+          <figure class="q62-hide"><figcaption>Histograms</figcaption><div class="q62-hist" id="q62c-mtsat-hist"></div></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">The same simulated brain and the Karakuzu 2022 Siemens protocol of the tissue slide, with one imperfection at a time. Tab 1, B1 = 0.8, no B1 map: every pulse tips 20 % less, the readouts and the MT pulse (540° → 432°), and MTR and MTsat are computed with the nominal flip angles. MTR 53.5 → 48.7 % (−9 %, lower): the weaker MT pulse saturates less. MTsat 3.92 → 4.78 % (+22 %, higher): the T1 and A that the MTsat equations take from the PDw and T1w images (VFA) carry the B1 error (T1 reads 0.8² = 0.64 times too short), and propagated through the equations they divide the saturation by about B1², more than the weaker pulse lowered it. Same direction as Figure 6.19 (uncorrected). Tab 2, the same B1 with a B1 map: the readout angles are corrected (4.8° and 16°), but the MT pulse's angle is not in Helms' equations. MTR unchanged (−9 %, it has no angles in it); MTsat 3.92 → 3.06 % (−22 %, lower): the weaker MT pulse really saturates less, and nothing in the calculation undoes it. That leftover is what the empirical correction (Helms; Weiskopf 2013, λ ≈ 0.4) addresses. Tab 3, B0 100 Hz off, towards the MT pulse (1.2 kHz becomes 1.1 kHz from water): MTR +2.6 % (about the same), MTsat +5.5 % (just past our 5 % line: slightly higher). Off-resonance errors of this size matter little at 1.2 kHz; they matter more for qMT points close to resonance. Tab 4, T1: the dataset's T1 map reads about 980 ms in white matter (median of voxels with F &gt; 18 %), in the VFA range of Stikov et al. 2015 (Look-Locker about 650 ms, IR about 830 ms, VFA about 1000 ms in WM). If the tissue's T1 were really the IR one, 17 % shorter (R1,f recomputed with Eq. 6.6): MTR 53.5 → 48.9 % (−9 %, lower), MTsat 3.92 → 3.84 % (−2 %, about the same). MTsat's T1 correction does its job; MTR does not have one.</aside>
 </section>
 
 <section class="lesson summary-lessons">
   <p class="kicker">Exercise 6-2 · Summary</p>
   <h2>Summary</h2>
   <ol>
-    <li>Each MT pulse takes a bite of the restricted pool, and exchange drags water down between pulses; after a few dozen TRs both settle into a steady state.</li>
-    <li>At steady state, water's T<sub>1</sub> recovery balances what exchange and the excitation take each TR, so its curve is flat between pulses.</li>
-    <li>Without macromolecules (the water phantom), only the excitation and the small direct effect of the MT pulse are left.</li>
+    <li><b>Neither MTR nor MTsat is proportional to the macromolecular content:</b> halving the macromolecules lowers MTR by about 20 % and MTsat by about 40 % (halving exchange: 15 % and 30 %).</li>
+    <li><b>Both depend on the protocol.</b> A weaker MT pulse or a larger offset lowers both; a longer TR lowers MTR but raises MTsat. Compare values only within one protocol.</li>
+    <li><b>MTsat removes most of the T<sub>1</sub> dependence</b> (−2 % against −9 % for MTR, for a 17 % shorter T<sub>1</sub>), but <b>not B<sub>1</sub></b>: at B<sub>1</sub> = 0.8 it reads 22 % <i>high</i> without a B<sub>1</sub> map and 22 % <i>low</i> with one. Empirical corrections (Helms, Lipp) address the rest, with protocol-specific constants.</li>
+    <li>A B<sub>0</sub> offset of 100 Hz barely matters at a 1.2 kHz MT offset (a few %).</li>
   </ol>
 </section>
 
@@ -74,7 +159,7 @@
 <script src="js/deck.js"></script>
 <script src="js/mt-common.js"></script>
 <script src="js/ex-common.js"></script>
-<script src="js/mt-steady.js"></script>
+<script src="js/ex62.js"></script>
 <script src="js/nav.js"></script>
 </body>
 </html>

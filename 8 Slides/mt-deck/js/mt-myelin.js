@@ -6,7 +6,7 @@
   'use strict';
   window.MTDeck.widget('s-myelin', () => {
   const cv = document.getElementById('my-cv'), ctx = cv.getContext('2d');
-  const W = 1280, H = 720, LOOP = 22;
+  const W = 1280, H = 720, LOOP = 30;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const FONT = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -57,24 +57,29 @@
   const trace = [];
 
   // ---------------------------------------------------------------- script
-  const RF_ON = 5, RF_OFF = 11;
+  // A short RF pulse, as in a real MT-prepared sequence: it saturates the membrane faster than exchange can respond, so most
+  // of the transfer to water happens after the pulse and the water signal keeps dropping once the RF is off.
+  const RF_ON = 5, RF_OFF = 6;
   const CAPS = [
     [0, 3.2, 'Myelin: a membrane wrapped dozens of times around the axon, with thin water layers in between.'],
     [3.2, 5, 'Water tumbles freely. The membrane’s protons are locked in place.'],
-    [5, 7.2, 'Off-resonance RF saturates only the rigid membrane protons.'],
-    [7.2, 9.4, 'Where water touches membrane, the saturation is handed over.'],
-    [9.4, 11, 'Saturated water moves on: the water signal drops.'],
-    [11, 17.5, 'RF off: membrane and water slowly recover (T₁).'],
-    [17.5, 22, 'More membrane surface, more hand-overs: that is why white matter shows strong MT.'],
+    [5, 6, 'A short off-resonance RF pulse saturates only the rigid membrane protons.'],
+    [6, 8.5, 'RF off, exchange goes on: the membrane hands its saturation to the water, and the signal keeps dropping.'],
+    [8.5, 21, 'Then membrane and water recover together, both with T₁.'],
+    [21, 30, 'More membrane surface, more hand-overs: that is why white matter shows strong MT.'],
   ];
-  const P = { W: 2.6, kEx: 9.0, R1w: 0.3, R1m: 0.8, direct: 0.015 };
+  // W: RF saturation rate of the membrane; kEx: hand-over rate per contact; R1w, R1m: recovery (the same order for both pools); D: diffusion.
+  const P = { W: 10, kEx: 5, R1w: 0.12, R1m: 0.12, direct: 0.015, D: 60 };
 
   let t = 0, playing = !reduce, lastSample = -1;
+  // Hold the simulation for HOLD s each time a new caption has faded in, so it can be read before the next step plays.
+  const HOLD = 5, HOLDS = CAPS.map(([a]) => a + 0.35);
+  let holdLeft = 0;
   const rfLevel = (tt) => Math.max(0, Math.min(1, Math.min((tt - RF_ON) / 0.4, (RF_OFF - tt) / 0.4)));
   const rfOn = (tt) => tt >= RF_ON && tt < RF_OFF;
 
   function reset() {
-    t = 0; lastSample = -1; trace.length = 0; sparks.length = 0;
+    t = 0; lastSample = -1; trace.length = 0; sparks.length = 0; holdLeft = 0;
     for (const w of waters) w.s = 0;
     for (const m of rows) for (const row of m) for (const l of row) l.s = 0;
   }
@@ -90,7 +95,7 @@
     }
     for (const w of waters) {
       // Brownian motion with fast tumbling
-      w.vx = w.vx * 0.92 + gauss() * 9; w.vy = w.vy * 0.92 + gauss() * 9;
+      w.vx = w.vx * 0.92 + gauss() * P.D; w.vy = w.vy * 0.92 + gauss() * P.D;
       w.x += w.vx * dt; w.y += w.vy * dt;
       w.va = w.va * 0.9 + gauss() * 2.2; w.a += w.va * dt * 6;
       if (w.x < 6) { w.x = 6; w.vx = Math.abs(w.vx); }
@@ -106,7 +111,8 @@
         const d = l.s - w.s;
         if (Math.abs(d) > 0.02) {
           const ws = w.s; w.s = l.s; l.s = ws;
-          if (Math.abs(d) > 0.25) sparks.push({ x: w.x, y: cy, age: 0, dir: Math.sign(d) });
+          // sparks mark only membrane → water hand-overs (the MT effect); the reverse swaps after the RF are left unmarked
+          if (d > 0.25) sparks.push({ x: w.x, y: cy, age: 0, dir: 1 });
         }
       }
       if (on) w.s += P.direct * (1 - w.s) * dt;
@@ -238,7 +244,8 @@
     ctx.fillStyle = 'rgba(214, 51, 108, 0.12)'; ctx.fillRect(X(RF_ON), py, X(RF_OFF) - X(RF_ON), ph);
     ctx.strokeStyle = '#e1e7ee'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(px, Y(1)); ctx.lineTo(px + pw, Y(1)); ctx.moveTo(px, Y(0)); ctx.lineTo(px + pw, Y(0)); ctx.stroke();
     ctx.strokeStyle = `rgb(${COL.water.join(',')})`; ctx.lineWidth = 2.5; ctx.beginPath();
-    trace.forEach(([tt, v], k) => (k ? ctx.lineTo(X(tt), Y(0.5 + 0.5 * v)) : ctx.moveTo(X(tt), Y(0.5 + 0.5 * v))));
+    const V = (v) => Y(Math.max(0, (v - 0.5) / 0.5));   // 50–100 % over the full height
+    trace.forEach(([tt, v], k) => (k ? ctx.lineTo(X(tt), V(v)) : ctx.moveTo(X(tt), V(v))));
     ctx.stroke();
     ctx.font = `500 11px ${FONT}`; ctx.fillStyle = COL.muted; ctx.textAlign = 'right'; ctx.fillText('scale 50–100 %', px + pw, py + ph + 12); ctx.textAlign = 'left';
     ctx.fillStyle = COL.rf; ctx.fillText('RF on', X(RF_ON) + 4, py + ph - 5);
@@ -266,6 +273,7 @@
     ctx.globalAlpha = Math.max(0, fade);
     card(x, y, tw, 48, 24);
     ctx.fillStyle = COL.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(cap[2], W / 2, y + 25);
+    if (holdLeft > 0) { ctx.fillStyle = 'rgba(31, 95, 153, 0.45)'; roundRect(x + 24, y + 42, (tw - 48) * (holdLeft / HOLD), 3, 1.5); ctx.fill(); }
     ctx.globalAlpha = 1; ctx.textAlign = 'left';
   }
 
@@ -293,7 +301,15 @@
   function frame(now) {
     const dt = last === null ? 0 : Math.min(0.05, (now - last) / 1000);
     last = now;
-    if (playing && dt > 0) { step(dt); t += dt; if (t >= LOOP) reset(); }
+    if (playing && dt > 0) {
+      if (holdLeft > 0) holdLeft = Math.max(0, holdLeft - dt);
+      else {
+        const t0 = t;
+        step(dt); t += dt;
+        if (HOLDS.some((h) => t0 < h && t >= h)) holdLeft = HOLD;
+        if (t >= LOOP) reset();
+      }
+    }
     draw(now / 1000);
     raf = requestAnimationFrame(frame);
   }

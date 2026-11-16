@@ -22,11 +22,142 @@
   <h2>Two tanks, one pipe</h2>
   <p class="ex-cover-lead">In this exercise, we will cover:</p>
   <ol class="ex-cover">
+    <li>The model: MT as two tanks, and what each part stands for</li>
+    <li>Predict, then watch: one pool, then two pools without exchange, then with exchange</li>
     <li>The two-pool equations as plumbing: level, width, faucet and drain, one pipe</li>
     <li>What the off-resonance RF drains, and how exchange passes it on to water</li>
     <li>What changes with no exchange, with no macromolecules, and with the RF close to resonance</li>
   </ol>
-  <p class="nav-tip">One interactive slide: play with the RF, the sliders and the presets.</p>
+  <p class="nav-tip">The model first, then predict and watch in twelve quick questions, then play with the RF, the sliders and the presets.</p>
+</section>
+
+<!-- the model, defined: what each part of the tank analogy stands for (static SVG) -->
+<section id="s-model" class="figure">
+  <div class="fig-layout">
+    <h2>The model: MT as two tanks</h2>
+    <div class="md-cols">
+      <svg class="md-svg" viewBox="0 0 600 470" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" role="img" aria-label="Two tanks: a wide water tank and a narrow macromolecule tank, each with a T1 faucet on top and a T1 drain below, an RF drain on the side, and a pipe joining them at the bottom. An inset shows the narrow water line and the broad macromolecule line, with the RF offset marked.">
+        <defs>
+          <marker id="md-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2b8a3e"/></marker>
+        </defs>
+        <g transform="translate(40 0)">
+        <!-- titles -->
+        <text x="150" y="40" text-anchor="middle" font-size="17" font-weight="700" fill="#1f5f99">Water (free pool)</text>
+        <text x="392" y="40" text-anchor="middle" font-size="17" font-weight="700" fill="#c2410c">Macromolecules</text>
+        <!-- faucets (T1 refill) -->
+        <g fill="#f7fafc" stroke="#6b7785" stroke-width="1.5">
+          <rect x="110" y="56" width="40" height="9"/><rect x="144" y="56" width="12" height="18"/>
+          <rect x="352" y="56" width="40" height="9"/><rect x="386" y="56" width="12" height="18"/>
+        </g>
+        <rect x="147" y="74" width="6" height="58" fill="#1f5f99" opacity="0.8"/>
+        <rect x="390" y="74" width="2.5" height="62" fill="#c2410c" opacity="0.8"/>
+        <!-- tanks -->
+        <rect x="60" y="90" width="180" height="230" fill="#f7fafc"/>
+        <rect x="63" y="132" width="174" height="185" fill="#1f5f99" opacity="0.82"/>
+        <rect x="380" y="90" width="30" height="230" fill="#f7fafc"/>
+        <rect x="383" y="136" width="24" height="181" fill="#c2410c" opacity="0.82"/>
+        <line x1="63" y1="120" x2="237" y2="120" stroke="#6b7785" stroke-width="1.2" stroke-dasharray="5 5"/>
+        <line x1="383" y1="120" x2="407" y2="120" stroke="#6b7785" stroke-width="1.2" stroke-dasharray="5 5"/>
+        <text x="234" y="114" text-anchor="end" font-size="12" fill="#6b7785">full = M₀ (equilibrium)</text>
+        <path d="M60 90 L60 320 L240 320 L240 90 M380 90 L380 320 L410 320 L410 90" fill="none" stroke="#1d2733" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- level and width callouts -->
+        <line x1="82" y1="314" x2="82" y2="135" stroke="#fff" stroke-width="1.8"/><line x1="77" y1="135" x2="87" y2="135" stroke="#fff" stroke-width="1.8"/><line x1="77" y1="314" x2="87" y2="314" stroke="#fff" stroke-width="1.8"/>
+        <text x="96" y="230" font-size="14" font-weight="700" fill="#fff">level = M<tspan font-size="10" dy="3">z</tspan><tspan dy="-3">/M</tspan><tspan font-size="10" dy="3">0</tspan></text>
+        <line x1="380" y1="84" x2="410" y2="84" stroke="#1d2733" stroke-width="1.2"/><line x1="380" y1="80" x2="380" y2="88" stroke="#1d2733" stroke-width="1.2"/><line x1="410" y1="80" x2="410" y2="88" stroke="#1d2733" stroke-width="1.2"/>
+        <text x="372" y="88" text-anchor="end" font-size="12" fill="#1d2733">width = pool size (F ≈ 16 %)</text>
+        <!-- T1 drains -->
+        <g fill="#f7fafc" stroke="#6b7785" stroke-width="1.5"><rect x="144" y="320" width="12" height="16"/><rect x="389" y="320" width="12" height="16"/></g>
+        <rect x="147" y="336" width="6" height="30" fill="#1f5f99" opacity="0.6"/><rect x="393.5" y="336" width="2.5" height="30" fill="#c2410c" opacity="0.6"/>
+        <text x="104" y="68" text-anchor="end" font-size="12" fill="#6b7785">① T₁ refill</text>
+        <text x="164" y="352" font-size="12" fill="#6b7785">① T₁ drain</text>
+        <!-- exchange pipe -->
+        <rect x="240" y="292" width="140" height="13" fill="#f7fafc" stroke="#6b7785" stroke-width="1.5"/>
+        <line x1="252" y1="298.5" x2="368" y2="298.5" stroke="#2b8a3e" stroke-width="3" marker-start="url(#md-ar)" marker-end="url(#md-ar)"/>
+        <text x="310" y="284" text-anchor="middle" font-size="13" font-weight="700" fill="#2b8a3e">③ exchange</text>
+        <!-- RF drains: water's nearly shut, macromolecules' wide open -->
+        <rect x="16" y="250" width="44" height="12" fill="#f7fafc" stroke="#6b7785" stroke-width="1.5"/>
+        <path d="M28 246 L38 266 L38 246 L28 266 Z" fill="#fff" stroke="#c92a2a" stroke-width="2"/>
+        <rect x="21" y="262" width="1.5" height="40" fill="#c92a2a" opacity="0.9"/>
+        <text x="-34" y="224" font-size="12" font-weight="700" fill="#c92a2a">② RF drain</text>
+        <rect x="410" y="250" width="44" height="12" fill="#f7fafc" stroke="#6b7785" stroke-width="1.5"/>
+        <path d="M422 246 L434 266 L434 246 L422 266 Z" fill="#c92a2a" stroke="#c92a2a" stroke-width="2"/>
+        <rect x="442" y="262" width="9" height="40" fill="#c92a2a" opacity="0.85"/>
+        <text x="458" y="250" font-size="12" font-weight="700" fill="#c92a2a">② RF drain</text>
+        <text x="458" y="265" font-size="11" fill="#c92a2a">wide open</text>
+        <text x="-34" y="239" font-size="11" fill="#c92a2a">nearly shut</text>
+        <!-- lineshape inset -->
+        <g transform="translate(60 384)">
+          <rect x="0" y="0" width="480" height="80" rx="8" fill="#f1f4f7"/>
+          <text x="10" y="16" font-size="12" font-weight="700" fill="#1d2733">How far each RF drain opens = how much that pool absorbs at the RF frequency</text>
+          <line x1="20" y1="70" x2="470" y2="70" stroke="#6b7785" stroke-width="1"/>
+          <path d="M20 69 C120 68 170 60 200 46 C215 40 230 36 245 36 C260 36 275 40 290 46 C320 60 370 68 470 69" fill="#c2410c" fill-opacity="0.18" stroke="#c2410c" stroke-width="2"/>
+          <path d="M20 69.5 L238 69 C241 66 243 26 245 24 C247 26 249 66 252 69 L470 69.5" fill="none" stroke="#1f5f99" stroke-width="2"/>
+          <line x1="350" y1="24" x2="350" y2="70" stroke="#c92a2a" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="354" y="33" font-size="11" font-weight="700" fill="#c92a2a">RF offset</text>
+          <text x="245" y="80" text-anchor="middle" font-size="10" fill="#6b7785">water resonance</text>
+          <text x="140" y="56" text-anchor="middle" font-size="10" fill="#c2410c">macromolecules: broad</text>
+          <text x="275" y="28" font-size="10" fill="#1f5f99">water: narrow</text>
+        </g>
+              </g>
+      </svg>
+      <ol class="md-key">
+        <li class="md-t1"><b>Faucet and drain = T<sub>1</sub>.</b> Each tank refills toward full and leaks in proportion to its level; they balance when the tank is full, at equilibrium (M<sub>0</sub>).</li>
+        <li class="md-rf"><b>RF pulse = an extra drain.</b> How far it opens depends on how far the RF is from that pool’s resonance, compared with the width of its line: fully open on resonance, closing as the offset grows. Water’s line is narrow (T<sub>2</sub> ≈ 37 ms), so its drain is nearly shut a few hundred Hz away; the macromolecules’ line is very broad (T<sub>2</sub> ≈ 12 µs), so theirs stays open tens of kHz away. An off-resonance pulse drains mostly the macromolecules.</li>
+        <li class="md-ex"><b>Exchange = a pipe between the tanks.</b> It flows from the higher level to the lower one, in either direction, faster for a bigger difference (k<sub>f</sub>). It moves M<sub>z</sub> without creating or destroying it.</li>
+        <li><b>Level = M<sub>z</sub>/M<sub>0</sub></b> of that pool; <b>width = pool size</b>. The macromolecule tank is F ≈ 16 % as wide, so its level moves 1/F ≈ 6× faster for the same flow (k<sub>r</sub> = k<sub>f</sub>/F).</li>
+        <li><b>We only see the water.</b> The macromolecules’ signal decays in microseconds, so the image reads the water level: MT shows up as a lower water tank.</li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes">What the analogy maps, before the questions. The longitudinal two-pool (Bloch–McConnell) equations: dMz,f/dt = R1f(M0f − Mz,f) − k_f Mz,f + k_r Mz,r − W_f Mz,f, and the same for the restricted pool with W_r. Level = Mz/M0 of each pool; width = pool size, so the macromolecule tank (F = M0r/M0f ≈ 16 % in WM) holds 16 % as much. Faucet + drain = T1: constant inflow R1·M0 against an outflow R1·Mz, balancing at M0. The RF drain opens at W = π ω1² G(Δ), G the pool's absorption lineshape at the RF offset Δ: water's Lorentzian (T2,f ≈ 37 ms) is a few Hz wide, the macromolecules' super-Lorentzian (T2,r ≈ 12 µs) tens of kHz, so at a typical 1–2 kHz offset the RF drains the macromolecules and leaves water nearly alone (direct saturation). On resonance both drains are wide open (a 90° pulse also saturates part of the macromolecular pool). Exchange (dipolar cross-relaxation, chemical exchange) is a pipe whose flow follows the level difference, k_f(h_f − h_r) per unit of water; the same volume leaving the wide tank enters the narrow one, so the narrow level moves 1/F times faster, k_r = k_f/F. Only longitudinal magnetization is drawn; the imaging readout measures the water tank's level. The inset's lines are schematic, not to scale (the real water line is far narrower).</aside>
+</section>
+
+<!-- predict-first quiz that builds the model up: one pool, two pools without exchange, two pools with exchange; each
+     answer plays a short simulation (tanks + time course). js/ex61-build.js -->
+<section id="s-build" class="figure">
+  <div class="fig-layout">
+    <h2>Predict, then watch: from one pool to MT</h2>
+    <div class="seg bd-tabs"><button data-stage-go="1" aria-pressed="true">1 · One pool</button><button data-stage-go="2" aria-pressed="false">2 · Two pools, no exchange</button><button data-stage-go="3" aria-pressed="false">3 · Two pools + exchange</button><button class="bd-replay" id="bd-replay" hidden>↺ Replay</button></div>
+    <div class="bd-main">
+      <div class="bd-tanks" id="bd-tanks"></div>
+      <canvas class="bd-plot" id="bd-plot"></canvas>
+    </div>
+    <div class="hq-card">
+      <div class="hq-top"><span class="hq-count"></span><b class="hq-score"></b></div>
+      <p class="hq-q"></p>
+      <div class="hq-btns"></div>
+      <p class="hq-fb" hidden></p>
+      <p class="hq-why" hidden></p>
+      <button class="bs-btn hq-next" hidden>Next question</button>
+    </div>
+    <ol class="hq-data" hidden>
+      <li data-scn="onres" data-stage="1" data-a="zero" data-opts="one:Still 1|half:About 0.5|zero:0|neg:−1"><span class="q">Water only. An <b>on-resonance 90°</b> pulse hits it at 1 s. Right after the pulse, M<sub>z</sub>/M<sub>0</sub> is…</span>
+        <span class="w">A 90° pulse tips all of M<sub>z</sub> into the transverse plane, so M<sub>z</sub> = M<sub>0</sub> cos 90° = 0. From there it grows back with T<sub>1</sub>.</span></li>
+      <li data-scn="onres" data-stage="1" data-a="3s" data-opts="01s:About 0.1 s|1s:About 1 s|3s:About 3 s|10s:About 10 s"><span class="q">With T<sub>1</sub> = 1 s, how long after the pulse until M<sub>z</sub> is back to about 95 % of M<sub>0</sub>?</span>
+        <span class="w">M<sub>z</sub> = M<sub>0</sub>(1 − e<sup>−t/T<sub>1</sub></sup>): 63 % after one T<sub>1</sub>, 95 % after three.</span></li>
+      <li data-scn="offres" data-stage="1" data-a="slight" data-opts="zero:It drops to 0|lot:It drops a lot (to about 0.5)|slight:It dips slightly (to about 0.85)|none:It doesn’t change at all"><span class="q">Now a <b>long off-resonance</b> pulse, 1.5 kHz away from water, left on for 5 s: long enough to reach a steady state. The water level…</span>
+        <span class="w">Water’s line is narrow (T<sub>2</sub> ≈ 37 ms, a few Hz wide), so it absorbs very little 1.5 kHz away: it settles at only R<sub>1</sub>/(R<sub>1</sub> + W<sub>f</sub>) ≈ 0.84. This is direct saturation.</span></li>
+      <li data-scn="noex" data-stage="2" data-a="full" data-opts="barely:They barely dip|same:They dip about as much as water|full:They are saturated almost fully"><span class="q">Add the macromolecules, but <b>no exchange</b>. The same long off-resonance pulse. The macromolecules…</span>
+        <span class="w">Their protons are locked in place, so their T<sub>2</sub> is tiny (≈ 12 µs) and their line is tens of kHz wide: at 1.5 kHz they absorb strongly and settle at about 0.04.</span></li>
+      <li data-scn="noex" data-stage="2" data-a="same" data-opts="more:Lower than with water alone|same:The same as with water alone (about 0.85)|none:It doesn’t dip at all"><span class="q">And the water, in this same experiment?</span>
+        <span class="w">Without exchange, water can’t tell the macromolecules are there: it only gets direct saturation, the same 0.84 as with water alone. Each pool recovers with its own T<sub>1</sub>.</span></li>
+      <li data-scn="exA" data-stage="3" data-a="high" data-opts="half:Both meet halfway, about 0.6|high:Both meet near the water level, about 0.9|low:Water drops to 0.2|none:Nothing changes"><span class="q">Now <b>exchange</b>, no RF, and imagine <b>no relaxation at all</b> (T<sub>1</sub> switched off). The macromolecule pool is only <b>F = 16 %</b> the size of the water pool (its tank is about 6× narrower). The water is full; the macromolecules are at 0.2. Where do the levels end up?</span>
+        <span class="w">The pipe flows from high to low until the levels match. The narrow tank holds only 16 % as much M<sub>z</sub>, so it fills fast while water drops a little: they meet at the volume-weighted mean (1 + 0.161 × 0.2)/1.161 ≈ 0.89, in tens of ms (shown in slow motion), and stay there: with no relaxation, nothing else changes the total. Exchange moves M<sub>z</sub>; it doesn’t create or destroy it.</span></li>
+      <li data-scn="exA2" data-stage="3" data-a="low" data-opts="half:Both meet halfway, about 0.6|low:Both meet near the water level, about 0.3|refill:The water refills to near 1|none:Nothing changes"><span class="q">The opposite case, still with <b>no relaxation</b>: the <b>water</b> is saturated (0.2) and the macromolecules are full. Same pool sizes (F = 16 %). Where do the levels end up?</span>
+        <span class="w">The pipe now flows the other way, but the narrow tank has little to give: it empties into the water and raises it only a little. They meet at (0.2 + 0.161 × 1)/1.161 ≈ 0.31 and stay there. The macromolecules can’t refill the water; only T<sub>1</sub> can (back on in the next questions).</span></li>
+      <li data-scn="exB" data-stage="3" data-a="none" data-opts="tomacro:It flows into the macromolecules|towater:It flows into the water|none:No net flow"><span class="q">Both pools full. What does exchange do?</span>
+        <span class="w">Equal levels, no net flow. Spins still swap between the pools all the time, but as many go each way, so nothing changes.</span></li>
+      <li data-scn="exC" data-stage="3" data-a="t1" data-opts="fast:Exchange refills both quickly|t1:No net flow; both refill together with T₁|flow:Water flows into the macromolecules"><span class="q">Relaxation is back on. Both pools equally low, at 0.3. What happens?</span>
+        <span class="w">Exchange only acts on a <b>difference</b> in level; it can’t add M<sub>z</sub>. Only T<sub>1</sub> refills them, together (0.3 → 0.58 in the 0.5 s shown).</span></li>
+      <li data-scn="exD" data-stage="3" data-a="lot" data-opts="same:About the same as without exchange (0.85)|lot:Much lower (about 0.3)|zero:All the way to 0"><span class="q">Now the same <b>long</b> pulse (5 s, to steady state) <b>with</b> exchange. The water settles…</span>
+        <span class="w">The RF keeps the macromolecules below the water level, and exchange keeps passing the saturation on until RF draining, exchange and T<sub>1</sub> balance: water settles at about 0.32, far below direct saturation alone (0.84). That extra drop is the MT effect, and with a pulse this long it is reached during the pulse: once the RF stops, both pools recover.</span></li>
+      <li data-scn="exD" data-stage="3" data-a="higher" data-opts="lower:Lower|same:About the same|higher:Higher"><span class="q">And the macromolecules: compared with no exchange (0.04), is their steady-state level lower or higher?</span>
+        <span class="w">Higher, about 0.18: while the RF drains them, water keeps refilling them through the pipe. The saturation is shared, not created.</span></li>
+      <li data-scn="exE" data-stage="3" data-a="keeps" data-opts="back:It starts recovering right away|keeps:It keeps dropping for a while, then recovers|stays:It stays where it was"><span class="q">Now a <b>short</b>, strong off-resonance pulse (20 ms): it saturates the macromolecules before the water has time to respond. Once the RF stops, the water…</span>
+        <span class="w">Keeps dropping: exchange doesn’t stop with the RF. At the end of the pulse the macromolecules (0.14) are far below the water (0.92), so the pipe keeps flowing, and the water drops to about 0.83 some 0.1 s later, when the levels meet; then both recover with T<sub>1</sub>. With short pulses, as in MT-prepared sequences, much of the MT effect happens after the pulse.</span></li>
+    </ol>
+  </div>
+  <aside class="notes">A predict-first quiz that builds the two-pool model up before the full plumbing on the next slide. Each answer plays a short longitudinal Bloch–McConnell simulation (healthy WM, Sled &amp; Pike 2001: F = 16.1 %, k_f = 4.3 s⁻¹, so k_r = k_f/F ≈ 27 s⁻¹; R1f = R1r = 1 s⁻¹). Stage 1, water only: an on-resonance 90° pulse (instantaneous here) zeroes Mz, which regrows with T1 (95 % after 3 s); a long off-resonance pulse (3 µT continuous wave, 1.5 kHz, 5 s, long enough to reach steady state) dips it only to about 0.84 (W_f ≈ 0.2 s⁻¹, Lorentzian, T2,f = 37 ms): direct saturation. Stage 2, macromolecules added with no exchange: the same pulse saturates them to about 0.04 (super-Lorentzian, T2,r = 12.3 µs, W_r ≈ 25 s⁻¹) and the water is unchanged. Stage 3, exchange on its own in slow motion (×10, the levels even out in tens of ms), first with relaxation switched off so that only exchange acts: from water full and macromolecules at 0.2 they meet at the volume-weighted mean ≈ 0.89; in the opposite case (water at 0.2, macromolecules full) at ≈ 0.31: the small pool barely lifts the water. Then with T1 back on: equal levels, high or low, give no net flow. Then the long pulse with exchange: at steady state the water sits at about 0.32, the macromolecules at about 0.18; with a pulse this long the MT effect is complete during the pulse, so both recover as soon as it stops. Last, a short strong pulse (8 µT, 20 ms) saturates the macromolecules (0.14) before water responds (0.92 at the end of the pulse): exchange keeps going after the RF, and the water keeps dropping, to about 0.83 roughly 0.1 s later (1/(k_f + k_r) ≈ 32 ms), before recovering. With short pulses, as in MT-prepared sequences, much of the MT effect happens after the pulse. The difference between stages 2 and 3 is the MT effect.</aside>
 </section>
 
 <!-- the two-pool tanks, animated while shown; js/mt-tanks.js (moved here from the lecture) -->
@@ -34,7 +165,7 @@
   <div class="fig-layout">
     <h2>Two tanks, one pipe</h2>
     <div class="side-text">
-      <p class="tk-lede">Height = M<sub>z</sub>/M<sub>0</sub>. Width = pool size. Faucet + drain = T<sub>1</sub>. The pipe = exchange. The RF valve drains only the macromolecules.</p>
+      <p class="tk-lede"><b>A general simulator</b> of the two-tank model: set the RF, the pool size, the exchange and T<sub>1</sub>, and watch both levels. Height = M<sub>z</sub>/M<sub>0</sub>, width = pool size, faucet + drain = T<sub>1</sub>, pipe = exchange, valves = RF.</p>
       <div class="seg small" data-ctl="tk-rf"><button data-v="off" aria-pressed="false">RF off</button><button data-v="on" aria-pressed="false">RF on</button><button data-v="pulse" aria-pressed="true">4 s pulse</button></div>
       <div class="w-controls col">
         <label><span>B<sub>1</sub></span><input type="range" id="tk-b1" min="0" max="6" step="0.05" value="2.3"><output id="tk-b1-v"></output></label>
@@ -54,6 +185,7 @@
         <div><span class="tk-free">dh<sub>f</sub>/dt</span> = <span class="tk-t1">R<sub>1f</sub>(1 − h<sub>f</sub>)</span> − <span class="tk-ex">k<sub>f</sub>(h<sub>f</sub> − h<sub>r</sub>)</span> − <span class="tk-dir">W<sub>f</sub>h<sub>f</sub></span></div>
         <div><span class="tk-restr">dh<sub>r</sub>/dt</span> = <span class="tk-t1">R<sub>1r</sub>(1 − h<sub>r</sub>)</span> + <span class="tk-ex">(k<sub>f</sub>/F)(h<sub>f</sub> − h<sub>r</sub>)</span> − <span class="tk-rfc">W<sub>r</sub>h<sub>r</sub></span></div>
       </div>
+      <p class="tk-hdef"><span class="tk-free"><b>h<sub>f</sub></b> = M<sub>z,f</sub>/M<sub>0,f</sub>, the water level</span> · <span class="tk-restr"><b>h<sub>r</sub></b> = M<sub>z,r</sub>/M<sub>0,r</sub>, the macromolecule level</span> (1 = full, at equilibrium)</p>
     </div>
   </div>
   <aside class="notes">The two-pool longitudinal equations (Eqs. 6.1–6.5, continuous-wave RF) drawn as plumbing. Water level h = Mz/M0 of each pool; tank width = pool size, so the macromolecule tank is F as wide and holds F of the magnetization (Mz,f = h_f, Mz,r = F·h_r). Faucet + drain = T1 relaxation: the lattice's net bias toward alignment (constant inflow R1·M0) against thermal scrambling (outflow R1·Mz); they balance at M0. One pipe at the bottom flows with the height difference: the same volume leaves one tank and enters the other, so the narrow tank's level moves 1/F times faster, which is k_r = k_f/F, built in; substituting gives −k_f Mz,f + k_r Mz,r. Exchange (dipolar flip-flops, chemical exchange) conserves Mz, as the pipe conserves water; only the lattice (T1) and the RF add or remove it. The RF valve drains the macromolecule tank at W_r = π ω1² G(Δ) (super-Lorentzian, T2,r = 12.3 µs); the small valve on the water tank is direct saturation, W_f (Lorentzian, T2,f = 37 ms): bring the offset close to see it grow. Defaults: healthy white matter (Sled &amp; Pike 2001), 2.3 µT at 2 kHz, giving an MTR of about 56 % at steady state. The macromolecule T1 is fixed at 1 s. Each visit starts a 4 s pulse 1 s in.</aside>
@@ -81,6 +213,7 @@
 <script src="js/deck.js"></script>
 <script src="js/mt-common.js"></script>
 <script src="js/ex-common.js"></script>
+<script src="js/ex61-build.js"></script>
 <script src="js/mt-tanks.js"></script>
 <script src="js/nav.js"></script>
 </body>

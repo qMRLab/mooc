@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exercise 6-2 drafts · Magnetization Transfer · qMRI mOOC</title>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="deck.css">
+  <link rel="stylesheet" href="mt.css">
+  <link rel="stylesheet" href="exercise.css">
+</head>
+<body class="nav-zones" data-home="exercises.html">
+<div class="reveal">
+<div class="slides">
+
+<!-- Drafts of Exercise 6-2, kept for later (not linked from exercises.html). Removed from the exercise on 2026-11-16 when
+     6-2 became the MTR vs MTsat sensitivity questions. -->
+<!-- 80 TRs from equilibrium and one TR zoomed in; js/mt-steady.js (moved here from the lecture) -->
+<section id="s-tr" class="figure side">
+  <div class="fig-layout">
+    <h2>Pulse after pulse, to a steady state</h2>
+    <div class="side-text">
+      <ul>
+        <li>Each MT pulse takes a bite of the restricted pool; exchange drags water down <b>between pulses</b> too</li>
+        <li>A steady state after <b id="tr-n95">–</b> TRs</li>
+        <li>Fast models assume it: acquire the <b>centre of k-space</b> after it is reached</li>
+      </ul>
+      <div class="seg small" data-ctl="tissue"><button data-v="wm" aria-pressed="true">White matter</button><button data-v="gm" aria-pressed="false">Grey matter</button><button data-v="water" aria-pressed="false">Water</button></div>
+      <div class="w-controls col"><label><span>TR</span> <input type="range" id="tr-sel" min="1" max="80" step="1" value="2"><output id="tr-sel-v"></output></label></div>
+      <label class="tr-off"><input type="checkbox" id="tr-off"> Overlay MT off (dashed)</label>
+      <p class="fig-hint">From equilibrium, 80 TRs of the Karakuzu Siemens MT-weighted image (TR 32 ms; MT pulse: Gaussian, 10 ms, 540° at 1.2 kHz). The slider, or a click on the top plot, picks the TR shown below.</p>
+    </div>
+    <div class="w-col">
+      <div class="w-plot" id="tr-all" style="height:300px"></div>
+      <div class="w-plot" id="tr-one" style="height:280px"></div>
+    </div>
+  </div>
+  <aside class="notes">Simulated with the full Bloch-McConnell equations (as qMRLab's "Bloch sim"). Top: Mz of water (blue) and of the restricted pool (orange, as a fraction of its equilibrium F), and the signal at each readout (dots), from equilibrium. Bottom: one TR, with the MT pulse's power (ω1², shaded), which sets the saturation rate W. The Gaussian pulse has almost no power in its first and last ~2 ms, so there the restricted pool keeps recovering (exchange with water pulls it up at k_r = k_f/F ≈ 27/s, faster than T1); it falls once W·Mz,r beats that recovery, and bottoms out after the peak, where the waning W just balances it. The bottom plot opens on TR 2, where exchange visibly drags water down after the pulse (about −1.8/s, against +0.06/s of T1 recovery); the line above it gives both rates for whichever TR is chosen. At steady state (slider to the end, or a click near the end of the top plot) water sits low enough (0.35) that its T1 recovery, R1f(1 − m_f) ≈ +0.65/s, cancels the exchange drain, k_f(m_f − m_r) ≈ −0.4 to −0.7/s, so its curve is flat between pulses: that balance is what defines the steady state. The "Overlay MT off" box adds the same sequence without the MT pulse (dashed), excitation at the same time: the gap between the two water curves at the readout is the MT effect (MTR), and in the water phantom it shrinks to the direct effect alone. The water phantom (doped water, T1 = T2 = 1 s, no macromolecules) shows the direct effects alone: the same tilt and return during the MT pulse, nearly no lasting loss, and a steady state set by the excitations and T1 only. Water's dip and return during the pulse is the off-resonance pulse tipping it a little (direct effect), undone as B1 goes back to zero. During the MT pulse the restricted pool drops sharply; water drops a little (exchange and direct saturation); after the pulse, water keeps losing to the saturated restricted pool while both recover by T1. The excitation takes a small step off water. The analytical qMT signal models (Sled & Pike) assume this steady state, which is why the centre of k-space is acquired after it (Figure 6.4 compares Bloch simulations of 1 to 600 pulses with the analytical solution).</aside>
+</section>
+
+</div>
+</div>
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/auto-render.min.js"></script>
+<script src="vendor/plotly/plotly-cartesian.min.js"></script>
+<script src="js/mt-sim.js"></script>
+<script src="js/data/brain.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/mt-common.js"></script>
+<script src="js/ex-common.js"></script>
+<script src="js/mt-steady.js"></script>
+<script src="js/nav.js"></script>
+</body>
+</html>
