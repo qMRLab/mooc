@@ -53,6 +53,7 @@
 
 /* the summary slides: where to go next */
 .reveal .tool-promo { display: flex; align-items: center; gap: 20px; margin-top: 0.7em; padding: 8px 18px; background: #fff; border: 1px solid var(--rule); border-radius: 12px; max-width: 1130px; }
+.reveal .tool-promo img { display: block; margin: 0; }
 .reveal .tool-promo p { flex: 1; margin: 0; font-size: 0.8em; line-height: 1.45; }
 .reveal .tool-promo code { font-size: 0.9em; }
 .reveal .seg[hidden] { display: none; }
